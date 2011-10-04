@@ -1,0 +1,17 @@
+
+
+1) Buona la divisione della 'Pipeline' in sottointerfacce
+sullo stile del 'Graphics'
+
+2) Create Program ---> Load Program
+
+	---> load Material/draw Primitives lavorano sul programma
+	attualmente caricato.
+
+3) Test SFPipeline, making it work!
+
+		---> (Rework Again) SFPipeline does not relate to Dataset,
+		SFPipeline element and interface is not using
+		Dataset.
+
+		---> TDD on SFPipeline implementation
