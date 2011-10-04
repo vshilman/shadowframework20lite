@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/gluegen-rt.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ShadowFramework2.0_OpenGL20/Libraries_java_jogl"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/jogl.all.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ShadowFramework2.0_OpenGL20/Libraries_java_jogl"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/nativewindow.all.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ShadowFramework2.0_OpenGL20/Libraries_java_jogl"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/ShadowFrameworkLite20"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
