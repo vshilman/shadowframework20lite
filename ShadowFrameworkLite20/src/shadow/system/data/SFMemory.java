@@ -7,7 +7,7 @@ public class SFMemory {
 
 	private static SFMemory memory = new SFMemory();
 
-	private HashMap<String, SFCollection> collections = new HashMap<String, SFCollection>();
+	private HashMap<String, SFList> lists = new HashMap<String, SFList>();
 
 	private SFMemory() {
 
@@ -17,12 +17,12 @@ public class SFMemory {
 		return memory;
 	}
 
-	public void loadCollection(String name, SFCollection collection) {
-		collections.put(name, collection);
+	public void loadList(String name, SFList list) {
+		lists.put(name, list);
 	}
 
-	public SFDataset retrieveIdentifier(String collection, String identifier) {
-		return collections.get(collection).getElement(identifier);
+	public SFDataset retrieveIdentifier(String list, String identifier) {
+		return lists.get(list).getElement(identifier);
 	}
 
 }

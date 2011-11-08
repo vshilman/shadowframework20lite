@@ -7,10 +7,10 @@ import shadow.pipeline.parameters.SFParameteri;
 
 public class SFStructureData {
 
-	private SFPipelineStructure structure;
+	private SFPipelineStructureInstance structure;
 	private SFValuenf values[];
 
-	public SFStructureData(SFPipelineStructure structure,SFParameteri genericsParameters) {
+	public SFStructureData(SFPipelineStructureInstance structure,SFParameteri genericsParameters) {
 		super();
 		this.structure=structure;
 		values=new SFValuenf[structure.size()];
@@ -18,14 +18,16 @@ public class SFStructureData {
 		for (Iterator<SFParameteri> iterator=structure.getAllParameters()
 				.iterator(); iterator.hasNext(); index++) {
 			SFParameteri sfParameteri=iterator.next();
+			
 			values[index]=SFParameteri.generateValue(sfParameteri);
+			
 			if(values[index]==null){
 				values[index]=SFParameteri.generateValue(genericsParameters);
 			}
 		}
 	}
 	
-	public SFStructureData(SFPipelineStructure structure) {
+	public SFStructureData(SFPipelineStructureInstance structure) {
 		super();
 		this.structure=structure;
 		values=new SFValuenf[structure.size()];
@@ -41,7 +43,7 @@ public class SFStructureData {
 		return values.length;
 	}
 
-	public SFPipelineStructure getStructure() {
+	public SFPipelineStructureInstance getStructure() {
 		return structure;
 	}
 

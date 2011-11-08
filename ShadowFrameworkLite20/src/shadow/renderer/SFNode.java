@@ -1,8 +1,8 @@
 package shadow.renderer;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import shadow.geometry.SFGeometry;
 import shadow.material.SFLightStep;
@@ -31,7 +31,7 @@ public class SFNode implements SFDataset{
 		nodes.add(node);
 	}
 	
-	public Collection<SFNode> getSonsNodes(){
+	public List<SFNode> getSonsNodes(){
 		return nodes;
 	}
 	
@@ -49,7 +49,7 @@ public class SFNode implements SFDataset{
 		throw new RuntimeException("not implemented");
 	}
 
-	public Collection<SFStructureReference> getMaterials() {
+	public List<SFStructureReference> getMaterials() {
 		return material;
 	}
 

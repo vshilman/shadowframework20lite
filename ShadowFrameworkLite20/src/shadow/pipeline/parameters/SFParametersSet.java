@@ -19,8 +19,6 @@
 */
 package shadow.pipeline.parameters;
 
-import java.util.ArrayList;
-import java.util.Collection;
 
 
 ///**
@@ -32,11 +30,11 @@ import java.util.Collection;
 //
 //	private ArrayList<SFParameteri> set=new ArrayList<SFParameteri>();
 //	
-//	public void addParameters(Collection<SFParameteri> p){
+//	public void addParameters(List<SFParameteri> p){
 //		set.addAll(p);
 //	}
 //	
-//	public void addRegisters(Collection<SFPipelineRegister> p){
+//	public void addRegisters(List<SFPipelineRegister> p){
 //		set.addAll(p);
 //	}
 //	
@@ -49,7 +47,7 @@ import java.util.Collection;
 //		set.clear();
 //	}
 //
-//	public Collection<SFParameteri> getSet() {
+//	public List<SFParameteri> getSet() {
 //		return set;
 //	}
 //	

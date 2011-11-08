@@ -8,11 +8,10 @@ import shadow.system.data.SFOutputStream;
 public class SFStructuresTable extends SFAsset {
 
 	private SFStructureArray array;
-	private String structure;
+	private SFPipelineStructureInstance structure;
 
 	@Override
 	public void allocateBuffers() {
-		SFPipelineStructure structure=SFPipeline.getStructure(this.structure);
 		array=SFPipeline.getSfPipelineMemory().generateStructureData(structure);
 	}
 
@@ -27,12 +26,14 @@ public class SFStructuresTable extends SFAsset {
 
 	@Override
 	public void readFromStream(SFInputStream stream) {
-		structure=stream.readString();
+		//TODO
+		//structure=stream.readString();
 	}
 
 	@Override
 	public void writeOnStream(SFOutputStream stream) {
-		stream.writeString(structure);
+		//TODO
+		//stream.writeString(structure);
 	}
 
 	@Override
@@ -45,8 +46,8 @@ public class SFStructuresTable extends SFAsset {
 		return getClass().getSimpleName();
 	}
 
-	public String getStructure() {
-		return structure;
-	}
+//	public String getStructure() {
+//		return structure;
+//	}
 
 }

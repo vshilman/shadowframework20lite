@@ -19,9 +19,9 @@
  */
 package shadow.system.data;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -31,7 +31,7 @@ import java.util.Set;
  * 
  * @param <E>
  */
-public class SFCollection implements SFDataset {
+public class SFList implements SFDataset {
 
 	public HashMap<String, SFDataset> elements = new HashMap<String, SFDataset>();
 	public String id = "";
@@ -60,8 +60,8 @@ public class SFCollection implements SFDataset {
 		return elements.get(code);
 	}
 
-	public Collection<SFDataset> getElements() {
-		return elements.values();
+	public Map<String, SFDataset> getElements() {
+		return elements;
 	}
 
 	public String[] getAllKeys() {
@@ -96,24 +96,24 @@ public class SFCollection implements SFDataset {
 	}
 
 	/*
-	 * public static SFDataset loadDataset(String idCollection, String idObject)
-	 * { return collections.get(idCollection).getElement(idObject); }
+	 * public static SFDataset loadDataset(String idList, String idObject)
+	 * { return Lists.get(idList).getElement(idObject); }
 	 * 
-	 * public static SFDataset loadDataset(String idCollection, String idObject)
-	 * { return collections.get(idCollection).getElement(idObject); }
+	 * public static SFDataset loadDataset(String idList, String idObject)
+	 * { return Lists.get(idList).getElement(idObject); }
 	 * 
-	 * public static void loadCollection(SFCollection<SFDataset> collection) {
-	 * collections.put(collection.getId(), collection); }
+	 * public static void loadList(SFList<SFDataset> List) {
+	 * Lists.put(List.getId(), List); }
 	 * 
-	 * public static SFCollection<SFDataset> loadCollection(String id) { return
-	 * collections.get(id); }
+	 * public static SFList<SFDataset> loadList(String id) { return
+	 * Lists.get(id); }
 	 */
 
 	public void readFromStream(SFInputStream stream) {
 
 		int N = stream.readInt();
 		String name = stream.readString();
-		SFMemory.getMemory().loadCollection(name, this);
+		SFMemory.getMemory().loadList(name, this);
 
 		for (int i = 0; i < N; i++) {
 			String elementName = stream.readString();
@@ -141,12 +141,12 @@ public class SFCollection implements SFDataset {
 
 	@Override
 	public String getCode() {
-		return "Collection";
+		return "List";
 	}
 
 	@Override
 	public SFDataset generateNewDatasetInstance() {
-		return new SFCollection();
+		return new SFList();
 	}
 
 }

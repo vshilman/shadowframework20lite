@@ -22,7 +22,7 @@ public interface SFPipelineMemory {
 
 	public SFArray<SFMatrix4f> generateTransforms4f();
 
-	public SFStructureArray generateStructureData(SFPipelineStructure structure);
+	public SFStructureArray generateStructureData(SFPipelineStructureInstance structure);
 
 	public SFPrimitiveArray generatePrimitiveArray(SFPrimitive primitive);
 

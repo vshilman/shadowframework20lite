@@ -29,5 +29,11 @@ public interface SFProgram{
 	public void setMaterial(int index,SFProgramComponent material);
 	public void setLightStep(SFProgramComponent lightStep);
 	
+	public int getMaterialsSize();
+	public SFProgramComponent getMaterial(int index);
+	public SFProgramComponent getLightStep();
+	
+	public SFPrimitive getPrimitive();
+	
 	public void load();
 }

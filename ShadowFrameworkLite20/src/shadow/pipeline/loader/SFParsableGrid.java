@@ -1,9 +1,10 @@
 package shadow.pipeline.loader;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineGrid;
@@ -55,7 +56,7 @@ public class SFParsableGrid extends SFPipelineGrid implements SFParsableElement{
 	public void finalize() {
 		
 		names=new String[verticesLoading.size()];
-		Collection<String> ns=verticesLoading.keySet();
+		Set<String> ns=verticesLoading.keySet();
 		int j=0;
 		for (Iterator<String> iterator = ns.iterator(); iterator.hasNext(); j++) {
 			names[j]= (String) iterator.next();
@@ -109,7 +110,7 @@ public class SFParsableGrid extends SFPipelineGrid implements SFParsableElement{
 	}
 	
 	@Override
-	public Collection<String> getAllCommands() {
+	public List<String> getAllCommands() {
 		return allCommands;
 	}
 }

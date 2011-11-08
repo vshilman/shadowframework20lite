@@ -1,9 +1,9 @@
 package shadow.pipeline.loader.parser;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -11,11 +11,9 @@ import shadow.pipeline.SFInstancedParameter;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineElement;
 import shadow.pipeline.SFPipelineGrid;
-import shadow.pipeline.SFPipelineStructureException;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.loader.SFLineParser;
 import shadow.pipeline.loader.SFParsableElement;
-import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.system.SFException;
 
@@ -44,7 +42,7 @@ public class SFGridParser implements SFLineParser {
 						if (lineToken.hasMoreElements()) {
 							String paramType = lineToken.nextToken();
 							// TODO : param definition goes here
-							Collection<String> pars = extractNames(params);
+							List<String> pars = extractNames(params);
 							Vector<SFParameteri> params_ = new Vector<SFParameteri>();
 
 							StringTokenizer tok2 = new StringTokenizer(
@@ -59,7 +57,7 @@ public class SFGridParser implements SFLineParser {
 //							}
 
 							SFPipelineGrid sfPs = (SFPipelineGrid) module;
-							Collection<SFParameteri> parameters = sfPs.getAllParameters();
+							List<SFParameteri> parameters = sfPs.getAllParameters();
 							
 							Iterator<String> parsIterator=pars.iterator();
 							for (Iterator<SFParameteri> iterator = parameters.iterator(); iterator.hasNext();) {
@@ -72,7 +70,8 @@ public class SFGridParser implements SFLineParser {
 								SFPipelineGridInstance instance = new SFPipelineGridInstance(
 										(SFPipelineGrid) module, params_);
 								//instance.setInstancedParameter(type);
-								cmp.addGridInstance(instance);
+								
+								cmp.setGridInstance(instance);
 //							} catch (SFPipelineStructureException e) {
 //								e.printStackTrace();
 //							}
@@ -103,7 +102,7 @@ public class SFGridParser implements SFLineParser {
 		return component;
 	}
 
-	private Collection<String> extractNames(String params) {
+	private List<String> extractNames(String params) {
 		StringTokenizer tokenizer = new StringTokenizer(params, ",");
 		LinkedList<String> strings = new LinkedList<String>();
 		while (tokenizer.hasMoreTokens()) {

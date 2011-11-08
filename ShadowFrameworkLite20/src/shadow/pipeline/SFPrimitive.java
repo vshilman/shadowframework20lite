@@ -1,7 +1,9 @@
 package shadow.pipeline;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.AbstractMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
 
 import shadow.pipeline.parameters.SFPipelineRegister;
 
@@ -10,7 +12,6 @@ import shadow.pipeline.parameters.SFPipelineRegister;
  * 
  * 		- It's tessellator.
  * 		- The Map of Primitive and Slots. 
- * 		- The List of Transforms.
  * 
  * @author Alessandro Martinelli
  */
@@ -18,18 +19,26 @@ public class SFPrimitive {
 
 	private SFProgramComponent tessellator; 
 	
-	private HashMap<SFPipelineRegister, SFProgramComponent> primitiveMap=new 
-		HashMap<SFPipelineRegister, SFProgramComponent>();
-
+	private List<Entry<SFPipelineRegister, SFProgramComponent>> primitiveMap=new 
+		LinkedList<Entry<SFPipelineRegister, SFProgramComponent>>();
+	
 	public SFPrimitive() {
 		super();
 	}
 	
+	public boolean containRegister(SFPipelineRegister register){
+		for (Entry<SFPipelineRegister, SFProgramComponent> entry : primitiveMap) {
+			if(register==entry.getKey())
+				return true;
+		}
+		return false;
+	}
+	
 	public void addPrimitiveElement(SFPipelineRegister register,SFProgramComponent component){
-		primitiveMap.put(register,component);
+		primitiveMap.add(new AbstractMap.SimpleEntry<SFPipelineRegister,SFProgramComponent>(register,component));
 	}
 
-	public Map<SFPipelineRegister, SFProgramComponent> getPrimitiveMap(){
+	public List<Entry<SFPipelineRegister, SFProgramComponent>> getPrimitiveMap(){
 		return primitiveMap;
 	}
 

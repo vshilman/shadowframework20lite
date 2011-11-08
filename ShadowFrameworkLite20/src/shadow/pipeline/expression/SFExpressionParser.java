@@ -1,8 +1,8 @@
 package shadow.pipeline.expression;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import shadow.pipeline.parameters.SFParameter;
@@ -75,7 +75,7 @@ public class SFExpressionParser {
 		//this is all you can do? 
 	}*/
 	
-	public SFExpressionElement parseString(String operation,Collection<SFParameteri> set) {
+	public SFExpressionElement parseString(String operation,List<SFParameteri> set) {
 		
 		StringTokenizer tok=new StringTokenizer(operation,parsingString,true);
 
@@ -254,7 +254,7 @@ public class SFExpressionParser {
 		SFParameter C=new SFParameter("C",SFParameter.GLOBAL_FLOAT3);
 		SFParameter modelview=new SFParameter("modelview",SFParameter.GLOBAL_MATRIX4);
 		SFParameter projection=new SFParameter("projection",SFParameter.GLOBAL_MATRIX4);
-		Collection<SFParameteri> set=new LinkedList<SFParameteri>();
+		List<SFParameteri> set=new LinkedList<SFParameteri>();
 		set.add(A);
 		set.add(B);
 		set.add(C);

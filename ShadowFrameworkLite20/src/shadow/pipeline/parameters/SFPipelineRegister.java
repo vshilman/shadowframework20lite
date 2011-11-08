@@ -63,12 +63,14 @@ public class SFPipelineRegister extends SFParameter{
 		predefinedGlobalV.put("Color1",new SFPipelineRegister(GLOBAL_FLOAT4, "Color1",READ_ALL));
 		predefinedGlobalV.put("LightDir1",new SFPipelineRegister(GLOBAL_FLOAT4, "LightDir1",READ_ALL));
 		predefinedGlobalV.put("normal",new SFPipelineRegister(GLOBAL_FLOAT3, "normal",WROTE_BY_TRANSFORM));
+		predefinedGlobalV.put("texCoord0",new SFPipelineRegister(GLOBAL_FLOAT2, "texCooord0",WROTE_BY_TRANSFORM));
 		predefinedGlobalV.put("color",new SFPipelineRegister(GLOBAL_FLOAT4, "color",WROTE_BY_MATERIAL));	
 		predefinedGlobalV.put("P0",new SFPipelineRegister(GLOBAL_FLOAT3, "P0",WROTE_BY_PRIMITIVE));
 		predefinedGlobalV.put("N0",new SFPipelineRegister(GLOBAL_FLOAT3, "N0",WROTE_BY_PRIMITIVE));
 		predefinedGlobalV.put("uvw",new SFPipelineRegister(GLOBAL_FLOAT3, "uvw",WROTE_BY_TESSELLATION));
 		predefinedGlobalV.put("P",new SFPipelineRegister(GLOBAL_FLOAT3, "P",WROTE_BY_TRANSFORM));
 		predefinedGlobalV.put("N",new SFPipelineRegister(GLOBAL_FLOAT3, "N",WROTE_BY_TRANSFORM));
+		predefinedGlobalV.put("Tx0",new SFPipelineRegister(GLOBAL_FLOAT2, "Tx0",WROTE_BY_TRANSFORM));
 		predefinedGlobalV.put("fColor",new SFPipelineRegister(GLOBAL_FLOAT4, "fColor",WROTE_BY_TESSELLATION));
 	};
 	
@@ -138,6 +140,7 @@ public class SFPipelineRegister extends SFParameter{
 //	Atx5("uniform vec2 ","Atx5"),
 //	Btx5("uniform vec2 ","Btx5"),
 //	Ctx5("uniform vec2 ","Ctx5"),
+
 //	Dtx5("uniform vec2 ","Dtx5"),
 //
 //	Atx6("uniform vec2 ","Atx6"),
