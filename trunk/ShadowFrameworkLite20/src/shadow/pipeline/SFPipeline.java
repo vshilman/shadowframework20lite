@@ -23,6 +23,7 @@ public class SFPipeline {
 	private SFProgramBuilder sfProgramBuilder;
 	private SFPipelineGraphics sfPipelineGraphics;
 	private SFPipelineMemory sfPipelineMemory;
+	private SFTexturePipeline sfTexturePipeline;
 
 	private static SFPipeline pipeline=new SFPipeline();
 	
@@ -34,12 +35,20 @@ public class SFPipeline {
 		return pipeline;
 	}
 
+	public static void setSfTexturePipeline(SFTexturePipeline sfTexturePipeline) {
+		pipeline.sfTexturePipeline=sfTexturePipeline;
+	}
+
 	public static SFProgramBuilder getSfProgramBuilder() {
 		return pipeline.sfProgramBuilder;
 	}
 
 	public static void setSfProgramBuilder(SFProgramBuilder sfProgramBuilder) {
 		pipeline.sfProgramBuilder=sfProgramBuilder;
+	}
+	
+	public static SFTexturePipeline getSfTexturePipeline() {
+		return pipeline.sfTexturePipeline;
 	}
 	
 	public static SFPipelineMemory getSfPipelineMemory() {
@@ -200,7 +209,7 @@ public class SFPipeline {
 	}
 
 	@Override
-	public void drawPrimitives(SFPrimitiveArray primitives,Collection<SFPipelineStructure> structures,
+	public void drawPrimitives(SFPrimitiveArray primitives,List<SFPipelineStructure> structures,
 			int first,int count){
 		sfPipelineGraphics.drawPrimitives(primitives,structures,first,count);
 	}

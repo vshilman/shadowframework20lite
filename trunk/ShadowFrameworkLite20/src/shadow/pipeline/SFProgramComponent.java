@@ -1,27 +1,25 @@
 package shadow.pipeline;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import shadow.pipeline.loader.parser.SFPipelineGridInstance;
-import shadow.pipeline.loader.parser.SFPipelineStructureInstance;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
 
 public class SFProgramComponent extends SFPipelineElement {
 	
-
 	private String name;
 	private LinkedList<SFFunction> code=new LinkedList<SFFunction>();
 	private LinkedList<SFPipelineRegister> registers=new LinkedList<SFPipelineRegister>();
 	private LinkedList<SFParameteri> temps=new LinkedList<SFParameteri>();
 	
 	private LinkedList<SFPipelineStructureInstance> structures=new LinkedList<SFPipelineStructureInstance>();
-	private LinkedList<SFPipelineGridInstance> grids=new LinkedList<SFPipelineGridInstance>();
+	private SFPipelineGridInstance grid;
 	
-	private Collection<SFParameteri> set=null;
+	private List<SFParameteri> set=null;
 	
 	public void addRegister(SFPipelineRegister global){
 		if(set!=null)
@@ -33,8 +31,8 @@ public class SFProgramComponent extends SFPipelineElement {
 		code.add(function);
 	}
 	
-	public void addGridInstance(SFPipelineGridInstance grid){
-		grids.add(grid);
+	public void setGridInstance(SFPipelineGridInstance grid){
+		this.grid=grid;
 	}
 
 	public void addStructureInstance(SFPipelineStructureInstance structure){
@@ -47,24 +45,24 @@ public class SFProgramComponent extends SFPipelineElement {
 		temps.add(parameter);
 	}
 	
-	public Collection<SFPipelineStructureInstance> getStructures() {
+	public List<SFPipelineStructureInstance> getStructures() {
 		return structures;
 	}
 	
-	public Collection<SFPipelineGridInstance> getGrids() {
-		return grids;
+	public SFPipelineGridInstance getGrid() {
+		return grid;
 	}
 
 
-	public void loadShaderParameters(Collection<SFParameteri> set){
+	public void loadShaderParameters(List<SFParameteri> set){
 		set.addAll(registers);
 	}
 
-	public Collection<SFPipelineRegister> getRegisters(){
+	public List<SFPipelineRegister> getRegisters(){
 		return registers;
 	}
 
-	public Collection<SFFunction> getShaderCodeLines(){
+	public List<SFFunction> getShaderCodeLines(){
 		return code;
 	}
 
@@ -76,7 +74,7 @@ public class SFProgramComponent extends SFPipelineElement {
 		this.name = name;
 	}
 	
-	public Collection<SFParameteri> getParameterSet(){
+	public List<SFParameteri> getParameterSet(){
 		if(set==null){
 			set=new LinkedList<SFParameteri>();
 			set.addAll(registers);
@@ -86,9 +84,8 @@ public class SFProgramComponent extends SFPipelineElement {
 				set.addAll(((SFPipelineStructureInstance) iterator.next()).getParameters());
 			}
 			
-			for (Iterator<SFPipelineGridInstance> iterator = grids.iterator(); iterator.hasNext();) {
-				set.addAll(((SFPipelineGridInstance) iterator.next()).getParameters());
-			}
+			if(grid!=null)
+				set.addAll(((SFPipelineGridInstance) grid).getParameters());
 		}
 		return set;
 	}

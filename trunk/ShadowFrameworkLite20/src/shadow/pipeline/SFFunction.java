@@ -1,6 +1,6 @@
 package shadow.pipeline;
 
-import java.util.Collection;
+import java.util.List;
 
 import shadow.pipeline.expression.SFExpressionElement;
 import shadow.pipeline.expression.SFExpressionException;
@@ -15,7 +15,7 @@ public class SFFunction {
 	private SFParameteri parameter;
 	private SFExpressionElement function;
 	
-	public SFFunction(SFParameteri globalV, String function, Collection<SFParameteri> set) {
+	public SFFunction(SFParameteri globalV, String function, List<SFParameteri> set) {
 		super();
 		this.parameter = globalV;
 		this.function = SFExpressionParser.getParser().parseString(function,set);

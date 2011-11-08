@@ -1,14 +1,13 @@
 package shadow.renderer;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import shadow.geometry.SFGeometry;
 import shadow.material.SFLightStep;
 import shadow.material.SFStructureReference;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgram;
-import shadow.pipeline.SFStructuresTable;
 
 public class SFRenderer {
 
@@ -66,7 +65,7 @@ public class SFRenderer {
 		
 		if (definition.acceptNode(node)) {	
 			renderNodeContent(node,definition,lightStepIndex,lightStep);
-			Collection<SFNode> sonNodes=node.getSonsNodes();
+			List<SFNode> sonNodes=node.getSonsNodes();
 			for (SFNode son : sonNodes) {
 				render(son,definition,lightStepIndex,lightStep);
 			}
@@ -80,7 +79,7 @@ public class SFRenderer {
 		// that is not wrong if SFObject is going to extend Node
 		// if(node.getMaterial()!=null)
 		//TODO: material data is not loaded
-		Collection<SFStructureReference> materials=node.getMaterials();
+		List<SFStructureReference> materials=node.getMaterials();
 		for (SFStructureReference sfMaterial : materials) {
 			
 			int index=sfMaterial.getMaterialIndex();

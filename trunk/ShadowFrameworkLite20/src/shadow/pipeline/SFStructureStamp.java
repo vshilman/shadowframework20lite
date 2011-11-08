@@ -1,7 +1,7 @@
 package shadow.pipeline;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import shadow.pipeline.parameters.SFParameteri;
 
@@ -11,7 +11,7 @@ public class SFStructureStamp {
 	private int sum;
 
 	public SFStructureStamp(SFPipelineStructure structure) {
-		Collection<SFParameteri> parameters=structure.getAllParameters();
+		List<SFParameteri> parameters=structure.getAllParameters();
 		this.data=new int[parameters.size()];
 		int i=0;
 		sum=0;

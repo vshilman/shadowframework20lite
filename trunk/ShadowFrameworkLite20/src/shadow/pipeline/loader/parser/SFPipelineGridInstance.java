@@ -1,7 +1,7 @@
 package shadow.pipeline.loader.parser;
 
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import shadow.pipeline.SFPipelineGrid;
 import shadow.pipeline.parameters.SFParameteri;
@@ -12,7 +12,7 @@ public class SFPipelineGridInstance {
 	private LinkedList<SFParameteri> params = new LinkedList<SFParameteri>();
 
 	public SFPipelineGridInstance(SFPipelineGrid grid,
-			Collection<SFParameteri> params) {
+			List<SFParameteri> params) {
 		super();
 		this.grid = grid;
 		this.params.addAll(params);
@@ -24,5 +24,9 @@ public class SFPipelineGridInstance {
 
 	public LinkedList<SFParameteri> getParameters() {
 		return params;
+	}
+	
+	public int size(){
+		return params.size();
 	}
 }

@@ -1,8 +1,8 @@
 package shadow.pipeline.expression;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
@@ -10,14 +10,14 @@ import shadow.system.SFException;
 
 public class SFExpressionVariable extends SFExpressionElement{
 
-	Collection<SFParameteri> parameters=new LinkedList<SFParameteri>();
+	List<SFParameteri> parameters=new LinkedList<SFParameteri>();
 	
-	public SFExpressionVariable(String element,Collection<SFParameteri> parameters) {
+	public SFExpressionVariable(String element,List<SFParameteri> parameters) {
 		super(element);
 		this.parameters.addAll(parameters);
 	}
 
-	public SFParameteri getParameter(Collection<SFParameteri> set,String name){
+	public SFParameteri getParameter(List<SFParameteri> set,String name){
 		
 		for (Iterator<SFParameteri> iterator = set.iterator(); iterator.hasNext();) {
 			SFParameteri sfParameteri = iterator.next();

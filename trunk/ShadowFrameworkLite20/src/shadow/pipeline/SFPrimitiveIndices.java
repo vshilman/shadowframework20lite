@@ -1,9 +1,9 @@
 package shadow.pipeline;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
+import java.util.Map.Entry;
 
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
@@ -20,27 +20,31 @@ public class SFPrimitiveIndices {
 	
 	public SFPrimitiveIndices(SFPrimitive primitive){
 		
-		Map<SFPipelineRegister, SFProgramComponent> map=primitive.getPrimitiveMap();
+		List<Entry<SFPipelineRegister, SFProgramComponent>> map=primitive.getPrimitiveMap();
 		
 		primitiveIndices=new int[map.size()][];
 		
-		Collection<SFProgramComponent> collection=map.values();
 		int index=0;
 		
-		for (Iterator<SFProgramComponent> iterator = collection.iterator(); 
+		for (Iterator<Entry<SFPipelineRegister, SFProgramComponent>> iterator = map.iterator(); 
 				iterator.hasNext();index++) {
-			SFProgramComponent component=iterator.next();
+			Entry<SFPipelineRegister, SFProgramComponent> entry=iterator.next();
 			
-			System.out.println("component.getName() "+component.getName());
+			SFProgramComponent component=entry.getValue();
+			
+			//System.out.println("component.getName() "+component.getName());
 			//NOTE:this is a bit long.Its based on the idea that primitive ProgramComponent are 
 			//using always only 1 grid; that's the reason of getGrids().iterator().next().
-			LinkedList<SFParameteri> parameters=component.getGrids().iterator().next().getParameters();
+			 
+			LinkedList<SFParameteri> parameters=component.getGrid().getParameters();
 			
+			System.err.println("Index "+index+" paramSize "+parameters.size()+" "+entry.getKey().getName());
 			primitiveIndices[index]=new int[parameters.size()];
-		}
-		
+			
+		}	
+	
 	}
-
+	
 	public void set(SFPrimitiveIndices indices){
 		for (int i = 0; i < primitiveIndices.length; i++) {
 			for (int j = 0; j < primitiveIndices[i].length; j++) {

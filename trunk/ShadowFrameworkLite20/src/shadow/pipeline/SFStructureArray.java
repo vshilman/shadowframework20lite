@@ -20,5 +20,5 @@ public interface SFStructureArray extends SFArray<SFStructureData>{
 	public void setParameterValue(int index,int parametersIndex,SFValuenf element) throws SFArrayElementException;
 	
 	
-	public SFPipelineStructure getPipelineStructure();
+	public SFPipelineStructureInstance getPipelineStructure();
 }

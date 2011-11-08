@@ -97,6 +97,7 @@ public abstract class SFExpressionOperator extends SFExpressionElement{
 				list.add(elements.get(0));
 			}
 		}
+		
 		return maxElement;
 	}
 	

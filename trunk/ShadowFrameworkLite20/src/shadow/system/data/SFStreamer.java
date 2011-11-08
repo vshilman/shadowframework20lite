@@ -1,8 +1,8 @@
 package shadow.system.data;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class SFStreamer {
@@ -14,7 +14,7 @@ public class SFStreamer {
 	private SFStreamer() {
 	}
 
-	public static void loadDataset(Collection<SFDataset> dataset) {
+	public static void loadDataset(List<SFDataset> dataset) {
 
 		for (Iterator<SFDataset> iterator2 = dataset.iterator(); iterator2
 				.hasNext();) {

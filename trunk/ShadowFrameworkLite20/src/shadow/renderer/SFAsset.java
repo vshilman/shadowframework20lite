@@ -50,7 +50,7 @@ public abstract class SFAsset implements SFDataset {
 	//TODO: all allocate buffers must be restored... somehow.... somewhere
 
 //	protected void allocateBuffers(SFProgramComponent component) {
-//		Collection<SFPipelineStructureInstance> structures=component.getStructures();
+//		List<SFPipelineStructureInstance> structures=component.getStructures();
 //		for (Iterator<SFPipelineStructureInstance> iterator = structures.iterator(); iterator.hasNext();) {
 //			SFPipelineStructureInstance sfPipelineStructureInstance = (SFPipelineStructureInstance) iterator
 //					.next();
@@ -76,7 +76,7 @@ public abstract class SFAsset implements SFDataset {
 //			this.structuresData.add(structureData);
 //		}
 //		
-//		Collection<SFPipelineGridInstance> grids=component.getGrids();
+//		List<SFPipelineGridInstance> grids=component.getGrids();
 //		for (Iterator<SFPipelineGridInstance> iterator = grids.iterator(); iterator.hasNext();) {
 //			SFPipelineGridInstance sfPipelineGridInstance = (SFPipelineGridInstance) iterator
 //					.next();

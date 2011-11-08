@@ -1,7 +1,7 @@
 package shadow.pipeline;
 
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import shadow.pipeline.parameters.SFParameteri;
 
@@ -25,7 +25,7 @@ public class SFPipelineStructure extends SFPipelineElement{
 		return parameters.size();
 	}
 	
-	public Collection<SFParameteri> getAllParameters(){
+	public List<SFParameteri> getAllParameters(){
 		return parameters;
 	}
 	
@@ -33,7 +33,7 @@ public class SFPipelineStructure extends SFPipelineElement{
 		parameters.add(param);
 	}
 	
-	public void addParameters(Collection<SFParameteri> parameters){
+	public void addParameters(List<SFParameteri> parameters){
 		this.parameters.addAll(parameters);
 	}
 	

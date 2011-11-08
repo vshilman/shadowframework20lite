@@ -1,6 +1,6 @@
 package shadow.pipeline.loader;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface SFParsableElement {
 
@@ -14,5 +14,5 @@ public interface SFParsableElement {
 	/**
 	 * @return the list of commands that 
 	 */
-	public abstract Collection<String> getAllCommands();
+	public abstract List<String> getAllCommands();
 }

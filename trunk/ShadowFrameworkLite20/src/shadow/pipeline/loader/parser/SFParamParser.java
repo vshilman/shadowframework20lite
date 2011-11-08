@@ -1,9 +1,9 @@
 package shadow.pipeline.loader.parser;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -11,6 +11,7 @@ import shadow.pipeline.SFInstancedParameter;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineElement;
 import shadow.pipeline.SFPipelineStructure;
+import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.loader.SFLineParser;
 import shadow.pipeline.loader.SFParsableElement;
@@ -42,7 +43,7 @@ public class SFParamParser implements SFLineParser {
 						if (lineToken.hasMoreElements()) {
 							String paramType = lineToken.nextToken();
 							// TODO : param definition goes here
-							Collection<String> pars = extractNames(params);
+							List<String> pars = extractNames(params);
 							Vector<SFParameteri> params_ = new Vector<SFParameteri>();//[pars.length];
 
 							StringTokenizer tok2 = new StringTokenizer(
@@ -57,7 +58,7 @@ public class SFParamParser implements SFLineParser {
 //							}
 
 							SFPipelineStructure sfPs = (SFPipelineStructure) module;
-							Collection<SFParameteri> parameters = sfPs.getAllParameters();
+							List<SFParameteri> parameters = sfPs.getAllParameters();
 
 							Iterator<String> parsIterator=pars.iterator();
 							for (Iterator<SFParameteri> iterator = parameters.iterator(); iterator.hasNext();) {
@@ -107,7 +108,7 @@ public class SFParamParser implements SFLineParser {
 		return component;
 	}
 
-	private Collection<String> extractNames(String params) {
+	private List<String> extractNames(String params) {
 		StringTokenizer tokenizer = new StringTokenizer(params, ",");
 		ArrayList<String> strings = new ArrayList<String>();
 		while (tokenizer.hasMoreTokens()) {

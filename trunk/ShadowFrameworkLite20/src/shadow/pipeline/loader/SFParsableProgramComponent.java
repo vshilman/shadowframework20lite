@@ -1,7 +1,7 @@
 package shadow.pipeline.loader;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgramComponent;
@@ -24,7 +24,7 @@ public class SFParsableProgramComponent extends SFProgramComponent implements SF
 		allCommands.add("end");
 	}
 	@Override
-	public Collection<String> getAllCommands() {
+	public List<String> getAllCommands() {
 		return allCommands;
 	}
 }

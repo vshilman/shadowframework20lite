@@ -1,12 +1,11 @@
 package shadow.pipeline.loader;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineStructure;
-import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFParsableStructure extends SFPipelineStructure implements SFParsableElement{
@@ -40,7 +39,7 @@ public class SFParsableStructure extends SFPipelineStructure implements SFParsab
 	}
 	
 	@Override
-	public Collection<String> getAllCommands() {
+	public List<String> getAllCommands() {
 		return allCommands;
 	}
 }

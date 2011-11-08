@@ -1,6 +1,7 @@
 package shadow.pipeline;
 
 import shadow.math.SFValuenf;
+import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFArray;
 
 /**
@@ -10,4 +11,6 @@ import shadow.system.SFArray;
 public interface SFPrimitiveArray extends SFArray<SFPrimitiveIndices>{
 	
 	public SFArray<SFValuenf> getPrimitiveData(int index);
+	
+	public SFPipelineRegister[] getRegisters();
 }

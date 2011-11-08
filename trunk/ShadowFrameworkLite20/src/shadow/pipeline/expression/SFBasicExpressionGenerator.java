@@ -1,6 +1,6 @@
 package shadow.pipeline.expression;
 
-import java.util.Collection;
+import java.util.List;
 
 import shadow.pipeline.parameters.SFParameteri;
 
@@ -31,7 +31,7 @@ public class SFBasicExpressionGenerator implements SFExpressionGeneratori {
 	}
 
 	@Override
-	public SFExpressionElement getExpressionElement(String value, Collection<SFParameteri> set){
+	public SFExpressionElement getExpressionElement(String value, List<SFParameteri> set){
 		return new SFExpressionVariable(value,set);
 	}
 	
