@@ -1,4 +1,4 @@
-package shadow.pipeline.openGL20.tests;
+package shadow.pipeline.openGL20.tests.test00;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,7 +34,7 @@ public class SFShaderComponentLoaderTest {
 			//String transformP="BasicP";
 			//String transformN="BasicN";
 			String material="BasicMat";
-			String light="BasicLSPN";
+			String light="BasicColor";
 			
 			//SFPipelineRegister registers[]={SFPipelineRegister.getFromName("P"),SFPipelineRegister.getFromName("N")};
 			//String[] primitivesP={primitiveP};
@@ -45,8 +45,7 @@ public class SFShaderComponentLoaderTest {
 			
 			
 			SFPrimitive primitive=new SFPrimitive();
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle")));
+			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("Triangle")));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));
 
 			System.out.println("Primitive built");

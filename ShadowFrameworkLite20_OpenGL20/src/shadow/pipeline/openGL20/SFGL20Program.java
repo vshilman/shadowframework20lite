@@ -19,50 +19,51 @@
 */
 package shadow.pipeline.openGL20;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.media.opengl.GL2;
 
 import shadow.math.SFValuenf;
-import shadow.math.SFVertex3f;
 import shadow.pipeline.SFFunction;
-import shadow.pipeline.SFPipelineStructure;
+import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveIndices;
+import shadow.pipeline.SFPrimitiveProgramAssociation;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.SFStructureData;
-import shadow.pipeline.loader.parser.SFPipelineStructureInstance;
+import shadow.pipeline.expression.SFExpressionElement;
+import shadow.pipeline.expression.SFExpressionElementInterpreter;
+import shadow.pipeline.loader.parser.SFPipelineGridInstance;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFException;
 
 /* GTL: Geometry-Texturing-Lighting
  */
-public class SFGL20Program extends SFGLSLSet implements SFProgram{
+public class SFGL20Program extends SFGLSLSet implements SFProgram,SFProgramDataModel{
 	
-	private ArrayList<SFProgramComponent> vertexShader=new ArrayList<SFProgramComponent>();
-	private ArrayList<SFProgramComponent> fragmentShader=new ArrayList<SFProgramComponent>();
-	private Collection<SFParameteri> vset=new LinkedList<SFParameteri>();
-	private Collection<SFParameteri> fset=new LinkedList<SFParameteri>();
-	private SFPrimitive primitive;
-	private ArrayList<SFProgramComponent> materials=new ArrayList<SFProgramComponent>();
-	private ArrayList<SFProgramComponent> lights=new ArrayList<SFProgramComponent>();
+	private ArrayList<SFPrimitiveProgramAssociation> vertexShader=new ArrayList<SFPrimitiveProgramAssociation>();
+	private ArrayList<SFPrimitiveProgramAssociation> fragmentShader=new ArrayList<SFPrimitiveProgramAssociation>();
+	private List<SFParameteri> vset=new LinkedList<SFParameteri>();
+	private List<SFParameteri> fset=new LinkedList<SFParameteri>();
+	SFPrimitive primitive;
+	ArrayList<SFProgramComponent> materials=new ArrayList<SFProgramComponent>();
+	SFProgramComponent light=new SFProgramComponent();
 	private boolean registeredUniforms=false;
 	
-	private HashMap<SFProgramComponent, String> outputName=new HashMap<SFProgramComponent, String>();
-	private HashMap<SFProgramComponent, SFPipelineRegister> registers=new HashMap<SFProgramComponent, SFPipelineRegister>();
+	//private HashMap<ArrayList<SFProgramComponent>, ArrayList<SFPipelineRegister>> registers=new HashMap<ArrayList<SFProgramComponent>, ArrayList<SFPipelineRegister>>();
+	//private HashMap<SFProgramComponent, String> outputName=new HashMap<SFProgramComponent, String>();
+	//private HashMap<SFProgramComponent, SFPipelineRegister> registers=new HashMap<SFProgramComponent, SFPipelineRegister>();
 	
-	private int primiviteUniforms[][];
-	private int materialUniforms[][];
-	private int lightUniforms[][];
-	private int mainUniforms[];
+	private SFGL20UniformData data = new SFGL20UniformData();
+
 	
 	public void clearFragmentShader(){
 		fragmentShader.clear();
@@ -71,11 +72,11 @@ public class SFGL20Program extends SFGLSLSet implements SFProgram{
 		vertexShader.clear();
 	}
 	
-	public void addToFragmentShader(SFProgramComponent component){
-		fragmentShader.add(component);
+	public void addToFragmentShader(SFProgramComponent component,SFPipelineRegister register){
+		fragmentShader.add(new SFPrimitiveProgramAssociation(register,component));
 	}
-	public void addToVertexShader(SFProgramComponent component){
-		vertexShader.add(component);
+	public void addToVertexShader(SFProgramComponent component,SFPipelineRegister register){
+		vertexShader.add(new SFPrimitiveProgramAssociation(register,component));
 	}
 
 	public String loadFragmentShaderText() {
@@ -100,8 +101,8 @@ public class SFGL20Program extends SFGLSLSet implements SFProgram{
 		}
 	}	
 	
-	public String getShaderText(ArrayList<SFProgramComponent> list,Collection<SFParameteri> shaderParametersSet) {
-		return SFShaderGL20Implementor.getShaderText(this,list);
+	public String getShaderText(ArrayList<SFPrimitiveProgramAssociation> list,List<SFParameteri> shaderParametersSet) {
+		return SFGL20Program.getShaderText(this,list);
 	}
 	
 	public int getUniformCode(GL2 gl,SFParameteri uniform){
@@ -110,13 +111,13 @@ public class SFGL20Program extends SFGLSLSet implements SFProgram{
 
 	@Override
 	public void setLightStep(SFProgramComponent lightStep) {
-		addToFragmentShader(lightStep);
-		lights.add(lightStep);
+		addToFragmentShader(lightStep,null);
+		light=lightStep;
 	}
 	
 	@Override
 	public void setMaterial(int index, SFProgramComponent material) {
-		addToFragmentShader(material);
+		addToFragmentShader(material,null);
 		materials.add(material);
 	}
 	
@@ -127,18 +128,19 @@ public class SFGL20Program extends SFGLSLSet implements SFProgram{
 		
 		this.primitive=primitive;
 
-		addToVertexShader(primitive.getTessellator());
+		addToVertexShader(primitive.getTessellator(),null);
 		
-		Map<SFPipelineRegister, SFProgramComponent> parameters=primitive.getPrimitiveMap();
-		Iterator<Entry<SFPipelineRegister, SFProgramComponent>> iterator=parameters.entrySet().iterator();
+		List<Entry<SFPipelineRegister, SFProgramComponent>> wroteRegisters=primitive.getPrimitiveMap();
+		//Map<SFPipelineRegister, SFProgramComponent> parameters=primitive.getPrimitiveMap();
+		Iterator<Entry<SFPipelineRegister, SFProgramComponent>> iterator=wroteRegisters.iterator();
 		for (int i = 0; iterator.hasNext(); i++) {
 			Entry<SFPipelineRegister, SFProgramComponent> entry=iterator.next();
 			SFProgramComponent pr=entry.getValue();
 			SFPipelineRegister outputRegister=entry.getKey();
+			
 			//outputName == registerName, no need to make it more complex 
-			outputName.put(pr, outputRegister.getName());
-			registers.put(pr,outputRegister);
-			addToVertexShader(pr);
+			//registers.put(pr,outputRegister);
+			addToVertexShader(pr,outputRegister);
 		}
 	}
 	
@@ -166,36 +168,57 @@ public class SFGL20Program extends SFGLSLSet implements SFProgram{
 		return toString;
 	}
 	
-	public ArrayList<SFProgramComponent> getVertexShader() {
-		return vertexShader;
-	}
-	public ArrayList<SFProgramComponent> getFragmentShader() {
-		return fragmentShader;
-	}
-	
+//	public ArrayList<SFProgramComponent> getVertexShader() {
+//		return vertexShader;
+//	}
+//	public ArrayList<SFProgramComponent> getFragmentShader() {
+//		return fragmentShader;
+//	}
+//	
 
-	public SFPipelineRegister getOutputRegister(SFProgramComponent component) {
-		SFPipelineRegister register=registers.get(component);
-		return register;
-	}
+//	public SFPipelineRegister getOutputRegister(SFProgramComponent component) {
+//		SFPipelineRegister register=registers.get(component);
+//		return register;
+//	}
+//	
+//	public String getOutputName(SFProgramComponent component) {
+//		String suffix=outputName.get(component);
+//		if(suffix==null)
+//			suffix="";
+//		return suffix;
+//	}
 	
-	public String getOutputName(SFProgramComponent component) {
-		String suffix=outputName.get(component);
-		if(suffix==null)
-			suffix="";
+//	public SFPipelineRegister getRegister(SFProgramComponent component) {
+//		SFPipelineRegister register=registers.get(component);
+//		if(register==null){
+//			try {		
+//				register=SFPipelineRegister.getFromName("<>");
+//			} catch (SFException e) {
+//				//register=null; //
+//			}	
+//		}
+//		
+//		return register;
+//	}
+	
+	public static String getRegisterName(
+			ArrayList<SFPrimitiveProgramAssociation> list, int i) {
+		SFPipelineRegister register = list.get(i).getRegister();
+		String suffix="";
+		if(register!=null)
+			suffix=register.getName();
 		return suffix;
 	}
-	
-	public SFPipelineRegister getRegister(SFProgramComponent component) {
-		SFPipelineRegister register=registers.get(component);
-		if(register==null){
-			try {		
-				register=SFPipelineRegister.getFromName("<>");
-			} catch (SFException e) {
-				//register=null; //
-			}	
-		}
-		
+	public static SFPipelineRegister getRegister(
+			ArrayList<SFPrimitiveProgramAssociation> list, int i) {
+		SFPipelineRegister register = list.get(i).getRegister();
+//		if(register==null){
+//			try {		
+//				register=SFPipelineRegister.getFromName("<>");
+//			} catch (SFException e) {
+//				//register=null; //
+//			}	
+//		}
 		return register;
 	}
 	
@@ -221,6 +244,19 @@ public class SFGL20Program extends SFGLSLSet implements SFProgram{
 				SFPipelineRegister register=SFPipelineRegister.getFromName("normal");
 				addRegister(register);
 				addCodeString(new SFFunction(register,"vectorsModelview*N",set));
+			} catch (SFException e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	private static SFProgramComponent defaultTexCoord=new SFProgramComponent(){{
+			try {
+				LinkedList<SFParameteri> set=new LinkedList<SFParameteri>();
+				set.add(SFPipelineRegister.getFromName("Tx0"));
+				SFPipelineRegister register=SFPipelineRegister.getFromName("texCoord0");
+				addRegister(register);
+				addCodeString(new SFFunction(register,"Tx0",set));
 			} catch (SFException e) {
 				e.printStackTrace();
 			}
@@ -255,33 +291,39 @@ public class SFGL20Program extends SFGLSLSet implements SFProgram{
 	
 	private void checkComponent(){
 		if(!vertexShader.contains(defaultPositionTransform)){
-			vertexShader.add(defaultPositionTransform);
 			try {
-				registers.put(defaultPositionTransform,SFPipelineRegister.getFromName("position"));
+				addToVertexShader(defaultPositionTransform,SFPipelineRegister.getFromName("position"));
 			} catch (SFException e) {
 				e.printStackTrace();
 			}
 		}	
-		if(!vertexShader.contains(defaultNormalTransform)){
-			vertexShader.add(defaultNormalTransform);
-			try {
-				registers.put(defaultPositionTransform,SFPipelineRegister.getFromName("normal"));
-			} catch (SFException e) {
-				e.printStackTrace();
-			}
+		try {
+			SFPipelineRegister register=SFPipelineRegister.getFromName("N");
+			if(primitive.containRegister(register))
+				if(!vertexShader.contains(defaultNormalTransform)){
+					addToVertexShader(defaultNormalTransform,SFPipelineRegister.getFromName("normal"));
+				}
+		} catch (SFException e) {
+			e.printStackTrace();
+		}
+		try {
+			SFPipelineRegister register=SFPipelineRegister.getFromName("Tx0");
+			if(primitive.containRegister(register))
+				if(!vertexShader.contains(defaultTexCoord)){
+					addToVertexShader(defaultTexCoord,SFPipelineRegister.getFromName("texCoord0"));
+				}
+		} catch (SFException e) {
+			e.printStackTrace();
 		}
 		if(!vertexShader.contains(defaultGLPosition))
-			vertexShader.add(defaultGLPosition);
+			addToVertexShader(defaultGLPosition,null);
 		if(!fragmentShader.contains(defaultFragmentColor))
-			fragmentShader.add(defaultFragmentColor);
+			addToFragmentShader(defaultFragmentColor,null);
 	}
 	
 	@Override
 	public void load() {
 		
-		//TODO prepare DATA trace. When mathGraphics module loads data
-		//You should be able to attach it
-	
 		this.checkComponent();
 		
 		this.init();
@@ -289,118 +331,198 @@ public class SFGL20Program extends SFGLSLSet implements SFProgram{
 		
 		if(!registeredUniforms){
 		
-			Map<SFPipelineRegister, SFProgramComponent> map=primitive.getPrimitiveMap();
-			
-			//Primitive Uniforms
-			primiviteUniforms=new int[map.size()][];
-			
-			Collection<SFProgramComponent> collection=map.values();
-			int index=0;
-			
-			for (Iterator<SFProgramComponent> iterator = collection.iterator(); 
-					iterator.hasNext();index++) {
-				SFProgramComponent component=iterator.next();
-				SFPipelineRegister register=getOutputRegister(component);
-				
-				System.out.println("component.getName() "+component.getName());
-				//NOTE:this is a bit long.Its based on the idea that primitive ProgramComponent are 
-				//using always only 1 grid; that's the reason of getGrids().iterator().next().
-				LinkedList<SFParameteri> parameters=component.getGrids().iterator().next().getParameters();
-				
-				primiviteUniforms[index]=new int[parameters.size()];
-				for (int i=0; i < parameters.size(); i++) {
-					SFParameteri param=parameters.get(i);
-					String name=register.getName()+param.getName();
-					primiviteUniforms[index][i]=SFGL2.getGL().glGetUniformLocation(this.getProgram(),name);
-				}
-			}
-		
-			mainUniforms=new int[3];
-			mainUniforms[0]=SFGL2.getGL().glGetUniformLocation(this.getProgram(),"projection");
-			mainUniforms[1]=SFGL2.getGL().glGetUniformLocation(this.getProgram(),"modelview");
-			mainUniforms[2]=SFGL2.getGL().glGetUniformLocation(this.getProgram(),"vectorsModelview");
-			
-			materialUniforms=new int[materials.size()][];
-			for (int i=0; i < materialUniforms.length; i++) {
-				SFPipelineStructureInstance structure=materials.get(i).getStructures().iterator().next();
-				Collection<SFParameteri> parameters=structure.getParameters();
-				int idx=0;
-				materialUniforms[i]=new int[parameters.size()];
-				for (Iterator<SFParameteri> iterator=parameters.iterator(); iterator
-						.hasNext();idx++) {
-					SFParameteri sfParameteri= iterator.next();
-					materialUniforms[i][idx]=SFGL2.getGL().glGetUniformLocation(this.getProgram(),sfParameteri.getName());
-				}
-			}
-			
-			lightUniforms=new int[lights.size()][];
-			for (int i=0; i < lightUniforms.length; i++) {
-				SFPipelineStructureInstance structure=lights.get(i).getStructures().iterator().next();
-				Collection<SFParameteri> parameters=structure.getParameters();
-				int idx=0;
-				lightUniforms[i]=new int[parameters.size()];
-				for (Iterator<SFParameteri> iterator=parameters.iterator(); iterator
-						.hasNext();idx++) {
-					SFParameteri sfParameteri= iterator.next();
-					lightUniforms[i][idx]=SFGL2.getGL().glGetUniformLocation(this.getProgram(),sfParameteri.getName());
-				}
-			}
+			getData().evaluateUniforms(this);
 			
 			registeredUniforms=true;
 		}	
 	}
-
-	public void setData(SFPipelineStructure structure,SFStructureData data){
-		int uniforms[]=null;
-		if(structure==materials.get(0).getStructures().iterator().next().getStructure()){
-			//TODO : not working with more materials
-			uniforms=materialUniforms[0];
-		}else{
-			//TODO : not working with more materials
-			uniforms=lightUniforms[0];
-		}
-		for (int i=0; i < uniforms.length; i++) {
-			SFValuenf v=data.getValue(i);
-			if(v.getSize()==3){
-				SFVertex3f v3=(SFVertex3f)(v);
-				SFGL2.getGL().glUniform3f(uniforms[0],v3.getX(),v3.getY(),v3.getZ());
-			}
-		}
+	
+	@Override
+	public void setData(SFPipelineStructureInstance structure, SFStructureData data) {
+		this.data.setData(structure, data);
 	}
 	
-	public void setPrimitiveData(SFPrimitiveIndices indices,SFGL20ListData<SFValuenf> p,SFGL20ListData<SFValuenf> n){
-		
-		//Note we are assuming primitive is P-N, not all primitives are P-N
-		int[] pIndices=indices.getPrimitiveIndices()[1];
-		int[] nIndices=indices.getPrimitiveIndices()[0];
-		
-		for (int i=0; i < pIndices.length; i++) {
-			SFVertex3f pv=(SFVertex3f)(p.getValue(pIndices[i]));
-			SFGL2.getGL().glUniform3f(primiviteUniforms[1][i],pv.getX(),pv.getY(),pv.getZ());
-		}
-		
-		for (int i=0; i < nIndices.length; i++) {
-			SFVertex3f nv=(SFVertex3f)(n.getValue(nIndices[i]));
-			SFGL2.getGL().glUniform3f(primiviteUniforms[0][i],nv.getX(),nv.getY(),nv.getZ());
-		}
-		
+	@Override
+	public void setIndexedData(SFPrimitiveIndices indices,
+			SFGL20ListData<SFValuenf>[] datas,Integer[][] uniforms,SFPipelineRegister[] registers) {
+		this.getData().setIndexedData(indices, datas, uniforms,registers);
+	}
+	
+	@Override
+	public void setTransformData(float x, float y, float z) {
+		this.getData().setTransformData(x, y, z);
+	}
+	
+	@Override
+	public SFProgramComponent getLightStep() {
+		return light;
+	}
+	
+	@Override
+	public SFProgramComponent getMaterial(int index) {
+		return materials.get(index);
+	}
+	
+	@Override
+	public int getMaterialsSize() {
+		return materials.size();
+	}
+	
+	@Override
+	public SFPrimitive getPrimitive() {
+		return primitive;
+	}
+	
+	public List<SFProgramComponent> getMaterials() {
+		return materials;
 	}
 
-	//TODO: set Transform data is going to accept as parameters
-	//a Camera and ModedelviewData 
-	public void setTransformData(float x,float y,float z){
-		
-		float matrix[]={
-				1,0,0,0,
-				0,1,0,0,
-				0,0,1,0,
-				0,0,0,1
-		};
-		
-		//All transforms are identity now
-		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[0],1,false,matrix,0);
-		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[1],1,false,matrix,0);
-		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[2],1,false,matrix,0);
+	public SFProgramComponent getLight() {
+		return light;
 	}
+
+	static String generateShaderParameters(LinkedList<SFParameteri> shaderParametersSet){
+		return SFGlobalVSetGL20Implementor.generateShaderParameters(shaderParametersSet);
+	}
+
+	public static String translateExpression(SFExpressionElement expression,SFParameteri parameter,
+			List<SFParameteri> functionParameters){
+	
+		SFGL20ExpressionGenerator.setRefParameter(parameter);
+		
+		HashMap<String, String> renameMap=new HashMap<String, String>();
+		
+		//System.out.println("Is Parameter WroteByTransfom??"+(((SFPipelineRegister)parameter).getType()==SFPipelineRegister.WROTE_BY_TRANSFORM));
+		
+		if(parameter instanceof SFPipelineRegister && ((SFPipelineRegister)parameter).getUse()==SFPipelineRegister.WROTE_BY_TRANSFORM){
+			
+			for (Iterator<SFParameteri> iterator = functionParameters.iterator(); iterator.hasNext();) {
+				SFParameteri sfParameteri =  iterator.next();
+				renameMap.put(sfParameteri.getName(), parameter.getName()+sfParameteri.getName());
+			}
+		}
+		SFGL20ExpressionGenerator.setRenameMap(renameMap);
+		
+		SFExpressionElementInterpreter interpreter=SFGL20ExpressionGenerator.getGenerator(parameter);
+		expression.traverse(interpreter);
+	
+		String expr=SFGL20ExpressionGenerator.getFunctionString();
+		
+		return expr;
+	}
+
+	public static String getShaderText(SFGL20Program program,ArrayList<SFPrimitiveProgramAssociation> list) {
+			StringWriter writer=new StringWriter();
+			
+			for(int i=0;i<list.size();i++){
+	
+				SFProgramComponent programComponent=list.get(i).getProgram();
+				List<SFPipelineRegister> register=programComponent.getRegisters();
+				
+				LinkedList<SFParameteri> regSet=new LinkedList<SFParameteri>();
+				regSet.addAll(register);
+				
+				writer.write(SFGL20Program.generateShaderParameters(regSet));
+				
+				SFParameteri global=getRegister(list,i);
+				String globalName="";
+				if(global!=null)
+					globalName=global.getName();
+				List<SFPipelineStructureInstance> instances=programComponent.getStructures();
+				for (Iterator<SFPipelineStructureInstance> iterator = instances.iterator(); iterator.hasNext();) {
+					SFPipelineStructureInstance instance = (SFPipelineStructureInstance) iterator
+							.next();
+					writer.write(SFGlobalVSetGL20Implementor.generateInstancedStructures(instance,
+							getRegister(list,i),globalName));
+				}
+				
+				SFPipelineGridInstance gridInstance=programComponent.getGrid();
+				if(gridInstance!=null)
+					writer.write(SFGlobalVSetGL20Implementor.generateInstancedGrids(gridInstance,
+							getRegister(list,i),globalName));
+				
+	//			SFPipelineStructureInstance[] instances=list.get(i).getStructures();
+	//			for (int j = 0; j < instances.length; j++) {
+	//				SFPipelineStructureInstance instance=instances[j];
+	//				
+	//			}
+			}
+			
+			writer.write("uniform mat4 projection;\n");
+			writer.write("uniform mat4 modelview;\n");
+			writer.write("uniform mat4 vectorsModelview;\n");
+			writer.write("\n");
+			
+			writer.write("\n\nvoid main(void){\n");
+			boolean doneTessellation=false;
+			for(int i=0;i<list.size();i++){
+				//System.err.println(i+" "+list.get(i)+" list.get(i).getShaderCode() " +  list.get(i).getShaderCode());
+				
+				SFProgramComponent programComponent=list.get(i).getProgram();
+				String writeSuffix=getRegisterName(list,i);
+				
+				List<SFPipelineRegister> params=programComponent.getRegisters();
+				for (Iterator<SFPipelineRegister> iterator = params.iterator(); iterator.hasNext();) {
+					SFPipelineRegister param = (SFPipelineRegister) iterator
+							.next();
+					if(param instanceof SFPipelineRegister && !doneTessellation){
+						SFPipelineRegister reg=(SFPipelineRegister)param;
+						if(reg.getName().equalsIgnoreCase("uvw")){
+							writer.write("\tfloat u=gl_Vertex.x;\n");
+							writer.write("\tfloat v=gl_Vertex.y;\n");
+							writer.write("\tfloat w=1.0-gl_Vertex.x-gl_Vertex.y;\n");
+						}
+						if(reg.getName().equalsIgnoreCase("uv")){
+							writer.write("\tfloat u=gl_Vertex.x;\n");
+							writer.write("\tfloat v=gl_Vertex.y;\n");
+						}
+						doneTessellation = true;
+					}
+				}
+				
+				List<SFFunction> lines=programComponent.getShaderCodeLines();
+				for (Iterator<SFFunction> iterator = lines.iterator(); iterator.hasNext();) {
+					SFFunction sfFunction = (SFFunction) iterator.next();
+					
+					SFParameteri global=getRegister(list,i);//sfFunction.getParameter();
+					
+					if(global==null)
+						global=sfFunction.getParameter();
+					SFExpressionElement function=sfFunction.getFunction();
+					if(function.getType()!=SFParameteri.GLOBAL_GENERIC){
+						String declaration="";
+						if(SFGL20GlobalV.declaredOnWrite(global)){
+							String def=SFGL20GlobalV.getType(global.getType());
+							declaration=def+" ";
+						}
+						writer.write("\t"+declaration+sfFunction.getParameter().getName()+"="+
+								SFGL20Program.translateExpression(function,global,programComponent.getParameterSet())+";\n");
+					}else{
+						SFPipelineRegister register=getRegister(list,i);
+						
+						String type="vec3";
+						if(register.getType()==SFParameteri.GLOBAL_FLOAT2){
+							type="vec2";
+						}
+						
+						writer.write("\t"+type+" "+writeSuffix+"="+
+								SFGL20Program.translateExpression(function,global,programComponent.getParameterSet())+";\n");	
+					}
+				}
+				
+			}
+			writer.write("\n}");
+			
+			return writer.toString();
+		}
+	void setData(SFGL20UniformData data) {
+		this.data = data;
+	}
+	SFGL20UniformData getData() {
+		return data;
+	}
+	
+	
+	
 }
 

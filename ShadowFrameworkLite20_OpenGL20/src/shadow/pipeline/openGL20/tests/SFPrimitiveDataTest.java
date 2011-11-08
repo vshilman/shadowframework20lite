@@ -32,6 +32,7 @@ public class SFPrimitiveDataTest {
 			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"));
 			
 			SFPrimitive primitive=new SFPrimitive();
+			
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle")));
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));

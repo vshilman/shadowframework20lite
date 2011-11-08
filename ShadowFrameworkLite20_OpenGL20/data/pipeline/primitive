@@ -1,0 +1,68 @@
+
+//SF Pipeline components command lines:
+//define : used to define a new user defined temporary variable. Its scope is its own shader component. Its name 
+//		must not conflict with other parameters and registers in component scope. May be written. May be used
+//		in output (write) formulas 
+//use : indicates the name of an input register used by this component. It is used in output (write) formulas
+//write : indicates the name of an output register or of a temporary defined variable which is written by a 
+//		component and its formula. 
+//param : a user defined parameters which is used in output (write) formulas. 
+//include : a user defined parameters which is used in output (write) formulas. 
+
+@include structure
+
+@begin Tessellator BasicTess
+@end
+
+@begin Primitive Triangle2
+@grid A,B,C,D,E,F as Bezier2Grid:<>
+@use uvw
+@write <> A*w*w+B*u*u+C*v*v+D*2*w*u+E*2*w*v+F*2*u*v
+@end
+
+@begin Primitive Triangle3
+@grid A,B,C,AB,BA,BC,CB,CA,AC,ACB as Bezier3Grid:<>
+@use uvw
+@write <> A*w*w*w+B*u*u*u+C*v*v*v+AB*3*w*w*u+BA*3*w*u*u+AC*3*w*w*v+CA*3*w*v*v+BC*3*u*u*v+CB*3*u*v*v+6*ACB*u*v*w
+@end
+
+@begin Primitive Triangle
+@grid A,B,C as TriangleGrid:<>
+@use uvw
+@write <> A*w+B*u+C*v 
+@end
+
+@begin Transforms BasicP
+@use modelview
+@use projection
+@use P0
+@write position projection*modelview*P0
+@end
+
+@begin Transforms BasicN
+@use vectorsModelview
+@use N0
+@write normal vectorsModelview*N0  
+@end
+
+@begin Material BasicMat
+@param diffColor,ambColor as Mat01
+@write color diffColor 
+@end
+
+@begin LightStep BasicLSPN
+@param intensity,lPosition as PLight01
+@use normal 
+@use position
+@use color
+@define tmp1:3 lPosition-position
+@define tmp2:1 #(tmp1°tmp1)
+@define tmp3:3 (normal°tmp1)/tmp2 
+@write fColor color*intensity*tmp3
+@end
+
+
+@begin LightStep BasicColor
+@use color 
+@write fColor color
+@end
