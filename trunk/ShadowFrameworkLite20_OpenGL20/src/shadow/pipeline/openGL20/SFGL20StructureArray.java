@@ -3,14 +3,15 @@ package shadow.pipeline.openGL20;
 import shadow.math.SFValuenf;
 import shadow.pipeline.SFArrayElementException;
 import shadow.pipeline.SFPipelineStructure;
+import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
 
 public class SFGL20StructureArray extends SFGL20ListData<SFStructureData> implements SFStructureArray{
 
-	private SFPipelineStructure structure;
+	private SFPipelineStructureInstance structure;
 	
-	public SFGL20StructureArray(SFPipelineStructure structure) {
+	public SFGL20StructureArray(SFPipelineStructureInstance structure) {
 		this.structure=structure;
 	}
 	
@@ -36,9 +37,10 @@ public class SFGL20StructureArray extends SFGL20ListData<SFStructureData> implem
 	}
 	
 	@Override
-	public SFPipelineStructure getPipelineStructure() {
+	public SFPipelineStructureInstance getPipelineStructure() {
 		return structure;
 	}
+	
 	
 	/** writes a <E> with the content of the element at a given position
 	 * @param index the index at which element is 

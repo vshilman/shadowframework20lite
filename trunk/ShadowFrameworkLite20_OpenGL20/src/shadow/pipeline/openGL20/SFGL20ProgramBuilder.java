@@ -18,7 +18,7 @@ public class SFGL20ProgramBuilder implements SFProgramBuilder{
 	}
 	
 	@Override
-	public void loadProgram(SFProgram program) {
+	public void loadProgram(SFProgram program) { 
 		((SFGL20Program)program).load();
 		SFGL20PipelineGraphics.setProgram((SFGL20Program)program);
 	}

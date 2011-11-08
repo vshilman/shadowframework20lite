@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import shadow.material.SFStructureReference;
 import shadow.math.SFVertex3f;
@@ -11,15 +12,13 @@ import shadow.pipeline.SFArrayElementException;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
-import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.SFProgram;
-import shadow.pipeline.SFProgramComponent;
+import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.parameters.SFPipelineRegister;
-import shadow.system.SFException;
+import shadow.pipeline.parameters.SFParameter;
+import shadow.pipeline.parameters.SFParameteri;
 
 public class SFStructuresTest {
 
@@ -35,11 +34,15 @@ public class SFStructuresTest {
 			
 			//Material
 			SFPipelineStructure materialStructure=SFPipeline.getStructure("Mat01");
-			materialData=SFPipeline.getSfPipelineMemory().generateStructureData(materialStructure); 
+			List<SFParameteri> parameters=new ArrayList<SFParameteri>();
+			parameters.add(new SFParameter("mat01",SFParameteri.GLOBAL_FLOAT3));
+			parameters.add(new SFParameter("mat02",SFParameteri.GLOBAL_FLOAT3));
+			SFPipelineStructureInstance materialStructureInstance=new SFPipelineStructureInstance(materialStructure,parameters);
+			materialData=SFPipeline.getSfPipelineMemory().generateStructureData(materialStructureInstance); 
 			materialReference=new SFStructureReference(materialData); 
-			SFStructureData mat=new SFStructureData(materialStructure);
+			SFStructureData mat=new SFStructureData(materialStructureInstance);
 			((SFVertex3f)mat.getValue(0)).set3f(1, 0, 0);
-			((SFVertex3f)mat.getValue(1)).set3f(0.1f, 0.1f, 0.1f);
+			((SFVertex3f)mat.getValue(1)).set3f(0.1f, 0.3f, 0.1f);
 			try {
 				materialReference.setStructureData(mat);
 			} catch (SFArrayElementException e) {
@@ -47,7 +50,7 @@ public class SFStructuresTest {
 			}
 			
 			//Testing...
-			SFStructureData matTest=new SFStructureData(materialStructure);
+			SFStructureData matTest=new SFStructureData(materialStructureInstance);
 			try {
 				materialReference.getStructureData(matTest);
 			} catch (SFArrayElementException e) {

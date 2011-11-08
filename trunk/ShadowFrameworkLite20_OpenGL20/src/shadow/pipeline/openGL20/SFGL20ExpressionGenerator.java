@@ -1,8 +1,8 @@
 package shadow.pipeline.openGL20;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import shadow.pipeline.expression.SFExpressionClamp;
 import shadow.pipeline.expression.SFExpressionDivide;
@@ -230,7 +230,7 @@ public class SFGL20ExpressionGenerator implements SFExpressionGeneratori,SFExpre
 	}
 
 	@Override
-	public SFExpressionElement getExpressionElement(String value, Collection<SFParameteri> set){
+	public SFExpressionElement getExpressionElement(String value, List<SFParameteri> set){
 		return new SFExpressionVariable(value,set);
 	}
 	

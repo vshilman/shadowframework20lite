@@ -8,6 +8,7 @@ import shadow.math.SFVertex3f;
 import shadow.math.SFVertex4f;
 import shadow.pipeline.SFPipelineMemory;
 import shadow.pipeline.SFPipelineStructure;
+import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveArray;
 import shadow.pipeline.SFStructureArray;
@@ -21,7 +22,7 @@ public class SFGL20PipelineMemory implements SFPipelineMemory{
 	}
 	
 	@Override
-	public SFStructureArray generateStructureData(SFPipelineStructure structure) {
+	public SFStructureArray generateStructureData(SFPipelineStructureInstance structure) {
 		return new SFGL20StructureArray(structure);
 	}
 	

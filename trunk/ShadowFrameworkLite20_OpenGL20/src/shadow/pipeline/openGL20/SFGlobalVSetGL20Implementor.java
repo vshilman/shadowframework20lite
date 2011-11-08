@@ -1,12 +1,12 @@
 package shadow.pipeline.openGL20;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import shadow.pipeline.SFPipelineStructure;
+import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.loader.parser.SFPipelineGridInstance;
-import shadow.pipeline.loader.parser.SFPipelineStructureInstance;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
 
@@ -25,7 +25,7 @@ public class SFGlobalVSetGL20Implementor{
 		//declarations.put(SFParameter.GLOBAL_TRANSFORM2, "sampler2D");
 	}
 	
-	public static String generateShaderParameters(Collection<SFParameteri> set) {
+	public static String generateShaderParameters(List<SFParameteri> set) {
 		String parameters="";
 		Iterator<SFParameteri> list=set.iterator();
 		while(list.hasNext()){
@@ -36,7 +36,6 @@ public class SFGlobalVSetGL20Implementor{
 					name=SFGL20GlobalV.getRegisterName((SFPipelineRegister)pr);
 				String declaration=SFGL20GlobalV.getModifiers(pr)+" "+SFGL20GlobalV.getType(pr.getType())+" "+
 				name+";\n";
-				System.out.println("adding declaration:"+declaration);
 				
 				parameters+=declaration;
 			}	
@@ -55,7 +54,7 @@ public class SFGlobalVSetGL20Implementor{
 		Iterator<SFParameteri> data=instance.getParameters().iterator();
 		
 		String res="\n";
-		Collection<SFParameteri> sfParameters=structure.getAllParameters();
+		List<SFParameteri> sfParameters=structure.getAllParameters();
 		int index=0;
 		for (Iterator<SFParameteri> iterator = sfParameters.iterator(); iterator.hasNext();) {
 			SFParameteri sfParameteri = (SFParameteri) iterator.next();

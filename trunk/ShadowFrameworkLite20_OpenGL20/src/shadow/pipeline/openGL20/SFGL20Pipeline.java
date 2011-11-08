@@ -8,6 +8,7 @@ public class SFGL20Pipeline {
 		SFPipeline.setSfProgramBuilder(new SFGL20ProgramBuilder());
 		SFPipeline.setSfPipelineGraphics(new SFGL20PipelineGraphics());
 		SFPipeline.setSfPipelineMemory(new SFGL20PipelineMemory());
+		SFPipeline.setSfTexturePipeline(new SFGL20TexturePipeline());
 		SFExpressionParser.getParser().setGenerator(new SFGL20ExpressionGenerator());
 	}
 }
