@@ -13,9 +13,9 @@ public class JavaCodePatterns {
 	
 	public static List<CodePattern> getPatterns(){
 
+		patterns.add(new JavaReturnPattern());
 		patterns.add(new JavaConstructorDeclaration());
 		patterns.add(new JavaPackageDeclaration());
-		patterns.add(new JavaReturnPattern());
 		patterns.add(new JavaAttributeAssignmentPattern());
 		patterns.add(new JavaAttributeDeclaration());
 		patterns.add(new JavaMethodDeclaration());
