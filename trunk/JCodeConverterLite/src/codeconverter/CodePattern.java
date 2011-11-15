@@ -39,8 +39,7 @@ public abstract class CodePattern implements ICodeElement {
 			if (lineCodeChars[index] == ' ' || lineCodeChars[index] == '\t') {
 				index++;
 			} else {
-				int result=elements.get(elementIndex).elementMatch(lineCode,
-						index);
+				int result=elements.get(elementIndex).elementMatch(lineCode,index);
 				if (result == -1) {
 					return false;
 				} else {
@@ -53,6 +52,7 @@ public abstract class CodePattern implements ICodeElement {
 			return true;
 		}else if(index == lineCodeChars.length){
 			for (int i = elementIndex; i < elements.size(); i++) {
+				//TODO: Fa schifo
 				if(!(elements.get(i) instanceof OptionalCode)){
 					return false;
 				}

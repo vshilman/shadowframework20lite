@@ -1,5 +1,10 @@
 package codeconverter;
 
+/**
+ * An attribute which can be assigned to a CodePattern 
+ * 
+ * @author Alessandro Martinelli
+ */
 public enum PatternType {
 
 	CLASS_DECLARATION("Class Declaration"),

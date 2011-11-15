@@ -1,8 +1,10 @@
 package codeconverter;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Note: implements Design Pattern Decorator
+ * 
+ * @author Alessandro Martinelli
+ */
 public class OptionalCode  implements ICodePiece {
 
 	private ICodePiece element;

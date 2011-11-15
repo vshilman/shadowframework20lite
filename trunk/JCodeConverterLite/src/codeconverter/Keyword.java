@@ -27,16 +27,4 @@ public abstract class Keyword implements ICodePiece{
 		return -1;
 	}
 	
-//	//Test
-//	public static void main(String[] args) {
-//		
-//		String[] alternatives={"ciao"};
-//			
-//		int check=checkAlternatives("  cia", 2, alternatives);
-//		System.out.println("check "+check);
-//		check=checkAlternatives("  ciao", 2, alternatives);
-//		System.out.println("check "+check);
-//		check=checkAlternatives("  ciaop", 2, alternatives);
-//		System.out.println("check "+check);
-//	}
 }
