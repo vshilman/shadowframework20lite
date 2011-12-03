@@ -27,8 +27,7 @@ public class Tests extends TestCase {
 	private String loadFile(String src) {
 		String text = "";
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(
-					src)));
+			BufferedReader reader = new BufferedReader(new FileReader(new File(src)));
 
 			String line = reader.readLine();
 			while (line != null) {
@@ -51,9 +50,9 @@ public class Tests extends TestCase {
 	}
 
 	private String format(String str) {
-		str = str.replaceAll(" ", "");
+		str = str.replaceAll("@\\w*\n", "");
 		str = str.replaceAll("\t", "");
-		str = str.replaceAll("\n\n", "");
+		str = str.replaceAll("\n\n", "\n");
 		return str;
 	}
 
