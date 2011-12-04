@@ -87,18 +87,18 @@ function initBuffers() {
 
 	squareVertexPositionBuffer[0] = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer[0]);
-	vertices = [ 1.0, 1.0, 0.0, -1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, -1.0, 0.0 ];
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+	var vertices2 = [ 1.0, 1.0, 0.0, -1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, -1.0, 0.0 ];
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW);
 	squareVertexPositionBuffer[1] = 3;
 	squareVertexPositionBuffer[2] = 4;
 
 	squareVertexColorBuffer[0] = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer[0]);
-	colors = []
+	var colors2 = []
 	for ( var i = 0; i < 4; i++) {
-		colors = colors.concat([ 1, 0.75, 0.8, 1.0 ]);
+		colors2 = colors2.concat([ 1, 0.75, 0.8, 1.0 ]);
 	}
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors2), gl.STATIC_DRAW);
 	squareVertexColorBuffer[1] = 4;
 	squareVertexColorBuffer[2] = 4;
 }
