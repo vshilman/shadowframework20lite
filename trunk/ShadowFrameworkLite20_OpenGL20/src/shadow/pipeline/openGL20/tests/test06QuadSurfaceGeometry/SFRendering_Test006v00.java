@@ -1,4 +1,4 @@
-package shadow.pipeline.openGL20.tests.test02;
+package shadow.pipeline.openGL20.tests.test06QuadSurfaceGeometry;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,16 +15,17 @@ import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
 
+import shadow.geometry.SFSurfaceFunction;
+import shadow.geometry.editing.SFConcreteTriangleExtractor;
+import shadow.geometry.geometries.SFMeshGeometry;
+import shadow.geometry.geometries.SFQuadsSurfaceGeometry;
 import shadow.material.SFStructureReference;
-import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
 import shadow.pipeline.SFArrayElementException;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.SFPrimitiveArray;
-import shadow.pipeline.SFPrimitiveIndices;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.SFStructureArray;
@@ -32,16 +33,21 @@ import shadow.pipeline.SFStructureData;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL2;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
+import shadow.pipeline.openGL20.tests.test02.SFRendering_Test002;
 import shadow.pipeline.parameters.SFPipelineRegister;
-import shadow.system.SFArray;
 import shadow.system.SFException;
+import shadow.system.data.SFDataset;
+import shadow.system.data.SFInputStream;
+import shadow.system.data.SFOutputStream;
 
 import com.sun.opengl.util.FPSAnimator;
 
-public class SFRendering_Test002 extends JFrame{
+
+public class SFRendering_Test006v00 extends JFrame{
 
 	private static final String BASIC_LSPN = "BasicLSPN";
 	private static final String BASIC_MAT = "BasicMat";
+	private static SFMeshGeometry geometry;
 	
 	private static SFProgram program;
 
@@ -50,32 +56,40 @@ public class SFRendering_Test002 extends JFrame{
 	private static SFStructureArray lightData;
 	private static SFStructureReference lightReference;
 	
-	private static SFPrimitiveArray primitiveData;
-	
 	public static void main(String[] args) {
-		
-		SFRendering_Test002 universe=new SFRendering_Test002();
+
+		SFRendering_Test006v00 universe=new SFRendering_Test006v00();
 		universe.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		universe.setVisible(true);
 		
 	}
 	
-	public SFRendering_Test002(){
-		
+	public SFRendering_Test006v00(){
+
 		try {
 			SFGL20Pipeline.setup();
-			
 			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"));
 			
-			String[] materials={BASIC_MAT};
 			SFPrimitive primitive=new SFPrimitive();
+			
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));
 
-			//registers,
+			CylinderFunction function=new CylinderFunction();
 			
+			SFConcreteTriangleExtractor trianglesExtractor=new SFConcreteTriangleExtractor();
+			SFQuadsSurfaceGeometry quadsSurfaceGeometry=new SFQuadsSurfaceGeometry(primitive,
+					function, null, trianglesExtractor, 5, 2);
+			
+			long time1=System.nanoTime();
+			quadsSurfaceGeometry.compile();
+			long time2=System.nanoTime();
+			System.out.println("Compile Time "+(time2-time1));
+			geometry=quadsSurfaceGeometry;
+
 			//primitives, transform
+			String[] materials={BASIC_MAT};
 			program=SFPipeline.getStaticProgram(primitive, materials, BASIC_LSPN);
 
 			//Material
@@ -105,44 +119,6 @@ public class SFRendering_Test002 extends JFrame{
 				e.printStackTrace();
 			}
 			
-			
-			//Primitive
-			primitiveData=SFPipeline.getSfPipelineMemory().generatePrimitiveArray(primitive);
-			int elementIndex=primitiveData.generateElements(1);
-			
-			SFArray<SFValuenf> verticesArray=primitiveData.getPrimitiveData(1);
-			SFArray<SFValuenf> normalsArray=primitiveData.getPrimitiveData(0);
-			int verticesIndex=verticesArray.generateElements(6);
-			int normalsIndex=normalsArray.generateElements(6);
-			
-			try {
-				verticesArray.setElement(verticesIndex+0,new SFVertex3f(1, 0, 0));
-				verticesArray.setElement(verticesIndex+1,new SFVertex3f(0, 1, 0));
-				verticesArray.setElement(verticesIndex+2,new SFVertex3f(0, 0, 1));
-				verticesArray.setElement(verticesIndex+3,new SFVertex3f(1, 1, 0));
-				verticesArray.setElement(verticesIndex+4,new SFVertex3f(0, 1, 1));
-				verticesArray.setElement(verticesIndex+5,new SFVertex3f(1, 0, 1));
-				
-				for (int i=0; i < 6; i++) {
-					SFVertex3f v=new SFVertex3f(0,0,0);
-					verticesArray.getElement(verticesIndex+i,v);
-					normalsArray.setElement(normalsIndex+i,v);
-				}
-				
-				SFPrimitiveIndices indices=new SFPrimitiveIndices(primitive);
-				
-				int prIndices[][]={{normalsIndex+0,normalsIndex+1,normalsIndex+2,
-					normalsIndex+3,normalsIndex+4,normalsIndex+5},
-						{verticesIndex+0,verticesIndex+1,verticesIndex+2,
-					verticesIndex+3,verticesIndex+4,verticesIndex+5}};
-				indices.setPrimitiveIndices(prIndices);
-				primitiveData.setElement(elementIndex, indices);
-				
-			} catch (SFArrayElementException e) {
-				e.printStackTrace();
-			}
-			
-			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -156,25 +132,69 @@ public class SFRendering_Test002 extends JFrame{
 			moduleException.printStackTrace();
 		}
 		
-		
+
 		setSize(400, 400);
 		
 		setTitle("Frame");
-		
-		
+	
 		GLCanvas canvas=new GLCanvas(new GLCapabilities(GLProfile.get(GLProfile.GL2)));
 		canvas.addGLEventListener(new EventListener001());
 		FPSAnimator animator=new FPSAnimator(canvas,30);
 		animator.start();
 		
 		getContentPane().add(canvas);
-		
 	}
 	
+	public static class CylinderFunction extends SFSurfaceFunction{
+		
+		@Override
+		public float getX(float u, float v) {
+			// TODO Auto-generated method stub
+			//return u*0.6f;
+			return 0.5f*(float)(Math.cos(2*Math.PI*u)*(0.5f+0.5f*(v*u)));
+		}
+		
+		@Override
+		public float getY(float u, float v) {
+			// TODO Auto-generated method stub
+			//return v*0.6f;
+			return 0.5f*(float)(Math.sin(2*Math.PI*u)*(0.5f+0.5f*(v*u)));
+		}
+		
+		@Override
+		public float getZ(float u, float v) {
+			// TODO Auto-generated method stub
+			return 0.5f*(float)((v));
+		}
+		
+		@Override
+		public SFDataset generateNewDatasetInstance() {
+			return null;
+		}
+		
+		@Override
+		public String getCode() {
+			return null;
+		}
+		
+		
+		@Override
+		public void readFromStream(SFInputStream stream) {
+			
+		}
+		
+		@Override
+		public void writeOnStream(SFOutputStream stream) {
+			
+		}
+	}
+
 	public static void init(){
 		//init program
 		SFPipeline.getSfProgramBuilder().prepareProgram(program);
 	}
+	
+	static float f=0;
 	
 	public static void render(){
 		
@@ -186,12 +206,16 @@ public class SFRendering_Test002 extends JFrame{
 		
 		//load light data
 		SFPipeline.getSfPipelineGraphics().loadStructureData(lightData, lightReference.getMaterialIndex());
+
 		
+		f+=0.01f;
+		SFPipeline.getSfPipelineGraphics().rotateModel(0.25f+f,0,0);
 		//load primitives
-		SFPipeline.getSfPipelineGraphics().drawPrimitives(primitiveData, 0, 1);
+		//SFPipeline.getSfPipelineGraphics().drawPrimitives(primitiveData, 0, 1);
+		geometry.drawGeometry(1);
 	}
 	
-	
+
 	
 	public static class EventListener001 implements GLEventListener{
 		
@@ -201,10 +225,14 @@ public class SFRendering_Test002 extends JFrame{
 		
 			GL2 gl=(GL2)(arg0.getGL());
 			gl.glClearColor(1,1,1,1);
-			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+			
+			gl.glEnable(GL2.GL_DEPTH_TEST);
+			
+			//gl.glPolygonMode(GL.GL_FRONT_AND_BACK, GL2.GL_LINE);
 			
 			SFGL2.setGl((GL2)arg0.getGL());
-			SFRendering_Test002.render();
+			SFRendering_Test006v00.render();
 		
 		}
 		
@@ -230,5 +258,4 @@ public class SFRendering_Test002 extends JFrame{
 		}
 		
 	}
-
 }

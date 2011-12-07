@@ -50,6 +50,12 @@ public class SFGL20PrimitiveArray extends SFGL20ListData<SFPrimitiveIndices> imp
 	}
 	
 	@Override
+	public void setElementData(int index, SFPrimitiveIndices element,
+			int registerIndex) throws SFArrayElementException {
+		data.get(index).setData(element, registerIndex);
+	}
+	
+	@Override
 	protected SFPrimitiveIndices generateGenericElement() {
 		return new SFPrimitiveIndices(primitive);
 	}

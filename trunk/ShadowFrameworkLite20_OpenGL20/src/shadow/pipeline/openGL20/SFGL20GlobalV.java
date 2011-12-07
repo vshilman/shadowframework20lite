@@ -14,7 +14,7 @@ public class SFGL20GlobalV {
 		definitions.put(SFParameteri.GLOBAL_FLOAT3, "vec3");
 		definitions.put(SFParameteri.GLOBAL_FLOAT4, "vec4");
 		definitions.put(SFParameteri.GLOBAL_MATRIX4, "mat4");
-		definitions.put(SFParameteri.GLOBAL_TEXTURE, "sampler");
+		definitions.put(SFParameteri.GLOBAL_TEXTURE, "sampler2D");
 	}
 	
 	public static String getRegisterName(SFPipelineRegister register){		

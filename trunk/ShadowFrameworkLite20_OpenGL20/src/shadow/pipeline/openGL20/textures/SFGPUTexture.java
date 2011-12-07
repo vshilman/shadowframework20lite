@@ -133,15 +133,12 @@ public class SFGPUTexture {
 		gl.glViewport((int)vp[0], (int)vp[1], (int)vp[2], (int)vp[3]);
 	}
 
-
 	public int getFbo() {
 		return fbo;
 	}
 
-
 	public int getTexture_object() {
 		return texture_object;
 	}
-	
 	
 }

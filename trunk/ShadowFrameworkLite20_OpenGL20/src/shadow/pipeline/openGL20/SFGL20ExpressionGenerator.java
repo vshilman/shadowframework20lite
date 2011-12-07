@@ -13,10 +13,12 @@ import shadow.pipeline.expression.SFExpressionGeneratori;
 import shadow.pipeline.expression.SFExpressionMinus;
 import shadow.pipeline.expression.SFExpressionMult;
 import shadow.pipeline.expression.SFExpressionOperator;
+import shadow.pipeline.expression.SFExpressionPoint;
 import shadow.pipeline.expression.SFExpressionSqrt;
 import shadow.pipeline.expression.SFExpressionSum;
 import shadow.pipeline.expression.SFExpressionTypeWrapper;
 import shadow.pipeline.expression.SFExpressionVariable;
+import shadow.pipeline.expression.SFExpressionVector;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFGL20ExpressionGenerator implements SFExpressionGeneratori,SFExpressionElementInterpreter{
@@ -36,6 +38,7 @@ public class SFGL20ExpressionGenerator implements SFExpressionGeneratori,SFExpre
 		functionsOperator.put(":","clampf");
 		functionsOperator.put("°","dot");
 		functionsOperator.put("#","sqrt");
+		functionsOperator.put(".","texture2D");
 	}
 	
 	/* return null if operator string is not a function operator*/
@@ -215,6 +218,12 @@ public class SFGL20ExpressionGenerator implements SFExpressionGeneratori,SFExpre
 		}
 		if(operatorSymbol.equalsIgnoreCase("#")){
 			return new SFExpressionSqrt();
+		}
+		if(operatorSymbol.equalsIgnoreCase(".")){
+			return new SFExpressionPoint();
+		}
+		if(operatorSymbol.equalsIgnoreCase(",")){
+			return new SFExpressionVector();
 		}
 		return new SFExpressionSum();
 	}

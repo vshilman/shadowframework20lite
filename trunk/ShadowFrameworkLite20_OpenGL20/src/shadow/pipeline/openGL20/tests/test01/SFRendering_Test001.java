@@ -121,16 +121,16 @@ public class SFRendering_Test001 extends JFrame{
 				verticesArray.setElement(verticesIndex+1,new SFVertex3f(1, 0, 0));
 				verticesArray.setElement(verticesIndex+2,new SFVertex3f(0, 1, 0));
 				verticesArray.setElement(verticesIndex+3,new SFVertex3f(0.5f, 0, 0));
-				verticesArray.setElement(verticesIndex+4,new SFVertex3f(0, 0.5f, 0));
-				verticesArray.setElement(verticesIndex+5,new SFVertex3f(0.5f, 0.5f, 0));
+				verticesArray.setElement(verticesIndex+4,new SFVertex3f(0.5f, 0.5f, 0));
+				verticesArray.setElement(verticesIndex+5,new SFVertex3f(0, 0.5f, 0));
 				
 				normalsArray.setElement(normalsIndex+0,new SFVertex3f(0,0,1));
 				
 				SFPrimitiveIndices indices=new SFPrimitiveIndices(primitive);
 				
-				int prIndices[][]={{verticesIndex+0,verticesIndex+1,verticesIndex+2,
-					verticesIndex+3,verticesIndex+4,verticesIndex+5},
-					{normalsIndex,normalsIndex,normalsIndex}};
+				int prIndices[][]={{normalsIndex,normalsIndex,normalsIndex},
+						{verticesIndex+0,verticesIndex+1,verticesIndex+2,
+					verticesIndex+3,verticesIndex+4,verticesIndex+5}};
 				indices.setPrimitiveIndices(prIndices);
 				primitiveData.setElement(elementIndex, indices);
 				
