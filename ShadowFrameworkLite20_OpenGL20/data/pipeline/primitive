@@ -17,7 +17,7 @@
 @begin Primitive Triangle2
 @grid A,B,C,D,E,F as Bezier2Grid:<>
 @use uvw
-@write <> A*w*w+B*u*u+C*v*v+D*2*w*u+E*2*w*v+F*2*u*v
+@write <> A*w*w+B*u*u+C*v*v+D*2*u*w+E*2*u*v+F*2*v*w
 @end
 
 @begin Primitive Triangle3
@@ -50,6 +50,12 @@
 @write color diffColor 
 @end
 
+@begin Material TexturedMat
+@use texture0
+@use texCoord0
+@write color texture0.texCoord0
+@end
+
 @begin LightStep BasicLSPN
 @param intensity,lPosition as PLight01
 @use normal 
@@ -59,6 +65,24 @@
 @define tmp2:1 #(tmp1配mp1)
 @define tmp3:3 (normal配mp1)/tmp2 
 @write fColor color*intensity*tmp3
+@end
+
+@begin LightStep DrawNormals
+@use normal  
+@write fColor normal
+@end
+
+@begin LightStep DrawDus
+@use duVector  
+@write fColor duVector
+@end
+
+@begin LightStep VectorsLight
+@use normal 
+@use duVector 
+@use dvVector
+@define tmp1:3 (0,1,1)
+@write fColor (duVector配mp1),(dvVector配mp1),(normal配mp1),1
 @end
 
 

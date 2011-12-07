@@ -11,6 +11,7 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLException;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
@@ -38,6 +39,8 @@ import shadow.system.SFArray;
 import shadow.system.SFException;
 
 import com.sun.opengl.util.FPSAnimator;
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
 
 public class SFRendering_Test003 extends JFrame{
 
@@ -57,8 +60,7 @@ public class SFRendering_Test003 extends JFrame{
 		
 		SFRendering_Test003 universe=new SFRendering_Test003();
 		universe.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		universe.setVisible(true);
-		
+		universe.setVisible(true);	
 	}
 	
 	public SFRendering_Test003(){
@@ -124,8 +126,8 @@ public class SFRendering_Test003 extends JFrame{
 				verticesArray.setElement(verticesIndex+1,new SFVertex3f(0, 1, 0));
 				verticesArray.setElement(verticesIndex+2,new SFVertex3f(0, 0, 1));
 				verticesArray.setElement(verticesIndex+3,new SFVertex3f(1, 1, 0));
-				verticesArray.setElement(verticesIndex+4,new SFVertex3f(1, 0, 1));
-				verticesArray.setElement(verticesIndex+5,new SFVertex3f(0, 1, 1));
+				verticesArray.setElement(verticesIndex+4,new SFVertex3f(0, 1, 1));
+				verticesArray.setElement(verticesIndex+5,new SFVertex3f(1, 0, 1));
 				
 				for (int i=0; i < 6; i++) {
 					SFVertex3f v=new SFVertex3f(0,0,0);
@@ -181,6 +183,8 @@ public class SFRendering_Test003 extends JFrame{
 	}
 	
 	public static void init(){
+		
+		
 		//init program
 		SFPipeline.getSfProgramBuilder().prepareProgram(program);
 	}
@@ -227,6 +231,16 @@ public class SFRendering_Test003 extends JFrame{
 		public void init(GLAutoDrawable arg0) {
 			
 			SFGL2.setGl((GL2)arg0.getGL());
+			
+			try {
+				Texture texture=TextureIO.newTexture(new File("colle.jpg"),true);
+				texture.bind();
+				
+			} catch (GLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 			SFRendering_Test003.init();
 		}

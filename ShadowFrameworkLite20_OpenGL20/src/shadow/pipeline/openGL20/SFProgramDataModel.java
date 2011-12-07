@@ -11,9 +11,11 @@ public interface SFProgramDataModel {
 	public void setData(SFPipelineStructureInstance structure,
 			SFStructureData data);
 
-	public void setTransformData(float x, float y, float z);
+	public void setTransformData(float x, float y, float z, float rx, float ry,
+			float rz);
 
 	public void setIndexedData(SFPrimitiveIndices indices,
-			SFGL20ListData<SFValuenf>[] datas,Integer[][] uniforms,SFPipelineRegister[] registers);
+			SFGL20ListData<SFValuenf>[] datas, Integer[][] uniforms,
+			SFPipelineRegister[] registers);
 
 }

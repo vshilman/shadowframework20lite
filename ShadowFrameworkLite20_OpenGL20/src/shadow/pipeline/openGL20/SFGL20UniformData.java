@@ -152,19 +152,40 @@ public class SFGL20UniformData implements SFProgramDataModel {
 	 * @see shadow.pipeline.openGL20.SFProgramDataModel#setTransformData(float, float, float)
 	 */
 	@Override
-	public void setTransformData( float x, float y, float z){
+	public void setTransformData( float x, float y, float z, float rx,float ry,float rz){
 		
-		float matrix[]={
+		float c1=(float)(Math.cos(rz));
+		float s1=(float)(Math.sin(rz));
+		float c2=(float)(Math.cos(rx));
+		float s2=(float)(Math.sin(rx));
+		float c3=(float)(Math.cos(ry));
+		float s3=(float)(Math.sin(ry));
+		
+		float modelview[]={
+				c1*c3+s1*s2*s3,		c1*s2*s3-c3*s1,	c2*s3,0,
+				c2*s1,				c1*c2,			-s2,0,
+				c3*s1*s2-c1*s3,		s1*s3+c1*c3*s2,	c2*c3,0,
+				x,y,z,1
+		};
+		
+		float projection[]={
 				1,0,0,0,
 				0,1,0,0,
 				0,0,1,0,
 				0,0,0,1
 		};
+
+		float vModelview[]={
+				c1*c3+s1*s2*s3,		c1*s2*s3-c3*s1,	c2*s3,0,
+				c2*s1,				c1*c2,			-s2,0,
+				c3*s1*s2-c1*s3,		s1*s3+c1*c3*s2,	c2*c3,0,
+				0,0,0,1
+		};
 		
-		//All transforms are identity now
-		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[0],1,false,matrix,0);
-		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[1],1,false,matrix,0);
-		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[2],1,false,matrix,0);
+		//All transforms are identity no more..
+		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[0],1,false,projection,0);
+		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[1],1,false,modelview,0);
+		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[2],1,false,vModelview,0);
 	}
 
 	

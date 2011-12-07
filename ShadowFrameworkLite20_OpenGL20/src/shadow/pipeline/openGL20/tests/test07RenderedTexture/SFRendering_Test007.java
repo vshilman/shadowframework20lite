@@ -1,4 +1,4 @@
-package shadow.pipeline.openGL20.tests.test02;
+package shadow.pipeline.openGL20.tests.test07RenderedTexture;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 
 import shadow.material.SFStructureReference;
 import shadow.math.SFValuenf;
+import shadow.math.SFVertex2f;
 import shadow.math.SFVertex3f;
 import shadow.pipeline.SFArrayElementException;
 import shadow.pipeline.SFPipeline;
@@ -29,6 +30,7 @@ import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
+import shadow.pipeline.SFTextureData;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL2;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
@@ -38,7 +40,7 @@ import shadow.system.SFException;
 
 import com.sun.opengl.util.FPSAnimator;
 
-public class SFRendering_Test002 extends JFrame{
+public class SFRendering_Test007 extends JFrame{
 
 	private static final String BASIC_LSPN = "BasicLSPN";
 	private static final String BASIC_MAT = "BasicMat";
@@ -52,15 +54,18 @@ public class SFRendering_Test002 extends JFrame{
 	
 	private static SFPrimitiveArray primitiveData;
 	
+	private static int texture;
+	
+	
 	public static void main(String[] args) {
 		
-		SFRendering_Test002 universe=new SFRendering_Test002();
+		SFRendering_Test007 universe=new SFRendering_Test007();
 		universe.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		universe.setVisible(true);
 		
 	}
 	
-	public SFRendering_Test002(){
+	public SFRendering_Test007(){
 		
 		try {
 			SFGL20Pipeline.setup();
@@ -71,6 +76,7 @@ public class SFRendering_Test002 extends JFrame{
 			SFPrimitive primitive=new SFPrimitive();
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
+			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("Tx0"), (SFProgramComponent)(SFPipeline.getModule("Triangle")));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));
 
 			//registers,
@@ -112,29 +118,36 @@ public class SFRendering_Test002 extends JFrame{
 			
 			SFArray<SFValuenf> verticesArray=primitiveData.getPrimitiveData(1);
 			SFArray<SFValuenf> normalsArray=primitiveData.getPrimitiveData(0);
+			SFArray<SFValuenf> texturesArray=primitiveData.getPrimitiveData(2);
 			int verticesIndex=verticesArray.generateElements(6);
 			int normalsIndex=normalsArray.generateElements(6);
+			int txIndex=texturesArray.generateElements(3);
 			
 			try {
 				verticesArray.setElement(verticesIndex+0,new SFVertex3f(1, 0, 0));
 				verticesArray.setElement(verticesIndex+1,new SFVertex3f(0, 1, 0));
 				verticesArray.setElement(verticesIndex+2,new SFVertex3f(0, 0, 1));
 				verticesArray.setElement(verticesIndex+3,new SFVertex3f(1, 1, 0));
-				verticesArray.setElement(verticesIndex+4,new SFVertex3f(0, 1, 1));
-				verticesArray.setElement(verticesIndex+5,new SFVertex3f(1, 0, 1));
+				verticesArray.setElement(verticesIndex+4,new SFVertex3f(1, 0, 1));
+				verticesArray.setElement(verticesIndex+5,new SFVertex3f(0, 1, 1));
 				
 				for (int i=0; i < 6; i++) {
 					SFVertex3f v=new SFVertex3f(0,0,0);
 					verticesArray.getElement(verticesIndex+i,v);
 					normalsArray.setElement(normalsIndex+i,v);
 				}
+
+				texturesArray.setElement(txIndex+0,new SFVertex2f(0, 0));
+				texturesArray.setElement(txIndex+1,new SFVertex2f(1, 0));
+				texturesArray.setElement(txIndex+2,new SFVertex2f(0, 1));
 				
 				SFPrimitiveIndices indices=new SFPrimitiveIndices(primitive);
 				
 				int prIndices[][]={{normalsIndex+0,normalsIndex+1,normalsIndex+2,
 					normalsIndex+3,normalsIndex+4,normalsIndex+5},
 						{verticesIndex+0,verticesIndex+1,verticesIndex+2,
-					verticesIndex+3,verticesIndex+4,verticesIndex+5}};
+					verticesIndex+3,verticesIndex+4,verticesIndex+5},
+					{txIndex+0,txIndex+1,txIndex+2}};
 				indices.setPrimitiveIndices(prIndices);
 				primitiveData.setElement(elementIndex, indices);
 				
@@ -174,23 +187,32 @@ public class SFRendering_Test002 extends JFrame{
 	public static void init(){
 		//init program
 		SFPipeline.getSfProgramBuilder().prepareProgram(program);
+
+		//TODO: two step rendering: generate 
+					// bitmap
+					// noise function
+					// noise function
+		SFRendering_Test007.texture=SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(new SFTextureData(200,200));
+		
+			//load program
+			SFPipeline.getSfProgramBuilder().loadProgram(program);
+			
+			//load material data
+			SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
+			
+			//load light data
+			SFPipeline.getSfPipelineGraphics().loadStructureData(lightData, lightReference.getMaterialIndex());
+			
+			//load primitives
+			SFPipeline.getSfPipelineGraphics().drawPrimitives(primitiveData, 0, 1);
+		
+		SFPipeline.getSfTexturePipeline().endRenderedTexture(texture);
+		
 	}
 	
 	public static void render(){
 		
-		//load program
-		SFPipeline.getSfProgramBuilder().loadProgram(program);
-		
-		//load material data
-		SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
-		
-		//load light data
-		SFPipeline.getSfPipelineGraphics().loadStructureData(lightData, lightReference.getMaterialIndex());
-		
-		//load primitives
-		SFPipeline.getSfPipelineGraphics().drawPrimitives(primitiveData, 0, 1);
 	}
-	
 	
 	
 	public static class EventListener001 implements GLEventListener{
@@ -200,26 +222,50 @@ public class SFRendering_Test002 extends JFrame{
 			// TODO Auto-generated method stub
 		
 			GL2 gl=(GL2)(arg0.getGL());
-			gl.glClearColor(1,1,1,1);
+			
+			gl.glClearColor(0.1f,1,0,1);
 			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 			
 			SFGL2.setGl((GL2)arg0.getGL());
-			SFRendering_Test002.render();
-		
+
+			gl.glUseProgram(0);
+			gl.glEnable(GL2.GL_BLEND);
+			gl.glBlendFunc(GL2.GL_SRC_ALPHA,GL2.GL_ONE_MINUS_SRC_ALPHA);
+			
+			gl.glEnable(GL.GL_TEXTURE_2D);
+			
+			gl.glDisable(GL2.GL_LIGHTING);
+			gl.glBindTexture(GL2.GL_TEXTURE_2D,texture);
+			gl.glColor3f(1,1,1);
+			gl.glTexParameterf(GL2.GL_TEXTURE_2D,GL2.GL_TEXTURE_MIN_FILTER,GL2.GL_LINEAR);
+			gl.glTexEnvi(GL2.GL_TEXTURE_ENV,GL2.GL_TEXTURE_ENV_MODE,GL2.GL_MODULATE);
+			gl.glBegin(GL2.GL_TRIANGLE_STRIP);
+				gl.glTexCoord2f(0,0);
+				gl.glVertex2f(0,0);
+				gl.glTexCoord2f(1,0);
+				gl.glVertex2f(0.9f,0);
+				gl.glTexCoord2f(0,1);
+				gl.glVertex2f(0,0.9f);
+				gl.glTexCoord2f(1,1);
+				gl.glVertex2f(0.9f,0.9f);
+			gl.glEnd();
 		}
 		
 		@Override
 		public void dispose(GLAutoDrawable arg0) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub	
 		}
 		
 		@Override
 		public void init(GLAutoDrawable arg0) {
 			
 			SFGL2.setGl((GL2)arg0.getGL());
+
+			GL2 gl=(GL2)(arg0.getGL());
+			gl.glClearColor(1,1,1,1);
+			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 			
-			SFRendering_Test002.init();
+			SFRendering_Test007.init();
 		}
 		
 		@Override

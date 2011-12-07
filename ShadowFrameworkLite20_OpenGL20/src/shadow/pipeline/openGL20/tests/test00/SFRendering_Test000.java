@@ -97,20 +97,6 @@ public class SFRendering_Test000 extends JFrame{
 			System.err.println("((SFVertex3f)mat.getValue(0)) "+((SFVertex3f)mat.getValue(0)));
 			System.err.println("((SFVertex3f)mat.getValue(1)) "+((SFVertex3f)mat.getValue(1)));
 			
-//			//Light
-//			SFPipelineStructure lighStructure=SFPipeline.getStructure("PLight01");
-//			lightData=SFPipeline.getSfPipelineMemory().generateStructureData(lighStructure); 
-//			lightReference=new SFStructureReference(lightData); 
-//			SFStructureData lit=new SFStructureData(lighStructure);
-//			((SFVertex3f)lit.getValue(0)).set3f(1, 1, 1);
-//			((SFVertex3f)lit.getValue(1)).set3f(1, 1, 1);
-//			try {
-//				lightReference.setStructureData(lit);
-//			} catch (SFArrayElementException e) {
-//				e.printStackTrace();
-//			}		
-			
-			
 			//Primitive
 			primitiveData=SFPipeline.getSfPipelineMemory().generatePrimitiveArray(primitive);
 			elementIndex=primitiveData.generateElements(4);
@@ -184,7 +170,7 @@ public class SFRendering_Test000 extends JFrame{
 	
 	public static void render(){
 		
-		long t1=System.nanoTime();
+		//long t1=System.nanoTime();
 		
 		//load program
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
@@ -194,9 +180,9 @@ public class SFRendering_Test000 extends JFrame{
 		
 		//load primitives
 		SFPipeline.getSfPipelineGraphics().drawPrimitives(primitiveData, elementIndex, 4);
-		long t2=System.nanoTime();
+		//long t2=System.nanoTime();
 		
-		System.out.println("t2-t2 "+(t2-t1));
+		//ystem.out.println("t2-t2 "+(t2-t1));
 	}
 	
 	
@@ -210,6 +196,8 @@ public class SFRendering_Test000 extends JFrame{
 			GL2 gl=(GL2)(arg0.getGL());
 			gl.glClearColor(1,1,1,1);
 			gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+			
+			//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL2.GL_LINE);
 			
 			SFGL2.setGl((GL2)arg0.getGL());
 			SFRendering_Test000.render();
