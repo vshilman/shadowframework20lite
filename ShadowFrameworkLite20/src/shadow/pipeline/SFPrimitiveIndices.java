@@ -18,6 +18,10 @@ public class SFPrimitiveIndices {
 
 	int primitiveIndices[][];
 	
+	private SFPrimitiveIndices(){
+		
+	}
+	
 	public SFPrimitiveIndices(SFPrimitive primitive){
 		
 		List<Entry<SFPipelineRegister, SFProgramComponent>> map=primitive.getPrimitiveMap();
@@ -38,11 +42,16 @@ public class SFPrimitiveIndices {
 			 
 			LinkedList<SFParameteri> parameters=component.getGrid().getParameters();
 			
-			System.err.println("Index "+index+" paramSize "+parameters.size()+" "+entry.getKey().getName());
 			primitiveIndices[index]=new int[parameters.size()];
 			
 		}	
 	
+	}
+	
+	public void setData(SFPrimitiveIndices indices,int registerIndex){
+		for (int j = 0; j < primitiveIndices[registerIndex].length; j++) {
+			primitiveIndices[registerIndex][j]=indices.primitiveIndices[registerIndex][j];
+		}
 	}
 	
 	public void set(SFPrimitiveIndices indices){
@@ -61,5 +70,12 @@ public class SFPrimitiveIndices {
 		this.primitiveIndices = primitiveIndices;
 	}
 	
-	
+	public SFPrimitiveIndices clone(){
+		SFPrimitiveIndices indices=new SFPrimitiveIndices();
+		indices.primitiveIndices=new int[this.primitiveIndices.length][];
+		for (int i = 0; i < indices.primitiveIndices.length; i++) {
+			indices.primitiveIndices[i]=new int[this.primitiveIndices[i].length];
+		}
+		return indices;
+	}
 }

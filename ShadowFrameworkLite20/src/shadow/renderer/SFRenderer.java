@@ -90,7 +90,7 @@ public class SFRenderer {
 		// Place the object Node
 		// only positions are going to be set. Other transforms resides into
 		// geometry level
-		SFPipeline.getSfPipelineGraphics().setModelPosition(node.x,node.y,node.z);
+		SFPipeline.getSfPipelineGraphics().translateModel(node.x,node.y,node.z);
 
 		// Load rendering program
 		SFProgram program=node.getProgram(lightSteIndex,lightStep);

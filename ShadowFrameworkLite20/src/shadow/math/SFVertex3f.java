@@ -37,6 +37,10 @@ public class SFVertex3f extends SFVertex2f{
 		set3d(x,y,z);
 	}
 
+	public SFVertex3f() {
+		this(0,0,0);
+	}
+
 	public float getZ(){
 		return v[2];
 	}
@@ -153,4 +157,8 @@ public class SFVertex3f extends SFVertex2f{
 		);
 	}
 	
+	@Override
+	public SFValuenf cloneValue() {
+		return new SFVertex3f(v[0],v[1],v[2]);
+	}
 }

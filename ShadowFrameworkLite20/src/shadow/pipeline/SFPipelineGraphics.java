@@ -3,7 +3,9 @@ package shadow.pipeline;
 
 public interface SFPipelineGraphics {
 	
-	public void setModelPosition(float modelX,float modelY,float modelZ);
+	public void translateModel(float modelX,float modelY,float modelZ);
+	
+	public void rotateModel(float rotX,float rotY,float rotZ);
 	
 	public void drawPrimitives(SFPrimitiveArray primitives,int first,int count);
 	
