@@ -12,5 +12,9 @@ public interface SFPrimitiveArray extends SFArray<SFPrimitiveIndices>{
 	
 	public SFArray<SFValuenf> getPrimitiveData(int index);
 	
+	/**
+	 */
+	public void setElementData(int index,SFPrimitiveIndices element,int registerIndex) throws SFArrayElementException;
+	
 	public SFPipelineRegister[] getRegisters();
 }

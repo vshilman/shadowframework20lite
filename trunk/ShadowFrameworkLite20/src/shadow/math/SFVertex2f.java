@@ -77,8 +77,8 @@ public class SFVertex2f extends SFValue1f{
 	}
 	
 	public void addMult2f(float a,SFVertex2f vx){
+		v[0]+=vx.v[0]*a;
 		v[1]+=vx.v[1]*a;
-		v[2]+=vx.v[2]*a;
 	}
 	
 	public void scale2f(float sx,float sy){

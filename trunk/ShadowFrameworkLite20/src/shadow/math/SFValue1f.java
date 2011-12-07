@@ -50,4 +50,5 @@ public class SFValue1f extends SFValuenf{
 	public SFValuenf cloneValue() {
 		return new SFValue1f(this.v[0]);
 	}
+	
 }

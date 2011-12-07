@@ -234,5 +234,11 @@ public class SFMatrix2f extends SFValuenf {
 		v[2]=c;
 		v[3]=d;
 	}
+	
+	@Override
+	public void addMult(float scalar, SFValuenf value) {
+		v[0]+=scalar*value.v[0];
+	}
+	
 
 }

@@ -29,21 +29,7 @@ public abstract class SFGeometry extends SFAsset{
 	//public abstract String[] getTransforms();
 	
 	public abstract void drawGeometry(int lod);
-	
 
-	@Override
-	public void allocateBuffers() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	@Override
-	public void deallocateBuffers() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	public int getRendering_hint() {
 		return rendering_hint;
