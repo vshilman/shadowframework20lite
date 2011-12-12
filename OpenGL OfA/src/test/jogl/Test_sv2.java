@@ -2,7 +2,6 @@ package test.jogl;
 
 import java.nio.FloatBuffer;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -65,8 +64,8 @@ public class Test_sv2 implements GLEventListener {
 
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		gl.glEnable(GL2.GL_DEPTH_TEST);
-		gl.glCullFace(GL.GL_BACK);
-		gl.glEnable(GL.GL_CULL_FACE);
+		gl.glCullFace(GL2.GL_BACK);
+		gl.glEnable(GL2.GL_CULL_FACE);
 	}
 
 	@Override
@@ -144,13 +143,13 @@ public class Test_sv2 implements GLEventListener {
 		float cx = (float) Math.cos(rAngle);
 		float sx = (float) Math.sin(rAngle);
 
-		float[] pMatrixv = new float[] { cx, sx * sx, -cx * sx, 0, 0, cx, sx, 0, sx, -cx * sx, cx * cx, 0, 0, 0, 0, 3 };
+		float[] pMatrixv = new float[] { 2.4142136573791504f, 0, 0, 0, 0, 2.4142136573791504f, 0, 0, 0, 0, -1.0020020008087158f, -1, 0, 0, -0.20020020008087158f, 0 };
 		pMatrix = BufferUtil.newFloatBuffer(pMatrixv);
 
-		float[] mvMatrixv = new float[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
+		float[] mvMatrixv = new float[] { cx, sx * sx, -cx * sx, 0, 0, cx, sx, 0, sx, -cx * sx, cx * cx, 0, 0, 0, -8, 1 };
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		gl.glFrontFace(GL.GL_CW);
+		gl.glFrontFace(GL2.GL_CCW);
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexPositionBuffer[0]);
 		gl.glVertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0);
 
@@ -160,7 +159,7 @@ public class Test_sv2 implements GLEventListener {
 		setMatrixUniforms(gl);
 		gl.glDrawArrays(GL2.GL_TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2]);
 
-		gl.glFrontFace(GL.GL_CCW);
+		gl.glFrontFace(GL2.GL_CW);
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexPositionBuffer[0]);
 		gl.glVertexAttribPointer(vertexPositionAttribute, baseVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0);
 
