@@ -110,11 +110,11 @@ function drawScene() {
 	var cx = Math.cos(rAngle);
 	var sx = Math.sin(rAngle);
 
-	pMatrix = new Float32Array([ cx, sx * sx, -cx * sx, 0, 0, cx, sx, 0, sx, -cx * sx, cx * cx, 0, 0, 0, 0, 3 ]);
+	pMatrix = new Float32Array([ 2.4142136573791504, 0, 0, 0, 0, 2.4142136573791504, 0, 0, 0, 0, -1.0020020008087158, -1, 0, 0, -0.20020020008087158, 0 ]);
 
-	mvMatrix = new Float32Array([ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]);
+	mvMatrix = new Float32Array([ cx, sx * sx, -cx * sx, 0, 0, cx, sx, 0, sx, -cx * sx, cx * cx, 0, 0, 0, -8, 1 ]);
 
-	gl.frontFace(gl.CW);
+	gl.frontFace(gl.CCW);
 	gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0]);
 	gl.vertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
 
@@ -124,7 +124,7 @@ function drawScene() {
 	setMatrixUniforms();
 	gl.drawArrays(gl.TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2]);
 
-	gl.frontFace(gl.CCW);
+	gl.frontFace(gl.CW);
 	gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexPositionBuffer[0]);
 	gl.vertexAttribPointer(vertexPositionAttribute, baseVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
 
