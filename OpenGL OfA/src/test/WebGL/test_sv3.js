@@ -102,16 +102,16 @@ function initBuffers() {
 
 function initTexture() {
 	texture1[0] = gl.createTexture();
-	var image = new Image();
-	image.onload = function() {
+	var tex = new Image();
+	tex.onload = function() {
 		gl.bindTexture(gl.TEXTURE_2D, texture1[0]);
-		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex);
 		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
 		gl.bindTexture(gl.TEXTURE_2D, null);
 	}
 
-	image.src = "images/crate.gif";
+	tex.src = "images/crate.gif";
 }
 
 function drawScene() {
