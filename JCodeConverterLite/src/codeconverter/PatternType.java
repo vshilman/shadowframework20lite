@@ -7,6 +7,9 @@ package codeconverter;
  */
 public enum PatternType {
 
+	CLASS("Class"),
+	CONSTRUCTUR("Method"),
+	METHOD("Method"),
 	CLASS_DECLARATION("Class Declaration"),
 	CONSTRUCTOR_DECLARATION("Constructor Declaration"),
 	METHOD_DECLARATION("Method Declaration"),

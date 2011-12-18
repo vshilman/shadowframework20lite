@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import codeconverter.CodePattern;
+import codeconverter.java.codelines.JavaAssignment;
 import codeconverter.java.codelines.JavaAttributeAssignmentPattern;
 import codeconverter.java.codelines.JavaReturnPattern;
 
@@ -21,6 +22,7 @@ public class JavaCodePatterns {
 		patterns.add(new JavaMethodDeclaration());
 		patterns.add(new JavaBlockClose());
 		patterns.add(new JavaClassDeclaration());
+		patterns.add(new JavaAssignment());
 		
 		return patterns;
 	}

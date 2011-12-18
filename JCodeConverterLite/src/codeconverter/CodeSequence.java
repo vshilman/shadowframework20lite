@@ -55,7 +55,11 @@ public class CodeSequence implements ICodePiece {
 	@Override
 	public ICodePiece cloneCodePiece() {
 		CodeSequence sequence=new CodeSequence();
-		sequence.pieces.addAll(pieces);
+		for (int i=0; i < pieces.size(); i++) {
+			ICodePiece cloned=(ICodePiece)pieces.get(i);
+			sequence.pieces.add(cloned);
+		}
+		//sequence.pieces.addAll(pieces);//something going
 		return sequence;
 	}
 }

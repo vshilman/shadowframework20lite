@@ -1,10 +1,11 @@
 package codeconverter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class CodePattern implements ICodeElement {
+public abstract class CodePattern extends AbstractCodeTemplate{
 
 	/*
 	 * a Pattern for a line of code. all translation will be based on
@@ -12,8 +13,6 @@ public abstract class CodePattern implements ICodeElement {
 	 */
 	private String name="";
 	private List<ICodePiece> elements=new LinkedList<ICodePiece>();
-	private List<PatternType> patternType=new LinkedList<PatternType>();
-
 	public CodePattern(String name/* ,PatternType patternType */) {
 		super();
 		this.name=name;
@@ -22,12 +21,6 @@ public abstract class CodePattern implements ICodeElement {
 	public void addCodePiece(ICodePiece... piece) {
 		for (int i=0; i < piece.length; i++) {
 			elements.add(piece[i]);
-		}
-	}
-
-	public void addCodePattern(PatternType... type) {
-		for (int i=0; i < type.length; i++) {
-			patternType.add(type[i]);
 		}
 	}
 
@@ -68,7 +61,7 @@ public abstract class CodePattern implements ICodeElement {
 		List<CodeMatch> match=new ArrayList<CodeMatch>();
 		for (int i=0; i < code.size(); i++) {
 			if (match(code.get(i))) {
-				match.add(new CodeMatch(i,i,cloneCodePiece()));
+				match.add(new CodeMatch(i,i,(ICodeTemplate)cloneCodePiece()));
 			}
 		}
 

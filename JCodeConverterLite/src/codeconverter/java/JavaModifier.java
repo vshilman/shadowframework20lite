@@ -23,6 +23,8 @@ public class JavaModifier extends Keyword{
 		modifier=new JavaModifier();
 		modifier.modifier=new Modifier(modifiers[keywordIndex]);
 		
+		//System.err.println("Cloned Modifier "+modifier+" "+modifiers[keywordIndex]+" "+keywordIndex);
+		
 		return modifier;
 	}
 	
