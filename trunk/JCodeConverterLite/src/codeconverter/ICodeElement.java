@@ -1,11 +1,13 @@
 package codeconverter;
 
+import java.util.List;
+
 /**
  * An Element in the Code which has been identified
  * 
  * @author Alessandro
  */
-public interface ICodeElement {
+public interface ICodeElement{
 
 	/**
 	 * Clone this code Element. Clone is usually called 
@@ -15,6 +17,6 @@ public interface ICodeElement {
 	 * 
 	 * @return  
 	 */
-	public ICodeElement cloneCodePiece();
+	public abstract ICodeElement cloneCodePiece();
 
 }

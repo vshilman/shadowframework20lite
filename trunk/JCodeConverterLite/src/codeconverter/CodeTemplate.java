@@ -1,49 +1,82 @@
 package codeconverter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class CodeTemplate implements ICodeElement {
-
-	public enum Cardinality {
-		ONCE, // [1]
-		MORE, // [*]
-		AT_LEAST_ONCE, // [1,*]
-		NO_MORE_THAN_ONCE
-		// [0,1]
+/**
+ * @author Alessandro Martinelli
+ */
+//Note: this is abstract, so that specific pattern methods can be described.
+public abstract class CodeTemplate extends AbstractCodeTemplate {
+	
+	private String name="";
+	private List<CodeElementProfile> elements=new ArrayList<CodeElementProfile>();
+	
+	public CodeTemplate(String name) {
+		super();
+		this.name=name;
 	}
-
-	public List<CodeMatch> matchPattern(List<CodeMatch> matches) {
-		List<CodeMatch> match=new ArrayList<CodeMatch>();
-
-		int index=0;
-		while (index < matches.size()) {
-			// if(((CodePattern)(matches.get(index).getMatcher())).getPatternType()==PatternType.METHOD_DECLARATION){
-			// System.out.println("I have found a match at "+index);
-			// int tmpIndex=index;
-			// index = findEnd(matches, index);
-			// }
-
-			index++;
+	
+	public void addElement(CodeElementProfile... element) {
+		for (int i=0; i < element.length; i++) {
+			elements.add(element[i]);
 		}
-
-		return match;
 	}
-
-	private int findEnd(List<CodeMatch> matches, int index) {
-		while (index < matches.size()) {
-			// if(matches.get(index).getMatcher().getPatternType()==PatternType.BLOCK_CLOSE){
-			// System.out.println("I have found the end at "+index);
-			// return index;
-			// }
-			index++;
+	
+	public String getName() {
+		return name;
+	}
+	
+	private boolean containsAny(List<PatternType> types,List<PatternType> matching ){
+		for (Iterator<PatternType> iterator=matching.iterator(); iterator.hasNext();) {
+			PatternType patternType=iterator.next();
+			if(types.contains(patternType))
+				return true;
 		}
-		return index;
+		return false;
 	}
-
+	
 	@Override
 	public ICodeElement cloneCodePiece() {
-		// TODO Auto-generated method stub
+	
 		return null;
+	}
+
+	public List<CodeMatch> matchPattern(List<CodeMatch> code) {
+		
+		List<CodeMatch> matches=new ArrayList<CodeMatch>();
+		
+		for (int i=0; i < code.size(); i++) {
+			CodeMatch match=code.get(i);
+			int matching=i;
+			for (int j=0; j < elements.size(); j++) {
+				CodeElementProfile profile=elements.get(j);
+				if(containsAny(match.getMatcher().getPatternType(),profile.element.getPatternType())){
+					i++;
+					if(profile.getCardinality()==ElementCardinality.MORE){
+						while(i <code.size()-1){
+							match=code.get(i);
+							if(containsAny(match.getMatcher().getPatternType(),profile.element.getPatternType())){
+								i++;
+							}else{
+								break;
+							}
+						}
+					}
+				}else{
+					matching=-1;
+					j=elements.size();
+				}
+				if(i<code.size())//I may be at the end of code!
+					match=code.get(i);
+			}
+			if(matching!=-1){//match have been found!
+				i--;
+				matches.add(new CodeMatch(code.get(matching).getLineStart(),code.get(i).getLineEnd(),this));
+			}
+		}
+		
+		return matches;
 	}
 }

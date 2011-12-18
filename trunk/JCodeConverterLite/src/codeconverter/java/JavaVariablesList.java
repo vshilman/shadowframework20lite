@@ -12,7 +12,6 @@ public class JavaVariablesList {
 	public void loadVariablesList(CodeSequence sequence) {
 		for (int i=0; i < sequence.getPieces().size(); i++) {
 			JavaVariable variable=(JavaVariable)(sequence.getPieces().get(i).cloneCodePiece());
-			System.out.println("loading variable "+variable.getVariable().getType().getName()+" "+variable.getVariable().getName());
 			getVariables().add(variable.getVariable());
 		}
 	}
@@ -20,8 +19,13 @@ public class JavaVariablesList {
 	public String toString() {
 		String tmp="";
 		
+		boolean start=true;
 		for (Variable va : getVariables()) {
-			tmp+=va.toString()+",";
+			if(!start){
+				tmp+=",";
+			}	
+			tmp+=va.toString();
+			start=false;
 		}
 		return tmp;
 	}

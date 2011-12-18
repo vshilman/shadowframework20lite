@@ -19,7 +19,7 @@ public class JavaMethodDeclaration extends CodePattern{
 		super("attribute declaration");
 		addCodePiece(javaModifiersSet.getSequence(),type,name,new StaticKeyword("("),
 				javaVariablesList.getSequence(),new StaticKeyword(")"),new StaticKeyword("{"));
-		addCodePattern(PatternType.CONSTRUCTOR_DECLARATION);
+		addCodePattern(PatternType.METHOD_DECLARATION);
 	}
 	
 	@Override

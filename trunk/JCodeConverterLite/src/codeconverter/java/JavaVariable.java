@@ -2,7 +2,6 @@ package codeconverter.java;
 
 import codeconverter.ICodeElement;
 import codeconverter.ICodePiece;
-import codeconverter.Name;
 import codeconverter.VariableDeclarion;
 import codeconverter.elements.Variable;
 
@@ -14,9 +13,12 @@ public class JavaVariable extends VariableDeclarion{
 	@Override
 	public ICodeElement cloneCodePiece() {
 		JavaVariable variable=new JavaVariable();
-		Name name=(Name)this.name.cloneCodePiece();
 		ICodePiece type=(ICodePiece)variable.type.cloneCodePiece();
-		variable.variable=new Variable(((JavaType)type).getType(),name.getData());
+		if(this.variable!=null){
+			variable.variable=new Variable(((JavaType)type).getType(),this.variable.getName());
+		}else{
+			variable.variable=new Variable(((JavaType)type).getType(),this.name.getData());
+		}	
 		return variable;
 	}
 	
@@ -27,10 +29,6 @@ public class JavaVariable extends VariableDeclarion{
 
 	public Variable getVariable() {
 		return variable;
-	}
-
-	public void setVariable(Variable variable) {
-		this.variable=variable;
 	}
 	
 	@Override

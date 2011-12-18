@@ -5,11 +5,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import codeconverter.CodeConverterUtilities;
 import codeconverter.CodeMatch;
 import codeconverter.CodePattern;
 import codeconverter.CodeTemplate;
 import codeconverter.FileStringUtility;
 import codeconverter.java.JavaCodePatterns;
+import codeconverter.java.templates.JavaClassTemplate;
+import codeconverter.java.templates.JavaConstructorTemplate;
+import codeconverter.java.templates.JavaMethodTemplate;
 
 public class Test005 {
 
@@ -35,8 +39,20 @@ public class Test005 {
 
 		Collections.sort(matches);
 
-		CodeTemplate template=new CodeTemplate();
-
-		template.matchPattern(matches);
+		CodeTemplate template=new JavaMethodTemplate();
+		CodeConverterUtilities.removeMatch(matches,template.matchPattern(matches));
+		for (int i=0; i < matches.size(); i++) {
+			System.out.println("unmatched line (After Method Match) "+matches.get(i));
+		}
+		template=new JavaConstructorTemplate();
+		CodeConverterUtilities.removeMatch(matches,template.matchPattern(matches));
+		for (int i=0; i < matches.size(); i++) {
+			System.out.println("unmatched line (After Constructor Match) "+matches.get(i));
+		}
+		template=new JavaClassTemplate();
+		CodeConverterUtilities.removeMatch(matches,template.matchPattern(matches));
+		for (int i=0; i < matches.size(); i++) {
+			System.out.println("unmatched line (After Class Match) "+matches.get(i));
+		}
 	}
 }
