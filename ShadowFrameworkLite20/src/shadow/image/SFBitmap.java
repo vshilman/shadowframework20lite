@@ -4,24 +4,10 @@ import java.nio.ByteBuffer;
 
 
 /**
- * A basic Image class. 3 format are supported:
- * <ul>
- * <li>FORMAT_HEIGHT: 1 byte - 1 value per pixel, for height maps, lights maps and so on</li>
- * <li>FORMAT_RGB: 3 byte - 3 values per pixel, red green and blue</li>
- * <li>FORMAT_RGBA: 4 byte - 4 values per pixel, red green blue and alpha</li>
- * </ul>
- * 
- * GLImage requires some image generation process to define image data, which are stored as a ByteBuffer.
+ * SFBitmap requires some image generation process to define image data, which are stored as a ByteBuffer.
  * If data have not been defined, the 'data' field is null.
  * */
 public class SFBitmap {
-	
-	/**Height Maps, black and white images*/
-	public static final short FORMAT_HEIGHT=0;
-	/**RGB Images*/
-	public static final short FORMAT_RGB=1;
-	/**RGBA Images*/
-	public static final short FORMAT_RGBA=2;
 	
 	public SFBitmap() {
 		super();
@@ -36,9 +22,8 @@ public class SFBitmap {
 	 */
 	public static SFBitmap generateRGBImage(int width,int height){
 		SFBitmap ret=new SFBitmap();
-		ret.width=width;
-		ret.height=height;
-		ret.format=FORMAT_RGB;
+		ret.setWidth(width);
+		ret.setHeight(height);
 		return ret;
 	}
 	
@@ -49,23 +34,23 @@ public class SFBitmap {
 	 * @param format format of the image
 	 * @return the image being generated.
 	 */
-	public static SFBitmap generateRGBImage(int width,int height,short format){
+	public static SFBitmap generateRGBImage(int width,int height,SFFormat format){
 		SFBitmap ret=new SFBitmap();
-		ret.width=width;
-		ret.height=height;
-		ret.format=format;
+		ret.setWidth(width);
+		ret.setHeight(height);
+		ret.setFormat(format);
 		return ret;
 	}
 
 	/** width of the image in pixels*/
-	public int width;
+	private int width;
 	/** height of the image in pixels*/
-	public int height;
+	private int height;
 	/** format of the image*/
-	public short format=FORMAT_RGB;
+	private SFFormat format=SFFormat.ARGB8;
 	
 	/** data type depends on Image generation mode*/
-	public ByteBuffer data;
+	private ByteBuffer data;
 
 	public int getWidth() {
 		return width;
@@ -83,11 +68,11 @@ public class SFBitmap {
 		this.height = height;
 	}
 
-	public short getFormat() {
+	public SFFormat getFormat() {
 		return format;
 	}
 
-	public void setFormat(short format) {
+	public void setFormat(SFFormat format) {
 		this.format = format;
 	}
 

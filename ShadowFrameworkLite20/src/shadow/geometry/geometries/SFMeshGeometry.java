@@ -32,6 +32,9 @@ public abstract class SFMeshGeometry extends SFGeometry{
 		return firstElement;
 	}
 
+	public int getElementsCount() {
+		return lastElement-firstElement;
+	}
 
 
 	public void setFirstElement(int firstElement) {
