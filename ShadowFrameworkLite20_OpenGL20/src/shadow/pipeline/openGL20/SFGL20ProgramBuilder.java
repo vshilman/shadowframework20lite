@@ -14,13 +14,17 @@ public class SFGL20ProgramBuilder implements SFProgramBuilder{
 	
 	@Override
 	public void prepareProgram(SFProgram program) {
-		SFInitiator.addInitiable((SFGL20Program)program);
+		SFInitiator.addInitiable((SFGL20GenericProgram)program);
 	}
 	
 	@Override
 	public void loadProgram(SFProgram program) { 
-		((SFGL20Program)program).load();
-		SFGL20PipelineGraphics.setProgram((SFGL20Program)program);
+		program.load();
+		SFGL20PipelineGraphics.setProgram((SFGL20GenericProgram)program);
 	}
 	
+	@Override
+	public SFProgram generateImageProgram() {
+		return new SFGL20ImageProgram();
+	}
 }

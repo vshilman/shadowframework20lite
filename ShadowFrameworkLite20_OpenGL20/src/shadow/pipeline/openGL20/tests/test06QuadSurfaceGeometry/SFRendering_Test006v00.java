@@ -158,13 +158,13 @@ public class SFRendering_Test006v00 extends JFrame{
 		public float getY(float u, float v) {
 			// TODO Auto-generated method stub
 			//return v*0.6f;
-			return 0.5f*(float)(Math.sin(2*Math.PI*u)*(0.5f+0.5f*(v*u)));
+			return 0.5f*(float)((v));
 		}
 		
 		@Override
 		public float getZ(float u, float v) {
 			// TODO Auto-generated method stub
-			return 0.5f*(float)((v));
+			return 0.5f*(float)(Math.sin(2*Math.PI*u)*(0.5f+0.5f*(v*u)));
 		}
 		
 		@Override
