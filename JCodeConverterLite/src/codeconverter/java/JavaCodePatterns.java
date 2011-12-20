@@ -13,7 +13,7 @@ public class JavaCodePatterns {
 	private static List<CodePattern> patterns=new ArrayList<CodePattern>();
 	
 	public static List<CodePattern> getPatterns(){
-
+		patterns.add(new JavaImportDeclaration());
 		patterns.add(new JavaReturnPattern());
 		patterns.add(new JavaConstructorDeclaration());
 		patterns.add(new JavaPackageDeclaration());
