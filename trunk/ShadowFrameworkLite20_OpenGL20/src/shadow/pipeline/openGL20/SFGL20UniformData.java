@@ -17,7 +17,7 @@ import shadow.pipeline.parameters.SFPipelineRegister;
 
 public class SFGL20UniformData implements SFProgramDataModel {
 	
-	private SFGL20Program program;
+	private SFGLSLSet program;
 	
 	private HashMap<SFPipelineStructureInstance, Integer[]> structureUniforms=new HashMap<SFPipelineStructureInstance, Integer[]>();
 	private HashMap<SFPipelineRegister, Integer[]> gridUniforms=new HashMap<SFPipelineRegister, Integer[]>();
@@ -87,6 +87,29 @@ public class SFGL20UniformData implements SFProgramDataModel {
 		mainUniforms[0]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"projection");
 		mainUniforms[1]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"modelview");
 		mainUniforms[2]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"vectorsModelview");
+	}
+	
+
+	void evaluateUniforms(SFGL20ImageProgram program) {
+		this.program=program;
+		
+		//Primitive Uniforms
+		
+		gridUniforms.clear();
+		structureUniforms.clear();
+		
+		List<SFProgramComponent> materials=program.getMaterials();
+		for (SFProgramComponent component : materials) {
+			List<SFPipelineStructureInstance> structures=component.getStructures();
+			for (SFPipelineStructureInstance sfPipelineStructureInstance : structures) {
+				structureUniforms.put(sfPipelineStructureInstance, getUniforms("", sfPipelineStructureInstance));
+			}
+		}
+		
+		List<SFPipelineStructureInstance> structures=program.getLight().getStructures();
+		for (SFPipelineStructureInstance sfPipelineStructureInstance : structures) {
+			structureUniforms.put(sfPipelineStructureInstance, getUniforms("", sfPipelineStructureInstance));
+		}
 	}
 
 	/* (non-Javadoc)

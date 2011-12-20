@@ -48,8 +48,6 @@ public class SFRendering_Test006v02 extends JFrame{
 		SFRendering_Test006v02 universe=new SFRendering_Test006v02();
 		universe.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		universe.setVisible(true);
-		
-		
 	}
 	
 	public SFRendering_Test006v02(){
