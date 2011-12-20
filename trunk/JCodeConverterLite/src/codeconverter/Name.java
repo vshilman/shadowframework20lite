@@ -10,7 +10,8 @@ public class Name extends Value{
 				|| stays(datac[matchPosition],'A','Z')) {
 			while (stays(datac[matchPosition],'a','z')
 					|| stays(datac[matchPosition],'A','Z')
-					|| stays(datac[matchPosition],'0','9')) {
+					|| stays(datac[matchPosition],'0','9')
+					|| stays(datac[matchPosition],'_','_')) {
 				matchPosition++;
 			}
 			this.data=data.substring(startingPosition,matchPosition);

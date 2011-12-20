@@ -11,7 +11,8 @@ public class JavaModifier extends Keyword{
 		"private",
 		"protected",
 		"static",
-		"final"
+		"final",
+		"abstract"
 	};
 	
 	private Modifier modifier;
