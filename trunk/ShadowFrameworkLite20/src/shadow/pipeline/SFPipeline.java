@@ -129,7 +129,30 @@ public class SFPipeline {
 		return program;
 	}
 
-	
+	/**
+	 * Generate a unique Static SFShader given its parameters, or create it if
+	 * it does not exists.
+	 * 
+	 * @param tessellator
+	 * @param primitive
+	 * @param transform
+	 * @param material
+	 * @param light
+	 * @return
+	 */
+	public static SFProgram getStaticImageProgram(String material[], String light) {
+
+		SFProgram program=pipeline.sfProgramBuilder.generateImageProgram();
+
+		for (int i=0; i < material.length; i++) {
+			program.setMaterial(i,pipeline.components.get(material[i]));
+		}
+		program.setLightStep(pipeline.components.get(light));
+
+		pipeline.sfProgramBuilder.prepareProgram(program);
+
+		return program;
+	}
 	
 
 	/*

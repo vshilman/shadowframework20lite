@@ -14,7 +14,7 @@ public class SFExpressionParser {
 	
 	private String parsingStringPlus="+";
 	private String parsingStringProduct="*";
-	private String operatorsSum="#°:/*-+.,";
+	private String operatorsSum="#°:/*-+%,";
 	private String brackets="()";
 	private String parsingString=operatorsSum+brackets;
 	

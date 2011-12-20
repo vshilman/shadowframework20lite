@@ -11,4 +11,6 @@ public interface SFPipelineGraphics {
 	
 	public void loadStructureData(SFStructureArray array,int indexOfData);
 	
+	public void drawBaseQuad();
+	
 }
