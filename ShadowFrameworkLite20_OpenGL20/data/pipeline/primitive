@@ -53,7 +53,7 @@
 @begin Material TexturedMat
 @use texture0
 @use texCoord0
-@write color texture0.texCoord0
+@write color texture0%texCoord0
 @end
 
 @begin LightStep BasicLSPN
@@ -85,8 +85,24 @@
 @write fColor (duVector°tmp1),(dvVector°tmp1),(normal°tmp1),1
 @end
 
-
 @begin LightStep BasicColor
 @use color 
 @write fColor color
+@end
+
+
+@begin LightStep BasicYellowColor
+@use color 
+@define yellow:3 (1,1,0)
+@write fColor color*yellow
+@end
+
+@begin LightStep BasicGrayAndBright
+@use color 
+@define bright:3 0.4,0.4,0.4
+@define grayscale:4 0.3,0.5,0.2,0
+@define gray:1 (color°grayscale)
+@define gray3:3 gray
+@write fColor0 gray3
+@write fColor1 color+bright
 @end
