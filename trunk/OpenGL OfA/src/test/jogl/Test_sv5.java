@@ -44,7 +44,7 @@ public class Test_sv5 implements GLEventListener, KeyListener {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(500, 500);
-		frame.setTitle("test_sv3");
+		frame.setTitle("test_sv5");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		GLEventListener listener = new Test_sv5();

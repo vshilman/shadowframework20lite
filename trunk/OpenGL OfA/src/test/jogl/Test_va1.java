@@ -49,7 +49,7 @@ public class Test_va1 implements GLEventListener, KeyListener {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(500, 500);
-		frame.setTitle("test_sv3");
+		frame.setTitle("test_va1");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		GLEventListener listener = new Test_va1();
