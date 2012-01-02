@@ -8,8 +8,9 @@ public class AlgebraicExpression extends Expression{
 	
 	public AlgebraicExpression(ICodePiece... piece) {
 		//TODO : this is not working...
-//		super(piece);
-//		this.availablePieces.add(this);
+		super(piece);
+		//this.availablePieces.add(this);
+		this.availablePieces.add(new Name());//
 	}
 
 	@Override
@@ -26,5 +27,13 @@ public class AlgebraicExpression extends Expression{
 	public char getOpenBracketSymbol() {
 		return ')';
 	}
-	
+
+	@Override
+	public ICodeElement cloneCodePiece() {
+		AlgebraicExpression expression=new AlgebraicExpression();
+		
+		expression.representation=this.representation;
+		
+		return expression;
+	}
 }

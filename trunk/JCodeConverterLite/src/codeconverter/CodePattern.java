@@ -1,7 +1,6 @@
 package codeconverter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,8 +59,18 @@ public abstract class CodePattern extends AbstractCodeTemplate{
 	public List<CodeMatch> matchPattern(List<String> code) {
 		List<CodeMatch> match=new ArrayList<CodeMatch>();
 		for (int i=0; i < code.size(); i++) {
-			if (match(code.get(i))) {
-				match.add(new CodeMatch(i,i,(ICodeTemplate)cloneCodePiece()));
+			if(code.get(i).trim().length()!=0){
+				if (match(code.get(i))) {
+					match.add(new CodeMatch(i,i,(ICodeTemplate)cloneCodePiece()));
+				}else if(i<code.size()-1){//try 2 lines match
+					if(match(code.get(i)+code.get(i+1))){
+						match.add(new CodeMatch(i,i+1,(ICodeTemplate)cloneCodePiece()));
+					}
+				}else if(i<code.size()-2){//try 3 lines match
+					if(match(code.get(i)+code.get(i+1)+code.get(i+2))){
+						match.add(new CodeMatch(i,i+2,(ICodeTemplate)cloneCodePiece()));
+					}
+				}
 			}
 		}
 

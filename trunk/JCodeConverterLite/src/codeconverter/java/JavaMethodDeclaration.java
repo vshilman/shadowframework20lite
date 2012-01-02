@@ -1,10 +1,12 @@
 package codeconverter.java;
 
+import codeconverter.AlternativeCode;
 import codeconverter.CodePattern;
 import codeconverter.CodeSequence;
 import codeconverter.ICodeElement;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
+import codeconverter.UninterpretedEvaluation;
 import codeconverter.elements.Variable;
 
 public class JavaMethodDeclaration extends CodePattern{
@@ -18,7 +20,9 @@ public class JavaMethodDeclaration extends CodePattern{
 	public JavaMethodDeclaration() {
 		super("attribute declaration");
 		addCodePiece(javaModifiersSet.getSequence(),type,name,new StaticKeyword("("),
-				javaVariablesList.getSequence(),new StaticKeyword(")"),new StaticKeyword("{"));
+				javaVariablesList.getSequence(),new StaticKeyword(")"),
+				new UninterpretedEvaluation(new AlternativeCode(new StaticKeyword("{"),new StaticKeyword(";"))),
+				new AlternativeCode(new StaticKeyword("{"),new StaticKeyword(";")));
 		addCodePattern(PatternType.METHOD_DECLARATION);
 	}
 	
