@@ -14,7 +14,7 @@ public class CodeConverterUtilities {
 	 * @param matches the Old Matches
 	 * @param newMatches the new Matches which have been identified
 	 */
-	public static void removeMatch(List<CodeMatch> matches,
+	public static void removeOldAddNewMatch(List<CodeMatch> matches,
 			List<CodeMatch> newMatches) {
 		for (int j=0; j < newMatches.size(); j++) {
 			CodeMatch newMatch=newMatches.get(j);

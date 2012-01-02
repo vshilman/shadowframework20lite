@@ -3,6 +3,12 @@ package codeconverter;
 import java.util.ArrayList;
 import java.util.List;
 
+import codeconverter.java.JavaName;
+
+/**
+ * A Generic Expresssion
+ * @author Alessandro Martinelli
+ */
 public abstract class Expression implements ICodePiece{
 
 	public abstract String[] getExpressionSeparators();
@@ -12,7 +18,10 @@ public abstract class Expression implements ICodePiece{
 	public abstract char getClosedBracketSymbol();
 
 	protected List<ICodePiece> availablePieces=new ArrayList<ICodePiece>(); 
+	
 	private AlternativeCode alternatives;
+	
+	protected String representation;
 	
 	private int keywordIndex;
 	
@@ -21,7 +30,6 @@ public abstract class Expression implements ICodePiece{
 			availablePieces.add(iCodePiece);
 		}
 	}
-	
 
 	private int checkSeparators(String data, int matchPosition,
 			String[] alternatives) {
@@ -47,22 +55,29 @@ public abstract class Expression implements ICodePiece{
 	private int alternativeMatch(String data,char[] dataChars, int matchPosition){
 		
 		char open=getOpenBracketSymbol();
-		while(matchPosition<dataChars.length && (dataChars[matchPosition]==open || dataChars[matchPosition]==' '))
-			matchPosition++;
 		
-		matchPosition = alternatives.elementMatch(data,matchPosition+1);
+		if(!(matchPosition==-1)){
 		
-		if(matchPosition!=-1){
-			char closed=getClosedBracketSymbol();
-			while(matchPosition<dataChars.length && (dataChars[matchPosition]==closed || dataChars[matchPosition]==' '))
+			while(matchPosition<dataChars.length && (dataChars[matchPosition]==open || dataChars[matchPosition]==' '))
 				matchPosition++;
+			
+			matchPosition = alternatives.elementMatch(data,matchPosition);
+			
+			if(matchPosition!=-1){
+				char closed=getClosedBracketSymbol();
+				while(matchPosition<dataChars.length && (dataChars[matchPosition]==closed || dataChars[matchPosition]==' '))
+					matchPosition++;
+			}
 		}
 		
-		return -1;
+		return matchPosition;
 	}
 	
 	@Override
 	public int elementMatch(String data, int matchPosition) {
+		
+		int startingMatchPosition=matchPosition;
+		
 		char[] dataChars=data.toCharArray();
 		
 		if(alternatives==null){
@@ -84,13 +99,15 @@ public abstract class Expression implements ICodePiece{
 			matchAlternative=alternativeMatch(data,dataChars,matchAlternative);
 		}
 		
-		return matchAlternative;
+		representation=data.substring(startingMatchPosition,matchPosition);
+		
+		return matchPosition;
 	}
 	
+	
 	@Override
-	public ICodeElement cloneCodePiece() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return representation;
 	}
 	
 }

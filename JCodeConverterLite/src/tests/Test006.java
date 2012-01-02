@@ -24,7 +24,6 @@ public class Test006 {
 
 		List<CodeMatch> matches=CodeConverterUtilities.findPatterns(list,patterns);
 
-		CodeConverterUtilities.stampMatches(matches);
-		
+		CodeConverterUtilities.stampMatches(matches);		
 	}
 }

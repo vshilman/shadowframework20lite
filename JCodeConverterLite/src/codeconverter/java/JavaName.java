@@ -17,7 +17,10 @@ public class JavaName implements ICodePiece{
 				while (matchPosition<datac.length && (stays(datac[matchPosition],'a','z')
 						|| stays(datac[matchPosition],'A','Z')
 						|| stays(datac[matchPosition],'0','9'))
-						|| stays(datac[matchPosition],'_','_')) {
+						|| stays(datac[matchPosition],'_','_')
+						|| stays(datac[matchPosition],'[',']')
+						|| datac[matchPosition]=='<'
+								|| datac[matchPosition]=='>') {
 					matchPosition++;
 				}
 				this.data=data.substring(startingPosition,matchPosition);

@@ -20,7 +20,7 @@ public class Test007 {
 	public static void main(String[] args) {
 
 		List<String> list=FileStringUtility
-				.loadTextFile("src/testPackage/house2.java");
+				.loadTextFile("src/testPackage/House2.java");
 		List<CodePattern> patterns=JavaCodePatterns.getPatterns();
 
 		List<CodeMatch> matches=new ArrayList<CodeMatch>();

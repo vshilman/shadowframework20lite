@@ -6,7 +6,7 @@ import codeconverter.ICodeElement;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
 
-public class JavaClassDeclaration extends CodePattern{
+public class JavaInterfaceDeclaration  extends CodePattern{
 
 	private JavaName name=new JavaName();
 	private JavaModifiersSet javaModifiersSet=new JavaModifiersSet();
@@ -14,18 +14,18 @@ public class JavaClassDeclaration extends CodePattern{
 	private JavaClassKeywords javaClassImplements;
 	private String className;
 
-	public JavaClassDeclaration() {
+	public JavaInterfaceDeclaration() {
 		
-		super("class declaration");
+		super("interface declaration");
 		javaClassExtends = new JavaClassKeywords(new StaticKeyword("extends"));
 		javaClassImplements = new JavaClassKeywords(new StaticKeyword("implements"));
-		addCodePiece(javaModifiersSet.getSequence(),new StaticKeyword("class"),name,javaClassExtends,javaClassImplements,new StaticKeyword("{"));
+		addCodePiece(javaModifiersSet.getSequence(),new StaticKeyword("interface"),name,javaClassExtends,javaClassImplements,new StaticKeyword("{"));
 		addCodePattern(PatternType.CLASS_DECLARATION);
 	}
 	
 	@Override
 	public ICodeElement cloneCodePiece() {
-		JavaClassDeclaration pattern=new JavaClassDeclaration();
+		JavaInterfaceDeclaration pattern=new JavaInterfaceDeclaration();
 		
 		CodeSequence sequence=((CodeSequence )this.javaModifiersSet.getSequence().cloneCodePiece());
 		pattern.javaModifiersSet.loadModifiersSet(sequence);

@@ -2,6 +2,7 @@ package codeconverter.java.codelines;
 
 import codeconverter.AlgebraicExpression;
 import codeconverter.CodePattern;
+import codeconverter.Expression;
 import codeconverter.ICodeElement;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
@@ -12,14 +13,16 @@ public class JavaAssignment  extends CodePattern{
 
 	private JavaName attributeName=new JavaName();
 	private JavaName variableName=new JavaName();
+	private AlgebraicExpression expression;
 	private Variable attribute;
-	private Variable variable;
+	private Expression expressionCloned;
 	
 	public JavaAssignment() {
 		super("assignment");
 		
+		expression=new AlgebraicExpression(variableName);
 		addCodePiece(attributeName,new StaticKeyword("="),
-				new AlgebraicExpression(variableName),new StaticKeyword(";"));
+				expression,new StaticKeyword(";"));
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
@@ -27,12 +30,12 @@ public class JavaAssignment  extends CodePattern{
 	public ICodeElement cloneCodePiece() {
 		JavaAssignment pattern=new JavaAssignment();
 		pattern.attribute=new Variable(null,attributeName.getData());
-		pattern.variable=new Variable(null,variableName.getData());
+		pattern.expressionCloned=(Expression)(expression.cloneCodePiece());
 		return pattern;
 	}
 	
 	@Override
 	public String toString() {
-		return "\tthis."+attribute.getName()+"="+variable.getName()+";";
+		return "\t	"+attribute.getName()+"="+expressionCloned+";";
 	}
 }
