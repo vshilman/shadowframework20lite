@@ -18,5 +18,9 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ShadowFramework2.0_OpenGL20/Libraries_java_jogl"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="linux lib/gluegen-rt-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="linux lib/joal-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="linux lib/jocl-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="linux lib/jogl-all-natives-linux-i586.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
