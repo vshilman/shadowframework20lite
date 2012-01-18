@@ -23,7 +23,7 @@ public abstract class CodePattern extends AbstractCodeTemplate{
 		}
 	}
 
-	private boolean match(String lineCode) {
+	public boolean match(String lineCode) {
 		char[] lineCodeChars=lineCode.toCharArray();
 		int index=0;
 		int elementIndex=0;

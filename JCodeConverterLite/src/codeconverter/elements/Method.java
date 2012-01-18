@@ -4,7 +4,6 @@ package codeconverter.elements;
 /**
  * 
  * @author Alessandro Martinelli
- * @pattern Composite
  */
 public class Method {
 	
@@ -23,6 +22,5 @@ public class Method {
 	public void setBlock(CodeBlock block) {
 		this.block = block;
 	}
-	
 	
 }

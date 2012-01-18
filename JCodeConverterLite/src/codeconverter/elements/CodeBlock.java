@@ -3,8 +3,11 @@ package codeconverter.elements;
 import java.util.LinkedList;
 import java.util.List;
 
-import codeconverter.ICodeElement;
-
+/**
+ * 
+ * @author Alessandro
+ * @pattern Composite
+ */
 public class CodeBlock{
 	
 	//TO BE DONE

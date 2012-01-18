@@ -38,7 +38,11 @@ public class Test008 {
 			matches.addAll(pattern.matchPattern(list));
 		}
 		
-		Collections.sort(matches);
+		Collections.sort(matches);		
+		
+		boolean[] matched=CodeConverterUtilities.findMatchedLines(list,matches);
+		
+		///is line unmatched..
 		
 		CodeTemplate template=new JavaMethodTemplate();
 		CodeConverterUtilities.removeOldAddNewMatch(matches,template.matchPattern(matches));
@@ -54,9 +58,11 @@ public class Test008 {
 		CodeConverterUtilities.removeOldAddNewMatch(matches,template.matchPattern(matches));
 		for (int i=0; i < matches.size(); i++) {
 			System.out.println("unmatched line (After Class Match) "+matches.get(i));
-		}		
+		}
 		
 		JavaToJavascriptConverter converter=new JavaToJavascriptConverter();
-		converter.covertMatches(list,matches);
+		ArrayList<String> convertedList=converter.covertMatches(list,matches,matched);
+		
+		FileStringUtility.writeTextFile("House.js",convertedList.toArray(new String[convertedList.size()]));
 	}
 }

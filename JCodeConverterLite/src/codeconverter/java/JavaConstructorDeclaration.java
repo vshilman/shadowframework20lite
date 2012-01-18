@@ -5,6 +5,8 @@ import codeconverter.CodeSequence;
 import codeconverter.ICodeElement;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
+import codeconverter.elements.MethodDeclaration;
+import codeconverter.elements.NamedElement;
 import codeconverter.elements.Variable;
 
 public class JavaConstructorDeclaration extends CodePattern{
@@ -35,5 +37,14 @@ public class JavaConstructorDeclaration extends CodePattern{
 	@Override
 	public String toString() {
 		return javaModifiersSet+" "+variable.getName()+"("+javaVariablesList+") {";
+	}
+	
+
+	public MethodDeclaration getMethodDeclaration(){
+		MethodDeclaration declaration=new MethodDeclaration();
+		declaration.setSet(javaModifiersSet.getModifiers());
+		declaration.setList(javaVariablesList.getVariables());
+		declaration.setMethodName(new NamedElement(variable.getName()));
+		return declaration;
 	}
 }

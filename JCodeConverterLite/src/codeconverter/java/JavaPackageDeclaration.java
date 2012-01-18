@@ -38,7 +38,8 @@ public class JavaPackageDeclaration extends CodePattern{
 		for (int i=0; i < names.size()-1; i++) {
 			tmp+=names.get(i)+".";
 		}
-		tmp+=(names.get(names.size()-1));
+		if(names.size()>0)
+			tmp+=(names.get(names.size()-1));
 		return "package "+tmp+";";
 	}
 }
