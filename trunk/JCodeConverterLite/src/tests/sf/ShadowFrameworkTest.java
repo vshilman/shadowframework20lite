@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import codeconverter.CodeConverterUtilities;
 import codeconverter.CodeMatch;
 import codeconverter.CodePattern;
 import codeconverter.FileStringUtility;
@@ -20,8 +21,8 @@ public class ShadowFrameworkTest {
 		File f=new File("../ShadowFramework2.0/src");
 		checkDirectory(f);
 		
-		f=new File("../ShadowFramework2.0_OpenGL20/src");
-		checkDirectory(f);
+		//f=new File("../ShadowFramework2.0_OpenGL20/src");
+		//checkDirectory(f);
 		
 		//After creating this test case
 					//TotalLoC 4654,	 TotalUnMatch 2465	 Rap 0.5296519123334765
@@ -105,37 +106,7 @@ public class ShadowFrameworkTest {
 
 		//System.err.println(matches.size());
 		
-		boolean matched[]=new boolean[list.size()];
-		
-		for (int i=0; i < matched.length; i++) {
-			matched[i]=false;
-		}
-		
-		for (Iterator<CodeMatch> iterator=matches.iterator(); iterator
-				.hasNext();) {
-			CodeMatch codeMatch=iterator.next();
-			
-			for(int j=codeMatch.getLineStart();j<=codeMatch.getLineEnd();j++){
-				matched[j]=true;
-			}
-		}
-		
-		for (int i=0; i < matched.length; i++) {
-			boolean trim0=(list.get(i).trim().length()==0);
-			matched[i]=matched[i] || trim0;
-			if(list.get(i).trim().startsWith("//")){
-				matched[i]=true;
-			}else if(list.get(i).trim().startsWith("/*")){
-				for(int j=i;j<list.size();j++){
-					if(!list.get(j).trim().endsWith("*/")){
-						matched[j]=true;
-						if(!(j==list.size()-1)){
-							matched[j+1]=true;
-						}
-					}
-				}
-			}
-		}
+		boolean[] matched=CodeConverterUtilities.findMatchedLines(list,matches);
 			
 		int unmatchCount=0;
 		for (int i=0; i < matched.length; i++) {

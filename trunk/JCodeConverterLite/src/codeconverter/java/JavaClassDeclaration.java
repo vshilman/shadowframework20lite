@@ -15,7 +15,6 @@ public class JavaClassDeclaration extends CodePattern{
 	private String className;
 
 	public JavaClassDeclaration() {
-		
 		super("class declaration");
 		javaClassExtends = new JavaClassKeywords(new StaticKeyword("extends"));
 		javaClassImplements = new JavaClassKeywords(new StaticKeyword("implements"));
@@ -29,7 +28,7 @@ public class JavaClassDeclaration extends CodePattern{
 		
 		CodeSequence sequence=((CodeSequence )this.javaModifiersSet.getSequence().cloneCodePiece());
 		pattern.javaModifiersSet.loadModifiersSet(sequence);
-		pattern.className=new String(this.name.getData());
+		pattern.className=new String(this.name.data);
 		sequence=((CodeSequence )this.javaClassExtends.getSequence().cloneCodePiece());
         pattern.javaClassExtends.loadSet(sequence);
         sequence=((CodeSequence )this.javaClassImplements.getSequence().cloneCodePiece());
@@ -46,5 +45,4 @@ public class JavaClassDeclaration extends CodePattern{
 	public String toString() {
 		return javaModifiersSet+"class "+className+ javaClassExtends.getNames()+ javaClassImplements.getNames()+"{";
 	}
-	
 }

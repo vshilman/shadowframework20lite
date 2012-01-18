@@ -1,0 +1,32 @@
+
+Conversion Tests from Java to Javascript
+
+Task0: write a wider testcase
+
+Task1:
+	- House.java converted to House.js
+	
+Task2:
+	- Expressions.java converted to Expressions.js
+	
+Task3:
+	- Insert more expressions into Expression.js, and check conversion
+	
+Task4:
+	- Look for a failed conversion from SF20:
+			- Develop 'safe' conversion mode: whenever a line is not recognized,
+				it should be safely converted into an 'Unrecognized Line'.
+				Template should be build upon unrecognized Lines.
+				
+			- Lines should be classified into:
+			
+					- Completely Recognized
+					- Generically Recognized as 'if(something){'
+					- Partially recognized, as 'something{' which is a block and
+							- All lines having a '{' or '}' must be recognized
+							with a pattern supporting BLOCK_END or BLOCK_START.
+							This should help building data.  
+					- Totally Unrecognized
+											
+			- Execute more test please.
+				 

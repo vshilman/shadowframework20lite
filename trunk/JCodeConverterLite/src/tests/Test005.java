@@ -16,7 +16,7 @@ import codeconverter.java.templates.JavaConstructorTemplate;
 import codeconverter.java.templates.JavaMethodTemplate;
 
 public class Test005 {
-
+	
 	/**
 	 * This test recognize main blocks in House.java
 	 * 

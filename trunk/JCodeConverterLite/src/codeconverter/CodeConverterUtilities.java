@@ -51,4 +51,40 @@ public class CodeConverterUtilities {
 		}
 	}
 
+	public static boolean[] findMatchedLines(List<String> list,
+			List<CodeMatch> matches) {
+		boolean matched[]=new boolean[list.size()];
+		
+		for (int i=0; i < matched.length; i++) {
+			matched[i]=false;
+		}
+		
+		for (Iterator<CodeMatch> iterator=matches.iterator(); iterator
+				.hasNext();) {
+			CodeMatch codeMatch=iterator.next();
+			
+			for(int j=codeMatch.getLineStart();j<=codeMatch.getLineEnd();j++){
+				matched[j]=true;
+			}
+		}
+		
+		for (int i=0; i < matched.length; i++) {
+			boolean trim0=(list.get(i).trim().length()==0);
+			matched[i]=matched[i] || trim0;
+			if(list.get(i).trim().startsWith("//")){
+				matched[i]=true;
+			}else if(list.get(i).trim().startsWith("/*")){
+				for(int j=i;j<list.size();j++){
+					if(!list.get(j).trim().endsWith("*/")){
+						matched[j]=true;
+						if(!(j==list.size()-1)){
+							matched[j+1]=true;
+						}
+					}
+				}
+			}
+		}
+		return matched;
+	}
+
 }

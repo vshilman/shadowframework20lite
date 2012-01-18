@@ -1,6 +1,5 @@
 package codeconverter.elements;
 
-
 public class MethodDeclaration {
 	
 	private ModifiersSet set=new ModifiersSet();
