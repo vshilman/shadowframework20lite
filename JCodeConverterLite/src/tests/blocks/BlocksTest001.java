@@ -23,7 +23,7 @@ public class BlocksTest001 {
 
 		Block fileBlock=BlockUtilities.generateBlocks(totalStringChars);
 
-		System.out.println(fileBlock);	
+		System.out.println(fileBlock.print());	
 		
 	}
 }

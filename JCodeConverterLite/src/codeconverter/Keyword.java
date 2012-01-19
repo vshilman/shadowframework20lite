@@ -12,6 +12,11 @@ public abstract class Keyword implements ICodePiece{
 		return checkAlternatives(data, matchPosition, alternatives);
 	}
 
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.KEYWORD;
+	}
+	
 	private int checkAlternatives(String data, int matchPosition,
 			String[] alternatives) {
 		for (int i = 0; i < alternatives.length; i++) {

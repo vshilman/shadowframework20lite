@@ -32,6 +32,11 @@ public class DeclaredBlock implements CodeModule{
 	}
 	
 	@Override
+	public String print() {
+		return "DBLOCK "+blockDeclaration.codeLine+"\n"+relatedBlock.print();
+	}
+	
+	@Override
 	public String toString() {
 		return "DBLOCK "+blockDeclaration.codeLine+"\n"+relatedBlock;
 	}

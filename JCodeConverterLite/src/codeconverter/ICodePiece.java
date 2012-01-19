@@ -1,5 +1,7 @@
 package codeconverter;
 
+import java.util.List;
+
 /**
  * A Piece of Code which can identify itself on a String 
  * 
@@ -17,4 +19,6 @@ public interface ICodePiece extends ICodeElement {
 	 * @return
 	 */
 	public int elementMatch(String data, int matchPosition);
+	
+	public PieceType getPieceType();
 }

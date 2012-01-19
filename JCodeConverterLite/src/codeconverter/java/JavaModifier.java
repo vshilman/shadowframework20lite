@@ -2,6 +2,7 @@ package codeconverter.java;
 
 import codeconverter.ICodePiece;
 import codeconverter.Keyword;
+import codeconverter.PieceType;
 import codeconverter.elements.Modifier;
 
 public class JavaModifier extends Keyword{
@@ -27,6 +28,11 @@ public class JavaModifier extends Keyword{
 		//System.err.println("Cloned Modifier "+modifier+" "+modifiers[keywordIndex]+" "+keywordIndex);
 		
 		return modifier;
+	}
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.MODIFIER;
 	}
 	
 	@Override

@@ -17,7 +17,12 @@ public class CodeLine implements CodeModule{
 		return null;
 	}
 	@Override
-	public String toString() {
+	public String print() {
 		return (isBlockDeclaration?"blockDeclaration:":"sentence:")+codeLine;
+	}
+	
+	@Override
+	public String toString() {
+		return print();
 	}
 }

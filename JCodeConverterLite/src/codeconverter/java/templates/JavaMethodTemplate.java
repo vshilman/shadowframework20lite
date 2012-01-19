@@ -9,6 +9,7 @@ import codeconverter.ICodeElement;
 import codeconverter.ICodeTemplate;
 import codeconverter.IMethod;
 import codeconverter.PatternType;
+import codeconverter.elements.IMethodDeclarator;
 import codeconverter.elements.Method;
 import codeconverter.java.JavaAttributeDeclaration;
 import codeconverter.java.JavaBlockClose;
@@ -42,7 +43,7 @@ public class JavaMethodTemplate extends CodeTemplate implements IMethod{
 			ICodeTemplate temp=matchedElements.get(i).getMatcher();
 
 			if (temp instanceof JavaMethodDeclaration) {
-				method.setDeclaration(((JavaMethodDeclaration)temp).getMethodDeclaration());
+				method.setDeclaration(((IMethodDeclarator)temp).getMethodDeclaration());
 			}
 			if (temp instanceof JavaReturnPattern) {
 //				template.classDefinition.getAttributoDeclarations().add(

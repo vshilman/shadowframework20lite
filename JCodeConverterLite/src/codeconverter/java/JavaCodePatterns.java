@@ -27,6 +27,7 @@ public class JavaCodePatterns {
 		patterns.add(new JavaAssignment());
 		patterns.add(new JavaImportDeclaration());
 		patterns.add(new JavaReturnPattern());
+		patterns.add(new JavaSuperPattern());
 		patterns.add(new JavaConstructorDeclaration());
 		patterns.add(new JavaPackageDeclaration());
 		patterns.add(new JavaAttributeAssignmentPattern());
@@ -37,7 +38,6 @@ public class JavaCodePatterns {
 		patterns.add(new JavaInterfaceDeclaration());
 		patterns.add(new JavaIsolatedKeywords());
 		patterns.add(new JavaMethodAccess());
-		patterns.add(new JavaSuperPattern());
 		
 		return patterns;
 	}

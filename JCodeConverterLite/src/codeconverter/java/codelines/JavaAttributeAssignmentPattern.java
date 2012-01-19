@@ -17,7 +17,7 @@ public class JavaAttributeAssignmentPattern extends CodePattern{
 	public JavaAttributeAssignmentPattern() {
 		super("assignment");
 		addCodePiece(new StaticKeyword("this."),attributeName,new StaticKeyword("="),
-				variableName,new StaticKeyword(";"));
+				variableName);
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	

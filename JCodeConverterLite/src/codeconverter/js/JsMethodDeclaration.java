@@ -1,8 +1,8 @@
 package codeconverter.js;
 
 import codeconverter.CodePattern;
-import codeconverter.CodeSequence;
 import codeconverter.ICodeElement;
+import codeconverter.ICodePieceSequencer;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
 import codeconverter.elements.Variable;
@@ -24,7 +24,7 @@ public class JsMethodDeclaration extends CodePattern{
 	public ICodeElement cloneCodePiece() {
 		JsMethodDeclaration pattern=new JsMethodDeclaration();
 		pattern.variable=new Variable(null,new String(name.getData()));
-		CodeSequence sequence=((CodeSequence )this.jsVariablesList.getSequence().cloneCodePiece());
+		ICodePieceSequencer sequence=((ICodePieceSequencer )this.jsVariablesList.getSequence().cloneCodePiece());
 		pattern.jsVariablesList.loadVariablesList(sequence);
 		return pattern;
 	}

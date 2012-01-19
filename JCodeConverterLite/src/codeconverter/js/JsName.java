@@ -1,6 +1,9 @@
 package codeconverter.js;
 
+import java.util.List;
+
 import codeconverter.ICodePiece;
+import codeconverter.PieceType;
 
 public class JsName implements ICodePiece{
 
@@ -26,6 +29,11 @@ public class JsName implements ICodePiece{
 		}
 		
 		return -1;
+	}
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.NAME;
 	}
 	
 	private boolean stays(char eval,char min,char max){

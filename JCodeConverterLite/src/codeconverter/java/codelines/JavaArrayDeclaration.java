@@ -16,8 +16,7 @@ public class JavaArrayDeclaration extends CodePattern{
 				new UninterpretedEvaluation(new StaticKeyword("[")),
 				new StaticKeyword("["),
 				new UninterpretedEvaluation(new StaticKeyword("]")),
-				new StaticKeyword("]"),
-				new StaticKeyword(";"));
+				new StaticKeyword("]"));
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	

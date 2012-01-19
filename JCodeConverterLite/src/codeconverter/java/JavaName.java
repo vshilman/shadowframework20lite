@@ -2,6 +2,7 @@ package codeconverter.java;
 
 import codeconverter.ICodePiece;
 import codeconverter.Name;
+import codeconverter.PieceType;
 
 public class JavaName implements ICodePiece{
 
@@ -16,11 +17,11 @@ public class JavaName implements ICodePiece{
 					|| stays(datac[matchPosition],'A','Z'))) {
 				while (matchPosition<datac.length && (stays(datac[matchPosition],'a','z')
 						|| stays(datac[matchPosition],'A','Z')
-						|| stays(datac[matchPosition],'0','9'))
+						|| stays(datac[matchPosition],'0','9')
 						|| stays(datac[matchPosition],'_','_')
 						|| stays(datac[matchPosition],'[',']')
 						|| datac[matchPosition]=='<'
-								|| datac[matchPosition]=='>') {
+								|| datac[matchPosition]=='>')) {
 					matchPosition++;
 				}
 				this.data=data.substring(startingPosition,matchPosition);
@@ -32,6 +33,11 @@ public class JavaName implements ICodePiece{
 			}
 		
 		return -1;
+	}
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.NAME;
 	}
 	
 	private boolean stays(char eval,char min,char max){

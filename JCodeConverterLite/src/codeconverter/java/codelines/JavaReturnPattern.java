@@ -17,7 +17,7 @@ public class JavaReturnPattern extends CodePattern{
 	
 	public JavaReturnPattern() {
 		super("return");
-		addCodePiece(new StaticKeyword("return"),new AlternativeCode(variableName,number),new StaticKeyword(";"));
+		addCodePiece(new StaticKeyword("return"),new AlternativeCode(variableName,number));
 		addCodePattern(PatternType.RETURN,PatternType.LINE_OF_CODE);
 	}
 
@@ -32,6 +32,6 @@ public class JavaReturnPattern extends CodePattern{
 	public String toString() {
 		if(variable.getName().trim().length()==0)
 			return "\treturn "+number.getData()+";";
-		return "\treturn "+variable.getName()+";";
+		return "\treturn this."+variable.getName()+";";
 	}
 }

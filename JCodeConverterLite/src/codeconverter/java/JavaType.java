@@ -1,6 +1,7 @@
 package codeconverter.java;
 
 import codeconverter.ICodePiece;
+import codeconverter.PieceType;
 import codeconverter.elements.Type;
 
 public class JavaType extends JavaName {
@@ -13,6 +14,11 @@ public class JavaType extends JavaName {
 		type.data = data;
 		type.type=new Type(data);
 		return type;
+	}
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.TYPE;
 	}
 
 	public Type getType() {

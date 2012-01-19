@@ -16,6 +16,7 @@ public class JavaIsolatedKeywords extends CodePattern{
 			"}else{",
 		};
 		
+		
 		@Override
 		public ICodeElement cloneCodePiece() {
 			return this;

@@ -25,6 +25,7 @@ public enum PatternType {
 	CALL("call"),
 	BLOCK_CLOSE("close block"),
 	RETURN("return"),
+	SUPER("super"),
 	UNIDENTIFIED_CODE("unidentified"),
 	LIBRARY_DECLARATION("folder"),
 	LINE_OF_CODE("codeline");

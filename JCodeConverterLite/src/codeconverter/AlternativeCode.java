@@ -3,7 +3,7 @@ package codeconverter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlternativeCode implements ICodePiece{
+public class AlternativeCode implements ICodePiece, ICodePieceSequencer{
 
 	private List<ICodePiece> pieces=new ArrayList<ICodePiece>();
 	
@@ -17,6 +17,17 @@ public class AlternativeCode implements ICodePiece{
 		for (ICodePiece iCodePiece : pieces) {
 			this.pieces.add(iCodePiece);
 		}
+	}
+	
+	
+	
+	public List<ICodePiece> getPieces() {
+		return pieces;
+	}
+
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.SEQUENCE;
 	}
 	
 	@Override

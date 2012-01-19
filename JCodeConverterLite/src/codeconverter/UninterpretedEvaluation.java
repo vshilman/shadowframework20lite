@@ -26,5 +26,10 @@ public class UninterpretedEvaluation extends UnInterpretedCode{
 			(c=='<' || c=='>' || c==',' || c==')' || c=='(' || c=='+' || c=='*' || c=='/' || c=='-' || c=='%'
 				 || c=='"' || c=='.' || c==' ' || c=='\t'  || c=='!' || c=='&' || c=='|' /*|| c=='='*/);
 	}
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.UNCLASSIFIED;
+	}
 
 }

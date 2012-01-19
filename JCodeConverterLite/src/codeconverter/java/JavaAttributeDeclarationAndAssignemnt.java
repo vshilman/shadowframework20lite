@@ -1,8 +1,8 @@
 package codeconverter.java;
 
 import codeconverter.CodePattern;
-import codeconverter.CodeSequence;
 import codeconverter.ICodeElement;
+import codeconverter.ICodePieceSequencer;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
 import codeconverter.UninterpretedEvaluation;
@@ -28,7 +28,7 @@ public class JavaAttributeDeclarationAndAssignemnt extends CodePattern {
 		JavaAttributeDeclarationAndAssignemnt pattern=new JavaAttributeDeclarationAndAssignemnt();
 		pattern.variable=new Variable(
 				((JavaType) type.cloneCodePiece()).getType(),name.getData());
-		CodeSequence sequence=((CodeSequence) this.javaModifiersSet
+		ICodePieceSequencer sequence=((ICodePieceSequencer) this.javaModifiersSet
 				.getSequence().cloneCodePiece());
 		pattern.javaModifiersSet.loadModifiersSet(sequence);
 		return pattern;

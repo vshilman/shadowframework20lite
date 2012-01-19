@@ -3,7 +3,7 @@ package codeconverter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CodeSequence implements ICodePiece {
+public class CodeSequence implements ICodePiece, ICodePieceSequencer {
 
 	private ICodePiece element;
 	private String div;
@@ -27,6 +27,13 @@ public class CodeSequence implements ICodePiece {
 
 		return false;
 	}
+	
+	
+
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.SEQUENCE;
+	}
 
 	@Override
 	public int elementMatch(String data, int matchPosition) {
@@ -40,7 +47,7 @@ public class CodeSequence implements ICodePiece {
 				pieces.add((ICodePiece) element.cloneCodePiece());
 				position=nextIndex;
 			}
-			while (isDiv(datac[position])) {
+			while (position<datac.length && isDiv(datac[position])) {
 				position++;
 			}
 		} while (nextIndex != -1);
@@ -48,6 +55,10 @@ public class CodeSequence implements ICodePiece {
 		return position;
 	}
 
+	/* (non-Javadoc)
+	 * @see codeconverter.ICodePieceSequencer#getPieces()
+	 */
+	@Override
 	public List<ICodePiece> getPieces() {
 		return pieces;
 	}
