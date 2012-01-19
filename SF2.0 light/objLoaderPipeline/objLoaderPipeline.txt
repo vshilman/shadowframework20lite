@@ -1,0 +1,18 @@
+
+@begin Tessellator OBJBasicTess
+@end
+
+@begin Grid OBJTriangleGrid
+@vertex A
+@vertex B
+@vertex C
+@edge A B
+@edge B C
+@edge C A
+@end
+
+@begin Primitive OBJTriangle
+@grid A,B,C as OBJTriangleGrid:<>
+@use uvw
+@write <> A*w+B*u+C*v 
+@end
