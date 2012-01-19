@@ -2,12 +2,15 @@ package shadow.pipeline.openGL20.tutorials.utils;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLException;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
@@ -16,6 +19,8 @@ import shadow.pipeline.SFPipeline;
 import shadow.pipeline.openGL20.SFGL2;
 
 import com.sun.opengl.util.FPSAnimator;
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
 
 /**
  * controls:
@@ -93,6 +98,22 @@ public abstract class SFTutorial extends JFrame implements KeyListener{
 			
 		}
 		
+	}
+	
+	
+	public int loadImageTexture(String imageFile){
+		try {
+			Texture texture=TextureIO.newTexture(new File(imageFile),true);
+			texture.bind();
+			
+			return texture.getTextureObject();
+			
+		} catch (GLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	@Override
