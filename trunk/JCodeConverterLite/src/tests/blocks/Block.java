@@ -14,13 +14,18 @@ public class Block  implements CodeModule{
 		return modules.get(index);
 	}
 	@Override
-	public String toString() {
+	public String print() {
 		String a="{\n";
 			for (int i=0; i < modules.size(); i++) {
-				a+=modules.get(i)+"\n";
+				a+=modules.get(i).print()+"\n";
 			}
 		a+="}\n";
 		return a;
+	}
+	
+	@Override
+	public String toString() {
+		return "Block";
 	}
 	
 	public void correctBlock(){

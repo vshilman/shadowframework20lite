@@ -19,4 +19,8 @@ public class Number extends Value{
 		return -1;
 	}
 
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.VALUE;
+	}
 }

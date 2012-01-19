@@ -2,6 +2,7 @@ package codeconverter.java;
 
 import codeconverter.ICodeElement;
 import codeconverter.ICodePiece;
+import codeconverter.PieceType;
 import codeconverter.VariableDeclarion;
 import codeconverter.elements.Variable;
 
@@ -20,6 +21,11 @@ public class JavaVariable extends VariableDeclarion{
 			variable.variable=new Variable(((JavaType)type).getType(),this.name.getData());
 		}	
 		return variable;
+	}
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.VARIABLE;
 	}
 	
 	@Override

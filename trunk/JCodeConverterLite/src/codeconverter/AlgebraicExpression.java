@@ -1,5 +1,7 @@
 package codeconverter;
 
+import java.util.List;
+
 public class AlgebraicExpression extends Expression{
 
 	public static String[] algebraicSymbols={
@@ -26,6 +28,11 @@ public class AlgebraicExpression extends Expression{
 	@Override
 	public char getOpenBracketSymbol() {
 		return ')';
+	}
+	
+	@Override
+	public List<ICodePiece> getPieces() {
+		throw new RuntimeException("Not yet implemented, missing also clone method");
 	}
 
 	@Override

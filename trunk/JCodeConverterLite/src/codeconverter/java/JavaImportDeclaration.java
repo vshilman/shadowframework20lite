@@ -6,6 +6,7 @@ import java.util.List;
 import codeconverter.CodePattern;
 import codeconverter.CodeSequence;
 import codeconverter.ICodeElement;
+import codeconverter.ICodePieceSequencer;
 import codeconverter.Name;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
@@ -23,7 +24,7 @@ public class JavaImportDeclaration extends CodePattern {
 	@Override
 	public ICodeElement cloneCodePiece() {
 		JavaImportDeclaration pattern=new JavaImportDeclaration();
-		CodeSequence sequence=((CodeSequence )this.sequence.cloneCodePiece());
+		ICodePieceSequencer sequence=((ICodePieceSequencer )this.sequence.cloneCodePiece());
 		for (int i=0; i < sequence.getPieces().size(); i++) {
 			JavaName importName=(JavaName)(sequence.getPieces().get(i));
 			pattern.names.add(importName.getData());

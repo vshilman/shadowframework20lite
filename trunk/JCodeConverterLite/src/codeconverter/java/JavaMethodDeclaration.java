@@ -1,17 +1,16 @@
 package codeconverter.java;
 
-import codeconverter.AlternativeCode;
 import codeconverter.CodePattern;
-import codeconverter.CodeSequence;
 import codeconverter.ICodeElement;
+import codeconverter.ICodePieceSequencer;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
-import codeconverter.UninterpretedEvaluation;
+import codeconverter.elements.IMethodDeclarator;
 import codeconverter.elements.MethodDeclaration;
 import codeconverter.elements.NamedElement;
 import codeconverter.elements.Variable;
 
-public class JavaMethodDeclaration extends CodePattern{
+public class JavaMethodDeclaration extends CodePattern implements IMethodDeclarator{
 
 	private JavaType type=new JavaType();
 	private JavaName name=new JavaName();
@@ -22,9 +21,8 @@ public class JavaMethodDeclaration extends CodePattern{
 	public JavaMethodDeclaration() {
 		super("attribute declaration");
 		addCodePiece(javaModifiersSet.getSequence(),type,name,new StaticKeyword("("),
-				javaVariablesList.getSequence(),new StaticKeyword(")"),
-				new UninterpretedEvaluation(new AlternativeCode(new StaticKeyword("{"),new StaticKeyword(";"))),
-				new AlternativeCode(new StaticKeyword("{"),new StaticKeyword(";")));
+				javaVariablesList.getSequence(),new StaticKeyword(")")/*,
+				new UninterpretedEvaluation(new AlternativeCode(new StaticKeyword("{"),new StaticKeyword(";")))*/);
 		addCodePattern(PatternType.METHOD_DECLARATION);
 	}
 	
@@ -32,9 +30,9 @@ public class JavaMethodDeclaration extends CodePattern{
 	public ICodeElement cloneCodePiece() {
 		JavaMethodDeclaration pattern=new JavaMethodDeclaration();
 		pattern.variable=new Variable(((JavaType)type.cloneCodePiece()).getType(),name.getData());
-		CodeSequence sequence=((CodeSequence )this.javaModifiersSet.getSequence().cloneCodePiece());
+		ICodePieceSequencer sequence=((ICodePieceSequencer )this.javaModifiersSet.getSequence().cloneCodePiece());
 		pattern.javaModifiersSet.loadModifiersSet(sequence);
-		sequence=((CodeSequence )this.javaVariablesList.getSequence().cloneCodePiece());
+		sequence=((ICodePieceSequencer )this.javaVariablesList.getSequence().cloneCodePiece());
 		pattern.javaVariablesList.loadVariablesList(sequence);
 		return pattern;
 	}
@@ -44,6 +42,10 @@ public class JavaMethodDeclaration extends CodePattern{
 		return javaModifiersSet+variable.getType().getName()+" "+variable.getName()+"("+javaVariablesList+") {";
 	}
 	
+	/* (non-Javadoc)
+	 * @see codeconverter.java.IMethodDeclarator#getMethodDeclaration()
+	 */
+	@Override
 	public MethodDeclaration getMethodDeclaration(){
 		MethodDeclaration declaration=new MethodDeclaration();
 		declaration.setSet(javaModifiersSet.getModifiers());

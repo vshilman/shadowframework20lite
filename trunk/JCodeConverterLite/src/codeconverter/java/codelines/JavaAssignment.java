@@ -21,8 +21,7 @@ public class JavaAssignment  extends CodePattern{
 		super("assignment");
 		
 		expression=new AlgebraicExpression(variableName);
-		addCodePiece(attributeName,new StaticKeyword("="),
-				expression,new StaticKeyword(";"));
+		addCodePiece(attributeName,new StaticKeyword("="));
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	

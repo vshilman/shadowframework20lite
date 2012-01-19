@@ -9,7 +9,7 @@ import codeconverter.java.JavaName;
  * A Generic Expresssion
  * @author Alessandro Martinelli
  */
-public abstract class Expression implements ICodePiece{
+public abstract class Expression implements ICodePiece, ICodePieceSequencer{
 
 	public abstract String[] getExpressionSeparators();
 	
@@ -44,6 +44,13 @@ public abstract class Expression implements ICodePiece{
 		}
 		
 		return -1;
+	}
+	
+	
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.SEQUENCE;
 	}
 	
 	

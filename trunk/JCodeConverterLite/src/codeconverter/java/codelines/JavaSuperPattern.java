@@ -20,8 +20,9 @@ public class JavaSuperPattern extends CodePattern{
 		super("super");
 		addCodePiece(new StaticKeyword("super"),new StaticKeyword("("),
 				new CodeSequence(new AlternativeCode(variableName,number),", "),
-				new StaticKeyword(")"),new StaticKeyword(";"));
+				new StaticKeyword(")"));
 		addCodePattern(PatternType.LINE_OF_CODE);
+		addCodePattern(PatternType.SUPER);
 	}
 
 	@Override

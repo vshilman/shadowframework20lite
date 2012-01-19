@@ -1,7 +1,6 @@
 package codeconverter;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class CodePattern extends AbstractCodeTemplate{
@@ -11,45 +10,62 @@ public abstract class CodePattern extends AbstractCodeTemplate{
 	 * equivalence rules between Patterns
 	 */
 	private String name="";
-	private List<ICodePiece> elements=new LinkedList<ICodePiece>();
+	private ArrayList<ICodePiece> elements=new ArrayList<ICodePiece>();
+	//private LinkedHashMap<ICodePiece> elements=new LinkedHashMap<ICodePiece>();
 	public CodePattern(String name/* ,PatternType patternType */) {
 		super();
 		this.name=name;
 	}
+	
 
 	public void addCodePiece(ICodePiece... piece) {
 		for (int i=0; i < piece.length; i++) {
 			elements.add(piece[i]);
 		}
 	}
-
-	public boolean match(String lineCode) {
-		char[] lineCodeChars=lineCode.toCharArray();
-		int index=0;
-		int elementIndex=0;
-		while (index < lineCodeChars.length && elementIndex < elements.size()) {
-			if (lineCodeChars[index] == ' ' || lineCodeChars[index] == '\t') {
-				index++;
-			} else {
-				int result=elements.get(elementIndex).elementMatch(lineCode,index);
-				if (result == -1) {
-					return false;
-				} else {
-					index=result;
-					elementIndex++;
-				}
+	
+	public List<ICodePiece> getPieceByType(PieceType type){
+		ArrayList<ICodePiece> pieces=new ArrayList<ICodePiece>();
+		for (int i = 0; i < elements.size(); i++) {
+			if(elements.get(i).getPieceType()==type){
+				pieces.add(elements.get(i));
 			}
 		}
-		if (elementIndex == elements.size() && index == lineCodeChars.length) {
-			return true;
-		}else if(index == lineCodeChars.length){
-			for (int i = elementIndex; i < elements.size(); i++) {
-				//TODO: Fa schifo
-				if(!(elements.get(i) instanceof OptionalCode)){
-					return false;
+		return pieces;
+	}
+	
+	public boolean match(String lineCode) {
+		try {
+			char[] lineCodeChars=lineCode.toCharArray();
+			int index=0;
+			int elementIndex=0;
+			while (index < lineCodeChars.length && elementIndex < elements.size()) {
+				if (lineCodeChars[index] == ' ' || lineCodeChars[index] == '\t') {
+					index++;
+				} else {
+					int result=elements.get(elementIndex).elementMatch(lineCode,index);
+					if (result == -1) {
+						return false;
+					} else {
+						index=result;
+						elementIndex++;
+					}
 				}
 			}
-			return true;
+			if (elementIndex == elements.size() && index == lineCodeChars.length) {
+				return true;
+			}else if(index == lineCodeChars.length){
+				for (int i = elementIndex; i < elements.size(); i++) {
+					//TODO: Fa schifo
+					if(!(elements.get(i) instanceof OptionalCode)){
+						return false;
+					}
+				}
+				return true;
+			}
+		} catch (Exception e) {
+			System.err.println("Exception while tryig to match ["+lineCode+"]");
+			e.printStackTrace();
 		}
 		
 

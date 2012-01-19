@@ -40,4 +40,9 @@ public class OptionalCode  implements ICodePiece {
 		code.piece=this.piece;
 		return code;
 	}
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.UNCLASSIFIED;
+	}
 }

@@ -20,4 +20,9 @@ public class Name extends Value{
 		
 		return -1;
 	}
+	
+	@Override
+	public PieceType getPieceType() {
+		return PieceType.NAME;
+	}
 }
