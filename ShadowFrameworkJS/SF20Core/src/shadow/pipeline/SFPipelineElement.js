@@ -1,0 +1,6 @@
+
+function SFPipelineElement(){
+}
+
+SFPipelineElement.prototype = {
+};

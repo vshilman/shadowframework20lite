@@ -1,0 +1,4 @@
+
+
+SFUseParser.prototype = {
+};

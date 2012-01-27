@@ -1,0 +1,4 @@
+
+
+SFEdgeParser.prototype = {
+};

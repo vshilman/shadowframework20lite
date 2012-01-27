@@ -1,0 +1,4 @@
+
+
+GLBaseLodDefinition.prototype = {
+};

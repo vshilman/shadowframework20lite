@@ -1,0 +1,4 @@
+
+
+SFWriteParser.prototype = {
+};

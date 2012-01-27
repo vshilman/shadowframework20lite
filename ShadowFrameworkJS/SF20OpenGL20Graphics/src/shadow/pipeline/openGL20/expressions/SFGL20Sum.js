@@ -1,0 +1,4 @@
+
+
+SFGL20Sum.prototype = {
+};

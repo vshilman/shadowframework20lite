@@ -1,0 +1,4 @@
+
+
+TexCoordFunction.prototype = {
+};
