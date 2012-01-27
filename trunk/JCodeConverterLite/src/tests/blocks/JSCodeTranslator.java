@@ -147,9 +147,13 @@ public class JSCodeTranslator implements CodeTranslator{
 	private void writeCodeModule(StringWriter writer,CodeModule module,HashMap<CodeModule, CodePattern> relatedPatterns){
 		if(module instanceof CodeLine){
 			CodePattern piece=relatedPatterns.get(module);
-			if(piece.getPatternType().contains(PatternType.SUPER))
-				return;
-			writer.write("\t"+piece+"\n");
+			if(piece!=null){
+				if(piece.getPatternType().contains(PatternType.SUPER))
+					return;
+				writer.write("\t"+piece+"\n");	
+			}else{
+				writer.write("\t"+(((CodeLine)module).codeLine)+";//Warning: Not well Identified \n");
+			}
 		}
 	} 
 	

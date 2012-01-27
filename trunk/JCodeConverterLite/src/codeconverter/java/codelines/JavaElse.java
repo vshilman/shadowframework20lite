@@ -19,8 +19,7 @@ public class JavaElse  extends CodePattern{
 				new OptionalCode(new StaticKeyword("if")),
 				new OptionalCode(new StaticKeyword("(")),
 				new UninterpretedEvaluation(new StaticKeyword(")")),
-				new OptionalCode(new StaticKeyword(")")),
-				new OptionalCode(new StaticKeyword("{")));
+				new OptionalCode(new StaticKeyword(")")));
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	

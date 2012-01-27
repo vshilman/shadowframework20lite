@@ -19,7 +19,7 @@ public class JavaInterfaceDeclaration  extends CodePattern{
 		super("interface declaration");
 		javaClassExtends = new JavaClassKeywords(new StaticKeyword("extends"));
 		javaClassImplements = new JavaClassKeywords(new StaticKeyword("implements"));
-		addCodePiece(javaModifiersSet.getSequence(),new StaticKeyword("interface"),name,javaClassExtends,javaClassImplements,new StaticKeyword("{"));
+		addCodePiece(javaModifiersSet.getSequence(),new StaticKeyword("interface"),name,javaClassExtends,javaClassImplements);
 		addCodePattern(PatternType.CLASS_DECLARATION);
 	}
 	

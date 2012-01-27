@@ -16,8 +16,7 @@ public class JavaIf  extends CodePattern{
 		super("assignment");
 		
 		addCodePiece(new StaticKeyword("if"),new StaticKeyword("("),
-				new UninterpretedEvaluation(new StaticKeyword("{")),
-				new OptionalCode(new StaticKeyword("{")));
+				new UninterpretedEvaluation(new StaticKeyword("{")));
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	

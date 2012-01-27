@@ -18,8 +18,7 @@ public class JavaAttributeDeclarationAndAssignemnt extends CodePattern {
 	public JavaAttributeDeclarationAndAssignemnt() {
 		super("attribute declaration");
 		addCodePiece(javaModifiersSet.getSequence(),type,name,new StaticKeyword("="),
-				new UninterpretedEvaluation(new StaticKeyword(";")),
-				new StaticKeyword(";"));
+				new UninterpretedEvaluation(new StaticKeyword(";")));
 		addCodePattern(PatternType.ATTRIBUTE_DECLARATION);
 	}
 

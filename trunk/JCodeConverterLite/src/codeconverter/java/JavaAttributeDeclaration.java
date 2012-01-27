@@ -16,8 +16,7 @@ public class JavaAttributeDeclaration extends CodePattern {
 
 	public JavaAttributeDeclaration() {
 		super("attribute declaration");
-		addCodePiece(javaModifiersSet.getSequence(),type,name,
-				new StaticKeyword(";"));
+		addCodePiece(javaModifiersSet.getSequence(),type,name);
 		addCodePattern(PatternType.ATTRIBUTE_DECLARATION);
 	}
 
