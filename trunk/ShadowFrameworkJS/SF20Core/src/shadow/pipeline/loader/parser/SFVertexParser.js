@@ -1,0 +1,4 @@
+
+
+SFVertexParser.prototype = {
+};

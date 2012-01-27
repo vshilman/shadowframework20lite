@@ -1,0 +1,4 @@
+
+
+SFDefineParser.prototype = {
+};

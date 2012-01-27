@@ -1,0 +1,4 @@
+
+
+SFEndParser.prototype = {
+};

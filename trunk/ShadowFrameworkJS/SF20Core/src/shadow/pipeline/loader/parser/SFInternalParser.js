@@ -1,0 +1,4 @@
+
+
+SFInternalParser.prototype = {
+};

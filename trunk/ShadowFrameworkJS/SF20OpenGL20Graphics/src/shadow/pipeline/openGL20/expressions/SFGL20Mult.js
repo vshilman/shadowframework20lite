@@ -1,0 +1,4 @@
+
+
+SFGL20Mult.prototype = {
+};
