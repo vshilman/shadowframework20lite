@@ -18,7 +18,7 @@ public class JavaPackageDeclaration extends CodePattern{
 	
 	public JavaPackageDeclaration() {
 		super("name");
-		addCodePiece(new StaticKeyword("package "),sequence,new StaticKeyword(";"));
+		addCodePiece(new StaticKeyword("package "),sequence);
 		addCodePattern(PatternType.LIBRARY_DECLARATION);
 	}
 	

@@ -17,7 +17,7 @@ public class JavaImportDeclaration extends CodePattern {
 	
 	public JavaImportDeclaration() {
 		super("name");
-		addCodePiece(new StaticKeyword("import "),sequence,new StaticKeyword(";"));
+		addCodePiece(new StaticKeyword("import "),sequence);
 		addCodePattern(PatternType.LIBRARY_DECLARATION);
 	}
 	
