@@ -27,7 +27,7 @@ public class OptionalCode  implements ICodePiece {
 			return nextIndex;
 		}
 
-		return matchPosition;
+		return nextIndex;
 	}
 
 	public ICodePiece getPiece() {
