@@ -9,8 +9,16 @@ function SFGL20PrimitiveArray(primitive){
 
 SFGL20PrimitiveArray.prototype = {
 
-	getPrimitiveData:function(){
-		return this.primitiveData;
+	generateGenericElement:function(){
+	return new SFPrimitiveIndices(primitive);//Warning: Not well Identified 
+	},
+
+	getPrimitiveData:function(index){
+		return this.primitiveData[index];
+	},
+
+	getRegisters:function(){
+		return this.registers;
 	}
 
 };

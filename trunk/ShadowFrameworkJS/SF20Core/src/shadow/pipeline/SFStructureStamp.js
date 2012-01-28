@@ -7,21 +7,4 @@ function SFStructureStamp(structure){
 }
 
 SFStructureStamp.prototype = {
-
-	getData:function(){
-		return this.data;
-	},
-
-	size:function(){
-	return data.length;//Warning: Not well Identified 
-	},
-
-	getDimension:function(index){
-		return this.data[index];
-	},
-
-	getSum:function(){
-		return this.sum;
-	}
-
 };

@@ -4,9 +4,4 @@ function SFExpressionVariable(element, parameters){
 }
 
 SFExpressionVariable.prototype = {
-
-	getParameter:function(set, name){
-		return this.null;
-	}
-
 };

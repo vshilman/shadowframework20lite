@@ -5,4 +5,9 @@ function SFExpressionDivide(){
 }
 
 SFExpressionDivide.prototype = {
+
+	cloneOperator:function(){
+	return new SFExpressionDivide();//Warning: Not well Identified 
+	}
+
 };

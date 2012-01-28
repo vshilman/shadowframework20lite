@@ -4,9 +4,4 @@ function SFExpressionVector(){
 }
 
 SFExpressionVector.prototype = {
-
-	cloneOperator:function(){
-	return new SFExpressionVector();//Warning: Not well Identified 
-	}
-
 };

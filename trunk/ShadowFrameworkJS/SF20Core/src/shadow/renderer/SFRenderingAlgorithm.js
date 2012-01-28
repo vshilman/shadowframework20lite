@@ -5,14 +5,4 @@ function SFRenderingAlgorithm(steps){
 }
 
 SFRenderingAlgorithm.prototype = {
-
-	getSteps:function(){
-	System.out.println("(Debug) GLRenderingAlgorithm \t\t : \t\t steps "+steps.size());//Warning: Not well Identified 
-		return this.steps;
-	},
-
-	getFilters:function(){
-		return this.filters;
-	}
-
 };

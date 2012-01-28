@@ -5,9 +5,4 @@ function SFExpressionMinus(){
 }
 
 SFExpressionMinus.prototype = {
-
-	cloneOperator:function(){
-	return new SFExpressionMinus();//Warning: Not well Identified 
-	}
-
 };

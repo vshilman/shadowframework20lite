@@ -5,13 +5,4 @@ function SFPrimitiveProgramAssociation(register, program){
 }
 
 SFPrimitiveProgramAssociation.prototype = {
-
-	getRegister:function(){
-		return this.register;
-	},
-
-	getProgram:function(){
-		return this.program;
-	}
-
 };

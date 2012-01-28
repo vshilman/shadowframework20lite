@@ -2,29 +2,22 @@
 
 SFParsableGrid.prototype = {
 
-	loadName:function(vertex){
-	if(verticesLoading.get(vertex)==null)			verticesLoading.put(vertex,(short)verticesLoading.size());//Warning: Not well Identified 
-	return verticesLoading.get(vertex);//Warning: Not well Identified 
+	finalize:function(){
+	names=new String[verticesLoading.size()];//Warning: Not well Identified 
+	Set<String> ns;
+	int j=0;//Warning: Not well Identified 
+	//corners idx		corners=new short[cornersLoading.size()];//Warning: Not well Identified 
+	//edges idx		edges=new short[edgesLoading.size()][];//Warning: Not well Identified 
+	//paths idx		paths=new short[pathsLoading.size()][];//Warning: Not well Identified 
+	verticesLoading.clear();//Warning: Not well Identified 
+	edgesLoading.clear();//Warning: Not well Identified 
+	cornersLoading.clear();//Warning: Not well Identified 
+	pathsLoading.clear();//Warning: Not well Identified 
+	SFPipeline.loadGrid(getName(), this);//Warning: Not well Identified 
 	},
 
-	loadVertex:function(vertex){
-	cornersLoading.add(loadName(vertex));//Warning: Not well Identified 
-	},
-
-	loadEdge:function(vertex){
-	edgesLoading.add(getPath(vertex));//Warning: Not well Identified 
-	},
-
-	loadPath:function(vertex){
-	pathsLoading.add(getPath(vertex));//Warning: Not well Identified 
-	},
-
-	loadInternal:function(vertex){
-	},
-
-	getPath:function(vertex){
-	ArrayList<Short> path;
-		return this.path;
+	getAllCommands:function(){
+		return this.allCommands;
 	}
 
 };

@@ -5,4 +5,9 @@ function SFExpressionPoint(){
 }
 
 SFExpressionPoint.prototype = {
+
+	cloneOperator:function(){
+	return new SFExpressionPoint();//Warning: Not well Identified 
+	}
+
 };

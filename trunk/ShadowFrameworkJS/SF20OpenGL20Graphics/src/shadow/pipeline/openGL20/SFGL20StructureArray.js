@@ -4,4 +4,13 @@ function SFGL20StructureArray(structure){
 }
 
 SFGL20StructureArray.prototype = {
+
+	generateGenericElement:function(){
+	return new SFStructureData(structure);//Warning: Not well Identified 
+	},
+
+	getPipelineStructure:function(){
+		return this.structure;
+	}
+
 };

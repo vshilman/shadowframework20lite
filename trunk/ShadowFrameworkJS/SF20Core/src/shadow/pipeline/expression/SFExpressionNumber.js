@@ -4,4 +4,9 @@ function SFExpressionNumber(element){
 }
 
 SFExpressionNumber.prototype = {
+
+	evaluateType:function(){
+	//Number is unidentified.		setType(SFParameter.GLOBAL_FLOAT);//Warning: Not well Identified 
+	}
+
 };

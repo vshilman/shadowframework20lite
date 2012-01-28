@@ -5,4 +5,9 @@ function SFExpressionDot(){
 }
 
 SFExpressionDot.prototype = {
+
+	cloneOperator:function(){
+	return new SFExpressionDot();//Warning: Not well Identified 
+	}
+
 };
