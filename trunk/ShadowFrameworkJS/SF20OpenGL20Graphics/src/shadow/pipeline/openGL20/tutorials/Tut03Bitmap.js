@@ -1,4 +1,6 @@
 
+function Tut03Bitmap(){
+}
 
 Tut03Bitmap.prototype = {
 

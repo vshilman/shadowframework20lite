@@ -1,4 +1,6 @@
 
+function Mushroom(){
+}
 
 Mushroom.prototype = {
 };

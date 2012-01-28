@@ -1,4 +1,6 @@
 
+function Cone(){
+}
 
 Cone.prototype = {
 };

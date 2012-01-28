@@ -1,4 +1,6 @@
 
+function TexCoordFunction(){
+}
 
 TexCoordFunction.prototype = {
 

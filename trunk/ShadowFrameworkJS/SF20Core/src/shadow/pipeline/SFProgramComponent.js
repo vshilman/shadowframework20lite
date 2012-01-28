@@ -1,4 +1,6 @@
 
+function SFProgramComponent(){
+}
 
 SFProgramComponent.prototype = {
 };

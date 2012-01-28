@@ -1,4 +1,6 @@
 
+function SFGL20RenderedTextureFactory(){
+}
 
 SFGL20RenderedTextureFactory.prototype = {
 

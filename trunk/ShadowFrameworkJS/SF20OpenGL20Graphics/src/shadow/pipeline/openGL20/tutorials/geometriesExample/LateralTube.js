@@ -1,4 +1,6 @@
 
+function LateralTube(){
+}
 
 LateralTube.prototype = {
 };

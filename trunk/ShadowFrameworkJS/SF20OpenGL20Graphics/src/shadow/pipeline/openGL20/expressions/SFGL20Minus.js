@@ -1,4 +1,6 @@
 
+function SFGL20Minus(){
+}
 
 SFGL20Minus.prototype = {
 

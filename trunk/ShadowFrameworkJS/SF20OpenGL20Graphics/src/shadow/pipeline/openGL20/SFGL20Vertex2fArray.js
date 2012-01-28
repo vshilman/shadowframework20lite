@@ -1,4 +1,6 @@
 
+function SFGL20Vertex2fArray(){
+}
 
 SFGL20Vertex2fArray.prototype = {
 

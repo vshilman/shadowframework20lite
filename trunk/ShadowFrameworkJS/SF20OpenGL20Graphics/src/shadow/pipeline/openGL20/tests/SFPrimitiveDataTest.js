@@ -1,4 +1,6 @@
 
+function SFPrimitiveDataTest(){
+}
 
 SFPrimitiveDataTest.prototype = {
 };

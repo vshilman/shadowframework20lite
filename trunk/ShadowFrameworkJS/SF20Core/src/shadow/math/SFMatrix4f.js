@@ -1,4 +1,6 @@
 
+function SFMatrix4f(){
+}
 
 SFMatrix4f.prototype = {
 

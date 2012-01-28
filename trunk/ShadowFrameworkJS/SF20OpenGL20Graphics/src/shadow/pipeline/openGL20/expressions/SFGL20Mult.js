@@ -1,4 +1,6 @@
 
+function SFGL20Mult(){
+}
 
 SFGL20Mult.prototype = {
 

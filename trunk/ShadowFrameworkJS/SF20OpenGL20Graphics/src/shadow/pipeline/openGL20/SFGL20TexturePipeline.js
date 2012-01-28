@@ -1,4 +1,6 @@
 
+function SFGL20TexturePipeline(){
+}
 
 SFGL20TexturePipeline.prototype = {
 

@@ -1,4 +1,6 @@
 
+function SFMathStream(){
+}
 
 SFMathStream.prototype = {
 };

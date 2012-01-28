@@ -1,4 +1,6 @@
 
+function SFAsset(){
+}
 
 SFAsset.prototype = {
 

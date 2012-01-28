@@ -1,4 +1,6 @@
 
+function SFParsableStructure(){
+}
 
 SFParsableStructure.prototype = {
 

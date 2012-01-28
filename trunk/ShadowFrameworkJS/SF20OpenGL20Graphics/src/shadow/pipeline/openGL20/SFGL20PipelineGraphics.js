@@ -1,4 +1,6 @@
 
+function SFGL20PipelineGraphics(){
+}
 
 SFGL20PipelineGraphics.prototype = {
 

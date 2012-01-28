@@ -1,4 +1,6 @@
 
+function Tut06TexturedGeometry(){
+}
 
 Tut06TexturedGeometry.prototype = {
 

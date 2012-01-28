@@ -1,4 +1,6 @@
 
+function SFGL20ProgramBuilder(){
+}
 
 SFGL20ProgramBuilder.prototype = {
 

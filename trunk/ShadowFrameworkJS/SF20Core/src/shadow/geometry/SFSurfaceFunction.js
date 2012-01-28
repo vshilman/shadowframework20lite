@@ -1,4 +1,6 @@
 
+function SFSurfaceFunction(){
+}
 
 SFSurfaceFunction.prototype = {
 };

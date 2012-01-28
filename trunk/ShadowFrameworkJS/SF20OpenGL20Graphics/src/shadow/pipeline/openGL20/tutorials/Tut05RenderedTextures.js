@@ -1,4 +1,6 @@
 
+function Tut05RenderedTextures(){
+}
 
 Tut05RenderedTextures.prototype = {
 

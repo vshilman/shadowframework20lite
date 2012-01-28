@@ -1,4 +1,6 @@
 
+function SFEdgeParser(){
+}
 
 SFEdgeParser.prototype = {
 };

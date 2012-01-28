@@ -1,4 +1,6 @@
 
+function SFGL20ExpressionGenerator(){
+}
 
 SFGL20ExpressionGenerator.prototype = {
 

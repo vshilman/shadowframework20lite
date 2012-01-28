@@ -1,4 +1,6 @@
 
+function SFStructuresTable(){
+}
 
 SFStructuresTable.prototype = {
 

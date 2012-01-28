@@ -1,4 +1,6 @@
 
+function SFTutorialsUtilities(){
+}
 
 SFTutorialsUtilities.prototype = {
 };
