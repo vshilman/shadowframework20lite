@@ -1,4 +1,6 @@
 
+function SFBasicExpressionGenerator(){
+}
 
 SFBasicExpressionGenerator.prototype = {
 

@@ -1,4 +1,6 @@
 
+function SFConcreteTriangleExtractor(){
+}
 
 SFConcreteTriangleExtractor.prototype = {
 

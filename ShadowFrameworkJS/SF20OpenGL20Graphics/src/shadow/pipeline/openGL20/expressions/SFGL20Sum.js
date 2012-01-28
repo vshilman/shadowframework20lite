@@ -1,4 +1,6 @@
 
+function SFGL20Sum(){
+}
 
 SFGL20Sum.prototype = {
 

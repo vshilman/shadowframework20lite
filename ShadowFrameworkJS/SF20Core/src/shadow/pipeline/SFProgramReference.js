@@ -1,4 +1,6 @@
 
+function SFProgramReference(){
+}
 
 SFProgramReference.prototype = {
 };

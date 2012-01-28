@@ -1,4 +1,6 @@
 
+function SFStructuresTest(){
+}
 
 SFStructuresTest.prototype = {
 };

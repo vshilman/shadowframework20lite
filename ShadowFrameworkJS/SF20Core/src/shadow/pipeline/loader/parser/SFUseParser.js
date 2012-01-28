@@ -1,4 +1,6 @@
 
+function SFUseParser(){
+}
 
 SFUseParser.prototype = {
 };

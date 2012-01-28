@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>House Test</title>
+    <script type="text/javascript" src="../SF20OpenGL20Graphics/src/shadow/pipeline/openGL20/expressions/SFGL20Vector.js"></script>
+    <script type="text/javascript" >
+    	function Test(){
+    		var expression=new SFGL20Vector();
+    		var text=expression.setup()+" "+expression.close()+" "+expression.update();
+    		document.getElementById("Caption").innerHTML="Success: "+text;
+    	}
+    </script>
+  </head>
+  <body onload="Test();">
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Testing src.shadow.pipeline.openGL20.expressions.SFGL20Divide.js
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+      <br/><a href="unittest0006.html">Next Text</a>
+    </div>
+  </body>
+</html>

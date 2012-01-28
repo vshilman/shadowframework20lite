@@ -1,4 +1,6 @@
 
+function SFPipelineGrid(){
+}
 
 SFPipelineGrid.prototype = {
 };

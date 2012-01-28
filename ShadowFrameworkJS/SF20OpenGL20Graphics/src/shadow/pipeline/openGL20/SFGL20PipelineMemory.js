@@ -1,4 +1,6 @@
 
+function SFGL20PipelineMemory(){
+}
 
 SFGL20PipelineMemory.prototype = {
 

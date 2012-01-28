@@ -1,4 +1,6 @@
 
+function SFInternalParser(){
+}
 
 SFInternalParser.prototype = {
 };

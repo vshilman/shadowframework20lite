@@ -1,4 +1,6 @@
 
+function SFVertexParser(){
+}
 
 SFVertexParser.prototype = {
 };

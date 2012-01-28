@@ -1,4 +1,6 @@
 
+function SFParsableGrid(){
+}
 
 SFParsableGrid.prototype = {
 

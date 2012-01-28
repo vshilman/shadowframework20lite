@@ -1,4 +1,6 @@
 
+function Tut02MoreGeometries(){
+}
 
 Tut02MoreGeometries.prototype = {
 

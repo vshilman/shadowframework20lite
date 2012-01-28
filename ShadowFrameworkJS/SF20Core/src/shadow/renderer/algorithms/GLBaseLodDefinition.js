@@ -1,4 +1,6 @@
 
+function GLBaseLodDefinition(){
+}
 
 GLBaseLodDefinition.prototype = {
 

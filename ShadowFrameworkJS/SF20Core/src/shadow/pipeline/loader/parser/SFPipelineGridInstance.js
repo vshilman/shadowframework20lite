@@ -1,4 +1,6 @@
 
+function SFPipelineGridInstance(){
+}
 
 SFPipelineGridInstance.prototype = {
 };

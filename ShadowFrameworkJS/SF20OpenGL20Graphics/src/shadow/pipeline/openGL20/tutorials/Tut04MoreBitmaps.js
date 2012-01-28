@@ -1,4 +1,6 @@
 
+function Tut04MoreBitmaps(){
+}
 
 Tut04MoreBitmaps.prototype = {
 

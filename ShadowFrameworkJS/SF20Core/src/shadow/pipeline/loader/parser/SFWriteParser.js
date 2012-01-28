@@ -1,4 +1,6 @@
 
+function SFWriteParser(){
+}
 
 SFWriteParser.prototype = {
 };

@@ -1,4 +1,6 @@
 
+function SFBeginParser(){
+}
 
 SFBeginParser.prototype = {
 };

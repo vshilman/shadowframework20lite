@@ -1,4 +1,6 @@
 
+function SFDefineParser(){
+}
 
 SFDefineParser.prototype = {
 };

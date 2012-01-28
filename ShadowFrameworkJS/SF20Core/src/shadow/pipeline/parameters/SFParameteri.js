@@ -1,4 +1,6 @@
 
+function SFParameteri(){
+}
 
 SFParameteri.prototype = {
 };

@@ -1,4 +1,6 @@
 
+function SFGL20ListData<E>(){
+}
 
 SFGL20ListData<E>.prototype = {
 

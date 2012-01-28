@@ -1,4 +1,6 @@
 
+function SFGL20Vector(){
+}
 
 SFGL20Vector.prototype = {
 

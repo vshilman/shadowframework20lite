@@ -1,4 +1,6 @@
 
+function SFNode(){
+}
 
 SFNode.prototype = {
 

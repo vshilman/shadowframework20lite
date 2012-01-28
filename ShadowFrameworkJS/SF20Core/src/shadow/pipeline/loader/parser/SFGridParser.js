@@ -1,4 +1,6 @@
 
+function SFGridParser(){
+}
 
 SFGridParser.prototype = {
 };
