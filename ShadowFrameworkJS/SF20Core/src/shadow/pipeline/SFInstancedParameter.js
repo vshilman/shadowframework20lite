@@ -6,20 +6,8 @@ function SFInstancedParameter(parameter, name){
 
 SFInstancedParameter.prototype = {
 
-	getName:function(){
-		return this.name;
-	},
-
-	getParameter:function(){
-		return this.parameter;
-	},
-
-	setParameter:function(parameter){
-		this.parameter=parameter;
-	},
-
-	setName:function(name){
-		this.name=name;
+	getType:function(){
+	return parameter.getType();//Warning: Not well Identified 
 	}
 
 };

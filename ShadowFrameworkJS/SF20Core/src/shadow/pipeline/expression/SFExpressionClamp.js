@@ -5,4 +5,9 @@ function SFExpressionClamp(){
 }
 
 SFExpressionClamp.prototype = {
+
+	cloneOperator:function(){
+	return new SFExpressionClamp();//Warning: Not well Identified 
+	}
+
 };

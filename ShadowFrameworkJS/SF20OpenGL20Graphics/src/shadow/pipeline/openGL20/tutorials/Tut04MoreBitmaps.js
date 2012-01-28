@@ -2,16 +2,19 @@
 
 Tut04MoreBitmaps.prototype = {
 
-	main:function(args){
-	SFGL20Pipeline.setup();//Warning: Not well Identified 
-	SFProgram program;
-	Tut04MoreBitmaps tut03Bitmap;
-	tut03Bitmap.program=program;//Warning: Not well Identified 
-	tut03Bitmap.prepareFrame("Curved Tube Function", 600, 600);//Warning: Not well Identified 
+	init:function(){
+	SFBitmap[] bitmap;
+	texture=new SFTextureData[bitmap.length];//Warning: Not well Identified 
 	},
 
-	getAllBitmaps:function(){
-		return this.bitmap;
+	render:function(){
+	texture[selectedTexture].apply(0);//Warning: Not well Identified 
+	SFPipeline.getSfProgramBuilder().loadProgram(program);//Warning: Not well Identified 
+	SFPipeline.getSfPipelineGraphics().drawBaseQuad();//Warning: Not well Identified 
+	},
+
+	keyPressed:function(e){
+	super.keyPressed(e);//Warning: Not well Identified 
 	}
 
 };

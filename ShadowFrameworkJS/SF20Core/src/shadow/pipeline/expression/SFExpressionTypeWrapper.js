@@ -10,4 +10,9 @@ function SFExpressionTypeWrapper(type, wrappedExpression){
 }
 
 SFExpressionTypeWrapper.prototype = {
+
+	evaluateType:function(){
+	//nothing to do.;//Warning: Not well Identified 
+	}
+
 };

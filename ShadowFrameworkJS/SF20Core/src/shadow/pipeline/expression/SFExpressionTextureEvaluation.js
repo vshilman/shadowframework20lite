@@ -5,4 +5,9 @@ function SFExpressionTextureEvaluation(){
 }
 
 SFExpressionTextureEvaluation.prototype = {
+
+	cloneOperator:function(){
+	return new SFExpressionTextureEvaluation();//Warning: Not well Identified 
+	}
+
 };

@@ -5,9 +5,4 @@ function SFExpressionSum(){
 }
 
 SFExpressionSum.prototype = {
-
-	cloneOperator:function(){
-	return new SFExpressionSum();//Warning: Not well Identified 
-	}
-
 };

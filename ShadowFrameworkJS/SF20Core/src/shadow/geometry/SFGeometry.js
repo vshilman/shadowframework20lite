@@ -1,0 +1,4 @@
+
+
+SFGeometry.prototype = {
+};

@@ -11,21 +11,4 @@ function SFStructureData(structure){
 }
 
 SFStructureData.prototype = {
-
-	size:function(){
-	return values.length;//Warning: Not well Identified 
-	},
-
-	getStructure:function(){
-		return this.structure;
-	},
-
-	getValue:function(index){
-		return this.values[index];
-	},
-
-	getValues:function(){
-		return this.values;
-	}
-
 };

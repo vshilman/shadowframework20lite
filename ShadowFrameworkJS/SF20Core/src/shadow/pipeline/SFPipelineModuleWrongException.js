@@ -4,13 +4,4 @@ function SFPipelineModuleWrongException(){
 }
 
 SFPipelineModuleWrongException.prototype = {
-
-	getList:function(){
-		return this.list;
-	},
-
-	setList:function(list){
-		this.list=list;
-	}
-
 };

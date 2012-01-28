@@ -2,7 +2,7 @@
 
 SFConcreteTriangleExtractor.prototype = {
 
-	getPrimitivesNumber:function(){
+	getN1:function(){
 		return ;
 	}
 

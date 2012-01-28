@@ -6,13 +6,4 @@ function SFArrayElementException(element, additionalMessage){
 }
 
 SFArrayElementException.prototype = {
-
-	getElement:function(){
-		return this.element;
-	},
-
-	getAdditionalMessage:function(){
-		return this.additionalMessage;
-	}
-
 };

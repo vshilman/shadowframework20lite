@@ -5,4 +5,9 @@ function SFExpressionSqrt(){
 }
 
 SFExpressionSqrt.prototype = {
+
+	cloneOperator:function(){
+	return new SFExpressionSqrt();//Warning: Not well Identified 
+	}
+
 };

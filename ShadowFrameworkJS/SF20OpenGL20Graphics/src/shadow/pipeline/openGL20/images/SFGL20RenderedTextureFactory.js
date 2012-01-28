@@ -2,7 +2,10 @@
 
 SFGL20RenderedTextureFactory.prototype = {
 
-	getGLFormat:function(format){
+	generatePlainBuffer:function(width, height){
+	SFGL20RenderBuffer renderBuffer;
+	renderBuffer.build();//Warning: Not well Identified 
+		return this.renderBuffer;
 	}
 
 };
