@@ -3,6 +3,7 @@ package codeconverter.java;
 import codeconverter.CodePattern;
 import codeconverter.ICodeElement;
 import codeconverter.ICodePieceSequencer;
+import codeconverter.OptionalCode;
 import codeconverter.PatternType;
 import codeconverter.StaticKeyword;
 import codeconverter.elements.IMethodDeclarator;
@@ -20,7 +21,7 @@ public class JavaMethodDeclaration extends CodePattern implements IMethodDeclara
 	
 	public JavaMethodDeclaration() {
 		super("attribute declaration");
-		addCodePiece(javaModifiersSet.getSequence(),type,name,new StaticKeyword("("),
+		addCodePiece(new OptionalCode(new StaticKeyword("@Override")),javaModifiersSet.getSequence(),type,name,new StaticKeyword("("),
 				javaVariablesList.getSequence(),new StaticKeyword(")")/*,
 				new UninterpretedEvaluation(new AlternativeCode(new StaticKeyword("{"),new StaticKeyword(";")))*/);
 		addCodePattern(PatternType.METHOD_DECLARATION);

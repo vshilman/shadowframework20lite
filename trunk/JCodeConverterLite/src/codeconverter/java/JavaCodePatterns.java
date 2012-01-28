@@ -19,6 +19,7 @@ public class JavaCodePatterns {
 	private static List<CodePattern> patterns=new ArrayList<CodePattern>();
 	
 	public static List<CodePattern> getPatterns(){
+		patterns.add(new JavaMethodDeclaration());
 		patterns.add(new JavaElse());
 		patterns.add(new JavaArrayDeclaration());
 		patterns.add(new JavaFor());
@@ -32,7 +33,6 @@ public class JavaCodePatterns {
 		patterns.add(new JavaPackageDeclaration());
 		patterns.add(new JavaAttributeAssignmentPattern());
 		patterns.add(new JavaAttributeDeclaration());
-		patterns.add(new JavaMethodDeclaration());
 		patterns.add(new JavaBlockClose());
 		patterns.add(new JavaClassDeclaration());
 		patterns.add(new JavaInterfaceDeclaration());

@@ -39,6 +39,12 @@ public class JSCodeTranslator implements CodeTranslator{
 		ArrayList<DeclaredBlock> methods=new ArrayList<DeclaredBlock>();
 		ArrayList<CodeModule> addictionalLinesOfCode=new ArrayList<CodeModule>();
 		
+
+		System.err.println("relatedPatterns "+relatedPatterns.size());
+		for (CodeModule codeModule : relatedPatterns.keySet()) {
+			System.out.println(" module: "+codeModule+" "+relatedPatterns.get(codeModule));
+		}
+		
 		//iterate other 
 		for (int i = 0; i < mainBlock.getSize(); i++) {
 			CodeModule module=mainBlock.getSubModule(i);
@@ -63,22 +69,26 @@ public class JSCodeTranslator implements CodeTranslator{
 		}
 		
 		CodePattern classPattern=relatedPatterns.get(classDefinition);
-		
-		
-		ICodePiece className=classPattern.getPieceByType(PieceType.NAME).get(0);
-		
-		for (int i = 0; i < constructors.size(); i++) {
-			writeConstructor(writer,constructors.get(i),relatedPatterns);	
+
+		if(classPattern!=null){
+			
+			ICodePiece className=classPattern.getPieceByType(PieceType.NAME).get(0);
+
+			for (int i = 0; i < constructors.size(); i++) {
+				writeConstructor(writer,constructors.get(i),relatedPatterns);	
+			}
+			
+			//where are all the methods gone?
+			
+			writer.write("\n"+className+".prototype = {\n");
+			
+			System.err.println("Methods "+methods.size());
+			for (int i = 0; i < methods.size(); i++) {
+				writeMethod(writer,methods.get(i),relatedPatterns,i==methods.size()-1);	
+			}
+			writer.write("};");
+
 		}
-		
-		//where are all the methods gone?
-		
-		writer.write("\n"+className+".prototype = {\n");
-		System.err.println("Methods "+methods.size());
-		for (int i = 0; i < methods.size(); i++) {
-			writeMethod(writer,methods.get(i),relatedPatterns,i==methods.size()-1);	
-		}
-		writer.write("};");
 	}
 	
 	
