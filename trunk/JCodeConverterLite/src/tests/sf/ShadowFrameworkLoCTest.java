@@ -3,7 +3,7 @@ package tests.sf;
 import java.io.File;
 import java.util.List;
 
-import codeconverter.FileStringUtility;
+import codeconverter.utility.FileStringUtility;
 
 public class ShadowFrameworkLoCTest {
 

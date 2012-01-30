@@ -5,8 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import codeconverter.Block;
+import codeconverter.BlockInterpreter;
+import codeconverter.CodeModule;
 import codeconverter.CodePattern;
-import codeconverter.FileStringUtility;
+import codeconverter.java.JavaCodePatternInterpreter;
+import codeconverter.utility.FileStringUtility;
 
 public class BlocksTest002 {
 

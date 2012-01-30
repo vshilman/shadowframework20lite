@@ -3,7 +3,8 @@ package tests.blocks;
 import java.io.StringWriter;
 import java.util.List;
 
-import codeconverter.FileStringUtility;
+import codeconverter.Block;
+import codeconverter.utility.FileStringUtility;
 
 public class BlocksTest001 {
 

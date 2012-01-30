@@ -3,7 +3,7 @@ package codeconverter.js;
 import codeconverter.CodePattern;
 import codeconverter.ICodeElement;
 import codeconverter.PatternType;
-import codeconverter.StaticKeyword;
+import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.elements.Variable;
 
 public class JsReturnPattern extends CodePattern{
@@ -13,7 +13,7 @@ public class JsReturnPattern extends CodePattern{
 	
 	public JsReturnPattern() {
 		super("return");
-		addCodePiece(new StaticKeyword("return"),variableName,new StaticKeyword(";"));
+		addCodePiece(new UniqueKeyword("return"),variableName,new UniqueKeyword(";"));
 		addCodePattern(PatternType.RETURN,PatternType.LINE_OF_CODE);
 	}
 

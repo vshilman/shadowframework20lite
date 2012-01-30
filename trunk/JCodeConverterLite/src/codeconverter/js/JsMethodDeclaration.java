@@ -4,7 +4,7 @@ import codeconverter.CodePattern;
 import codeconverter.ICodeElement;
 import codeconverter.ICodePieceSequencer;
 import codeconverter.PatternType;
-import codeconverter.StaticKeyword;
+import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.elements.Variable;
 
 public class JsMethodDeclaration extends CodePattern{
@@ -15,8 +15,8 @@ public class JsMethodDeclaration extends CodePattern{
 	
 	public JsMethodDeclaration() {
 		super("attribute declaration");
-		addCodePiece(name,new StaticKeyword(":"),new StaticKeyword("function"),new StaticKeyword("("),
-				jsVariablesList.getSequence(),new StaticKeyword(")"),new StaticKeyword("{"));
+		addCodePiece(name,new UniqueKeyword(":"),new UniqueKeyword("function"),new UniqueKeyword("("),
+				jsVariablesList.getSequence(),new UniqueKeyword(")"),new UniqueKeyword("{"));
 		addCodePattern(PatternType.CONSTRUCTOR_DECLARATION);
 	}
 	

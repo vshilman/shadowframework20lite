@@ -1,8 +1,7 @@
-
 function House(roofHeight, baseWidth, baseHeight){
-		this.roofHeight=roofHeight;
-		this.baseWidth=baseWidth;
-		this.baseHeight=baseHeight;
+		this. roofHeight = roofHeight;
+		this. baseWidth = baseWidth;
+		this. baseHeight = baseHeight;
 }
 
 House.prototype = {
@@ -12,7 +11,7 @@ House.prototype = {
 	},
 
 	setRoofHeight:function(roofHeight){
-		this.roofHeight=roofHeight;
+		this. roofHeight = roofHeight;
 	},
 
 	getBaseWidth:function(){
@@ -20,7 +19,7 @@ House.prototype = {
 	},
 
 	setBaseWidth:function(baseWidth){
-		this.baseWidth=baseWidth;
+		this. baseWidth = baseWidth;
 	},
 
 	getBaseHeight:function(){
@@ -28,7 +27,7 @@ House.prototype = {
 	},
 
 	setBaseHeight:function(baseHeight){
-		this.baseHeight=baseHeight;
+		this. baseHeight = baseHeight;
 	}
 
 };

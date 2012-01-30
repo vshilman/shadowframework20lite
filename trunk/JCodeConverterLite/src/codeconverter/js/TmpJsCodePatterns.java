@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import codeconverter.CodePattern;
-import codeconverter.CodeSequence;
 import codeconverter.ICodePiece;
-import codeconverter.Name;
-import codeconverter.StaticKeyword;
+import codeconverter.codepieces.CodeSequence;
+import codeconverter.codepieces.Name;
+import codeconverter.codepieces.UniqueKeyword;
 
 //public class TmpJsCodePatterns {
 //

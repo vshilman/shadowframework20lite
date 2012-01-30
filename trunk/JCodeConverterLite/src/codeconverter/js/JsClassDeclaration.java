@@ -3,7 +3,7 @@ package codeconverter.js;
 import codeconverter.CodePattern;
 import codeconverter.ICodeElement;
 import codeconverter.PatternType;
-import codeconverter.StaticKeyword;
+import codeconverter.codepieces.UniqueKeyword;
 
 public class JsClassDeclaration extends CodePattern{
 
@@ -12,8 +12,8 @@ public class JsClassDeclaration extends CodePattern{
 	
 	public JsClassDeclaration() {
 		super("class declaration");
-		addCodePiece(name,new StaticKeyword("."),new StaticKeyword("prototype"),
-				new StaticKeyword("="),new StaticKeyword("{"));
+		addCodePiece(name,new UniqueKeyword("."),new UniqueKeyword("prototype"),
+				new UniqueKeyword("="),new UniqueKeyword("{"));
 		addCodePattern(PatternType.CONSTRUCTOR_DECLARATION);
 	}
 	

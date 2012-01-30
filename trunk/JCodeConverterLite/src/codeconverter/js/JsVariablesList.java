@@ -1,7 +1,7 @@
 package codeconverter.js;
 
-import codeconverter.CodeSequence;
 import codeconverter.ICodePieceSequencer;
+import codeconverter.codepieces.CodeSequence;
 import codeconverter.elements.Variable;
 import codeconverter.elements.VariableList;
 

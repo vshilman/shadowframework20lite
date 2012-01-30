@@ -1,11 +1,8 @@
 package codeconverter.java;
 
-import codeconverter.ICodePiece;
-import codeconverter.Keyword;
-import codeconverter.PieceType;
-import codeconverter.elements.Modifier;
+import codeconverter.codepieces.KeywordSet;
 
-public class JavaModifier extends Keyword{
+public class JavaModifier extends KeywordSet{
 
 	private static String modifiers[]={
 		"public",
@@ -16,36 +13,8 @@ public class JavaModifier extends Keyword{
 		"abstract"
 	};
 	
-	private Modifier modifier;
-	
-	@Override
-	public ICodePiece cloneCodePiece() {
-		JavaModifier modifier=new JavaModifier();
-		
-		modifier=new JavaModifier();
-		modifier.modifier=new Modifier(modifiers[keywordIndex]);
-		
-		//System.err.println("Cloned Modifier "+modifier+" "+modifiers[keywordIndex]+" "+keywordIndex);
-		
-		return modifier;
+	public JavaModifier() {
+		super(modifiers);
 	}
 	
-	@Override
-	public PieceType getPieceType() {
-		return PieceType.MODIFIER;
-	}
-	
-	@Override
-	public String[] getAlternatives() {
-		return modifiers;
-	}
-
-	public Modifier getModifier() {
-		return modifier;
-	}
-	
-	@Override
-	public String toString() {
-		return modifier.getName();
-	}
 }

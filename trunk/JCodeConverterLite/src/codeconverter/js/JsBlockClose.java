@@ -2,8 +2,8 @@ package codeconverter.js;
 
 import codeconverter.CodePattern;
 import codeconverter.ICodeElement;
-import codeconverter.OptionalCode;
-import codeconverter.StaticKeyword;
+import codeconverter.codepieces.OptionalCode;
+import codeconverter.codepieces.UniqueKeyword;
 
 public class JsBlockClose extends CodePattern{
 
@@ -11,8 +11,8 @@ public class JsBlockClose extends CodePattern{
 	
 	public JsBlockClose() {
 		super("}");
-		addCodePiece(new StaticKeyword("}"),new OptionalCode(new StaticKeyword(",")),
-				new OptionalCode(new StaticKeyword(";")));
+		addCodePiece(new UniqueKeyword("}"),new OptionalCode(new UniqueKeyword(",")),
+				new OptionalCode(new UniqueKeyword(";")));
 	}
 	
 	@Override

@@ -3,6 +3,9 @@ package tests.blocks;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import codeconverter.Block;
+import codeconverter.CodeLine;
+
 public class BlockUtilities {
 
 	public static ArrayList<Integer> findPosition(char[] characters,char c){
@@ -48,6 +51,7 @@ public class BlockUtilities {
 	public static void insertNewCodeLine(Block block, char[] temp,
 			boolean isDeclaration, int startingPos, int length) {
 		String string=new String(temp,startingPos,length);
+		
 		if(string.trim().length()!=0){
 			block.modules.add(new CodeLine(string.trim(),isDeclaration)); 
 		}
