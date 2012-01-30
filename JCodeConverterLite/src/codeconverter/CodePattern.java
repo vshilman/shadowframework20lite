@@ -1,27 +1,43 @@
 package codeconverter;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public abstract class CodePattern extends AbstractCodeTemplate{
+import codeconverter.ICodePiece.ICodePieceMatch;
+import codeconverter.codepieces.OptionalCode;
+
+public class CodePattern {
 
 	/*
 	 * a Pattern for a line of code. all translation will be based on
 	 * equivalence rules between Patterns
 	 */
-	private String name="";
 	private ArrayList<ICodePiece> elements=new ArrayList<ICodePiece>();
-	//private LinkedHashMap<ICodePiece> elements=new LinkedHashMap<ICodePiece>();
-	public CodePattern(String name/* ,PatternType patternType */) {
+	private List<PatternType> patternType=new LinkedList<PatternType>();
+
+	public CodePattern() {
 		super();
-		this.name=name;
 	}
-	
 
 	public void addCodePiece(ICodePiece... piece) {
 		for (int i=0; i < piece.length; i++) {
 			elements.add(piece[i]);
 		}
+	}
+
+	public void addCodePattern(PatternType... type) {
+		for (int i=0; i < type.length; i++) {
+			patternType.add(type[i]);
+		}
+	}
+
+	public List<PatternType> getPatternType() {
+		return patternType;
+	}
+	
+	public List<ICodePiece> getPieces() {
+		return elements;
 	}
 	
 	public List<ICodePiece> getPieceByType(PieceType type){
@@ -34,34 +50,41 @@ public abstract class CodePattern extends AbstractCodeTemplate{
 		return pieces;
 	}
 	
-	public boolean match(String lineCode) {
+	public CodePattern match(String lineCode) {
+		
+		CodePattern pattern=new CodePattern();
+		pattern.patternType.addAll(this.patternType);
 		try {
 			char[] lineCodeChars=lineCode.toCharArray();
 			int index=0;
 			int elementIndex=0;
+		
 			while (index < lineCodeChars.length && elementIndex < elements.size()) {
 				if (lineCodeChars[index] == ' ' || lineCodeChars[index] == '\t') {
 					index++;
 				} else {
-					int result=elements.get(elementIndex).elementMatch(lineCode,index);
+					ICodePieceMatch pieceMatch=elements.get(elementIndex).elementMatch(lineCode,index);
+					int result=pieceMatch.getMatchPosition();
+					
 					if (result == -1) {
-						return false;
+						return null;
 					} else {
 						index=result;
+						pattern.elements.add(pieceMatch.getDataPiece());
 						elementIndex++;
 					}
 				}
 			}
 			if (elementIndex == elements.size() && index == lineCodeChars.length) {
-				return true;
+				return pattern;
 			}else if(index == lineCodeChars.length){
-				for (int i = elementIndex; i < elements.size(); i++) {
-					//TODO: Fa schifo
-					if(!(elements.get(i) instanceof OptionalCode)){
-						return false;
-					}
-				}
-				return true;
+//				for (int i = elementIndex; i < elements.size(); i++) {
+//					//TODO: Fa schifo
+//					if(!(elements.get(i) instanceof OptionalCode)){
+//						return null;
+//					}
+//				}
+//				return pattern;
 			}
 		} catch (Exception e) {
 			System.err.println("Exception while tryig to match ["+lineCode+"]");
@@ -69,28 +92,17 @@ public abstract class CodePattern extends AbstractCodeTemplate{
 		}
 		
 
-		return false;
-	}
-
-	public List<CodeMatch> matchPattern(List<String> code) {
-		List<CodeMatch> match=new ArrayList<CodeMatch>();
-		for (int i=0; i < code.size(); i++) {
-			if(code.get(i).trim().length()!=0){
-				if (match(code.get(i))) {
-					match.add(new CodeMatch(i,i,(ICodeTemplate)cloneCodePiece()));
-				}else if(i<code.size()-1){//try 2 lines match
-					if(match(code.get(i)+code.get(i+1))){
-						match.add(new CodeMatch(i,i+1,(ICodeTemplate)cloneCodePiece()));
-					}
-				}else if(i<code.size()-2){//try 3 lines match
-					if(match(code.get(i)+code.get(i+1)+code.get(i+2))){
-						match.add(new CodeMatch(i,i+2,(ICodeTemplate)cloneCodePiece()));
-					}
-				}
+		return null;
+	}	
+	
+	public String toString(){
+		String data="";
+		if(elements.size()>0) {
+			data+=elements.get(0).toString();
+			for (int i=1; i < elements.size(); i++) {
+				data+=" "+elements.get(i).toString();
 			}
 		}
-
-		return match;
+		return data;
 	}
-
 }

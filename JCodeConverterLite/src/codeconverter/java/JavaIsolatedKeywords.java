@@ -1,42 +1,17 @@
 package codeconverter.java;
 
 import codeconverter.CodePattern;
-import codeconverter.ICodeElement;
-import codeconverter.Keyword;
+import codeconverter.codepieces.KeywordSet;
 
 public class JavaIsolatedKeywords extends CodePattern{
 
-	public Keyword isolatedKeyword=new Keyword() {
-		
-		private String[] isolatedKeyword={
-			"@Override",
-			"static{",
-			"else",
-			"else{",
-			"}else{",
-		};
-		
-		
-		@Override
-		public ICodeElement cloneCodePiece() {
-			return this;
-		}
-		
-		@Override
-		public String[] getAlternatives() {
-			return isolatedKeyword;
-		}
+	private String[] isolatedKeyword={
+		"@Override",
+		"static",
+		"else"
 	};
 	
-	
 	public JavaIsolatedKeywords() {
-		super("Java Isolated Keyword");
-		addCodePiece(isolatedKeyword);
+		addCodePiece(new KeywordSet(isolatedKeyword));
 	}
-
-	@Override
-	public ICodeElement cloneCodePiece() {
-		return new JavaIsolatedKeywords();
-	}
-	
 }

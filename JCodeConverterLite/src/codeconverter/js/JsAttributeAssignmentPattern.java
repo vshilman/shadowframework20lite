@@ -3,7 +3,7 @@ package codeconverter.js;
 import codeconverter.CodePattern;
 import codeconverter.ICodeElement;
 import codeconverter.PatternType;
-import codeconverter.StaticKeyword;
+import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.elements.Variable;
 
 public class JsAttributeAssignmentPattern extends CodePattern{
@@ -15,8 +15,8 @@ public class JsAttributeAssignmentPattern extends CodePattern{
 	
 	public JsAttributeAssignmentPattern() {
 		super("assignment");
-		addCodePiece(new StaticKeyword("this."),attributeName,new StaticKeyword("="),
-				variableName,new StaticKeyword(";"));
+		addCodePiece(new UniqueKeyword("this."),attributeName,new UniqueKeyword("="),
+				variableName,new UniqueKeyword(";"));
 		addCodePattern(PatternType.ASSIGNMENT);
 	}
 	

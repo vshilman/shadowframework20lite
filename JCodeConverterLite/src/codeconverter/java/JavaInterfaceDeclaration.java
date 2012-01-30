@@ -1,50 +1,21 @@
 package codeconverter.java;
 
 import codeconverter.CodePattern;
-import codeconverter.CodeSequence;
-import codeconverter.ICodeElement;
 import codeconverter.PatternType;
-import codeconverter.StaticKeyword;
+import codeconverter.PieceType;
+import codeconverter.codepieces.CodeSequence;
+import codeconverter.codepieces.Name;
+import codeconverter.codepieces.OptionalCode;
+import codeconverter.codepieces.UniqueKeyword;
 
 public class JavaInterfaceDeclaration  extends CodePattern{
 
-	private JavaName name=new JavaName();
-	private JavaModifiersSet javaModifiersSet=new JavaModifiersSet();
-	private JavaClassKeywords javaClassExtends;
-	private JavaClassKeywords javaClassImplements;
-	private String className;
-
+	
 	public JavaInterfaceDeclaration() {
-		
-		super("interface declaration");
-		javaClassExtends = new JavaClassKeywords(new StaticKeyword("extends"));
-		javaClassImplements = new JavaClassKeywords(new StaticKeyword("implements"));
-		addCodePiece(javaModifiersSet.getSequence(),new StaticKeyword("interface"),name,javaClassExtends,javaClassImplements);
+		addCodePiece(new CodeSequence(new JavaModifier(),""),
+				new UniqueKeyword("interface"),new Name(PieceType.NAME),
+				new OptionalCode(new JavaExtendsDeclaration()));
 		addCodePattern(PatternType.CLASS_DECLARATION);
 	}
-	
-	@Override
-	public ICodeElement cloneCodePiece() {
-		JavaInterfaceDeclaration pattern=new JavaInterfaceDeclaration();
 		
-		CodeSequence sequence=((CodeSequence )this.javaModifiersSet.getSequence().cloneCodePiece());
-		pattern.javaModifiersSet.loadModifiersSet(sequence);
-		pattern.className=new String(this.name.getData());
-		sequence=((CodeSequence )this.javaClassExtends.getSequence().cloneCodePiece());
-        pattern.javaClassExtends.loadSet(sequence);
-        sequence=((CodeSequence )this.javaClassImplements.getSequence().cloneCodePiece());
-        pattern.javaClassImplements.loadSet(sequence);
-		return pattern;
-	}
-	
-
-	public String getClassName() {
-		return className;
-	}
-
-	@Override
-	public String toString() {
-		return javaModifiersSet+"class "+className+ javaClassExtends.getNames()+ javaClassImplements.getNames()+"{";
-	}
-	
 }

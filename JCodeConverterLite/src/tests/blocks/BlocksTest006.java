@@ -6,9 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import codeconverter.Block;
+import codeconverter.BlockInterpreter;
+import codeconverter.CodeModule;
 import codeconverter.CodePattern;
-import codeconverter.FileStringUtility;
+import codeconverter.java.JavaCodePatternInterpreter;
 import codeconverter.java.JavaConstructorDeclaration;
+import codeconverter.javatojs.JSCodeTranslator;
+import codeconverter.utility.FileStringUtility;
 
 public class BlocksTest006 {
 
@@ -16,9 +21,9 @@ public class BlocksTest006 {
 		//List<String> list=FileStringUtility
 		//		.loadTextFile("../ShadowFramework2.0/src/shadow/system/data/SFOutputStream.java");
 		
-		String filename="../ShadowFramework2.0_OpenGL20/src/shadow/pipeline/openGL20/expressions/SFGL20Divide.java";
+		String filename="../ShadowFrameworkLite20/src/shadow/pipeline/SFFunction.java";
 		File file=new File(filename);
-		System.err.println(file.exists());
+		System.out.println("Does file exists? "+file.exists());
 		List<String> list=FileStringUtility.loadTextFile(filename);
 		//List<String> list=FileStringUtility.loadTextFile("src/testPackage/Expressions.java");
 		//List<String> list=FileStringUtility.loadTextFile("src/testPackage/House.java");
@@ -27,15 +32,24 @@ public class BlocksTest006 {
 		for (String string : list) {
 			writer.write(string);
 		}
-
+		
 		String totalString=writer.toString();
+		int beginof=totalString.indexOf("/*");
+		int endof=totalString.indexOf("*/");
+		while(beginof!=-1 && endof!=-1){
+			String tmp=totalString.substring(0,beginof);
+			tmp+=totalString.substring(endof+2);
+			totalString=tmp;
+			beginof=totalString.indexOf("/*");
+			endof=totalString.indexOf("*/");
+			System.out.println();
+		}
 		char[] totalStringChars=totalString.toCharArray();
 
 		Block fileBlock=BlockUtilities.generateBlocks(totalStringChars);
-
-		System.out.println(fileBlock);	
 		
 		BlockInterpreter interpreter=new BlockInterpreter(new JavaCodePatternInterpreter());
+		
 		HashMap<CodeModule, CodePattern> interpretation=interpreter.getInterpretation(fileBlock);
 		
 		JSCodeTranslator translator=new JSCodeTranslator();

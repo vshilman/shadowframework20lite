@@ -1,5 +1,9 @@
 package testPackage;
 
+/**
+ * an house class
+ * @author Alessandro
+ */
 public class House {
 
 	private int roofHeight;
