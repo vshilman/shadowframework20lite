@@ -2,19 +2,16 @@ package codeconverter.java.codelines;
 
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
-import codeconverter.codepieces.AlgebraicExpression;
-import codeconverter.codepieces.Name;
 import codeconverter.codepieces.UniqueKeyword;
+import codeconverter.java.JavaName;
+import codeconverter.java.JavaNewStatement;
 
 public class JavaArrayDeclaration extends CodePattern{
 
 	public JavaArrayDeclaration() {
 		
-		addCodePiece(new Name(),new UniqueKeyword("[]"),new UniqueKeyword("="),new UniqueKeyword("new"),
-				new Name(),
-				new UniqueKeyword("["),
-				new AlgebraicExpression(),
-				new UniqueKeyword("]"));
+		addCodePiece(new JavaName(),new UniqueKeyword("[]"),new UniqueKeyword("="),
+				new JavaNewStatement());
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	

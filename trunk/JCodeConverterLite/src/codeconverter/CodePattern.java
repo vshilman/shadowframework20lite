@@ -40,14 +40,13 @@ public class CodePattern {
 		return elements;
 	}
 	
-	public List<ICodePiece> getPieceByType(PieceType type){
-		ArrayList<ICodePiece> pieces=new ArrayList<ICodePiece>();
+	public ICodePiece getPieceByType(PieceType type){
 		for (int i = 0; i < elements.size(); i++) {
 			if(elements.get(i).getPieceType()==type){
-				pieces.add(elements.get(i));
+				return elements.get(i);
 			}
 		}
-		return pieces;
+		return null;
 	}
 	
 	public CodePattern match(String lineCode) {
@@ -78,13 +77,13 @@ public class CodePattern {
 			if (elementIndex == elements.size() && index == lineCodeChars.length) {
 				return pattern;
 			}else if(index == lineCodeChars.length){
-//				for (int i = elementIndex; i < elements.size(); i++) {
-//					//TODO: Fa schifo
-//					if(!(elements.get(i) instanceof OptionalCode)){
-//						return null;
-//					}
-//				}
-//				return pattern;
+				for (int i = elementIndex; i < elements.size(); i++) {
+					//TODO: Fa schifo
+					if(!(elements.get(i) instanceof OptionalCode)){
+						return null;
+					}
+				}
+				return pattern;
 			}
 		} catch (Exception e) {
 			System.err.println("Exception while tryig to match ["+lineCode+"]");

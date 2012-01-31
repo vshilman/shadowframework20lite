@@ -3,7 +3,6 @@ package codeconverter.codepieces;
 import java.util.List;
 
 import codeconverter.ICodePiece;
-import codeconverter.ICodePiece.ICodePieceMatch;
 
 /**
  * Values are pieces with a specific character pattern.

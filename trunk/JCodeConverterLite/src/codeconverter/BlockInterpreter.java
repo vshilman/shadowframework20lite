@@ -1,6 +1,7 @@
 package codeconverter;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public class BlockInterpreter{
@@ -13,7 +14,7 @@ public class BlockInterpreter{
 	}
 
 	public HashMap<CodeModule, CodePattern> getInterpretation(Block block) {
-		HashMap<CodeModule, CodePattern> interpretations=new HashMap<CodeModule, CodePattern>();
+		HashMap<CodeModule, CodePattern> interpretations=new LinkedHashMap<CodeModule, CodePattern>();
 		updateInterpretation(interpretations,block);
 		return interpretations;
 	}

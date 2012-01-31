@@ -8,6 +8,6 @@ import codeconverter.codepieces.UniqueKeyword;
 public class JavaThrowsDeclaration extends CompositeCodePiece{
 
 	public JavaThrowsDeclaration() {
-		add(new UniqueKeyword("throws"),new CodeSequence(new Name(),","));
+		add(new UniqueKeyword("throws"),new CodeSequence(new JavaName(),","));
 	}
 }

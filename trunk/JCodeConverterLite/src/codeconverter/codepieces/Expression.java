@@ -97,7 +97,7 @@ public abstract class Expression extends ICodePiece{
 		
 		String representation=data.substring(startingMatchPosition,matchPosition);
 		
-		return new ICodePieceMatch(matchPosition,new Word(PieceType.VALUE,representation,null));  
+		return new ICodePieceMatch(matchPosition,new Word(PieceType.EXPRESSION,representation,null));  
 	}
 	
 }

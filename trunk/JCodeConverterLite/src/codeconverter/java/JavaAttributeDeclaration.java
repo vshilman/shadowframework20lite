@@ -10,5 +10,4 @@ public class JavaAttributeDeclaration extends CodePattern {
 		addCodePiece(new CodeSequence(new JavaModifier()," "),new JavaVariable());
 		addCodePattern(PatternType.ATTRIBUTE_DECLARATION);
 	}
-
 }

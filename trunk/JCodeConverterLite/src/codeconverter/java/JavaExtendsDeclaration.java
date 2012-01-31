@@ -8,6 +8,6 @@ import codeconverter.codepieces.UniqueKeyword;
 public class JavaExtendsDeclaration extends CompositeCodePiece{
 
 	public JavaExtendsDeclaration() {
-		add(new UniqueKeyword("extends"),new CodeSequence(new Name(),","));
+		add(new UniqueKeyword("extends"),new CodeSequence(new JavaName(),","));
 	}
 }

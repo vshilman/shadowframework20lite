@@ -3,14 +3,16 @@ package codeconverter.java.codelines;
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
 import codeconverter.PieceType;
-import codeconverter.codepieces.AlgebraicExpression;
-import codeconverter.codepieces.Name;
+import codeconverter.codepieces.CodeSequence;
 import codeconverter.codepieces.UniqueKeyword;
+import codeconverter.java.JavaAlgebraicExpression;
+import codeconverter.java.JavaName;
 
 public class JavaAssignment  extends CodePattern{
 
 	public JavaAssignment() {
-		addCodePiece(new Name(PieceType.VARIABLE),new UniqueKeyword("="),new AlgebraicExpression());
+		addCodePiece(new JavaName(PieceType.VARIABLE),new UniqueKeyword("="),
+				new CodeSequence(new JavaAlgebraicExpression(),".") );
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	

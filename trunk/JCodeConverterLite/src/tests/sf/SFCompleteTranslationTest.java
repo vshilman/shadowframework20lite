@@ -1,4 +1,4 @@
-package tests.blocks;
+package tests.sf;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import tests.blocks.BlockUtilities;
+
 import codeconverter.Block;
 import codeconverter.BlockInterpreter;
 import codeconverter.CodeModule;
@@ -18,7 +20,7 @@ import codeconverter.java.JavaConstructorDeclaration;
 import codeconverter.javatojs.JSCodeTranslator;
 import codeconverter.utility.FileStringUtility;
 
-public class BlocksTest005 {
+public class SFCompleteTranslationTest {
 
 	public static void main(String[] args) {
 		translateLibrary("../ShadowFrameworkLite20/src","../ShadowFrameworkJS/SF20Core");

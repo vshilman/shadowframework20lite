@@ -13,6 +13,8 @@ import codeconverter.java.codelines.JavaIf;
 import codeconverter.java.codelines.JavaMethodAccess;
 import codeconverter.java.codelines.JavaReturnPattern;
 import codeconverter.java.codelines.JavaSuperPattern;
+import codeconverter.java.codelines.JavaVariableAssignment;
+import codeconverter.java.codelines.JavaVariableDeclaration;
 
 public class JavaCodePatterns {
 
@@ -34,6 +36,8 @@ public class JavaCodePatterns {
 		patterns.add(new JavaConstructorDeclaration());
 		patterns.add(new JavaPackageDeclaration());
 		patterns.add(new JavaAttributeAssignmentPattern());
+		patterns.add(new JavaVariableDeclaration());
+		patterns.add(new JavaVariableAssignment());
 		patterns.add(new JavaAttributeDeclaration());
 		patterns.add(new JavaInterfaceDeclaration());
 		patterns.add(new JavaIsolatedKeywords());

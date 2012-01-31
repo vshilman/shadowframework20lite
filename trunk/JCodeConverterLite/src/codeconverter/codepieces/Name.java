@@ -21,11 +21,9 @@ public class Name extends Value{
 		allIntervals.add(new CharInterval('_','_'));
 	}
 
-	private PieceType pieceType;
-	
 	public Name(PieceType piecetype) {
 		super();
-		this.pieceType=piecetype;
+		setPieceType(piecetype);
 	}
 	
 	public Name() {
@@ -42,14 +40,6 @@ public class Name extends Value{
 	@Override
 	public List<CharInterval> getEndCharacter() {
 		return endingIntervals;
-	}
-
-	public PieceType getPieceType() {
-		return pieceType;
-	}
-
-	public void setPiecetype(PieceType piecetype) {
-		this.pieceType=piecetype;
 	}
 
 	

@@ -8,7 +8,8 @@ public class JavaIsolatedKeywords extends CodePattern{
 	private String[] isolatedKeyword={
 		"@Override",
 		"static",
-		"else"
+		"else",
+		"try"
 	};
 	
 	public JavaIsolatedKeywords() {

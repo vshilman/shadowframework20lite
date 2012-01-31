@@ -7,7 +7,7 @@ import codeconverter.codepieces.Name;
 public class JavaVariable extends CompositeCodePiece{
 
 	public JavaVariable() {
-		add(new Name(PieceType.TYPE),new Name(PieceType.NAME));
+		add(new JavaType(),new JavaName(PieceType.NAME));
 	}
 	
 	@Override
