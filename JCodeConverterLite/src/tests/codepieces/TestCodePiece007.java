@@ -2,17 +2,21 @@ package tests.codepieces;
 
 import codeconverter.ICodePiece;
 import codeconverter.ICodePiece.ICodePieceMatch;
-import codeconverter.codepieces.AlgebraicExpression;
-import codeconverter.codepieces.BooleanExpression;
+import codeconverter.java.JavaAlgebraicExpression;
+import codeconverter.java.JavaBooleanExpression;
 
 public class TestCodePiece007 {
 	
 	public static void main(String[] args) {
 		
 		//Test007 : testing AlgebraicExpression (1). 
-		ICodePiece piece=new AlgebraicExpression();
+		ICodePiece piece=new JavaAlgebraicExpression();
 		String data="a+b*c";
 		ICodePieceMatch match=piece.elementMatch(data,0);
+		writeCodePieceMatch(match);
+		
+		data="a";
+		match=piece.elementMatch(data,0);
 		writeCodePieceMatch(match);
 		
 		data="a+3*c";
@@ -32,12 +36,12 @@ public class TestCodePiece007 {
 		writeCodePieceMatch(match);
 		
 		//Test007 : testing BooleanExpression (1).
-		piece=new BooleanExpression();
+		piece=new JavaBooleanExpression();
 		data="a==1";
 		match=piece.elementMatch(data,0);
 		writeCodePieceMatch(match);
 		
-		piece=new BooleanExpression();
+		piece=new JavaBooleanExpression();
 		data="a==1 && c==2";
 		match=piece.elementMatch(data,0);
 		writeCodePieceMatch(match);
@@ -47,6 +51,10 @@ public class TestCodePiece007 {
 		writeCodePieceMatch(match);
 		
 		data="a==1 && !(!d || f==1)";
+		match=piece.elementMatch(data,0);
+		writeCodePieceMatch(match);
+
+		data="d>1";
 		match=piece.elementMatch(data,0);
 		writeCodePieceMatch(match);
 	}

@@ -38,6 +38,6 @@ public class DeclaredBlock implements CodeModule{
 	
 	@Override
 	public String toString() {
-		return "DBLOCK "+blockDeclaration.codeLine+"\n"+relatedBlock;
+		return "BLOCK ["+blockDeclaration.codeLine+"]";
 	}
 }

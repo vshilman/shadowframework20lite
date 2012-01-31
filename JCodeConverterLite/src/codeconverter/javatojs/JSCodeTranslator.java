@@ -3,6 +3,7 @@ package codeconverter.javatojs;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import codeconverter.Block;
@@ -38,6 +39,7 @@ public class JSCodeTranslator implements CodeTranslator{
 		DeclaredBlock classDefinition = null;
 		ArrayList<DeclaredBlock> constructors=new ArrayList<DeclaredBlock>();
 		ArrayList<DeclaredBlock> methods=new ArrayList<DeclaredBlock>();
+		ArrayList<CodeLine> attributes=new ArrayList<CodeLine>();
 		ArrayList<CodeModule> addictionalLinesOfCode=new ArrayList<CodeModule>();
 		
 
@@ -56,11 +58,14 @@ public class JSCodeTranslator implements CodeTranslator{
 				for (int j = 0; j < classBlock.getSize(); j++) {
 					CodeModule classModule=classBlock.getSubModule(j);
 					CodePattern classModulePattern=relatedPatterns.get(classModule);
+					System.err.println(classModule);
 					if(classModulePattern!=null){
 						if(classModulePattern.getPatternType().contains(PatternType.CONSTRUCTOR_DECLARATION)){
 							constructors.add((DeclaredBlock)classModule);
 						}else if(classModulePattern.getPatternType().contains(PatternType.METHOD_DECLARATION)){
 							methods.add((DeclaredBlock)classModule);
+						}else if(classModulePattern.getPatternType().contains(PatternType.ATTRIBUTE_DECLARATION)){
+							attributes.add((CodeLine)classModule);
 						}else{
 							addictionalLinesOfCode.add(classModule);
 						}
@@ -73,10 +78,10 @@ public class JSCodeTranslator implements CodeTranslator{
 
 		if(classPattern!=null){
 			
-			ICodePiece className=classPattern.getPieceByType(PieceType.NAME).get(0);
+			ICodePiece className=classPattern.getPieceByType(PieceType.NAME);
 
 			for (int i = 0; i < constructors.size(); i++) {
-				writeConstructor(writer,constructors.get(i),relatedPatterns);	
+				writeConstructor(writer,constructors.get(i),attributes,relatedPatterns);	
 			}
 			if(constructors.size()==0){
 				writer.write("function "+className+"(){\n");
@@ -98,7 +103,7 @@ public class JSCodeTranslator implements CodeTranslator{
 	
 	public String extractMethodSequence(CodePattern pattern){
 		
-		ICodePiece sequence=pattern.getPieceByType(PieceType.METHOD_VARIABLES).get(0);
+		ICodePiece sequence=pattern.getPieceByType(PieceType.METHOD_VARIABLES);
 		List<ICodePiece> list=sequence.getPieces();
 		String data="";
 		boolean first=true;
@@ -113,17 +118,45 @@ public class JSCodeTranslator implements CodeTranslator{
 		return data;
 	}
 	
+
+	static HashMap<String, String> typeExpressionMap=new LinkedHashMap<String, String>();
 	
-	private void writeConstructor(StringWriter writer,DeclaredBlock constructor,HashMap<CodeModule, CodePattern> relatedPatterns){
+	static{
+		typeExpressionMap.put("int","0");
+		typeExpressionMap.put("float","0");
+		typeExpressionMap.put("char","0");
+		typeExpressionMap.put("byte","0");
+		typeExpressionMap.put("double","0");
+		typeExpressionMap.put("double","0");
+	}
+	
+	private void writeAttributes(StringWriter writer,ArrayList<CodeLine> attributes,HashMap<CodeModule, CodePattern> relatedPatterns){
+		for (int i=0; i < attributes.size(); i++) {
+			CodeLine attributeLine=attributes.get(i);
+			CodePattern attribute=relatedPatterns.get(attributeLine);
+			ICodePiece type=attribute.getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.TYPE);
+			ICodePiece name=attribute.getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.NAME);
+			ICodePiece expression=attribute.getPieceByType(PieceType.EXPRESSION);
+			if(expression==null){
+				writer.write("\t\tthis."+name+"="+typeExpressionMap.get(type.toString())+";\n");
+			}else{
+				writer.write("\t\tthis."+name+"="+expression.toString()+";\n");
+			}
+		}
+	}
+	
+	private void writeConstructor(StringWriter writer,DeclaredBlock constructor,
+			ArrayList<CodeLine> attributes,HashMap<CodeModule, CodePattern> relatedPatterns){
 		
 		CodePattern pattern=relatedPatterns.get(constructor);
 	
-		String methodName=pattern.getPieceByType(PieceType.NAME).get(0).toString();
+		String methodName=pattern.getPieceByType(PieceType.NAME).toString();
 			
 			String data=extractMethodSequence(pattern);
 			
 		writer.write("function "+methodName+"("+data+"){\n");
 		
+			writeAttributes(writer,attributes,relatedPatterns);
 			writeAllBlockModules(writer, constructor, relatedPatterns);
 		
 		writer.write("}\n");
@@ -161,9 +194,8 @@ public class JSCodeTranslator implements CodeTranslator{
 
 
 	public String extractVariableName(CodePattern pattern) {
-		List<ICodePiece> namePiece=pattern.getPieceByType(PieceType.VARIABLE);
-		
-		String methodName=namePiece.get(0).getPieceByType(PieceType.NAME).toString();
+		ICodePiece namePiece=pattern.getPieceByType(PieceType.VARIABLE);
+		String methodName=namePiece.getPieceByType(PieceType.NAME).toString();
 		return methodName;
 	}
 
@@ -178,6 +210,20 @@ public class JSCodeTranslator implements CodeTranslator{
 			}else{
 				writer.write("\t"+(((CodeLine)module).codeLine)+";//Warning: Not well Identified \n");
 			}
+		}else{
+			DeclaredBlock block=(DeclaredBlock)module;
+			CodePattern pattern=relatedPatterns.get(block);
+			if(pattern==null || pattern.getPatternType().contains(PatternType.METHOD_DECLARATION) 
+					|| pattern.getPatternType().contains(PatternType.CONSTRUCTOR_DECLARATION)){
+				writer.write("\t//"+(block.getBlockDeclaration().codeLine)+";//Warning: Not well Identified \n");
+				writeAllBlockModules(writer,block,relatedPatterns);
+				writer.write("\t//}\n");
+			}else{
+				writer.write("\t\t"+pattern+"{\n");
+				writeAllBlockModules(writer,block,relatedPatterns);
+				writer.write("\t}\n");
+			}
+				
 		}
 	} 
 	

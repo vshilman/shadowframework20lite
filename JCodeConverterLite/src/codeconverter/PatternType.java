@@ -14,6 +14,7 @@ public enum PatternType {
 	CONSTRUCTOR_DECLARATION("Constructor Declaration"),
 	METHOD_DECLARATION("Method Declaration"),
 	ATTRIBUTE_DECLARATION("Attribute Declaration"),
+	VARIABLE_DECLARATION("Variable Declaration"),
 	VISIBILITY("visibility assignement"),
 	NEWINSTANCE("new"),
 	IF("if"),

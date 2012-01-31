@@ -2,7 +2,6 @@ package codeconverter.codepieces;
 
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
-import codeconverter.ICodePiece.ICodePieceMatch;
 
 
 public class CompositeCodePiece extends ICodePiece{

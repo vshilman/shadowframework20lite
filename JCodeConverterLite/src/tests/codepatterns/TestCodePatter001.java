@@ -1,8 +1,8 @@
 package tests.codepatterns;
 
 import codeconverter.CodePattern;
-import codeconverter.codepieces.BooleanExpression;
 import codeconverter.codepieces.UniqueKeyword;
+import codeconverter.java.JavaBooleanExpression;
 
 public class TestCodePatter001 {
 
@@ -10,7 +10,7 @@ public class TestCodePatter001 {
 	
 		CodePattern pattern=new CodePattern();
 		pattern.addCodePiece(new UniqueKeyword("if"),new UniqueKeyword("("),
-				new BooleanExpression(),new UniqueKeyword(")"));
+				new JavaBooleanExpression(),new UniqueKeyword(")"));
 		String data="if(a==1)";
 		CodePattern matchedPattern=pattern.match(data);
 		writeCodePieceMatch(matchedPattern);

@@ -2,9 +2,9 @@ package codeconverter.java.codelines;
 
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
-import codeconverter.codepieces.BooleanExpression;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
+import codeconverter.java.JavaBooleanExpression;
 
 public class JavaElse  extends CodePattern{
 
@@ -13,7 +13,7 @@ public class JavaElse  extends CodePattern{
 		addCodePiece(new OptionalCode(new UniqueKeyword("}")),new UniqueKeyword("else"),
 				new OptionalCode(new UniqueKeyword("if")),
 				new OptionalCode(new UniqueKeyword("(")),
-				new BooleanExpression(),
+				new JavaBooleanExpression(),
 				new OptionalCode(new UniqueKeyword(")")));
 		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}

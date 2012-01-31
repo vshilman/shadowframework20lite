@@ -11,7 +11,7 @@ public class TestCodePiece005 {
 	public static void main(String[] args) {
 		
 		//Test005 : testing Code Sequence (1). 
-		ICodePiece piece=new CodeSequence(new Name(),", ");
+		ICodePiece piece=new CodeSequence(true,new Name(),", ");
 		String data="word1";
 		ICodePieceMatch match=piece.elementMatch(data,0);
 		writeCodePieceMatch(match);
@@ -25,7 +25,7 @@ public class TestCodePiece005 {
 		match=piece.elementMatch(data,0);
 		writeCodePieceMatch(match);
 		
-		piece=new CodeSequence(new CompositeCodePiece(new Name(),new Name()),", ");
+		piece=new CodeSequence(true,new CompositeCodePiece(new Name(),new Name()),", ");
 		data="int data, char word, int data2";
 		match=piece.elementMatch(data,0);
 		writeCodePieceMatch(match);

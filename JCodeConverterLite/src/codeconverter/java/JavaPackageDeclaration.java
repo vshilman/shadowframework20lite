@@ -10,7 +10,7 @@ import codeconverter.codepieces.UniqueKeyword;
 public class JavaPackageDeclaration extends CodePattern{
 
 	public JavaPackageDeclaration() {
-		addCodePiece(new UniqueKeyword("package "),new CodeSequence(new Name(PieceType.NAME),"."));
+		addCodePiece(new UniqueKeyword("package "),new CodeSequence(new JavaName(PieceType.NAME),"."));
 		addCodePattern(PatternType.LIBRARY_DECLARATION);
 	}
 	
