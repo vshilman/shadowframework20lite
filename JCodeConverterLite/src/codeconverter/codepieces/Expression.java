@@ -13,7 +13,7 @@ public abstract class Expression extends ICodePiece{
 
 	public abstract String[] getExpressionSeparators();
 	
-	private AlternativeCode alternatives;
+	private BestAlternativeCode alternatives;
 	
 	public Expression(ICodePiece... piece){
 		for (ICodePiece iCodePiece : piece) {
@@ -57,8 +57,8 @@ public abstract class Expression extends ICodePiece{
 			while(matchPosition<dataChars.length && (dataChars[matchPosition]==' '))
 				matchPosition++;
 			
-			 ICodePieceMatch pieceMatch = alternatives.elementMatch(data,matchPosition);
-			 matchPosition=pieceMatch.getMatchPosition();
+			ICodePieceMatch pieceMatch = alternatives.elementMatch(data,matchPosition);
+			matchPosition=pieceMatch.getMatchPosition();
 			
 			if(matchPosition!=-1){
 				while(matchPosition<dataChars.length && (dataChars[matchPosition]==' '))
@@ -77,7 +77,7 @@ public abstract class Expression extends ICodePiece{
 		char[] dataChars=data.toCharArray();
 		
 		if(alternatives==null){
-			alternatives=new AlternativeCode(false);
+			alternatives=new BestAlternativeCode(false);
 			for (ICodePiece piece : pieces) {
 				alternatives.add(piece);
 			}

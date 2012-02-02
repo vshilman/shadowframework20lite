@@ -62,7 +62,8 @@ public class CodePattern {
 				if (lineCodeChars[index] == ' ' || lineCodeChars[index] == '\t') {
 					index++;
 				} else {
-					ICodePieceMatch pieceMatch=elements.get(elementIndex).elementMatch(lineCode,index);
+					ICodePiece piece=elements.get(elementIndex);
+					ICodePieceMatch pieceMatch=piece.elementMatch(lineCode,index);
 					int result=pieceMatch.getMatchPosition();
 					
 					if (result == -1) {

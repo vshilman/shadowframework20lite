@@ -36,7 +36,7 @@ public class SFSingleFileTests {
 		BlockInterpreter interpreter=new BlockInterpreter(new JavaCodePatternInterpreter());
 		HashMap<CodeModule, CodePattern> interpretation=interpreter.getInterpretation(fileBlock);
 		//TestingUtilities.writeInterpretations(out,interpretation);
-		TestingUtilities.reportWrongInterpretation(err,interpretation);
+		//TestingUtilities.reportWrongInterpretation(err,interpretation);
 		
 		JSCodeTranslator translator=new JSCodeTranslator();
 		String translation=translator.translateCode(fileBlock, interpretation);

@@ -1,10 +1,9 @@
 package codeconverter.java;
 
 import codeconverter.PieceType;
-import codeconverter.codepieces.AlternativeCode;
+import codeconverter.codepieces.BestAlternativeCode;
 import codeconverter.codepieces.CodeSequence;
 import codeconverter.codepieces.CompositeCodePiece;
-import codeconverter.codepieces.Name;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
 
@@ -33,7 +32,7 @@ public class JavaMethodEvaluation extends CompositeCodePiece{
 						)),
 				new CodeSequence(true,new CompositeCodePiece(
 					new JavaName(),new UniqueKeyword("("),
-					new CodeSequence(false,new AlternativeCode(true,
+					new CodeSequence(false,new BestAlternativeCode(true,
 							this,expression),", "),
 					new UniqueKeyword(")")
 				),methodsSyntax)	

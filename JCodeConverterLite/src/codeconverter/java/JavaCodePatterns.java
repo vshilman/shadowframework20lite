@@ -29,6 +29,7 @@ public class JavaCodePatterns {
 		patterns.add(new JavaFor());
 		patterns.add(new JavaIf());
 		patterns.add(new JavaAttributeDeclarationAndAssignemnt());
+		patterns.add(new JavaArrayContentDeclaration());
 		patterns.add(new JavaAssignment());
 		patterns.add(new JavaImportDeclaration());
 		patterns.add(new JavaReturnPattern());

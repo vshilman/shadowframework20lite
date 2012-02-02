@@ -28,14 +28,22 @@ public class TestingUtilities {
 		//List<String> list=FileStringUtility.loadTextFile("src/testPackage/Expressions.java");
 		//List<String> list=FileStringUtility.loadTextFile("src/testPackage/House.java");
 	
-		
 		StringWriter writer=new StringWriter();
+		String adding="";
 		for (String string : list) {
 			int position=string.indexOf("//");
 			if(position>=0)
 				string=string.substring(0,position).trim();
-			if(string.length()!=0)
-				writer.write(string);
+			if(string.length()!=0){
+				if(string.trim().startsWith("if") || string.trim().startsWith("else")
+						|| string.trim().startsWith("for")){
+					writer.write(string+"{");
+					adding="}";
+				}else{
+					writer.write(string+adding);
+					adding="";
+				}
+			}	
 		}
 		
 		String totalString=writer.toString();
@@ -76,7 +84,6 @@ public class TestingUtilities {
 	
 	public static int reportWrongInterpretation(Writer stream,HashMap<CodeModule, CodePattern> interpretation){
 		try {
-			stream.write("Begin Of Not Interpreted\n");
 			int count=0;
 			Set<CodeModule> keys=interpretation.keySet();
 			for (CodeModule codeModule : keys) {
@@ -86,7 +93,6 @@ public class TestingUtilities {
 					stream.write("["+codeModule+"] as been translated to ["+pattern+"]\n");
 				}	
 			}
-			stream.write("End Of Not Interpreted\n");
 			return count;
 		} catch (IOException e) {
 			e.printStackTrace();
