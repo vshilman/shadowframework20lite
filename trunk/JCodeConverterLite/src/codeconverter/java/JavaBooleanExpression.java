@@ -6,14 +6,13 @@ import java.util.List;
 import codeconverter.ICodePiece;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.Expression;
-import codeconverter.codepieces.Name;
 import codeconverter.codepieces.Number;
 import codeconverter.codepieces.UniqueKeyword;
 
 public class JavaBooleanExpression extends Expression{
 
 	public static String[] booleanSymbols={
-		"||","&&","=="
+		"||","&&","==",">","<",">=","<0","!="
 	};
 	
 	public JavaBooleanExpression() {

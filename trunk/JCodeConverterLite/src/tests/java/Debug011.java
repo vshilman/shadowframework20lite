@@ -9,18 +9,18 @@ import codeconverter.java.codelines.JavaVariableDeclaration;
  * To use it, 
  * @author Alessandro Martinelli 
  */
-public class Debug008 {
+public class Debug011 {
 
 	public static void main(String[] args) {
 		
-		JavaVariableDeclaration attributePattern=new JavaVariableDeclaration();		
-		String codeLine="SFExpressionOperator symbol=generator.getOperator(token)";
+		JavaVariableDeclaration codePattern=new JavaVariableDeclaration();	
+		String codeLine="SFVertex3f v=new SFVertex3f(0,0,0)";
 		//String codeLine="this.v[0] = x";
-		CodePattern pattern=attributePattern.match(codeLine);
+		CodePattern pattern=codePattern.match(codeLine);
 		if(pattern==null)
 			System.out.println("Failed");
 		else
 			System.out.println("Success");
-		
+	
 	}
 }
