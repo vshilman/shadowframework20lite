@@ -5,11 +5,11 @@ function SFGL20PipelineMemory(){
 SFGL20PipelineMemory.prototype = {
 
 	generatePrimitiveArray:function(primitive){
-	return new SFGL20PrimitiveArray(primitive);//Warning: Not well Identified 
+		return ,new ,SFGL20PrimitiveArray(primitive);
 	},
 
 	generateStructureData:function(structure){
-	return new SFGL20StructureArray(structure);//Warning: Not well Identified 
+		return ,new ,SFGL20StructureArray(structure);
 	},
 
 	generateTransforms2f:function(){

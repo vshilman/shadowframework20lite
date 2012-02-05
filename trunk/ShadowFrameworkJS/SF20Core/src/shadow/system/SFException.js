@@ -1,1 +1,6 @@
 
+function SFException(){
+}
+
+SFException.prototype = {
+};

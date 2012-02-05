@@ -1,6 +1,5 @@
 
-function SFParameterParser(parameter){
-		this.parameter=parameter;
+function SFParameterParser(){
 }
 
 SFParameterParser.prototype = {

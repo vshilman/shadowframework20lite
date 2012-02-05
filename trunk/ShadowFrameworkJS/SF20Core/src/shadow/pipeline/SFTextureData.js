@@ -1,8 +1,15 @@
 
-function SFTextureData(width, height){
-		this.width=width;
-		this.height=height;
+function SFTextureData(){
 }
 
 SFTextureData.prototype = {
+
+	getWidth:function(){
+		return ,width;
+	},
+
+	getHeight:function(){
+		return ,height;
+	}
+
 };

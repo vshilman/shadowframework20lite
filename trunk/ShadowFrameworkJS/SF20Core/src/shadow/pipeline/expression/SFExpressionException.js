@@ -1,6 +1,5 @@
 
-function SFExpressionException(arg0){
-	super("Bad SFExpression: "+arg0);//Warning: Not well Identified 
+function SFExpressionException(){
 }
 
 SFExpressionException.prototype = {

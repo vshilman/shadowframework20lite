@@ -1,6 +1,0 @@
-
-function SFGeometry(){
-}
-
-SFGeometry.prototype = {
-};

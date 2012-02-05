@@ -5,15 +5,15 @@ function SFGL20Mult(){
 SFGL20Mult.prototype = {
 
 	close:function(){
-	return "";//Warning: Not well Identified 
+		return "";
 	},
 
 	setup:function(){
-	return "";//Warning: Not well Identified 
+		return "";
 	},
 
 	update:function(){
-	return "*";//Warning: Not well Identified 
+		return "*";
 	}
 
 };

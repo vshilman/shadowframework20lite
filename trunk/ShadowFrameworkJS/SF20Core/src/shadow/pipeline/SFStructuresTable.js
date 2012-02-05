@@ -5,7 +5,11 @@ function SFStructuresTable(){
 SFStructuresTable.prototype = {
 
 	allocateBuffers:function(){
-	array=SFPipeline.getSfPipelineMemory().generateStructureData(structure);//Warning: Not well Identified 
+		array  = SFPipeline.getSfPipelineMemory().generateStructureData(structure);
+	},
+
+	getDataArray:function(){
+		return ,array;
 	},
 
 	deallocateBuffers:function(){
@@ -21,11 +25,11 @@ SFStructuresTable.prototype = {
 	},
 
 	generateNewDatasetInstance:function(){
-	return new SFStructuresTable();//Warning: Not well Identified 
+		return ,new ,SFStructuresTable();
 	},
 
 	getCode:function(){
-	return getClass().getSimpleName();//Warning: Not well Identified 
+		return ,getClass().getSimpleName();
 	}
 
 };

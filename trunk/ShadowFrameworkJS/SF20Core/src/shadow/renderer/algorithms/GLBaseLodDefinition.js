@@ -5,11 +5,11 @@ function GLBaseLodDefinition(){
 GLBaseLodDefinition.prototype = {
 
 	acceptGeometry:function(node){
-		return this.height;
+		return ,0;
 	},
 
 	acceptNode:function(node){
-		return this.true;
+		return ,true;
 	}
 
 };

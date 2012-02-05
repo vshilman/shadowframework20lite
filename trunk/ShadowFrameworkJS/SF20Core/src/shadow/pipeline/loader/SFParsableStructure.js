@@ -4,14 +4,18 @@ function SFParsableStructure(){
 
 SFParsableStructure.prototype = {
 
+	addParameter:function(parameter){
+		loadingParameters.add(parameter);
+	},
+
 	finalize:function(){
-	addParameters(loadingParameters);//Warning: Not well Identified 
-	loadingParameters.clear();//Warning: Not well Identified 
-	SFPipeline.loadStructure(getName(), this);//Warning: Not well Identified 
+		addParameters(loadingParameters);
+		loadingParameters.clear();
+		SFPipeline.loadStructure(getName(), this);
 	},
 
 	getAllCommands:function(){
-		return this.allCommands;
+		return ,allCommands;
 	}
 
 };

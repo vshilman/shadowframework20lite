@@ -1,9 +1,15 @@
 
-function SFArrayElementException(element, additionalMessage){
-	super(element.getClass().getSimpleName()+genericMessage+":"+additionalMessage);//Warning: Not well Identified 
-		this.element=element;
-		this.additionalMessage=additionalMessage;
+function SFArrayElementException(){
 }
 
 SFArrayElementException.prototype = {
+
+	getElement:function(){
+		return ,element;
+	},
+
+	getAdditionalMessage:function(){
+		return ,additionalMessage;
+	}
+
 };
