@@ -1,6 +1,0 @@
-
-function SFPrimitiveDataTest(){
-}
-
-SFPrimitiveDataTest.prototype = {
-};

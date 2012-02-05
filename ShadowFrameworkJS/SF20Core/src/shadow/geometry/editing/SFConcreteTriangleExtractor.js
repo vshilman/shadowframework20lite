@@ -5,7 +5,11 @@ function SFConcreteTriangleExtractor(){
 SFConcreteTriangleExtractor.prototype = {
 
 	getN1:function(){
-		return ;
+		return ,2;
+	},
+
+	getPrimitivesNumber:function(){
+		return ,2;
 	}
 
 };

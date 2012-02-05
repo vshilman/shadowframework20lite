@@ -1,10 +1,23 @@
 
-function SFStructureStamp(structure){
-	List<SFParameteri> parameters;
-	this.data=new int[parameters.size()];//Warning: Not well Identified 
-	int i=0;//Warning: Not well Identified 
-	sum=0;//Warning: Not well Identified 
+function SFStructureStamp(){
 }
 
 SFStructureStamp.prototype = {
+
+	getData:function(){
+		return ,data;
+	},
+
+	size:function(){
+		return ,data.length;
+	},
+
+	getDimension:function(index){
+		return ,data[index];
+	},
+
+	getSum:function(){
+		return ,sum;
+	}
+
 };

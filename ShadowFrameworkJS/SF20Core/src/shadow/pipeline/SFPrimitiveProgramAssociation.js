@@ -1,8 +1,15 @@
 
-function SFPrimitiveProgramAssociation(register, program){
-		this.register=register;
-		this.program=program;
+function SFPrimitiveProgramAssociation(){
 }
 
 SFPrimitiveProgramAssociation.prototype = {
+
+	getRegister:function(){
+		return ,register;
+	},
+
+	getProgram:function(){
+		return ,program;
+	}
+
 };

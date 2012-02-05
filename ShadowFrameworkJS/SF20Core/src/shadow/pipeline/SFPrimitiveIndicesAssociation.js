@@ -1,8 +1,15 @@
 
-function SFPrimitiveIndicesAssociation(register, indices){
-		this.register=register;
-		this.indices=indices;
+function SFPrimitiveIndicesAssociation(){
 }
 
 SFPrimitiveIndicesAssociation.prototype = {
+
+	getRegister:function(){
+		return ,register;
+	},
+
+	getIndices:function(){
+		return ,indices;
+	}
+
 };

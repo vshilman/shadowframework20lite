@@ -5,7 +5,7 @@ function SFGL20TexturePipeline(){
 SFGL20TexturePipeline.prototype = {
 
 	beginNewRenderedTexture:function(textureData){
-	texture.initShadowTexture(textureData);//Warning: Not well Identified 
+		texture.initShadowTexture(textureData);
 	//what should i do?;//Warning: Not well Identified 
 	},
 
@@ -22,7 +22,7 @@ SFGL20TexturePipeline.prototype = {
 	},
 
 	getRenderedTextureFactory:function(){
-		return this.factory;
+		return ,factory;
 	}
 
 };

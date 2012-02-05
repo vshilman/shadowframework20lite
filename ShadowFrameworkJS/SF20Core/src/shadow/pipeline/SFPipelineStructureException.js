@@ -1,5 +1,5 @@
 
-function SFPipelineStructureException(arg0){
+function SFPipelineStructureException(){
 }
 
 SFPipelineStructureException.prototype = {

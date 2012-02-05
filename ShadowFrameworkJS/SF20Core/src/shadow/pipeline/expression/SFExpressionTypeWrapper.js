@@ -1,15 +1,12 @@
 
-function SFExpressionTypeWrapper(type){
-	super("wr"+type);//Warning: Not well Identified 
-	setType(type);//Warning: Not well Identified 
-}
-function SFExpressionTypeWrapper(type, wrappedExpression){
-	super("wr"+type);//Warning: Not well Identified 
-	setType(type);//Warning: Not well Identified 
-	addSubExpression(wrappedExpression);//Warning: Not well Identified 
+function SFExpressionTypeWrapper(){
 }
 
 SFExpressionTypeWrapper.prototype = {
+
+	addSubExpression:function(element){
+		list.add(element);
+	},
 
 	evaluateType:function(){
 	//nothing to do.;//Warning: Not well Identified 

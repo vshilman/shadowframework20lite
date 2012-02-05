@@ -1,5 +1,5 @@
 
-function SFShaderComponentException(arg0){
+function SFShaderComponentException(){
 }
 
 SFShaderComponentException.prototype = {

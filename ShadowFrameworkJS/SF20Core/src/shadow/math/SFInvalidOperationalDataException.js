@@ -1,5 +1,5 @@
 
-function SFInvalidOperationalDataException(message){
+function SFInvalidOperationalDataException(){
 }
 
 SFInvalidOperationalDataException.prototype = {

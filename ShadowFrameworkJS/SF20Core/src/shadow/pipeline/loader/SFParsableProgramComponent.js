@@ -5,11 +5,11 @@ function SFParsableProgramComponent(){
 SFParsableProgramComponent.prototype = {
 
 	finalize:function(){
-	SFPipeline.loadShaderComponent(getName(), this);//Warning: Not well Identified 
+		SFPipeline.loadShaderComponent(getName(), this);
 	},
 
 	getAllCommands:function(){
-		return this.allCommands;
+		return ,allCommands;
 	}
 
 };

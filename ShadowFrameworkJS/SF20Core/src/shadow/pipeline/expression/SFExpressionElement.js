@@ -1,6 +1,0 @@
-
-function SFExpressionElement(){
-}
-
-SFExpressionElement.prototype = {
-};
