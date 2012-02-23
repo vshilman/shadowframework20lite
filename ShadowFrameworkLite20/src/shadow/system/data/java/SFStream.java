@@ -38,7 +38,6 @@ import shadow.system.data.SFDataset;
  */
 public class SFStream {
 
-	
 	public InputStreamReader loadFileInputStreamReader(String filename) throws IOException{
 		return new InputStreamReader(new FileInputStream(new File(filename)));
 	}
@@ -55,7 +54,7 @@ public class SFStream {
 			//The return of this operation is not used here
 				stream.skip(2);
 				//GLStream.readShort(stream);
-			dataset.readFromStream(inStream);
+			dataset.getSFDataObject().readFromStream(inStream);
 			stream.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -73,8 +72,7 @@ public class SFStream {
 					exception.printStackTrace();
 				}
 			});
-			outStream.writeHeader(dataset);
-			dataset.writeOnStream(outStream);
+			dataset.getSFDataObject().writeOnStream(outStream);
 			stream1.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

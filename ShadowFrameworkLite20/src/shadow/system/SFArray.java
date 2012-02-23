@@ -19,7 +19,6 @@
 */
 package shadow.system;
 
-import shadow.pipeline.SFArrayElementException;
 
 
 /**

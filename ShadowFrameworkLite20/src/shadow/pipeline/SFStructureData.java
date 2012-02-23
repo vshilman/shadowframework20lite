@@ -7,10 +7,10 @@ import shadow.pipeline.parameters.SFParameteri;
 
 public class SFStructureData {
 
-	private SFPipelineStructureInstance structure;
+	private SFPipelineStructure structure;
 	private SFValuenf values[];
 
-	public SFStructureData(SFPipelineStructureInstance structure,SFParameteri genericsParameters) {
+	public SFStructureData(SFPipelineStructure structure,SFParameteri genericsParameters) {
 		super();
 		this.structure=structure;
 		values=new SFValuenf[structure.size()];
@@ -27,7 +27,7 @@ public class SFStructureData {
 		}
 	}
 	
-	public SFStructureData(SFPipelineStructureInstance structure) {
+	public SFStructureData(SFPipelineStructure structure) {
 		super();
 		this.structure=structure;
 		values=new SFValuenf[structure.size()];
@@ -43,7 +43,7 @@ public class SFStructureData {
 		return values.length;
 	}
 
-	public SFPipelineStructureInstance getStructure() {
+	public SFPipelineStructure getStructure() {
 		return structure;
 	}
 

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.parameters.SFPipelineRegister;
-import shadow.renderer.SFAsset;
+import shadow.renderer.SFGraphicsAsset;
 
-public abstract class SFGeometry extends SFAsset{
+public abstract class SFGeometry extends SFGraphicsAsset{
 
 	public static final int LOD_HINT_DISCARD=-1;
 	
@@ -89,17 +89,6 @@ public abstract class SFGeometry extends SFAsset{
 			sonGeometries.get(i).rebuild();
 		}
 	}
-//	
-//	@Override
-//	public void readFromStream(SFInputStream stream){
-//		super.readFromStream(stream);
-//		//No need to do anything else..
-//		//Need to map data to Geometry Slots!
-//	}
-//	
-//	@Override
-//	public void writeOnStream(SFOutputStream stream){
-//		super.writeOnStream(stream);
-//		//No need to do anything else..
-//	}
+
+	
 }

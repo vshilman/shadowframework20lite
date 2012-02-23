@@ -83,7 +83,7 @@ public abstract class SFExpressionOperator extends SFExpressionElement{
 				maxElement=type;
 			}
 			if(elements.size()>1){
-				SFExpressionTypeWrapper wrapper=SFExpressionParser.getParser().
+				SFExpressionTypeWrapper wrapper=SFExpressionGeneratorKeeper.getKeeper().
 						getGenerator().getWrapper(type);
 				SFExpressionOperator clone=cloneOperator();
 				clone.setType(type);

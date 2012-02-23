@@ -119,11 +119,10 @@ public class SFPipeline {
 		program.setPrimitive(primitive);
 		
 		for (int i=0; i < material.length; i++) {
-			program.setMaterial(i,pipeline.components.get(material[i]));
+			SFProgramComponent component=pipeline.components.get(material[i]);
+			program.setMaterial(i,component);
 		}
 		program.setLightStep(pipeline.components.get(light));
-
-		pipeline.sfProgramBuilder.prepareProgram(program);
 		// Now program is returned, and it is ready to be used
 
 		return program;
@@ -148,9 +147,7 @@ public class SFPipeline {
 			program.setMaterial(i,pipeline.components.get(material[i]));
 		}
 		program.setLightStep(pipeline.components.get(light));
-
-		pipeline.sfProgramBuilder.prepareProgram(program);
-
+		
 		return program;
 	}
 	

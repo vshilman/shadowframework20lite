@@ -20,11 +20,14 @@
 package shadow.geometry.editing;
 
 import shadow.math.SFValuenf;
-import shadow.pipeline.SFArrayElementException;
+import shadow.renderer.SFAsset;
 import shadow.system.SFArray;
+import shadow.system.SFArrayElementException;
+import shadow.system.data.SFDataObject;
+import shadow.system.data.SFDataset;
+import shadow.system.data.objects.SFVoidData;
 
-public class SFConcreteTriangleExtractor implements SFSurfaceQuadsExtractor {
-
+public class SFConcreteTriangleExtractor extends SFAsset implements SFSurfaceQuadsExtractor {
 
 	@Override
 	public int getN1() {
@@ -113,6 +116,18 @@ public class SFConcreteTriangleExtractor implements SFSurfaceQuadsExtractor {
 		tmp_S[5]=(offset+index12);
 	}
 	
-	
+	@Override
+	public SFDataset generateNewDatasetInstance() {
+		return new SFConcreteTriangleExtractor();
+	}
 
+	@Override
+	public SFDataObject getSFDataObject() {
+		return SFVoidData.getData();
+	}
+	
+	@Override
+	public void init() {
+		
+	}
 }

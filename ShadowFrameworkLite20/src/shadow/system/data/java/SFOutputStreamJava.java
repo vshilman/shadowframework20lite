@@ -3,7 +3,6 @@ package shadow.system.data.java;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import shadow.system.data.SFDataset;
 import shadow.system.data.SFOutputStream;
 
 public class SFOutputStreamJava implements SFOutputStream {
@@ -16,30 +15,53 @@ public class SFOutputStreamJava implements SFOutputStream {
 		this.stream = stream;
 		this.keeper = keeper;
 	}
-
-	/* (non-Javadoc)
-	 * @see shadow.system.SFIOutputStram#writeHeader(shadow.system.SFDataset)
-	 */
-	@Override
-	public void writeHeader(SFDataset dataset){
-		writeString(((dataset.getCode())));
-	}
 	
 	@Override
 	public void writeString(String s) {
-		writeInt(s.length());
+		byte[] length={(byte)s.length()};
+		writeBytes(length);
 		writeBytes(s.getBytes());
+	}
+	
+	@Override
+	public void writeBinaryData(int[] values, int bitSize) {
+
+		int byteSize = ((bitSize - 1) >> 3) + 1;
+		
+		byte[] bytes = new byte[values.length * byteSize];
+		
+		for (int i = 0; i < values.length; i++) {
+			int value = values[i];
+			for (int j = 0; j < byteSize; j++) {
+				byte byteValue=(byte)((value & (0xff<<(8*j)))>>(8*j));
+				bytes[i * byteSize + j] = byteValue;
+			}
+		}
+		
+		writeBytes(bytes);
 	}
 	
 	/* (non-Javadoc)
 	 * @see shadow.system.SFIOutputStram#writeDataObjectHeader(short, int)
 	 */
-	@Override
 	public void writeDataObjectHeader(short code,int N){
 		writeShort(code);
 		writeShort((short)N);
 	}
 
+	@Override
+	public void writeShorts(short[] values) {
+		byte[] data=new byte[2*values.length];
+		for (int i = 0; i < values.length; i++) {
+			writeShort(data,i*2,values[i]);
+		}
+		try {
+			stream.write(data);
+		} catch (IOException e) {
+			keeper.launch(e);
+		}
+	}
+	
 	
 	/* (non-Javadoc)
 	 * @see shadow.system.SFIOutputStram#writeFloat(float)
@@ -102,7 +124,6 @@ public class SFOutputStreamJava implements SFOutputStream {
 	/* (non-Javadoc)
 	 * @see shadow.system.SFIOutputStram#writeLong(long)
 	 */
-	@Override
 	public void writeLong(long value){
 		int a=(int)(value & 0xffffffffL);
 		int b=(int)((value & 0xffffffff00000000L)>>32L);
@@ -129,7 +150,6 @@ public class SFOutputStreamJava implements SFOutputStream {
 	/* (non-Javadoc)
 	 * @see shadow.system.SFIOutputStram#writeBytes(byte[])
 	 */
-	@Override
 	public void writeBytes(byte value[]){
 		try {
 			stream.write(value);

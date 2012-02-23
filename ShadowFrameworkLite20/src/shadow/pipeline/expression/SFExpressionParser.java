@@ -18,7 +18,6 @@ public class SFExpressionParser {
 	private String brackets="()";
 	private String parsingString=operatorsSum+brackets;
 	
-	private SFExpressionGeneratori generator;
 	
 	private SFExpressionParser(){
 		
@@ -56,13 +55,6 @@ public class SFExpressionParser {
 	}*/
 	
 
-	public SFExpressionGeneratori getGenerator() {
-		return generator;
-	}
-
-	public void setGenerator(SFExpressionGeneratori generator) {
-		this.generator = generator;
-	}
 
 
 
@@ -74,6 +66,8 @@ public class SFExpressionParser {
 		}
 		//this is all you can do? 
 	}*/
+	
+	
 	
 	public SFExpressionElement parseString(String operation,List<SFParameteri> set) {
 		
@@ -96,11 +90,11 @@ public class SFExpressionParser {
 				
 				if(indexB==-1){
 					if(index==-1){
-						lastValue=generator.getExpressionElement(token,set);
+						lastValue=SFExpressionGeneratorKeeper.getKeeper().getGenerator().getExpressionElement(token,set);
 						dispatchValue=true;
 					}else{
 						if(expressions.size()==0){
-							SFExpressionOperator symbol=generator.getOperator(token);
+							SFExpressionOperator symbol=SFExpressionGeneratorKeeper.getKeeper().getGenerator().getOperator(token);
 							if(lastValue!=null)
 								symbol.addElement(lastValue);
 							if(symbol!=null)
@@ -108,7 +102,7 @@ public class SFExpressionParser {
 							lSymbol=symbol;
 						}else{
 							if(index<indexOfLastOperation){
-								SFExpressionOperator symbol=generator.getOperator(token);
+								SFExpressionOperator symbol=SFExpressionGeneratorKeeper.getKeeper().getGenerator().getOperator(token);
 								SFExpressionOperator lastSymbol=expressions.get(expressions.size()-1);
 								//greater priority
 								lastSymbol.addElement(symbol);
@@ -118,7 +112,7 @@ public class SFExpressionParser {
 							}else if(index>indexOfLastOperation){
 								
 								//System.out.println("C "+token);
-								SFExpressionOperator symbol=generator.getOperator( token);
+								SFExpressionOperator symbol=SFExpressionGeneratorKeeper.getKeeper().getGenerator().getOperator( token);
 								SFExpressionOperator lastSymbol=expressions.get(expressions.size()-1);
 
 								//System.out.println("symbol "+symbol.getElement());
@@ -247,7 +241,7 @@ public class SFExpressionParser {
 		
 		//PERFETTO!!
 		
-		parser.setGenerator(new SFBasicExpressionGenerator());
+		SFExpressionGeneratorKeeper.getKeeper().setGenerator(new SFBasicExpressionGenerator());
 		
 		SFParameter A=new SFParameter("A",SFParameter.GLOBAL_FLOAT3);
 		SFParameter B=new SFParameter("B",SFParameter.GLOBAL_FLOAT3);

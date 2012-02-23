@@ -27,15 +27,14 @@ public class SFMatrix3f extends SFValuenf{
 		return new SFMatrix3f(v[0],v[1],v[2],v[3],v[4],v[5],v[6],v[7],v[8]);
 	}
 	
-	public static void main(String args[])
-	{
+	public static void main(String args[]){
 		SFMatrix3f m1=SFMatrix3f.getRotationZ(3);
 
 		System.out.println(m1);
 
-		System.out.println(SFMatrix3f.getInversa(m1));
-		System.out.println(SFMatrix3f.getTrasposed(m1));
-		System.out.println(m1.Mult(SFMatrix3f.getInversa(m1)));
+		System.out.println(SFMatrix3f.getInverse(m1));
+		System.out.println(SFMatrix3f.getTransposed(m1));
+		System.out.println(m1.Mult(SFMatrix3f.getInverse(m1)));
 	}
 
 	public static SFMatrix3f getRotationZ(float angle){
@@ -62,8 +61,7 @@ public class SFMatrix3f extends SFValuenf{
 		return m;
 	}
 
-	public static SFMatrix3f getRotationX(float angle)
-	{
+	public static SFMatrix3f getRotationX(float angle){
 		SFMatrix3f m=new SFMatrix3f();
 		float cos=(float)(Math.cos(angle));
 		float sin=(float)(Math.sin(angle));
@@ -75,8 +73,7 @@ public class SFMatrix3f extends SFValuenf{
 		return m;
 	}
 
-	public static SFMatrix3f getTrasposed(SFMatrix3f m)
-	{
+	public static SFMatrix3f getTransposed(SFMatrix3f m){
 		SFMatrix3f n=new SFMatrix3f();
 
 		n.A=m.A;n.D=m.B;n.G=m.C;
@@ -97,8 +94,7 @@ public class SFMatrix3f extends SFValuenf{
 		return n;
 	}
 
-	public static SFMatrix3f getAmpl(float AmplX,float AmplY,float AmplZ)
-	{
+	public static SFMatrix3f getAmpl(float AmplX,float AmplY,float AmplZ){
 		SFMatrix3f n=new SFMatrix3f();
 
 		n.A=AmplX;n.D=0;n.G=0;
@@ -108,8 +104,7 @@ public class SFMatrix3f extends SFValuenf{
 		return n;
 	}
 
-	public static SFMatrix3f getInversa(SFMatrix3f m)
-	{
+	public static SFMatrix3f getInverse(SFMatrix3f m){
 		SFMatrix3f n=new SFMatrix3f();
 
 		float delta = m.A * ( m.E*m.I-m.F*m.H ) - m.B * ( m.D*m.I-m.F*m.G ) + m.C * ( m.D*m.H-m.E*m.G );

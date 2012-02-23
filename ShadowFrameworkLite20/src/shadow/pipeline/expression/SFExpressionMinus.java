@@ -3,7 +3,6 @@ package shadow.pipeline.expression;
 import java.util.LinkedList;
 
 public class SFExpressionMinus extends SFExpressionOperator{
-
 	
 	public SFExpressionMinus() {
 		super("-", SIZE_ALL);

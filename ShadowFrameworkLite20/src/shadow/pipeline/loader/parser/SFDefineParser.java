@@ -4,6 +4,7 @@ import java.util.StringTokenizer;
 
 import shadow.pipeline.SFFunction;
 import shadow.pipeline.SFProgramComponent;
+import shadow.pipeline.expression.SFExpressionParser;
 import shadow.pipeline.loader.SFLineParser;
 import shadow.pipeline.loader.SFParsableElement;
 import shadow.pipeline.parameters.SFParameter;
@@ -32,7 +33,7 @@ public class SFDefineParser implements SFLineParser{
 				
 				if(tokenizer.hasMoreElements()){
 					String function=tokenizer.nextToken();
-					SFFunction functionCode=new SFFunction(param,function,cmp.getParameterSet());
+					SFFunction functionCode=new SFFunction(param,SFExpressionParser.getParser().parseString(function, cmp.getParameterSet()),cmp.getParameterSet());
 					cmp.addCodeString(functionCode);
 				}else{
 					throw new SFException(codeLine+":  param command miss parameter type definition");

@@ -18,77 +18,124 @@ public class SFInputStreamJava implements SFInputStream {
 
 	@Override
 	public String readString() {
-		int n=readInt();
-		byte[] data=readBytes(n);
+		int n = readBytes(1)[0];
+		byte[] data = readBytes(n);
 		return new String(data);
 	}
-	
-	/* (non-Javadoc)
+
+	@Override
+	public int[] readBinaryData(int n, int bitSize) {
+
+		int byteSize = ((bitSize - 1) >> 3) + 1;
+
+		byte[] bytes = readBytes(n * byteSize);
+		int data[] = new int[n];
+
+		for (int i = 0; i < n; i++) {
+			int value = 0;
+			for (int j = 0; j < byteSize; j++) {
+				int byteValue = bytes[i * byteSize + j];
+				value += ((byteValue >= 0 ? byteValue : 256 + byteValue) << (8 * j));// is
+			}
+			data[i] = value;
+		}
+
+		return data;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see shadow.system.SFIInputStream#readShort()
 	 */
 	@Override
 	public short readShort() {
-		short fs=0;
-		byte[] bytes=new byte[2];
+		short fs = 0;
+		byte[] bytes = new byte[2];
 		try {
 			stream.read(bytes, 0, 2);
 		} catch (IOException e) {
 			keeper.launch(e);
 		}
-		fs=readShort(bytes, 0);
+		fs = readShort(bytes, 0);
 		return fs;
 	}
-	
-	/* (non-Javadoc)
-	 * @see shadow.system.SFIInputStream#readLong()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see shadow.system.SFIInputStream#readInts(int)
 	 */
 	@Override
-	public long readLong() {
-		int fs1=readInt();
-		int fs2=readInt();
-		return ((long)fs1)+(((long)fs2)<<32L);
+	public short[] readShorts(int n) {
+		short[] fs = new short[n];
+		byte[] bytes = new byte[2 * n];
+		try {
+			stream.read(bytes, 0, 2 * n);
+		} catch (IOException e) {
+			keeper.launch(e);
+		}
+		for (int i = 0; i < n; i++) {
+			fs[i] = readShort(bytes, i * 2);
+		}
+		return fs;
 	}
-	
-	/* (non-Javadoc)
+
+	// /* (non-Javadoc)
+	// * @see shadow.system.SFIInputStream#readLong()
+	// */
+	// @Override
+	// public long readLong() {
+	// int fs1=readInt();
+	// int fs2=readInt();
+	// return ((long)fs1)+(((long)fs2)<<32L);
+	// }
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see shadow.system.SFIInputStream#readInt()
 	 */
 	@Override
 	public int readInt() {
-		int fs=0;
-		byte[] bytes=new byte[4];
+		int fs = 0;
+		byte[] bytes = new byte[4];
 		try {
 			stream.read(bytes, 0, 4);
 		} catch (IOException e) {
 			keeper.launch(e);
 		}
-		fs=readInt(bytes, 0);
+		fs = readInt(bytes, 0);
 		return fs;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see shadow.system.SFIInputStream#readInts(int)
 	 */
 	@Override
 	public int[] readInts(int n) {
-		int[] fs=new int[n];
-		byte[] bytes=new byte[4*n];
+		int[] fs = new int[n];
+		byte[] bytes = new byte[4 * n];
 		try {
-			stream.read(bytes, 0, 4*n);
+			stream.read(bytes, 0, 4 * n);
 		} catch (IOException e) {
 			keeper.launch(e);
 		}
-		for(int i=0;i<n;i++){
-			fs[i]=readInt(bytes, i*4);
+		for (int i = 0; i < n; i++) {
+			fs[i] = readInt(bytes, i * 4);
 		}
 		return fs;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see shadow.system.SFIInputStream#readBytes(int)
 	 */
-	@Override
 	public byte[] readBytes(int n) {
-		byte[] bytes=new byte[n];
+		byte[] bytes = new byte[n];
 		try {
 			stream.read(bytes, 0, n);
 		} catch (IOException e) {
@@ -96,65 +143,80 @@ public class SFInputStreamJava implements SFInputStream {
 		}
 		return bytes;
 	}
-	
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see shadow.system.SFIInputStream#readFloat()
 	 */
 	@Override
 	public float readFloat() {
-		float fs=0;
-		byte[] bytes=new byte[4];
+		float fs = 0;
+		byte[] bytes = new byte[4];
 		try {
 			stream.read(bytes, 0, 4);
 		} catch (IOException e) {
 			keeper.launch(e);
 		}
-		fs=readFloat(bytes, 0);
+		fs = readFloat(bytes, 0);
 		return fs;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see shadow.system.SFIInputStream#readFloats(int)
 	 */
 	@Override
 	public float[] readFloats(int n) {
-		float[] fs=new float[n];
-		byte[] bytes=new byte[4*n];
+		float[] fs = new float[n];
+		byte[] bytes = new byte[4 * n];
 		try {
-			stream.read(bytes, 0, 4*n);
+			stream.read(bytes, 0, 4 * n);
 		} catch (IOException e) {
 			keeper.launch(e);
 		}
-		for(int i=0;i<n;i++){
-			fs[i]=readFloat(bytes, i*4);
+		for (int i = 0; i < n; i++) {
+			fs[i] = readFloat(bytes, i * 4);
 		}
 		return fs;
 	}
-	
-	private float readFloat(byte[] data,int index){
-		int Value=(data[index+3]>=0?data[index+3]:256+data[index+3])+
-				  (data[index+2]>=0?data[index+2]:256+data[index+2])*0x100+
-				  (data[index+1]>=0?data[index+1]:256+data[index+1])*0x10000+
-				  (data[index]>=0?data[index]:256+data[index])*0x1000000;
+
+	private float readFloat(byte[] data, int index) {
+		int Value = (data[index + 3] >= 0 ? data[index + 3]
+				: 256 + data[index + 3])
+				+ (data[index + 2] >= 0 ? data[index + 2]
+						: 256 + data[index + 2])
+				* 0x100
+				+ (data[index + 1] >= 0 ? data[index + 1]
+						: 256 + data[index + 1])
+				* 0x10000
+				+ (data[index] >= 0 ? data[index] : 256 + data[index])
+				* 0x1000000;
 
 		return Float.intBitsToFloat(Value);
 	}
-	
-	private short readShort(byte[] data,int index){
-		
-		short Value=(short)((data[index+1]>=0?data[index+1]:256+data[index+1])+
-				(data[index]>=0?data[index]:256+data[index])*0x100);
-		
-		
+
+	private short readShort(byte[] data, int index) {
+
+		short Value = (short) ((data[index + 1] >= 0 ? data[index + 1]
+				: 256 + data[index + 1]) + (data[index] >= 0 ? data[index]
+				: 256 + data[index]) * 0x100);
+
 		return Value;
 	}
-	
-	private int readInt(byte[] data,int index){
-		int Value=(data[index+3]>=0?data[index+3]:256+data[index+3])+
-				  (data[index+2]>=0?data[index+2]:256+data[index+2])*0x100+
-				  (data[index+1]>=0?data[index+1]:256+data[index+1])*0x10000+
-				  (data[index]>=0?data[index]:256+data[index])*0x1000000;
+
+	private int readInt(byte[] data, int index) {
+		int Value = (data[index + 3] >= 0 ? data[index + 3]
+				: 256 + data[index + 3])
+				+ (data[index + 2] >= 0 ? data[index + 2]
+						: 256 + data[index + 2])
+				* 0x100
+				+ (data[index + 1] >= 0 ? data[index + 1]
+						: 256 + data[index + 1])
+				* 0x10000
+				+ (data[index] >= 0 ? data[index] : 256 + data[index])
+				* 0x1000000;
 
 		return Value;
 	}

@@ -1,11 +1,11 @@
 package shadow.geometry.editing;
 
 import shadow.math.SFValuenf;
-import shadow.math.SFVertex3f;
-import shadow.pipeline.SFArrayElementException;
 import shadow.system.SFArray;
+import shadow.system.SFArrayElementException;
+import shadow.system.data.SFDataset;
 
-public interface SFSurfaceQuadsExtractor {
+public interface SFSurfaceQuadsExtractor extends SFDataset{
 	
 	public int getN1();
 	/**

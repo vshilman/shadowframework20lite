@@ -11,6 +11,7 @@ import shadow.pipeline.SFInstancedParameter;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineElement;
 import shadow.pipeline.SFPipelineGrid;
+import shadow.pipeline.SFPipelineGridInstance;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.loader.SFLineParser;
 import shadow.pipeline.loader.SFParsableElement;

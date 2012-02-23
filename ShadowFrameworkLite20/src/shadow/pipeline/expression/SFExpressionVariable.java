@@ -51,7 +51,8 @@ public class SFExpressionVariable extends SFExpressionElement{
 					this.setElement(""+f);
 					setType(SFParameteri.GLOBAL_FLOAT);
 				} catch (NumberFormatException e1) {
-					throw new SFExpressionException("Unknown Parameter "+this.getElement());
+					//TODO: this must be reworked a bit
+					//throw new SFExpressionException("Unknown Parameter "+this.getElement());
 				}
 			}
 		}
