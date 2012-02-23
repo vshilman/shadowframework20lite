@@ -50,6 +50,10 @@
 @write color diffColor 
 @end
 
+@begin Material BlackMat
+@write color (0,0,0,1) 
+@end
+
 @begin Material TexturedMat
 @use texture0
 @use texCoord0
@@ -105,4 +109,16 @@
 @define gray3:3 gray
 @write fColor0 gray3
 @write fColor1 color+bright
+@end
+
+@begin LightStep NoLights
+@use color
+@write fColor color
+@end
+
+@begin LightStep DepthStep
+@use position
+@define tmp1:1 (position.z+1)*0.5
+@define tmp3:3 (tmp1,tmp1,tmp1)
+@write fColor tmp3
 @end
