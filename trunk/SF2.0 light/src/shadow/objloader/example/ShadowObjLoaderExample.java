@@ -9,10 +9,8 @@ import java.util.List;
 
 import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
-import shadow.material.SFStructureReference;
 import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
-import shadow.pipeline.SFArrayElementException;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
@@ -23,6 +21,8 @@ import shadow.pipeline.SFStructureData;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
+import shadow.renderer.data.SFStructureReference;
+import shadow.system.SFArrayElementException;
 
 public class ShadowObjLoaderExample extends SFTutorial{
 
@@ -58,15 +58,14 @@ public class ShadowObjLoaderExample extends SFTutorial{
 			e.printStackTrace();
 		}
 		
-		
 		//Light
 		SFPipelineStructure lighStructure=SFPipeline.getStructure("PLight01");
 		SFPipelineStructureInstance lightStructureInstance=((List<SFPipelineStructureInstance>)(program.getLightStep().getStructures())).get(0);
-		lightData=SFPipeline.getSfPipelineMemory().generateStructureData(lightStructureInstance); 
-		lightReference=new SFStructureReference(lightData); 
-		SFStructureData lit=new SFStructureData(lightStructureInstance);
+		lightData=SFPipeline.getSfPipelineMemory().generateStructureData(lightStructureInstance.getStructure()); 
+		lightReference=new SFStructureReference(lightData,lightData.generateElement()); 
+		SFStructureData lit=new SFStructureData(lightStructureInstance.getStructure());
 		((SFVertex3f)lit.getValue(0)).set3f(1, 1, 1);
-		((SFVertex3f)lit.getValue(1)).set3f(1, 1, 1);
+		((SFVertex3f)lit.getValue(1)).set3f(0, 0, -1);
 		try {
 			lightReference.setStructureData(lit);
 		} catch (SFArrayElementException e) {
@@ -78,9 +77,6 @@ public class ShadowObjLoaderExample extends SFTutorial{
 	
 	@Override
 	public void init() {
-
-		SFPipeline.getSfProgramBuilder().prepareProgram(program);
-		
 		loadImageTexture("models/Chrysanthemum.jpg");
 	}
 	
@@ -90,8 +86,8 @@ public class ShadowObjLoaderExample extends SFTutorial{
 
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		
-//		//load material data
-//		SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
+		//load material data
+		//SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
 		
 		//load light data
 		SFPipeline.getSfPipelineGraphics().loadStructureData(lightData, lightReference.getMaterialIndex());

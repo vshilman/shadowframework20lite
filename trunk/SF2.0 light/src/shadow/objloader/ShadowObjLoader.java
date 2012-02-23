@@ -12,7 +12,6 @@ import shadow.geometry.geometries.SFMeshGeometry;
 import shadow.math.SFValuenf;
 import shadow.math.SFVertex2f;
 import shadow.math.SFVertex3f;
-import shadow.pipeline.SFArrayElementException;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPrimitive;
@@ -22,7 +21,9 @@ import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFArray;
+import shadow.system.SFArrayElementException;
 import shadow.system.SFException;
+import shadow.system.data.SFDataset;
 
 /**
  * A utility class which can load Objs as ShadowFramorkData
@@ -32,6 +33,26 @@ import shadow.system.SFException;
 public class ShadowObjLoader {
 
 	private static SFPrimitive primitive=new SFPrimitive();
+
+	
+	private class SimpleObjMeshGeometry extends SFMeshGeometry{
+		
+		
+		public SimpleObjMeshGeometry(SFPrimitive primitive) {
+			super(primitive);
+			allocateGraphicsMemory();
+		}
+
+		@Override
+		public void compile() {
+			//nothing to do
+		}
+		
+		@Override
+		public SFDataset generateNewDatasetInstance() {
+			return new SimpleObjMeshGeometry(primitive);
+		}
+	}
 	
 	static{
 		try {
@@ -64,7 +85,6 @@ public class ShadowObjLoader {
 	}
 
 
-
 	/**
 	 * Generate an ArraList of SGGeoemtries from a SimpleObjFile, this geoemtries
 	 * can be used in composition with other 
@@ -78,12 +98,7 @@ public class ShadowObjLoader {
 		
 		for (int i = 0; i < file.getGeometriesNumber(); i++) {
 			
-			SFMeshGeometry geometry=new SFMeshGeometry(primitive) {
-				@Override
-				public void compile() {
-					//nothing to do
-				}
-			};
+			SFMeshGeometry geometry=new SimpleObjMeshGeometry(primitive);
 
 			SFPrimitiveArray primitiveData=geometry.getArray();//SFPipeline.getSfPipelineMemory().generatePrimitiveArray(primitive);
 			geometries.add(geometry);
@@ -112,7 +127,7 @@ public class ShadowObjLoader {
 			};
 			
 			file.drawGeometryOn(trListener, i);
-			System.err.println("v "+vertices.size()+" "+normals.size()+" "+txCoord.size());
+			//System.err.println("v "+vertices.size()+" "+normals.size()+" "+txCoord.size());
 			
 			int elementIndex=primitiveData.generateElements(vertices.size()/3);
 			geometry.setFirstElement(elementIndex);
