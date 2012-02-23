@@ -4,7 +4,6 @@ import java.util.List;
 
 import shadow.pipeline.expression.SFExpressionElement;
 import shadow.pipeline.expression.SFExpressionException;
-import shadow.pipeline.expression.SFExpressionParser;
 import shadow.pipeline.parameters.SFParameteri;
 
 /**
@@ -15,16 +14,17 @@ public class SFFunction {
 	private SFParameteri parameter;
 	private SFExpressionElement function;
 	
-	public SFFunction(SFParameteri globalV, String function, List<SFParameteri> set) {
+	public SFFunction(SFParameteri globalV, SFExpressionElement function,/*String function,*/ List<SFParameteri> set) {
 		super();
 		this.parameter = globalV;
-		this.function = SFExpressionParser.getParser().parseString(function,set);
+		this.function = function;// SFExpressionParser.getParser().parseString(function,set);
 		try {
 			this.function.evaluateType();
 		} catch (SFExpressionException e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public SFParameteri getParameter() {
 		return parameter;

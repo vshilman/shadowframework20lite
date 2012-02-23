@@ -2,6 +2,7 @@ package shadow.pipeline;
 
 import shadow.math.SFValuenf;
 import shadow.system.SFArray;
+import shadow.system.SFArrayElementException;
 
 public interface SFStructureArray extends SFArray<SFStructureData>{
 
@@ -20,5 +21,5 @@ public interface SFStructureArray extends SFArray<SFStructureData>{
 	public void setParameterValue(int index,int parametersIndex,SFValuenf element) throws SFArrayElementException;
 	
 	
-	public SFPipelineStructureInstance getPipelineStructure();
+	public SFPipelineStructure getPipelineStructure();
 }

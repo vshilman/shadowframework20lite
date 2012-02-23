@@ -33,7 +33,7 @@ public class SFMatrix2f extends SFValuenf {
 		System.out.println(m1);
 
 		System.out.println(SFMatrix2f.getInversa(m1));
-		System.out.println(SFMatrix2f.getTrasposta(m1));
+		System.out.println(SFMatrix2f.getTransposed(m1));
 		System.out.println(m1.Mult(SFMatrix2f.getInversa(m1)));
 	}
 
@@ -51,7 +51,7 @@ public class SFMatrix2f extends SFValuenf {
 		return m;
 	}
 
-	public static SFMatrix2f getTrasposta(SFMatrix2f m) {
+	public static SFMatrix2f getTransposed(SFMatrix2f m) {
 		SFMatrix2f n=new SFMatrix2f();
 
 		n.v[0]=m.v[0];

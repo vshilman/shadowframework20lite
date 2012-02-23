@@ -20,9 +20,9 @@
 package shadow.geometry;
 
 import shadow.math.SFVertex3f;
-import shadow.system.data.SFDataset;
+import shadow.renderer.SFAsset;
 
-public abstract class SFSurfaceFunction implements SFDataset{
+public abstract class SFSurfaceFunction extends SFAsset{
 
 	private static final float eps=0.01f;
 	
@@ -31,12 +31,10 @@ public abstract class SFSurfaceFunction implements SFDataset{
 	public abstract float getZ(float u,float v);
 	
 	public SFVertex3f getPosition(float u,float v){	
-		System.out.println("getting position "+u+" "+v);	
 		return new SFVertex3f(getX(u, v),getY(u, v),getZ(u, v));
 	}
 
 	public SFVertex3f getDu(float u,float v){
-		System.out.println("getting du "+u+" "+v);
 		SFVertex3f p1=getPosition(u-eps, v);
 		SFVertex3f p2=getPosition(u+eps, v);
 		p2.subtract3f(p1);
@@ -45,7 +43,6 @@ public abstract class SFSurfaceFunction implements SFDataset{
 	}
 	
 	public SFVertex3f getDv(float u,float v){
-		System.out.println("getting dv "+u+" "+v);
 		SFVertex3f p1=getPosition(u, v);
 		SFVertex3f p2=getPosition(u, v+eps);
 		p2.subtract3f(p1);
@@ -54,9 +51,13 @@ public abstract class SFSurfaceFunction implements SFDataset{
 	}
 	
 	public SFVertex3f getNormal(float u,float v){
-		System.out.println("getting normal "+u+" "+v);
 		SFVertex3f normal=getDu(u, v).cross(getDv(u, v));
 		normal.normalize3f();
 		return normal;
+	}
+	
+	@Override
+	public void init() {
+		//Functions should not require initialization...
 	}
 }

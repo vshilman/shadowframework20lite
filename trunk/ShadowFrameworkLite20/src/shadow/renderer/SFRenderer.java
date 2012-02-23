@@ -1,33 +1,52 @@
 package shadow.renderer;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import shadow.geometry.SFGeometry;
 import shadow.material.SFLightStep;
-import shadow.material.SFStructureReference;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgram;
+import shadow.renderer.data.SFStructureReference;
 
 public class SFRenderer {
 
 	private SFRenderingAlgorithm algorithm;// =new GLBaseRenderingAlgorithm();
-
+	private SFCamera camera;
+	
+	private ArrayList<SFProgramStructureReference> lights=new ArrayList<SFProgramStructureReference>();//any node has a material. sons nodes may inherit material
+	
 	
 	public SFRenderer() {
 		super();
 	}
 
-
 	public SFRenderingAlgorithm getAlgorithm() {
 		return algorithm;
 	}
 
+	public void setCamera(SFCamera camera) {
+		this.camera = camera;
+	}
+
+	public SFCamera getCamera() {
+		return camera;
+	}
+
+	
 
 	public void setAlgorithm(SFRenderingAlgorithm algorithm) {
 		this.algorithm=algorithm;
 	}
+	
+	public void addLights(SFProgramStructureReference light){
+		lights.add(light);
+	}
 
+	public void clearLights(){
+		lights.clear();
+	}
 
 	/**
 	 * GLRenderer is defined to be the main rendering algorithm for all the
@@ -56,7 +75,6 @@ public class SFRenderer {
 			i++;
 		}
 
-		System.out.println("(Debug) SFRenderer \t\t : \t\t LightsNumber:"+i);
 	}
 
 
@@ -65,8 +83,7 @@ public class SFRenderer {
 		
 		if (definition.acceptNode(node)) {	
 			renderNodeContent(node,definition,lightStepIndex,lightStep);
-			List<SFNode> sonNodes=node.getSonsNodes();
-			for (SFNode son : sonNodes) {
+			for (SFNode son : node) {
 				render(son,definition,lightStepIndex,lightStep);
 			}
 		}
@@ -74,31 +91,43 @@ public class SFRenderer {
 
 	private void renderNodeContent(SFNode node, SFLodFilter definition,
 			int lightSteIndex, SFLightStep lightStep) {
+		
+		if(node.isDrawable()){
 
-		// it is supposed that a Node has only 1 material
-		// that is not wrong if SFObject is going to extend Node
-		// if(node.getMaterial()!=null)
-		//TODO: material data is not loaded
-		List<SFStructureReference> materials=node.getMaterials();
-		for (SFStructureReference sfMaterial : materials) {
+			// Load rendering program
+			SFProgram program=node.getProgram(lightSteIndex,lightStep);
+			SFPipeline.getSfProgramBuilder().loadProgram(program);
+
+			// it is supposed that a Node has only 1 material
+			// that is not wrong if SFObject is going to extend Node
+			// if(node.getMaterial()!=null)
+			//TODO: material data is not loaded
+			List<SFStructureReference> materials=node.getMaterialsStructures();
+			for (SFStructureReference sfMaterial : materials) {
+				
+				int index=sfMaterial.getMaterialIndex();
+				SFPipeline.getSfPipelineGraphics().loadStructureData(sfMaterial.getTable(), index);
+					
+				//SFPipeline.getSfPipelineGraphics().loadStructure(table.getCode(),table.getData(),index);	
+			}
 			
-			int index=sfMaterial.getMaterialIndex();
-			SFPipeline.getSfPipelineGraphics().loadStructureData(sfMaterial.getTable(), index);
-			//SFPipeline.getSfPipelineGraphics().loadStructure(table.getCode(),table.getData(),index);	
+			for (SFProgramStructureReference sfLight : lights) {
+				
+				int index=sfLight.getStructure().getMaterialIndex();
+				SFPipeline.getSfPipelineGraphics().loadStructureData(sfLight.getStructure().getTable(), index);
+					
+				//SFPipeline.getSfPipelineGraphics().loadStructure(table.getCode(),table.getData(),index);	
+			}
+
+			// Place the object Node
+			// only positions are going to be set. Other transforms resides into
+			// geometry level
+			SFPipeline.getSfPipelineGraphics().translateModel(node.getPosition());
+
+			// render the NODE root Geometry
+			SFGeometry rootGeometry=node.getRootGeometry();
+			renderGeometry(rootGeometry,definition);
 		}
-
-		// Place the object Node
-		// only positions are going to be set. Other transforms resides into
-		// geometry level
-		SFPipeline.getSfPipelineGraphics().translateModel(node.x,node.y,node.z);
-
-		// Load rendering program
-		SFProgram program=node.getProgram(lightSteIndex,lightStep);
-		program.load();
-
-		// render the NODE root Geometry
-		SFGeometry rootGeometry=node.getRootGeometry();
-		renderGeometry(rootGeometry,definition);
 	}
 
 	private void renderGeometry(SFGeometry geometry, SFLodFilter definition) {

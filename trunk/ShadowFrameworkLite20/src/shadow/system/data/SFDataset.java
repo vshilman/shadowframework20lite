@@ -20,7 +20,6 @@
 package shadow.system.data;
 
 
-
 /**
  * A shadow Element which can be stored in or written from a BytesStream.
  * Any Dataset is even classified by its cardinality N; code and cardinality
@@ -29,15 +28,11 @@ package shadow.system.data;
  * 'number of sub-elements this element contains' 
  * @author Alessandro Martinelli
  */
-public interface SFDataset extends SFShadowElement{
-	/**Read all the data from a stream, given the cardinality 
-	 * associated with this data. The Data read from readFromStream
-	 * should come from a previous call of writeOnStream, and
-	 * N should be the same it was when writeOnStream was called. */
-	public void readFromStream(SFInputStream stream);
-	/** write the content of this dataset
-	 */
-	public void writeOnStream(SFOutputStream stream);
+public interface SFDataset {
+	
+	public String getType();
+	
+	public SFDataObject getSFDataObject();
 	/** clone this Dataset
 	 */
 	public SFDataset generateNewDatasetInstance();

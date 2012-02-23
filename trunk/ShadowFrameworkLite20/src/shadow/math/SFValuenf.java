@@ -22,6 +22,10 @@ public abstract class SFValuenf {
 	public float[] get() {
 		return v;
 	}
+	
+	public void setArray(float[] data) {
+		this.v=data;
+	}
 
 	public void set(float[] data) {
 		for (int i = 0; i < data.length; i++) {

@@ -3,6 +3,7 @@ package shadow.pipeline;
 import shadow.math.SFValuenf;
 import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFArray;
+import shadow.system.SFArrayElementException;
 
 /**
  * @author Alessandro Martinelli

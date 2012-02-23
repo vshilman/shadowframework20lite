@@ -13,7 +13,6 @@ public class SFRenderingAlgorithm {
 	public SFRenderingAlgorithm(List<SFLightStep> steps) {
 		super();
 		this.steps.addAll(steps);
-		System.out.println("(Debug) GLRenderingAlgorithm \t\t : \t\t steps "+steps.size());
 	}
 
 	public SFRenderingAlgorithm(List<SFLightStep> steps,
@@ -24,7 +23,6 @@ public class SFRenderingAlgorithm {
 	}
 
 	public List<SFLightStep> getSteps() {
-		System.out.println("(Debug) GLRenderingAlgorithm \t\t : \t\t steps "+steps.size());
 		return steps;
 	}
 

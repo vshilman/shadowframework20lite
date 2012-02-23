@@ -3,6 +3,7 @@ package shadow.pipeline;
 import shadow.math.SFMatrix2f;
 import shadow.math.SFMatrix3f;
 import shadow.math.SFMatrix4f;
+import shadow.math.SFRigidTransform;
 import shadow.math.SFVertex2f;
 import shadow.math.SFVertex3f;
 import shadow.math.SFVertex4f;
@@ -21,8 +22,10 @@ public interface SFPipelineMemory {
 	public SFArray<SFVertex4f> generateVertices4f();
 
 	public SFArray<SFMatrix4f> generateTransforms4f();
+	
+	public SFArray<SFRigidTransform> generateRigidTransformsArray();
 
-	public SFStructureArray generateStructureData(SFPipelineStructureInstance structure);
+	public SFStructureArray generateStructureData(SFPipelineStructure structure);
 
 	public SFPrimitiveArray generatePrimitiveArray(SFPrimitive primitive);
 

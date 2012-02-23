@@ -6,7 +6,6 @@ import shadow.pipeline.parameters.SFParameteri;
 
 public interface SFExpressionGeneratori {
 
-
 	public SFExpressionElement getExpressionElement(String value, List<SFParameteri> set);
 
 	public SFExpressionOperator getOperator(String operatorSymbol);

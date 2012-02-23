@@ -1,9 +1,14 @@
 package shadow.pipeline;
 
+import shadow.math.SFVertex3f;
+import shadow.pipeline.SFPipelineRenderingState.AccumulatorOperation;
+
 
 public interface SFPipelineGraphics {
 	
-	public void translateModel(float modelX,float modelY,float modelZ);
+	public void setupProjection(float projection[]);
+	
+	public void translateModel(SFVertex3f modelPosition);
 	
 	public void rotateModel(float rotX,float rotY,float rotZ);
 	
@@ -13,4 +18,7 @@ public interface SFPipelineGraphics {
 	
 	public void drawBaseQuad();
 	
+	public void setPipelineState(SFPipelineRenderingState state);
+	
+	public void executeAccumulationOperation(AccumulatorOperation operation,float value);
 }

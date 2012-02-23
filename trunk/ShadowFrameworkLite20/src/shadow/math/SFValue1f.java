@@ -38,7 +38,7 @@ public class SFValue1f extends SFValuenf{
 	}
 	
 	public void subtract1f(float dX){
-		v[0]+=dX;
+		v[0]-=dX;
 	}
 	
 	public void setByIndex(int index,float val){
