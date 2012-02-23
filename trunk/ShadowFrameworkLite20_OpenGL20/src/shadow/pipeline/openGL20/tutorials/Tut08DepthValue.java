@@ -3,7 +3,6 @@ package shadow.pipeline.openGL20.tutorials;
 import java.awt.event.KeyEvent;
 
 import shadow.geometry.geometries.SFMeshGeometry;
-import shadow.material.SFStructureReference;
 import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveArray;
@@ -17,13 +16,14 @@ import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeCylinder;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeGlass;
 import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
+import shadow.renderer.data.SFStructureReference;
 
-public class Tut02MoreGeometries extends SFBasicTutorial{
+public class Tut08DepthValue extends SFBasicTutorial{
 
 	private static SFMeshGeometry[] geometries;
 	private int geometriesIndex=0;
 	
-	public Tut02MoreGeometries(SFProgram program,
+	public Tut08DepthValue(SFProgram program,
 			SFStructureArray lightData, SFStructureReference lightReference,
 			SFStructureArray materialData,SFStructureReference materialReference,
 			SFPrimitiveArray primitiveData, int elementIndex, int elementSize) {
@@ -36,23 +36,15 @@ public class Tut02MoreGeometries extends SFBasicTutorial{
 		SFGL20Pipeline.setup();
 		
 		SFPrimitive primitive=new SFPrimitive();
-		String[] materials={"BasicMat"};
+		String[] materials={"BlackMat"};
 		SFProgram program=SFTutorialsUtilities.generateProgram("data/pipeline/primitive", materials, 
-				"BasicLSPN", primitive, "Triangle2", "Triangle2", "BasicTess");
+				"DepthStep", primitive, "Triangle2", "Triangle2", "BasicTess");
 
 		geometries=generateGeometries(primitive);
 		
-		SFStructureArray materialArray=SFTutorialsUtilities.generateMaterialData(program, 0, 0);
-		SFVertex3f[] materialData={new SFVertex3f(1,1,0),new SFVertex3f(0.1f,0.1f,0.1f)};
-		SFStructureReference materialReference=SFTutorialsUtilities.generateStructureDataReference(program, materialArray, materialData);
-
-		SFStructureArray lightArray=SFTutorialsUtilities.generateLightData(program, 0);
-		SFVertex3f[] lightData={new SFVertex3f(2, 1, 1),new SFVertex3f(1, 1, -1)};
-		SFStructureReference lightReference=SFTutorialsUtilities.generateStructureDataReference(program, lightArray, lightData);
-		
-		Tut02MoreGeometries tut01CurvedTubeFunction=new Tut02MoreGeometries(program, 
-				lightArray, lightReference, 
-				materialArray, materialReference,
+		Tut08DepthValue tut01CurvedTubeFunction=new Tut08DepthValue(program, 
+				null, null, 
+				null, null,
 				geometries[0].getArray(), geometries[0].getFirstElement(),geometries[0].getElementsCount());
 		
 		tut01CurvedTubeFunction.prepareFrame("Curved Tube Function", 600, 600);
