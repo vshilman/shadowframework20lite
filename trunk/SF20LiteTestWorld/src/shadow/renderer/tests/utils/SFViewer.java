@@ -100,7 +100,7 @@ public class SFViewer implements SFDrawable{
 		SFGL20Pipeline.setup();
 		try {
 			//load pipeline program components
-			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("src/data/primitive"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SFPipelineModuleWrongException e) {

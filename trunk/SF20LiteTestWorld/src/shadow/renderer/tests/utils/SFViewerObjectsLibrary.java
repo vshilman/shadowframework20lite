@@ -9,7 +9,7 @@ import shadow.system.data.SFObjectsLibrary;
 
 public class SFViewerObjectsLibrary implements SFIDataCenter{
 
-	private static final String root="libraries";
+	private static final String root="src/libraries";
 	
 	private SFObjectsLibrary library;
 	
