@@ -3,7 +3,6 @@ package shadow.pipeline.openGL20.tutorials;
 import java.awt.event.KeyEvent;
 
 import shadow.geometry.geometries.SFMeshGeometry;
-import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveArray;
 import shadow.pipeline.SFProgram;
@@ -36,6 +35,7 @@ public class Tut08DepthValue extends SFBasicTutorial{
 		SFGL20Pipeline.setup();
 		
 		SFPrimitive primitive=new SFPrimitive();
+		
 		String[] materials={"BlackMat"};
 		SFProgram program=SFTutorialsUtilities.generateProgram("data/pipeline/primitive", materials, 
 				"DepthStep", primitive, "Triangle2", "Triangle2", "BasicTess");
