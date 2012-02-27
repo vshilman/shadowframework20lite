@@ -38,7 +38,7 @@ public class Tut02MoreGeometries extends SFBasicTutorial{
 		
 		SFPrimitive primitive=new SFPrimitive();
 		String[] materials={"BasicMat"};
-		SFProgram program=SFTutorialsUtilities.generateProgram("../ShadowFramework2.0_OpenGL20/data/pipeline/primitive", materials, 
+		SFProgram program=SFTutorialsUtilities.generateProgram("data/primitive", materials, 
 				"BasicLSPN", primitive, "Triangle2", "Triangle2", "BasicTess");
 
 		geometries=generateGeometries(primitive);

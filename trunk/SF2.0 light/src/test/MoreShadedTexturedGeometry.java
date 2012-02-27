@@ -66,7 +66,7 @@ public class MoreShadedTexturedGeometry extends SFTutorial{
 		MoreShadedTexturedGeometry tut06TexturedGeometry=new MoreShadedTexturedGeometry();
 		String[] materials={"TexturedMat"};
 		try {
-			SFProgramComponentLoader.loadComponents(new File("../ShadowFramework2.0_OpenGL20/data/pipeline/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
 
 			SFPrimitive primitive=new SFPrimitive();
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));

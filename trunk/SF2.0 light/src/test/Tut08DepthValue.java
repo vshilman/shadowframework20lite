@@ -38,7 +38,7 @@ public class Tut08DepthValue extends SFBasicTutorial{
 		SFPrimitive primitive=new SFPrimitive();
 		
 		String[] materials={"BlackMat"};
-		SFProgram program=SFTutorialsUtilities.generateProgram("../ShadowFramework2.0_OpenGL20/data/pipeline/primitive", materials, 
+		SFProgram program=SFTutorialsUtilities.generateProgram("data/primitive", materials, 
 				"DepthStep", primitive, "Triangle2", "Triangle2", "BasicTess");
 
 		geometries=generateGeometries(primitive);

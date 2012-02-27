@@ -27,7 +27,7 @@ public class Tut04MoreBitmaps extends SFTutorial{
 		SFGL20Pipeline.setup();
 		
 		String[] materials={"TexturedMat"};
-		SFProgram program=SFTutorialsUtilities.generateImageProgram("../ShadowFramework2.0_OpenGL20/data/pipeline/primitive", materials, "BasicColor");
+		SFProgram program=SFTutorialsUtilities.generateImageProgram("data/primitive", materials, "BasicColor");
 		
 		Tut04MoreBitmaps tut03Bitmap=new Tut04MoreBitmaps();
 		tut03Bitmap.program=program;
