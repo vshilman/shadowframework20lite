@@ -29,8 +29,8 @@ public class ShadowObjLoaderExample extends SFTutorial{
 	private static ArrayList<SFGeometry> geometries;
 	private static SFProgram program;
 	
-//	private static SFStructureArray materialData;
-//	private static SFStructureReference materialReference;
+	private static SFStructureArray materialData;
+	private static SFStructureReference materialReference;
 	private static SFStructureArray lightData;
 	private static SFStructureReference lightReference;
 	
@@ -41,7 +41,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		ShadowObjLoaderExample tut03Bitmap=new ShadowObjLoaderExample();
 		String[] materials={"TexturedMat"};
 		
-		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
+		SimpleObjFile file=SimpleObjFile.getFromFile("models/cubo.obj");
 		
 		ShadowObjLoader shadowObjLoader=new ShadowObjLoader();
 		geometries=shadowObjLoader.extractGeometries(file);
@@ -49,7 +49,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		System.err.println("Number of geometries is "+geometries.size());
 		
 		try {
-			SFProgramComponentLoader.loadComponents(new File("../ShadowFramework2.0_OpenGL20/data/pipeline/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
 
 			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "BasicLSPN");
 		} catch (IOException e) {
@@ -77,7 +77,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 	
 	@Override
 	public void init() {
-		loadImageTexture("models/Chrysanthemum.jpg");
+	loadImageTexture("models/Chrysanthemum.jpg");
 	}
 	
 	
@@ -87,7 +87,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		
 		//load material data
-		//SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
+		SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
 		
 		//load light data
 		SFPipeline.getSfPipelineGraphics().loadStructureData(lightData, lightReference.getMaterialIndex());
