@@ -47,7 +47,9 @@ public class MoreShadedTexturedGeometry extends SFTutorial{
 	private SFTextureData texture;
 	private SFTextureData texture1;
 	private SFTextureData texture2;
+	private SFTextureData texture3;
 	private int shownTexture;
+	private SFProgram programDraw;
 	private SFProgram programGenerate;
 	private SFProgram programShow;
 	
@@ -65,8 +67,10 @@ public class MoreShadedTexturedGeometry extends SFTutorial{
 
 		MoreShadedTexturedGeometry tut06TexturedGeometry=new MoreShadedTexturedGeometry();
 		String[] materials={"TexturedMat"};
+		String[] materials2={"BlackMat"};
+
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("../ShadowFramework2.0_OpenGL20/data/pipeline/primitive"));
 
 			SFPrimitive primitive=new SFPrimitive();
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
@@ -74,6 +78,7 @@ public class MoreShadedTexturedGeometry extends SFTutorial{
 			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("Tx0"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));
 			
+			tut06TexturedGeometry.programDraw=SFPipeline.getStaticImageProgram(materials, "DepthStep1");
 			tut06TexturedGeometry.programGenerate=SFPipeline.getStaticImageProgram(materials, "BasicGrayAndBright");
 			tut06TexturedGeometry.programShow=SFPipeline.getStaticProgram(primitive,materials, "BasicLSPN");
 			
@@ -120,20 +125,25 @@ public class MoreShadedTexturedGeometry extends SFTutorial{
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		texture2 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
+		texture3 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFFormat.RGB8,  Filter.LINEAR,
+				WrapMode.REPEAT, WrapMode.REPEAT);
 		
 		SFRenderedTexture renderedTexture=new SFRenderedTexture();
 		renderedTexture.addColorData(texture1);
 		renderedTexture.addColorData(texture2);
+		renderedTexture.addColorData(texture3);
 		
 		SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);
 
 			texture.apply(0);
 		
 			SFPipeline.getSfProgramBuilder().loadProgram(programGenerate);
-	
+			
+			
 			SFPipeline.getSfPipelineGraphics().drawBaseQuad();
 			
 		SFPipeline.getSfTexturePipeline().endRenderedTexture(renderedTexture);
+		
 	}
 	
 	
@@ -144,11 +154,14 @@ public class MoreShadedTexturedGeometry extends SFTutorial{
 			texture1.apply(0);
 		else if(shownTexture==1)
 			texture2.apply(0);
-		else
+		else if(shownTexture==2)
+			texture3.apply(0);
+		else 
 			texture.apply(0);
 		
 		SFPipeline.getSfProgramBuilder().loadProgram(programShow);
-
+		
+		
 			SFPipeline.getSfPipelineGraphics().loadStructureData(lightArray, lightReference.getMaterialIndex());
 			
 			SFVertex3f position = new SFVertex3f(-0.5, 0.0, 0.0);
@@ -164,7 +177,7 @@ public class MoreShadedTexturedGeometry extends SFTutorial{
 	public void keyPressed(KeyEvent e) {
 		super.keyPressed(e);
 		if(e.getKeyCode()==KeyEvent.VK_A){
-			if(shownTexture>1){
+			if(shownTexture>2){
 				shownTexture=0;
 			}else
 			shownTexture=shownTexture+1;
