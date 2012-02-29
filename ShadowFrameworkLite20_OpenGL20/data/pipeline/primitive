@@ -66,8 +66,8 @@
 @use position
 @use color
 @define tmp1:3 lPosition-position
-@define tmp2:1 #(tmp1配mp1)
-@define tmp3:3 (normal配mp1)/tmp2 
+@define tmp2:1 #(tmp1?tmp1)
+@define tmp3:3 (normal?tmp1)/tmp2 
 @write fColor color*intensity*tmp3
 @end
 
@@ -86,7 +86,7 @@
 @use duVector 
 @use dvVector
 @define tmp1:3 (0,1,1)
-@write fColor (duVector配mp1),(dvVector配mp1),(normal配mp1),1
+@write fColor (duVector?tmp1),(dvVector?tmp1),(normal?tmp1),1
 @end
 
 @begin LightStep BasicColor
@@ -105,7 +105,7 @@
 @use color 
 @define bright:3 0.4,0.4,0.4
 @define grayscale:4 0.3,0.5,0.2,0
-@define gray:1 (color迷rayscale)
+@define gray:1 (color?grayscale)
 @define gray3:3 gray
 @write fColor0 gray3
 @write fColor1 color+bright
