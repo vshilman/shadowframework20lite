@@ -125,7 +125,6 @@ public class SFNode extends SFAsset implements Iterable<SFNode>{
 	public SFDataset generateNewDatasetInstance() {
 		return new SFNode();
 	}
-
 	
 	public SFProgram getProgram(int index,SFLightStep step){
 		

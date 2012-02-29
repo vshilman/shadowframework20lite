@@ -25,7 +25,7 @@ public class SFExpressionDot extends SFExpressionOperator{
 	}
 	
 	public SFExpressionDot() {
-		super("°", 2);
+		super("?", 2);
 		// TODO Auto-generated constructor stub
 	}
 	
