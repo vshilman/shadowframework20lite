@@ -36,7 +36,7 @@ public class SFGL20ExpressionGenerator implements SFExpressionGeneratori,SFExpre
 	
 	static{
 		functionsOperator.put(":","clampf");
-		functionsOperator.put("°","dot");
+		functionsOperator.put("?","dot");
 		functionsOperator.put("#","sqrt");
 		functionsOperator.put("%","texture2D");
 	}
@@ -213,7 +213,7 @@ public class SFGL20ExpressionGenerator implements SFExpressionGeneratori,SFExpre
 		if(operatorSymbol.equalsIgnoreCase(":")){
 			return new SFExpressionClamp();
 		}
-		if(operatorSymbol.equalsIgnoreCase("°")){
+		if(operatorSymbol.equalsIgnoreCase("?")){
 			return new SFExpressionDot();
 		}
 		if(operatorSymbol.equalsIgnoreCase("#")){
