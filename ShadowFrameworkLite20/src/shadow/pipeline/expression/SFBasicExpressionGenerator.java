@@ -24,7 +24,7 @@ public class SFBasicExpressionGenerator implements SFExpressionGeneratori {
 		if(operatorSymbol.equalsIgnoreCase(":")){
 			return new SFExpressionClamp();
 		}
-		if(operatorSymbol.equalsIgnoreCase("°")){
+		if(operatorSymbol.equalsIgnoreCase("?")){
 			return new SFExpressionDot();
 		}
 		if(operatorSymbol.equalsIgnoreCase(",")){

@@ -14,7 +14,7 @@ public class SFExpressionParser {
 	
 	private String parsingStringPlus="+";
 	private String parsingStringProduct="*";
-	private String operatorsSum="#°:/*-+%,";
+	private String operatorsSum="#?:/*-+%,";
 	private String brackets="()";
 	private String parsingString=operatorsSum+brackets;
 	
@@ -234,7 +234,7 @@ public class SFExpressionParser {
 		
 		//String operation="a+c:0:1";
 		//String operation="(_a+_b)/_c*(_d*_a/(_b+_e))";
-		//String operation="NA°NB*F+C";//Still no troubles would say
+		//String operation="NA?NB*F+C";//Still no troubles would say
 		
 		//Adesso devo assolutamente considerare la funzionalità di re-arrange of types.
 		//Così importante....
