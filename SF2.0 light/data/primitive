@@ -47,17 +47,35 @@
 
 @begin Material BasicMat
 @param diffColor,ambColor as Mat01
-@write color diffColor 
+@write color (diffColor+ambColor)/2
 @end
 
 @begin Material BlackMat
 @write color (0,0,0,1) 
 @end
 
+@begin Material NormalMat
+@use normal
+@write color normal
+@end
+
 @begin Material TexturedMat
 @use texture0
 @use texCoord0
 @write color texture0%texCoord0
+@end
+
+@begin LightStep Deferred
+@param intensity,lPosition as PLight01
+@use normal 
+@use position
+@use color
+@define tmp1:3 lPosition-position
+@define tmp2:1 #(tmp1?tmp1)
+@define tmp3:3 (normal?tmp1)/tmp2 
+@define tmp4:1 (position.z+1)*0.5
+@define tmp5:3 (tmp4,tmp4,tmp4)
+@write fColor ((color*intensity*tmp3)+tmp5)/2
 @end
 
 @begin LightStep BasicLSPN
@@ -109,6 +127,17 @@
 @define gray3:3 gray
 @write fColor0 gray3
 @write fColor1 color+bright
+@end
+
+@begin LightStep BasicGrayAndBright1
+@use color 
+@define bright:3 0.7,0.7,0.7
+@define grayscale:4 0.3,0.5,0.2,0
+@define gray:1 (color?grayscale)
+@define gray3:3 gray
+@write fColor0 gray3
+@write fColor1 color+bright
+@write fColor2 1,0,0,0
 @end
 
 @begin LightStep NoLights
