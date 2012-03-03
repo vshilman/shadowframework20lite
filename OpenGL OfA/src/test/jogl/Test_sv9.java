@@ -36,11 +36,14 @@ public class Test_sv9 implements GLEventListener, KeyListener, MouseListener, Mo
 	private int pointLightingDiffuseColorUniform;
 	private int materialShininessUniform;
 	private int alphaUniform;
+	private int[] greenVertexPositionBuffer = new int[3];
+	private int[] greenVertexTextureCoordBuffer = new int[3];
+	private int[] greenVertexNormalBuffer = new int[3];
 	private int[] sphereVertexPositionBuffer = new int[3];
 	private int[] sphereVertexNormalBuffer = new int[3];
 	private int[] sphereVertexIndexBuffer = new int[3];
 	private int[] sphereVertexTextureCoordBuffer = new int[3];
-	private int[] textures = new int[3];
+	private int[] textures = new int[2];
 	private FloatBuffer pMatrix;
 	private FloatBuffer mvMatrix;
 	private FloatBuffer normalMatrix;
@@ -146,15 +149,14 @@ public class Test_sv9 implements GLEventListener, KeyListener, MouseListener, Mo
 		gl.glUniformMatrix4fv(mvMatrixUniform, 16, false, mvMatrix);
 		gl.glUniformMatrix3fv(nMatrixUniform, 9, false, normalMatrix);
 
-		gl.glUniform3f(ambientColorUniform, 0.2f, 0.2f, 0.2f);
+		gl.glUniform3f(ambientColorUniform, 0.1f, 0.1f, 0.1f);
 
-		gl.glUniform3f(pointLightingLocationUniform, -1, 0, -5.1f);
+		gl.glUniform3f(pointLightingLocationUniform, -10, 0, 5f);
 
-		gl.glUniform3f(pointLightingDiffuseColorUniform, 0.9f, 0.9f, 0.9f);
-		gl.glUniform3f(pointLightingSpecularColorUniform, 0.7f, 0.7f, 0.7f);
+		gl.glUniform3f(pointLightingDiffuseColorUniform, 0.4f, 0.4f, 0.4f);
+		gl.glUniform3f(pointLightingSpecularColorUniform, 0.5f, 0.5f, 0.5f);
 
 		gl.glUniform1f(materialShininessUniform, 50);
-		gl.glUniform1f(alphaUniform, 0.5f);
 	}
 
 	private void initBuffers(GL2 gl) {
@@ -235,19 +237,54 @@ public class Test_sv9 implements GLEventListener, KeyListener, MouseListener, Mo
 		sphereVertexIndexBuffer[1] = 1;
 		sphereVertexIndexBuffer[2] = sphereVertexIndices.length;
 
+		gl.glGenBuffers(1, greenVertexPositionBuffer, 0);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, greenVertexPositionBuffer[0]);
+		float[] vertices2 = { -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -1.0f };
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertices2.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(vertices2), GL2.GL_STATIC_DRAW);
+		greenVertexPositionBuffer[1] = 3;
+		greenVertexPositionBuffer[2] = 4;
+
+		gl.glGenBuffers(1, greenVertexTextureCoordBuffer, 0);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, greenVertexTextureCoordBuffer[0]);
+		float[] textureCoords2 = { 0.0f, 10.0f, 0.0f, 0.0f, 10.0f, 0.0f, 10.0f, 10.0f };
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, textureCoords2.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(textureCoords2), GL2.GL_STATIC_DRAW);
+		greenVertexTextureCoordBuffer[1] = 2;
+		greenVertexTextureCoordBuffer[2] = 4;
+
+		gl.glGenBuffers(1, greenVertexNormalBuffer, 0);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, greenVertexNormalBuffer[0]);
+		float[] normals2 = { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f };
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, normals2.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(normals2), GL2.GL_STATIC_DRAW);
+		greenVertexNormalBuffer[1] = 3;
+		greenVertexNormalBuffer[2] = 4;
+
 	}
 
 	private void initTexture(GL2 gl) {
-		gl.glGenTextures(1, textures, 0);
+		gl.glGenTextures(2, textures, 0);
 
-		TextureData tex;
+		TextureData tex1;
 		try {
-			tex = TextureIO.newTextureData(new File("images/bubble.gif"), false, null);
+			tex1 = TextureIO.newTextureData(new File("images/bubble.gif"), false, null);
 		} catch (IOException e) {
-			tex = null;
+			tex1 = null;
 		}
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
-		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex.getWidth(), tex.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex.getBuffer());
+		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex1.getWidth(), tex1.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex1.getBuffer());
+		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR_MIPMAP_LINEAR);
+		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
+		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
+		gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
+
+		TextureData tex2;
+		try {
+			tex2 = TextureIO.newTextureData(new File("images/grass.gif"), false, null);
+		} catch (IOException e) {
+			tex2 = null;
+		}
+		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1]);
+		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex2.getWidth(), tex2.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex2.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR_MIPMAP_LINEAR);
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT);
@@ -265,11 +302,38 @@ public class Test_sv9 implements GLEventListener, KeyListener, MouseListener, Mo
 		float[] pMatrixv = new float[] { 2.4142136573791504f, 0, 0, 0, 0, 2.4142136573791504f, 0, 0, 0, 0, -1.0020020008087158f, -1, 0, 0, -0.20020020008087158f, 0 };
 		pMatrix = BufferUtil.newFloatBuffer(pMatrixv);
 
-		float[] mvMatrixv = new float[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, zoom, 1 };
-		mvMatrixv = multiplyMatrix(rotationMatrix, mvMatrixv);
+		float[] mvMatrixv = new float[] { 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, zoom, 1 };
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
 		float[] normalMatrixv = new float[9];
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
+			}
+		}
+		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
+
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, greenVertexPositionBuffer[0]);
+		gl.glVertexAttribPointer(vertexPositionAttribute, greenVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0);
+
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, greenVertexNormalBuffer[0]);
+		gl.glVertexAttribPointer(vertexNormalAttribute, greenVertexNormalBuffer[1], GL2.GL_FLOAT, false, 0, 0);
+
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, greenVertexTextureCoordBuffer[0]);
+		gl.glVertexAttribPointer(textureCoordAttribute, greenVertexTextureCoordBuffer[1], GL2.GL_FLOAT, false, 0, 0);
+
+		gl.glActiveTexture(GL2.GL_TEXTURE0);
+		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1]);
+		gl.glUniform1i(samplerUniform, 0);
+
+		setMatrixUniforms(gl);
+		gl.glUniform1f(alphaUniform, 1);
+		gl.glDrawArrays(GL2.GL_TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2]);
+
+		mvMatrixv = new float[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, zoom, 1 };
+		mvMatrixv = Util.multiplyMatrix(rotationMatrix, mvMatrixv);
+		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
+
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
@@ -292,6 +356,7 @@ public class Test_sv9 implements GLEventListener, KeyListener, MouseListener, Mo
 
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
+		gl.glUniform1f(alphaUniform, 0.8f);
 		gl.glDrawElements(GL2.GL_TRIANGLES, sphereVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
 
 	}
@@ -373,7 +438,7 @@ public class Test_sv9 implements GLEventListener, KeyListener, MouseListener, Mo
 
 		float[] newRotationMatrix = new float[] { cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, 0, 0, 0, 1 };
 
-		rotationMatrix = multiplyMatrix(rotationMatrix, newRotationMatrix);
+		rotationMatrix = Util.multiplyMatrix(rotationMatrix, newRotationMatrix);
 
 		lastMouseX = e.getX();
 		lastMouseY = e.getY();
@@ -381,26 +446,5 @@ public class Test_sv9 implements GLEventListener, KeyListener, MouseListener, Mo
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-	}
-
-	private float[] multiplyMatrix(float[] a, float[] b) {
-		float[] c = new float[16];
-		c[0] = a[0] * b[0] + a[1] * b[4] + a[2] * b[8] + a[3] * b[12];
-		c[4] = a[4] * b[0] + a[5] * b[4] + a[6] * b[8] + a[7] * b[12];
-		c[8] = a[8] * b[0] + a[9] * b[4] + a[10] * b[8] + a[11] * b[12];
-		c[12] = a[12] * b[0] + a[13] * b[4] + a[14] * b[8] + a[15] * b[12];
-		c[1] = a[0] * b[1] + a[1] * b[5] + a[2] * b[9] + a[3] * b[13];
-		c[5] = a[4] * b[1] + a[5] * b[5] + a[6] * b[9] + a[7] * b[13];
-		c[9] = a[8] * b[1] + a[9] * b[5] + a[10] * b[9] + a[11] * b[13];
-		c[13] = a[12] * b[1] + a[13] * b[5] + a[14] * b[9] + a[15] * b[13];
-		c[2] = a[0] * b[2] + a[1] * b[6] + a[2] * b[10] + a[3] * b[14];
-		c[6] = a[4] * b[2] + a[5] * b[6] + a[6] * b[10] + a[7] * b[14];
-		c[10] = a[8] * b[2] + a[9] * b[6] + a[10] * b[10] + a[11] * b[14];
-		c[14] = a[12] * b[2] + a[13] * b[6] + a[14] * b[10] + a[15] * b[14];
-		c[3] = a[0] * b[3] + a[1] * b[7] + a[2] * b[11] + a[3] * b[15];
-		c[7] = a[4] * b[3] + a[5] * b[7] + a[6] * b[11] + a[7] * b[15];
-		c[11] = a[8] * b[3] + a[9] * b[7] + a[10] * b[11] + a[11] * b[15];
-		c[15] = a[12] * b[3] + a[13] * b[7] + a[14] * b[11] + a[15] * b[15];
-		return c;
 	}
 }
