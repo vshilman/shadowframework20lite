@@ -11,6 +11,7 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
 
 import test.jogl.util.Util;
+import test.jogl.util.Util.ObjModel;
 
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.BufferUtil;
@@ -26,9 +27,9 @@ public class Test_sv8 implements GLEventListener, KeyListener {
 	private int pointLightingSpecularColorUniform;
 	private int pointLightingDiffuseColorUniform;
 	private int materialShininessUniform;
-	private int[] sphereVertexPositionBuffer = new int[3];
-	private int[] sphereVertexNormalBuffer = new int[3];
-	private int[] sphereVertexIndexBuffer = new int[3];
+	private int[] teapotVertexPositionBuffer = new int[3];
+	private int[] teapotVertexNormalBuffer = new int[3];
+	private int[] teapotVertexIndexBuffer = new int[3];
 	private FloatBuffer pMatrix;
 	private FloatBuffer mvMatrix;
 	private FloatBuffer normalMatrix;
@@ -130,7 +131,7 @@ public class Test_sv8 implements GLEventListener, KeyListener {
 
 		gl.glUniform3f(ambientColorUniform, 0.1f, 0.1f, 0.1f);
 
-		gl.glUniform3f(pointLightingLocationUniform, 0, 0, -5.1f);
+		gl.glUniform3f(pointLightingLocationUniform, -1, 0, -5.1f);
 
 		gl.glUniform3f(pointLightingDiffuseColorUniform, 0.7f, 0.7f, 0.7f);
 		gl.glUniform3f(pointLightingSpecularColorUniform, 0.7f, 0.7f, 0.7f);
@@ -139,70 +140,25 @@ public class Test_sv8 implements GLEventListener, KeyListener {
 	}
 
 	private void initBuffers(GL2 gl) {
-		int latitudeBands = 30;
-		int longitudeBands = 30;
-		int radius = 2;
+		ObjModel teapot = Util.loadObj("models/teapot.obj");
 
-		float[] vertices = new float[3 * (latitudeBands + 1) * (longitudeBands + 1)];
-		float[] normals = new float[3 * (latitudeBands + 1) * (longitudeBands + 1)];
-		int[] sphereVertexIndices = new int[6 * latitudeBands * longitudeBands];
+		gl.glGenBuffers(1, teapotVertexPositionBuffer, 0);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, teapotVertexPositionBuffer[0]);
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, teapot.vertexPositions.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(teapot.vertexPositions), GL2.GL_STATIC_DRAW);
+		teapotVertexPositionBuffer[1] = 3;
+		teapotVertexPositionBuffer[2] = teapot.vertexPositions.length / 3;
 
-		for (int i = 0; i <= latitudeBands; i++) {
-			float theta = (float) (i * Math.PI / latitudeBands);
-			float sinTheta = (float) Math.sin(theta);
-			float cosTheta = (float) Math.cos(theta);
-			for (int j = 0; j <= longitudeBands; j++) {
-				float phi = (float) (j * 2 * Math.PI / longitudeBands);
-				float sinPhi = (float) Math.sin(phi);
-				float cosPhi = (float) Math.cos(phi);
+		gl.glGenBuffers(1, teapotVertexNormalBuffer, 0);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, teapotVertexNormalBuffer[0]);
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, teapot.vertexNormals.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(teapot.vertexNormals), GL2.GL_STATIC_DRAW);
+		teapotVertexNormalBuffer[1] = 3;
+		teapotVertexNormalBuffer[2] = teapot.vertexNormals.length / 3;
 
-				float x = cosPhi * sinTheta;
-				float y = cosTheta;
-				float z = sinPhi * sinTheta;
-
-				int index = 3 * (j + i * (longitudeBands + 1));
-				vertices[index] = radius * x;
-				vertices[index + 1] = radius * y;
-				vertices[index + 2] = radius * z;
-				normals[index] = x;
-				normals[index + 1] = y;
-				normals[index + 2] = z;
-			}
-		}
-
-		for (int i = 0; i < latitudeBands; i++) {
-			for (int j = 0; j < longitudeBands; j++) {
-				int first = (i * (longitudeBands + 1)) + j;
-				int second = first + longitudeBands + 1;
-
-				int index = 6 * (j + i * longitudeBands);
-
-				sphereVertexIndices[index] = first;
-				sphereVertexIndices[index + 1] = second;
-				sphereVertexIndices[index + 2] = first + 1;
-				sphereVertexIndices[index + 3] = second;
-				sphereVertexIndices[index + 4] = second + 1;
-				sphereVertexIndices[index + 5] = first + 1;
-			}
-		}
-
-		gl.glGenBuffers(1, sphereVertexPositionBuffer, 0);
-		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, sphereVertexPositionBuffer[0]);
-		gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertices.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(vertices), GL2.GL_STATIC_DRAW);
-		sphereVertexPositionBuffer[1] = 3;
-		sphereVertexPositionBuffer[2] = vertices.length / 3;
-
-		gl.glGenBuffers(1, sphereVertexNormalBuffer, 0);
-		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, sphereVertexNormalBuffer[0]);
-		gl.glBufferData(GL2.GL_ARRAY_BUFFER, normals.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(normals), GL2.GL_STATIC_DRAW);
-		sphereVertexNormalBuffer[1] = 3;
-		sphereVertexNormalBuffer[2] = normals.length / 3;
-
-		gl.glGenBuffers(1, sphereVertexIndexBuffer, 0);
-		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(sphereVertexIndices), GL2.GL_STATIC_DRAW);
-		sphereVertexIndexBuffer[1] = 1;
-		sphereVertexIndexBuffer[2] = sphereVertexIndices.length;
+		gl.glGenBuffers(1, teapotVertexIndexBuffer, 0);
+		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0]);
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, teapot.indices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(teapot.indices), GL2.GL_STATIC_DRAW);
+		teapotVertexIndexBuffer[1] = 1;
+		teapotVertexIndexBuffer[2] = teapot.indices.length;
 
 	}
 
@@ -230,16 +186,16 @@ public class Test_sv8 implements GLEventListener, KeyListener {
 		}
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
-		gl.glFrontFace(GL2.GL_CW);
-		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, sphereVertexPositionBuffer[0]);
-		gl.glVertexAttribPointer(vertexPositionAttribute, sphereVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0);
+		gl.glFrontFace(GL2.GL_CCW);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, teapotVertexPositionBuffer[0]);
+		gl.glVertexAttribPointer(vertexPositionAttribute, teapotVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0);
 
-		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, sphereVertexNormalBuffer[0]);
-		gl.glVertexAttribPointer(vertexNormalAttribute, sphereVertexNormalBuffer[1], GL2.GL_FLOAT, false, 0, 0);
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, teapotVertexNormalBuffer[0]);
+		gl.glVertexAttribPointer(vertexNormalAttribute, teapotVertexNormalBuffer[1], GL2.GL_FLOAT, false, 0, 0);
 
-		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
+		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
-		gl.glDrawElements(GL2.GL_TRIANGLES, sphereVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, teapotVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
 
 		animate();
 	}

@@ -10,9 +10,9 @@ var pointLightingLocationUniform;
 var pointLightingSpecularColorUniform;
 var pointLightingDiffuseColorUniform;
 var materialShininessUniform;
-var sphereVertexPositionBuffer = new Array();
-var sphereVertexNormalBuffer = new Array();
-var sphereVertexIndexBuffer = new Array();
+var teapotVertexPositionBuffer = new Array();
+var teapotVertexNormalBuffer = new Array();
+var teapotVertexIndexBuffer = new Array();
 var pMatrix;
 var mvMatrix;
 var normalMatrix;
@@ -96,7 +96,7 @@ function setMatrixUniforms() {
 
 	gl.uniform3f(ambientColorUniform, 0.1, 0.1, 0.1);
 
-	gl.uniform3f(pointLightingLocationUniform, 0, 0, -5.1);
+	gl.uniform3f(pointLightingLocationUniform, -1, 0, -5.1);
 
 	gl.uniform3f(pointLightingDiffuseColorUniform, 0.7, 0.7, 0.7);
 	gl.uniform3f(pointLightingSpecularColorUniform, 0.7, 0.7, 0.7);
@@ -106,70 +106,25 @@ function setMatrixUniforms() {
 
 function initBuffers() {
 
-	var latitudeBands = 30;
-	var longitudeBands = 30;
-	var radius = 2;
+	var teapot = loadObj("models/teapot.obj");
 
-	var vertices = new Array();
-	var normals = new Array();
-	var sphereVertexIndices = new Array();
+	teapotVertexPositionBuffer[0] = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexPositionBuffer[0]);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(teapot.vertexPositions), gl.STATIC_DRAW);
+	teapotVertexPositionBuffer[1] = 3;
+	teapotVertexPositionBuffer[2] = teapot.vertexPositions.length / 3;
 
-	for ( var i = 0; i <= latitudeBands; i++) {
-		var theta = i * Math.PI / latitudeBands;
-		var sinTheta = Math.sin(theta);
-		var cosTheta = Math.cos(theta);
-		for ( var j = 0; j <= longitudeBands; j++) {
-			var phi = (j * 2 * Math.PI / longitudeBands);
-			var sinPhi = Math.sin(phi);
-			var cosPhi = Math.cos(phi);
+	teapotVertexNormalBuffer[0] = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexNormalBuffer[0]);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(teapot.vertexNormals), gl.STATIC_DRAW);
+	teapotVertexNormalBuffer[1] = 3;
+	teapotVertexNormalBuffer[2] = teapot.vertexNormals.length / 3;
 
-			var x = cosPhi * sinTheta;
-			var y = cosTheta;
-			var z = sinPhi * sinTheta;
-
-			var index = 3 * (j + i * (longitudeBands + 1));
-			vertices[index] = radius * x;
-			vertices[index + 1] = radius * y;
-			vertices[index + 2] = radius * z;
-			normals[index] = x;
-			normals[index + 1] = y;
-			normals[index + 2] = z;
-		}
-	}
-
-	for ( var i = 0; i < latitudeBands; i++) {
-		for ( var j = 0; j < longitudeBands; j++) {
-			var first = (i * (longitudeBands + 1)) + j;
-			var second = first + longitudeBands + 1;
-
-			var index = 6 * (j + i * longitudeBands);
-
-			sphereVertexIndices[index] = first;
-			sphereVertexIndices[index + 1] = second;
-			sphereVertexIndices[index + 2] = first + 1;
-			sphereVertexIndices[index + 3] = second;
-			sphereVertexIndices[index + 4] = second + 1;
-			sphereVertexIndices[index + 5] = first + 1;
-		}
-	}
-
-	sphereVertexPositionBuffer[0] = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer[0]);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-	sphereVertexPositionBuffer[1] = 3;
-	sphereVertexPositionBuffer[2] = vertices.length / 3;
-
-	sphereVertexNormalBuffer[0] = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexNormalBuffer[0]);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
-	sphereVertexNormalBuffer[1] = 3;
-	sphereVertexNormalBuffer[2] = vertices.length / 3;
-
-	sphereVertexIndexBuffer[0] = gl.createBuffer();
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
-	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(sphereVertexIndices), gl.STATIC_DRAW);
-	sphereVertexIndexBuffer[1] = 1;
-	sphereVertexIndexBuffer[2] = sphereVertexIndices.length;
+	teapotVertexIndexBuffer[0] = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0]);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(teapot.indices), gl.STATIC_DRAW);
+	teapotVertexIndexBuffer[1] = 1;
+	teapotVertexIndexBuffer[2] = teapot.indices.length;
 }
 
 function drawScene() {
@@ -193,16 +148,16 @@ function drawScene() {
 		}
 	}
 
-	gl.frontFace(gl.CW);
-	gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer[0]);
-	gl.vertexAttribPointer(vertexPositionAttribute, sphereVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
+	gl.frontFace(gl.CCW);
+	gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexPositionBuffer[0]);
+	gl.vertexAttribPointer(vertexPositionAttribute, teapotVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
 
-	gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexNormalBuffer[0]);
-	gl.vertexAttribPointer(vertexNormalAttribute, sphereVertexNormalBuffer[1], gl.FLOAT, false, 0, 0);
+	gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexNormalBuffer[0]);
+	gl.vertexAttribPointer(vertexNormalAttribute, teapotVertexNormalBuffer[1], gl.FLOAT, false, 0, 0);
 
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0]);
 	setMatrixUniforms();
-	gl.drawElements(gl.TRIANGLES, sphereVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0);
+	gl.drawElements(gl.TRIANGLES, teapotVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0);
 
 	animate();
 }
