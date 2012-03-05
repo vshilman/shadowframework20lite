@@ -47,7 +47,7 @@
 
 @begin Material BasicMat
 @param diffColor,ambColor as Mat01
-@write color (diffColor+ambColor)/2
+@write color diffColor 
 @end
 
 @begin Material BlackMat
@@ -87,6 +87,21 @@
 @define tmp2:1 #(tmp1?tmp1)
 @define tmp3:3 (normal?tmp1)/tmp2 
 @write fColor color*intensity*tmp3
+@end
+
+//TODO: implementare grado di riflessione
+@begin LightStep Specular
+@param intensity,lPosition as PLight01
+@use normal 
+@use position
+@use color
+@define tmp1:3 lPosition-position
+@define tmp2:1 #(tmp1?tmp1)
+@define tmp3:3 tmp1/tmp2
+@define tmp4:3 tmp3+(0,0,-1)
+@define tmp5:1 #(tmp4?tmp4)
+@define tmp6:3 (normal?tmp4)/tmp5
+@write fColor color*intensity*tmp6
 @end
 
 @begin LightStep DrawNormals
