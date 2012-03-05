@@ -50,6 +50,11 @@
 @write color diffColor 
 @end
 
+@begin Material ColorsMat
+@param diffColor,ambColor,specColor as Mat02
+@write color specColor 
+@end
+
 @begin Material BlackMat
 @write color (0,0,0,1) 
 @end
