@@ -58,6 +58,12 @@
 @float3 ambColor
 @end Structure 
 
+@begin Structure Mat02
+@float3 diffColor
+@float3 ambColor
+@float3 specColor
+@end Structure 
+
 @begin Structure PLight01
 @float3 intensity
 @float3 position
