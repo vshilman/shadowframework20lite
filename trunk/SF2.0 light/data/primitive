@@ -52,7 +52,8 @@
 
 @begin Material ColorsMat
 @param diffColor,ambColor,specColor as Mat02
-@write color (diffColor+ambColor+specColor)/3
+@write color (diffColor+ambColor)/2
+@write color1 specColor
 @end
 
 @begin Material BlackMat
@@ -75,12 +76,17 @@
 @use normal 
 @use position
 @use color
+@use color1
 @define tmp1:3 lPosition-position
 @define tmp2:1 #(tmp1?tmp1)
 @define tmp3:3 (normal?tmp1)/tmp2 
 @define tmp4:1 (position.z+1)*0.5
 @define tmp5:3 (tmp4,tmp4,tmp4)
-@write fColor ((color*intensity*tmp3)+tmp5)/2
+@define tmp6:3 tmp1/tmp2
+@define tmp7:3 tmp6+(0,0,-1)
+@define tmp8:1 #(tmp7?tmp7)
+@define tmp9:3 (normal?tmp7)/tmp8
+@write fColor ((color*intensity*tmp3)+(color1*intensity*tmp9*tmp9*tmp9*tmp9)+tmp5)/3
 @end
 
 @begin LightStep TwoLights
@@ -98,18 +104,19 @@
 @end
 
 //TODO: implementare grado di riflessione
+//più volte moltiplico tmp6 e meno riflette
 @begin LightStep Specular
 @param intensity,lPosition as PLight01
 @use normal 
 @use position
-@use color
+@use color1
 @define tmp1:3 lPosition-position
 @define tmp2:1 #(tmp1?tmp1)
 @define tmp3:3 tmp1/tmp2
 @define tmp4:3 tmp3+(0,0,-1)
 @define tmp5:1 #(tmp4?tmp4)
 @define tmp6:3 (normal?tmp4)/tmp5
-@write fColor color*intensity*tmp6
+@write fColor color1*intensity*tmp6*tmp6*tmp6*tmp6
 @end
 
 @begin LightStep BasicLSPN

@@ -22,6 +22,8 @@ import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
+import shadow.pipeline.parameters.SFParameter;
+import shadow.pipeline.parameters.SFParameteri;
 import shadow.renderer.data.SFStructureReference;
 import shadow.system.SFArrayElementException;
 
@@ -40,7 +42,7 @@ public class DeferredFinal extends SFTutorial {
 		SFGL20Pipeline.setup();
 
 		DeferredFinal test=new DeferredFinal();
-		String[] materials={"BasicMat"};
+		String[] materials={"ColorsMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -55,14 +57,28 @@ public class DeferredFinal extends SFTutorial {
 			//'Deferred'=shader che unisce i tre pasi dell'algoritmo e calcola il valore del colore finale
 			DeferredFinal.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "Deferred");
 		
-		//material pass: diffColor, ambColor
-		test.materialArray=SFTutorialsUtilities.generateMaterialData(test.program, 0, 0);
-		SFVertex3f[] materialData={new SFVertex3f(1,0,0),new SFVertex3f(0.1f,0.1f,0.1f)};
-		test.materialReference=SFTutorialsUtilities.generateStructureDataReference(test.program, test.materialArray, materialData);
-		
+			//Material pass: salvataggio delle componenti di colore
+			SFPipelineStructure materialStructure=SFPipeline.getStructure("Mat02");
+			List<SFParameteri> parameters=new ArrayList<SFParameteri>();
+			parameters.add(new SFParameter("mat01",SFParameteri.GLOBAL_FLOAT3));
+			parameters.add(new SFParameter("mat02",SFParameteri.GLOBAL_FLOAT3));
+			parameters.add(new SFParameter("mat03",SFParameteri.GLOBAL_FLOAT3));
+			SFPipelineStructureInstance materialStructureInstance=new SFPipelineStructureInstance(materialStructure,parameters);
+			materialArray=SFPipeline.getSfPipelineMemory().generateStructureData(materialStructureInstance.getStructure()); 
+			materialReference=new SFStructureReference(materialArray,materialArray.generateElement()); 
+			SFStructureData mat=new SFStructureData(materialStructureInstance.getStructure());
+			((SFVertex3f)mat.getValue(0)).set3f(1, 0, 0);
+			((SFVertex3f)mat.getValue(1)).set3f(1, 0, 0);
+			((SFVertex3f)mat.getValue(2)).set3f(0, 1, 0);
+			try {
+				materialReference.setStructureData(mat);
+			} catch (SFArrayElementException e) {
+				e.printStackTrace();
+			}
+			
 		//light pass: intensità e posizione della luce
 		test.lightArray=SFTutorialsUtilities.generateLightData(test.program, 0);
-		SFVertex3f[] lightData={new SFVertex3f(1,1,1),new SFVertex3f(0,1,0)};
+		SFVertex3f[] lightData={new SFVertex3f(1,1,1),new SFVertex3f(0,0,-1)};
 		test.lightReference=SFTutorialsUtilities.generateStructureDataReference(test.program, test.lightArray, lightData);
 		
 		} catch (IOException e) {
