@@ -113,15 +113,17 @@ public class TwoPointLights extends SFTutorial {
 			lparameters.add(new SFParameter("lit01",SFParameteri.GLOBAL_FLOAT3));
 			lparameters.add(new SFParameter("lit02",SFParameteri.GLOBAL_FLOAT3));
 			lparameters.add(new SFParameter("lit03",SFParameteri.GLOBAL_FLOAT3));
+			lparameters.add(new SFParameter("lit04",SFParameteri.GLOBAL_FLOAT3));
 			SFPipelineStructureInstance lightStructureInstance=new SFPipelineStructureInstance(lightStructure,lparameters);
 			//array di info sulla luce
 			lightArray=SFPipeline.getSfPipelineMemory().generateStructureData(lightStructureInstance.getStructure()); 
 			//elemento dell'aray lightData, ne posso caricar molti, ne uso uno alla volta
 			lightReference=new SFStructureReference(lightArray,lightArray.generateElement()); 
 			SFStructureData lit=new SFStructureData(lightStructureInstance.getStructure());
-			((SFVertex3f)lit.getValue(0)).set3f(1, 1, 1);
+			((SFVertex3f)lit.getValue(0)).set3f(1, 0, 0);
 			((SFVertex3f)lit.getValue(1)).set3f(1, 0, -1);
-			((SFVertex3f)lit.getValue(2)).set3f(1, 0, -1);
+			((SFVertex3f)lit.getValue(2)).set3f(0, 1, 0);
+			((SFVertex3f)lit.getValue(3)).set3f(-1, 0, -1);
 			try {
 				lightReference.setStructureData(lit);
 			} catch (SFArrayElementException e) {

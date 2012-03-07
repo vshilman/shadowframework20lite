@@ -90,7 +90,7 @@
 @end
 
 @begin LightStep TwoLights
-@param intensity,lPosition,l2Position as PLight02
+@param intensity,lPosition,intensity2,l2Position as PLight02
 @use normal 
 @use position
 @use color
@@ -100,7 +100,7 @@
 @define tmp4:3 l2Position-position
 @define tmp5:1 #(tmp4?tmp4)
 @define tmp6:3 (normal?tmp4)/tmp5 
-@write fColor color*intensity*(tmp3+tmp6)
+@write fColor color*((tmp3*intensity)+(tmp6*intensity2))
 @end
 
 //TODO: implementare grado di riflessione
