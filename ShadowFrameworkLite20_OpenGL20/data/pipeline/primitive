@@ -122,3 +122,16 @@
 @define tmp3:3 (tmp1,tmp1,tmp1)
 @write fColor tmp3
 @end
+
+@begin Material RedMat
+@define tmp2:3 (0.6,0.6,0.6)
+@define tmp3:3 (0.4,0,0)
+@write color tmp2
+@write color1 tmp3
+@end
+
+@begin LightStep RedStep
+@use color
+@use color1
+@write fColor color+color1
+@end
