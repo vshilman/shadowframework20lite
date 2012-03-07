@@ -72,5 +72,6 @@
 @begin Structure PLight02
 @float3 intensity
 @float3 lPosition
+@float3 intensity2
 @float3 l2Position
 @end Structure 
