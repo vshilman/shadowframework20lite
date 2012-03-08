@@ -53,7 +53,7 @@ public class TrueDeferredTemp extends SFTutorial {
 
 		TrueDeferredTemp test=new TrueDeferredTemp();
 		String[] materials={"ColorDFMat"};
-		String[] materials2={"TexturedMat"};
+		String[] materials2={"MoreTexturedMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		

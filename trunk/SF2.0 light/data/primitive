@@ -57,7 +57,7 @@
 @end
 
 @begin Material BlackMat
-@write color (0,0,0,1) 
+@write color (1,0,0,1) 
 @end
 
 @begin Material NormalMat
@@ -199,7 +199,7 @@
 @use normal
 @write color (diffColor+ambColor)/2
 @write color1 specColor
-@write color2 (position.z+1)*0.5
+@write color2 (1-position.z)*0.5
 @write color3 normal
 @end
 
@@ -212,4 +212,13 @@
 @write fColor1 color1
 @write fColor2 color2
 @write fColor3 color3
+@end
+
+@begin Material MoreTexturedMat
+@use texture0
+@use texture1
+@use texture2
+@use texture3
+@use texCoord0
+@write color (texture0%texCoord0)+(texture1%texCoord0)
 @end
