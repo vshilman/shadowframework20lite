@@ -69,19 +69,7 @@ function initGL(canvas) {
 }
 
 function initShaders() {
-	var fragmentShader = getShader(gl, "shaders/shader6.fs", gl.FRAGMENT_SHADER);
-	var vertexShader = getShader(gl, "shaders/shader6.vs", gl.VERTEX_SHADER);
-
-	var shaderProgram = gl.createProgram();
-	gl.attachShader(shaderProgram, vertexShader);
-	gl.attachShader(shaderProgram, fragmentShader);
-	gl.linkProgram(shaderProgram);
-
-	if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-		alert("Could not initialise shaders");
-	}
-
-	gl.useProgram(shaderProgram);
+	var shaderProgram = getShaderProgram(gl, "shaders/shader6.fs", "shaders/shader6.vs");
 
 	vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
 	gl.enableVertexAttribArray(vertexPositionAttribute);
@@ -283,7 +271,7 @@ function drawScene() {
 	setMatrixUniforms();
 	gl.uniform1f(alphaUniform, 1);
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2]);
-	
+
 	mvMatrix = new Float32Array([ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, zoom, 1 ]);
 	mvMatrix = multiplyMatrix(rotationMatrix, mvMatrix);
 

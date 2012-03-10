@@ -47,27 +47,64 @@ public class Util {
 		int[] length = new int[1];
 		length[0] = text[0].length();
 
-		int shader = gl.glCreateShader(type);
-		gl.glShaderSource(shader, 1, text, length, 0);
+		int shader = gl.glCreateShaderObjectARB(type);
 
-		gl.glCompileShader(shader);
+		if (shader == 0) {
+			System.out.println("Failed Create " + (GL2.GL_FRAGMENT_SHADER == type ? "fragment" : "vertex") + " shader");
+			System.exit(0);
+		}
+
+		gl.glShaderSourceARB(shader, 1, text, length, 0);
+
+		gl.glCompileShaderARB(shader);
 
 		int status[] = new int[1];
 
-		gl.glGetProgramiv(shader, GL2.GL_COMPILE_STATUS, status, 0);
+		gl.glGetObjectParameterivARB(shader, GL2.GL_OBJECT_COMPILE_STATUS_ARB, status, 0);
 
-		if (status[0] != 0) {
+		if (status[0] == 0) {
 			System.out.println("Shader has a problem");
 			int len[] = new int[1];
-			gl.glGetObjectParameterivARB(shader, GL2.GL_COMPILE_STATUS, len, 0);
+			gl.glGetObjectParameterivARB(shader, GL2.GL_OBJECT_COMPILE_STATUS_ARB, len, 0);
 
-			byte[] b = new byte[20000];
+			byte[] b = new byte[3000];
 			gl.glGetInfoLogARB(shader, b.length, status, 0, b, 0);
 
 			System.out.println(new String(b));
 		}
 
 		return shader;
+	}
+
+	public static int getShaderProgram(GL2 gl, String fragmentShaderFile, String vertexShaderFile) {
+		int fragmentShader = getShader(gl, fragmentShaderFile, GL2.GL_FRAGMENT_SHADER);
+		int vertexShader = getShader(gl, vertexShaderFile, GL2.GL_VERTEX_SHADER);
+
+		int shaderProgram = gl.glCreateProgramObjectARB();
+
+		if (shaderProgram == 0) {
+			System.out.println("Failed Create program");
+			System.exit(0);
+		}
+
+		gl.glAttachObjectARB(shaderProgram, vertexShader);
+		gl.glAttachObjectARB(shaderProgram, fragmentShader);
+		gl.glLinkProgramARB(shaderProgram);
+
+		int[] status = new int[1];
+		gl.glGetObjectParameterivARB(shaderProgram, GL2.GL_OBJECT_LINK_STATUS_ARB, status, 0);
+
+		if (status[0] == 0) {
+			System.out.println("Something failed " + status[0]);
+			int len[] = new int[1];
+			gl.glGetObjectParameterivARB(vertexShader, GL2.GL_OBJECT_COMPILE_STATUS_ARB, len, 0);
+			byte[] b = new byte[2000];
+			gl.glGetInfoLogARB(vertexShader, b.length, status, 0, b, 0);
+		}
+
+		gl.glValidateProgramARB(shaderProgram);
+		gl.glUseProgramObjectARB(shaderProgram);
+		return shaderProgram;
 	}
 
 	public static ObjModel loadObj(String src) {

@@ -61,19 +61,7 @@ function initGL(canvas) {
 }
 
 function initShaders() {
-	var fragmentShader = getShader(gl, "shaders/shader2.fs", gl.FRAGMENT_SHADER);
-	var vertexShader = getShader(gl, "shaders/shader2.vs", gl.VERTEX_SHADER);
-
-	var shaderProgram = gl.createProgram();
-	gl.attachShader(shaderProgram, vertexShader);
-	gl.attachShader(shaderProgram, fragmentShader);
-	gl.linkProgram(shaderProgram);
-
-	if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-		alert("Could not initialise shaders");
-	}
-
-	gl.useProgram(shaderProgram);
+	var shaderProgram = getShaderProgram(gl, "shaders/shader2.fs", "shaders/shader2.vs");
 
 	vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
 	gl.enableVertexAttribArray(vertexPositionAttribute);

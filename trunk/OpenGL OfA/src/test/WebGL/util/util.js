@@ -28,6 +28,23 @@ function getShader(gl, src, type) {
 	return shader;
 }
 
+function getShaderProgram(gl, fragmentShaderFile, vertexShaderFile) {
+	var fragmentShader = getShader(gl, fragmentShaderFile, gl.FRAGMENT_SHADER);
+	var vertexShader = getShader(gl, vertexShaderFile, gl.VERTEX_SHADER);
+
+	var shaderProgram = gl.createProgram();
+	gl.attachShader(shaderProgram, vertexShader);
+	gl.attachShader(shaderProgram, fragmentShader);
+	gl.linkProgram(shaderProgram);
+
+	if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+		alert("Could not initialise shaders");
+	}
+
+	gl.useProgram(shaderProgram);
+	return shaderProgram;
+}
+
 function loadObj(src) {
 
 	var text = loadFile(src);
