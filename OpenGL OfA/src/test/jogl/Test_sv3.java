@@ -81,21 +81,7 @@ public class Test_sv3 implements GLEventListener {
 	}
 
 	private void initShaders(GL2 gl) {
-		int fragmentShader = Util.getShader(gl, "shaders/shader2.fs", GL2.GL_FRAGMENT_SHADER);
-		int vertexShader = Util.getShader(gl, "shaders/shader2.vs", GL2.GL_VERTEX_SHADER);
-
-		int shaderProgram = gl.glCreateProgram();
-		gl.glAttachShader(shaderProgram, vertexShader);
-		gl.glAttachShader(shaderProgram, fragmentShader);
-		gl.glLinkProgram(shaderProgram);
-
-		int[] status = new int[1];
-		gl.glGetProgramiv(shaderProgram, GL2.GL_LINK_STATUS, status, 0);
-		if (status[0] == 0) {
-			System.out.println("Could not initialise shaders");
-		}
-
-		gl.glUseProgram(shaderProgram);
+		int shaderProgram = Util.getShaderProgram(gl, "shaders/shader2.fs", "shaders/shader2.vs");
 
 		vertexPositionAttribute = gl.glGetAttribLocation(shaderProgram, "aVertexPosition");
 		gl.glEnableVertexAttribArray(vertexPositionAttribute);
