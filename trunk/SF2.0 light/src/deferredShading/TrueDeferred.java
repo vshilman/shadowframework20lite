@@ -56,6 +56,7 @@ public class TrueDeferred extends SFTutorial {
 
 		TrueDeferred test=new TrueDeferred();
 		String[] materials={"ColorDFMat"};
+		String[] materials2={"MoreTexturedMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -69,8 +70,8 @@ public class TrueDeferred extends SFTutorial {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
 			
 			TrueDeferred.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "FirstStepDF");
-			//TODO: se guardi il tutorial 5, qui veniva creato un secondo programma (un ImageProgram), che Ë quello che ti 
-			//occorre prima della chiamata 'drawBaseQuad'
+			TrueDeferred.finalprogram=SFPipeline.getStaticImageProgram(materials2, "SecondStepDF");
+			
 			
 			//Material pass: salvataggio delle componenti di colore
 			SFPipelineStructure materialStructure=SFPipeline.getStructure("Mat02");
@@ -92,9 +93,9 @@ public class TrueDeferred extends SFTutorial {
 			}
 			
 		//light pass: intensit√† e posizione della luce
-//		test.lightArray=SFTutorialsUtilities.generateLightData(test.program, 0);
-//		SFVertex3f[] lightData={new SFVertex3f(1,1,1),new SFVertex3f(-1,1,-1)};
-//		test.lightReference=SFTutorialsUtilities.generateStructureDataReference(test.program, test.lightArray, lightData);
+		test.lightArray=SFTutorialsUtilities.generateLightData(test.finalprogram, 0);
+		SFVertex3f[] lightData={new SFVertex3f(1,1,1),new SFVertex3f(0,1,-1)};
+		test.lightReference=SFTutorialsUtilities.generateStructureDataReference(test.finalprogram, test.lightArray, lightData);
 		
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -140,7 +141,7 @@ public class TrueDeferred extends SFTutorial {
 	@Override
 	public void render() {
 		
-		if(shownTexture==0)
+/*		if(shownTexture==0)
 			texture0.apply(0);
 		else if(shownTexture==1)
 			texture1.apply(0);
@@ -148,12 +149,17 @@ public class TrueDeferred extends SFTutorial {
 			texture2.apply(0);
 		else 
 			texture3.apply(0);
+*/	
+		texture0.apply(0);
+		texture1.apply(1);
+		texture2.apply(2);
+		texture3.apply(3);
 		
-		//TODO: qui dovresti chiamare il programma che non hai definito
+		SFPipeline.getSfProgramBuilder().loadProgram(finalprogram);
+		
+		SFPipeline.getSfPipelineGraphics().loadStructureData(lightArray, lightReference.getMaterialIndex());
+		
 		SFPipeline.getSfPipelineGraphics().drawBaseQuad();
-		
-		//SFPipeline.getSfPipelineGraphics().loadStructureData(lightArray, lightReference.getMaterialIndex());
-		
 		
 		
 	}
