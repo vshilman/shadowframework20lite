@@ -60,6 +60,20 @@
 @write color texture0%texCoord0
 @end
 
+@begin Material TexturedMat2
+@use texture0
+@use texture1
+@use texCoord0
+@write color texture0%texCoord0
+@write color1 texture1%texCoord0
+@end
+
+@begin LightStep ColorSubtract
+@use color
+@use color1
+@write fColor color1-color
+@end
+
 @begin LightStep BasicLSPN
 @param intensity,lPosition as PLight01
 @use normal 

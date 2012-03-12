@@ -48,6 +48,7 @@ public class SFGL20UniformData implements SFProgramDataModel {
 	}
 
 	void evaluateUniforms(SFGL20Program program) {
+		
 		this.program=program;
 		List<Entry<SFPipelineRegister, SFProgramComponent>> map=program.primitive.getPrimitiveMap();
 
@@ -85,6 +86,8 @@ public class SFGL20UniformData implements SFProgramDataModel {
 		mainUniforms[0]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"projection");
 		mainUniforms[1]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"modelview");
 		mainUniforms[2]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"vectorsModelview");
+		
+		evaluateTextureUniforms(program);
 	}
 	
 
@@ -106,6 +109,21 @@ public class SFGL20UniformData implements SFProgramDataModel {
 		List<SFPipelineStructureInstance> structures=program.getLight().getStructures();
 		for (SFPipelineStructureInstance sfPipelineStructureInstance : structures) {
 			structureUniforms.put(sfPipelineStructureInstance.getStructure(), getUniforms("", sfPipelineStructureInstance));
+		}
+		
+
+		evaluateTextureUniforms(program);
+	}
+
+	private void evaluateTextureUniforms(SFGLSLSet program) {
+		int index=0;
+		while(index<8){
+			
+			int textureLevel=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"texture"+index);
+			if(textureLevel>=0)
+				SFGL2.getGL().glUniform1i(textureLevel, index);
+			
+			index++;
 		}
 	}
 
