@@ -149,8 +149,8 @@
 @end
 
 @begin LightStep BasicColor
-@use color 
-@write fColor color
+@use color4
+@write fColor color4
 @end
 
 
@@ -199,7 +199,7 @@
 @use normal
 @write color (diffColor+ambColor)/2
 @write color1 specColor
-@write color2 (1-position.z)*0.5
+@write color2 (position.z+1)*0.4
 @write color3 normal
 @end
 
@@ -220,5 +220,17 @@
 @use texture2
 @use texture3
 @use texCoord0
-@write color (texture0%texCoord0)+(texture1%texCoord0)
+@write color4 texture0%texCoord0
+@write color5 texture1%texCoord0
+@write color6 texture2%texCoord0
+@write color7 texture3%texCoord0
+@end
+
+@begin LightStep SecondStepDF
+@param intensity,lPosition as PLight01
+@use color4 //diff
+@use color5 //spec
+@use color6 //zPosition
+@use color7 //normal
+@write fColor color4*color6
 @end
