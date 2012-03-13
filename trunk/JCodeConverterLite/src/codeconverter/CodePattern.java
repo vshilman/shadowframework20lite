@@ -7,6 +7,11 @@ import java.util.List;
 import codeconverter.ICodePiece.ICodePieceMatch;
 import codeconverter.codepieces.OptionalCode;
 
+/**
+ * A CodePattern is a Sequence of {@link ICodePiece} which can be used to identify a line of code. 
+ * 
+ * @author Alessandro Martinelli
+ */
 public class CodePattern {
 
 	/*
@@ -20,26 +25,49 @@ public class CodePattern {
 		super();
 	}
 
+	/**
+	 * Add code pieces to this Pattern
+	 * @param piece
+	 */
 	public void addCodePiece(ICodePiece... piece) {
 		for (int i=0; i < piece.length; i++) {
 			elements.add(piece[i]);
 		}
 	}
-
+	
+	/**
+	 * Add Pattern Types to this Pattern. Pattern Types are used to
+	 * classify patterns.  
+	 * @param piece
+	 */
 	public void addCodePattern(PatternType... type) {
 		for (int i=0; i < type.length; i++) {
 			patternType.add(type[i]);
 		}
 	}
 
+	/**
+	 * @return the List of all Pattern Types
+	 */
 	public List<PatternType> getPatternType() {
 		return patternType;
 	}
 	
+	/**
+	 * @return the List of all Code Pieces
+	 */
 	public List<ICodePiece> getPieces() {
 		return elements;
 	}
 	
+	/**
+	 * Find a Code Piece given a type. The first 
+	 * code piece in codePieces List is returned.
+	 * If no piece is found a null pointer is returned.
+	 * 
+	 * @param type The type of the desired piece
+	 * @return
+	 */
 	public ICodePiece getPieceByType(PieceType type){
 		for (int i = 0; i < elements.size(); i++) {
 			if(elements.get(i).getPieceType()==type){
@@ -49,6 +77,14 @@ public class CodePattern {
 		return null;
 	}
 	
+	/**
+	 * Verify if a line of Code match this Code Pattern
+	 * If there is a match, a new CodePattern is returned,
+	 * which is a description of the match.
+	 * 
+	 * @param lineCode the line of code to be matched
+	 * @return a new descriptive CodePattern or null if there is no match 
+	 */
 	public CodePattern match(String lineCode) {
 		
 		CodePattern pattern=new CodePattern();
@@ -87,11 +123,10 @@ public class CodePattern {
 				return pattern;
 			}
 		} catch (Exception e) {
-			System.err.println("Exception while tryig to match ["+lineCode+"]");
+			System.err.println("Exception while trying to match ["+lineCode+"]");
 			e.printStackTrace();
 		}
 		
-
 		return null;
 	}	
 	

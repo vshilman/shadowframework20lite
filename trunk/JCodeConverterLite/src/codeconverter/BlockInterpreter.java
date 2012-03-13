@@ -25,12 +25,12 @@ public class BlockInterpreter{
 			CodeModule module=block.getSubModule(i);
 			if(module instanceof CodeLine){
 				CodeLine codeLine=(CodeLine)(module);
-				CodePattern pattern=interpreter.getLineOfCodePattern(codeLine.codeLine);
+				CodePattern pattern=interpreter.getLineOfCodePattern(codeLine.getCodeLine());
 				interpretations.put(module,pattern);
 			
 			}else if(module instanceof DeclaredBlock){
 				DeclaredBlock dBlock=(DeclaredBlock)(module);
-				CodePattern pattern=interpreter.getBlockDeclarationPattern(dBlock.getBlockDeclaration().codeLine);
+				CodePattern pattern=interpreter.getBlockDeclarationPattern(dBlock.getBlockDeclaration().getCodeLine());
 				interpretations.put(module,pattern);
 				updateInterpretation(interpretations,dBlock.getRelatedBlock());
 			}

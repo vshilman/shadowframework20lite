@@ -18,7 +18,9 @@ public class BlocksTest003 {
 	public static void main(String[] args) {
 		//List<String> list=FileStringUtility
 		//		.loadTextFile("../ShadowFramework2.0/src/shadow/system/data/SFOutputStream.java");
-		List<String> list=FileStringUtility.loadTextFile("src/testPackage/House.java");
+		
+		List<String> list=FileStringUtility.loadTextFile("src/testPackage/Expressions.java");
+		//List<String> list=FileStringUtility.loadTextFile("src/testPackage/House.java");
 
 		StringWriter writer=new StringWriter();
 		for (String string : list) {
