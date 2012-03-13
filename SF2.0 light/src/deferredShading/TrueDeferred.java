@@ -1,5 +1,13 @@
 package deferredShading;
-
+/*
+ * Deferred Shading
+ * 1. salva: (a)diffcolor; (b)speccolor; (c)position; (d)normal
+ * 2. utilizza (a),(b),(c),(d) per calcolare luce diffusa e speculare
+ * 
+ * NOTE:
+ * problemi con la posizione della luce
+ * ad esempio il vettore della vista (0,0,-1) in realtà è (0,0,1)
+ */
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -94,7 +102,7 @@ public class TrueDeferred extends SFTutorial {
 			
 		//light pass: intensità e posizione della luce
 		test.lightArray=SFTutorialsUtilities.generateLightData(test.finalprogram, 0);
-		SFVertex3f[] lightData={new SFVertex3f(1,1,1),new SFVertex3f(0,1,-1)};
+		SFVertex3f[] lightData={new SFVertex3f(1,1,1),new SFVertex3f(1,0.5f,1)};
 		test.lightReference=SFTutorialsUtilities.generateStructureDataReference(test.finalprogram, test.lightArray, lightData);
 		
 		} catch (IOException e) {
@@ -110,6 +118,8 @@ public class TrueDeferred extends SFTutorial {
 	@Override
 	public void init() {
 	
+		//primo passo del deferred: passaggio da 3D a 2D
+		
 		texture0 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		texture1 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFFormat.RGB8,  Filter.LINEAR,
@@ -120,10 +130,10 @@ public class TrueDeferred extends SFTutorial {
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		
 		SFRenderedTexture renderedTexture=new SFRenderedTexture();
-		renderedTexture.addColorData(texture0);
-		renderedTexture.addColorData(texture1);
-		renderedTexture.addColorData(texture2);
-		renderedTexture.addColorData(texture3);
+		renderedTexture.addColorData(texture0); //diffColor e ambColor
+		renderedTexture.addColorData(texture1); //specColor
+		renderedTexture.addColorData(texture2); //position
+		renderedTexture.addColorData(texture3); //normal
 		
 		SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);			
 		
@@ -140,16 +150,8 @@ public class TrueDeferred extends SFTutorial {
 	
 	@Override
 	public void render() {
-		
-/*		if(shownTexture==0)
-			texture0.apply(0);
-		else if(shownTexture==1)
-			texture1.apply(0);
-		else if(shownTexture==2)
-			texture2.apply(0);
-		else 
-			texture3.apply(0);
-*/	
+	
+		//secondo passo: utilizzo le informazioni salvate per calcolare l'illuminazione nei soli pixel visibili
 		texture0.apply(0);
 		texture1.apply(1);
 		texture2.apply(2);
@@ -162,16 +164,5 @@ public class TrueDeferred extends SFTutorial {
 		SFPipeline.getSfPipelineGraphics().drawBaseQuad();
 		
 		
-	}
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
-		super.keyPressed(e);
-		if(e.getKeyCode()==KeyEvent.VK_A){
-			if(shownTexture>2){
-				shownTexture=0;
-			}else
-			shownTexture=shownTexture+1;
-		}
 	}
 }

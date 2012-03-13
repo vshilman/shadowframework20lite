@@ -199,7 +199,7 @@
 @use normal
 @write color (diffColor+ambColor)/2
 @write color1 specColor
-@write color2 (position.z+1)*0.4
+@write color2 position
 @write color3 normal
 @end
 
@@ -230,7 +230,14 @@
 @param intensity,lPosition as PLight01
 @use color4 //diff
 @use color5 //spec
-@use color6 //zPosition
+@use color6 //Position
 @use color7 //normal
-@write fColor color4*color6
+@define tmp1:3 lPosition-color6
+@define tmp2:1 #(tmp1?tmp1)
+@define tmp3:3 (color7?tmp1)/tmp2
+@define hv:3 tmp3+(0,0,1)
+@define tmp5:1 #(hv?hv)
+@define tmp6:3 (color7?hv)/tmp5
+@define tmp7:3 tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6
+@write fColor (color4*intensity*tmp3+color5*intensity*tmp7)/2
 @end
