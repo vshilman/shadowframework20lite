@@ -10,6 +10,13 @@ import java.util.List;
  */
 public abstract class ICodePiece{
 	
+	/**
+	 * An Object which stores the position at which
+	 * a CodePiece has been matched. It also 
+	 * contains a data Piece which describes the match 
+	 * 
+	 * @author Alessandro
+	 */
 	public class ICodePieceMatch{
 		
 		private int matcPosition;
@@ -44,7 +51,10 @@ public abstract class ICodePiece{
 	 */
 	public abstract ICodePieceMatch elementMatch(String data, int matchPosition);
 	
-
+	/**
+	 * The list of all pieces which this piece uses
+	 * @return
+	 */
 	public List<ICodePiece> getPieces(){
 		return pieces;
 	}
@@ -61,16 +71,25 @@ public abstract class ICodePiece{
 	}
 	
 	
-	
+	/**
+	 * @return the type of this piece
+	 */
 	public PieceType getPieceType() {
 		return pieceType;
 	}
 
-
+	/**
+	 * @param pieceType the type to set for this piece
+	 */
 	public void setPieceType(PieceType pieceType) {
 		this.pieceType=pieceType;
 	}
 
+	/**
+	 * Find a Piece having a specific type within this Piece sub-pieces list
+	 * @param type
+	 * @return
+	 */
 	public ICodePiece getPieceByType(PieceType type){
 		for (ICodePiece codePiece : pieces) {
 			if(codePiece.getPieceType()==type)
@@ -84,6 +103,10 @@ public abstract class ICodePiece{
 		return writeSonsPieces();
 	}
 
+	/**
+	 * Add sub-pieces to this piece
+	 * @param pieces
+	 */
 	public void add(ICodePiece... pieces) {
 		for (ICodePiece iCodePiece : pieces) {
 			this.pieces.add(iCodePiece);

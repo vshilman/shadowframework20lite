@@ -1,13 +1,21 @@
 package codeconverter;
 
+/**
+ * A Code Line, which is a CodeModule.
+ * 
+ * As part of the CodeModule's composite Pattern, this stay for a Concrete Leaf
+ * 
+ * @author Alessandro Martinelli
+ */
 public class CodeLine implements CodeModule{
-	public String codeLine;
-	public boolean isBlockDeclaration;
+	
+	private String codeLine;
+	private boolean isBlockDeclaration;
 	
 	public CodeLine(String codeLine, boolean isBlockDeclaration) {
 		super();
-		this.codeLine=codeLine;
-		this.isBlockDeclaration=isBlockDeclaration;
+		this.setCodeLine(codeLine);
+		this.setBlockDeclaration(isBlockDeclaration);
 	}
 	public int getSize() {
 		return 0;
@@ -18,11 +26,31 @@ public class CodeLine implements CodeModule{
 	}
 	@Override
 	public String print() {
-		return (isBlockDeclaration?"blockDeclaration:":"sentence:")+codeLine;
+		return (isBlockDeclaration()?"blockDeclaration:":"sentence:")+getCodeLine();
 	}
 	
 	@Override
 	public String toString() {
 		return print();
+	}
+	public void setCodeLine(String codeLine) {
+		this.codeLine = codeLine;
+	}
+	/**
+	 * @return the String content of this Line of Code
+	 */
+	public String getCodeLine() {
+		return codeLine;
+	}
+	
+	public void setBlockDeclaration(boolean isBlockDeclaration) {
+		this.isBlockDeclaration = isBlockDeclaration;
+	}
+	/**
+	 * Tells whether this line is a Block Declaration line
+	 * @return
+	 */
+	public boolean isBlockDeclaration() {
+		return isBlockDeclaration;
 	}
 }

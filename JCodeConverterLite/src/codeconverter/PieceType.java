@@ -1,5 +1,10 @@
 package codeconverter;
 
+/**
+ * An attribute which can be assigned to a Piece Type
+ * 
+ * @author Alessandro
+ */
 public enum PieceType {
 	NAME,
 	VARIABLE,
