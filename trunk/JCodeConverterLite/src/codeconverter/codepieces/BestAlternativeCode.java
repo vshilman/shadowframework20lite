@@ -7,6 +7,10 @@ import codeconverter.PieceType;
 /**
  * An alternative Between a List of Code
  * 
+ * This piece will match when any of its sub-pieces matches
+ * 
+ * The longest match will always be taken as match
+ * 
  * @author Alessandro Martinelli
  */
 public class BestAlternativeCode extends ICodePiece{

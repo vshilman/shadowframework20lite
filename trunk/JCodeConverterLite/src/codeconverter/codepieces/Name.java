@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import codeconverter.PieceType;
-import codeconverter.codepieces.Value.CharInterval;
 
 public class Name extends Value{
 	

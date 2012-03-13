@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
-import codeconverter.ICodePiece.ICodePieceMatch;
 
 /**
  * A KeyWord, that's a specific which can be one of more alternatives.

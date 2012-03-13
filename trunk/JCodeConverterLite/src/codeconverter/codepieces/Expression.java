@@ -2,7 +2,6 @@ package codeconverter.codepieces;
 
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
-import codeconverter.ICodePiece.ICodePieceMatch;
 
 
 /**
@@ -11,6 +10,10 @@ import codeconverter.ICodePiece.ICodePieceMatch;
  */
 public abstract class Expression extends ICodePiece{
 
+	/**
+	 * TODO
+	 * @return
+	 */
 	public abstract String[] getExpressionSeparators();
 	
 	private BestAlternativeCode alternatives;
