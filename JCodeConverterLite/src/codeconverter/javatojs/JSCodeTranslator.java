@@ -208,14 +208,14 @@ public class JSCodeTranslator implements CodeTranslator{
 					return;
 				writer.write("\t\t"+piece+";\n");	
 			}else{
-				writer.write("\t"+(((CodeLine)module).codeLine)+";//Warning: Not well Identified \n");
+				writer.write("\t"+(((CodeLine)module).getCodeLine())+";//Warning: Not well Identified \n");
 			}
 		}else{
 			DeclaredBlock block=(DeclaredBlock)module;
 			CodePattern pattern=relatedPatterns.get(block);
 			if(pattern==null || pattern.getPatternType().contains(PatternType.METHOD_DECLARATION) 
 					|| pattern.getPatternType().contains(PatternType.CONSTRUCTOR_DECLARATION)){
-				writer.write("\t//"+(block.getBlockDeclaration().codeLine)+";//Warning: Not well Identified \n");
+				writer.write("\t//"+(block.getBlockDeclaration().getCodeLine())+";//Warning: Not well Identified \n");
 				writeAllBlockModules(writer,block,relatedPatterns);
 				writer.write("\t//}\n");
 			}else{

@@ -3,7 +3,19 @@ package codeconverter.codepieces;
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
 
-
+/**
+ * A Sequence of Code Piece. 
+ * 
+ * This Piece will match when an array is found of elements matching 
+ * the same element CodePiece, separated by a division char.
+ * So it matches sequence like
+ * 
+ * 				element,element,element
+ * 
+ * Note: all element must match the same match 
+ * 
+ * @author Alessandro Martinelli
+ */
 public class CodeSequence extends ICodePiece {
 
 	private ICodePiece element;

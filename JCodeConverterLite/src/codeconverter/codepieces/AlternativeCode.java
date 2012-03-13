@@ -2,11 +2,12 @@ package codeconverter.codepieces;
 
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
-import codeconverter.ICodePiece.ICodePieceMatch;
 
 
 /**
  * An alternative Between a List of Code
+ * 
+ * This piece will match when any of its sub-pieces matches
  * 
  * @author Alessandro Martinelli
  */

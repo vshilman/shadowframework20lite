@@ -3,7 +3,13 @@ package codeconverter.codepieces;
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
 
-
+/**
+ * 
+ * This piece will match when all its sub-pieces matches 
+ * one after the other
+ * 
+ * @author Alessandro 
+ */
 public class CompositeCodePiece extends ICodePiece{
 
 	public CompositeCodePiece(ICodePiece... pieces){

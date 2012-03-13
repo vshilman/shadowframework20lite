@@ -2,7 +2,6 @@ package codeconverter.java;
 
 import codeconverter.PieceType;
 import codeconverter.codepieces.CompositeCodePiece;
-import codeconverter.codepieces.Name;
 
 public class JavaVariable extends CompositeCodePiece{
 
