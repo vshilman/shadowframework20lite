@@ -149,8 +149,8 @@
 @end
 
 @begin LightStep BasicColor
-@use color4
-@write fColor color4
+@use color
+@write fColor color
 @end
 
 
@@ -183,7 +183,7 @@
 
 @begin LightStep NoLights
 @use color
-@write fColor color
+@write fColor0 color
 @end
 
 @begin LightStep DepthStep
@@ -240,4 +240,9 @@
 @define tmp6:3 (color7?hv)/tmp5
 @define tmp7:3 tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6*tmp6
 @write fColor (color4*intensity*tmp3+color5*intensity*tmp7)/2
+@end
+
+@begin Material Position
+@use position
+@write color position.z
 @end
