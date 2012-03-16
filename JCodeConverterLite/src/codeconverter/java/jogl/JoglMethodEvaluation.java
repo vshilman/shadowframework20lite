@@ -4,38 +4,53 @@ import codeconverter.PieceType;
 import codeconverter.codepieces.BestAlternativeCode;
 import codeconverter.codepieces.CodeSequence;
 import codeconverter.codepieces.CompositeCodePiece;
+import codeconverter.codepieces.Name;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.java.JavaAlgebraicExpression;
+import codeconverter.java.JavaBitwiseExpression;
+import codeconverter.java.JavaMethodEvaluation;
+import codeconverter.java.JavaName;
 import codeconverter.java.JavaType;
 
 public class JoglMethodEvaluation extends CompositeCodePiece {
 
 	public JoglMethodEvaluation(String methodsSyntax) {
 		super();
-		generate(methodsSyntax,new JavaAlgebraicExpression());
+		JavaMethodEvaluation methodEvaluation=new JavaMethodEvaluation(methodsSyntax,true);
+		JavaName name=new JavaName(true);
+		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(methodEvaluation,this,name);
+		JavaBitwiseExpression bitwiseExpression=new JavaBitwiseExpression(methodEvaluation,this,name);
+		generate(methodsSyntax,algebraicExpression,bitwiseExpression);
+		methodEvaluation.generate(methodsSyntax, algebraicExpression, bitwiseExpression);
+		name.generate(null, algebraicExpression, bitwiseExpression);
 	}
 	
-	JoglMethodEvaluation(String methodsSyntax,JavaAlgebraicExpression expression) {
+	public JoglMethodEvaluation(String methodsSyntax,boolean notGenerate) {
 		super();
-		generate(methodsSyntax,expression);
+	}
+	
+	public JoglMethodEvaluation(String methodsSyntax, JavaAlgebraicExpression algebraicExpression, JavaBitwiseExpression bitwiseExpression) {
+		super();
+		generate(methodsSyntax,algebraicExpression,bitwiseExpression);
 	}
 
-	public void generate(String methodsSyntax, JavaAlgebraicExpression expression) {
+	public void generate(String methodsSyntax, JavaAlgebraicExpression algebraicExpression, JavaBitwiseExpression bitwiseExpression) {
 		add(	new OptionalCode(//casting
 					new CompositeCodePiece(new UniqueKeyword("("),new JavaType(),
 							new UniqueKeyword(")"))
 				),
 				new CompositeCodePiece(
-						new JoglName(PieceType.VALUE),
+						new Name(PieceType.VALUE),
 						new UniqueKeyword(methodsSyntax)
 				),
 				new CodeSequence(true,new CompositeCodePiece(
-						new UniqueKeyword("gl"),new JoglName(),new UniqueKeyword("("),
+						new UniqueKeyword("gl"),new Name(PieceType.NAME),new UniqueKeyword("("),
 					new CodeSequence(false,new BestAlternativeCode(true,
-							this,expression),", "),
+							algebraicExpression,bitwiseExpression),", "),
 					new UniqueKeyword(")")
 				),methodsSyntax)	
 				);
+		setPieceType(PieceType.OPENGL_CALL);
 	}
 }

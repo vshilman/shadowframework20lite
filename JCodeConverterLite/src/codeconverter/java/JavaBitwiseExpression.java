@@ -8,29 +8,30 @@ import codeconverter.codepieces.Expression;
 import codeconverter.codepieces.Number;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
+import codeconverter.java.jogl.JoglConstant;
 import codeconverter.java.jogl.JoglMethodEvaluation;
 
-public class JavaAlgebraicExpression extends Expression{
+public class JavaBitwiseExpression extends Expression{
 
 	public static String[] algebraicSymbols={
-		"*","+","/","-","++","--"
+		"&","|","^","~","<<",">>",">>>"
 	};
 	
-	public JavaAlgebraicExpression() {
+	public JavaBitwiseExpression() {
 		super();
-		JavaBitwiseExpression javaBitwiseExpression=new JavaBitwiseExpression(true);
-		JavaMethodEvaluation javaMethodEvaluation=new JavaMethodEvaluation(".",this,javaBitwiseExpression);
-		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".",this,javaBitwiseExpression);
-		JavaName name=new JavaName(this, javaBitwiseExpression);
+		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(true);
+		JavaMethodEvaluation javaMethodEvaluation=new JavaMethodEvaluation(".",algebraicExpression,this);
+		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".",algebraicExpression,this);
+		JavaName name=new JavaName(algebraicExpression, this);
 		generate(javaMethodEvaluation,joglMethodEvaluation,name);
-		javaBitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation,name);
+		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation,name);
 	}
 	
-	public JavaAlgebraicExpression(boolean notGenerate) {
+	public JavaBitwiseExpression(boolean notGenerate) {
 		super();
 	}
 	
-	public JavaAlgebraicExpression(JavaMethodEvaluation javaMethod,JoglMethodEvaluation joglMethod,JavaName name) {
+	public JavaBitwiseExpression(JavaMethodEvaluation javaMethod,JoglMethodEvaluation joglMethod,JavaName name) {
 		super();
 		generate(javaMethod,joglMethod,name);
 	}
@@ -43,7 +44,7 @@ public class JavaAlgebraicExpression extends Expression{
 					new CompositeCodePiece(new UniqueKeyword("("),new JavaType(),
 							new UniqueKeyword(")"))
 				),name),
-				new Number(),piece,javaMethod,joglMethod);//
+				new Number(),piece,new JoglConstant(),javaMethod,joglMethod);//
 	}
 
 

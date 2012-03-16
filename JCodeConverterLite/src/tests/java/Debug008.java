@@ -1,7 +1,7 @@
 package tests.java;
 
 import codeconverter.CodePattern;
-import codeconverter.java.codelines.JavaVariableDeclaration;
+import codeconverter.java.codelines.JavaVariableDeclarationAndAssignment;
 
 /**
  * This class has been built only for debug issues.
@@ -13,7 +13,7 @@ public class Debug008 {
 
 	public static void main(String[] args) {
 		
-		JavaVariableDeclaration attributePattern=new JavaVariableDeclaration();		
+		JavaVariableDeclarationAndAssignment attributePattern=new JavaVariableDeclarationAndAssignment();		
 		String codeLine="SFExpressionOperator symbol=generator.getOperator(token)";
 		//String codeLine="this.v[0] = x";
 		CodePattern pattern=attributePattern.match(codeLine);

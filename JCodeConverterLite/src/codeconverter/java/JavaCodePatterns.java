@@ -15,6 +15,8 @@ import codeconverter.java.codelines.JavaReturnPattern;
 import codeconverter.java.codelines.JavaSuperPattern;
 import codeconverter.java.codelines.JavaVariableAssignment;
 import codeconverter.java.codelines.JavaVariableDeclaration;
+import codeconverter.java.codelines.JavaVariableDeclarationAndAssignment;
+import codeconverter.java.jogl.JoglMethodAccess;
 
 public class JavaCodePatterns {
 
@@ -29,20 +31,22 @@ public class JavaCodePatterns {
 		patterns.add(new JavaFor());
 		patterns.add(new JavaIf());
 		patterns.add(new JavaAttributeDeclarationAndAssignemnt());
-		patterns.add(new JavaArrayContentDeclaration());
-		patterns.add(new JavaAssignment());
+		patterns.add(new JavaConstructorDeclaration());
 		patterns.add(new JavaImportDeclaration());
 		patterns.add(new JavaReturnPattern());
 		patterns.add(new JavaSuperPattern());
-		patterns.add(new JavaConstructorDeclaration());
 		patterns.add(new JavaPackageDeclaration());
 		patterns.add(new JavaAttributeAssignmentPattern());
 		patterns.add(new JavaVariableDeclaration());
+		patterns.add(new JavaVariableDeclarationAndAssignment());
 		patterns.add(new JavaVariableAssignment());
+		patterns.add(new JavaAssignment());
 		patterns.add(new JavaAttributeDeclaration());
 		patterns.add(new JavaInterfaceDeclaration());
 		patterns.add(new JavaIsolatedKeywords());
+		patterns.add(new JoglMethodAccess());
 		patterns.add(new JavaMethodAccess());
+		patterns.add(new JavaArrayContentDeclaration());
 		
 		return patterns;
 	}
