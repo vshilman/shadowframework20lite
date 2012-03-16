@@ -1,7 +1,7 @@
 package tests.java;
 
 import codeconverter.CodePattern;
-import codeconverter.java.codelines.JavaVariableDeclaration;
+import codeconverter.java.codelines.JavaVariableDeclarationAndAssignment;
 
 /**
  * This class has been built only for debug issues.
@@ -13,7 +13,7 @@ public class Debug011 {
 
 	public static void main(String[] args) {
 		
-		JavaVariableDeclaration codePattern=new JavaVariableDeclaration();	
+		JavaVariableDeclarationAndAssignment codePattern=new JavaVariableDeclarationAndAssignment();	
 		String codeLine="SFVertex3f v=new SFVertex3f(0,0,0)";
 		//String codeLine="this.v[0] = x";
 		CodePattern pattern=codePattern.match(codeLine);

@@ -9,7 +9,8 @@ public class TestJoglConstant {
 		
 		JoglConstant constant=new JoglConstant();
 		String []data=new String[]{"GL.GL_COLOR_BUFFER_BIT","GL2.GL_COLOR_BUFFER_BIT",
-				"GL.COLOR_BUFFER_BIT","GL_COLOR_BUFFER_BIT"};
+				"GL.COLOR_BUFFER_BIT","GL_COLOR_BUFFER_BIT",
+				"gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT)"};
 		
 		for (String s : data) {
 			ICodePieceMatch match=constant.elementMatch(s, 0);

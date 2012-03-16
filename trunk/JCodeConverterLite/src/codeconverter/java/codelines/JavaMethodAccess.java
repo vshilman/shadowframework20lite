@@ -9,7 +9,7 @@ public class JavaMethodAccess  extends CodePattern{
 	public JavaMethodAccess() {
 		addCodePiece(new JavaMethodEvaluation("."));
 				//new CodeSequence(code,", "),staticKeyword);
-		addCodePattern(PatternType.LINE_OF_CODE);
+		addCodePattern(PatternType.CALL,PatternType.LINE_OF_CODE);
 	}
 	
 }

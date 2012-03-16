@@ -12,7 +12,7 @@ public class JavaArrayDeclaration extends CodePattern{
 		
 		addCodePiece(new JavaName(),new UniqueKeyword("[]"),new UniqueKeyword("="),
 				new JavaNewStatement());
-		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addCodePattern(PatternType.ARRAY_DECLARTION,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 }

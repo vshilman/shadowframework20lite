@@ -7,7 +7,6 @@ import codeconverter.codepieces.AlternativeCode;
 import codeconverter.codepieces.CodeSequence;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.KeywordSet;
-import codeconverter.codepieces.Name;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.java.JavaAlgebraicExpression;
@@ -40,7 +39,7 @@ public class JavaFor  extends CodePattern{
 				new JavaAlgebraicExpression(),
 				new UniqueKeyword(";"),
 				update,new UniqueKeyword(")"));
-		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addCodePattern(PatternType.FOR,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 }

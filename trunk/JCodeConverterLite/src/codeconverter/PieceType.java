@@ -13,6 +13,7 @@ public enum PieceType {
 	KEYWORD,
 	VALUE,
 	CALL,
+	OPENGL_CALL,
 	TYPE,
 	SEQUENCE,
 	METHOD_VARIABLES,

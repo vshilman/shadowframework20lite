@@ -15,7 +15,7 @@ public class JavaElse  extends CodePattern{
 				new OptionalCode(new UniqueKeyword("(")),
 				new JavaBooleanExpression(),
 				new OptionalCode(new UniqueKeyword(")")));
-		addCodePattern(PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addCodePattern(PatternType.ELSE,PatternType.ELSE_IF,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 }
