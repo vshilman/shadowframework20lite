@@ -2,7 +2,6 @@ package tests.java;
 
 import codeconverter.CodePattern;
 import codeconverter.java.codelines.JavaIf;
-import codeconverter.java.codelines.JavaMethodAccess;
 
 /**
  * This class has been built only for debug issues.

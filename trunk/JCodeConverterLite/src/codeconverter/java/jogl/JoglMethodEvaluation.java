@@ -43,13 +43,11 @@ public class JoglMethodEvaluation extends CompositeCodePiece {
 				new CompositeCodePiece(
 						new Name(PieceType.VALUE),
 						new UniqueKeyword(methodsSyntax)
-				),
-				new CodeSequence(true,new CompositeCodePiece(
-						new UniqueKeyword("gl"),new Name(PieceType.NAME),new UniqueKeyword("("),
+				),				
+					new UniqueKeyword("gl"),new Name(PieceType.NAME),new UniqueKeyword("("),
 					new CodeSequence(false,new BestAlternativeCode(true,
 							algebraicExpression,bitwiseExpression),", "),
-					new UniqueKeyword(")")
-				),methodsSyntax)	
+					new UniqueKeyword(")")	
 				);
 		setPieceType(PieceType.OPENGL_CALL);
 	}

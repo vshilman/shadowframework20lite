@@ -1,4 +1,4 @@
-package tests.jogl;
+package tests.js;
 
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -11,13 +11,13 @@ import codeconverter.BlockInterpreter;
 import codeconverter.CodeModule;
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
-import codeconverter.java.JavaCodePatternInterpreter;
+import codeconverter.js.JsCodePatternInterpreter;
 import codeconverter.utility.FileStringUtility;
 
 public class TestFileInterpretation {
 
 	public static void main(String[] args) {
-		List<String> list = FileStringUtility.loadTextFile("../OpenGL OfA/src/test/jogl/Test_sv1Drawer.java");
+		List<String> list = FileStringUtility.loadTextFile("../OpenGL OfA/src/test/WebGL/test_sv1Drawer.js");
 		
 		StringWriter writer = new StringWriter();
 		for (String string : list) {
@@ -31,7 +31,7 @@ public class TestFileInterpretation {
 
 		System.out.println(fileBlock.print());
 
-		BlockInterpreter interpreter = new BlockInterpreter(new JavaCodePatternInterpreter());
+		BlockInterpreter interpreter = new BlockInterpreter(new JsCodePatternInterpreter());
 		HashMap<CodeModule, CodePattern> interpretation = interpreter.getInterpretation(fileBlock);
 
 		Set<CodeModule> keys = interpretation.keySet();

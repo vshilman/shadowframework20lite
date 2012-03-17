@@ -1,4 +1,4 @@
-package codeconverter.js;
+package codeconverter.js.old;
 
 import codeconverter.CodePattern;
 import codeconverter.ICodeElement;
