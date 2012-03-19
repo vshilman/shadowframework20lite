@@ -59,7 +59,7 @@ public class SFGL20RenderedTexture{
 		for (Iterator<SFBufferData> iterator = data.getColorsData().iterator(); iterator.hasNext();) {
 			SFBufferData colorBuffer = iterator.next();
 			int texture_object=((SFGL20Texture)colorBuffer).getTextureObject();
-			System.out.println("index "+index);
+			
 			gl.glFramebufferTexture2D(GL.GL_FRAMEBUFFER,
 					GL2.GL_COLOR_ATTACHMENT0+index,
 					GL2.GL_TEXTURE_2D,texture_object,0);
