@@ -43,7 +43,6 @@ public class SFGL20RenderedTexture{
 		gl.glBindFramebuffer(GL.GL_FRAMEBUFFER,fbo);
 		
 		//Step 6: Viewport storing
-		float vp[]=new float[4];
 		gl.glGetFloatv(GL.GL_VIEWPORT,vp,0);
 		
 		//Step 7: New Viewport for texture generation
