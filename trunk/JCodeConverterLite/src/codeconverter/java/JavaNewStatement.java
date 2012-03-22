@@ -9,8 +9,16 @@ import codeconverter.codepieces.UniqueKeyword;
 public class JavaNewStatement extends CompositeCodePiece{
 
 	public JavaNewStatement() {
+		generate(new JavaAlgebraicExpression(),new JavaName(PieceType.TYPE));
+	}
+
+	public JavaNewStatement(JavaAlgebraicExpression algebraicExpression, JavaName name) {
+		generate(algebraicExpression,name);
+	}
+	
+	private void generate(JavaAlgebraicExpression algebraicExpression, JavaName name) {
 		add(new UniqueKeyword("new"));
-		add(new JavaName(PieceType.TYPE));
+		add(name);
 //		add(new OptionalCode(
 //				new CompositeCodePiece(
 //						new UniqueKeyword("["),
@@ -19,7 +27,7 @@ public class JavaNewStatement extends CompositeCodePiece{
 //				)));
 		add(new OptionalCode(new CompositeCodePiece(
 						new UniqueKeyword("("),
-						new CodeSequence(new OptionalCode(new JavaAlgebraicExpression()),","),
+						new CodeSequence(new OptionalCode(algebraicExpression),","),
 						new UniqueKeyword(")")
 				)));
 	}

@@ -5,7 +5,6 @@ import java.util.List;
 
 import codeconverter.CodePattern;
 import codeconverter.java.codelines.JavaArrayDeclaration;
-import codeconverter.java.codelines.JavaAssignment;
 import codeconverter.java.codelines.JavaAttributeAssignmentPattern;
 import codeconverter.java.codelines.JavaElse;
 import codeconverter.java.codelines.JavaFor;
@@ -40,7 +39,6 @@ public class JavaCodePatterns {
 		patterns.add(new JavaVariableDeclaration());
 		patterns.add(new JavaVariableDeclarationAndAssignment());
 		patterns.add(new JavaVariableAssignment());
-		patterns.add(new JavaAssignment());
 		patterns.add(new JavaAttributeDeclaration());
 		patterns.add(new JavaInterfaceDeclaration());
 		patterns.add(new JavaIsolatedKeywords());

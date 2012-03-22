@@ -1,7 +1,7 @@
 package tests.java;
 
 import codeconverter.CodePattern;
-import codeconverter.java.codelines.JavaAssignment;
+import codeconverter.java.codelines.JavaVariableAssignment;
 
 /**
  * This class has been built only for debug issues.
@@ -13,7 +13,7 @@ public class Debug010 {
 
 	public static void main(String[] args) {
 		
-		JavaAssignment codePattern=new JavaAssignment();	
+		JavaVariableAssignment codePattern=new JavaVariableAssignment();	
 		String codeLine="v[2]*=lengthRec";
 		//String codeLine="this.v[0] = x";
 		CodePattern pattern=codePattern.match(codeLine);

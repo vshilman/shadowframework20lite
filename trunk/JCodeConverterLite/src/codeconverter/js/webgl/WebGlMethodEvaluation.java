@@ -10,6 +10,7 @@ import codeconverter.js.JsAlgebraicExpression;
 import codeconverter.js.JsBitwiseExpression;
 import codeconverter.js.JsMethodEvaluation;
 import codeconverter.js.JsName;
+import codeconverter.js.JsTernaryOperator;
 
 public class WebGlMethodEvaluation extends CompositeCodePiece {
 
@@ -17,11 +18,13 @@ public class WebGlMethodEvaluation extends CompositeCodePiece {
 		super();
 		JsMethodEvaluation methodEvaluation=new JsMethodEvaluation(methodsSyntax,true);
 		JsName name=new JsName(true);
-		JsAlgebraicExpression algebraicExpression=new JsAlgebraicExpression(methodEvaluation,this,name);
+		JsTernaryOperator ternaryOperator=new JsTernaryOperator(true);
+		JsAlgebraicExpression algebraicExpression=new JsAlgebraicExpression(methodEvaluation,this,name,ternaryOperator);
 		JsBitwiseExpression bitwiseExpression=new JsBitwiseExpression(methodEvaluation,this,name);
 		generate(methodsSyntax,algebraicExpression,bitwiseExpression);
 		methodEvaluation.generate(methodsSyntax, algebraicExpression, bitwiseExpression);
 		name.generate(null, algebraicExpression, bitwiseExpression);
+		ternaryOperator.generate(algebraicExpression);
 	}
 	
 	public WebGlMethodEvaluation(String methodsSyntax,boolean notGenerate) {
