@@ -15,11 +15,13 @@ public class JavaMethodEvaluation extends CompositeCodePiece{
 		super();
 		JoglMethodEvaluation methodEvaluation=new JoglMethodEvaluation(methodsSyntax,true);
 		JavaName name=new JavaName(true);
-		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(this,methodEvaluation,name);
+		JavaTernaryOperator ternaryOperator=new JavaTernaryOperator(true);
+		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(this,methodEvaluation,name,ternaryOperator);
 		JavaBitwiseExpression bitwiseExpression=new JavaBitwiseExpression(this,methodEvaluation,name);
 		generate(methodsSyntax,algebraicExpression,bitwiseExpression);
 		methodEvaluation.generate(methodsSyntax, algebraicExpression, bitwiseExpression);
 		name.generate(null, algebraicExpression, bitwiseExpression);
+		ternaryOperator.generate(algebraicExpression);
 	}
 	
 	public JavaMethodEvaluation(String methodsSyntax,boolean notGenerate) {
@@ -38,7 +40,10 @@ public class JavaMethodEvaluation extends CompositeCodePiece{
 				),
 				new OptionalCode(//variable or class Name
 						new CompositeCodePiece(
+								new BestAlternativeCode(true,
 								new JavaName(PieceType.VALUE,algebraicExpression,bitwiseExpression),
+								new JavaNewStatement(algebraicExpression,
+										new JavaName(PieceType.TYPE, algebraicExpression, bitwiseExpression))),
 								new UniqueKeyword(methodsSyntax)
 						)),
 				new CodeSequence(true,new CompositeCodePiece(

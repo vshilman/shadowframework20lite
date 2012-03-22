@@ -23,7 +23,7 @@ public class JsBitwiseExpression extends Expression{
 		WebGlMethodEvaluation webGlMethodEvaluation=new WebGlMethodEvaluation(".",algebraicExpression,this);
 		JsName name=new JsName(algebraicExpression, this);
 		generate(jsMethodEvaluation,webGlMethodEvaluation,name);
-		algebraicExpression.generate(jsMethodEvaluation, webGlMethodEvaluation,name);
+		algebraicExpression.generate(jsMethodEvaluation, webGlMethodEvaluation,name,new JsTernaryOperator(algebraicExpression));
 	}
 	
 	public JsBitwiseExpression(boolean notGenerate) {

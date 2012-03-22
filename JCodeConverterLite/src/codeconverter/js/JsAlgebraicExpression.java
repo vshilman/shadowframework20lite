@@ -17,28 +17,36 @@ public class JsAlgebraicExpression extends Expression{
 	
 	public JsAlgebraicExpression() {
 		super();
-		JsBitwiseExpression bitwiseExpression=new JsBitwiseExpression(true);
-		JsMethodEvaluation jsMethodEvaluation=new JsMethodEvaluation(".",this,bitwiseExpression);
-		WebGlMethodEvaluation webGlMethodEvaluation=new WebGlMethodEvaluation(".",this,bitwiseExpression);
-		JsName name=new JsName(this, bitwiseExpression);
-		generate(jsMethodEvaluation,webGlMethodEvaluation,name);
-		bitwiseExpression.generate(jsMethodEvaluation, webGlMethodEvaluation,name);
+		generate2(new JsTernaryOperator(this));
+	}
+	
+	public JsAlgebraicExpression(JsTernaryOperator ternaryOperator) {
+		generate2(ternaryOperator);
 	}
 	
 	public JsAlgebraicExpression(boolean notGenerate) {
 		super();
 	}
 	
-	public JsAlgebraicExpression(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name) {
+	public JsAlgebraicExpression(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name,JsTernaryOperator ternaryOperator) {
 		super();
-		generate(jsMethod,webGlMethod,name);
+		generate(jsMethod,webGlMethod,name,ternaryOperator);
+	}
+	
+	private void generate2(JsTernaryOperator ternaryOperator) {
+		JsBitwiseExpression jsBitwiseExpression=new JsBitwiseExpression(true);
+		JsMethodEvaluation jsMethodEvaluation=new JsMethodEvaluation(".",this,jsBitwiseExpression);
+		WebGlMethodEvaluation webGlMethodEvaluation=new WebGlMethodEvaluation(".",this,jsBitwiseExpression);
+		JsName name=new JsName(this, jsBitwiseExpression);
+		generate(jsMethodEvaluation,webGlMethodEvaluation,name,ternaryOperator);
+		jsBitwiseExpression.generate(jsMethodEvaluation, webGlMethodEvaluation,name);
 	}
 
-	public void generate(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name) {
+	public void generate(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name,JsTernaryOperator ternaryOperator) {
 		ICodePiece piece=new CompositeCodePiece(
 				new UniqueKeyword("("),this,new UniqueKeyword(")"));
 		Collections.addAll(this.pieces,name,
-				new Number(),piece,jsMethod,webGlMethod);//
+				new Number(),ternaryOperator,piece,jsMethod,webGlMethod);//
 	}
 
 

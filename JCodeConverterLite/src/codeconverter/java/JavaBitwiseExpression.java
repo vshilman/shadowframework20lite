@@ -3,6 +3,7 @@ package codeconverter.java;
 import java.util.Collections;
 
 import codeconverter.ICodePiece;
+import codeconverter.codepieces.BestAlternativeCode;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.Expression;
 import codeconverter.codepieces.Number;
@@ -24,7 +25,7 @@ public class JavaBitwiseExpression extends Expression{
 		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".",algebraicExpression,this);
 		JavaName name=new JavaName(algebraicExpression, this);
 		generate(javaMethodEvaluation,joglMethodEvaluation,name);
-		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation,name);
+		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation,name,new JavaTernaryOperator(algebraicExpression));
 	}
 	
 	public JavaBitwiseExpression(boolean notGenerate) {
@@ -43,8 +44,8 @@ public class JavaBitwiseExpression extends Expression{
 		new CompositeCodePiece(new OptionalCode(//casting
 					new CompositeCodePiece(new UniqueKeyword("("),new JavaType(),
 							new UniqueKeyword(")"))
-				),name),
-				new Number(),piece,new JoglConstant(),javaMethod,joglMethod);//
+				),new BestAlternativeCode(true, name,piece)),
+				new Number(),new JoglConstant(),javaMethod,joglMethod);//
 	}
 
 

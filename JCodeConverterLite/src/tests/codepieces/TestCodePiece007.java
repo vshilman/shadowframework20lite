@@ -4,6 +4,7 @@ import codeconverter.ICodePiece;
 import codeconverter.ICodePiece.ICodePieceMatch;
 import codeconverter.java.JavaAlgebraicExpression;
 import codeconverter.java.JavaBooleanExpression;
+import codeconverter.java.JavaTernaryOperator;
 
 public class TestCodePiece007 {
 	
@@ -55,6 +56,15 @@ public class TestCodePiece007 {
 		writeCodePieceMatch(match);
 
 		data="d>1";
+		match=piece.elementMatch(data,0);
+		writeCodePieceMatch(match);
+		
+		piece=new JavaTernaryOperator();
+		data="filter == 2 ? 0 : (filter + 1)";
+		match=piece.elementMatch(data,0);
+		writeCodePieceMatch(match);
+		
+		data="(s <= 2) ? a : -b";
 		match=piece.elementMatch(data,0);
 		writeCodePieceMatch(match);
 	}

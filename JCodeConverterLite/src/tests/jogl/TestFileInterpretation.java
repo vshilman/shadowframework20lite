@@ -1,6 +1,7 @@
 package tests.jogl;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -16,32 +17,60 @@ import codeconverter.utility.FileStringUtility;
 
 public class TestFileInterpretation {
 
+	private static final String DIRECTORY = "../OpenGL OfA/src/test/jogl/";
+
 	public static void main(String[] args) {
-		List<String> list = FileStringUtility.loadTextFile("../OpenGL OfA/src/test/jogl/Test_sv1Drawer.java");
+		ArrayList<String> tests = new ArrayList<String>();
+
+		for (int i = 1; i <= 9; i++) {
+			tests.add(DIRECTORY + "Test_sv" + i + "Drawer.java");
+		}
+
+		for (int i = 1; i <= 2; i++) {
+			tests.add(DIRECTORY + "Test_va" + i + "Drawer.java");
+		}
+
+		StringWriter logWriter = new StringWriter();
+		for (String file : tests) {
+			String name = "\n" + file.substring(DIRECTORY.length());
+			System.out.println(name);
+			logWriter.write(name + "\n");
+
+			List<String> list = FileStringUtility.loadTextFile(file);
+
+			StringWriter writer = new StringWriter();
+			for (String string : list) {
+				writer.write(string);
+			}
+
+			String totalString = writer.toString();
+			char[] totalStringChars = totalString.toCharArray();
+
+			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+
+			// System.out.println(fileBlock.print());
+
+			BlockInterpreter interpreter = new BlockInterpreter(new JavaCodePatternInterpreter());
+			HashMap<CodeModule, CodePattern> interpretation = interpreter.getInterpretation(fileBlock);
+
+			Set<CodeModule> keys = interpretation.keySet();
+			for (CodeModule codeModule : keys) {
+				CodePattern pattern = interpretation.get(codeModule);
+				String result;
+				if (pattern == null) {
+					result="[unidentified] -------> " + codeModule;
+					System.out.println(result);
+					logWriter.write(result+"\n");
+				} else {
+					result="[" + patternType(pattern) + "] -------> " + pattern;
+					//System.out.println(result);
+					logWriter.write(result+"\n");
+				}
+			}
+		}
 		
-		StringWriter writer = new StringWriter();
-		for (String string : list) {
-			writer.write(string);
-		}
+		FileStringUtility.writeTextFile("./src/tests/jogl/log.txt", logWriter.toString());
 
-		String totalString = writer.toString();
-		char[] totalStringChars = totalString.toCharArray();
-
-		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-
-		System.out.println(fileBlock.print());
-
-		BlockInterpreter interpreter = new BlockInterpreter(new JavaCodePatternInterpreter());
-		HashMap<CodeModule, CodePattern> interpretation = interpreter.getInterpretation(fileBlock);
-
-		Set<CodeModule> keys = interpretation.keySet();
-		for (CodeModule codeModule : keys) {
-			CodePattern pattern = interpretation.get(codeModule);
-			if (pattern != null)
-				System.err.println("[" + patternType(pattern) + "] -------> " + pattern);
-			else
-				System.err.println("[unidentified] -------> "+codeModule);
-		}
 	}
 
 	private static String patternType(CodePattern pattern) {

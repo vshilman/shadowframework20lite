@@ -10,8 +10,17 @@ import codeconverter.codepieces.UniqueKeyword;
 public class JsNewStatement extends CompositeCodePiece{
 
 	public JsNewStatement() {
+		JsAlgebraicExpression algebraicExpression =new JsAlgebraicExpression();
+		generate(new JsAlgebraicExpression(),new JsName(PieceType.TYPE),new JsArrayContent(algebraicExpression,new JsBitwiseExpression()));
+	}
+	
+	public JsNewStatement(JsAlgebraicExpression algebraicExpression,JsName name,JsArrayContent arrayContent){
+		generate(algebraicExpression,name,arrayContent);
+	}
+
+	private void generate(JsAlgebraicExpression algebraicExpression,JsName name,JsArrayContent arrayContent) {
 		add(new UniqueKeyword("new"));
-		add(new JsName(PieceType.TYPE));
+		add(name);
 //		add(new OptionalCode(
 //				new CompositeCodePiece(
 //						new UniqueKeyword("["),
@@ -21,7 +30,7 @@ public class JsNewStatement extends CompositeCodePiece{
 		add(new OptionalCode(new CompositeCodePiece(
 						new UniqueKeyword("("),
 						new CodeSequence(new OptionalCode(
-								new BestAlternativeCode(true, new JsAlgebraicExpression(),new JsArrayContent()) ),","),
+								new BestAlternativeCode(true, algebraicExpression,arrayContent) ),","),
 						new UniqueKeyword(")")
 				)));
 	}

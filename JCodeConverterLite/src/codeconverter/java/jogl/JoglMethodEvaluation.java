@@ -11,6 +11,7 @@ import codeconverter.java.JavaAlgebraicExpression;
 import codeconverter.java.JavaBitwiseExpression;
 import codeconverter.java.JavaMethodEvaluation;
 import codeconverter.java.JavaName;
+import codeconverter.java.JavaTernaryOperator;
 import codeconverter.java.JavaType;
 
 public class JoglMethodEvaluation extends CompositeCodePiece {
@@ -19,11 +20,13 @@ public class JoglMethodEvaluation extends CompositeCodePiece {
 		super();
 		JavaMethodEvaluation methodEvaluation=new JavaMethodEvaluation(methodsSyntax,true);
 		JavaName name=new JavaName(true);
-		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(methodEvaluation,this,name);
+		JavaTernaryOperator ternaryOperator=new JavaTernaryOperator(true);
+		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(methodEvaluation,this,name,ternaryOperator);
 		JavaBitwiseExpression bitwiseExpression=new JavaBitwiseExpression(methodEvaluation,this,name);
 		generate(methodsSyntax,algebraicExpression,bitwiseExpression);
 		methodEvaluation.generate(methodsSyntax, algebraicExpression, bitwiseExpression);
 		name.generate(null, algebraicExpression, bitwiseExpression);
+		ternaryOperator.generate(algebraicExpression);
 	}
 	
 	public JoglMethodEvaluation(String methodsSyntax,boolean notGenerate) {

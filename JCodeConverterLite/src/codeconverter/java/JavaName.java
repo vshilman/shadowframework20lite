@@ -16,23 +16,11 @@ import codeconverter.java.jogl.JoglMethodEvaluation;
 public class JavaName extends CompositeCodePiece{
 
 	public JavaName(){
-		JavaAlgebraicExpression algebraicExpression =new JavaAlgebraicExpression(true);
-		JavaBitwiseExpression bitwiseExpression=new JavaBitwiseExpression(true);
-		JavaMethodEvaluation javaMethodEvaluation=new JavaMethodEvaluation(".", algebraicExpression, bitwiseExpression);
-		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".", algebraicExpression, bitwiseExpression);
-		generate(new JavaNamePart(),algebraicExpression,bitwiseExpression);
-		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this);
-		bitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this);
+		generate2(new JavaNamePart());
 	}	
 	
 	public JavaName(PieceType type){
-		JavaAlgebraicExpression algebraicExpression =new JavaAlgebraicExpression(true);
-		JavaBitwiseExpression bitwiseExpression=new JavaBitwiseExpression(true);
-		JavaMethodEvaluation javaMethodEvaluation=new JavaMethodEvaluation(".", algebraicExpression, bitwiseExpression);
-		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".", algebraicExpression, bitwiseExpression);
-		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this);
-		bitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this);
-		generate(new JavaNamePart(type),algebraicExpression,bitwiseExpression);
+		generate2(new JavaNamePart(type));
 		setPieceType(type);
 	}
 	
@@ -46,6 +34,16 @@ public class JavaName extends CompositeCodePiece{
 	public JavaName(PieceType type,JavaAlgebraicExpression algebraicExpression, JavaBitwiseExpression bitwiseExpression){
 		generate(new JavaNamePart(type),algebraicExpression,bitwiseExpression);
 		setPieceType(type);
+	}
+	
+	private void generate2(JavaNamePart namePart) {
+		JavaAlgebraicExpression algebraicExpression =new JavaAlgebraicExpression(true);
+		JavaBitwiseExpression bitwiseExpression=new JavaBitwiseExpression(true);
+		JavaMethodEvaluation javaMethodEvaluation=new JavaMethodEvaluation(".", algebraicExpression, bitwiseExpression);
+		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".", algebraicExpression, bitwiseExpression);
+		generate(namePart,algebraicExpression,bitwiseExpression);
+		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this,new JavaTernaryOperator(algebraicExpression));
+		bitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this);
 	}
 
 	public void generate(JavaNamePart part,JavaAlgebraicExpression algebraicExpression, JavaBitwiseExpression bitwiseExpression) {

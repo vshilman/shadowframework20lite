@@ -8,8 +8,16 @@ import codeconverter.codepieces.UniqueKeyword;
 public class JsArrayContent extends CompositeCodePiece {
 
 	public JsArrayContent() {
+		generate(new JsAlgebraicExpression(),new JsBitwiseExpression());
+	}
+	
+	public JsArrayContent(JsAlgebraicExpression algebraicExpression,JsBitwiseExpression bitwiseExpression) {
+		generate(algebraicExpression,bitwiseExpression);
+	}
+
+	private void generate(JsAlgebraicExpression algebraicExpression,JsBitwiseExpression bitwiseExpression) {
 		add(new UniqueKeyword("["),new CodeSequence(
-				new AlternativeCode(true,new JsAlgebraicExpression(),new JsBitwiseExpression()), ","),
+				new AlternativeCode(true,algebraicExpression,bitwiseExpression), ","),
 				new UniqueKeyword("]"));
 	}
 

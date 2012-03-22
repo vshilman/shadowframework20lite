@@ -13,7 +13,7 @@ public class JsMethodDeclaration extends CodePattern{
 	public JsMethodDeclaration() {
 		addCodePiece(new OptionalCode(new UniqueKeyword(",")),new Name(PieceType.NAME),new UniqueKeyword(":"),
 				new UniqueKeyword("function"),new UniqueKeyword("("),
-				new CodeSequence(new JsName(), ","),new UniqueKeyword(")")
+				new CodeSequence(new JsName(), ", "),new UniqueKeyword(")")
 		);
 		addCodePattern(PatternType.METHOD_DECLARATION);
 	}
