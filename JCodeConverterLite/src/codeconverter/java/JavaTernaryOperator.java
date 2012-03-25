@@ -1,5 +1,6 @@
 package codeconverter.java;
 
+import codeconverter.PieceType;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.UniqueKeyword;
 
@@ -17,7 +18,8 @@ public class JavaTernaryOperator extends CompositeCodePiece {
 	}
 
 	public void generate(JavaAlgebraicExpression algebraicExpression) {
-		add(new JavaBooleanExpression(algebraicExpression), new UniqueKeyword("?"), algebraicExpression, new UniqueKeyword(":"),
-				algebraicExpression);
+		setPieceType(PieceType.TERNARY_OPERATOR);
+		add(new JavaBooleanExpression(algebraicExpression), new UniqueKeyword("?"), algebraicExpression,
+				new UniqueKeyword(":"), algebraicExpression);
 	}
 }

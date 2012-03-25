@@ -27,12 +27,14 @@ public class CodeSequence extends ICodePiece {
 		this.element=element;
 		this.div=div;
 		this.mandatory=mandatory;
+		setPieceType(PieceType.SEQUENCE);
 	}
 	
 	public CodeSequence(ICodePiece element, String div) {
 		super();
 		this.element=element;
 		this.div=div;
+		setPieceType(PieceType.SEQUENCE);
 	}
 
 	private boolean isDiv(char c) {

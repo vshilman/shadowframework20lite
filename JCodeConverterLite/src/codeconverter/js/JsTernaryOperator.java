@@ -1,5 +1,6 @@
 package codeconverter.js;
 
+import codeconverter.PieceType;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.UniqueKeyword;
 
@@ -17,7 +18,8 @@ public class JsTernaryOperator extends CompositeCodePiece {
 	}
 
 	public void generate(JsAlgebraicExpression algebraicExpression) {
-		add(new JsBooleanExpression(algebraicExpression), new UniqueKeyword("?"), algebraicExpression, new UniqueKeyword(":"),
-				algebraicExpression);
+		setPieceType(PieceType.TERNARY_OPERATOR);
+		add(new JsBooleanExpression(algebraicExpression), new UniqueKeyword("?"), algebraicExpression,
+				new UniqueKeyword(":"), algebraicExpression);
 	}
 }

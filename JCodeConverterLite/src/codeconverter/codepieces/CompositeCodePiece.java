@@ -16,6 +16,7 @@ public class CompositeCodePiece extends ICodePiece{
 		for (ICodePiece iCodePiece : pieces) {
 			this.pieces.add(iCodePiece);
 		}
+		setPieceType(PieceType.COMPOSITE);
 	}
 	
 	@Override

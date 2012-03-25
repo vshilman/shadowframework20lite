@@ -112,4 +112,26 @@ public abstract class ICodePiece{
 			this.pieces.add(iCodePiece);
 		}
 	}
+	
+	public String printTypes(int nt){
+		String data="";
+		for (int i = 0; i < nt; i++) {
+			data+="\t";
+		}
+		data+=getPieceType()+":"+this+"\n";
+		nt++;
+		if(pieces.size()>0) {
+			for (int i = 0; i < nt; i++) {
+				data+="\t";
+			}
+			data+=pieces.get(0).printTypes(nt);
+			for (int i=1; i < pieces.size(); i++) {
+				for (int j = 0; j < nt; j++) {
+					data+="\t";
+				}
+				data+=pieces.get(i).printTypes(nt);
+			}
+		}
+		return data;
+	}
 }
