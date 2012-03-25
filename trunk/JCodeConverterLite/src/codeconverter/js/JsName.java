@@ -84,6 +84,7 @@ public class JsName extends CompositeCodePiece{
 		
 		public JsNamePart() {
 			super();
+			setPieceType(PieceType.NAME);
 		}
 	
 		@Override

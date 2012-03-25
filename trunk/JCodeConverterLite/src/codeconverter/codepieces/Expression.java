@@ -25,11 +25,12 @@ public abstract class Expression extends ICodePiece{
 	}
 
 	private int checkSeparators(String data, int matchPosition,
-			String[] alternatives) {
+			String[] alternatives,Expression clone) {
 		for (int i = 0; i < alternatives.length; i++) {
 			String alternative=alternatives[i];
 			if(data.length()>=matchPosition+alternative.length()){
-				if(data.substring(matchPosition, matchPosition+alternative.length()).equals(alternative)){	
+				if(data.substring(matchPosition, matchPosition+alternative.length()).equals(alternative)){
+					clone.pieces.add(new Word(PieceType.OPERATOR,alternative,null));
 					return alternative.length()+matchPosition;
 				}	
 			}
@@ -42,16 +43,16 @@ public abstract class Expression extends ICodePiece{
 	
 	@Override
 	public PieceType getPieceType() {
-		return PieceType.SEQUENCE;
+		return PieceType.EXPRESSION;
 	}
 	
 	
-	private int matchSymbol(String data,char[] dataChars, int matchPosition){
+	private int matchSymbol(String data,char[] dataChars, int matchPosition,Expression clone){
 		String[] separators=getExpressionSeparators();
-		return checkSeparators(data, matchPosition, separators);
+		return checkSeparators(data, matchPosition, separators,clone);
 	}
 	
-	private int alternativeMatch(String data,char[] dataChars, int matchPosition){
+	private int alternativeMatch(String data,char[] dataChars, int matchPosition,Expression clone){
 		
 		//char open=getOpenBracketSymbol();
 		
@@ -62,6 +63,7 @@ public abstract class Expression extends ICodePiece{
 			
 			ICodePieceMatch pieceMatch = alternatives.elementMatch(data,matchPosition);
 			matchPosition=pieceMatch.getMatchPosition();
+			clone.pieces.add(pieceMatch.getDataPiece());
 			
 			if(matchPosition!=-1){
 				while(matchPosition<dataChars.length && (dataChars[matchPosition]==' '))
@@ -75,7 +77,7 @@ public abstract class Expression extends ICodePiece{
 	@Override
 	public ICodePieceMatch elementMatch(String data, int matchPosition) {
 		
-		int startingMatchPosition=matchPosition;
+		//int startingMatchPosition=matchPosition;
 		
 		char[] dataChars=data.toCharArray();
 		
@@ -85,8 +87,15 @@ public abstract class Expression extends ICodePiece{
 				alternatives.add(piece);
 			}
 		}
+		Expression clone=new Expression() {
+			
+			@Override
+			public String[] getExpressionSeparators() {
+				return null;
+			}
+		};
 		
-		matchPosition=alternativeMatch(data,dataChars,matchPosition);
+		matchPosition=alternativeMatch(data,dataChars,matchPosition,clone);
 		if(matchPosition==-1){
 			return new ICodePieceMatch(-1,null);
 		}
@@ -94,13 +103,14 @@ public abstract class Expression extends ICodePiece{
 		int matchAlternative=matchPosition;
 		while(matchAlternative!=-1){
 			matchPosition=matchAlternative;
-			matchAlternative=matchSymbol(data,dataChars,matchAlternative);
-			matchAlternative=alternativeMatch(data,dataChars,matchAlternative);
+			matchAlternative=matchSymbol(data,dataChars,matchAlternative,clone);
+			matchAlternative=alternativeMatch(data,dataChars,matchAlternative,clone);
 		}
 		
-		String representation=data.substring(startingMatchPosition,matchPosition);
+		//String representation=data.substring(startingMatchPosition,matchPosition);
 		
-		return new ICodePieceMatch(matchPosition,new Word(PieceType.EXPRESSION,representation,null));  
+		return new ICodePieceMatch(matchPosition,clone);
+		//return new ICodePieceMatch(matchPosition,new Word(PieceType.EXPRESSION,representation,null));  
 	}
 	
 }

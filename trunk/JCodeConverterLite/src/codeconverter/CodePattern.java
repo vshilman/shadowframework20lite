@@ -140,4 +140,15 @@ public class CodePattern {
 		}
 		return data;
 	}
+	
+	public String printTypes(){
+		String data="";
+		if(elements.size()>0) {
+			data+=elements.get(0).printTypes(0);
+			for (int i=1; i < elements.size(); i++) {
+				data+=elements.get(i).printTypes(0);
+			}
+		}
+		return data;
+	}
 }

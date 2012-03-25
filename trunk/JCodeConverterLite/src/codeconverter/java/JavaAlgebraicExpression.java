@@ -3,6 +3,7 @@ package codeconverter.java;
 import java.util.Collections;
 
 import codeconverter.ICodePiece;
+import codeconverter.PieceType;
 import codeconverter.codepieces.BestAlternativeCode;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.Expression;
@@ -45,6 +46,7 @@ public class JavaAlgebraicExpression extends Expression{
 	}
 
 	public void generate(JavaMethodEvaluation javaMethod,JoglMethodEvaluation joglMethod,JavaName name,JavaTernaryOperator ternaryOperator) {
+		name.setPieceType(PieceType.VARIABLE);
 		ICodePiece piece=new CompositeCodePiece(
 				new UniqueKeyword("("),this,new UniqueKeyword(")"));
 		Collections.addAll(this.pieces,

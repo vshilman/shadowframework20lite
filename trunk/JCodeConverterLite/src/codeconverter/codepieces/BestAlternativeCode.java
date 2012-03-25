@@ -35,7 +35,7 @@ public class BestAlternativeCode extends ICodePiece{
 		ICodePieceMatch bestMatch=new ICodePieceMatch(-1,null);
 		for (ICodePiece piece : pieces) {
 			ICodePieceMatch match=piece.elementMatch(data,matchPosition);
-			if(match.getMatchPosition()>bestMatch.getMatchPosition()){
+			if(match.getMatchPosition()>=bestMatch.getMatchPosition()){
 				bestMatch=match;
 			}
 		}

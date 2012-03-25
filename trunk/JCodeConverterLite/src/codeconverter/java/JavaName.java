@@ -51,7 +51,7 @@ public class JavaName extends CompositeCodePiece{
 			part=new JavaNamePart();
 		}
 		add(part,new OptionalCode(new CompositeCodePiece(
-						new UniqueKeyword("<"),new CodeSequence(new Name(),","),new UniqueKeyword(">"))
+						new UniqueKeyword("<"),new CodeSequence(new Name(PieceType.NAME),","),new UniqueKeyword(">"))
 				),
 				new OptionalCode(new CompositeCodePiece(
 						new UniqueKeyword("["),new OptionalCode(new BestAlternativeCode(false, algebraicExpression,bitwiseExpression)),new UniqueKeyword("]"))
@@ -88,6 +88,7 @@ public class JavaName extends CompositeCodePiece{
 		
 		public JavaNamePart() {
 			super();
+			setPieceType(PieceType.NAME);
 		}
 	
 		@Override

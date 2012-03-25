@@ -3,6 +3,7 @@ package codeconverter.js;
 import java.util.Collections;
 
 import codeconverter.ICodePiece;
+import codeconverter.PieceType;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.Expression;
 import codeconverter.codepieces.Number;
@@ -43,6 +44,7 @@ public class JsAlgebraicExpression extends Expression{
 	}
 
 	public void generate(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name,JsTernaryOperator ternaryOperator) {
+		name.setPieceType(PieceType.VARIABLE);
 		ICodePiece piece=new CompositeCodePiece(
 				new UniqueKeyword("("),this,new UniqueKeyword(")"));
 		Collections.addAll(this.pieces,name,
