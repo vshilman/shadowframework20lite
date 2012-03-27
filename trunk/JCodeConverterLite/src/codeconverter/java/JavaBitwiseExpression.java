@@ -21,24 +21,28 @@ public class JavaBitwiseExpression extends Expression{
 	
 	public JavaBitwiseExpression() {
 		super();
-		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(true);
-		JavaMethodEvaluation javaMethodEvaluation=new JavaMethodEvaluation(".",algebraicExpression,this);
-		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".",algebraicExpression,this);
-		JavaName name=new JavaName(algebraicExpression, this);
-		generate(javaMethodEvaluation,joglMethodEvaluation,name);
-		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation,name,new JavaTernaryOperator(algebraicExpression));
+		JavaAlgebraicExpression algebraicExpression = new JavaAlgebraicExpression(true);
+		JavaMethodEvaluation javaMethodEvaluation = new JavaMethodEvaluation(".", algebraicExpression, this);
+		JoglMethodEvaluation joglMethodEvaluation = new JoglMethodEvaluation(".", algebraicExpression, this);
+		JavaName name = new JavaName(algebraicExpression, this);
+		JavaNewStatement newStatement=new JavaNewStatement(algebraicExpression, name);
+		generate(javaMethodEvaluation, joglMethodEvaluation, name,newStatement);
+		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation, name,
+				new JavaTernaryOperator(algebraicExpression),newStatement);
 	}
 	
 	public JavaBitwiseExpression(boolean notGenerate) {
 		super();
 	}
 	
-	public JavaBitwiseExpression(JavaMethodEvaluation javaMethod,JoglMethodEvaluation joglMethod,JavaName name) {
+	public JavaBitwiseExpression(JavaMethodEvaluation javaMethod, JoglMethodEvaluation joglMethod,
+			JavaName name, JavaNewStatement newStatement) {
 		super();
-		generate(javaMethod,joglMethod,name);
+		generate(javaMethod, joglMethod, name, newStatement);
 	}
 
-	public void generate(JavaMethodEvaluation javaMethod,JoglMethodEvaluation joglMethod,JavaName name) {
+	public void generate(JavaMethodEvaluation javaMethod, JoglMethodEvaluation joglMethod, JavaName name,
+			JavaNewStatement newStatement) {
 		name.setPieceType(PieceType.VARIABLE);
 		ICodePiece piece=new CompositeCodePiece(
 				new UniqueKeyword("("),this,new UniqueKeyword(")"));
@@ -47,7 +51,7 @@ public class JavaBitwiseExpression extends Expression{
 					new CompositeCodePiece(new UniqueKeyword("("),new JavaType(),
 							new UniqueKeyword(")"))
 				),new BestAlternativeCode(true, name,piece)),
-				new Number(),new JoglConstant(),javaMethod,joglMethod);//
+				new Number(),newStatement,new JoglConstant(),javaMethod,joglMethod);//
 	}
 
 

@@ -43,14 +43,14 @@ public class TestPieceComparators {
 		compare(new ExpressionComparator(), "(a/ 5) -(d*(6+ 2))", "(a/5)-(d*(6+2))",
 				new JavaAlgebraicExpression(), new JsAlgebraicExpression());
 
-		compare(new MethodComparator(), "ciao.miao(4*f, new Bau(3*2), miao)",
-				"ciao.miao(4*f, new Bau(3*2), miao)", new JavaMethodEvaluation("."), new JsMethodEvaluation(
+		compare(new MethodComparator(), "ciao.miao(4*f,     new Bau(3*2), miao)",
+				"ciao.miao(4*f,new  Bau(3*2), miao)", new JavaMethodEvaluation("."), new JsMethodEvaluation(
 						"."));
 
 		compare(new NameComparator(), "ciao<Ciao>[(pippo+2)+2]", "ciao[(pippo+2)+2]", new JavaName(),
 				new JsName());
 
-		compare(new NewStatementComparator(), "new Bau(g*5)", "new Bau(g*5)", new JavaNewStatement(),
+		compare(new NewStatementComparator(), "new  Bau(g*5)", "new Bau(g*5)", new JavaNewStatement(),
 				new JsNewStatement());
 
 		compare(new OpenGlConstantComparator(), "GL2.GL_ELEMENT_ARRAY_BUFFER", "gl.ELEMENT_ARRAY_BUFFER",

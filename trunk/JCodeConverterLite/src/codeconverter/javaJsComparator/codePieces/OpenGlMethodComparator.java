@@ -3,6 +3,7 @@ package codeconverter.javaJsComparator.codePieces;
 import java.util.List;
 
 import codeconverter.ICodePiece;
+import codeconverter.PieceType;
 import codeconverter.javaJsComparator.CodePieceComparator;
 
 public class OpenGlMethodComparator extends CodePieceComparator {
@@ -13,7 +14,9 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 	@Override
 	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
 		initializeComparators();
-		if (!nameComparator.compare(javaPieces.get(3), jsPieces.get(1))) {
+		String name = jsPieces.get(1).toString();
+		name = String.valueOf(name.charAt(0)).toUpperCase() + name.substring(1);
+		if (!javaPieces.get(3).toString().equals(name)) {
 			return false;
 		}
 		List<ICodePiece> javaCompList = javaPieces.get(5).getPieces();
@@ -22,8 +25,10 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 			return false;
 		}
 		for (int j = 0; j < javaCompList.size(); j++) {
-			if (!expressionComparator.compare(javaCompList.get(j), jsCompList.get(j))) {
-				return false;
+			if (javaCompList.get(j).getPieceType() == PieceType.EXPRESSION) {
+				if (!expressionComparator.compare(javaCompList.get(j), jsCompList.get(j))) {
+					return false;
+				}
 			}
 		}
 		return true;
@@ -31,7 +36,7 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 
 	private void initializeComparators() {
 		if (nameComparator == null) {
-			expressionComparator=new ExpressionComparator();
+			expressionComparator = new ExpressionComparator();
 			nameComparator = new NameComparator();
 			NewStatementComparator newStatementComparator = new NewStatementComparator();
 			TernaryOperatorComparator ternaryOperatorComparator = new TernaryOperatorComparator();
@@ -52,7 +57,5 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 		this.nameComparator = nameComparator;
 		this.expressionComparator = expressionComparator;
 	}
-	
-	
 
 }

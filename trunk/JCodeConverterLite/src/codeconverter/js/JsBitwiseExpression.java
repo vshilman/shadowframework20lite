@@ -23,25 +23,28 @@ public class JsBitwiseExpression extends Expression{
 		JsMethodEvaluation jsMethodEvaluation=new JsMethodEvaluation(".",algebraicExpression,this);
 		WebGlMethodEvaluation webGlMethodEvaluation=new WebGlMethodEvaluation(".",algebraicExpression,this);
 		JsName name=new JsName(algebraicExpression, this);
-		generate(jsMethodEvaluation,webGlMethodEvaluation,name);
-		algebraicExpression.generate(jsMethodEvaluation, webGlMethodEvaluation,name,new JsTernaryOperator(algebraicExpression));
+		JsNewStatement newStatement = new JsNewStatement(algebraicExpression, name, new JsArrayContent(
+				algebraicExpression, this));
+		generate(jsMethodEvaluation,webGlMethodEvaluation,name,newStatement);
+		algebraicExpression.generate(jsMethodEvaluation, webGlMethodEvaluation,name,new JsTernaryOperator(algebraicExpression),newStatement);
 	}
 	
 	public JsBitwiseExpression(boolean notGenerate) {
 		super();
 	}
 	
-	public JsBitwiseExpression(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name) {
+	public JsBitwiseExpression(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name,JsNewStatement newStatement) {
 		super();
-		generate(jsMethod,webGlMethod,name);
+		generate(jsMethod,webGlMethod,name,newStatement);
 	}
 
-	public void generate(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name) {
+	public void generate(JsMethodEvaluation jsMethod, WebGlMethodEvaluation webGlMethod, JsName name,
+			JsNewStatement newStatement) {
 		name.setPieceType(PieceType.VARIABLE);
 		ICodePiece piece=new CompositeCodePiece(
 				new UniqueKeyword("("),this,new UniqueKeyword(")"));
 		Collections.addAll(this.pieces,name,
-				new Number(),piece,new WebGlConstant(),jsMethod,webGlMethod);//
+				new Number(),newStatement,piece,new WebGlConstant(),jsMethod,webGlMethod);//
 	}
 
 

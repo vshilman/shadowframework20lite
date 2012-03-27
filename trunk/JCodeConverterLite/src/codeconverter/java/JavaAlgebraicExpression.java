@@ -31,9 +31,9 @@ public class JavaAlgebraicExpression extends Expression{
 		super();
 	}
 	
-	public JavaAlgebraicExpression(JavaMethodEvaluation javaMethod,JoglMethodEvaluation joglMethod,JavaName name,JavaTernaryOperator ternaryOperator) {
+	public JavaAlgebraicExpression(JavaMethodEvaluation javaMethod,JoglMethodEvaluation joglMethod,JavaName name,JavaTernaryOperator ternaryOperator,JavaNewStatement newStatement) {
 		super();
-		generate(javaMethod,joglMethod,name,ternaryOperator);
+		generate(javaMethod,joglMethod,name,ternaryOperator,newStatement);
 	}
 	
 	private void generate2(JavaTernaryOperator ternaryOperator) {
@@ -41,11 +41,13 @@ public class JavaAlgebraicExpression extends Expression{
 		JavaMethodEvaluation javaMethodEvaluation=new JavaMethodEvaluation(".",this,javaBitwiseExpression);
 		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".",this,javaBitwiseExpression);
 		JavaName name=new JavaName(this, javaBitwiseExpression);
-		generate(javaMethodEvaluation,joglMethodEvaluation,name,ternaryOperator);
-		javaBitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation,name);
+		JavaNewStatement newStatement=new JavaNewStatement(this, name);
+		generate(javaMethodEvaluation,joglMethodEvaluation,name,ternaryOperator,newStatement);
+		javaBitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation,name,newStatement);
 	}
 
-	public void generate(JavaMethodEvaluation javaMethod,JoglMethodEvaluation joglMethod,JavaName name,JavaTernaryOperator ternaryOperator) {
+	public void generate(JavaMethodEvaluation javaMethod, JoglMethodEvaluation joglMethod, JavaName name,
+			JavaTernaryOperator ternaryOperator,JavaNewStatement newStatement) {
 		name.setPieceType(PieceType.VARIABLE);
 		ICodePiece piece=new CompositeCodePiece(
 				new UniqueKeyword("("),this,new UniqueKeyword(")"));
@@ -54,7 +56,7 @@ public class JavaAlgebraicExpression extends Expression{
 					new CompositeCodePiece(new UniqueKeyword("("),new JavaType(),
 							new UniqueKeyword(")"))
 				),new BestAlternativeCode(true, name,piece)),
-				new Number(),ternaryOperator,javaMethod,joglMethod);//
+				new Number(),newStatement,ternaryOperator,javaMethod,joglMethod);//
 	}
 
 

@@ -16,8 +16,10 @@ public class JavaMethodEvaluation extends CompositeCodePiece{
 		JoglMethodEvaluation methodEvaluation=new JoglMethodEvaluation(methodsSyntax,true);
 		JavaName name=new JavaName(true);
 		JavaTernaryOperator ternaryOperator=new JavaTernaryOperator(true);
-		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(this,methodEvaluation,name,ternaryOperator);
-		JavaBitwiseExpression bitwiseExpression=new JavaBitwiseExpression(this,methodEvaluation,name);
+		JavaAlgebraicExpression algebraicExpression=new JavaAlgebraicExpression(true);
+		JavaNewStatement newStatement=new JavaNewStatement(algebraicExpression, name);
+		algebraicExpression.generate(this,methodEvaluation,name,ternaryOperator,newStatement);
+		JavaBitwiseExpression bitwiseExpression=new JavaBitwiseExpression(this,methodEvaluation,name,newStatement);
 		generate(methodsSyntax,algebraicExpression,bitwiseExpression);
 		methodEvaluation.generate(methodsSyntax, algebraicExpression, bitwiseExpression);
 		name.generate(null, algebraicExpression, bitwiseExpression);

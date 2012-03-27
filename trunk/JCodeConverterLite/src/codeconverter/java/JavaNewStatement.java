@@ -18,7 +18,7 @@ public class JavaNewStatement extends CompositeCodePiece{
 	
 	private void generate(JavaAlgebraicExpression algebraicExpression, JavaName name) {
 		setPieceType(PieceType.NEW_STATEMENT);
-		add(new UniqueKeyword("new"));
+		add(new UniqueKeyword("new "));
 		add(name);
 //		add(new OptionalCode(
 //				new CompositeCodePiece(

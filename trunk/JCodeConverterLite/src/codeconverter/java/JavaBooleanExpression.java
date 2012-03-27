@@ -26,7 +26,7 @@ public class JavaBooleanExpression extends Expression {
 		JoglMethodEvaluation joglMethodEvaluation = new JoglMethodEvaluation(".", algebraicExpression,
 				bitwiseExpression);
 		bitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation, new JavaName(
-				algebraicExpression, bitwiseExpression));
+				algebraicExpression, bitwiseExpression),new JavaNewStatement(algebraicExpression, new JavaName(algebraicExpression, bitwiseExpression)));
 
 		generate(new JavaName(algebraicExpression, bitwiseExpression), new JavaName(algebraicExpression,
 				bitwiseExpression), new JavaMethodEvaluation(".", algebraicExpression, bitwiseExpression));

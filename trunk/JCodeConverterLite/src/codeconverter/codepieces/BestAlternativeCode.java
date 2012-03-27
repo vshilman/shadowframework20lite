@@ -3,7 +3,6 @@ package codeconverter.codepieces;
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
 
-
 /**
  * An alternative Between a List of Code
  * 
@@ -13,32 +12,36 @@ import codeconverter.PieceType;
  * 
  * @author Alessandro Martinelli
  */
-public class BestAlternativeCode extends ICodePiece{
+public class BestAlternativeCode extends ICodePiece {
 
 	private boolean mandatory;
-	
-	public BestAlternativeCode(boolean mandatory,ICodePiece... pieces){
+
+	public BestAlternativeCode(boolean mandatory, ICodePiece... pieces) {
 		for (ICodePiece iCodePiece : pieces) {
 			this.pieces.add(iCodePiece);
 		}
-		this.mandatory=mandatory;
+		this.mandatory = mandatory;
 	}
-	
+
 	@Override
 	public PieceType getPieceType() {
 		return PieceType.SEQUENCE;
 	}
-	
+
 	@Override
 	public ICodePieceMatch elementMatch(String data, int matchPosition) {
-	
-		ICodePieceMatch bestMatch=new ICodePieceMatch(-1,null);
+
+		ICodePieceMatch bestMatch = new ICodePieceMatch(-1, null);
 		for (ICodePiece piece : pieces) {
-			ICodePieceMatch match=piece.elementMatch(data,matchPosition);
-			if(match.getMatchPosition()>=bestMatch.getMatchPosition()){
-				bestMatch=match;
+			ICodePieceMatch match = piece.elementMatch(data, matchPosition);
+			if (match.getMatchPosition() >= bestMatch.getMatchPosition()) {
+				bestMatch = match;
 			}
 		}
+		if (bestMatch.getMatchPosition() == -1 && !mandatory) {
+			return new ICodePieceMatch(matchPosition, new Word(PieceType.IGNORED, "", null));
+		}
+
 		return bestMatch;
-	}	
+	}
 }

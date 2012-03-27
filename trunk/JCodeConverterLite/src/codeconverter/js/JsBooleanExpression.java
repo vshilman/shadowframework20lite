@@ -26,7 +26,8 @@ public class JsBooleanExpression extends Expression {
 		WebGlMethodEvaluation webGlMethodEvaluation = new WebGlMethodEvaluation(".", algebraicExpression,
 				bitwiseExpression);
 		bitwiseExpression.generate(jsMethodEvaluation, webGlMethodEvaluation, new JsName(algebraicExpression,
-				bitwiseExpression));
+				bitwiseExpression), new JsNewStatement(algebraicExpression, new JsName(algebraicExpression,
+				bitwiseExpression), new JsArrayContent(algebraicExpression, bitwiseExpression)));
 
 		generate(new JsName(algebraicExpression, bitwiseExpression), new JsName(algebraicExpression,
 				bitwiseExpression), new JsMethodEvaluation(".", algebraicExpression, bitwiseExpression));
