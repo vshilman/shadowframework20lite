@@ -38,19 +38,23 @@ public class MethodComparator extends CodePieceComparator {
 			return false;
 		}
 		for (int i = 0; i < javaCompList.size(); i++) {
-			List<ICodePiece> javaCompList2 = javaCompList.get(i).getPieces();
-			List<ICodePiece> jsCompList2 = jsCompList.get(i).getPieces();
-			if (!nameComparator.compare(javaCompList2.get(0), jsCompList2.get(0))) {
-				return false;
-			}
-			List<ICodePiece> javaCompList3 = javaCompList2.get(2).getPieces();
-			List<ICodePiece> jsCompList3 = jsCompList2.get(2).getPieces();
-			if (javaCompList3.size() != jsCompList3.size()) {
-				return false;
-			}
-			for (int j = 0; j < javaCompList3.size(); j++) {
-				if (!expressionComparator.compare(javaCompList3.get(j), jsCompList3.get(j))) {
+			if (javaCompList.get(i).getPieceType() == PieceType.COMPOSITE) {
+				List<ICodePiece> javaCompList2 = javaCompList.get(i).getPieces();
+				List<ICodePiece> jsCompList2 = jsCompList.get(i).getPieces();
+				if (!nameComparator.compare(javaCompList2.get(0), jsCompList2.get(0))) {
 					return false;
+				}
+				List<ICodePiece> javaCompList3 = javaCompList2.get(2).getPieces();
+				List<ICodePiece> jsCompList3 = jsCompList2.get(2).getPieces();
+				if (javaCompList3.size() != jsCompList3.size()) {
+					return false;
+				}
+				for (int j = 0; j < javaCompList3.size(); j++) {
+					if (javaCompList.get(i).getPieceType() == PieceType.EXPRESSION) {
+						if (!expressionComparator.compare(javaCompList3.get(j), jsCompList3.get(j))) {
+							return false;
+						}
+					}
 				}
 			}
 		}
@@ -59,7 +63,7 @@ public class MethodComparator extends CodePieceComparator {
 
 	private void initializeComparators() {
 		if (nameComparator == null) {
-			expressionComparator=new ExpressionComparator();
+			expressionComparator = new ExpressionComparator();
 			nameComparator = new NameComparator();
 			newStatementComparator = new NewStatementComparator();
 			TernaryOperatorComparator ternaryOperatorComparator = new TernaryOperatorComparator();

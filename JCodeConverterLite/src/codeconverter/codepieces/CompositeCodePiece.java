@@ -35,7 +35,7 @@ public class CompositeCodePiece extends ICodePiece{
 			matchPosition=match.getMatchPosition();
 			while(matchPosition< dataChars.length && 
 					(dataChars[matchPosition]==' ' || dataChars[matchPosition]=='\t')){
-				clone.pieces.add(new Word(PieceType.IGNORED,dataChars[matchPosition]+" ",null));
+				//clone.pieces.add(new Word(PieceType.IGNORED,dataChars[matchPosition]+" ",null));
 				matchPosition++;
 			}
 		}

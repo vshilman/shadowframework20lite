@@ -28,27 +28,32 @@ public class JsAlgebraicExpression extends Expression{
 	public JsAlgebraicExpression(boolean notGenerate) {
 		super();
 	}
-	
-	public JsAlgebraicExpression(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name,JsTernaryOperator ternaryOperator) {
+
+	public JsAlgebraicExpression(JsMethodEvaluation jsMethod, WebGlMethodEvaluation webGlMethod, JsName name,
+			JsTernaryOperator ternaryOperator, JsNewStatement newStatement) {
 		super();
-		generate(jsMethod,webGlMethod,name,ternaryOperator);
+		generate(jsMethod,webGlMethod,name,ternaryOperator,newStatement);
 	}
 	
 	private void generate2(JsTernaryOperator ternaryOperator) {
-		JsBitwiseExpression jsBitwiseExpression=new JsBitwiseExpression(true);
-		JsMethodEvaluation jsMethodEvaluation=new JsMethodEvaluation(".",this,jsBitwiseExpression);
-		WebGlMethodEvaluation webGlMethodEvaluation=new WebGlMethodEvaluation(".",this,jsBitwiseExpression);
-		JsName name=new JsName(this, jsBitwiseExpression);
-		generate(jsMethodEvaluation,webGlMethodEvaluation,name,ternaryOperator);
-		jsBitwiseExpression.generate(jsMethodEvaluation, webGlMethodEvaluation,name);
+		JsBitwiseExpression jsBitwiseExpression = new JsBitwiseExpression(true);
+		JsMethodEvaluation jsMethodEvaluation = new JsMethodEvaluation(".", this, jsBitwiseExpression);
+		WebGlMethodEvaluation webGlMethodEvaluation = new WebGlMethodEvaluation(".", this,
+				jsBitwiseExpression);
+		JsName name = new JsName(this, jsBitwiseExpression);
+		JsNewStatement newStatement = new JsNewStatement(this, name, new JsArrayContent(
+				this, jsBitwiseExpression));
+		generate(jsMethodEvaluation, webGlMethodEvaluation, name, ternaryOperator,newStatement);
+		jsBitwiseExpression.generate(jsMethodEvaluation, webGlMethodEvaluation,name,newStatement);
 	}
 
-	public void generate(JsMethodEvaluation jsMethod,WebGlMethodEvaluation webGlMethod,JsName name,JsTernaryOperator ternaryOperator) {
+	public void generate(JsMethodEvaluation jsMethod, WebGlMethodEvaluation webGlMethod, JsName name,
+			JsTernaryOperator ternaryOperator,JsNewStatement newStatement) {
 		name.setPieceType(PieceType.VARIABLE);
 		ICodePiece piece=new CompositeCodePiece(
 				new UniqueKeyword("("),this,new UniqueKeyword(")"));
 		Collections.addAll(this.pieces,name,
-				new Number(),ternaryOperator,piece,jsMethod,webGlMethod);//
+				new Number(),newStatement,ternaryOperator,piece,jsMethod,webGlMethod);//
 	}
 
 

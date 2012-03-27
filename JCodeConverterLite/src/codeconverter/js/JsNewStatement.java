@@ -20,7 +20,7 @@ public class JsNewStatement extends CompositeCodePiece{
 
 	private void generate(JsAlgebraicExpression algebraicExpression,JsName name,JsArrayContent arrayContent) {
 		setPieceType(PieceType.NEW_STATEMENT);
-		add(new UniqueKeyword("new"));
+		add(new UniqueKeyword("new "));
 		add(name);
 //		add(new OptionalCode(
 //				new CompositeCodePiece(

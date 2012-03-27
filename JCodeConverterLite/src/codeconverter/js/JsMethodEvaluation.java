@@ -16,8 +16,12 @@ public class JsMethodEvaluation extends CompositeCodePiece{
 		WebGlMethodEvaluation methodEvaluation=new WebGlMethodEvaluation(methodsSyntax,true);
 		JsName name=new JsName(true);
 		JsTernaryOperator ternaryOperator=new JsTernaryOperator(true);
-		JsAlgebraicExpression algebraicExpression=new JsAlgebraicExpression(this,methodEvaluation,name,ternaryOperator);
-		JsBitwiseExpression bitwiseExpression=new JsBitwiseExpression(this,methodEvaluation,name);
+		JsAlgebraicExpression algebraicExpression=new JsAlgebraicExpression(true);
+		JsBitwiseExpression bitwiseExpression=new JsBitwiseExpression(true);
+		JsNewStatement newStatement = new JsNewStatement(algebraicExpression, name, new JsArrayContent(
+				algebraicExpression, bitwiseExpression));
+		algebraicExpression.generate(this,methodEvaluation,name,ternaryOperator,newStatement);
+		bitwiseExpression.generate(this,methodEvaluation,name,newStatement);
 		generate(methodsSyntax,algebraicExpression,bitwiseExpression);
 		methodEvaluation.generate(methodsSyntax, algebraicExpression, bitwiseExpression);
 		name.generate(null, algebraicExpression, bitwiseExpression);
@@ -28,12 +32,14 @@ public class JsMethodEvaluation extends CompositeCodePiece{
 		super();
 	}
 	
-	public JsMethodEvaluation(String methodsSyntax, JsAlgebraicExpression algebraicExpression, JsBitwiseExpression bitwiseExpression) {
+	public JsMethodEvaluation(String methodsSyntax, JsAlgebraicExpression algebraicExpression,
+			JsBitwiseExpression bitwiseExpression) {
 		super();
 		generate(methodsSyntax,algebraicExpression,bitwiseExpression);
 	}
 
-	public void generate(String methodsSyntax, JsAlgebraicExpression algebraicExpression, JsBitwiseExpression bitwiseExpression) {
+	public void generate(String methodsSyntax, JsAlgebraicExpression algebraicExpression,
+			JsBitwiseExpression bitwiseExpression) {
 		add(
 				new OptionalCode(//variable or class Name
 						new CompositeCodePiece(

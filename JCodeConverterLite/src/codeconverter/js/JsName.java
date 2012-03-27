@@ -36,16 +36,22 @@ public class JsName extends CompositeCodePiece{
 	
 	private void generate2(JsNamePart namePart) {
 		JsAlgebraicExpression algebraicExpression =new JsAlgebraicExpression(true);
-		JsBitwiseExpression bitwiseExpression=new JsBitwiseExpression(true);
-		JsMethodEvaluation javaMethodEvaluation=new JsMethodEvaluation(".", algebraicExpression, bitwiseExpression);
-		WebGlMethodEvaluation joglMethodEvaluation=new WebGlMethodEvaluation(".", algebraicExpression, bitwiseExpression);
-		generate(namePart,algebraicExpression,bitwiseExpression);
-		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this,new JsTernaryOperator(algebraicExpression));
-		bitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this);
+		JsBitwiseExpression bitwiseExpression = new JsBitwiseExpression(true);
+		JsMethodEvaluation javaMethodEvaluation = new JsMethodEvaluation(".", algebraicExpression,
+				bitwiseExpression);
+		WebGlMethodEvaluation joglMethodEvaluation = new WebGlMethodEvaluation(".", algebraicExpression,
+				bitwiseExpression);
+		generate(namePart, algebraicExpression, bitwiseExpression);
+		JsNewStatement newStatement = new JsNewStatement(algebraicExpression, this, new JsArrayContent(
+				algebraicExpression, bitwiseExpression));
+		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this, new JsTernaryOperator(
+				algebraicExpression), newStatement);
+		bitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this,newStatement);
 	}
 
-	public void generate(JsNamePart part,JsAlgebraicExpression algebraicExpression, JsBitwiseExpression bitwiseExpression) {
-		if(part==null){
+	public void generate(JsNamePart part, JsAlgebraicExpression algebraicExpression,
+			JsBitwiseExpression bitwiseExpression) {
+		if (part==null){
 			part=new JsNamePart();
 		}
 		add(part,

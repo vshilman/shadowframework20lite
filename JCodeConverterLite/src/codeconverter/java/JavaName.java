@@ -42,8 +42,9 @@ public class JavaName extends CompositeCodePiece{
 		JavaMethodEvaluation javaMethodEvaluation=new JavaMethodEvaluation(".", algebraicExpression, bitwiseExpression);
 		JoglMethodEvaluation joglMethodEvaluation=new JoglMethodEvaluation(".", algebraicExpression, bitwiseExpression);
 		generate(namePart,algebraicExpression,bitwiseExpression);
-		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this,new JavaTernaryOperator(algebraicExpression));
-		bitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this);
+		JavaNewStatement newStatement=new JavaNewStatement(algebraicExpression, this);
+		algebraicExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this,new JavaTernaryOperator(algebraicExpression),newStatement);
+		bitwiseExpression.generate(javaMethodEvaluation, joglMethodEvaluation, this,newStatement);
 	}
 
 	public void generate(JavaNamePart part,JavaAlgebraicExpression algebraicExpression, JavaBitwiseExpression bitwiseExpression) {
