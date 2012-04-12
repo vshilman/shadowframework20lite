@@ -13,13 +13,14 @@ import codeconverter.js.JsNewStatement;
 import codeconverter.js.JsVariable;
 import codeconverter.js.webgl.WebGlMethodEvaluation;
 
-public class JsVariableDeclarationAndAssignment extends CodePattern{
+public class JsVariableDeclarationAndAssignment extends CodePattern {
 
 	public JsVariableDeclarationAndAssignment() {
-		addCodePiece(new JsVariable(),new UniqueKeyword("="),
-				new OptionalCode(new BestAlternativeCode(true,new WebGlMethodEvaluation("."),
-						new JsAlgebraicExpression(),new JsBitwiseExpression(),new JsNewStatement(),
-						new JsMethodEvaluation("."),new JsArrayContent())));
-		addCodePattern(PatternType.VARIABLE_DECLARATION,PatternType.VARIABLE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addCodePiece(new JsVariable(), new UniqueKeyword("="), 
+				new OptionalCode(new BestAlternativeCode(true,
+						new WebGlMethodEvaluation("."), new JsAlgebraicExpression(), new JsBitwiseExpression(),
+						new JsNewStatement(), new JsMethodEvaluation("."), new JsArrayContent())));
+		addCodePattern(PatternType.VARIABLE_DECLARATION, PatternType.VARIABLE_ASSIGNMENT,
+				PatternType.ASSIGNMENT, PatternType.LINE_OF_CODE);
 	}
 }

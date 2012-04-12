@@ -7,7 +7,6 @@ import codeconverter.codepieces.KeywordSet;
 public class JsIsolatedKeywords extends CodePattern{
 
 	private String[] isolatedKeyword={
-		"else",
 		"try"
 	};
 	

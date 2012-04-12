@@ -17,6 +17,9 @@ public class ExpressionComparator extends CodePieceComparator {
 	@Override
 	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
 		initializeComparators();
+		if (javaPieces.size() != jsPieces.size()) {
+			return false;
+		}
 		for (int i = 0; i < javaPieces.size(); i++) {
 			ICodePiece javaPiece = javaPieces.get(i);
 			ICodePiece jsPiece = jsPieces.get(i);

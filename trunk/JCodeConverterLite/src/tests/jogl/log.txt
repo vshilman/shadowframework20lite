@@ -176,7 +176,7 @@ Test_sv2Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glVertexAttribPointer(vertexColorAttribute, baseVertexColorBuffer[1], GL2.GL_FLOAT, false, 0, 0)
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawArrays(GL2.GL_TRIANGLE_STRIP, 0, baseVertexPositionBuffer[2])
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -247,7 +247,7 @@ Test_sv3Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex  = TextureIO.newTextureData(new File("images/crate.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1[0])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex.getWidth(), tex.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex.getBuffer())
@@ -280,7 +280,7 @@ Test_sv3Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawElements(GL2.GL_TRIANGLES, cubeVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0)
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -359,7 +359,7 @@ Test_sv4Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex  = TextureIO.newTextureData(new File("images/crate.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex.getWidth(), tex.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex.getBuffer())
@@ -380,7 +380,7 @@ Test_sv4Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_DEPTH_TEST)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glCullFace(GL2.GL_BACK)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_CULL_FACE)
-[CONSTRUCTOR_DECLARATION] ------->  handleKeys (  )
+[CALL, LINE_OF_CODE] -------> handleKeys()
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glViewport(0, 0, 500, 500)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClear(GL2.GL_COLOR_BUFFER_BIT|GL2.GL_DEPTH_BUFFER_BIT)
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> floatcx = (float)Math.cos(rAnglex)
@@ -404,7 +404,7 @@ Test_sv4Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawElements(GL2.GL_TRIANGLES, cubeVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0)
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -520,7 +520,7 @@ Test_sv5Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex  = TextureIO.newTextureData(new File("images/roof.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex.getWidth(), tex.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex.getBuffer())
@@ -549,7 +549,7 @@ Test_sv5Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_DEPTH_TEST)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glCullFace(GL2.GL_BACK)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_CULL_FACE)
-[CONSTRUCTOR_DECLARATION] ------->  handleKeys (  )
+[CALL, LINE_OF_CODE] -------> handleKeys()
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glViewport(0, 0, 500, 500)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClear(GL2.GL_COLOR_BUFFER_BIT|GL2.GL_DEPTH_BUFFER_BIT)
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> floatcx = (float)Math.cos(rAnglex)
@@ -573,7 +573,7 @@ Test_sv5Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawElements(GL2.GL_TRIANGLES, cubeVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0)
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -715,7 +715,7 @@ Test_sv6Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex  = TextureIO.newTextureData(new File("images/muro.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex.getWidth(), tex.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex.getBuffer())
@@ -730,7 +730,7 @@ Test_sv6Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_DEPTH_TEST)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glCullFace(GL2.GL_BACK)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_CULL_FACE)
-[CONSTRUCTOR_DECLARATION] ------->  handleKeys (  )
+[CALL, LINE_OF_CODE] -------> handleKeys()
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glViewport(0, 0, 500, 500)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClear(GL2.GL_COLOR_BUFFER_BIT|GL2.GL_DEPTH_BUFFER_BIT)
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> floatcx = (float)Math.cos(rAnglex)
@@ -761,7 +761,7 @@ Test_sv6Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawElements(GL2.GL_TRIANGLES, cubeVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0)
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -912,7 +912,7 @@ Test_sv7Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_DEPTH_TEST)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glCullFace(GL2.GL_BACK)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_CULL_FACE)
-[CONSTRUCTOR_DECLARATION] ------->  handleKeys (  )
+[CALL, LINE_OF_CODE] -------> handleKeys()
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glViewport(0, 0, 500, 500)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClear(GL2.GL_COLOR_BUFFER_BIT|GL2.GL_DEPTH_BUFFER_BIT)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glUniform1i(shaderUniform, shaderChoice)
@@ -939,7 +939,7 @@ Test_sv7Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0])
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawElements(GL2.GL_TRIANGLES, sphereVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0)
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -1062,7 +1062,7 @@ Test_sv8Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_DEPTH_TEST)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glCullFace(GL2.GL_BACK)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_CULL_FACE)
-[CONSTRUCTOR_DECLARATION] ------->  handleKeys (  )
+[CALL, LINE_OF_CODE] -------> handleKeys()
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glViewport(0, 0, 500, 500)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClear(GL2.GL_COLOR_BUFFER_BIT|GL2.GL_DEPTH_BUFFER_BIT)
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> floatcx = (float)Math.cos(rAnglex)
@@ -1088,7 +1088,7 @@ Test_sv8Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0])
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawElements(GL2.GL_TRIANGLES, teapotVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0)
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -1290,7 +1290,7 @@ Test_sv9Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex1
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1  = TextureIO.newTextureData(new File("images/bubble.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex1.getWidth(), tex1.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex1.getBuffer())
@@ -1302,7 +1302,7 @@ Test_sv9Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex2
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2  = TextureIO.newTextureData(new File("images/grass.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex2.getWidth(), tex2.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex2.getBuffer())
@@ -1316,7 +1316,7 @@ Test_sv9Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_BLEND)
-[CONSTRUCTOR_DECLARATION] ------->  handleKeys (  )
+[CALL, LINE_OF_CODE] -------> handleKeys()
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glViewport(0, 0, 500, 500)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClear(GL2.GL_COLOR_BUFFER_BIT|GL2.GL_DEPTH_BUFFER_BIT)
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> float[]pMatrixv = new float[]
@@ -1517,7 +1517,7 @@ Test_va1Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex1
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1  = TextureIO.newTextureData(new File("images/muro.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex1.getWidth(), tex1.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex1.getBuffer())
@@ -1529,7 +1529,7 @@ Test_va1Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex2
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2  = TextureIO.newTextureData(new File("images/roof.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex2.getWidth(), tex2.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex2.getBuffer())
@@ -1541,7 +1541,7 @@ Test_va1Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex3
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex3  = TextureIO.newTextureData(new File("images/grass.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex3  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[2])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex3.getWidth(), tex3.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex3.getBuffer())
@@ -1553,7 +1553,7 @@ Test_va1Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex4
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex4  = TextureIO.newTextureData(new File("images/door.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex4  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[3])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex4.getWidth(), tex4.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex4.getBuffer())
@@ -1566,7 +1566,7 @@ Test_va1Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_DEPTH_TEST)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glCullFace(GL2.GL_BACK)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_CULL_FACE)
-[CONSTRUCTOR_DECLARATION] ------->  handleKeys (  )
+[CALL, LINE_OF_CODE] -------> handleKeys()
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glViewport(0, 0, 500, 500)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClear(GL2.GL_COLOR_BUFFER_BIT|GL2.GL_DEPTH_BUFFER_BIT)
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> floatcx = (float)Math.cos(rAnglex)
@@ -1628,7 +1628,7 @@ Test_va1Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glUniform1i(samplerUniform, 0)
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawArrays(GL2.GL_TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2])
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -1906,7 +1906,7 @@ Test_va2Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex1
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1  = TextureIO.newTextureData(new File("images/muro.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex1.getWidth(), tex1.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex1.getBuffer())
@@ -1918,7 +1918,7 @@ Test_va2Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex2
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2  = TextureIO.newTextureData(new File("images/roof.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex2.getWidth(), tex2.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex2.getBuffer())
@@ -1930,7 +1930,7 @@ Test_va2Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex3
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex3  = TextureIO.newTextureData(new File("images/grass.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex3  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[2])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex3.getWidth(), tex3.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex3.getBuffer())
@@ -1942,7 +1942,7 @@ Test_va2Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex4
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex4  = TextureIO.newTextureData(new File("images/door.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex4  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[3])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex4.getWidth(), tex4.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex4.getBuffer())
@@ -1952,7 +1952,7 @@ Test_va2Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex5
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex5  = TextureIO.newTextureData(new File("images/tractor.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex5  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[4])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex5.getWidth(), tex5.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex5.getBuffer())
@@ -1964,7 +1964,7 @@ Test_va2Drawer.java
 [VARIABLE_DECLARATION, LINE_OF_CODE] -------> TextureDatatex6
 [ISOLATED_KEYWORDS] -------> try
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex6  = TextureIO.newTextureData(new File("images/seagul.gif"), false, null)
-[CONSTRUCTOR_DECLARATION] ------->  catch ( IOExceptione )
+[CALL, LINE_OF_CODE] -------> catch(IOException, e)
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex6  = null
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[5])
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex6.getWidth(), tex6.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex6.getBuffer())
@@ -1979,7 +1979,7 @@ Test_va2Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_DEPTH_TEST)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glCullFace(GL2.GL_BACK)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glEnable(GL2.GL_CULL_FACE)
-[CONSTRUCTOR_DECLARATION] ------->  handleKeys (  )
+[CALL, LINE_OF_CODE] -------> handleKeys()
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glViewport(0, 0, 500, 500)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glClear(GL2.GL_COLOR_BUFFER_BIT|GL2.GL_DEPTH_BUFFER_BIT)
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> floatcx = (float)Math.cos(-pitch)
@@ -2140,7 +2140,7 @@ Test_va2Drawer.java
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, seagulVertexIndexBuffer[0])
 [CALL, LINE_OF_CODE] -------> setMatrixUniforms(gl)
 [OPENGL_CALL, LINE_OF_CODE] -------> gl.glDrawElements(GL2.GL_TRIANGLES, seagulVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0)
-[CONSTRUCTOR_DECLARATION] ------->  animate (  )
+[CALL, LINE_OF_CODE] -------> animate()
 [METHOD_DECLARATION] ------->  private voidanimate (  )
 [VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> longtimeNow = System.currentTimeMillis()
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
@@ -2167,27 +2167,27 @@ Test_va2Drawer.java
 [METHOD_DECLARATION] ------->  private voidhandleKeys (  )
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speed  = 0.003f
-[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if ( commands[1] )
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if(commands[1])
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speed  = -0.003f
-[ISOLATED_KEYWORDS] -------> else
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speed  = 0
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[2] )
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pitchRate  = 0.00174f
-[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if ( commands[3] )
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if(commands[3])
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pitchRate  = -0.00174f
-[ISOLATED_KEYWORDS] -------> else
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pitchRate  = 0
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[4] )
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yawRate  = 0.00174f
-[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if ( commands[5] )
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if(commands[5])
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yawRate  = -0.00174f
-[ISOLATED_KEYWORDS] -------> else
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yawRate  = 0
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[6] )
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lspeed  = 0.003f
-[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if ( commands[7] )
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if(commands[7])
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lspeed  = -0.003f
-[ISOLATED_KEYWORDS] -------> else
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else
 [VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lspeed  = 0
 [METHOD_DECLARATION] ------->  private voidsetCommands ( KeyEvente, booleanvalue )
 [IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.getKeyCode()==87 )
