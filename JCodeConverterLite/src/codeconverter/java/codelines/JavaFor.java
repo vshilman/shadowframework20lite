@@ -11,13 +11,15 @@ import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.java.JavaAlgebraicExpression;
 import codeconverter.java.JavaName;
+import codeconverter.java.JavaVariable;
 
 public class JavaFor  extends CodePattern{
 
 	public JavaFor() {
 		
-		CompositeCodePiece initialization=new CompositeCodePiece(new OptionalCode(new JavaName(PieceType.TYPE)));
-		initialization.add(new JavaName(PieceType.VARIABLE),new UniqueKeyword("="),new JavaAlgebraicExpression());
+		CompositeCodePiece initialization=new CompositeCodePiece(
+				new AlternativeCode(true,new JavaVariable(), new JavaName(PieceType.NAME)),
+				new UniqueKeyword("="),new JavaAlgebraicExpression());
 		
 		CodeSequence update=new CodeSequence(
 					new CompositeCodePiece(

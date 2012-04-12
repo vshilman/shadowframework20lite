@@ -6,27 +6,33 @@ import codeconverter.java.JavaAlgebraicExpression;
 import codeconverter.java.JavaBitwiseExpression;
 import codeconverter.java.JavaBooleanExpression;
 import codeconverter.java.JavaMethodEvaluation;
+import codeconverter.java.JavaMethodVariables;
 import codeconverter.java.JavaName;
 import codeconverter.java.JavaNewStatement;
 import codeconverter.java.JavaTernaryOperator;
+import codeconverter.java.JavaVariable;
 import codeconverter.java.jogl.JoglConstant;
 import codeconverter.java.jogl.JoglMethodEvaluation;
 import codeconverter.javaJsComparator.CodePieceComparator;
 import codeconverter.javaJsComparator.codePieces.BooleanExpressionComparator;
 import codeconverter.javaJsComparator.codePieces.ExpressionComparator;
 import codeconverter.javaJsComparator.codePieces.MethodComparator;
+import codeconverter.javaJsComparator.codePieces.MethodVariablesComparator;
 import codeconverter.javaJsComparator.codePieces.NameComparator;
 import codeconverter.javaJsComparator.codePieces.NewStatementComparator;
 import codeconverter.javaJsComparator.codePieces.OpenGlConstantComparator;
 import codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator;
 import codeconverter.javaJsComparator.codePieces.TernaryOperatorComparator;
+import codeconverter.javaJsComparator.codePieces.VariableComparator;
 import codeconverter.js.JsAlgebraicExpression;
 import codeconverter.js.JsBitwiseExpression;
 import codeconverter.js.JsBooleanExpression;
 import codeconverter.js.JsMethodEvaluation;
+import codeconverter.js.JsMethodVariables;
 import codeconverter.js.JsName;
 import codeconverter.js.JsNewStatement;
 import codeconverter.js.JsTernaryOperator;
+import codeconverter.js.JsVariable;
 import codeconverter.js.webgl.WebGlConstant;
 import codeconverter.js.webgl.WebGlMethodEvaluation;
 
@@ -63,6 +69,12 @@ public class TestPieceComparators {
 
 		compare(new TernaryOperatorComparator(), "filter == 2 ? 0 : (filter + 1)",
 				"filter == 2 ? 0 : (filter + 1)", new JavaTernaryOperator(), new JsTernaryOperator());
+
+		compare(new MethodVariablesComparator(), "GL2 gl, int miao, String bau", "gl,miao,bau",
+				new JavaMethodVariables(), new JsMethodVariables());
+
+		compare(new VariableComparator(), "int ciao", "var ciao", new JavaVariable(),
+				new JsVariable());
 
 	}
 

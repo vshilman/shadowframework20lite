@@ -50,7 +50,7 @@ public class MethodComparator extends CodePieceComparator {
 					return false;
 				}
 				for (int j = 0; j < javaCompList3.size(); j++) {
-					if (javaCompList.get(i).getPieceType() == PieceType.EXPRESSION) {
+					if (javaCompList3.get(j).getPieceType() == PieceType.EXPRESSION) {
 						if (!expressionComparator.compare(javaCompList3.get(j), jsCompList3.get(j))) {
 							return false;
 						}

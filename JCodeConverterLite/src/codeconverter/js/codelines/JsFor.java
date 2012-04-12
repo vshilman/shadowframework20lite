@@ -11,13 +11,15 @@ import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.js.JsAlgebraicExpression;
 import codeconverter.js.JsName;
+import codeconverter.js.JsVariable;
 
 public class JsFor  extends CodePattern{
 
 	public JsFor() {
 		
-		CompositeCodePiece initialization=new CompositeCodePiece(new OptionalCode(new UniqueKeyword("var")));
-		initialization.add(new JsName(PieceType.VARIABLE),new UniqueKeyword("="),new JsAlgebraicExpression());
+		CompositeCodePiece initialization=new CompositeCodePiece(
+				new AlternativeCode(true,new JsVariable(), new JsName(PieceType.NAME)),
+				new UniqueKeyword("="),new JsAlgebraicExpression());
 		
 		CodeSequence update=new CodeSequence(
 					new CompositeCodePiece(

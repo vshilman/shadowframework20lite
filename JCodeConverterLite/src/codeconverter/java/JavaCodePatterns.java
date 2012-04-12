@@ -30,7 +30,6 @@ public class JavaCodePatterns {
 		patterns.add(new JavaFor());
 		patterns.add(new JavaIf());
 		patterns.add(new JavaAttributeDeclarationAndAssignemnt());
-		patterns.add(new JavaConstructorDeclaration());
 		patterns.add(new JavaImportDeclaration());
 		patterns.add(new JavaReturnPattern());
 		patterns.add(new JavaSuperPattern());
@@ -44,6 +43,7 @@ public class JavaCodePatterns {
 		patterns.add(new JavaIsolatedKeywords());
 		patterns.add(new JoglMethodAccess());
 		patterns.add(new JavaMethodAccess());
+		patterns.add(new JavaConstructorDeclaration());
 		patterns.add(new JavaArrayContentDeclaration());
 		
 		return patterns;
