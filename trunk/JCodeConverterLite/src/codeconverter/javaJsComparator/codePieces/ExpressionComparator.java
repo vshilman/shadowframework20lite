@@ -13,6 +13,7 @@ public class ExpressionComparator extends CodePieceComparator {
 	private MethodComparator methodComparator;
 	private OpenGlMethodComparator openGlMethodComparator;
 	private OpenGlConstantComparator openGlConstantComparator;
+	private NumberComparator numberComparator = new NumberComparator();
 
 	@Override
 	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
@@ -24,7 +25,7 @@ public class ExpressionComparator extends CodePieceComparator {
 			ICodePiece javaPiece = javaPieces.get(i);
 			ICodePiece jsPiece = jsPieces.get(i);
 			if (javaPiece.getPieceType() == PieceType.VALUE) {
-				if (!javaPiece.toString().equals(jsPiece.toString())
+				if (!numberComparator.compare(javaPiece, jsPiece)
 						|| jsPiece.getPieceType() != PieceType.VALUE) {
 					return false;
 				}
@@ -49,6 +50,10 @@ public class ExpressionComparator extends CodePieceComparator {
 					if (!nameComparator.compare(javaPiece.getPieces().get(1), jsPiece)) {
 						return false;
 					}
+				} else if (jsPiece.getPieceType() == PieceType.NAME) {
+					if (!nameComparator.compare(javaPiece.getPieces().get(1), jsPiece)) {
+						return false;
+					}
 				} else {
 					return false;
 				}
@@ -65,7 +70,26 @@ public class ExpressionComparator extends CodePieceComparator {
 			}
 			if (javaPiece.getPieceType() == PieceType.CALL) {
 				if (!methodComparator.compare(javaPiece, jsPiece)) {
-					return false;
+					boolean cont = false;
+
+					ICodePiece call = javaPiece.getPieces().get(2).getPieceByType(PieceType.COMPOSITE);
+					if (call.getPieceByType(PieceType.COMPOSITE).getPieceByType(PieceType.NAME).toString()
+							.equals("BufferUtil.newFloatBuffer")
+							&& jsPiece.getPieceType() == PieceType.NEW_STATEMENT) {
+						if (jsPiece.getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.NAME)
+								.toString().equals("Float32Array")) {
+							if (call.getPieceByType(PieceType.SEQUENCE)
+									.toString()
+									.trim()
+									.equals(jsPiece.getPieceByType(PieceType.COMPOSITE)
+											.getPieceByType(PieceType.SEQUENCE).toString().trim())) {
+								cont = true;
+							}
+						}
+					}
+					if (!cont) {
+						return false;
+					}
 				}
 			}
 			if (javaPiece.getPieceType() == PieceType.OPENGL_CALL) {
@@ -89,7 +113,7 @@ public class ExpressionComparator extends CodePieceComparator {
 			booleanExpressionComparator.setComparators(nameComparator, methodComparator);
 			newStatementComparator.setComparators(nameComparator, this);
 			ternaryOperatorComparator.setComparators(this, booleanExpressionComparator);
-			openGlMethodComparator.setComparators(nameComparator, this);
+			openGlMethodComparator.setComparators(this);
 			nameComparator.setComparators(this);
 			methodComparator.setComparators(nameComparator, this, newStatementComparator);
 		}

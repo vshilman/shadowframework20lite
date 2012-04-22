@@ -72,7 +72,7 @@ public class MethodComparator extends CodePieceComparator {
 			BooleanExpressionComparator booleanExpressionComparator = new BooleanExpressionComparator();
 			booleanExpressionComparator.setComparators(nameComparator, this);
 			ternaryOperatorComparator.setComparators(expressionComparator, booleanExpressionComparator);
-			openGlMethodComparator.setComparators(nameComparator, expressionComparator);
+			openGlMethodComparator.setComparators(expressionComparator);
 			newStatementComparator.setComparators(nameComparator, expressionComparator);
 			nameComparator.setComparators(expressionComparator);
 			expressionComparator.setComparators(nameComparator, ternaryOperatorComparator, this,

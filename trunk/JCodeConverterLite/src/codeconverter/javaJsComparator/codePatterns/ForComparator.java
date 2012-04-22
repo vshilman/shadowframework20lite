@@ -14,7 +14,7 @@ import codeconverter.javaJsComparator.codePieces.VariableComparator;
 public class ForComparator implements CodePatternComparator {
 
 	@Override
-	public int[] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
+	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
 			int jsIndex) {
 		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.FOR) {
 			return null;
@@ -96,7 +96,7 @@ public class ForComparator implements CodePatternComparator {
 			}
 		}
 
-		return new int[] { javaIndex + 1, jsIndex + 1 };
+		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
 	}
 
 }

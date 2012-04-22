@@ -3,6 +3,7 @@ package codeconverter.javaJsComparator.codePatterns;
 import java.util.List;
 
 import codeconverter.CodePattern;
+import codeconverter.ICodePiece;
 import codeconverter.PatternType;
 import codeconverter.PieceType;
 import codeconverter.javaJsComparator.CodePatternComparator;
@@ -11,12 +12,13 @@ import codeconverter.javaJsComparator.codePieces.MethodComparator;
 import codeconverter.javaJsComparator.codePieces.NameComparator;
 import codeconverter.javaJsComparator.codePieces.NewStatementComparator;
 import codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator;
+import codeconverter.javaJsComparator.special.ArrayContentComparator;
 
 public class VariableAssignmentComparator implements CodePatternComparator {
 
 	@Override
-	public int[] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
-			int jsIndex) {
+	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
+			List<CodePattern> jsCodePatterns, int jsIndex) {
 		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.VARIABLE_ASSIGNMENT) {
 			return null;
 		}
@@ -39,6 +41,19 @@ public class VariableAssignmentComparator implements CodePatternComparator {
 		if (javaPattern.getPieces().get(1).getPieceType() == PieceType.KEYWORD) {
 			if (!javaPattern.getPieces().get(1).toString().equals(jsPattern.getPieces().get(1).toString())) {
 				return null;
+			}
+		}
+
+		if (javaPattern.getPieces().get(3).getPieces().get(0).getPieceType() == PieceType.CALL
+				&& jsPattern.getPieces().get(3).getPieceType() == PieceType.NEW_STATEMENT) {
+			ICodePiece call = javaPattern.getPieces().get(3).getPieces().get(0)
+					.getPieceByType(PieceType.SEQUENCE).getPieceByType(PieceType.COMPOSITE);
+			String vectorName = call.getPieceByType(PieceType.SEQUENCE).toString().trim();
+
+			int[][] result = findArrayDecalation(javaCodePatterns, javaIndex, jsIndex, jsPattern, call,
+					vectorName);
+			if (result != null) {
+				return result;
 			}
 		}
 
@@ -74,7 +89,58 @@ public class VariableAssignmentComparator implements CodePatternComparator {
 			}
 		}
 
-		return new int[] { javaIndex + 1, jsIndex + 1 };
+		if (javaCodePatterns.size() > javaIndex + 1) {
+			if (javaCodePatterns.get(javaIndex + 1).getPatternType().get(0) == PatternType.ARRAY_CONTENT_DECLARTION) {
+				if (!new ArrayContentComparator().compare(javaCodePatterns.get(javaIndex + 1),
+						jsPattern.getPieceByType(PieceType.ARRAY_CONTENT))) {
+					return null;
+				}
+			}
+		}
+
+		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
 	}
 
+	private int[][] findArrayDecalation(List<CodePattern> javaCodePatterns, int javaIndex, int jsIndex,
+			CodePattern jsPattern, ICodePiece call, String vectorName) {
+		for (int i = 0; i < javaCodePatterns.size(); i++) {
+			if (javaCodePatterns.get(i).getPatternType().get(0) == PatternType.VARIABLE_DECLARATION
+					&& javaCodePatterns.get(i).getPatternType().get(1) == PatternType.VARIABLE_ASSIGNMENT) {
+				if (javaCodePatterns.get(i).getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.NAME)
+						.toString().trim().equals(vectorName)) {
+					if (javaCodePatterns.get(i).getPieceByType(PieceType.VARIABLE)
+							.getPieceByType(PieceType.TYPE).toString().equals("float[]")
+							&& call.getPieceByType(PieceType.COMPOSITE).toString().trim()
+									.equals("BufferUtil.newFloatBuffer")) {
+						if (new ArrayContentComparator().compare(
+								javaCodePatterns.get(i + 1),
+								jsPattern.getPieces().get(3).getPieceByType(PieceType.COMPOSITE)
+										.getPieceByType(PieceType.SEQUENCE)
+										.getPieceByType(PieceType.ARRAY_CONTENT))) {
+							return new int[][] { new int[] { javaIndex, i, i + 1 }, new int[] { jsIndex } };
+						}
+					}
+				}
+			}
+			if (javaCodePatterns.get(i).getPatternType().get(0) == PatternType.VARIABLE_ASSIGNMENT) {
+				if (javaCodePatterns.get(i).getPieceByType(PieceType.NAME).toString().trim()
+						.equals(vectorName)) {
+					if (javaCodePatterns.get(i).getPieceByType(PieceType.NEW_STATEMENT)
+							.getPieceByType(PieceType.TYPE).getPieceByType(PieceType.TYPE).toString()
+							.equals("float")
+							&& call.getPieceByType(PieceType.COMPOSITE).toString().trim()
+									.equals("BufferUtil.newFloatBuffer")) {
+						if (new ArrayContentComparator().compare(
+								javaCodePatterns.get(i + 1),
+								jsPattern.getPieces().get(3).getPieceByType(PieceType.COMPOSITE)
+										.getPieceByType(PieceType.SEQUENCE)
+										.getPieceByType(PieceType.ARRAY_CONTENT))) {
+							return new int[][] { new int[] { javaIndex, i, i + 1 }, new int[] { jsIndex } };
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
 }

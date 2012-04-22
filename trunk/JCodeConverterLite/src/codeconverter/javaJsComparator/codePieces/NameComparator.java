@@ -23,6 +23,25 @@ public class NameComparator extends CodePieceComparator {
 				}
 			}
 		}
+		if (javaPieces.get(0).toString().equals("int") || javaPieces.get(0).toString().equals("float")) {
+			if (jsPieces.get(0).toString().equals("Array")) {
+				return true;
+			}
+		}
+		if (javaPieces.get(0).toString().equals("Util.getShaderProgram")
+				&& jsPieces.get(0).toString().equals("getShaderProgram")) {
+			return true;
+		}
+		if (javaPieces.get(0).toString().startsWith("this.")) {
+			if (javaPieces.get(0).toString().substring(5).equals(jsPieces.get(0).toString())) {
+				return true;
+			}
+		}
+		if (jsPieces.get(0).toString().startsWith("this.")) {
+			if (javaPieces.get(0).toString().equals(jsPieces.get(0).toString().substring(5))) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -35,9 +54,9 @@ public class NameComparator extends CodePieceComparator {
 			MethodComparator methodComparator = new MethodComparator();
 			BooleanExpressionComparator booleanExpressionComparator = new BooleanExpressionComparator();
 			NewStatementComparator newStatementComparator = new NewStatementComparator();
-			
+
 			ternaryOperatorComparator.setComparators(expressionComparator, booleanExpressionComparator);
-			openGlMethodComparator.setComparators(this, expressionComparator);
+			openGlMethodComparator.setComparators(expressionComparator);
 			methodComparator.setComparators(this, expressionComparator, newStatementComparator);
 			booleanExpressionComparator.setComparators(this, methodComparator);
 			newStatementComparator.setComparators(this, expressionComparator);

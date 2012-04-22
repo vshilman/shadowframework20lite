@@ -11,7 +11,7 @@ import codeconverter.javaJsComparator.codePieces.BooleanExpressionComparator;
 public class ElseComparator implements CodePatternComparator {
 
 	@Override
-	public int[] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
+	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
 			int jsIndex) {
 		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.ELSE) {
 			return null;
@@ -40,7 +40,7 @@ public class ElseComparator implements CodePatternComparator {
 			}
 		}
 
-		return new int[] { javaIndex + 1, jsIndex + 1 };
+		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
 	}
 
 }

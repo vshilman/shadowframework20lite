@@ -10,6 +10,7 @@ public class BooleanExpressionComparator extends CodePieceComparator {
 
 	private NameComparator nameComparator;
 	private MethodComparator methodComparator;
+	private NumberComparator numberComparator = new NumberComparator();
 
 	@Override
 	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
@@ -29,7 +30,7 @@ public class BooleanExpressionComparator extends CodePieceComparator {
 				}
 			}
 			if (javaPiece.getPieceType() == PieceType.VALUE) {
-				if (!javaPiece.toString().equals(jsPiece.toString())
+				if (!numberComparator.compare(javaPiece, jsPiece)
 						|| jsPiece.getPieceType() != PieceType.VALUE) {
 					return false;
 				}
@@ -67,7 +68,7 @@ public class BooleanExpressionComparator extends CodePieceComparator {
 			NewStatementComparator newStatementComparator = new NewStatementComparator();
 			newStatementComparator.setComparators(nameComparator, expressionComparator);
 			ternaryOperatorComparator.setComparators(expressionComparator, this);
-			openGlMethodComparator.setComparators(nameComparator, expressionComparator);
+			openGlMethodComparator.setComparators(expressionComparator);
 			expressionComparator.setComparators(nameComparator, ternaryOperatorComparator, methodComparator,
 					openGlMethodComparator, new OpenGlConstantComparator());
 			nameComparator.setComparators(expressionComparator);

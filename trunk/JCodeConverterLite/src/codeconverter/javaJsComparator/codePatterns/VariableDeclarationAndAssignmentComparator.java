@@ -11,18 +11,21 @@ import codeconverter.javaJsComparator.codePieces.MethodComparator;
 import codeconverter.javaJsComparator.codePieces.NewStatementComparator;
 import codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator;
 import codeconverter.javaJsComparator.codePieces.VariableComparator;
+import codeconverter.javaJsComparator.special.ArrayContentComparator;
 
 public class VariableDeclarationAndAssignmentComparator implements CodePatternComparator {
 
 	@Override
-	public int[] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
-			int jsIndex) {
+	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
+			List<CodePattern> jsCodePatterns, int jsIndex) {
 		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.VARIABLE_DECLARATION
 				|| javaCodePatterns.get(javaIndex).getPatternType().get(1) != PatternType.VARIABLE_ASSIGNMENT) {
 			return null;
 		}
 		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != jsCodePatterns.get(jsIndex)
-				.getPatternType().get(0)) {
+				.getPatternType().get(0)
+				|| javaCodePatterns.get(javaIndex).getPatternType().get(1) != jsCodePatterns.get(jsIndex)
+						.getPatternType().get(1)) {
 			return null;
 		}
 		CodePattern javaPattern = javaCodePatterns.get(javaIndex);
@@ -33,39 +36,55 @@ public class VariableDeclarationAndAssignmentComparator implements CodePatternCo
 			return null;
 		}
 
-		if (javaPattern.getPieces().get(2).getPieceType() != jsPattern.getPieces().get(2).getPieceType()) {
-			return null;
-		}
+		if (javaPattern.getPieces().size() > 2) {
 
-		if (javaPattern.getPieces().get(2).getPieceType() == PieceType.EXPRESSION) {
-			if (!new ExpressionComparator().compare(javaPattern.getPieceByType(PieceType.EXPRESSION),
-					jsPattern.getPieceByType(PieceType.EXPRESSION))) {
-				return null;
+			if (javaPattern.getPieces().get(2).getPieceType() == PieceType.EXPRESSION) {
+				if (!new ExpressionComparator().compare(javaPattern.getPieceByType(PieceType.EXPRESSION),
+						jsPattern.getPieceByType(PieceType.EXPRESSION))) {
+					return null;
+				}
 			}
-		}
 
-		if (javaPattern.getPieces().get(2).getPieceType() == PieceType.CALL) {
-			if (!new MethodComparator().compare(javaPattern.getPieceByType(PieceType.CALL),
-					jsPattern.getPieceByType(PieceType.CALL))) {
-				return null;
+			if (javaPattern.getPieces().get(2).getPieceType() == PieceType.CALL) {
+				if (!new MethodComparator().compare(javaPattern.getPieceByType(PieceType.CALL),
+						jsPattern.getPieceByType(PieceType.CALL))) {
+					if (javaPattern.getPieceByType(PieceType.CALL).toString().replaceAll(" ", "")
+							.equals("System.currentTimeMillis()")
+							&& jsPattern.getPieceByType(PieceType.CALL).toString().replaceAll(" ", "")
+									.equals("newDate().getTime()")) {
+						return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+					}
+					return null;
+				}
 			}
-		}
 
-		if (javaPattern.getPieces().get(2).getPieceType() == PieceType.OPENGL_CALL) {
-			if (!new OpenGlMethodComparator().compare(javaPattern.getPieceByType(PieceType.OPENGL_CALL),
-					jsPattern.getPieceByType(PieceType.OPENGL_CALL))) {
-				return null;
+			if (javaPattern.getPieces().get(2).getPieceType() == PieceType.OPENGL_CALL) {
+				if (!new OpenGlMethodComparator().compare(javaPattern.getPieceByType(PieceType.OPENGL_CALL),
+						jsPattern.getPieceByType(PieceType.OPENGL_CALL))) {
+					return null;
+				}
 			}
-		}
 
-		if (javaPattern.getPieces().get(2).getPieceType() == PieceType.NEW_STATEMENT) {
-			if (!new NewStatementComparator().compare(javaPattern.getPieceByType(PieceType.NEW_STATEMENT),
-					jsPattern.getPieceByType(PieceType.NEW_STATEMENT))) {
-				return null;
+			if (javaPattern.getPieces().get(2).getPieceType() == PieceType.NEW_STATEMENT) {
+				if (!new NewStatementComparator().compare(
+						javaPattern.getPieceByType(PieceType.NEW_STATEMENT),
+						jsPattern.getPieceByType(PieceType.NEW_STATEMENT))) {
+					return null;
+				}
 			}
+		} else {
+			if (javaCodePatterns.size() > javaIndex + 1) {
+				if (javaCodePatterns.get(javaIndex + 1).getPatternType().get(0) == PatternType.ARRAY_CONTENT_DECLARTION) {
+					if (!new ArrayContentComparator().compare(javaCodePatterns.get(javaIndex + 1),
+							jsPattern.getPieceByType(PieceType.ARRAY_CONTENT))) {
+						return null;
+					}
+				}
+			}
+			return new int[][] { new int[] { javaIndex, javaIndex + 1 }, new int[] { jsIndex } };
 		}
 
-		return new int[] { javaIndex + 1, jsIndex + 1 };
+		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
 	}
 
 }

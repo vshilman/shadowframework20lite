@@ -13,8 +13,8 @@ import codeconverter.javaJsComparator.codePieces.NewStatementComparator;
 public class AttributeAssignmentComparator implements CodePatternComparator {
 
 	@Override
-	public int[] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
-			int jsIndex) {
+	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
+			List<CodePattern> jsCodePatterns, int jsIndex) {
 		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.ATTRIBUTE_ASSIGNMENT) {
 			return null;
 		}
@@ -48,7 +48,7 @@ public class AttributeAssignmentComparator implements CodePatternComparator {
 			}
 		}
 
-		return new int[] { javaIndex + 1, jsIndex + 1 };
+		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
 	}
 
 }

@@ -1,5 +1,6 @@
 package codeconverter.js;
 
+import codeconverter.PieceType;
 import codeconverter.codepieces.AlternativeCode;
 import codeconverter.codepieces.CodeSequence;
 import codeconverter.codepieces.CompositeCodePiece;
@@ -16,6 +17,7 @@ public class JsArrayContent extends CompositeCodePiece {
 	}
 
 	private void generate(JsAlgebraicExpression algebraicExpression,JsBitwiseExpression bitwiseExpression) {
+		setPieceType(PieceType.ARRAY_CONTENT);
 		add(new UniqueKeyword("["),new CodeSequence(
 				new AlternativeCode(true,algebraicExpression,bitwiseExpression), ","),
 				new UniqueKeyword("]"));
