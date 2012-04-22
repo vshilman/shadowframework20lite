@@ -30,7 +30,7 @@ public class VariableComparator extends CodePieceComparator {
 			newStatementComparator.setComparators(nameComparator, expressionComparator);
 			booleanExpressionComparator.setComparators(nameComparator, methodComparator);
 			ternaryOperatorComparator.setComparators(expressionComparator, booleanExpressionComparator);
-			openGlMethodComparator.setComparators(nameComparator, expressionComparator);
+			openGlMethodComparator.setComparators(expressionComparator);
 			expressionComparator.setComparators(nameComparator, ternaryOperatorComparator, methodComparator,
 					openGlMethodComparator, new OpenGlConstantComparator());
 			nameComparator.setComparators(expressionComparator);

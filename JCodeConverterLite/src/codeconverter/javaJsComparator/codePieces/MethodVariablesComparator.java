@@ -15,7 +15,8 @@ public class MethodVariablesComparator extends CodePieceComparator {
 		}
 		for (int j = 0; j < javaPieces.size(); j++) {
 			if (javaPieces.get(j).getPieceType() == PieceType.VARIABLE) {
-				if (!javaPieces.get(j).getPieces().get(1).toString().equals(jsPieces.get(j).toString())) {
+				if (!javaPieces.get(j).getPieces().get(1).toString().trim()
+						.equals(jsPieces.get(j).toString().trim())) {
 					return false;
 				}
 			}

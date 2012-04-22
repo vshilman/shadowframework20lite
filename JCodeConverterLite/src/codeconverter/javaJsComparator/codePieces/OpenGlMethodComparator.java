@@ -8,7 +8,6 @@ import codeconverter.javaJsComparator.CodePieceComparator;
 
 public class OpenGlMethodComparator extends CodePieceComparator {
 
-	private NameComparator nameComparator;
 	private ExpressionComparator expressionComparator;
 
 	@Override
@@ -22,7 +21,29 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 		List<ICodePiece> javaCompList = javaPieces.get(5).getPieces();
 		List<ICodePiece> jsCompList = jsPieces.get(3).getPieces();
 		if (javaCompList.size() != jsCompList.size()) {
-			return false;
+			List<ICodePiece> minList = javaCompList.size() < jsCompList.size() ? javaCompList : jsCompList;
+			List<ICodePiece> maxList = javaCompList.size() > jsCompList.size() ? javaCompList : jsCompList;
+			int dist = javaCompList.size() - jsCompList.size();
+
+			for (int i = 0; i < minList.size(); i++) {
+				boolean found = false;
+				for (int j = 0; j < maxList.size(); j++) {
+					if (dist > 0) {
+						if (expressionComparator.compare(javaCompList.get(j), jsCompList.get(i))) {
+							found = true;
+						}
+					} else {
+						if (expressionComparator.compare(javaCompList.get(i), jsCompList.get(j))) {
+							found = true;
+						}
+					}
+				}
+				if (!found) {
+					return false;
+				}
+			}
+
+			return true;
 		}
 		for (int j = 0; j < javaCompList.size(); j++) {
 			if (javaCompList.get(j).getPieceType() == PieceType.EXPRESSION) {
@@ -35,14 +56,15 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 	}
 
 	private void initializeComparators() {
-		if (nameComparator == null) {
+		if (expressionComparator == null) {
 			expressionComparator = new ExpressionComparator();
-			nameComparator = new NameComparator();
+			NameComparator nameComparator = new NameComparator();
 			NewStatementComparator newStatementComparator = new NewStatementComparator();
 			TernaryOperatorComparator ternaryOperatorComparator = new TernaryOperatorComparator();
 			MethodComparator methodComparator = new MethodComparator();
 			OpenGlConstantComparator openGlConstantComparator = new OpenGlConstantComparator();
 			BooleanExpressionComparator booleanExpressionComparator = new BooleanExpressionComparator();
+			
 			booleanExpressionComparator.setComparators(nameComparator, methodComparator);
 			ternaryOperatorComparator.setComparators(expressionComparator, booleanExpressionComparator);
 			newStatementComparator.setComparators(nameComparator, expressionComparator);
@@ -53,8 +75,7 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 		}
 	}
 
-	public void setComparators(NameComparator nameComparator, ExpressionComparator expressionComparator) {
-		this.nameComparator = nameComparator;
+	public void setComparators(ExpressionComparator expressionComparator) {
 		this.expressionComparator = expressionComparator;
 	}
 

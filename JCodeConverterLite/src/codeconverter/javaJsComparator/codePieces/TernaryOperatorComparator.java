@@ -36,7 +36,7 @@ public class TernaryOperatorComparator extends CodePieceComparator {
 		
 		booleanExpressionComparator.setComparators(nameComparator, methodComparator);
 		nameComparator.setComparators(expressionComparator);
-		openGlMethodComparator.setComparators(nameComparator, expressionComparator);
+		openGlMethodComparator.setComparators(expressionComparator);
 		methodComparator.setComparators(nameComparator, expressionComparator, newStatementComparator);
 		newStatementComparator.setComparators(nameComparator, expressionComparator);
 		expressionComparator.setComparators(nameComparator, this, methodComparator, openGlMethodComparator, openGlConstantComparator);

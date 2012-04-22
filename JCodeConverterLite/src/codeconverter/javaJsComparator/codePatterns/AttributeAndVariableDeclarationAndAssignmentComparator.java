@@ -8,19 +8,20 @@ import codeconverter.PieceType;
 import codeconverter.javaJsComparator.CodePatternComparator;
 import codeconverter.javaJsComparator.codePieces.VariableComparator;
 
-public class VariableDeclarationComparator implements CodePatternComparator {
+public class AttributeAndVariableDeclarationAndAssignmentComparator implements CodePatternComparator {
 
 	@Override
 	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
 			List<CodePattern> jsCodePatterns, int jsIndex) {
-		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.VARIABLE_DECLARATION
-				|| javaCodePatterns.get(javaIndex).getPatternType().get(1) == PatternType.VARIABLE_ASSIGNMENT) {
+		if (javaCodePatterns.get(javaIndex).getPatternType().size() < 2) {
 			return null;
 		}
-		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != jsCodePatterns.get(jsIndex)
-				.getPatternType().get(0)
-				|| javaCodePatterns.get(javaIndex).getPatternType().get(1) != jsCodePatterns.get(jsIndex)
-						.getPatternType().get(1)) {
+		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.ATTRIBUTE_DECLARATION
+				|| javaCodePatterns.get(javaIndex).getPatternType().get(1) != PatternType.ATTRIBUTE_ASSIGNMENT) {
+			return null;
+		}
+		if (jsCodePatterns.get(jsIndex).getPatternType().get(0) != PatternType.VARIABLE_DECLARATION
+				|| jsCodePatterns.get(jsIndex).getPatternType().get(1) != PatternType.VARIABLE_ASSIGNMENT) {
 			return null;
 		}
 		CodePattern javaPattern = javaCodePatterns.get(javaIndex);

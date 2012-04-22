@@ -10,7 +10,7 @@ import codeconverter.javaJsComparator.CodePatternComparator;
 public class ClassDeclarationComparator implements CodePatternComparator {
 
 	@Override
-	public int[] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
+	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
 			int jsIndex) {
 		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.CLASS_DECLARATION) {
 			return null;
@@ -25,7 +25,7 @@ public class ClassDeclarationComparator implements CodePatternComparator {
 				.equals(jsPattern.getPieceByType(PieceType.NAME).toString())) {
 			return null;
 		}
-		return new int[] { javaIndex + 1, jsIndex + 1 };
+		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
 	}
 
 }

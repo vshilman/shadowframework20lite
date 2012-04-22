@@ -42,4 +42,16 @@ public class CompositeCodePiece extends ICodePiece{
 		return new ICodePieceMatch(matchPosition,clone);
 	}
 	
+	@Override
+	protected String writeSonsPieces() {
+		String data = "";
+		if (pieces.size() > 0) {
+			data += pieces.get(0).toString();
+			for (int i = 1; i < pieces.size(); i++) {
+				data += " " + pieces.get(i).toString();
+			}
+		}
+		return data;
+	}
+	
 }

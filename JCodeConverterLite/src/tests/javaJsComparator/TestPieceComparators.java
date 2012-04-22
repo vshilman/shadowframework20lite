@@ -2,6 +2,7 @@ package tests.javaJsComparator;
 
 import codeconverter.ICodePiece;
 import codeconverter.ICodePiece.ICodePieceMatch;
+import codeconverter.codepieces.Number;
 import codeconverter.java.JavaAlgebraicExpression;
 import codeconverter.java.JavaBitwiseExpression;
 import codeconverter.java.JavaBooleanExpression;
@@ -20,6 +21,7 @@ import codeconverter.javaJsComparator.codePieces.MethodComparator;
 import codeconverter.javaJsComparator.codePieces.MethodVariablesComparator;
 import codeconverter.javaJsComparator.codePieces.NameComparator;
 import codeconverter.javaJsComparator.codePieces.NewStatementComparator;
+import codeconverter.javaJsComparator.codePieces.NumberComparator;
 import codeconverter.javaJsComparator.codePieces.OpenGlConstantComparator;
 import codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator;
 import codeconverter.javaJsComparator.codePieces.TernaryOperatorComparator;
@@ -46,7 +48,7 @@ public class TestPieceComparators {
 		compare(new ExpressionComparator(), "(a|5)<<(d&(6>>2))", "(a|5)<<(d&(6>>2))",
 				new JavaBitwiseExpression(), new JsBitwiseExpression());
 
-		compare(new ExpressionComparator(), "(a/ 5) -(d*(6+ 2))", "(a/5)-(d*(6+2))",
+		compare(new ExpressionComparator(), "(a/ 5.2f) -(d*(6+ 2))", "(a/5.2)-(d*(6+2))",
 				new JavaAlgebraicExpression(), new JsAlgebraicExpression());
 
 		compare(new MethodComparator(), "ciao.miao(4*f,     new Bau(3*2), miao)",
@@ -75,6 +77,9 @@ public class TestPieceComparators {
 
 		compare(new VariableComparator(), "int ciao", "var ciao", new JavaVariable(),
 				new JsVariable());
+		
+		compare(new NumberComparator(), "1.0f", "1.0", new Number(),
+				new Number());
 
 	}
 

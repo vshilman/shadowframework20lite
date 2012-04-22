@@ -6,7 +6,12 @@ import codeconverter.ICodePiece;
 
 public abstract class CodePieceComparator {
 
+	protected ICodePiece javaFather;
+	protected ICodePiece jsFather;
+
 	public boolean compare(ICodePiece javaCodePiece, ICodePiece jsCodePiece) {
+		javaFather = javaCodePiece;
+		jsFather = jsCodePiece;
 		if (javaCodePiece.getPieceType() != jsCodePiece.getPieceType()) {
 			return false;
 		}

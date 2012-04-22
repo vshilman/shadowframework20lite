@@ -3,6 +3,8 @@ package tests.javaJsComparator;
 import java.util.ArrayList;
 
 import codeconverter.CodePattern;
+import codeconverter.java.JavaAttributeDeclaration;
+import codeconverter.java.JavaAttributeDeclarationAndAssignemnt;
 import codeconverter.java.JavaClassDeclaration;
 import codeconverter.java.JavaConstructorDeclaration;
 import codeconverter.java.JavaIsolatedKeywords;
@@ -18,6 +20,8 @@ import codeconverter.java.codelines.JavaVariableDeclaration;
 import codeconverter.java.codelines.JavaVariableDeclarationAndAssignment;
 import codeconverter.java.jogl.JoglMethodAccess;
 import codeconverter.javaJsComparator.CodePatternComparator;
+import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationAndAssignmentComparator;
+import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAssignmentComparator;
 import codeconverter.javaJsComparator.codePatterns.ClassDeclarationComparator;
 import codeconverter.javaJsComparator.codePatterns.ConstructorDeclarationComparator;
@@ -27,6 +31,7 @@ import codeconverter.javaJsComparator.codePatterns.IfComparator;
 import codeconverter.javaJsComparator.codePatterns.IsolatedKeywordsComparator;
 import codeconverter.javaJsComparator.codePatterns.MethodAccessComparator;
 import codeconverter.javaJsComparator.codePatterns.MethodDeclarationComparator;
+import codeconverter.javaJsComparator.codePatterns.OpenGlGenBuffersMethodComparator;
 import codeconverter.javaJsComparator.codePatterns.OpenGlMethodAccessComparator;
 import codeconverter.javaJsComparator.codePatterns.ReturnComparator;
 import codeconverter.javaJsComparator.codePatterns.VariableAssignmentComparator;
@@ -77,11 +82,12 @@ public class TestPatternComparators {
 		compare(new VariableDeclarationComparator(), "int ciao", "var ciao", new JavaVariableDeclaration(),
 				new JsVariableDeclaration());
 
-		compare(new VariableDeclarationAndAssignmentComparator(), "int ciao=5*l", "var ciao=5*l",
-				new JavaVariableDeclarationAndAssignment(), new JsVariableDeclarationAndAssignment());
+		compare(new VariableDeclarationAndAssignmentComparator(), "float[] colors2 = new float[16]",
+				"var colors2 = new Array()", new JavaVariableDeclarationAndAssignment(),
+				new JsVariableDeclarationAndAssignment());
 
-		compare(new VariableAssignmentComparator(), "ciao+=5*l", "ciao+=5*l", new JavaVariableAssignment(),
-				new JsVariableAssignment());
+		compare(new VariableAssignmentComparator(), "colors2[c] = 1", "colors2[c] = 1",
+				new JavaVariableAssignment(), new JsVariableAssignment());
 
 		compare(new IsolatedKeywordsComparator(), "try", "try", new JavaIsolatedKeywords(),
 				new JsIsolatedKeywords());
@@ -94,6 +100,19 @@ public class TestPatternComparators {
 		compare(new MethodAccessComparator(), "ciao.miao(4*f,     new Bau(3*2), miao)",
 				"ciao.miao(4*f,new  Bau(3*2), miao)", new JavaMethodAccess(), new JsMethodAccess());
 
+		compare(new AttributeAndVariableDeclarationComparator(), "private int vertexPositionAttribute",
+				"var vertexPositionAttribute", new JavaAttributeDeclaration(), new JsVariableDeclaration());
+
+		compare(new AttributeAndVariableDeclarationAndAssignmentComparator(),
+				"private int[] triangleVertexPositionBuffer = new int[3]",
+				"var triangleVertexPositionBuffer = new Array()",
+				new JavaAttributeDeclarationAndAssignemnt(), new JsVariableDeclarationAndAssignment());
+		
+		compare(new OpenGlGenBuffersMethodComparator(),
+				"gl.glGenBuffers(1, triangleVertexPositionBuffer, 0)",
+				"triangleVertexPositionBuffer[0] = gl.createBuffer()",
+				new JoglMethodAccess(), new JsVariableAssignment());
+
 	}
 
 	private static void compare(CodePatternComparator comparator, String javaLine, String jsLine,
@@ -105,7 +124,7 @@ public class TestPatternComparators {
 		jsMatch.add(jsPattern.match(jsLine));
 
 		if (javaMatch.get(0) != null && jsMatch.get(0) != null) {
-			int[] result = comparator.compare(javaMatch, 0, jsMatch, 0);
+			int[][] result = comparator.compare(javaMatch, 0, jsMatch, 0);
 			if (result != null) {
 				System.out.print("true");
 			} else {

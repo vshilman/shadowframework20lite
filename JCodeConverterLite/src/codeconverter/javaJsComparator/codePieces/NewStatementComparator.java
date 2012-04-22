@@ -18,6 +18,9 @@ public class NewStatementComparator extends CodePieceComparator {
 			return false;
 		}
 		if (javaPieces.get(2).getPieceType() != jsPieces.get(2).getPieceType()) {
+			if(jsPieces.get(1).toString().trim().equals("Array")){
+				return true;
+			}
 			return false;
 		}
 		if (javaPieces.get(2).getPieceType() != PieceType.IGNORED) {
@@ -51,7 +54,7 @@ public class NewStatementComparator extends CodePieceComparator {
 			OpenGlConstantComparator openGlConstantComparator = new OpenGlConstantComparator();
 			MethodComparator methodComparator = new MethodComparator();
 			BooleanExpressionComparator booleanExpressionComparator = new BooleanExpressionComparator();
-			openGlMethodComparator.setComparators(nameComparator, expressionComparator);
+			openGlMethodComparator.setComparators(expressionComparator);
 			methodComparator.setComparators(nameComparator, expressionComparator, this);
 			booleanExpressionComparator.setComparators(nameComparator, methodComparator);
 			ternaryOperatorComparator.setComparators(expressionComparator, booleanExpressionComparator);

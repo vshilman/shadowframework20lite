@@ -11,8 +11,8 @@ import codeconverter.javaJsComparator.codePieces.MethodVariablesComparator;
 public class MethodDeclarationComparator implements CodePatternComparator {
 
 	@Override
-	public int[] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
-			int jsIndex) {
+	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
+			List<CodePattern> jsCodePatterns, int jsIndex) {
 		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.METHOD_DECLARATION) {
 			return null;
 		}
@@ -23,8 +23,8 @@ public class MethodDeclarationComparator implements CodePatternComparator {
 		CodePattern javaPattern = javaCodePatterns.get(javaIndex);
 		CodePattern jsPattern = jsCodePatterns.get(jsIndex);
 
-		if (!javaPattern.getPieces().get(2).getPieces().get(1).toString()
-				.equals(jsPattern.getPieces().get(1).toString())) {
+		if (!javaPattern.getPieces().get(2).getPieces().get(1).toString().trim()
+				.equals(jsPattern.getPieces().get(1).toString().trim())) {
 			return null;
 		}
 		if (!new MethodVariablesComparator().compare(javaPattern.getPieceByType(PieceType.METHOD_VARIABLES),
@@ -32,7 +32,7 @@ public class MethodDeclarationComparator implements CodePatternComparator {
 			return null;
 		}
 
-		return new int[] { javaIndex + 1, jsIndex + 1 };
+		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
 	}
 
 }
