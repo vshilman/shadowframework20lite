@@ -55,7 +55,7 @@ Test_sv1Drawer.prototype = {
 
 		squareVertexColorBuffer[0] = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer[0]);
-		var colors2 = [];
+		var colors2 = new Array();
 		for ( var i = 0; i < 4; i++) {
 			var c = i << 2;
 			colors2[c] = 1;
