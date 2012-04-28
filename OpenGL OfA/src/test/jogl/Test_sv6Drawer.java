@@ -69,7 +69,7 @@ public class Test_sv6Drawer {
 
 		gl.glUniform3f(ambientColorUniform, 0.1f, 0.1f, 0.1f);
 
-		float[] lightingDirectionv = { 0.57735026918962576450914878050196f, 0.57735026918962576450914878050196f, 0.57735026918962576450914878050196f };
+		float[] lightingDirectionv =  new float[]{ 0.57735026918962576450914878050196f, 0.57735026918962576450914878050196f, 0.57735026918962576450914878050196f };
 		FloatBuffer lightingDirection = BufferUtil.newFloatBuffer(lightingDirectionv);
 		gl.glUniform3fv(lightingDirectionUniform, lightingDirectionv.length, lightingDirection);
 
@@ -100,22 +100,18 @@ public class Test_sv6Drawer {
 
 		gl.glGenBuffers(1, cubeVertexIndexBuffer, 0);
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0]);
-		int[] cubeVertexIndices = { 0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 11, 12, 13, 14, 12, 14, 15, 16, 17, 18, 16, 18, 19, 20, 21, 22, 20, 22, 23 };
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(cubeVertexIndices), GL2.GL_STATIC_DRAW);
+		short[] cubeVertexIndices = { 0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 11, 12, 13, 14, 12, 14, 15, 16, 17, 18, 16, 18, 19, 20, 21, 22, 20, 22, 23 };
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndices.length * BufferUtil.SIZEOF_SHORT, BufferUtil.newShortBuffer(cubeVertexIndices), GL2.GL_STATIC_DRAW);
 		cubeVertexIndexBuffer[1] = 1;
 		cubeVertexIndexBuffer[2] = 36;
 
 	}
 
-	public void initTexture(GL2 gl) {
+	public void initTexture(GL2 gl) throws IOException {
 		gl.glGenTextures(1, textures, 0);
 
-		TextureData tex;
-		try {
-			tex = TextureIO.newTextureData(new File("images/muro.gif"), false, null);
-		} catch (IOException e) {
-			tex = null;
-		}
+		TextureData tex = TextureIO.newTextureData(new File("images/muro.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex.getWidth(), tex.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
@@ -172,7 +168,7 @@ public class Test_sv6Drawer {
 
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
-		gl.glDrawElements(GL2.GL_TRIANGLES, cubeVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, cubeVertexIndexBuffer[2], GL2.GL_UNSIGNED_SHORT, 0);
 
 		animate();
 

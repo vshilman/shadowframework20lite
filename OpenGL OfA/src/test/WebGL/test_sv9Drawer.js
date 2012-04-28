@@ -138,7 +138,7 @@ Test_sv9Drawer.prototype = {
 		gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexNormalBuffer[0]);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
 		sphereVertexNormalBuffer[1] = 3;
-		sphereVertexNormalBuffer[2] = vertices.length / 3;
+		sphereVertexNormalBuffer[2] = normals.length / 3;
 
 		sphereVertexTextureCoordBuffer[0] = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexTextureCoordBuffer[0]);
@@ -200,7 +200,7 @@ Test_sv9Drawer.prototype = {
 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
 			gl.generateMipmap(gl.TEXTURE_2D);
-			gl.bindTexture(gl.TEXTURE_2D, null);
+			gl.bindTexture(gl.TEXTURE_2D, 0);
 		}
 		tex2.src = "images/grass.gif";
 	},
@@ -216,14 +216,16 @@ Test_sv9Drawer.prototype = {
 
 		pMatrix = new Float32Array([ 2.4142136573791504, 0, 0, 0, 0, 2.4142136573791504, 0, 0, 0, 0, -1.0020020008087158, -1, 0, 0, -0.20020020008087158, 0 ]);
 
-		mvMatrix = new Float32Array([ 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, zoom, 1 ]);
-
-		normalMatrix = new Float32Array(9);
+		var mvMatrixv = new Float32Array([ 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, zoom, 1 ]);
+		mvMatrix = mvMatrixv;
+		
+		var normalMatrixv = new Float32Array(9);
 		for ( var i = 0; i < 3; i++) {
 			for ( var j = 0; j < 3; j++) {
-				normalMatrix[i + 3 * j] = mvMatrix[i + 4 * j];
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
 			}
 		}
+		normalMatrix = normalMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, greenVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
@@ -242,15 +244,16 @@ Test_sv9Drawer.prototype = {
 		gl.uniform1f(alphaUniform, 1);
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2]);
 
-		mvMatrix = new Float32Array([ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, zoom, 1 ]);
-		mvMatrix = multiplyMatrix(rotationMatrix, mvMatrix);
+		mvMatrixv = new Float32Array([ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, zoom, 1 ]);
+		mvMatrixv = multiplyMatrix(rotationMatrix, mvMatrixv);
+		mvMatrix = mvMatrixv;
 
-		normalMatrix = new Float32Array(9);
 		for ( var i = 0; i < 3; i++) {
 			for ( var j = 0; j < 3; j++) {
-				normalMatrix[i + 3 * j] = mvMatrix[i + 4 * j];
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
 			}
 		}
+		normalMatrix = normalMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, sphereVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);

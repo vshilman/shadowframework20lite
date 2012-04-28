@@ -222,7 +222,7 @@ public class Test_va2Drawer {
 
 		gl.glGenBuffers(1, tractorVertexIndexBuffer, 0);
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, tractorVertexIndexBuffer[0]);
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, tractor.indices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(tractor.indices), GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, tractor.indices.length * BufferUtil.SIZEOF_SHORT, BufferUtil.newShortBuffer(tractor.indices), GL2.GL_STATIC_DRAW);
 		tractorVertexIndexBuffer[1] = 1;
 		tractorVertexIndexBuffer[2] = tractor.indices.length;
 
@@ -248,7 +248,7 @@ public class Test_va2Drawer {
 
 		gl.glGenBuffers(1, seagulVertexIndexBuffer, 0);
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, seagulVertexIndexBuffer[0]);
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, seagul.indices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(seagul.indices), GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, seagul.indices.length * BufferUtil.SIZEOF_SHORT, BufferUtil.newShortBuffer(seagul.indices), GL2.GL_STATIC_DRAW);
 		seagulVertexIndexBuffer[1] = 1;
 		seagulVertexIndexBuffer[2] = seagul.indices.length;
 	}
@@ -515,7 +515,7 @@ public class Test_va2Drawer {
 
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, tractorVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
-		gl.glDrawElements(GL2.GL_TRIANGLES, tractorVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, tractorVertexIndexBuffer[2], GL2.GL_UNSIGNED_SHORT, 0);
 
 		mvMatrixv = mvMatrixv2;
 		float cs = (float) Math.cos(seagulAngle);
@@ -564,7 +564,7 @@ public class Test_va2Drawer {
 
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, seagulVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
-		gl.glDrawElements(GL2.GL_TRIANGLES, seagulVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, seagulVertexIndexBuffer[2], GL2.GL_UNSIGNED_SHORT, 0);
 
 		animate();
 

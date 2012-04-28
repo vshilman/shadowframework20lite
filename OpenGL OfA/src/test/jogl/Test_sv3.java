@@ -1,5 +1,7 @@
 package test.jogl;
 
+import java.io.IOException;
+
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -47,7 +49,11 @@ public class Test_sv3 implements GLEventListener {
 		GL2 gl = arg0.getGL().getGL2();
 		drawer.initShaders(gl);
 		drawer.initBuffers(gl);
-		drawer.initTexture(gl);
+		try {
+			drawer.initTexture(gl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
