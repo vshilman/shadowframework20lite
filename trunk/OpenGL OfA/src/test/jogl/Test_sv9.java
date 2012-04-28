@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -58,7 +59,11 @@ public class Test_sv9 implements GLEventListener, KeyListener, MouseListener, Mo
 		GL2 gl = arg0.getGL().getGL2();
 		drawer.initShaders(gl);
 		drawer.initBuffers(gl);
-		drawer.initTexture(gl);
+		try {
+			drawer.initTexture(gl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -87,7 +87,7 @@ public class Test_sv8Drawer {
 
 		gl.glGenBuffers(1, teapotVertexIndexBuffer, 0);
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0]);
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, teapot.indices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(teapot.indices), GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, teapot.indices.length * BufferUtil.SIZEOF_SHORT, BufferUtil.newShortBuffer(teapot.indices), GL2.GL_STATIC_DRAW);
 		teapotVertexIndexBuffer[1] = 1;
 		teapotVertexIndexBuffer[2] = teapot.indices.length;
 
@@ -131,7 +131,7 @@ public class Test_sv8Drawer {
 
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
-		gl.glDrawElements(GL2.GL_TRIANGLES, teapotVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, teapotVertexIndexBuffer[2], GL2.GL_UNSIGNED_SHORT, 0);
 
 		animate();
 	}

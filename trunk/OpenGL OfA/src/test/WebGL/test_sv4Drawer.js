@@ -30,7 +30,7 @@ Test_sv4Drawer.prototype = {
 		vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
 		gl.enableVertexAttribArray(vertexPositionAttribute);
 
-		shaderProgram.textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
+		textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
 		gl.enableVertexAttribArray(textureCoordAttribute);
 
 		pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
@@ -89,7 +89,7 @@ Test_sv4Drawer.prototype = {
 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
 			gl.generateMipmap(gl.TEXTURE_2D);
 
-			gl.bindTexture(gl.TEXTURE_2D, null);
+			gl.bindTexture(gl.TEXTURE_2D, 0);
 		}
 
 		tex.src = "images/crate.gif";

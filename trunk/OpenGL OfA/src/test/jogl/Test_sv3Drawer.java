@@ -70,15 +70,11 @@ public class Test_sv3Drawer {
 
 	}
 
-	public void initTexture(GL2 gl) {
+	public void initTexture(GL2 gl) throws IOException {
 		gl.glGenTextures(1, texture1, 0);
 
-		TextureData tex;
-		try {
-			tex = TextureIO.newTextureData(new File("images/crate.gif"), false, null);
-		} catch (IOException e) {
-			tex = null;
-		}
+		TextureData tex = TextureIO.newTextureData(new File("images/crate.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, texture1[0]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex.getWidth(), tex.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_NEAREST);

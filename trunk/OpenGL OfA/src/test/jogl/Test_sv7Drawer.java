@@ -72,7 +72,7 @@ public class Test_sv7Drawer {
 
 		float[] vertices = new float[3 * (latitudeBands + 1) * (longitudeBands + 1)];
 		float[] normals = new float[3 * (latitudeBands + 1) * (longitudeBands + 1)];
-		int[] sphereVertexIndices = new int[6 * latitudeBands * longitudeBands];
+		short[] sphereVertexIndices = new short[6 * latitudeBands * longitudeBands];
 
 		for (int i = 0; i <= latitudeBands; i++) {
 			float theta = (float) (i * Math.PI / latitudeBands);
@@ -99,17 +99,17 @@ public class Test_sv7Drawer {
 
 		for (int i = 0; i < latitudeBands; i++) {
 			for (int j = 0; j < longitudeBands; j++) {
-				int first = (i * (longitudeBands + 1)) + j;
-				int second = first + longitudeBands + 1;
+				short first = (short) ((i * (longitudeBands + 1)) + j);
+				short second = (short) (first + longitudeBands + 1);
 
 				int index = 6 * (j + i * longitudeBands);
 
 				sphereVertexIndices[index] = first;
 				sphereVertexIndices[index + 1] = second;
-				sphereVertexIndices[index + 2] = first + 1;
+				sphereVertexIndices[index + 2] = (short) (first + 1);
 				sphereVertexIndices[index + 3] = second;
-				sphereVertexIndices[index + 4] = second + 1;
-				sphereVertexIndices[index + 5] = first + 1;
+				sphereVertexIndices[index + 4] = (short) (second + 1);
+				sphereVertexIndices[index + 5] = (short) (first + 1);
 			}
 		}
 
@@ -127,7 +127,7 @@ public class Test_sv7Drawer {
 
 		gl.glGenBuffers(1, sphereVertexIndexBuffer, 0);
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(sphereVertexIndices), GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndices.length * BufferUtil.SIZEOF_SHORT, BufferUtil.newShortBuffer(sphereVertexIndices), GL2.GL_STATIC_DRAW);
 		sphereVertexIndexBuffer[1] = 1;
 		sphereVertexIndexBuffer[2] = sphereVertexIndices.length;
 
@@ -173,7 +173,7 @@ public class Test_sv7Drawer {
 
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
-		gl.glDrawElements(GL2.GL_TRIANGLES, sphereVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, sphereVertexIndexBuffer[2], GL2.GL_UNSIGNED_SHORT, 0);
 
 		animate();
 	}

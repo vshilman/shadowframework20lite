@@ -102,14 +102,16 @@ Test_sv8Drawer.prototype = {
 
 		pMatrix = new Float32Array([ 2.4142136573791504, 0, 0, 0, 0, 2.4142136573791504, 0, 0, 0, 0, -1.0020020008087158, -1, 0, 0, -0.20020020008087158, 0 ]);
 
-		mvMatrix = new Float32Array([ cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, 0, 0, zoom, 1 ]);
-
-		normalMatrix = new Float32Array(9);
+		var mvMatrixv = new Float32Array([ cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, 0, 0, zoom, 1 ]);
+		mvMatrix = mvMatrixv;
+		
+		var normalMatrixv = new Float32Array(9);
 		for ( var i = 0; i < 3; i++) {
 			for ( var j = 0; j < 3; j++) {
-				normalMatrix[i + 3 * j] = mvMatrix[i + 4 * j];
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
 			}
 		}
+		normalMatrix = normalMatrixv;
 
 		gl.frontFace(gl.CCW);
 		gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexPositionBuffer[0]);

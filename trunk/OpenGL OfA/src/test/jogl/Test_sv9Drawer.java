@@ -93,7 +93,7 @@ public class Test_sv9Drawer {
 		float[] vertices = new float[3 * (latitudeBands + 1) * (longitudeBands + 1)];
 		float[] normals = new float[3 * (latitudeBands + 1) * (longitudeBands + 1)];
 		float[] textureCoords = new float[2 * (latitudeBands + 1) * (longitudeBands + 1)];
-		int[] sphereVertexIndices = new int[6 * latitudeBands * longitudeBands];
+		short[] sphereVertexIndices = new short[6 * latitudeBands * longitudeBands];
 
 		for (int i = 0; i <= latitudeBands; i++) {
 			float theta = (float) (i * Math.PI / latitudeBands);
@@ -125,17 +125,17 @@ public class Test_sv9Drawer {
 
 		for (int i = 0; i < latitudeBands; i++) {
 			for (int j = 0; j < longitudeBands; j++) {
-				int first = (i * (longitudeBands + 1)) + j;
-				int second = first + longitudeBands + 1;
+				short first = (short) ((i * (longitudeBands + 1)) + j);
+				short second = (short) (first + longitudeBands + 1);
 
 				int index = 6 * (j + i * longitudeBands);
 
 				sphereVertexIndices[index] = first;
 				sphereVertexIndices[index + 1] = second;
-				sphereVertexIndices[index + 2] = first + 1;
+				sphereVertexIndices[index + 2] = (short) (first + 1);
 				sphereVertexIndices[index + 3] = second;
-				sphereVertexIndices[index + 4] = second + 1;
-				sphereVertexIndices[index + 5] = first + 1;
+				sphereVertexIndices[index + 4] = (short) (second + 1);
+				sphereVertexIndices[index + 5] = (short) (first + 1);
 			}
 		}
 
@@ -159,7 +159,7 @@ public class Test_sv9Drawer {
 
 		gl.glGenBuffers(1, sphereVertexIndexBuffer, 0);
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(sphereVertexIndices), GL2.GL_STATIC_DRAW);
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndices.length * BufferUtil.SIZEOF_SHORT, BufferUtil.newShortBuffer(sphereVertexIndices), GL2.GL_STATIC_DRAW);
 		sphereVertexIndexBuffer[1] = 1;
 		sphereVertexIndexBuffer[2] = sphereVertexIndices.length;
 
@@ -186,15 +186,11 @@ public class Test_sv9Drawer {
 
 	}
 
-	public void initTexture(GL2 gl) {
+	public void initTexture(GL2 gl) throws IOException {
 		gl.glGenTextures(2, textures, 0);
 
-		TextureData tex1;
-		try {
-			tex1 = TextureIO.newTextureData(new File("images/bubble.gif"), false, null);
-		} catch (IOException e) {
-			tex1 = null;
-		}
+		TextureData tex1 = TextureIO.newTextureData(new File("images/bubble.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex1.getWidth(), tex1.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex1.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
@@ -203,12 +199,8 @@ public class Test_sv9Drawer {
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
 		gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
 
-		TextureData tex2;
-		try {
-			tex2 = TextureIO.newTextureData(new File("images/grass.gif"), false, null);
-		} catch (IOException e) {
-			tex2 = null;
-		}
+		TextureData tex2 = TextureIO.newTextureData(new File("images/grass.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex2.getWidth(), tex2.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex2.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
@@ -287,7 +279,7 @@ public class Test_sv9Drawer {
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
 		gl.glUniform1f(alphaUniform, 0.8f);
-		gl.glDrawElements(GL2.GL_TRIANGLES, sphereVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, sphereVertexIndexBuffer[2], GL2.GL_UNSIGNED_SHORT, 0);
 
 	}
 

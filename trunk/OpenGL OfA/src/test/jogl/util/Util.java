@@ -114,13 +114,13 @@ public class Util {
 		ArrayList<Float> vertexArray = new ArrayList<Float>();
 		ArrayList<Float> normalArray = new ArrayList<Float>();
 		ArrayList<Float> textureArray = new ArrayList<Float>();
-		ArrayList<Integer> indexArray = new ArrayList<Integer>();
+		ArrayList<Short> indexArray = new ArrayList<Short>();
 
 		ArrayList<Float> vertex = new ArrayList<Float>();
 		ArrayList<Float> normal = new ArrayList<Float>();
 		ArrayList<Float> texture = new ArrayList<Float>();
-		HashMap<String, Integer> facemap = new HashMap<String, Integer>();
-		int index = 0;
+		HashMap<String, Short> facemap = new HashMap<String, Short>();
+		short index = 0;
 
 		String[] lines = text.split("\n");
 		for (int lineIndex = 0; lineIndex < lines.length; lineIndex++) {
@@ -209,7 +209,7 @@ public class Util {
 		result.vertexPositions = floatConvert(vertexArray);
 		result.vertexNormals = floatConvert(normalArray);
 		result.vertexTextureCoords = floatConvert(textureArray);
-		result.indices = intConvert(indexArray);
+		result.indices = shortConvert(indexArray);
 
 		return result;
 	}
@@ -224,10 +224,10 @@ public class Util {
 		return result;
 	}
 
-	private static int[] intConvert(ArrayList<Integer> arrayList) {
-		Integer[] array = new Integer[arrayList.size()];
+	private static short[] shortConvert(ArrayList<Short> arrayList) {
+		Short[] array = new Short[arrayList.size()];
 		array = arrayList.toArray(array);
-		int[] result = new int[array.length];
+		short[] result = new short[array.length];
 		for (int i = 0; i < result.length; i++) {
 			result[i] = array[i];
 		}
@@ -238,7 +238,7 @@ public class Util {
 		public float[] vertexPositions;
 		public float[] vertexNormals;
 		public float[] vertexTextureCoords;
-		public int[] indices;
+		public short[] indices;
 	}
 
 	public static float[] multiplyMatrix(float[] a, float[] b) {
