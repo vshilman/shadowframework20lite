@@ -21,6 +21,10 @@ public class ArrayContentComparator {
 	public boolean compare(CodePattern javaCodePattern, ICodePiece jsCodePiece) {
 		initializeComparators();
 
+		if (jsCodePiece == null) {
+			return false;
+		}
+
 		List<ICodePiece> javaPieces = javaCodePattern.getPieces().get(0).getPieces();
 		List<ICodePiece> jsPieces = jsCodePiece.getPieces().get(1).getPieces();
 

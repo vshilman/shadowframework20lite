@@ -7,7 +7,7 @@ import codeconverter.PatternType;
 import codeconverter.PieceType;
 import codeconverter.javaJsComparator.CodePatternComparator;
 
-public class OpenGlGenBuffersMethodComparator implements CodePatternComparator {
+public class OpenGlGenTexturesMethodComparator implements CodePatternComparator {
 
 	@Override
 	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
@@ -24,13 +24,14 @@ public class OpenGlGenBuffersMethodComparator implements CodePatternComparator {
 		if (jsPattern.getPieceByType(PieceType.EXPRESSION) == null) {
 			return null;
 		}
-		if (jsPattern.getPieceByType(PieceType.EXPRESSION).getPieceByType(PieceType.OPENGL_CALL) == null) {
+		if(jsPattern.getPieceByType(PieceType.EXPRESSION).getPieceByType(PieceType.OPENGL_CALL)==null){
 			return null;
 		}
+		
 		if (!javaPattern.getPieceByType(PieceType.OPENGL_CALL).getPieces().get(3).toString()
-				.equals("GenBuffers")
+				.equals("GenTextures")
 				|| !jsPattern.getPieceByType(PieceType.EXPRESSION).getPieceByType(PieceType.OPENGL_CALL)
-						.getPieces().get(1).toString().equals("createBuffer")) {
+						.getPieces().get(1).toString().equals("createTexture")) {
 			return null;
 		}
 
@@ -44,6 +45,14 @@ public class OpenGlGenBuffersMethodComparator implements CodePatternComparator {
 		javaName = javaPattern.getPieceByType(PieceType.OPENGL_CALL).getPieces().get(5).getPieces().get(0)
 				.toString().trim();
 		if (!javaName.equals("1")) {
+			CodePattern jsFor = jsCodePatterns.get(jsIndex-1);
+			if(javaName.equals(jsFor.getPieceByType(PieceType.EXPRESSION).toString())){
+				jsName = jsPattern.getPieceByType(PieceType.NAME).getPieces().get(1).getPieces().get(1).toString()
+				.trim();
+				if(jsName.equals(jsFor.getPieceByType(PieceType.VALUE).toString().trim())){
+					return new int[][] { new int[] { javaIndex }, new int[] { jsIndex,jsIndex-1 } };
+				}
+			}
 			return null;
 		}
 

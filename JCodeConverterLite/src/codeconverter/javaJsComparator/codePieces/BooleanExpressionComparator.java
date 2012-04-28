@@ -37,7 +37,22 @@ public class BooleanExpressionComparator extends CodePieceComparator {
 			}
 			if (javaPiece.getPieceType() == PieceType.CALL) {
 				if (!methodComparator.compare(javaPiece, jsPiece)) {
-					return false;
+					boolean cont = false;
+
+					ICodePiece call = javaPiece.getPieces().get(2).getPieceByType(PieceType.COMPOSITE);
+
+					if (call.getPieceByType(PieceType.COMPOSITE).getPieceByType(PieceType.NAME).toString()
+							.equals("e.getKeyCode")
+							&& jsPiece.getPieceType() == PieceType.VARIABLE) {
+
+						if (jsPiece.getPieceByType(PieceType.NAME).toString().equals("e.keyCode")) {
+							cont = true;
+						}
+					}
+
+					if (!cont) {
+						return false;
+					}
 				}
 			}
 			if (javaPiece.getPieceType() == PieceType.COMPOSITE) {

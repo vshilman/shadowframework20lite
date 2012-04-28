@@ -15,10 +15,23 @@ public class NewStatementComparator extends CodePieceComparator {
 	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
 		initializeComparators();
 		if (!nameComparator.compare(javaPieces.get(1), jsPieces.get(1))) {
+			if (javaPieces.get(1).getPieceByType(PieceType.TYPE).toString().equals("float")
+					&& jsPieces.get(1).getPieceByType(PieceType.TYPE).toString().equals("Float32Array")) {
+				ICodePiece javaValue = javaPieces.get(1).getPieceByType(PieceType.COMPOSITE)
+						.getPieceByType(PieceType.EXPRESSION).getPieceByType(PieceType.VALUE);
+				if (javaValue != null) {
+					if (javaValue.toString().equals(
+							jsPieces.get(2).getPieceByType(PieceType.SEQUENCE)
+									.getPieceByType(PieceType.EXPRESSION).getPieceByType(PieceType.VALUE)
+									.toString())) {
+						return true;
+					}
+				}
+			}
 			return false;
 		}
 		if (javaPieces.get(2).getPieceType() != jsPieces.get(2).getPieceType()) {
-			if(jsPieces.get(1).toString().trim().equals("Array")){
+			if (jsPieces.get(1).toString().trim().equals("Array")) {
 				return true;
 			}
 			return false;
