@@ -23,13 +23,14 @@ public class NameComparator extends CodePieceComparator {
 				}
 			}
 		}
-		if (javaPieces.get(0).toString().equals("int") || javaPieces.get(0).toString().equals("float")) {
+		if (javaPieces.get(0).toString().equals("int") || javaPieces.get(0).toString().equals("float")
+				|| javaPieces.get(0).toString().equals("short")) {
 			if (jsPieces.get(0).toString().equals("Array")) {
 				return true;
 			}
 		}
-		if (javaPieces.get(0).toString().equals("Util.getShaderProgram")
-				&& jsPieces.get(0).toString().equals("getShaderProgram")) {
+		if (javaPieces.get(0).toString().startsWith("Util.")
+				&& jsPieces.get(0).toString().equals(javaPieces.get(0).toString().substring(5))) {
 			return true;
 		}
 		if (javaPieces.get(0).toString().startsWith("this.")) {

@@ -39,7 +39,14 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 					}
 				}
 				if (!found) {
-					return false;
+					if (name.equals("TexImage2D") && i == 10) {
+						if (!javaCompList.get(16).toString().replaceAll(" ", "")
+								.startsWith(jsCompList.get(10).toString().trim())) {
+							return false;
+						}
+					} else {
+						return false;
+					}
 				}
 			}
 
@@ -64,7 +71,7 @@ public class OpenGlMethodComparator extends CodePieceComparator {
 			MethodComparator methodComparator = new MethodComparator();
 			OpenGlConstantComparator openGlConstantComparator = new OpenGlConstantComparator();
 			BooleanExpressionComparator booleanExpressionComparator = new BooleanExpressionComparator();
-			
+
 			booleanExpressionComparator.setComparators(nameComparator, methodComparator);
 			ternaryOperatorComparator.setComparators(expressionComparator, booleanExpressionComparator);
 			newStatementComparator.setComparators(nameComparator, expressionComparator);

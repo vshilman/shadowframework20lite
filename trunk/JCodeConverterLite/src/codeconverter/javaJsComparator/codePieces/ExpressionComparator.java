@@ -18,11 +18,28 @@ public class ExpressionComparator extends CodePieceComparator {
 	@Override
 	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
 		initializeComparators();
+
+		List<ICodePiece> javaPieces2 = javaPieces;
+
 		if (javaPieces.size() != jsPieces.size()) {
-			return false;
+
+			if (javaPieces.get(0).getPieceType() == PieceType.COMPOSITE) {
+				if (javaPieces.get(0).getPieces().get(1) == null) {
+					return false;
+				}
+				if (javaPieces.get(0).getPieces().get(1).getPieceByType(PieceType.EXPRESSION) == null) {
+					return false;
+				}
+				javaPieces2 = javaPieces.get(0).getPieces().get(1).getPieceByType(PieceType.EXPRESSION)
+						.getPieces();
+			}
+
+			if (javaPieces2.size() != jsPieces.size()) {
+				return false;
+			}
 		}
-		for (int i = 0; i < javaPieces.size(); i++) {
-			ICodePiece javaPiece = javaPieces.get(i);
+		for (int i = 0; i < javaPieces2.size(); i++) {
+			ICodePiece javaPiece = javaPieces2.get(i);
 			ICodePiece jsPiece = jsPieces.get(i);
 			if (javaPiece.getPieceType() == PieceType.VALUE) {
 				if (!numberComparator.compare(javaPiece, jsPiece)
@@ -71,22 +88,18 @@ public class ExpressionComparator extends CodePieceComparator {
 			if (javaPiece.getPieceType() == PieceType.CALL) {
 				if (!methodComparator.compare(javaPiece, jsPiece)) {
 					boolean cont = false;
-
 					ICodePiece call = javaPiece.getPieces().get(2).getPieceByType(PieceType.COMPOSITE);
-					if (call.getPieceByType(PieceType.COMPOSITE).getPieceByType(PieceType.NAME).toString()
-							.equals("BufferUtil.newFloatBuffer")
-							&& jsPiece.getPieceType() == PieceType.NEW_STATEMENT) {
-						if (jsPiece.getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.NAME)
-								.toString().equals("Float32Array")) {
-							if (call.getPieceByType(PieceType.SEQUENCE)
-									.toString()
-									.trim()
-									.equals(jsPiece.getPieceByType(PieceType.COMPOSITE)
-											.getPieceByType(PieceType.SEQUENCE).toString().trim())) {
-								cont = true;
-							}
-						}
+
+					cont = compareBufferString(jsPiece, cont, "BufferUtil.newFloatBuffer", "Float32Array",
+							call);
+
+					if (!cont) {
+						cont = compareBufferString(jsPiece, cont, "BufferUtil.newShortBuffer", "Uint16Array",
+								call);
+						cont = compareEvent(jsPiece, cont, call, "e.getX", "e.clientX");
+						cont = compareEvent(jsPiece, cont, call, "e.getY", "e.clientY");
 					}
+
 					if (!cont) {
 						return false;
 					}
@@ -99,6 +112,41 @@ public class ExpressionComparator extends CodePieceComparator {
 			}
 		}
 		return true;
+	}
+
+	private boolean compareEvent(ICodePiece jsPiece, boolean cont, ICodePiece call, String javaEvent,
+			String jsEvent) {
+		if (!cont) {
+			if (call.getPieceByType(PieceType.COMPOSITE).getPieceByType(PieceType.NAME)
+					.toString().equals(javaEvent)
+					&& jsPiece.getPieceType() == PieceType.VARIABLE) {
+
+				if (jsPiece.getPieceByType(PieceType.NAME).toString().equals(jsEvent)) {
+					cont = true;
+				}
+			}
+		}
+		return cont;
+	}
+
+	private boolean compareBufferString(ICodePiece jsPiece, boolean cont, String javaNewBufferString,
+			String jsNewBufferString, ICodePiece call) {
+		if (call.getPieceByType(PieceType.COMPOSITE).getPieceByType(PieceType.NAME).toString()
+				.equals(javaNewBufferString)
+				&& jsPiece.getPieceType() == PieceType.NEW_STATEMENT) {
+
+			if (jsPiece.getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.NAME).toString()
+					.equals(jsNewBufferString)) {
+				if (call.getPieceByType(PieceType.SEQUENCE)
+						.toString()
+						.trim()
+						.equals(jsPiece.getPieceByType(PieceType.COMPOSITE)
+								.getPieceByType(PieceType.SEQUENCE).toString().trim())) {
+					cont = true;
+				}
+			}
+		}
+		return cont;
 	}
 
 	private void initializeComparators() {

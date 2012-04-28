@@ -3787,9 +3787,9 @@ OPENGL_CALL:gl. enableVertexAttribArray ( vertexPositionAttribute  )
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
-NAME:shaderProgram.textureCoordAttribute 
-		NAME:shaderProgram.textureCoordAttribute
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
+NAME:textureCoordAttribute 
+		NAME:textureCoordAttribute
 		IGNORED:
 IGNORED:
 KEYWORD:=
@@ -4009,11 +4009,12 @@ OPENGL_CALL:gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertices   = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
-NAME:vertices 
-		NAME:vertices
-		IGNORED:
-IGNORED:
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
+VARIABLE:var vertices 
+		KEYWORD:var
+		NAME:vertices 
+				NAME:vertices
+				IGNORED:
 KEYWORD:=
 ARRAY_CONTENT:[ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
 		KEYWORD:[
@@ -4950,21 +4951,19 @@ OPENGL_CALL:gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. NEAR
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, null  )
-OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, null  )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, 0 )
+OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, 0 )
 		KEYWORD:gl.
 		NAME:bindTexture
 		KEYWORD:(
-		SEQUENCE:gl. TEXTURE_2D, null 
+		SEQUENCE:gl. TEXTURE_2D, 0
 				EXPRESSION:gl. TEXTURE_2D
 						OPENGL_CONSTANT:gl. TEXTURE_2D
 								KEYWORD:gl.
 								NAME:TEXTURE_2D
 				KEYWORD:, 
-				EXPRESSION:null 
-						VARIABLE:null 
-								NAME:null
-								IGNORED:
+				EXPRESSION:0
+						VALUE:0
 		KEYWORD:)
 
 
@@ -6076,9 +6075,9 @@ OPENGL_CALL:gl. enableVertexAttribArray ( vertexPositionAttribute  )
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
-NAME:shaderProgram.textureCoordAttribute 
-		NAME:shaderProgram.textureCoordAttribute
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
+NAME:textureCoordAttribute 
+		NAME:textureCoordAttribute
 		IGNORED:
 IGNORED:
 KEYWORD:=
@@ -7494,21 +7493,19 @@ OPENGL_CALL:gl. generateMipmap ( gl. TEXTURE_2D )
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, null  )
-OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, null  )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, 0 )
+OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, 0 )
 		KEYWORD:gl.
 		NAME:bindTexture
 		KEYWORD:(
-		SEQUENCE:gl. TEXTURE_2D, null 
+		SEQUENCE:gl. TEXTURE_2D, 0
 				EXPRESSION:gl. TEXTURE_2D
 						OPENGL_CONSTANT:gl. TEXTURE_2D
 								KEYWORD:gl.
 								NAME:TEXTURE_2D
 				KEYWORD:, 
-				EXPRESSION:null 
-						VARIABLE:null 
-								NAME:null
-								IGNORED:
+				EXPRESSION:0
+						VALUE:0
 		KEYWORD:)
 
 
@@ -9208,9 +9205,9 @@ OPENGL_CALL:gl. enableVertexAttribArray ( vertexPositionAttribute  )
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
-NAME:shaderProgram.textureCoordAttribute 
-		NAME:shaderProgram.textureCoordAttribute
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
+NAME:textureCoordAttribute 
+		NAME:textureCoordAttribute
 		IGNORED:
 IGNORED:
 KEYWORD:=
@@ -10790,21 +10787,19 @@ OPENGL_CALL:gl. generateMipmap ( gl. TEXTURE_2D )
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, null  )
-OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, null  )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, 0 )
+OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, 0 )
 		KEYWORD:gl.
 		NAME:bindTexture
 		KEYWORD:(
-		SEQUENCE:gl. TEXTURE_2D, null 
+		SEQUENCE:gl. TEXTURE_2D, 0
 				EXPRESSION:gl. TEXTURE_2D
 						OPENGL_CONSTANT:gl. TEXTURE_2D
 								KEYWORD:gl.
 								NAME:TEXTURE_2D
 				KEYWORD:, 
-				EXPRESSION:null 
-						VARIABLE:null 
-								NAME:null
-								IGNORED:
+				EXPRESSION:0
+						VALUE:0
 		KEYWORD:)
 
 
@@ -12905,25 +12900,34 @@ OPENGL_CALL:gl. uniform3f ( ambientColorUniform , 0.1, 0.1, 0.1 )
 		KEYWORD:)
 
 
-[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var lightingDirection  = [ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ]
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var lightingDirection  = new  Float32Array  ( [ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ] )
 VARIABLE:var lightingDirection 
 		KEYWORD:var
 		NAME:lightingDirection 
 				NAME:lightingDirection
 				IGNORED:
 KEYWORD:=
-ARRAY_CONTENT:[ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ]
-		KEYWORD:[
-		SEQUENCE:0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196
-				EXPRESSION:0.57735026918962576450914878050196
-						VALUE:0.57735026918962576450914878050196
-				KEYWORD:,
-				EXPRESSION:0.57735026918962576450914878050196
-						VALUE:0.57735026918962576450914878050196
-				KEYWORD:,
-				EXPRESSION:0.57735026918962576450914878050196
-						VALUE:0.57735026918962576450914878050196
-		KEYWORD:]
+NEW_STATEMENT:new  Float32Array  ( [ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ] )
+		KEYWORD:new 
+		TYPE:Float32Array 
+				TYPE:Float32Array
+				IGNORED:
+		COMPOSITE:( [ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ] )
+				KEYWORD:(
+				SEQUENCE:[ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ]
+						ARRAY_CONTENT:[ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ]
+								KEYWORD:[
+								SEQUENCE:0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196
+										EXPRESSION:0.57735026918962576450914878050196
+												VALUE:0.57735026918962576450914878050196
+										KEYWORD:,
+										EXPRESSION:0.57735026918962576450914878050196
+												VALUE:0.57735026918962576450914878050196
+										KEYWORD:,
+										EXPRESSION:0.57735026918962576450914878050196
+												VALUE:0.57735026918962576450914878050196
+								KEYWORD:]
+				KEYWORD:)
 
 
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. uniform3fv ( lightingDirectionUniform , lightingDirection  )
@@ -14351,21 +14355,19 @@ OPENGL_CALL:gl. generateMipmap ( gl. TEXTURE_2D )
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, null  )
-OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, null  )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, 0 )
+OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, 0 )
 		KEYWORD:gl.
 		NAME:bindTexture
 		KEYWORD:(
-		SEQUENCE:gl. TEXTURE_2D, null 
+		SEQUENCE:gl. TEXTURE_2D, 0
 				EXPRESSION:gl. TEXTURE_2D
 						OPENGL_CONSTANT:gl. TEXTURE_2D
 								KEYWORD:gl.
 								NAME:TEXTURE_2D
 				KEYWORD:, 
-				EXPRESSION:null 
-						VARIABLE:null 
-								NAME:null
-								IGNORED:
+				EXPRESSION:0
+						VALUE:0
 		KEYWORD:)
 
 
@@ -14667,11 +14669,12 @@ NEW_STATEMENT:new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.41421365737915
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
-NAME:mvMatrix 
-		NAME:mvMatrix
-		IGNORED:
-IGNORED:
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
+VARIABLE:var mvMatrixv 
+		KEYWORD:var
+		NAME:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 		KEYWORD:new 
@@ -14765,11 +14768,24 @@ NEW_STATEMENT:new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*s
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = new  Float32Array  ( 9 )
-NAME:normalMatrix 
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrixv 
+NAME:mvMatrix 
+		NAME:mvMatrix
 		IGNORED:
 IGNORED:
+KEYWORD:=
+EXPRESSION:mvMatrixv 
+		VARIABLE:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
+
+
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var normalMatrixv  = new  Float32Array  ( 9 )
+VARIABLE:var normalMatrixv 
+		KEYWORD:var
+		NAME:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( 9 )
 		KEYWORD:new 
@@ -14846,9 +14862,9 @@ SEQUENCE:j  ++
 KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix [ i +3*j  ]  = mvMatrix [ i +4*j  ]
-NAME:normalMatrix [ i +3*j  ]
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+NAME:normalMatrixv [ i +3*j  ]
+		NAME:normalMatrixv
 		COMPOSITE:[ i +3*j  ]
 				KEYWORD:[
 				EXPRESSION:i +3*j 
@@ -14864,9 +14880,9 @@ NAME:normalMatrix [ i +3*j  ]
 				KEYWORD:]
 IGNORED:
 KEYWORD:=
-EXPRESSION:mvMatrix [ i +4*j  ]
-		VARIABLE:mvMatrix [ i +4*j  ]
-				NAME:mvMatrix
+EXPRESSION:mvMatrixv [ i +4*j  ]
+		VARIABLE:mvMatrixv [ i +4*j  ]
+				NAME:mvMatrixv
 				COMPOSITE:[ i +4*j  ]
 						KEYWORD:[
 						EXPRESSION:i +4*j 
@@ -14880,6 +14896,18 @@ EXPRESSION:mvMatrix [ i +4*j  ]
 										NAME:j
 										IGNORED:
 						KEYWORD:]
+
+
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = normalMatrixv 
+NAME:normalMatrix 
+		NAME:normalMatrix
+		IGNORED:
+IGNORED:
+KEYWORD:=
+EXPRESSION:normalMatrixv 
+		VARIABLE:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 
 
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. frontFace ( gl. CCW )
@@ -24839,21 +24867,19 @@ OPENGL_CALL:gl. generateMipmap ( gl. TEXTURE_2D )
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, null  )
-OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, null  )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, 0 )
+OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, 0 )
 		KEYWORD:gl.
 		NAME:bindTexture
 		KEYWORD:(
-		SEQUENCE:gl. TEXTURE_2D, null 
+		SEQUENCE:gl. TEXTURE_2D, 0
 				EXPRESSION:gl. TEXTURE_2D
 						OPENGL_CONSTANT:gl. TEXTURE_2D
 								KEYWORD:gl.
 								NAME:TEXTURE_2D
 				KEYWORD:, 
-				EXPRESSION:null 
-						VARIABLE:null 
-								NAME:null
-								IGNORED:
+				EXPRESSION:0
+						VALUE:0
 		KEYWORD:)
 
 
@@ -29742,21 +29768,19 @@ OPENGL_CALL:gl. generateMipmap ( gl. TEXTURE_2D )
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, null  )
-OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, null  )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, 0 )
+OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, 0 )
 		KEYWORD:gl.
 		NAME:bindTexture
 		KEYWORD:(
-		SEQUENCE:gl. TEXTURE_2D, null 
+		SEQUENCE:gl. TEXTURE_2D, 0
 				EXPRESSION:gl. TEXTURE_2D
 						OPENGL_CONSTANT:gl. TEXTURE_2D
 								KEYWORD:gl.
 								NAME:TEXTURE_2D
 				KEYWORD:, 
-				EXPRESSION:null 
-						VARIABLE:null 
-								NAME:null
-								IGNORED:
+				EXPRESSION:0
+						VALUE:0
 		KEYWORD:)
 
 
@@ -37932,21 +37956,19 @@ OPENGL_CALL:gl. generateMipmap ( gl. TEXTURE_2D )
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, null  )
-OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, null  )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, 0 )
+OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, 0 )
 		KEYWORD:gl.
 		NAME:bindTexture
 		KEYWORD:(
-		SEQUENCE:gl. TEXTURE_2D, null 
+		SEQUENCE:gl. TEXTURE_2D, 0
 				EXPRESSION:gl. TEXTURE_2D
 						OPENGL_CONSTANT:gl. TEXTURE_2D
 								KEYWORD:gl.
 								NAME:TEXTURE_2D
 				KEYWORD:, 
-				EXPRESSION:null 
-						VARIABLE:null 
-								NAME:null
-								IGNORED:
+				EXPRESSION:0
+						VALUE:0
 		KEYWORD:)
 
 

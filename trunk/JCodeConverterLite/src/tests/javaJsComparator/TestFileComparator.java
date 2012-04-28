@@ -31,7 +31,7 @@ public class TestFileComparator {
 		ArrayList<String> javaTests = new ArrayList<String>();
 		ArrayList<String> jsTests = new ArrayList<String>();
 
-		for (int i = 1; i <= 3; i++) {
+		for (int i = 1; i <= 9; i++) {
 			javaTests.add(JAVA_DIRECTORY + "Test_sv" + i + "Drawer.java");
 			jsTests.add(JS_DIRECTORY + "test_sv" + i + "Drawer.js");
 		}

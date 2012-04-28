@@ -12,6 +12,9 @@ public abstract class CodePieceComparator {
 	public boolean compare(ICodePiece javaCodePiece, ICodePiece jsCodePiece) {
 		javaFather = javaCodePiece;
 		jsFather = jsCodePiece;
+		if (javaCodePiece == null || jsCodePiece == null) {
+			return false;
+		}
 		if (javaCodePiece.getPieceType() != jsCodePiece.getPieceType()) {
 			return false;
 		}

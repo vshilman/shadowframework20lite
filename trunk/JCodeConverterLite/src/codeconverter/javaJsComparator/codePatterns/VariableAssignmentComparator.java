@@ -57,6 +57,16 @@ public class VariableAssignmentComparator implements CodePatternComparator {
 			}
 		}
 
+		if (javaPattern.getPieces().get(3).getPieces().get(0).getPieceType() == PieceType.CALL
+				&& jsPattern.getPieces().get(3).getPieceType() == PieceType.EXPRESSION) {
+			ICodePiece call = javaPattern.getPieces().get(3).getPieces().get(0)
+					.getPieceByType(PieceType.SEQUENCE).getPieceByType(PieceType.COMPOSITE);
+			String vectorName = call.getPieceByType(PieceType.SEQUENCE).toString().trim();
+			if (vectorName.equals(jsPattern.getPieces().get(3).toString().trim())) {
+				return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+			}
+		}
+
 		if (javaPattern.getPieces().get(3).getPieceType() != jsPattern.getPieces().get(3).getPieceType()) {
 			return null;
 		}

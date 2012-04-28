@@ -15,6 +15,7 @@ import codeconverter.javaJsComparator.codePatterns.IsolatedKeywordsComparator;
 import codeconverter.javaJsComparator.codePatterns.MethodAccessComparator;
 import codeconverter.javaJsComparator.codePatterns.MethodDeclarationComparator;
 import codeconverter.javaJsComparator.codePatterns.OpenGlGenBuffersMethodComparator;
+import codeconverter.javaJsComparator.codePatterns.OpenGlGenTexturesMethodComparator;
 import codeconverter.javaJsComparator.codePatterns.OpenGlMethodAccessComparator;
 import codeconverter.javaJsComparator.codePatterns.ReturnComparator;
 import codeconverter.javaJsComparator.codePatterns.VariableAssignmentComparator;
@@ -44,6 +45,7 @@ public class JavaJsCodePatternComparators {
 		comparators.add(new AttributeAndVariableDeclarationComparator());
 		comparators.add(new AttributeAndVariableDeclarationAndAssignmentComparator());
 		comparators.add(new OpenGlGenBuffersMethodComparator());
+		comparators.add(new OpenGlGenTexturesMethodComparator());
 
 		return comparators;
 	}
