@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.FloatBuffer;
+import java.util.Arrays;
 
 import javax.media.opengl.GL2;
 
@@ -125,8 +126,8 @@ public class Test_va2Drawer {
 
 		gl.glGenBuffers(1, pyramidVertexIndexBuffer, 0);
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer[0]);
-		int[] pyramidVertexIndices = { 0, 1, 2, 3, 5, 4, 6, 7, 8, 9, 10, 11 };
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, pyramidVertexIndices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(pyramidVertexIndices), GL2.GL_STATIC_DRAW);
+		short[] pyramidVertexIndices = { 0, 1, 2, 3, 5, 4, 6, 7, 8, 9, 10, 11 };
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, pyramidVertexIndices.length * BufferUtil.SIZEOF_SHORT, BufferUtil.newShortBuffer(pyramidVertexIndices), GL2.GL_STATIC_DRAW);
 		pyramidVertexIndexBuffer[1] = 1;
 		pyramidVertexIndexBuffer[2] = 12;
 
@@ -153,8 +154,8 @@ public class Test_va2Drawer {
 
 		gl.glGenBuffers(1, cubeVertexIndexBuffer, 0);
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0]);
-		int[] cubeVertexIndices = { 0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 11, 12, 13, 14, 12, 14, 15 };
-		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndices.length * BufferUtil.SIZEOF_INT, BufferUtil.newIntBuffer(cubeVertexIndices), GL2.GL_STATIC_DRAW);
+		short[] cubeVertexIndices = { 0, 1, 2, 0, 2, 3, 4, 5, 6, 4, 6, 7, 8, 9, 10, 8, 10, 11, 12, 13, 14, 12, 14, 15 };
+		gl.glBufferData(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndices.length * BufferUtil.SIZEOF_SHORT, BufferUtil.newShortBuffer(cubeVertexIndices), GL2.GL_STATIC_DRAW);
 		cubeVertexIndexBuffer[1] = 1;
 		cubeVertexIndexBuffer[2] = 24;
 
@@ -253,15 +254,11 @@ public class Test_va2Drawer {
 		seagulVertexIndexBuffer[2] = seagul.indices.length;
 	}
 
-	public void initTexture(GL2 gl) {
-		gl.glGenTextures(5, textures, 0);
+	public void initTexture(GL2 gl) throws IOException {
+		gl.glGenTextures(6, textures, 0);
 
-		TextureData tex1;
-		try {
-			tex1 = TextureIO.newTextureData(new File("images/muro.gif"), false, null);
-		} catch (IOException e) {
-			tex1 = null;
-		}
+		TextureData tex1 = TextureIO.newTextureData(new File("images/muro.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex1.getWidth(), tex1.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex1.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
@@ -270,12 +267,8 @@ public class Test_va2Drawer {
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
 		gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
 
-		TextureData tex2;
-		try {
-			tex2 = TextureIO.newTextureData(new File("images/roof.gif"), false, null);
-		} catch (IOException e) {
-			tex2 = null;
-		}
+		TextureData tex2 = TextureIO.newTextureData(new File("images/roof.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[1]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex2.getWidth(), tex2.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex2.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
@@ -284,12 +277,8 @@ public class Test_va2Drawer {
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
 		gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
 
-		TextureData tex3;
-		try {
-			tex3 = TextureIO.newTextureData(new File("images/grass.gif"), false, null);
-		} catch (IOException e) {
-			tex3 = null;
-		}
+		TextureData tex3 = TextureIO.newTextureData(new File("images/grass.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[2]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex3.getWidth(), tex3.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex3.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
@@ -298,24 +287,16 @@ public class Test_va2Drawer {
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT);
 		gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
 
-		TextureData tex4;
-		try {
-			tex4 = TextureIO.newTextureData(new File("images/door.gif"), false, null);
-		} catch (IOException e) {
-			tex4 = null;
-		}
+		TextureData tex4 = TextureIO.newTextureData(new File("images/door.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[3]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex4.getWidth(), tex4.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex4.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR_MIPMAP_LINEAR);
 		gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
 
-		TextureData tex5;
-		try {
-			tex5 = TextureIO.newTextureData(new File("images/tractor.gif"), false, null);
-		} catch (IOException e) {
-			tex5 = null;
-		}
+		TextureData tex5 = TextureIO.newTextureData(new File("images/tractor.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[4]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex5.getWidth(), tex5.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex5.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
@@ -324,12 +305,8 @@ public class Test_va2Drawer {
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_MIRRORED_REPEAT);
 		gl.glGenerateMipmap(GL2.GL_TEXTURE_2D);
 
-		TextureData tex6;
-		try {
-			tex6 = TextureIO.newTextureData(new File("images/seagul.gif"), false, null);
-		} catch (IOException e) {
-			tex6 = null;
-		}
+		TextureData tex6 = TextureIO.newTextureData(new File("images/seagul.gif"), false, null);
+		
 		gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[5]);
 		gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0, GL2.GL_RGB, tex6.getWidth(), tex6.getHeight(), 0, GL2.GL_RGB, GL2.GL_UNSIGNED_BYTE, tex6.getBuffer());
 		gl.glTexParameteri(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
@@ -372,7 +349,7 @@ public class Test_va2Drawer {
 
 		gl.glUniform3f(ambientColorUniform, 0.1f, 0.1f, 0.1f);
 
-		float[] lightLoc = { 0, 4, 2, 1 };
+		float[] lightLoc = new float[] { 0, 4, 2, 1 };
 		float[] tlightLoc = Util.multiplyMatrixVector(pMatrixv, Util.multiplyMatrixVector(mvMatrixv, lightLoc));
 		gl.glUniform3f(pointLightingLocationUniform, tlightLoc[0], tlightLoc[1], tlightLoc[2]);
 
@@ -398,7 +375,7 @@ public class Test_va2Drawer {
 
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
-		gl.glDrawElements(GL2.GL_TRIANGLES, cubeVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, cubeVertexIndexBuffer[2], GL2.GL_UNSIGNED_SHORT, 0);
 
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, doorVertexPositionBuffer[0]);
 		gl.glVertexAttribPointer(vertexPositionAttribute, doorVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0);
@@ -417,7 +394,7 @@ public class Test_va2Drawer {
 
 		gl.glDisable(GL2.GL_CULL_FACE);
 
-		float[] mvMatrixv2 = mvMatrixv.clone();
+		float[] mvMatrixv2 = Arrays.copyOf(mvMatrixv, mvMatrixv.length);
 		mvMatrixv[0] *= 10;
 		mvMatrixv[1] *= 10;
 		mvMatrixv[2] *= 10;
@@ -449,7 +426,7 @@ public class Test_va2Drawer {
 		setMatrixUniforms(gl);
 		gl.glDrawArrays(GL2.GL_TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2]);
 
-		mvMatrixv = mvMatrixv2.clone();
+		mvMatrixv = Arrays.copyOf(mvMatrixv2, mvMatrixv2.length);
 
 		gl.glEnable(GL2.GL_CULL_FACE);
 
@@ -479,9 +456,9 @@ public class Test_va2Drawer {
 
 		gl.glBindBuffer(GL2.GL_ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer[0]);
 		setMatrixUniforms(gl);
-		gl.glDrawElements(GL2.GL_TRIANGLES, pyramidVertexIndexBuffer[2], GL2.GL_UNSIGNED_INT, 0);
+		gl.glDrawElements(GL2.GL_TRIANGLES, pyramidVertexIndexBuffer[2], GL2.GL_UNSIGNED_SHORT, 0);
 
-		mvMatrixv = mvMatrixv2.clone();
+		mvMatrixv = Arrays.copyOf(mvMatrixv2, mvMatrixv2.length);
 		for (int i = 0; i < 12; i++) {
 			mvMatrixv[i] *= 0.01;
 		}

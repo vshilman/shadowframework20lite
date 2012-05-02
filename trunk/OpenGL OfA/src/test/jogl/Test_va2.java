@@ -2,6 +2,7 @@ package test.jogl;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -52,7 +53,11 @@ public class Test_va2 implements GLEventListener, KeyListener {
 		GL2 gl = arg0.getGL().getGL2();
 		drawer.initShaders(gl);
 		drawer.initBuffers(gl);
-		drawer.initTexture(gl);
+		try {
+			drawer.initTexture(gl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
