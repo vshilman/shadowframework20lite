@@ -67,7 +67,7 @@ Test_va2Drawer.prototype = {
 		vertexNormalAttribute = gl.getAttribLocation(shaderProgram, "aVertexNormal");
 		gl.enableVertexAttribArray(vertexNormalAttribute);
 
-		shaderProgram.textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
+		textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
 		gl.enableVertexAttribArray(textureCoordAttribute);
 
 		pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
@@ -113,8 +113,8 @@ Test_va2Drawer.prototype = {
 
 		pyramidVertexIndexBuffer[0] = gl.createBuffer();
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer[0]);
-		var cubeVertexIndices = [ 0, 1, 2, 3, 5, 4, 6, 7, 8, 9, 10, 11 ];
-		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW);
+		var pyramidVertexIndices = [ 0, 1, 2, 3, 5, 4, 6, 7, 8, 9, 10, 11 ];
+		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(pyramidVertexIndices), gl.STATIC_DRAW);
 		pyramidVertexIndexBuffer[1] = 1;
 		pyramidVertexIndexBuffer[2] = 12;
 
@@ -333,21 +333,24 @@ Test_va2Drawer.prototype = {
 		var cy = Math.cos(-yaw);
 		var sy = Math.sin(-yaw);
 
-		pMatrix = new Float32Array([ 2.4142136573791504, 0, 0, 0, 0, 2.4142136573791504, 0, 0, 0, 0, -1.0020020008087158, -1, 0, 0, -0.20020020008087158, 0 ]);
-
-		mvMatrix = new Float32Array([ cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, -cy * xPos - sy * zPos, -cx - sx * sy * xPos - cx * yPos + cy * sx * zPos, -sx + cx * sy * xPos - sx * yPos - cx * cy * zPos, 1 ]);
-
-		normalMatrix = new Float32Array(9);
+		var pMatrixv = new Float32Array([ 2.4142136573791504, 0, 0, 0, 0, 2.4142136573791504, 0, 0, 0, 0, -1.0020020008087158, -1, 0, 0, -0.20020020008087158, 0 ]);
+		pMatrix = pMatrixv;
+		
+		var mvMatrixv = new Float32Array([ cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, -cy * xPos - sy * zPos, -cx - sx * sy * xPos - cx * yPos + cy * sx * zPos, -sx + cx * sy * xPos - sx * yPos - cx * cy * zPos, 1 ]);
+		mvMatrix = mvMatrixv;
+		
+		var normalMatrixv = new Float32Array(9);
 		for ( var i = 0; i < 3; i++) {
 			for ( var j = 0; j < 3; j++) {
-				normalMatrix[i + 3 * j] = mvMatrix[i + 4 * j];
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
 			}
 		}
+		normalMatrix = normalMatrixv;
 
 		gl.uniform3f(ambientColorUniform, 0.1, 0.1, 0.1);
 
 		var lightLoc = new Float32Array([ 0, 4, 2, 1 ]);
-		var tlightLoc = multiplyMatrixVector(pMatrix, multiplyMatrixVector(mvMatrix, lightLoc));
+		var tlightLoc = multiplyMatrixVector(pMatrixv, multiplyMatrixVector(mvMatrixv, lightLoc));
 		gl.uniform3f(pointLightingLocationUniform, tlightLoc[0], tlightLoc[1], tlightLoc[2]);
 
 		gl.uniform3f(pointLightingDiffuseColorUniform, 0.5, 0.5, 0.5);
@@ -383,7 +386,6 @@ Test_va2Drawer.prototype = {
 		gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexTextureCoordBuffer[0]);
 		gl.vertexAttribPointer(textureCoordAttribute, doorVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0);
 
-		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, textures[3]);
 		gl.uniform1i(samplerUniform, 0);
 
@@ -392,20 +394,22 @@ Test_va2Drawer.prototype = {
 
 		gl.disable(gl.CULL_FACE);
 
-		mvMatrix2 = new Float32Array(mvMatrix);
-		mvMatrix[0] *= 10;
-		mvMatrix[1] *= 10;
-		mvMatrix[2] *= 10;
-		mvMatrix[8] *= 10;
-		mvMatrix[9] *= 10;
-		mvMatrix[10] *= 10;
-
-		normalMatrix = new Float32Array(9);
+		var mvMatrixv2 = new Float32Array(mvMatrixv);
+		mvMatrixv[0] *= 10;
+		mvMatrixv[1] *= 10;
+		mvMatrixv[2] *= 10;
+		mvMatrixv[8] *= 10;
+		mvMatrixv[9] *= 10;
+		mvMatrixv[10] *= 10;
+		mvMatrix = mvMatrixv;
+		
+		normalMatrixv = new Float32Array(9);
 		for ( var i = 0; i < 3; i++) {
 			for ( var j = 0; j < 3; j++) {
-				normalMatrix[i + 3 * j] = mvMatrix[i + 4 * j];
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
 			}
 		}
+		normalMatrix = normalMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, greenVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
@@ -416,26 +420,27 @@ Test_va2Drawer.prototype = {
 		gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexTextureCoordBuffer[0]);
 		gl.vertexAttribPointer(textureCoordAttribute, greenVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0);
 
-		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, textures[2]);
 		gl.uniform1i(samplerUniform, 0);
 
 		this.setMatrixUniforms(gl);
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2]);
 
-		mvMatrix = new Float32Array(mvMatrix2);
+		mvMatrixv = new Float32Array(mvMatrixv2);
 
 		gl.enable(gl.CULL_FACE);
 
-		mvMatrix[13] += 2 * cx;
-		mvMatrix[14] += 2 * sx;
-
-		normalMatrix = new Float32Array(9);
+		mvMatrixv[13] += 2 * cx;
+		mvMatrixv[14] += 2 * sx;
+		mvMatrix = mvMatrixv;
+		
+		normalMatrixv = new Float32Array(9);
 		for ( var i = 0; i < 3; i++) {
 			for ( var j = 0; j < 3; j++) {
-				normalMatrix[i + 3 * j] = mvMatrix[i + 4 * j];
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
 			}
 		}
+		normalMatrix = normalMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
@@ -446,7 +451,6 @@ Test_va2Drawer.prototype = {
 		gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexTextureCoordBuffer[0]);
 		gl.vertexAttribPointer(textureCoordAttribute, pyramidVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0);
 
-		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, textures[1]);
 		gl.uniform1i(samplerUniform, 0);
 
@@ -454,23 +458,25 @@ Test_va2Drawer.prototype = {
 		this.setMatrixUniforms(gl);
 		gl.drawElements(gl.TRIANGLES, pyramidVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0);
 
-		mvMatrix = new Float32Array(mvMatrix2);
+		mvMatrixv = new Float32Array(mvMatrixv2);
 		for ( var i = 0; i < 12; i++) {
-			mvMatrix[i] *= 0.01;
+			mvMatrixv[i] *= 0.01;
 		}
 		var xt = -11 + tractorx;
 		var yt = -1;
 		var zt = 4;
-		mvMatrix[12] += cy * xt + sy * zt;
-		mvMatrix[13] += sx * sy * xt + cx * yt - cy * sx * zt;
-		mvMatrix[14] += -cx * sy * xt + sx * yt + cx * cy * zt;
-
-		normalMatrix = new Float32Array(9);
+		mvMatrixv[12] += cy * xt + sy * zt;
+		mvMatrixv[13] += sx * sy * xt + cx * yt - cy * sx * zt;
+		mvMatrixv[14] += -cx * sy * xt + sx * yt + cx * cy * zt;
+		mvMatrix = mvMatrixv;
+		
+		normalMatrixv = new Float32Array(9);
 		for ( var i = 0; i < 3; i++) {
 			for ( var j = 0; j < 3; j++) {
-				normalMatrix[i + 3 * j] = mvMatrix[i + 4 * j];
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
 			}
 		}
+		normalMatrix = normalMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, tractorVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, tractorVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
@@ -488,36 +494,38 @@ Test_va2Drawer.prototype = {
 		this.setMatrixUniforms(gl);
 		gl.drawElements(gl.TRIANGLES, tractorVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0);
 
-		mvMatrix = mvMatrix2;
+		mvMatrixv = mvMatrixv2;
 		var cs = Math.cos(seagulAngle);
 		var ss = Math.sin(seagulAngle);
 		xt = -3 * cs - xPos;
 		yt = 2 - yPos;
 		zt = 4 * ss - zPos;
 		var s = 0.3;
-		mvMatrix[0] = cs * cy * s - s * ss * sy;
-		mvMatrix[1] = cy * s * ss * sx + cs * s * sx * sy;
-		mvMatrix[2] = -cx * cy * s * ss - cs * cx * s * sy;
-		mvMatrix[3] = 0;
-		mvMatrix[4] = 0;
-		mvMatrix[5] = cx * s;
-		mvMatrix[6] = s * sx;
-		mvMatrix[7] = 0;
-		mvMatrix[8] = cy * s * ss + cs * s * sy;
-		mvMatrix[9] = -cs * cy * s * sx + s * ss * sx * sy;
-		mvMatrix[10] = cs * cx * cy * s - cx * s * ss * sy;
-		mvMatrix[11] = 0;
-		mvMatrix[12] = cy * xt + sy * zt;
-		mvMatrix[13] = -cx + sx * sy * xt + cx * yt - cy * sx * zt;
-		mvMatrix[14] = -sx - cx * sy * xt + sx * yt + cx * cy * zt;
-		mvMatrix[15] = 1;
-
-		normalMatrix = new Float32Array(9);
+		mvMatrixv[0] = cs * cy * s - s * ss * sy;
+		mvMatrixv[1] = cy * s * ss * sx + cs * s * sx * sy;
+		mvMatrixv[2] = -cx * cy * s * ss - cs * cx * s * sy;
+		mvMatrixv[3] = 0;
+		mvMatrixv[4] = 0;
+		mvMatrixv[5] = cx * s;
+		mvMatrixv[6] = s * sx;
+		mvMatrixv[7] = 0;
+		mvMatrixv[8] = cy * s * ss + cs * s * sy;
+		mvMatrixv[9] = -cs * cy * s * sx + s * ss * sx * sy;
+		mvMatrixv[10] = cs * cx * cy * s - cx * s * ss * sy;
+		mvMatrixv[11] = 0;
+		mvMatrixv[12] = cy * xt + sy * zt;
+		mvMatrixv[13] = -cx + sx * sy * xt + cx * yt - cy * sx * zt;
+		mvMatrixv[14] = -sx - cx * sy * xt + sx * yt + cx * cy * zt;
+		mvMatrixv[15] = 1;
+		mvMatrix = mvMatrixv;
+		
+		normalMatrixv = new Float32Array(9);
 		for ( var i = 0; i < 3; i++) {
 			for ( var j = 0; j < 3; j++) {
-				normalMatrix[i + 3 * j] = mvMatrix[i + 4 * j];
+				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
 			}
 		}
+		normalMatrix = normalMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, seagulVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, seagulVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);

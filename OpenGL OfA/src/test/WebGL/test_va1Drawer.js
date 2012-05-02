@@ -35,7 +35,7 @@ Test_va1Drawer.prototype = {
 		vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
 		gl.enableVertexAttribArray(vertexPositionAttribute);
 
-		shaderProgram.textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
+		textureCoordAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
 		gl.enableVertexAttribArray(textureCoordAttribute);
 
 		pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
@@ -184,8 +184,9 @@ Test_va1Drawer.prototype = {
 
 		pMatrix = new Float32Array([ 2.4142136573791504, 0, 0, 0, 0, 2.4142136573791504, 0, 0, 0, 0, -1.0020020008087158, -1, 0, 0, -0.20020020008087158, 0 ]);
 
-		mvMatrix = new Float32Array([ cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, 0, -cx, zoom - sx, 1 ]);
-
+		var mvMatrixv = new Float32Array([ cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, 0, -cx, zoom - sx, 1 ]);
+		mvMatrix = mvMatrixv;
+		
 		gl.frontFace(gl.CCW);
 		gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, cubeVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
@@ -207,7 +208,6 @@ Test_va1Drawer.prototype = {
 		gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexTextureCoordBuffer[0]);
 		gl.vertexAttribPointer(textureCoordAttribute, doorVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0);
 
-		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, textures[3]);
 		gl.uniform1i(samplerUniform, 0);
 
@@ -216,13 +216,14 @@ Test_va1Drawer.prototype = {
 
 		gl.disable(gl.CULL_FACE);
 
-		mvMatrix2 = new Float32Array(mvMatrix);
-		mvMatrix[0] *= 10;
-		mvMatrix[1] *= 10;
-		mvMatrix[2] *= 10;
-		mvMatrix[8] *= 10;
-		mvMatrix[9] *= 10;
-		mvMatrix[10] *= 10;
+		var mvMatrixv2 = new Float32Array(mvMatrixv);
+		mvMatrixv[0] *= 10;
+		mvMatrixv[1] *= 10;
+		mvMatrixv[2] *= 10;
+		mvMatrixv[8] *= 10;
+		mvMatrixv[9] *= 10;
+		mvMatrixv[10] *= 10;
+		mvMatrix = mvMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, greenVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
@@ -230,18 +231,18 @@ Test_va1Drawer.prototype = {
 		gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexTextureCoordBuffer[0]);
 		gl.vertexAttribPointer(textureCoordAttribute, greenVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0);
 
-		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, textures[2]);
 		gl.uniform1i(samplerUniform, 0);
 
 		this.setMatrixUniforms(gl);
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2]);
-		mvMatrix = mvMatrix2;
+		mvMatrixv = mvMatrixv2;
 
 		gl.enable(gl.CULL_FACE);
 
-		mvMatrix[13] += 2 * cx;
-		mvMatrix[14] += 2 * sx;
+		mvMatrixv[13] += 2 * cx;
+		mvMatrixv[14] += 2 * sx;
+		mvMatrix = mvMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0]);
 		gl.vertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], gl.FLOAT, false, 0, 0);
@@ -249,7 +250,6 @@ Test_va1Drawer.prototype = {
 		gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexTextureCoordBuffer[0]);
 		gl.vertexAttribPointer(textureCoordAttribute, pyramidVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0);
 
-		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, textures[1]);
 		gl.uniform1i(samplerUniform, 0);
 
@@ -317,9 +317,6 @@ Test_va1Drawer.prototype = {
 	},
 
 	keyPressed : function(e) {
-		if (e.keyCode == 87) {
-			wrapper = wrapper == 2 ? 0 : (wrapper + 1);
-		}
 		this.setCommands(e, true);
 	},
 

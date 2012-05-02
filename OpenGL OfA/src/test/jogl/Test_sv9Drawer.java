@@ -107,8 +107,8 @@ public class Test_sv9Drawer {
 				float x = cosPhi * sinTheta;
 				float y = cosTheta;
 				float z = sinPhi * sinTheta;
-				float u = 1 - ((float) j / longitudeBands);
-				float v = 1 - ((float) i / latitudeBands);
+				float u = 1 - (float) j / longitudeBands;
+				float v = 1 - (float) i / latitudeBands;
 
 				int index = 3 * (j + i * (longitudeBands + 1));
 				vertices[index] = radius * x;
