@@ -59,6 +59,22 @@ public class VariableDeclarationAndAssignmentComparator implements CodePatternCo
 
 					if (javaPattern.getPieceByType(PieceType.CALL).getPieceByType(PieceType.SEQUENCE)
 							.getPieceByType(PieceType.COMPOSITE).getPieceByType(PieceType.COMPOSITE)
+							.toString().trim().equals("Arrays.copyOf")
+							&& jsPattern.getPieceByType(PieceType.NEW_STATEMENT)
+									.getPieceByType(PieceType.TYPE).toString().trim().equals("Float32Array")) {
+
+						if (new ExpressionComparator().compare(javaPattern.getPieceByType(PieceType.CALL)
+								.getPieceByType(PieceType.SEQUENCE).getPieceByType(PieceType.COMPOSITE)
+								.getPieceByType(PieceType.SEQUENCE).getPieceByType(PieceType.EXPRESSION),
+								jsPattern.getPieceByType(PieceType.NEW_STATEMENT).getPieceByType(PieceType.COMPOSITE)
+										.getPieceByType(PieceType.SEQUENCE)
+										.getPieceByType(PieceType.EXPRESSION))) {
+							return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+						}
+					}
+
+					if (javaPattern.getPieceByType(PieceType.CALL).getPieceByType(PieceType.SEQUENCE)
+							.getPieceByType(PieceType.COMPOSITE).getPieceByType(PieceType.COMPOSITE)
 							.toString().trim().equals("TextureIO.newTextureData")
 							&& jsPattern.getPieceByType(PieceType.NEW_STATEMENT)
 									.getPieceByType(PieceType.TYPE).toString().trim().equals("Image")) {

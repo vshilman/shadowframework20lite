@@ -24,7 +24,8 @@ public class NameComparator extends CodePieceComparator {
 			}
 		}
 		if (javaPieces.get(0).toString().equals("int") || javaPieces.get(0).toString().equals("float")
-				|| javaPieces.get(0).toString().equals("short")) {
+				|| javaPieces.get(0).toString().equals("short")
+				|| javaPieces.get(0).toString().equals("boolean")) {
 			if (jsPieces.get(0).toString().equals("Array")) {
 				return true;
 			}

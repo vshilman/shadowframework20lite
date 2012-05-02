@@ -17575,7 +17575,7 @@ EXPRESSION:3
 		VALUE:3
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer [ 2 ]  = vertices.length /3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer [ 2 ]  = normals.length /3
 NAME:sphereVertexNormalBuffer [ 2 ]
 		NAME:sphereVertexNormalBuffer
 		COMPOSITE:[ 2 ]
@@ -17585,9 +17585,9 @@ NAME:sphereVertexNormalBuffer [ 2 ]
 				KEYWORD:]
 IGNORED:
 KEYWORD:=
-EXPRESSION:vertices.length /3
-		VARIABLE:vertices.length 
-				NAME:vertices.length
+EXPRESSION:normals.length /3
+		VARIABLE:normals.length 
+				NAME:normals.length
 				IGNORED:
 		OPERATOR:/
 		VALUE:3
@@ -17997,11 +17997,12 @@ NEW_STATEMENT:new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.41421365737915
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
-NAME:mvMatrix 
-		NAME:mvMatrix
-		IGNORED:
-IGNORED:
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
+VARIABLE:var mvMatrixv 
+		KEYWORD:var
+		NAME:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 		KEYWORD:new 
@@ -18095,11 +18096,24 @@ NEW_STATEMENT:new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*s
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = new  Float32Array  ( 9 )
-NAME:normalMatrix 
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrixv 
+NAME:mvMatrix 
+		NAME:mvMatrix
 		IGNORED:
 IGNORED:
+KEYWORD:=
+EXPRESSION:mvMatrixv 
+		VARIABLE:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
+
+
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var normalMatrixv  = new  Float32Array  ( 9 )
+VARIABLE:var normalMatrixv 
+		KEYWORD:var
+		NAME:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( 9 )
 		KEYWORD:new 
@@ -18176,9 +18190,9 @@ SEQUENCE:j  ++
 KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix [ i +3*j  ]  = mvMatrix [ i +4*j  ]
-NAME:normalMatrix [ i +3*j  ]
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+NAME:normalMatrixv [ i +3*j  ]
+		NAME:normalMatrixv
 		COMPOSITE:[ i +3*j  ]
 				KEYWORD:[
 				EXPRESSION:i +3*j 
@@ -18194,9 +18208,9 @@ NAME:normalMatrix [ i +3*j  ]
 				KEYWORD:]
 IGNORED:
 KEYWORD:=
-EXPRESSION:mvMatrix [ i +4*j  ]
-		VARIABLE:mvMatrix [ i +4*j  ]
-				NAME:mvMatrix
+EXPRESSION:mvMatrixv [ i +4*j  ]
+		VARIABLE:mvMatrixv [ i +4*j  ]
+				NAME:mvMatrixv
 				COMPOSITE:[ i +4*j  ]
 						KEYWORD:[
 						EXPRESSION:i +4*j 
@@ -18210,6 +18224,18 @@ EXPRESSION:mvMatrix [ i +4*j  ]
 										NAME:j
 										IGNORED:
 						KEYWORD:]
+
+
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = normalMatrixv 
+NAME:normalMatrix 
+		NAME:normalMatrix
+		IGNORED:
+IGNORED:
+KEYWORD:=
+EXPRESSION:normalMatrixv 
+		VARIABLE:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 
 
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. frontFace ( gl. CW )
@@ -20531,11 +20557,12 @@ NEW_STATEMENT:new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.41421365737915
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
-NAME:mvMatrix 
-		NAME:mvMatrix
-		IGNORED:
-IGNORED:
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
+VARIABLE:var mvMatrixv 
+		KEYWORD:var
+		NAME:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 		KEYWORD:new 
@@ -20629,11 +20656,24 @@ NEW_STATEMENT:new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*s
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = new  Float32Array  ( 9 )
-NAME:normalMatrix 
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrixv 
+NAME:mvMatrix 
+		NAME:mvMatrix
 		IGNORED:
 IGNORED:
+KEYWORD:=
+EXPRESSION:mvMatrixv 
+		VARIABLE:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
+
+
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var normalMatrixv  = new  Float32Array  ( 9 )
+VARIABLE:var normalMatrixv 
+		KEYWORD:var
+		NAME:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( 9 )
 		KEYWORD:new 
@@ -20710,9 +20750,9 @@ SEQUENCE:j  ++
 KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix [ i +3*j  ]  = mvMatrix [ i +4*j  ]
-NAME:normalMatrix [ i +3*j  ]
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+NAME:normalMatrixv [ i +3*j  ]
+		NAME:normalMatrixv
 		COMPOSITE:[ i +3*j  ]
 				KEYWORD:[
 				EXPRESSION:i +3*j 
@@ -20728,9 +20768,9 @@ NAME:normalMatrix [ i +3*j  ]
 				KEYWORD:]
 IGNORED:
 KEYWORD:=
-EXPRESSION:mvMatrix [ i +4*j  ]
-		VARIABLE:mvMatrix [ i +4*j  ]
-				NAME:mvMatrix
+EXPRESSION:mvMatrixv [ i +4*j  ]
+		VARIABLE:mvMatrixv [ i +4*j  ]
+				NAME:mvMatrixv
 				COMPOSITE:[ i +4*j  ]
 						KEYWORD:[
 						EXPRESSION:i +4*j 
@@ -20744,6 +20784,18 @@ EXPRESSION:mvMatrix [ i +4*j  ]
 										NAME:j
 										IGNORED:
 						KEYWORD:]
+
+
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = normalMatrixv 
+NAME:normalMatrix 
+		NAME:normalMatrix
+		IGNORED:
+IGNORED:
+KEYWORD:=
+EXPRESSION:normalMatrixv 
+		VARIABLE:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 
 
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. frontFace ( gl. CCW )
@@ -23720,7 +23772,7 @@ EXPRESSION:3
 		VALUE:3
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer [ 2 ]  = vertices.length /3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer [ 2 ]  = normals.length /3
 NAME:sphereVertexNormalBuffer [ 2 ]
 		NAME:sphereVertexNormalBuffer
 		COMPOSITE:[ 2 ]
@@ -23730,9 +23782,9 @@ NAME:sphereVertexNormalBuffer [ 2 ]
 				KEYWORD:]
 IGNORED:
 KEYWORD:=
-EXPRESSION:vertices.length /3
-		VARIABLE:vertices.length 
-				NAME:vertices.length
+EXPRESSION:normals.length /3
+		VARIABLE:normals.length 
+				NAME:normals.length
 				IGNORED:
 		OPERATOR:/
 		VALUE:3
@@ -25081,11 +25133,12 @@ NEW_STATEMENT:new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.41421365737915
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = new  Float32Array  ( [ 10,0,0,0,0,10,0,0,0,0,10,0,0,0,zoom ,1 ] )
-NAME:mvMatrix 
-		NAME:mvMatrix
-		IGNORED:
-IGNORED:
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var mvMatrixv  = new  Float32Array  ( [ 10,0,0,0,0,10,0,0,0,0,10,0,0,0,zoom ,1 ] )
+VARIABLE:var mvMatrixv 
+		KEYWORD:var
+		NAME:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( [ 10,0,0,0,0,10,0,0,0,0,10,0,0,0,zoom ,1 ] )
 		KEYWORD:new 
@@ -25151,11 +25204,24 @@ NEW_STATEMENT:new  Float32Array  ( [ 10,0,0,0,0,10,0,0,0,0,10,0,0,0,zoom ,1 ] )
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = new  Float32Array  ( 9 )
-NAME:normalMatrix 
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrixv 
+NAME:mvMatrix 
+		NAME:mvMatrix
 		IGNORED:
 IGNORED:
+KEYWORD:=
+EXPRESSION:mvMatrixv 
+		VARIABLE:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
+
+
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var normalMatrixv  = new  Float32Array  ( 9 )
+VARIABLE:var normalMatrixv 
+		KEYWORD:var
+		NAME:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( 9 )
 		KEYWORD:new 
@@ -25232,9 +25298,9 @@ SEQUENCE:j  ++
 KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix [ i +3*j  ]  = mvMatrix [ i +4*j  ]
-NAME:normalMatrix [ i +3*j  ]
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+NAME:normalMatrixv [ i +3*j  ]
+		NAME:normalMatrixv
 		COMPOSITE:[ i +3*j  ]
 				KEYWORD:[
 				EXPRESSION:i +3*j 
@@ -25250,9 +25316,9 @@ NAME:normalMatrix [ i +3*j  ]
 				KEYWORD:]
 IGNORED:
 KEYWORD:=
-EXPRESSION:mvMatrix [ i +4*j  ]
-		VARIABLE:mvMatrix [ i +4*j  ]
-				NAME:mvMatrix
+EXPRESSION:mvMatrixv [ i +4*j  ]
+		VARIABLE:mvMatrixv [ i +4*j  ]
+				NAME:mvMatrixv
 				COMPOSITE:[ i +4*j  ]
 						KEYWORD:[
 						EXPRESSION:i +4*j 
@@ -25266,6 +25332,18 @@ EXPRESSION:mvMatrix [ i +4*j  ]
 										NAME:j
 										IGNORED:
 						KEYWORD:]
+
+
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = normalMatrixv 
+NAME:normalMatrix 
+		NAME:normalMatrix
+		IGNORED:
+IGNORED:
+KEYWORD:=
+EXPRESSION:normalMatrixv 
+		VARIABLE:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 
 
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
@@ -25557,9 +25635,9 @@ OPENGL_CALL:gl. drawArrays ( gl. TRIANGLE_STRIP, 0, greenVertexPositionBuffer [ 
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,zoom ,1 ] )
-NAME:mvMatrix 
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv   = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,zoom ,1 ] )
+NAME:mvMatrixv 
+		NAME:mvMatrixv
 		IGNORED:
 IGNORED:
 KEYWORD:=
@@ -25627,51 +25705,44 @@ NEW_STATEMENT:new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,zoom ,1 ] )
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   =  multiplyMatrix  ( rotationMatrix , mvMatrix  )
-NAME:mvMatrix 
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv   =  multiplyMatrix  ( rotationMatrix , mvMatrixv  )
+NAME:mvMatrixv 
+		NAME:mvMatrixv
 		IGNORED:
 IGNORED:
 KEYWORD:=
-EXPRESSION: multiplyMatrix  ( rotationMatrix , mvMatrix  )
-		CALL: multiplyMatrix  ( rotationMatrix , mvMatrix  )
+EXPRESSION: multiplyMatrix  ( rotationMatrix , mvMatrixv  )
+		CALL: multiplyMatrix  ( rotationMatrix , mvMatrixv  )
 				IGNORED:
-				SEQUENCE:multiplyMatrix  ( rotationMatrix , mvMatrix  )
-						COMPOSITE:multiplyMatrix  ( rotationMatrix , mvMatrix  )
+				SEQUENCE:multiplyMatrix  ( rotationMatrix , mvMatrixv  )
+						COMPOSITE:multiplyMatrix  ( rotationMatrix , mvMatrixv  )
 								COMPOSITE:multiplyMatrix 
 										NAME:multiplyMatrix
 										IGNORED:
 								KEYWORD:(
-								SEQUENCE:rotationMatrix , mvMatrix 
+								SEQUENCE:rotationMatrix , mvMatrixv 
 										EXPRESSION:rotationMatrix 
 												VARIABLE:rotationMatrix 
 														NAME:rotationMatrix
 														IGNORED:
 										KEYWORD:, 
-										EXPRESSION:mvMatrix 
-												VARIABLE:mvMatrix 
-														NAME:mvMatrix
+										EXPRESSION:mvMatrixv 
+												VARIABLE:mvMatrixv 
+														NAME:mvMatrixv
 														IGNORED:
 								KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = new  Float32Array  ( 9 )
-NAME:normalMatrix 
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrixv 
+NAME:mvMatrix 
+		NAME:mvMatrix
 		IGNORED:
 IGNORED:
 KEYWORD:=
-NEW_STATEMENT:new  Float32Array  ( 9 )
-		KEYWORD:new 
-		TYPE:Float32Array 
-				TYPE:Float32Array
+EXPRESSION:mvMatrixv 
+		VARIABLE:mvMatrixv 
+				NAME:mvMatrixv
 				IGNORED:
-		COMPOSITE:( 9 )
-				KEYWORD:(
-				SEQUENCE:9
-						EXPRESSION:9
-								VALUE:9
-				KEYWORD:)
 
 
 [FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( var i  = 0 ; i  < 3 ; i  ++  )
@@ -25736,9 +25807,9 @@ SEQUENCE:j  ++
 KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix [ i +3*j  ]  = mvMatrix [ i +4*j  ]
-NAME:normalMatrix [ i +3*j  ]
-		NAME:normalMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+NAME:normalMatrixv [ i +3*j  ]
+		NAME:normalMatrixv
 		COMPOSITE:[ i +3*j  ]
 				KEYWORD:[
 				EXPRESSION:i +3*j 
@@ -25754,9 +25825,9 @@ NAME:normalMatrix [ i +3*j  ]
 				KEYWORD:]
 IGNORED:
 KEYWORD:=
-EXPRESSION:mvMatrix [ i +4*j  ]
-		VARIABLE:mvMatrix [ i +4*j  ]
-				NAME:mvMatrix
+EXPRESSION:mvMatrixv [ i +4*j  ]
+		VARIABLE:mvMatrixv [ i +4*j  ]
+				NAME:mvMatrixv
 				COMPOSITE:[ i +4*j  ]
 						KEYWORD:[
 						EXPRESSION:i +4*j 
@@ -25770,6 +25841,18 @@ EXPRESSION:mvMatrix [ i +4*j  ]
 										NAME:j
 										IGNORED:
 						KEYWORD:]
+
+
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix   = normalMatrixv 
+NAME:normalMatrix 
+		NAME:normalMatrix
+		IGNORED:
+IGNORED:
+KEYWORD:=
+EXPRESSION:normalMatrixv 
+		VARIABLE:normalMatrixv 
+				NAME:normalMatrixv
+				IGNORED:
 
 
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. bindBuffer ( gl. ARRAY_BUFFER, sphereVertexPositionBuffer [ 0 ] )
@@ -27172,9 +27255,9 @@ OPENGL_CALL:gl. enableVertexAttribArray ( vertexPositionAttribute  )
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
-NAME:shaderProgram.textureCoordAttribute 
-		NAME:shaderProgram.textureCoordAttribute
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
+NAME:textureCoordAttribute 
+		NAME:textureCoordAttribute
 		IGNORED:
 IGNORED:
 KEYWORD:=
@@ -30082,11 +30165,12 @@ NEW_STATEMENT:new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.41421365737915
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,-cx,zoom -sx ,1 ] )
-NAME:mvMatrix 
-		NAME:mvMatrix
-		IGNORED:
-IGNORED:
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,-cx,zoom -sx ,1 ] )
+VARIABLE:var mvMatrixv 
+		KEYWORD:var
+		NAME:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
 KEYWORD:=
 NEW_STATEMENT:new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,-cx,zoom -sx ,1 ] )
 		KEYWORD:new 
@@ -30182,6 +30266,18 @@ NEW_STATEMENT:new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*s
 												VALUE:1
 								KEYWORD:]
 				KEYWORD:)
+
+
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrixv 
+NAME:mvMatrix 
+		NAME:mvMatrix
+		IGNORED:
+IGNORED:
+KEYWORD:=
+EXPRESSION:mvMatrixv 
+		VARIABLE:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
 
 
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. frontFace ( gl. CCW )
@@ -30557,19 +30653,6 @@ OPENGL_CALL:gl. vertexAttribPointer ( textureCoordAttribute , doorVertexTextureC
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. activeTexture ( gl. TEXTURE0 )
-OPENGL_CALL:gl. activeTexture ( gl. TEXTURE0 )
-		KEYWORD:gl.
-		NAME:activeTexture
-		KEYWORD:(
-		SEQUENCE:gl. TEXTURE0
-				EXPRESSION:gl. TEXTURE0
-						OPENGL_CONSTANT:gl. TEXTURE0
-								KEYWORD:gl.
-								NAME:TEXTURE0
-		KEYWORD:)
-
-
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, textures [ 3 ] )
 OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, textures [ 3 ] )
 		KEYWORD:gl.
@@ -30663,30 +30746,31 @@ OPENGL_CALL:gl. disable ( gl. CULL_FACE )
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix2   = new  Float32Array  ( mvMatrix  )
-NAME:mvMatrix2 
-		NAME:mvMatrix2
-		IGNORED:
-IGNORED:
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> var mvMatrixv2  = new  Float32Array  ( mvMatrixv  )
+VARIABLE:var mvMatrixv2 
+		KEYWORD:var
+		NAME:mvMatrixv2 
+				NAME:mvMatrixv2
+				IGNORED:
 KEYWORD:=
-NEW_STATEMENT:new  Float32Array  ( mvMatrix  )
+NEW_STATEMENT:new  Float32Array  ( mvMatrixv  )
 		KEYWORD:new 
 		TYPE:Float32Array 
 				TYPE:Float32Array
 				IGNORED:
-		COMPOSITE:( mvMatrix  )
+		COMPOSITE:( mvMatrixv  )
 				KEYWORD:(
-				SEQUENCE:mvMatrix 
-						EXPRESSION:mvMatrix 
-								VARIABLE:mvMatrix 
-										NAME:mvMatrix
+				SEQUENCE:mvMatrixv 
+						EXPRESSION:mvMatrixv 
+								VARIABLE:mvMatrixv 
+										NAME:mvMatrixv
 										IGNORED:
 				KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix [ 0 ] * = 10
-NAME:mvMatrix [ 0 ]
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv [ 0 ] * = 10
+NAME:mvMatrixv [ 0 ]
+		NAME:mvMatrixv
 		COMPOSITE:[ 0 ]
 				KEYWORD:[
 				EXPRESSION:0
@@ -30698,9 +30782,9 @@ EXPRESSION:10
 		VALUE:10
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix [ 1 ] * = 10
-NAME:mvMatrix [ 1 ]
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv [ 1 ] * = 10
+NAME:mvMatrixv [ 1 ]
+		NAME:mvMatrixv
 		COMPOSITE:[ 1 ]
 				KEYWORD:[
 				EXPRESSION:1
@@ -30712,9 +30796,9 @@ EXPRESSION:10
 		VALUE:10
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix [ 2 ] * = 10
-NAME:mvMatrix [ 2 ]
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv [ 2 ] * = 10
+NAME:mvMatrixv [ 2 ]
+		NAME:mvMatrixv
 		COMPOSITE:[ 2 ]
 				KEYWORD:[
 				EXPRESSION:2
@@ -30726,9 +30810,9 @@ EXPRESSION:10
 		VALUE:10
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix [ 8 ] * = 10
-NAME:mvMatrix [ 8 ]
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv [ 8 ] * = 10
+NAME:mvMatrixv [ 8 ]
+		NAME:mvMatrixv
 		COMPOSITE:[ 8 ]
 				KEYWORD:[
 				EXPRESSION:8
@@ -30740,9 +30824,9 @@ EXPRESSION:10
 		VALUE:10
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix [ 9 ] * = 10
-NAME:mvMatrix [ 9 ]
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv [ 9 ] * = 10
+NAME:mvMatrixv [ 9 ]
+		NAME:mvMatrixv
 		COMPOSITE:[ 9 ]
 				KEYWORD:[
 				EXPRESSION:9
@@ -30754,9 +30838,9 @@ EXPRESSION:10
 		VALUE:10
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix [ 10 ] * = 10
-NAME:mvMatrix [ 10 ]
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv [ 10 ] * = 10
+NAME:mvMatrixv [ 10 ]
+		NAME:mvMatrixv
 		COMPOSITE:[ 10 ]
 				KEYWORD:[
 				EXPRESSION:10
@@ -30766,6 +30850,18 @@ KEYWORD:*
 KEYWORD:=
 EXPRESSION:10
 		VALUE:10
+
+
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrixv 
+NAME:mvMatrix 
+		NAME:mvMatrix
+		IGNORED:
+IGNORED:
+KEYWORD:=
+EXPRESSION:mvMatrixv 
+		VARIABLE:mvMatrixv 
+				NAME:mvMatrixv
+				IGNORED:
 
 
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
@@ -30888,19 +30984,6 @@ OPENGL_CALL:gl. vertexAttribPointer ( textureCoordAttribute , greenVertexTexture
 		KEYWORD:)
 
 
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. activeTexture ( gl. TEXTURE0 )
-OPENGL_CALL:gl. activeTexture ( gl. TEXTURE0 )
-		KEYWORD:gl.
-		NAME:activeTexture
-		KEYWORD:(
-		SEQUENCE:gl. TEXTURE0
-				EXPRESSION:gl. TEXTURE0
-						OPENGL_CONSTANT:gl. TEXTURE0
-								KEYWORD:gl.
-								NAME:TEXTURE0
-		KEYWORD:)
-
-
 [OPENGL_CALL, LINE_OF_CODE] -------> gl. bindTexture ( gl. TEXTURE_2D, textures [ 2 ] )
 OPENGL_CALL:gl. bindTexture ( gl. TEXTURE_2D, textures [ 2 ] )
 		KEYWORD:gl.
@@ -30981,15 +31064,15 @@ OPENGL_CALL:gl. drawArrays ( gl. TRIANGLE_STRIP, 0, greenVertexPositionBuffer [ 
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrix2 
-NAME:mvMatrix 
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv   = mvMatrixv2 
+NAME:mvMatrixv 
+		NAME:mvMatrixv
 		IGNORED:
 IGNORED:
 KEYWORD:=
-EXPRESSION:mvMatrix2 
-		VARIABLE:mvMatrix2 
-				NAME:mvMatrix2
+EXPRESSION:mvMatrixv2 
+		VARIABLE:mvMatrixv2 
+				NAME:mvMatrixv2
 				IGNORED:
 
 
@@ -31006,9 +31089,9 @@ OPENGL_CALL:gl. enable ( gl. CULL_FACE )
 		KEYWORD:)
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix [ 13 ] + = 2*cx 
-NAME:mvMatrix [ 13 ]
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv [ 13 ] + = 2*cx 
+NAME:mvMatrixv [ 13 ]
+		NAME:mvMatrixv
 		COMPOSITE:[ 13 ]
 				KEYWORD:[
 				EXPRESSION:13
@@ -31024,9 +31107,9 @@ EXPRESSION:2*cx
 				IGNORED:
 
 
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix [ 14 ] + = 2*sx 
-NAME:mvMatrix [ 14 ]
-		NAME:mvMatrix
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixv [ 14 ] + = 2*sx 
+NAME:mvMatrixv [ 14 ]
+		NAME:mvMatrixv
 		COMPOSITE:[ 14 ]
 				KEYWORD:[
 				EXPRESSION:14
@@ -31039,6 +31122,18 @@ EXPRESSION:2*sx
 		OPERATOR:*
 		VARIABLE:sx 
 				NAME:sx
+				IGNORED:
+
+
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix   = mvMatrixv 
+NAME:mvMatrix 
+		NAME:mvMatrix
+		IGNORED:
+IGNORED:
+KEYWORD:=
+EXPRESSION:mvMatrixv 
+		VARIABLE:mvMatrixv 
+				NAME:mvMatrixv
 				IGNORED:
 
 
@@ -31159,19 +31254,6 @@ OPENGL_CALL:gl. vertexAttribPointer ( textureCoordAttribute , pyramidVertexTextu
 				KEYWORD:, 
 				EXPRESSION:0
 						VALUE:0
-		KEYWORD:)
-
-
-[OPENGL_CALL, LINE_OF_CODE] -------> gl. activeTexture ( gl. TEXTURE0 )
-OPENGL_CALL:gl. activeTexture ( gl. TEXTURE0 )
-		KEYWORD:gl.
-		NAME:activeTexture
-		KEYWORD:(
-		SEQUENCE:gl. TEXTURE0
-				EXPRESSION:gl. TEXTURE0
-						OPENGL_CONSTANT:gl. TEXTURE0
-								KEYWORD:gl.
-								NAME:TEXTURE0
 		KEYWORD:)
 
 
@@ -31854,49 +31936,6 @@ METHOD_VARIABLES:e
 				NAME:e
 				IGNORED:
 KEYWORD:)
-
-
-[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode ==87 )
-IGNORED:
-KEYWORD:if
-KEYWORD:(
-EXPRESSION:e.keyCode ==87
-		VARIABLE:e.keyCode 
-				NAME:e.keyCode
-				IGNORED:
-		OPERATOR:==
-		VALUE:87
-KEYWORD:)
-
-
-[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> wrapper   = wrapper ==2 ? 0 : ( wrapper +1 )
-NAME:wrapper 
-		NAME:wrapper
-		IGNORED:
-IGNORED:
-KEYWORD:=
-EXPRESSION:wrapper ==2 ? 0 : ( wrapper +1 )
-		TERNARY_OPERATOR:wrapper ==2 ? 0 : ( wrapper +1 )
-				EXPRESSION:wrapper ==2
-						VARIABLE:wrapper 
-								NAME:wrapper
-								IGNORED:
-						OPERATOR:==
-						VALUE:2
-				KEYWORD:?
-				EXPRESSION:0
-						VALUE:0
-				KEYWORD::
-				EXPRESSION:( wrapper +1 )
-						COMPOSITE:( wrapper +1 )
-								KEYWORD:(
-								EXPRESSION:wrapper +1
-										VARIABLE:wrapper 
-												NAME:wrapper
-												IGNORED:
-										OPERATOR:+
-										VALUE:1
-								KEYWORD:)
 
 
 [CALL, LINE_OF_CODE] ------->  this.setCommands  ( e , true  )
