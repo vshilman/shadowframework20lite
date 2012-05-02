@@ -36,10 +36,10 @@ public class TestFileComparator {
 			jsTests.add(JS_DIRECTORY + "test_sv" + i + "Drawer.js");
 		}
 
-		// for (int i = 1; i <= 2; i++) {
-		// javaTests.add(JAVA_DIRECTORY + "Test_va" + i + "Drawer.java");
-		// jsTests.add(JS_DIRECTORY + "test_va" + i + "Drawer.js");
-		// }
+		for (int i = 1; i <= 2; i++) {
+			javaTests.add(JAVA_DIRECTORY + "Test_va" + i + "Drawer.java");
+			jsTests.add(JS_DIRECTORY + "test_va" + i + "Drawer.js");
+		}
 
 		List<CodePatternComparator> comparators = JavaJsCodePatternComparators.getComparators();
 
@@ -80,7 +80,7 @@ public class TestFileComparator {
 									for (int l = 0; l < result[0].length; l++) {
 										logWriter.write("\t" + javaPatterns.get(result[0][l]).toString());
 										javaConfirmations[result[0][l]] = true;
-										if(l<result[0].length-1){
+										if (l < result[0].length - 1) {
 											logWriter.write(";\t");
 										}
 									}
@@ -88,7 +88,7 @@ public class TestFileComparator {
 									for (int l = 0; l < result[1].length; l++) {
 										logWriter.write("\t\t" + jsPatterns.get(result[1][l]).toString());
 										jsConfirmations[result[1][l]] = true;
-										if(l<result[1].length-1){
+										if (l < result[1].length - 1) {
 											logWriter.write(";\t");
 										}
 									}

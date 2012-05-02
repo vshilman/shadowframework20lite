@@ -1047,7 +1047,7 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	private boolean[] commands   = new  boolean  [ 6 ]   --->  		var commands  = new  Array  (  )
 	private int lastMouseX   = -1  --->  		var lastMouseX  = -1
 	private int lastMouseY   = -1  --->  		var lastMouseY  = -1
-	private float[] rotationMatrix   = new  float  [  ]   --->  		var rotationMatrix  = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1 ] )
+	private float[] rotationMatrix   = new  float  [  ] ;		1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1  --->  		var rotationMatrix  = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1 ] )
 	 public void initShaders   ( GL2 gl   )  --->  		 initShaders : function ( gl  )
 	int shaderProgram   =   Util.getShaderProgram   (  gl  ,  "shaders  / shader6.fs"  ,  "shaders  / shader6.vs"   )  --->  		var shaderProgram  =  getShaderProgram  ( gl , "shaders /shader6.fs" , "shaders /shader6.vs"  )
 	vertexPositionAttribute    =  gl . gl GetAttribLocation (  shaderProgram  ,  "aVertexPosition"   )  --->  		vertexPositionAttribute   = gl. getAttribLocation ( shaderProgram , "aVertexPosition"  )
@@ -1094,6 +1094,8 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	float x   =  cosPhi  * sinTheta    --->  		var x  = cosPhi *sinTheta 
 	float y   =  cosTheta    --->  		var y  = cosTheta 
 	float z   =  sinPhi  * sinTheta    --->  		var z  = sinPhi *sinTheta 
+	float u   = 1-( float ) j  / longitudeBands    --->  		var u  = 1-j /longitudeBands 
+	float v   = 1-( float ) i  / latitudeBands    --->  		var v  = 1-i /latitudeBands 
 	int index   = 3* (  j  + i  * (  longitudeBands  +1 ) )  --->  		var index  = 3*( j +i *( longitudeBands +1 ) )
 	vertices  [  index   ]  =  radius  * x    --->  		vertices [ index  ]  = radius *x 
 	vertices  [  index  +1 ]  =  radius  * y    --->  		vertices [ index +1 ]  = radius *y 
@@ -1199,6 +1201,7 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
 	 gl . gl Uniform1f (  alphaUniform  , 1 )  --->  		gl. uniform1f ( alphaUniform , 1 )
 	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLE_STRIP, 0,  greenVertexPositionBuffer  [ 2 ] )  --->  		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, greenVertexPositionBuffer [ 2 ] )
+	mvMatrixv    = new  float  [  ] ;		1,0,0,0,0,1,0,0,0,0,1,0,0,0, zoom  ,1  --->  		mvMatrixv   = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,zoom ,1 ] )
 	mvMatrixv    =   Util.multiplyMatrix   (  rotationMatrix  ,  mvMatrixv   )  --->  		mvMatrixv   =  multiplyMatrix  ( rotationMatrix , mvMatrixv  )
 	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
 	for ( int i   = 0 ; i   < 3 ; i   ++  )  --->  		for ( var i  = 0 ; i  < 3 ; i  ++  )
@@ -1253,12 +1256,730 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	lastMouseX    =   e.getX   (  )  --->  		lastMouseX   = e.clientX 
 	lastMouseY    =   e.getY   (  )  --->  		lastMouseY   = e.clientY 
 	unmatched javaPatterns:
-		1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-		float u   = 1- ( ( float ) j  / longitudeBands   )
-		float v   = 1- ( ( float ) i  / latitudeBands   )
-		mvMatrixv    = new  float  [  ] 
-		1,0,0,0,0,1,0,0,0,0,1,0,0,0, zoom  ,1
 	unmatched jsPatterns:
-		var u  = 1-j /longitudeBands 
-		var v  = 1-i /latitudeBands 
-		mvMatrixv   = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,zoom ,1 ] )
+
+Test_va1Drawer.java VS test_va1Drawer.js
+	public class Test_va1Drawer  --->  		Test_va1Drawer . prototype =
+	private int vertexPositionAttribute      --->  		var vertexPositionAttribute 
+	private int textureCoordAttribute      --->  		var textureCoordAttribute 
+	private int pMatrixUniform      --->  		var pMatrixUniform 
+	private int mvMatrixUniform      --->  		var mvMatrixUniform 
+	private int samplerUniform      --->  		var samplerUniform 
+	private int[] doorVertexPositionBuffer   = new  int  [ 3 ]   --->  		var doorVertexPositionBuffer  = new  Array  (  )
+	private int[] doorVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var doorVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] greenVertexPositionBuffer   = new  int  [ 3 ]   --->  		var greenVertexPositionBuffer  = new  Array  (  )
+	private int[] greenVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var greenVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] pyramidVertexPositionBuffer   = new  int  [ 3 ]   --->  		var pyramidVertexPositionBuffer  = new  Array  (  )
+	private int[] pyramidVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var pyramidVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] cubeVertexPositionBuffer   = new  int  [ 3 ]   --->  		var cubeVertexPositionBuffer  = new  Array  (  )
+	private int[] cubeVertexIndexBuffer   = new  int  [ 3 ]   --->  		var cubeVertexIndexBuffer  = new  Array  (  )
+	private int[] cubeVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var cubeVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] textures   = new  int  [ 4 ]   --->  		var textures  = new  Array  (  )
+	private FloatBuffer pMatrix      --->  		var pMatrix 
+	private FloatBuffer mvMatrix      --->  		var mvMatrix 
+	private double rAnglex   = 0  --->  		var rAnglex  = 0
+	private float speedx   = 0  --->  		var speedx  = 0
+	private double rAngley   = 0  --->  		var rAngley  = 0
+	private float speedy   = 0  --->  		var speedy  = 0
+	private float zoom   = -8  --->  		var zoom  = -8
+	private long lastTime   = 0  --->  		var lastTime  = 0
+	private long lastTime2   = 0  --->  		var lastTime2  = 0
+	private boolean[] commands   = new  boolean  [ 6 ]   --->  		var commands  = new  Array  (  )
+	 public void initShaders   ( GL2 gl   )  --->  		 initShaders : function ( gl  )
+	int shaderProgram   =   Util.getShaderProgram   (  gl  ,  "shaders  / shader2.fs"  ,  "shaders  / shader2.vs"   )  --->  		var shaderProgram  =  getShaderProgram  ( gl , "shaders /shader2.fs" , "shaders /shader2.vs"  )
+	vertexPositionAttribute    =  gl . gl GetAttribLocation (  shaderProgram  ,  "aVertexPosition"   )  --->  		vertexPositionAttribute   = gl. getAttribLocation ( shaderProgram , "aVertexPosition"  )
+	 gl . gl EnableVertexAttribArray (  vertexPositionAttribute   )  --->  		gl. enableVertexAttribArray ( vertexPositionAttribute  )
+	textureCoordAttribute    =  gl . gl GetAttribLocation (  shaderProgram  ,  "aTextureCoord"   )  --->  		textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
+	 gl . gl EnableVertexAttribArray (  textureCoordAttribute   )  --->  		gl. enableVertexAttribArray ( textureCoordAttribute  )
+	pMatrixUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uPMatrix"   )  --->  		pMatrixUniform   = gl. getUniformLocation ( shaderProgram , "uPMatrix"  )
+	mvMatrixUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uMVMatrix"   )  --->  		mvMatrixUniform   = gl. getUniformLocation ( shaderProgram , "uMVMatrix"  )
+	samplerUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uSampler"   )  --->  		samplerUniform   = gl. getUniformLocation ( shaderProgram , "uSampler"  )
+	 private void setMatrixUniforms   ( GL2 gl   )  --->  		, setMatrixUniforms : function ( gl  )
+	 gl . gl UniformMatrix4fv (  pMatrixUniform  , 16,  false  ,  pMatrix   )  --->  		gl. uniformMatrix4fv ( pMatrixUniform , false , pMatrix  )
+	 gl . gl UniformMatrix4fv (  mvMatrixUniform  , 16,  false  ,  mvMatrix   )  --->  		gl. uniformMatrix4fv ( mvMatrixUniform , false , mvMatrix  )
+	 public void initBuffers   ( GL2 gl   )  --->  		, initBuffers : function ( gl  )
+	 gl . gl GenBuffers ( 1,  pyramidVertexPositionBuffer  , 0 )  --->  		pyramidVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexPositionBuffer [ 0 ] )
+	float[] vertices1   =;		0.0f,1.0f,0.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f  --->  		var vertices1  = [ 0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices1   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices1  ), gl. STATIC_DRAW )
+	pyramidVertexPositionBuffer  [ 1 ]  = 3  --->  		pyramidVertexPositionBuffer [ 1 ]  = 3
+	pyramidVertexPositionBuffer  [ 2 ]  = 6  --->  		pyramidVertexPositionBuffer [ 2 ]  = 6
+	 gl . gl GenBuffers ( 1,  pyramidVertexTextureCoordBuffer  , 0 )  --->  		pyramidVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexTextureCoordBuffer [ 0 ] )
+	float[] textureCoords1   =;		3.0f,0.0f,0.0f,6.0f,6.0f,6.0f,0.0f,6.0f,6.0f,6.0f,0.0f,6.0f  --->  		var textureCoords1  = [ 3.0,0.0,0.0,6.0,6.0,6.0,0.0,6.0,6.0,6.0,0.0,6.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords1   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords1  ), gl. STATIC_DRAW )
+	pyramidVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		pyramidVertexTextureCoordBuffer [ 1 ]  = 2
+	pyramidVertexTextureCoordBuffer  [ 2 ]  = 6  --->  		pyramidVertexTextureCoordBuffer [ 2 ]  = 6
+	 gl . gl GenBuffers ( 1,  cubeVertexPositionBuffer  , 0 )  --->  		cubeVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
+	float[] vertices2   =;		-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f  --->  		var vertices2  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices2   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices2  ), gl. STATIC_DRAW )
+	cubeVertexPositionBuffer  [ 1 ]  = 3  --->  		cubeVertexPositionBuffer [ 1 ]  = 3
+	cubeVertexPositionBuffer  [ 2 ]  = 16  --->  		cubeVertexPositionBuffer [ 2 ]  = 16
+	 gl . gl GenBuffers ( 1,  cubeVertexTextureCoordBuffer  , 0 )  --->  		cubeVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
+	float[] textureCoords2   =;		0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,0.0f,0.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f  --->  		var textureCoords2  = [ 0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords2   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords2  ), gl. STATIC_DRAW )
+	cubeVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		cubeVertexTextureCoordBuffer [ 1 ]  = 2
+	cubeVertexTextureCoordBuffer  [ 2 ]  = 16  --->  		cubeVertexTextureCoordBuffer [ 2 ]  = 16
+	 gl . gl GenBuffers ( 1,  cubeVertexIndexBuffer  , 0 )  --->  		cubeVertexIndexBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+	short[] cubeVertexIndices   =;		0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15  --->  		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15 ]
+	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  cubeVertexIndices   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( cubeVertexIndices  ), gl. STATIC_DRAW )
+	cubeVertexIndexBuffer  [ 1 ]  = 1  --->  		cubeVertexIndexBuffer [ 1 ]  = 1
+	cubeVertexIndexBuffer  [ 2 ]  = 24  --->  		cubeVertexIndexBuffer [ 2 ]  = 24
+	 gl . gl GenBuffers ( 1,  greenVertexPositionBuffer  , 0 )  --->  		greenVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
+	float[] vertices3   =;		-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f  --->  		var vertices3  = [ -1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices3   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices3  ), gl. STATIC_DRAW )
+	greenVertexPositionBuffer  [ 1 ]  = 3  --->  		greenVertexPositionBuffer [ 1 ]  = 3
+	greenVertexPositionBuffer  [ 2 ]  = 4  --->  		greenVertexPositionBuffer [ 2 ]  = 4
+	 gl . gl GenBuffers ( 1,  greenVertexTextureCoordBuffer  , 0 )  --->  		greenVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexTextureCoordBuffer [ 0 ] )
+	float[] textureCoords3   =;		0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f  --->  		var textureCoords3  = [ 0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords3   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords3  ), gl. STATIC_DRAW )
+	greenVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		greenVertexTextureCoordBuffer [ 1 ]  = 2
+	greenVertexTextureCoordBuffer  [ 2 ]  = 4  --->  		greenVertexTextureCoordBuffer [ 2 ]  = 4
+	 gl . gl GenBuffers ( 1,  doorVertexPositionBuffer  , 0 )  --->  		doorVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexPositionBuffer [ 0 ] )
+	float[] vertices4   =;		-0.2f,-1.0f,1.001f,0.2f,-1.0f,1.001f,-0.2f,0.0f,1.001f,0.2f,0.0f,1.001f  --->  		var vertices4  = [ -0.2,-1.0,1.001,0.2,-1.0,1.001,-0.2,0.0,1.001,0.2,0.0,1.001 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices4   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices4  ), gl. STATIC_DRAW )
+	doorVertexPositionBuffer  [ 1 ]  = 3  --->  		doorVertexPositionBuffer [ 1 ]  = 3
+	doorVertexPositionBuffer  [ 2 ]  = 4  --->  		doorVertexPositionBuffer [ 2 ]  = 4
+	 gl . gl GenBuffers ( 1,  doorVertexTextureCoordBuffer  , 0 )  --->  		doorVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexTextureCoordBuffer [ 0 ] )
+	float[] textureCoords4   =;		0.0f,1.0f,1.0f,1.0f,0.0f,0.0f,1.0f,0.0f  --->  		var textureCoords4  = [ 0.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords4   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords4  ), gl. STATIC_DRAW )
+	doorVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		doorVertexTextureCoordBuffer [ 1 ]  = 2
+	doorVertexTextureCoordBuffer  [ 2 ]  = 4  --->  		doorVertexTextureCoordBuffer [ 2 ]  = 4
+	 public void initTexture   ( GL2 gl   ) throws IOException    --->  		, initTexture : function ( gl  )
+	 gl . gl GenTextures ( 4,  textures  , 0 )  --->  		textures [ i  ]  = gl. createTexture (  );			for ( var i  = 0 ; i  < 4 ; i  ++  )
+	TextureData tex1   =   TextureIO.newTextureData   ( new  File   (  "images  / muro.gif"   ),  false  ,  null   )  --->  		var tex1  = new  Image  (  );			tex1.onload   =  function  (  );			tex1.src   = "images /muro.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex1.getWidth   (  ),   tex1.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex1.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex1  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_S, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_S, gl. REPEAT )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_T, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_T, gl. REPEAT )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	TextureData tex2   =   TextureIO.newTextureData   ( new  File   (  "images  / roof.gif"   ),  false  ,  null   )  --->  		var tex2  = new  Image  (  );			tex2.onload   =  function  (  );			tex2.src   = "images /roof.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 1 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 1 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex2.getWidth   (  ),   tex2.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex2.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex2  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_S, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_S, gl. REPEAT )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_T, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_T, gl. REPEAT )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	TextureData tex3   =   TextureIO.newTextureData   ( new  File   (  "images  / grass.gif"   ),  false  ,  null   )  --->  		var tex3  = new  Image  (  );			tex3.onload   =  function  (  );			tex3.src   = "images /grass.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 2 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 2 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex3.getWidth   (  ),   tex3.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex3.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex3  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_S, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_S, gl. REPEAT )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_T, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_T, gl. REPEAT )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	TextureData tex4   =   TextureIO.newTextureData   ( new  File   (  "images  / door.gif"   ),  false  ,  null   )  --->  		var tex4  = new  Image  (  );			tex4.onload   =  function  (  );			tex4.src   = "images /door.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 3 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 3 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex4.getWidth   (  ),   tex4.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex4.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex4  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D, 0 )  --->  		gl. bindTexture ( gl. TEXTURE_2D, 0 )
+	 public void drawScene   ( GL2 gl   )  --->  		, drawScene : function ( gl  )
+	 gl . gl ClearColor ( 0.0f, 0.71f, 0.91f, 1.0f )  --->  		gl. clearColor ( 0.0, 0.71, 0.91, 1.0 )
+	 gl . gl Enable ( GL2 .GL_ DEPTH_TEST )  --->  		gl. enable ( gl. DEPTH_TEST )
+	 gl . gl CullFace ( GL2 .GL_ BACK )  --->  		gl. cullFace ( gl. BACK )
+	 gl . gl Enable ( GL2 .GL_ CULL_FACE )  --->  		gl. enable ( gl. CULL_FACE )
+	  handleKeys   (  )  --->  		 this.handleKeys  (  )
+	 gl . gl Viewport ( 0, 0, 500, 500 )  --->  		gl. viewport ( 0, 0, 500, 500 )
+	 gl . gl Clear ( GL2 .GL_ COLOR_BUFFER_BIT|GL2 .GL_ DEPTH_BUFFER_BIT )  --->  		gl. clear ( gl. COLOR_BUFFER_BIT|gl. DEPTH_BUFFER_BIT )
+	float cx   = ( float )  Math.cos   (  rAnglex   )  --->  		var cx  =  Math.cos  ( rAnglex  )
+	float sx   = ( float )  Math.sin   (  rAnglex   )  --->  		var sx  =  Math.sin  ( rAnglex  )
+	float cy   = ( float )  Math.cos   (  rAngley   )  --->  		var cy  =  Math.cos  ( rAngley  )
+	float sy   = ( float )  Math.sin   (  rAngley   )  --->  		var sy  =  Math.sin  ( rAngley  )
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   );		float[] pMatrixv   = new  float  [  ] ;		2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0  --->  		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+	float[] mvMatrixv   = new  float  [  ] ;		 cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,-cx, zoom  - sx  ,1  --->  		var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,-cx,zoom -sx ,1 ] )
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
+	 gl . gl FrontFace ( GL2 .GL_ CCW )  --->  		gl. frontFace ( gl. CCW )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  cubeVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , cubeVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  cubeVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , cubeVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl ActiveTexture ( GL2 .GL_ TEXTURE0 )  --->  		gl. activeTexture ( gl. TEXTURE0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawElements ( GL2 .GL_ TRIANGLES,  cubeVertexIndexBuffer  [ 2 ], GL2 .GL_ UNSIGNED_SHORT, 0 )  --->  		gl. drawElements ( gl. TRIANGLES, cubeVertexIndexBuffer [ 2 ], gl. UNSIGNED_SHORT, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  doorVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , doorVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  doorVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , doorVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 3 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 3 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLE_STRIP, 0,  doorVertexPositionBuffer  [ 2 ] )  --->  		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, doorVertexPositionBuffer [ 2 ] )
+	 gl . gl Disable ( GL2 .GL_ CULL_FACE )  --->  		gl. disable ( gl. CULL_FACE )
+	float[] mvMatrixv2   =   Arrays.copyOf   (  mvMatrixv  ,  mvMatrixv.length   )  --->  		var mvMatrixv2  = new  Float32Array  ( mvMatrixv  )
+	mvMatrixv  [ 0 ] * = 10  --->  		mvMatrixv [ 0 ] * = 10
+	mvMatrixv  [ 1 ] * = 10  --->  		mvMatrixv [ 1 ] * = 10
+	mvMatrixv  [ 2 ] * = 10  --->  		mvMatrixv [ 2 ] * = 10
+	mvMatrixv  [ 8 ] * = 10  --->  		mvMatrixv [ 8 ] * = 10
+	mvMatrixv  [ 9 ] * = 10  --->  		mvMatrixv [ 9 ] * = 10
+	mvMatrixv  [ 10 ] * = 10  --->  		mvMatrixv [ 10 ] * = 10
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  greenVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , greenVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  greenVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , greenVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 2 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 2 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLE_STRIP, 0,  greenVertexPositionBuffer  [ 2 ] )  --->  		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, greenVertexPositionBuffer [ 2 ] )
+	mvMatrixv    =  mvMatrixv2    --->  		mvMatrixv   = mvMatrixv2 
+	 gl . gl Enable ( GL2 .GL_ CULL_FACE )  --->  		gl. enable ( gl. CULL_FACE )
+	mvMatrixv  [ 13 ] + = 2* cx    --->  		mvMatrixv [ 13 ] + = 2*cx 
+	mvMatrixv  [ 14 ] + = 2* sx    --->  		mvMatrixv [ 14 ] + = 2*sx 
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  pyramidVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , pyramidVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  pyramidVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , pyramidVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 1 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 1 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLE_FAN, 0,  pyramidVertexPositionBuffer  [ 2 ] )  --->  		gl. drawArrays ( gl. TRIANGLE_FAN, 0, pyramidVertexPositionBuffer [ 2 ] )
+	  animate   (  )  --->  		 this.animate  (  )
+	 private void animate   (  )  --->  		, animate : function (  )
+	long timeNow   =   System.currentTimeMillis   (  )  --->  		var timeNow  = new  Date  (  ) . getTime  (  )
+	 if ( lastTime  !=0 )  --->  		 if ( lastTime !=0 )
+	long elapsed   =  timeNow  - lastTime    --->  		var elapsed  = timeNow -lastTime 
+	rAnglex   + =  speedx  * elapsed  *0.001  --->  		rAnglex  + = speedx *elapsed *0.001
+	rAngley   + =  speedy  * elapsed  *0.001  --->  		rAngley  + = speedy *elapsed *0.001
+	lastTime    =  timeNow    --->  		lastTime   = timeNow 
+	 private void handleKeys   (  )  --->  		, handleKeys : function (  )
+	long timeNow   =   System.currentTimeMillis   (  )  --->  		var timeNow  = new  Date  (  ) . getTime  (  )
+	 if ( lastTime2  !=0 )  --->  		 if ( lastTime2 !=0 )
+	long elapsed   =  timeNow  - lastTime2    --->  		var elapsed  = timeNow -lastTime2 
+	 if ( commands  [ 0 ] )  --->  		 if ( commands [ 0 ] )
+	zoom   + = 5* elapsed  *0.001  --->  		zoom  + = 5*elapsed *0.001
+	 if ( commands  [ 1 ] )  --->  		 if ( commands [ 1 ] )
+	zoom   - = 5* elapsed  *0.001  --->  		zoom  - = 5*elapsed *0.001
+	 if ( commands  [ 2 ] )  --->  		 if ( commands [ 2 ] )
+	speedx   - = 2* elapsed  *0.001  --->  		speedx  - = 2*elapsed *0.001
+	 if ( commands  [ 3 ] )  --->  		 if ( commands [ 3 ] )
+	speedx   + = 2* elapsed  *0.001  --->  		speedx  + = 2*elapsed *0.001
+	 if ( commands  [ 4 ] )  --->  		 if ( commands [ 4 ] )
+	speedy   - = 2* elapsed  *0.001  --->  		speedy  - = 2*elapsed *0.001
+	 if ( commands  [ 5 ] )  --->  		 if ( commands [ 5 ] )
+	speedy   + = 2* elapsed  *0.001  --->  		speedy  + = 2*elapsed *0.001
+	lastTime2    =  timeNow    --->  		lastTime2   = timeNow 
+	 private void setCommands   ( KeyEvent e  , boolean value   )  --->  		, setCommands : function ( e , value  )
+	 if (   e.getKeyCode   (  )==65 )  --->  		 if ( e.keyCode ==65 )
+	commands  [ 0 ]  =  value    --->  		commands [ 0 ]  = value 
+	 if (   e.getKeyCode   (  )==90 )  --->  		 if ( e.keyCode ==90 )
+	commands  [ 1 ]  =  value    --->  		commands [ 1 ]  = value 
+	 if (   e.getKeyCode   (  )==38 )  --->  		 if ( e.keyCode ==38 )
+	commands  [ 2 ]  =  value    --->  		commands [ 2 ]  = value 
+	 if (   e.getKeyCode   (  )==40 )  --->  		 if ( e.keyCode ==40 )
+	commands  [ 3 ]  =  value    --->  		commands [ 3 ]  = value 
+	 if (   e.getKeyCode   (  )==37 )  --->  		 if ( e.keyCode ==37 )
+	commands  [ 4 ]  =  value    --->  		commands [ 4 ]  = value 
+	 if (   e.getKeyCode   (  )==39 )  --->  		 if ( e.keyCode ==39 )
+	commands  [ 5 ]  =  value    --->  		commands [ 5 ]  = value 
+	 public void keyPressed   ( KeyEvent e   )  --->  		, keyPressed : function ( e  )
+	  setCommands   (  e  ,  true   )  --->  		 this.setCommands  ( e , true  )
+	 public void keyReleased   ( KeyEvent e   )  --->  		, keyReleased : function ( e  )
+	  setCommands   (  e  ,  false   )  --->  		 this.setCommands  ( e , false  )
+	unmatched javaPatterns:
+	unmatched jsPatterns:
+
+Test_va2Drawer.java VS test_va2Drawer.js
+	public class Test_va2Drawer  --->  		Test_va2Drawer . prototype =
+	private int vertexPositionAttribute      --->  		var vertexPositionAttribute 
+	private int vertexNormalAttribute      --->  		var vertexNormalAttribute 
+	private int textureCoordAttribute      --->  		var textureCoordAttribute 
+	private int pMatrixUniform      --->  		var pMatrixUniform 
+	private int mvMatrixUniform      --->  		var mvMatrixUniform 
+	private int nMatrixUniform      --->  		var nMatrixUniform 
+	private int samplerUniform      --->  		var samplerUniform 
+	private int ambientColorUniform      --->  		var ambientColorUniform 
+	private int pointLightingLocationUniform      --->  		var pointLightingLocationUniform 
+	private int pointLightingSpecularColorUniform      --->  		var pointLightingSpecularColorUniform 
+	private int pointLightingDiffuseColorUniform      --->  		var pointLightingDiffuseColorUniform 
+	private int materialShininessUniform      --->  		var materialShininessUniform 
+	private int alphaUniform      --->  		var alphaUniform 
+	private int[] doorVertexPositionBuffer   = new  int  [ 3 ]   --->  		var doorVertexPositionBuffer  = new  Array  (  )
+	private int[] doorVertexNormalBuffer   = new  int  [ 3 ]   --->  		var doorVertexNormalBuffer  = new  Array  (  )
+	private int[] doorVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var doorVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] greenVertexPositionBuffer   = new  int  [ 3 ]   --->  		var greenVertexPositionBuffer  = new  Array  (  )
+	private int[] greenVertexNormalBuffer   = new  int  [ 3 ]   --->  		var greenVertexNormalBuffer  = new  Array  (  )
+	private int[] greenVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var greenVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] pyramidVertexPositionBuffer   = new  int  [ 3 ]   --->  		var pyramidVertexPositionBuffer  = new  Array  (  )
+	private int[] pyramidVertexNormalBuffer   = new  int  [ 3 ]   --->  		var pyramidVertexNormalBuffer  = new  Array  (  )
+	private int[] pyramidVertexIndexBuffer   = new  int  [ 3 ]   --->  		var pyramidVertexIndexBuffer  = new  Array  (  )
+	private int[] pyramidVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var pyramidVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] cubeVertexPositionBuffer   = new  int  [ 3 ]   --->  		var cubeVertexPositionBuffer  = new  Array  (  )
+	private int[] cubeVertexNormalBuffer   = new  int  [ 3 ]   --->  		var cubeVertexNormalBuffer  = new  Array  (  )
+	private int[] cubeVertexIndexBuffer   = new  int  [ 3 ]   --->  		var cubeVertexIndexBuffer  = new  Array  (  )
+	private int[] cubeVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var cubeVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] tractorVertexPositionBuffer   = new  int  [ 3 ]   --->  		var tractorVertexPositionBuffer  = new  Array  (  )
+	private int[] tractorVertexNormalBuffer   = new  int  [ 3 ]   --->  		var tractorVertexNormalBuffer  = new  Array  (  )
+	private int[] tractorVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var tractorVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] tractorVertexIndexBuffer   = new  int  [ 3 ]   --->  		var tractorVertexIndexBuffer  = new  Array  (  )
+	private int[] seagulVertexPositionBuffer   = new  int  [ 3 ]   --->  		var seagulVertexPositionBuffer  = new  Array  (  )
+	private int[] seagulVertexNormalBuffer   = new  int  [ 3 ]   --->  		var seagulVertexNormalBuffer  = new  Array  (  )
+	private int[] seagulVertexTextureCoordBuffer   = new  int  [ 3 ]   --->  		var seagulVertexTextureCoordBuffer  = new  Array  (  )
+	private int[] seagulVertexIndexBuffer   = new  int  [ 3 ]   --->  		var seagulVertexIndexBuffer  = new  Array  (  )
+	private int[] textures   = new  int  [ 6 ]   --->  		var textures  = new  Array  (  )
+	private FloatBuffer pMatrix      --->  		var pMatrix 
+	private FloatBuffer mvMatrix      --->  		var mvMatrix 
+	private FloatBuffer normalMatrix      --->  		var normalMatrix 
+	private long lastTime   = 0  --->  		var lastTime  = 0
+	private boolean[] commands   = new  boolean  [ 8 ]   --->  		var commands  = new  Array  (  )
+	private double seagulAngle   = 0  --->  		var seagulAngle  = 0
+	private float tractorx   = 0  --->  		var tractorx  = 0
+	private double pitch   = 0  --->  		var pitch  = 0
+	private double yaw   = 0  --->  		var yaw  = 0
+	private float xPos   = 0  --->  		var xPos  = 0
+	private float yStart   = -1.5f  --->  		var yStart  = -1.5
+	private float yPos   =  yStart    --->  		var yPos  = yStart 
+	private float zPos   = 10  --->  		var zPos  = 10
+	private float speed   = 0  --->  		var speed  = 0
+	private float lspeed   = 0  --->  		var lspeed  = 0
+	private float pitchRate   = 0  --->  		var pitchRate  = 0
+	private float yawRate   = 0  --->  		var yawRate  = 0
+	private double joggingAngle   = 0  --->  		var joggingAngle  = 0
+	 public void initShaders   ( GL2 gl   )  --->  		 initShaders : function ( gl  )
+	int shaderProgram   =   Util.getShaderProgram   (  gl  ,  "shaders  / shader6.fs"  ,  "shaders  / shader6.vs"   )  --->  		var shaderProgram  =  getShaderProgram  ( gl , "shaders /shader6.fs" , "shaders /shader6.vs"  )
+	vertexPositionAttribute    =  gl . gl GetAttribLocation (  shaderProgram  ,  "aVertexPosition"   )  --->  		vertexPositionAttribute   = gl. getAttribLocation ( shaderProgram , "aVertexPosition"  )
+	 gl . gl EnableVertexAttribArray (  vertexPositionAttribute   )  --->  		gl. enableVertexAttribArray ( vertexPositionAttribute  )
+	vertexNormalAttribute    =  gl . gl GetAttribLocation (  shaderProgram  ,  "aVertexNormal"   )  --->  		vertexNormalAttribute   = gl. getAttribLocation ( shaderProgram , "aVertexNormal"  )
+	 gl . gl EnableVertexAttribArray (  vertexNormalAttribute   )  --->  		gl. enableVertexAttribArray ( vertexNormalAttribute  )
+	textureCoordAttribute    =  gl . gl GetAttribLocation (  shaderProgram  ,  "aTextureCoord"   )  --->  		textureCoordAttribute   = gl. getAttribLocation ( shaderProgram , "aTextureCoord"  )
+	 gl . gl EnableVertexAttribArray (  textureCoordAttribute   )  --->  		gl. enableVertexAttribArray ( textureCoordAttribute  )
+	pMatrixUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uPMatrix"   )  --->  		pMatrixUniform   = gl. getUniformLocation ( shaderProgram , "uPMatrix"  )
+	mvMatrixUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uMVMatrix"   )  --->  		mvMatrixUniform   = gl. getUniformLocation ( shaderProgram , "uMVMatrix"  )
+	nMatrixUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uNMatrix"   )  --->  		nMatrixUniform   = gl. getUniformLocation ( shaderProgram , "uNMatrix"  )
+	samplerUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uSampler"   )  --->  		samplerUniform   = gl. getUniformLocation ( shaderProgram , "uSampler"  )
+	ambientColorUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uAmbientColor"   )  --->  		ambientColorUniform   = gl. getUniformLocation ( shaderProgram , "uAmbientColor"  )
+	pointLightingLocationUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uPointLightingLocation"   )  --->  		pointLightingLocationUniform   = gl. getUniformLocation ( shaderProgram , "uPointLightingLocation"  )
+	pointLightingSpecularColorUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uPointLightingSpecularColor"   )  --->  		pointLightingSpecularColorUniform   = gl. getUniformLocation ( shaderProgram , "uPointLightingSpecularColor"  )
+	pointLightingDiffuseColorUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uPointLightingDiffuseColor"   )  --->  		pointLightingDiffuseColorUniform   = gl. getUniformLocation ( shaderProgram , "uPointLightingDiffuseColor"  )
+	materialShininessUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uMaterialShininess"   )  --->  		materialShininessUniform   = gl. getUniformLocation ( shaderProgram , "uMaterialShininess"  )
+	alphaUniform    =  gl . gl GetUniformLocation (  shaderProgram  ,  "uAlpha"   )  --->  		alphaUniform   = gl. getUniformLocation ( shaderProgram , "uAlpha"  )
+	 private void setMatrixUniforms   ( GL2 gl   )  --->  		, setMatrixUniforms : function ( gl  )
+	 gl . gl UniformMatrix4fv (  pMatrixUniform  , 16,  false  ,  pMatrix   )  --->  		gl. uniformMatrix4fv ( pMatrixUniform , false , pMatrix  )
+	 gl . gl UniformMatrix4fv (  mvMatrixUniform  , 16,  false  ,  mvMatrix   )  --->  		gl. uniformMatrix4fv ( mvMatrixUniform , false , mvMatrix  )
+	 gl . gl UniformMatrix3fv (  nMatrixUniform  , 9,  false  ,  normalMatrix   )  --->  		gl. uniformMatrix3fv ( nMatrixUniform , false , normalMatrix  )
+	 public void initBuffers   ( GL2 gl   )  --->  		, initBuffers : function ( gl  )
+	 gl . gl GenBuffers ( 1,  pyramidVertexPositionBuffer  , 0 )  --->  		pyramidVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexPositionBuffer [ 0 ] )
+	float[] vertices1   =;		0.0f,1.0f,0.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,0.0f,1.0f,0.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,0.0f,1.0f,0.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,0.0f,1.0f,0.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f  --->  		var vertices1  = [ 0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,0.0,1.0,0.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,0.0,1.0,0.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,0.0,1.0,0.0,1.0,-1.0,1.0,1.0,-1.0,-1.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices1   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices1  ), gl. STATIC_DRAW )
+	pyramidVertexPositionBuffer  [ 1 ]  = 3  --->  		pyramidVertexPositionBuffer [ 1 ]  = 3
+	pyramidVertexPositionBuffer  [ 2 ]  = 12  --->  		pyramidVertexPositionBuffer [ 2 ]  = 12
+	 gl . gl GenBuffers ( 1,  pyramidVertexNormalBuffer  , 0 )  --->  		pyramidVertexNormalBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexNormalBuffer [ 0 ] )
+	float[] normals1   =;		-0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,-0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,-0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,0.0f,0.44721359549995793928183473374626f,-0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,-0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,-0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,0.89442719099991587856366946749251f,0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f  --->  		var normals1  = [ -0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals1   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals1  ), gl. STATIC_DRAW )
+	pyramidVertexNormalBuffer  [ 1 ]  = 3  --->  		pyramidVertexNormalBuffer [ 1 ]  = 3
+	pyramidVertexNormalBuffer  [ 2 ]  = 12  --->  		pyramidVertexNormalBuffer [ 2 ]  = 12
+	 gl . gl GenBuffers ( 1,  pyramidVertexTextureCoordBuffer  , 0 )  --->  		pyramidVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexTextureCoordBuffer [ 0 ] )
+	float[] textureCoords1   =;		3.0f,0.0f,0.0f,6.0f,6.0f,6.0f,3.0f,0.0f,0.0f,6.0f,6.0f,6.0f,3.0f,0.0f,6.0f,6.0f,0.0f,6.0f,3.0f,0.0f,0.0f,6.0f,6.0f,6.0f  --->  		var textureCoords1  = [ 3.0,0.0,0.0,6.0,6.0,6.0,3.0,0.0,0.0,6.0,6.0,6.0,3.0,0.0,6.0,6.0,0.0,6.0,3.0,0.0,0.0,6.0,6.0,6.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords1   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords1  ), gl. STATIC_DRAW )
+	pyramidVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		pyramidVertexTextureCoordBuffer [ 1 ]  = 2
+	pyramidVertexTextureCoordBuffer  [ 2 ]  = 12  --->  		pyramidVertexTextureCoordBuffer [ 2 ]  = 12
+	 gl . gl GenBuffers ( 1,  pyramidVertexIndexBuffer  , 0 )  --->  		pyramidVertexIndexBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  pyramidVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer [ 0 ] )
+	short[] pyramidVertexIndices   =;		0,1,2,3,5,4,6,7,8,9,10,11  --->  		var pyramidVertexIndices  = [ 0,1,2,3,5,4,6,7,8,9,10,11 ]
+	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  pyramidVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  pyramidVertexIndices   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( pyramidVertexIndices  ), gl. STATIC_DRAW )
+	pyramidVertexIndexBuffer  [ 1 ]  = 1  --->  		pyramidVertexIndexBuffer [ 1 ]  = 1
+	pyramidVertexIndexBuffer  [ 2 ]  = 12  --->  		pyramidVertexIndexBuffer [ 2 ]  = 12
+	 gl . gl GenBuffers ( 1,  cubeVertexPositionBuffer  , 0 )  --->  		cubeVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
+	float[] vertices2   =;		-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f  --->  		var vertices2  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices2   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices2  ), gl. STATIC_DRAW )
+	cubeVertexPositionBuffer  [ 1 ]  = 3  --->  		cubeVertexPositionBuffer [ 1 ]  = 3
+	cubeVertexPositionBuffer  [ 2 ]  = 16  --->  		cubeVertexPositionBuffer [ 2 ]  = 16
+	 gl . gl GenBuffers ( 1,  cubeVertexNormalBuffer  , 0 )  --->  		cubeVertexNormalBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexNormalBuffer [ 0 ] )
+	float[] normals2   =;		0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f  --->  		var normals2  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals2   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals2  ), gl. STATIC_DRAW )
+	cubeVertexNormalBuffer  [ 1 ]  = 3  --->  		cubeVertexNormalBuffer [ 1 ]  = 3
+	cubeVertexNormalBuffer  [ 2 ]  = 16  --->  		cubeVertexNormalBuffer [ 2 ]  = 16
+	 gl . gl GenBuffers ( 1,  cubeVertexTextureCoordBuffer  , 0 )  --->  		cubeVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
+	float[] textureCoords2   =;		0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,0.0f,0.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f  --->  		var textureCoords2  = [ 0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords2   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords2  ), gl. STATIC_DRAW )
+	cubeVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		cubeVertexTextureCoordBuffer [ 1 ]  = 2
+	cubeVertexTextureCoordBuffer  [ 2 ]  = 16  --->  		cubeVertexTextureCoordBuffer [ 2 ]  = 16
+	 gl . gl GenBuffers ( 1,  cubeVertexIndexBuffer  , 0 )  --->  		cubeVertexIndexBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+	short[] cubeVertexIndices   =;		0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15  --->  		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15 ]
+	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  cubeVertexIndices   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( cubeVertexIndices  ), gl. STATIC_DRAW )
+	cubeVertexIndexBuffer  [ 1 ]  = 1  --->  		cubeVertexIndexBuffer [ 1 ]  = 1
+	cubeVertexIndexBuffer  [ 2 ]  = 24  --->  		cubeVertexIndexBuffer [ 2 ]  = 24
+	 gl . gl GenBuffers ( 1,  greenVertexPositionBuffer  , 0 )  --->  		greenVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
+	float[] vertices3   =;		-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f  --->  		var vertices3  = [ -1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices3   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices3  ), gl. STATIC_DRAW )
+	greenVertexPositionBuffer  [ 1 ]  = 3  --->  		greenVertexPositionBuffer [ 1 ]  = 3
+	greenVertexPositionBuffer  [ 2 ]  = 4  --->  		greenVertexPositionBuffer [ 2 ]  = 4
+	 gl . gl GenBuffers ( 1,  greenVertexNormalBuffer  , 0 )  --->  		greenVertexNormalBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexNormalBuffer [ 0 ] )
+	float[] normals3   =;		0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f  --->  		var normals3  = [ 0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals3   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals3  ), gl. STATIC_DRAW )
+	greenVertexNormalBuffer  [ 1 ]  = 3  --->  		greenVertexNormalBuffer [ 1 ]  = 3
+	greenVertexNormalBuffer  [ 2 ]  = 4  --->  		greenVertexNormalBuffer [ 2 ]  = 4
+	 gl . gl GenBuffers ( 1,  greenVertexTextureCoordBuffer  , 0 )  --->  		greenVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexTextureCoordBuffer [ 0 ] )
+	float[] textureCoords3   =;		0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f  --->  		var textureCoords3  = [ 0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords3   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords3  ), gl. STATIC_DRAW )
+	greenVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		greenVertexTextureCoordBuffer [ 1 ]  = 2
+	greenVertexTextureCoordBuffer  [ 2 ]  = 4  --->  		greenVertexTextureCoordBuffer [ 2 ]  = 4
+	 gl . gl GenBuffers ( 1,  doorVertexPositionBuffer  , 0 )  --->  		doorVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexPositionBuffer [ 0 ] )
+	float[] vertices4   =;		-0.2f,-1.0f,1.001f,0.2f,-1.0f,1.001f,-0.2f,0.0f,1.001f,0.2f,0.0f,1.001f  --->  		var vertices4  = [ -0.2,-1.0,1.001,0.2,-1.0,1.001,-0.2,0.0,1.001,0.2,0.0,1.001 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices4   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices4  ), gl. STATIC_DRAW )
+	doorVertexPositionBuffer  [ 1 ]  = 3  --->  		doorVertexPositionBuffer [ 1 ]  = 3
+	doorVertexPositionBuffer  [ 2 ]  = 4  --->  		doorVertexPositionBuffer [ 2 ]  = 4
+	 gl . gl GenBuffers ( 1,  doorVertexNormalBuffer  , 0 )  --->  		doorVertexNormalBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexNormalBuffer [ 0 ] )
+	float[] normals4   =;		0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f  --->  		var normals4  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals4   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals4  ), gl. STATIC_DRAW )
+	doorVertexNormalBuffer  [ 1 ]  = 3  --->  		doorVertexNormalBuffer [ 1 ]  = 3
+	doorVertexNormalBuffer  [ 2 ]  = 4  --->  		doorVertexNormalBuffer [ 2 ]  = 4
+	 gl . gl GenBuffers ( 1,  doorVertexTextureCoordBuffer  , 0 )  --->  		doorVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexTextureCoordBuffer [ 0 ] )
+	float[] textureCoords4   =;		0.0f,1.0f,1.0f,1.0f,0.0f,0.0f,1.0f,0.0f  --->  		var textureCoords4  = [ 0.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0 ]
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords4   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords4  ), gl. STATIC_DRAW )
+	doorVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		doorVertexTextureCoordBuffer [ 1 ]  = 2
+	doorVertexTextureCoordBuffer  [ 2 ]  = 4  --->  		doorVertexTextureCoordBuffer [ 2 ]  = 4
+	ObjModel tractor   =   Util.loadObj   (  "models  / tractor.obj"   )  --->  		var tractor  =  loadObj  ( "models /tractor.obj"  )
+	 gl . gl GenBuffers ( 1,  tractorVertexPositionBuffer  , 0 )  --->  		tractorVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  tractorVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, tractorVertexPositionBuffer [ 0 ] )
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  tractor.vertexPositions.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  tractor.vertexPositions   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( tractor.vertexPositions  ), gl. STATIC_DRAW )
+	tractorVertexPositionBuffer  [ 1 ]  = 3  --->  		tractorVertexPositionBuffer [ 1 ]  = 3
+	tractorVertexPositionBuffer  [ 2 ]  =  tractor.vertexPositions.length  /3  --->  		tractorVertexPositionBuffer [ 2 ]  = tractor.vertexPositions.length /3
+	 gl . gl GenBuffers ( 1,  tractorVertexNormalBuffer  , 0 )  --->  		tractorVertexNormalBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  tractorVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, tractorVertexNormalBuffer [ 0 ] )
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  tractor.vertexNormals.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  tractor.vertexNormals   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( tractor.vertexNormals  ), gl. STATIC_DRAW )
+	tractorVertexNormalBuffer  [ 1 ]  = 3  --->  		tractorVertexNormalBuffer [ 1 ]  = 3
+	tractorVertexNormalBuffer  [ 2 ]  =  tractor.vertexNormals.length  /3  --->  		tractorVertexNormalBuffer [ 2 ]  = tractor.vertexNormals.length /3
+	 gl . gl GenBuffers ( 1,  tractorVertexTextureCoordBuffer  , 0 )  --->  		tractorVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  tractorVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, tractorVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  tractor.vertexTextureCoords.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  tractor.vertexTextureCoords   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( tractor.vertexTextureCoords  ), gl. STATIC_DRAW )
+	tractorVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		tractorVertexTextureCoordBuffer [ 1 ]  = 2
+	tractorVertexTextureCoordBuffer  [ 2 ]  =  tractor.vertexTextureCoords.length  /2  --->  		tractorVertexTextureCoordBuffer [ 2 ]  = tractor.vertexTextureCoords.length /2
+	 gl . gl GenBuffers ( 1,  tractorVertexIndexBuffer  , 0 )  --->  		tractorVertexIndexBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  tractorVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, tractorVertexIndexBuffer [ 0 ] )
+	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  tractor.indices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  tractor.indices   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( tractor.indices  ), gl. STATIC_DRAW )
+	tractorVertexIndexBuffer  [ 1 ]  = 1  --->  		tractorVertexIndexBuffer [ 1 ]  = 1
+	tractorVertexIndexBuffer  [ 2 ]  =  tractor.indices.length    --->  		tractorVertexIndexBuffer [ 2 ]  = tractor.indices.length 
+	ObjModel seagul   =   Util.loadObj   (  "models  / seagul.obj"   )  --->  		var seagul  =  loadObj  ( "models /seagul.obj"  )
+	 gl . gl GenBuffers ( 1,  seagulVertexPositionBuffer  , 0 )  --->  		seagulVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  seagulVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, seagulVertexPositionBuffer [ 0 ] )
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  seagul.vertexPositions.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  seagul.vertexPositions   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( seagul.vertexPositions  ), gl. STATIC_DRAW )
+	seagulVertexPositionBuffer  [ 1 ]  = 3  --->  		seagulVertexPositionBuffer [ 1 ]  = 3
+	seagulVertexPositionBuffer  [ 2 ]  =  seagul.vertexPositions.length  /3  --->  		seagulVertexPositionBuffer [ 2 ]  = seagul.vertexPositions.length /3
+	 gl . gl GenBuffers ( 1,  seagulVertexNormalBuffer  , 0 )  --->  		seagulVertexNormalBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  seagulVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, seagulVertexNormalBuffer [ 0 ] )
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  seagul.vertexNormals.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  seagul.vertexNormals   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( seagul.vertexNormals  ), gl. STATIC_DRAW )
+	seagulVertexNormalBuffer  [ 1 ]  = 3  --->  		seagulVertexNormalBuffer [ 1 ]  = 3
+	seagulVertexNormalBuffer  [ 2 ]  =  seagul.vertexNormals.length  /3  --->  		seagulVertexNormalBuffer [ 2 ]  = seagul.vertexNormals.length /3
+	 gl . gl GenBuffers ( 1,  seagulVertexTextureCoordBuffer  , 0 )  --->  		seagulVertexTextureCoordBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  seagulVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, seagulVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  seagul.vertexTextureCoords.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  seagul.vertexTextureCoords   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( seagul.vertexTextureCoords  ), gl. STATIC_DRAW )
+	seagulVertexTextureCoordBuffer  [ 1 ]  = 2  --->  		seagulVertexTextureCoordBuffer [ 1 ]  = 2
+	seagulVertexTextureCoordBuffer  [ 2 ]  =  seagul.vertexTextureCoords.length  /2  --->  		seagulVertexTextureCoordBuffer [ 2 ]  = seagul.vertexTextureCoords.length /2
+	 gl . gl GenBuffers ( 1,  seagulVertexIndexBuffer  , 0 )  --->  		seagulVertexIndexBuffer [ 0 ]  = gl. createBuffer (  )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  seagulVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, seagulVertexIndexBuffer [ 0 ] )
+	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  seagul.indices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  seagul.indices   ), GL2 .GL_ STATIC_DRAW )  --->  		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( seagul.indices  ), gl. STATIC_DRAW )
+	seagulVertexIndexBuffer  [ 1 ]  = 1  --->  		seagulVertexIndexBuffer [ 1 ]  = 1
+	seagulVertexIndexBuffer  [ 2 ]  =  seagul.indices.length    --->  		seagulVertexIndexBuffer [ 2 ]  = seagul.indices.length 
+	 public void initTexture   ( GL2 gl   ) throws IOException    --->  		, initTexture : function ( gl  )
+	 gl . gl GenTextures ( 6,  textures  , 0 )  --->  		textures [ i  ]  = gl. createTexture (  );			for ( var i  = 0 ; i  < 6 ; i  ++  )
+	TextureData tex1   =   TextureIO.newTextureData   ( new  File   (  "images  / muro.gif"   ),  false  ,  null   )  --->  		var tex1  = new  Image  (  );			tex1.onload   =  function  (  );			tex1.src   = "images /muro.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex1.getWidth   (  ),   tex1.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex1.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex1  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_S, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_S, gl. REPEAT )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_T, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_T, gl. REPEAT )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	TextureData tex2   =   TextureIO.newTextureData   ( new  File   (  "images  / roof.gif"   ),  false  ,  null   )  --->  		var tex2  = new  Image  (  );			tex2.onload   =  function  (  );			tex2.src   = "images /roof.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 1 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 1 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex2.getWidth   (  ),   tex2.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex2.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex2  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_S, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_S, gl. REPEAT )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_T, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_T, gl. REPEAT )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	TextureData tex3   =   TextureIO.newTextureData   ( new  File   (  "images  / grass.gif"   ),  false  ,  null   )  --->  		var tex3  = new  Image  (  );			tex3.onload   =  function  (  );			tex3.src   = "images /grass.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 2 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 2 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex3.getWidth   (  ),   tex3.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex3.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex3  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_S, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_S, gl. REPEAT )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_T, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_T, gl. REPEAT )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	TextureData tex4   =   TextureIO.newTextureData   ( new  File   (  "images  / door.gif"   ),  false  ,  null   )  --->  		var tex4  = new  Image  (  );			tex4.onload   =  function  (  );			tex4.src   = "images /door.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 3 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 3 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex4.getWidth   (  ),   tex4.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex4.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex4  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	TextureData tex5   =   TextureIO.newTextureData   ( new  File   (  "images  / tractor.gif"   ),  false  ,  null   )  --->  		var tex5  = new  Image  (  );			tex5.onload   =  function  (  );			tex5.src   = "images /tractor.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 4 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 4 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex5.getWidth   (  ),   tex5.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex5.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex5  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_S, GL2 .GL_ MIRRORED_REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_S, gl. MIRRORED_REPEAT )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_T, GL2 .GL_ MIRRORED_REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_T, gl. MIRRORED_REPEAT )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	TextureData tex6   =   TextureIO.newTextureData   ( new  File   (  "images  / seagul.gif"   ),  false  ,  null   )  --->  		var tex6  = new  Image  (  );			tex6.onload   =  function  (  );			tex6.src   = "images /seagul.gif" 
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 5 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 5 ] )
+	 gl . gl TexImage2D ( GL2 .GL_ TEXTURE_2D, 0, GL2 .GL_ RGB,   tex6.getWidth   (  ),   tex6.getHeight   (  ), 0, GL2 .GL_ RGB, GL2 .GL_ UNSIGNED_BYTE,   tex6.getBuffer   (  ) )  --->  		gl. texImage2D ( gl. TEXTURE_2D, 0, gl. RGB, gl. RGB, gl. UNSIGNED_BYTE, tex6  )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MAG_FILTER, GL2 .GL_ LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MAG_FILTER, gl. LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_MIN_FILTER, GL2 .GL_ LINEAR_MIPMAP_LINEAR )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_MIN_FILTER, gl. LINEAR_MIPMAP_LINEAR )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_S, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_S, gl. REPEAT )
+	 gl . gl TexParameteri ( GL2 .GL_ TEXTURE_2D, GL2 .GL_ TEXTURE_WRAP_T, GL2 .GL_ REPEAT )  --->  		gl. texParameteri ( gl. TEXTURE_2D, gl. TEXTURE_WRAP_T, gl. REPEAT )
+	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )  --->  		gl. generateMipmap ( gl. TEXTURE_2D )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D, 0 )  --->  		gl. bindTexture ( gl. TEXTURE_2D, 0 )
+	 public void drawScene   ( GL2 gl   )  --->  		, drawScene : function ( gl  )
+	 gl . gl ClearColor ( 0.0f, 0.71f, 0.91f, 1.0f )  --->  		gl. clearColor ( 0.0, 0.71, 0.91, 1.0 )
+	 gl . gl Enable ( GL2 .GL_ DEPTH_TEST )  --->  		gl. enable ( gl. DEPTH_TEST )
+	 gl . gl CullFace ( GL2 .GL_ BACK )  --->  		gl. cullFace ( gl. BACK )
+	 gl . gl Enable ( GL2 .GL_ CULL_FACE )  --->  		gl. enable ( gl. CULL_FACE )
+	  handleKeys   (  )  --->  		 this.handleKeys  (  )
+	 gl . gl Viewport ( 0, 0, 500, 500 )  --->  		gl. viewport ( 0, 0, 500, 500 )
+	 gl . gl Clear ( GL2 .GL_ COLOR_BUFFER_BIT|GL2 .GL_ DEPTH_BUFFER_BIT )  --->  		gl. clear ( gl. COLOR_BUFFER_BIT|gl. DEPTH_BUFFER_BIT )
+	float cx   = ( float )  Math.cos   ( -pitch )  --->  		var cx  =  Math.cos  ( -pitch )
+	float sx   = ( float )  Math.sin   ( -pitch )  --->  		var sx  =  Math.sin  ( -pitch )
+	float cy   = ( float )  Math.cos   ( -yaw )  --->  		var cy  =  Math.cos  ( -yaw )
+	float sy   = ( float )  Math.sin   ( -yaw )  --->  		var sy  =  Math.sin  ( -yaw )
+	float[] pMatrixv   = new  float  [  ] ;		2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0  --->  		var pMatrixv  = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )  --->  		pMatrix   = pMatrixv 
+	float[] mvMatrixv   = new  float  [  ] ;		 cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,-cy* xPos  - sy  * zPos  ,-cx- sx  * sy  * xPos  - cx  * yPos  + cy  * sx  * zPos  ,-sx+ cx  * sy  * xPos  - sx  * yPos  - cx  * cy  * zPos  ,1  --->  		var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,-cy*xPos -sy *zPos ,-cx-sx *sy *xPos -cx *yPos +cy *sx *zPos ,-sx+cx *sy *xPos -sx *yPos -cx *cy *zPos ,1 ] )
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
+	float[] normalMatrixv   = new  float  [ 9 ]   --->  		var normalMatrixv  = new  Float32Array  ( 9 )
+	for ( int i   = 0 ; i   < 3 ; i   ++  )  --->  		for ( var i  = 0 ; i  < 3 ; i  ++  )
+	for ( int j   = 0 ; j   < 3 ; j   ++  )  --->  		for ( var j  = 0 ; j  < 3 ; j  ++  )
+	normalMatrixv  [  i  +3* j   ]  =  mvMatrixv  [  i  +4* j   ]  --->  		normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+	normalMatrix    =   BufferUtil.newFloatBuffer   (  normalMatrixv   )  --->  		normalMatrix   = normalMatrixv 
+	 gl . gl Uniform3f (  ambientColorUniform  , 0.1f, 0.1f, 0.1f )  --->  		gl. uniform3f ( ambientColorUniform , 0.1, 0.1, 0.1 )
+	float[] lightLoc   = new  float  [  ] ;		0,4,2,1  --->  		var lightLoc  = new  Float32Array  ( [ 0,4,2,1 ] )
+	float[] tlightLoc   =   Util.multiplyMatrixVector   (  pMatrixv  ,   Util.multiplyMatrixVector   (  mvMatrixv  ,  lightLoc   ) )  --->  		var tlightLoc  =  multiplyMatrixVector  ( pMatrixv ,  multiplyMatrixVector  ( mvMatrixv , lightLoc  ) )
+	 gl . gl Uniform3f (  pointLightingLocationUniform  ,  tlightLoc  [ 0 ],  tlightLoc  [ 1 ],  tlightLoc  [ 2 ] )  --->  		gl. uniform3f ( pointLightingLocationUniform , tlightLoc [ 0 ], tlightLoc [ 1 ], tlightLoc [ 2 ] )
+	 gl . gl Uniform3f (  pointLightingDiffuseColorUniform  , 0.5f, 0.5f, 0.5f )  --->  		gl. uniform3f ( pointLightingDiffuseColorUniform , 0.5, 0.5, 0.5 )
+	 gl . gl Uniform3f (  pointLightingSpecularColorUniform  , 0.5f, 0.5f, 0.5f )  --->  		gl. uniform3f ( pointLightingSpecularColorUniform , 0.5, 0.5, 0.5 )
+	 gl . gl Uniform1f (  materialShininessUniform  , 50 )  --->  		gl. uniform1f ( materialShininessUniform , 50 )
+	 gl . gl Uniform1f (  alphaUniform  , 1 )  --->  		gl. uniform1f ( alphaUniform , 1 )
+	 gl . gl FrontFace ( GL2 .GL_ CCW )  --->  		gl. frontFace ( gl. CCW )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  cubeVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , cubeVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexNormalBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexNormalAttribute  ,  cubeVertexNormalBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexNormalAttribute , cubeVertexNormalBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  cubeVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , cubeVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl ActiveTexture ( GL2 .GL_ TEXTURE0 )  --->  		gl. activeTexture ( gl. TEXTURE0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawElements ( GL2 .GL_ TRIANGLES,  cubeVertexIndexBuffer  [ 2 ], GL2 .GL_ UNSIGNED_SHORT, 0 )  --->  		gl. drawElements ( gl. TRIANGLES, cubeVertexIndexBuffer [ 2 ], gl. UNSIGNED_SHORT, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  doorVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , doorVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexNormalBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexNormalAttribute  ,  doorVertexNormalBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexNormalAttribute , doorVertexNormalBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  doorVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , doorVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 3 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 3 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLE_STRIP, 0,  doorVertexPositionBuffer  [ 2 ] )  --->  		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, doorVertexPositionBuffer [ 2 ] )
+	 gl . gl Disable ( GL2 .GL_ CULL_FACE )  --->  		gl. disable ( gl. CULL_FACE )
+	float[] mvMatrixv2   =   Arrays.copyOf   (  mvMatrixv  ,  mvMatrixv.length   )  --->  		var mvMatrixv2  = new  Float32Array  ( mvMatrixv  )
+	mvMatrixv  [ 0 ] * = 10  --->  		mvMatrixv [ 0 ] * = 10
+	mvMatrixv  [ 1 ] * = 10  --->  		mvMatrixv [ 1 ] * = 10
+	mvMatrixv  [ 2 ] * = 10  --->  		mvMatrixv [ 2 ] * = 10
+	mvMatrixv  [ 8 ] * = 10  --->  		mvMatrixv [ 8 ] * = 10
+	mvMatrixv  [ 9 ] * = 10  --->  		mvMatrixv [ 9 ] * = 10
+	mvMatrixv  [ 10 ] * = 10  --->  		mvMatrixv [ 10 ] * = 10
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
+	normalMatrixv    = new  float  [ 9 ]   --->  		normalMatrixv   = new  Float32Array  ( 9 )
+	for ( int i   = 0 ; i   < 3 ; i   ++  )  --->  		for ( var i  = 0 ; i  < 3 ; i  ++  )
+	for ( int j   = 0 ; j   < 3 ; j   ++  )  --->  		for ( var j  = 0 ; j  < 3 ; j  ++  )
+	normalMatrixv  [  i  +3* j   ]  =  mvMatrixv  [  i  +4* j   ]  --->  		normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+	normalMatrix    =   BufferUtil.newFloatBuffer   (  normalMatrixv   )  --->  		normalMatrix   = normalMatrixv 
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  greenVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , greenVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexNormalBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexNormalAttribute  ,  greenVertexNormalBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexNormalAttribute , greenVertexNormalBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  greenVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , greenVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 2 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 2 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLE_STRIP, 0,  greenVertexPositionBuffer  [ 2 ] )  --->  		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, greenVertexPositionBuffer [ 2 ] )
+	mvMatrixv    =   Arrays.copyOf   (  mvMatrixv2  ,  mvMatrixv2.length   )  --->  		mvMatrixv   = new  Float32Array  ( mvMatrixv2  )
+	 gl . gl Enable ( GL2 .GL_ CULL_FACE )  --->  		gl. enable ( gl. CULL_FACE )
+	mvMatrixv  [ 13 ] + = 2* cx    --->  		mvMatrixv [ 13 ] + = 2*cx 
+	mvMatrixv  [ 14 ] + = 2* sx    --->  		mvMatrixv [ 14 ] + = 2*sx 
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
+	normalMatrixv    = new  float  [ 9 ]   --->  		normalMatrixv   = new  Float32Array  ( 9 )
+	for ( int i   = 0 ; i   < 3 ; i   ++  )  --->  		for ( var i  = 0 ; i  < 3 ; i  ++  )
+	for ( int j   = 0 ; j   < 3 ; j   ++  )  --->  		for ( var j  = 0 ; j  < 3 ; j  ++  )
+	normalMatrixv  [  i  +3* j   ]  =  mvMatrixv  [  i  +4* j   ]  --->  		normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+	normalMatrix    =   BufferUtil.newFloatBuffer   (  normalMatrixv   )  --->  		normalMatrix   = normalMatrixv 
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  pyramidVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , pyramidVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexNormalBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexNormalAttribute  ,  pyramidVertexNormalBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexNormalAttribute , pyramidVertexNormalBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  pyramidVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , pyramidVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 1 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 1 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  pyramidVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer [ 0 ] )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawElements ( GL2 .GL_ TRIANGLES,  pyramidVertexIndexBuffer  [ 2 ], GL2 .GL_ UNSIGNED_SHORT, 0 )  --->  		gl. drawElements ( gl. TRIANGLES, pyramidVertexIndexBuffer [ 2 ], gl. UNSIGNED_SHORT, 0 )
+	mvMatrixv    =   Arrays.copyOf   (  mvMatrixv2  ,  mvMatrixv2.length   )  --->  		mvMatrixv   = new  Float32Array  ( mvMatrixv2  )
+	for ( int i   = 0 ; i   < 12 ; i   ++  )  --->  		for ( var i  = 0 ; i  < 12 ; i  ++  )
+	mvMatrixv  [  i   ] * = 0.01  --->  		mvMatrixv [ i  ] * = 0.01
+	float xt   = -11+ tractorx    --->  		var xt  = -11+tractorx 
+	float yt   = -1  --->  		var yt  = -1
+	float zt   = 4  --->  		var zt  = 4
+	mvMatrixv  [ 12 ] + =  cy  * xt  + sy  * zt    --->  		mvMatrixv [ 12 ] + = cy *xt +sy *zt 
+	mvMatrixv  [ 13 ] + =  sx  * sy  * xt  + cx  * yt  - cy  * sx  * zt    --->  		mvMatrixv [ 13 ] + = sx *sy *xt +cx *yt -cy *sx *zt 
+	mvMatrixv  [ 14 ] + = -cx* sy  * xt  + sx  * yt  + cx  * cy  * zt    --->  		mvMatrixv [ 14 ] + = -cx*sy *xt +sx *yt +cx *cy *zt 
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
+	normalMatrixv    = new  float  [ 9 ]   --->  		normalMatrixv   = new  Float32Array  ( 9 )
+	for ( int i   = 0 ; i   < 3 ; i   ++  )  --->  		for ( var i  = 0 ; i  < 3 ; i  ++  )
+	for ( int j   = 0 ; j   < 3 ; j   ++  )  --->  		for ( var j  = 0 ; j  < 3 ; j  ++  )
+	normalMatrixv  [  i  +3* j   ]  =  mvMatrixv  [  i  +4* j   ]  --->  		normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+	normalMatrix    =   BufferUtil.newFloatBuffer   (  normalMatrixv   )  --->  		normalMatrix   = normalMatrixv 
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  tractorVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, tractorVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  tractorVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , tractorVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  tractorVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, tractorVertexNormalBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexNormalAttribute  ,  tractorVertexNormalBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexNormalAttribute , tractorVertexNormalBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  tractorVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, tractorVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  tractorVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , tractorVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 4 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 4 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  tractorVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, tractorVertexIndexBuffer [ 0 ] )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawElements ( GL2 .GL_ TRIANGLES,  tractorVertexIndexBuffer  [ 2 ], GL2 .GL_ UNSIGNED_SHORT, 0 )  --->  		gl. drawElements ( gl. TRIANGLES, tractorVertexIndexBuffer [ 2 ], gl. UNSIGNED_SHORT, 0 )
+	mvMatrixv    =  mvMatrixv2    --->  		mvMatrixv   = mvMatrixv2 
+	float cs   = ( float )  Math.cos   (  seagulAngle   )  --->  		var cs  =  Math.cos  ( seagulAngle  )
+	float ss   = ( float )  Math.sin   (  seagulAngle   )  --->  		var ss  =  Math.sin  ( seagulAngle  )
+	xt    = -3* cs  - xPos    --->  		xt   = -3*cs -xPos 
+	yt    = 2- yPos    --->  		yt   = 2-yPos 
+	zt    = 4* ss  - zPos    --->  		zt   = 4*ss -zPos 
+	float s   = 0.3f  --->  		var s  = 0.3
+	mvMatrixv  [ 0 ]  =  cs  * cy  * s  - s  * ss  * sy    --->  		mvMatrixv [ 0 ]  = cs *cy *s -s *ss *sy 
+	mvMatrixv  [ 1 ]  =  cy  * s  * ss  * sx  + cs  * s  * sx  * sy    --->  		mvMatrixv [ 1 ]  = cy *s *ss *sx +cs *s *sx *sy 
+	mvMatrixv  [ 2 ]  = -cx* cy  * s  * ss  - cs  * cx  * s  * sy    --->  		mvMatrixv [ 2 ]  = -cx*cy *s *ss -cs *cx *s *sy 
+	mvMatrixv  [ 3 ]  = 0  --->  		mvMatrixv [ 3 ]  = 0
+	mvMatrixv  [ 4 ]  = 0  --->  		mvMatrixv [ 4 ]  = 0
+	mvMatrixv  [ 5 ]  =  cx  * s    --->  		mvMatrixv [ 5 ]  = cx *s 
+	mvMatrixv  [ 6 ]  =  s  * sx    --->  		mvMatrixv [ 6 ]  = s *sx 
+	mvMatrixv  [ 7 ]  = 0  --->  		mvMatrixv [ 7 ]  = 0
+	mvMatrixv  [ 8 ]  =  cy  * s  * ss  + cs  * s  * sy    --->  		mvMatrixv [ 8 ]  = cy *s *ss +cs *s *sy 
+	mvMatrixv  [ 9 ]  = -cs* cy  * s  * sx  + s  * ss  * sx  * sy    --->  		mvMatrixv [ 9 ]  = -cs*cy *s *sx +s *ss *sx *sy 
+	mvMatrixv  [ 10 ]  =  cs  * cx  * cy  * s  - cx  * s  * ss  * sy    --->  		mvMatrixv [ 10 ]  = cs *cx *cy *s -cx *s *ss *sy 
+	mvMatrixv  [ 11 ]  = 0  --->  		mvMatrixv [ 11 ]  = 0
+	mvMatrixv  [ 12 ]  =  cy  * xt  + sy  * zt    --->  		mvMatrixv [ 12 ]  = cy *xt +sy *zt 
+	mvMatrixv  [ 13 ]  = -cx+ sx  * sy  * xt  + cx  * yt  - cy  * sx  * zt    --->  		mvMatrixv [ 13 ]  = -cx+sx *sy *xt +cx *yt -cy *sx *zt 
+	mvMatrixv  [ 14 ]  = -sx- cx  * sy  * xt  + sx  * yt  + cx  * cy  * zt    --->  		mvMatrixv [ 14 ]  = -sx-cx *sy *xt +sx *yt +cx *cy *zt 
+	mvMatrixv  [ 15 ]  = 1  --->  		mvMatrixv [ 15 ]  = 1
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )  --->  		mvMatrix   = mvMatrixv 
+	normalMatrixv    = new  float  [ 9 ]   --->  		normalMatrixv   = new  Float32Array  ( 9 )
+	for ( int i   = 0 ; i   < 3 ; i   ++  )  --->  		for ( var i  = 0 ; i  < 3 ; i  ++  )
+	for ( int j   = 0 ; j   < 3 ; j   ++  )  --->  		for ( var j  = 0 ; j  < 3 ; j  ++  )
+	normalMatrixv  [  i  +3* j   ]  =  mvMatrixv  [  i  +4* j   ]  --->  		normalMatrixv [ i +3*j  ]  = mvMatrixv [ i +4*j  ]
+	normalMatrix    =   BufferUtil.newFloatBuffer   (  normalMatrixv   )  --->  		normalMatrix   = normalMatrixv 
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  seagulVertexPositionBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, seagulVertexPositionBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexPositionAttribute  ,  seagulVertexPositionBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexPositionAttribute , seagulVertexPositionBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  seagulVertexNormalBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, seagulVertexNormalBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  vertexNormalAttribute  ,  seagulVertexNormalBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( vertexNormalAttribute , seagulVertexNormalBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  seagulVertexTextureCoordBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ARRAY_BUFFER, seagulVertexTextureCoordBuffer [ 0 ] )
+	 gl . gl VertexAttribPointer (  textureCoordAttribute  ,  seagulVertexTextureCoordBuffer  [ 1 ], GL2 .GL_ FLOAT,  false  , 0, 0 )  --->  		gl. vertexAttribPointer ( textureCoordAttribute , seagulVertexTextureCoordBuffer [ 1 ], gl. FLOAT, false , 0, 0 )
+	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 5 ] )  --->  		gl. bindTexture ( gl. TEXTURE_2D, textures [ 5 ] )
+	 gl . gl Uniform1i (  samplerUniform  , 0 )  --->  		gl. uniform1i ( samplerUniform , 0 )
+	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  seagulVertexIndexBuffer  [ 0 ] )  --->  		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, seagulVertexIndexBuffer [ 0 ] )
+	  setMatrixUniforms   (  gl   )  --->  		 this.setMatrixUniforms  ( gl  )
+	 gl . gl DrawElements ( GL2 .GL_ TRIANGLES,  seagulVertexIndexBuffer  [ 2 ], GL2 .GL_ UNSIGNED_SHORT, 0 )  --->  		gl. drawElements ( gl. TRIANGLES, seagulVertexIndexBuffer [ 2 ], gl. UNSIGNED_SHORT, 0 )
+	  animate   (  )  --->  		 this.animate  (  )
+	 private void animate   (  )  --->  		, animate : function (  )
+	long timeNow   =   System.currentTimeMillis   (  )  --->  		var timeNow  = new  Date  (  ) . getTime  (  )
+	 if ( lastTime  !=0 )  --->  		 if ( lastTime !=0 )
+	long elapsed   =  timeNow  - lastTime    --->  		var elapsed  = timeNow -lastTime 
+	boolean move   =  false    --->  		var move  = false 
+	 if ( speed  !=0 )  --->  		 if ( speed !=0 )
+	xPos   - =   Math.sin   (  yaw   )* speed  * elapsed    --->  		xPos  - =  Math.sin  ( yaw  )*speed *elapsed 
+	zPos   - =   Math.cos   (  yaw   )* speed  * elapsed    --->  		zPos  - =  Math.cos  ( yaw  )*speed *elapsed 
+	move    =  true    --->  		move   = true 
+	 if ( lspeed  !=0 )  --->  		 if ( lspeed !=0 )
+	xPos   + =   Math.cos   (  yaw   )* lspeed  * elapsed    --->  		xPos  + =  Math.cos  ( yaw  )*lspeed *elapsed 
+	zPos   - =   Math.sin   (  yaw   )* lspeed  * elapsed    --->  		zPos  - =  Math.sin  ( yaw  )*lspeed *elapsed 
+	move    =  true    --->  		move   = true 
+	 if ( move   )  --->  		 if ( move  )
+	joggingAngle   + =  elapsed  *0.0104  --->  		joggingAngle  + = elapsed *0.0104
+	yPos    = ( float ) (   Math.sin   (  joggingAngle   )/20+ yStart   )  --->  		yPos   =  Math.sin  ( joggingAngle  )/20+yStart 
+	yaw   + =  yawRate  * elapsed    --->  		yaw  + = yawRate *elapsed 
+	pitch   + =  pitchRate  * elapsed    --->  		pitch  + = pitchRate *elapsed 
+	seagulAngle   + = 0.0008* elapsed    --->  		seagulAngle  + = 0.0008*elapsed 
+	tractorx   + = 0.0008* elapsed    --->  		tractorx  + = 0.0008*elapsed 
+	 if ( tractorx  >22 )  --->  		 if ( tractorx >22 )
+	tractorx    = 0  --->  		tractorx   = 0
+	lastTime    =  timeNow    --->  		lastTime   = timeNow 
+	 private void handleKeys   (  )  --->  		, handleKeys : function (  )
+	 if ( commands  [ 0 ] )  --->  		 if ( commands [ 0 ] )
+	speed    = 0.003f  --->  		speed   = 0.003
+	 else if ( commands  [ 1 ] )  --->  		 else if ( commands [ 1 ] )
+	speed    = -0.003f  --->  		speed   = -0.003
+	 else  --->  		 else
+	speed    = 0  --->  		speed   = 0
+	 if ( commands  [ 2 ] )  --->  		 if ( commands [ 2 ] )
+	pitchRate    = 0.00174f  --->  		pitchRate   = 0.00174
+	 else if ( commands  [ 3 ] )  --->  		 else if ( commands [ 3 ] )
+	pitchRate    = -0.00174f  --->  		pitchRate   = -0.00174
+	 else  --->  		 else
+	pitchRate    = 0  --->  		pitchRate   = 0
+	 if ( commands  [ 4 ] )  --->  		 if ( commands [ 4 ] )
+	yawRate    = 0.00174f  --->  		yawRate   = 0.00174
+	 else if ( commands  [ 5 ] )  --->  		 else if ( commands [ 5 ] )
+	yawRate    = -0.00174f  --->  		yawRate   = -0.00174
+	 else  --->  		 else
+	yawRate    = 0  --->  		yawRate   = 0
+	 if ( commands  [ 6 ] )  --->  		 if ( commands [ 6 ] )
+	lspeed    = 0.003f  --->  		lspeed   = 0.003
+	 else if ( commands  [ 7 ] )  --->  		 else if ( commands [ 7 ] )
+	lspeed    = -0.003f  --->  		lspeed   = -0.003
+	 else  --->  		 else
+	lspeed    = 0  --->  		lspeed   = 0
+	 private void setCommands   ( KeyEvent e  , boolean value   )  --->  		, setCommands : function ( e , value  )
+	 if (   e.getKeyCode   (  )==87 )  --->  		 if ( e.keyCode ==87 )
+	commands  [ 0 ]  =  value    --->  		commands [ 0 ]  = value 
+	 if (   e.getKeyCode   (  )==83 )  --->  		 if ( e.keyCode ==83 )
+	commands  [ 1 ]  =  value    --->  		commands [ 1 ]  = value 
+	 if (   e.getKeyCode   (  )==38 )  --->  		 if ( e.keyCode ==38 )
+	commands  [ 2 ]  =  value    --->  		commands [ 2 ]  = value 
+	 if (   e.getKeyCode   (  )==40 )  --->  		 if ( e.keyCode ==40 )
+	commands  [ 3 ]  =  value    --->  		commands [ 3 ]  = value 
+	 if (   e.getKeyCode   (  )==37 )  --->  		 if ( e.keyCode ==37 )
+	commands  [ 4 ]  =  value    --->  		commands [ 4 ]  = value 
+	 if (   e.getKeyCode   (  )==39 )  --->  		 if ( e.keyCode ==39 )
+	commands  [ 5 ]  =  value    --->  		commands [ 5 ]  = value 
+	 if (   e.getKeyCode   (  )==68 )  --->  		 if ( e.keyCode ==68 )
+	commands  [ 6 ]  =  value    --->  		commands [ 6 ]  = value 
+	 if (   e.getKeyCode   (  )==65 )  --->  		 if ( e.keyCode ==65 )
+	commands  [ 7 ]  =  value    --->  		commands [ 7 ]  = value 
+	 public void keyPressed   ( KeyEvent e   )  --->  		, keyPressed : function ( e  )
+	  setCommands   (  e  ,  true   )  --->  		 this.setCommands  ( e , true  )
+	 public void keyReleased   ( KeyEvent e   )  --->  		, keyReleased : function ( e  )
+	  setCommands   (  e  ,  false   )  --->  		 this.setCommands  ( e , false  )
+	unmatched javaPatterns:
+	unmatched jsPatterns:
