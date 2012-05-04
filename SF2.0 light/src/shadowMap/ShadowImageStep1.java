@@ -13,38 +13,27 @@ package shadowMap;
  * TODO
  * modificare vista in modo tale da vedere position da luce
  */
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
-import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.SFRenderedTexture;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
-import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
-import shadow.objloader.example.ShadowObjLoaderExample;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
-import shadow.pipeline.SFPipelineStructure;
-import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFStructureArray;
-import shadow.pipeline.SFStructureData;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
-import shadow.pipeline.parameters.SFParameter;
-import shadow.pipeline.parameters.SFParameteri;
-import shadow.renderer.data.SFStructureReference;
-import shadow.system.SFArrayElementException;
+import shadow.renderer.SFStructureReference;
 
 public class ShadowImageStep1 extends SFTutorial {
 	
@@ -62,7 +51,7 @@ public class ShadowImageStep1 extends SFTutorial {
 	float rotY=-1.6f;
 	float rotZ=0;
 	//con projection girata di 90'su y e -90'su sul modello ho luce da sx
-	private SFTextureData texture0;
+	private SFPipelineTexture texture0;
 	
 	private static ArrayList<SFGeometry> geometries;
 	private static SFProgram program;
@@ -90,7 +79,7 @@ public class ShadowImageStep1 extends SFTutorial {
 		System.err.println("Number of geometries is "+geometries.size());
 		
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 			
 			ShadowImageStep1.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "NoLights");
 			//da modificare, solo per verificare correttezza primo passo che salvo immagine
@@ -136,7 +125,7 @@ public class ShadowImageStep1 extends SFTutorial {
 	
 		//primo passo del deferred: passaggio da 3D a 2D
 		
-		texture0 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFFormat.RGB8,  Filter.LINEAR,
+		texture0 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		
 		SFRenderedTexture renderedTexture=new SFRenderedTexture();

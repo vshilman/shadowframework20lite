@@ -10,7 +10,6 @@ import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
 import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
-import shadow.objloader.example.ShadowObjLoaderExample;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
@@ -18,13 +17,15 @@ import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
+import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 import shadow.system.SFArrayElementException;
 
 public class DeferredSpecular extends SFTutorial {
@@ -53,7 +54,7 @@ public class DeferredSpecular extends SFTutorial {
 		System.err.println("Number of geometries is "+geometries.size());
 		
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 			//'Deferred'=shader che unisce i tre pasi dell'algoritmo e calcola il valore del colore finale
 			DeferredSpecular.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "Specular");
 		
@@ -96,6 +97,8 @@ public class DeferredSpecular extends SFTutorial {
 	
 	@Override
 	public void render() {
+		
+		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
 
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		

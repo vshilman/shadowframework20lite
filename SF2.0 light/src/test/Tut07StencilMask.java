@@ -5,12 +5,11 @@ import java.awt.event.KeyEvent;
 
 import shadow.geometry.geometries.SFMeshGeometry;
 import shadow.image.SFBitmap;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.bitmaps.SFSpecialPerlinNoise;
 import shadow.pipeline.SFPipeline;
-import shadow.pipeline.SFPipelineGraphics;
 import shadow.pipeline.SFPipelineRenderingState;
 import shadow.pipeline.SFPipelineRenderingState.StencilFunction;
 import shadow.pipeline.SFPipelineRenderingState.StencilOperation;
@@ -38,7 +37,7 @@ public class Tut07StencilMask extends SFTutorial{
 	private static SFMeshGeometry[] geometries;
 	private int geometriesIndex=0;
 
-	private SFTextureData texture;
+	private SFPipelineTexture texture;
 	
 	private SFPipelineRenderingState maskGeneration=new SFPipelineRenderingState();
 	private SFPipelineRenderingState maskApplication=new SFPipelineRenderingState();

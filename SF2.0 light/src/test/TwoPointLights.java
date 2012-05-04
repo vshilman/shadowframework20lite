@@ -12,39 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shadow.geometry.geometries.SFMeshGeometry;
-import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
-import shadow.image.SFRenderedTexture;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
 import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.SFPrimitiveArray;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
-import shadow.pipeline.SFPipelineRenderingState.StencilFunction;
-import shadow.pipeline.SFPipelineRenderingState.StencilOperation;
+import shadow.pipeline.SFPrimitive.PrimitiveBlock;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.bitmapsExample.PerlinNoise3;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.Cone;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.LateralTube;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.Mushroom;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeCylinder;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeGlass;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 import shadow.system.SFArrayElementException;
 import shadow.system.SFException;
 
@@ -72,13 +63,13 @@ public class TwoPointLights extends SFTutorial {
 		String[] materials={"ColorsMat"}; //legge ambColor, ma nn lo usa
 
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"), new SFPipelineBuilder());
 			
 			//recupero info di normali, posizione e coord.text
 			SFPrimitive primitive=new SFPrimitive();
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("Tx0"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
+			primitive.addPrimitiveElement(PrimitiveBlock.NORMAL, (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
+			primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
+			primitive.addPrimitiveElement(PrimitiveBlock.TXO, (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));
 			
 			//programma con shader di 'basicMat' per i materiali e 'basicLSPN' per le luci
@@ -149,19 +140,18 @@ public class TwoPointLights extends SFTutorial {
 	@Override
 	public void render() {
 			
+		SFPipeline.getSfProgramBuilder().loadProgram(programShow);
 			
-				SFPipeline.getSfProgramBuilder().loadProgram(programShow);
-			
-				SFPipeline.getSfPipelineGraphics().loadStructureData(materialArray, materialReference.getMaterialIndex());
-				SFPipeline.getSfPipelineGraphics().loadStructureData(lightArray, lightReference.getMaterialIndex());
-				
-				SFVertex3f position = new SFVertex3f(-0.5, 0.0, 0.0);
-				SFPipeline.getSfPipelineGraphics().translateModel(position);
-				SFPipeline.getSfPipelineGraphics().drawPrimitives(geometries[geometriesIndex].getArray(), geometries[geometriesIndex].getFirstElement(), geometries[geometriesIndex].getElementsCount());
-				
-				SFVertex3f position1 = new SFVertex3f(0.5, 0.0, 0.0);
-				SFPipeline.getSfPipelineGraphics().translateModel(position1);
-				SFPipeline.getSfPipelineGraphics().drawPrimitives(geometry.getArray(), geometry.getFirstElement(), geometry.getElementsCount());
+		SFPipeline.getSfPipelineGraphics().loadStructureData(materialArray, materialReference.getMaterialIndex());
+		SFPipeline.getSfPipelineGraphics().loadStructureData(lightArray, lightReference.getMaterialIndex());
+		
+		SFVertex3f position = new SFVertex3f(-0.5, 0.0, 0.0);
+		SFPipeline.getSfPipelineGraphics().translateModel(position);
+		SFPipeline.getSfPipelineGraphics().drawPrimitives(geometries[geometriesIndex].getArray(), geometries[geometriesIndex].getFirstElement(), geometries[geometriesIndex].getElementsCount());
+		
+		SFVertex3f position1 = new SFVertex3f(0.5, 0.0, 0.0);
+		SFPipeline.getSfPipelineGraphics().translateModel(position1);
+		SFPipeline.getSfPipelineGraphics().drawPrimitives(geometry.getArray(), geometry.getFirstElement(), geometry.getElementsCount());
 	}
 
 	

@@ -4,26 +4,18 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
-import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
-import shadow.objloader.example.ShadowObjLoaderExample;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
-import shadow.pipeline.SFPipelineStructure;
-import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFProgram;
-import shadow.pipeline.SFStructureArray;
-import shadow.pipeline.SFStructureData;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
+import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
-import shadow.renderer.data.SFStructureReference;
-import shadow.system.SFArrayElementException;
 
 public class DeferredNormal extends SFTutorial {
 	
@@ -45,7 +37,7 @@ public class DeferredNormal extends SFTutorial {
 		System.err.println("Number of geometries is "+geometries.size());
 		
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 
 			DeferredNormal.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "NoLights");
 		
@@ -65,6 +57,8 @@ public class DeferredNormal extends SFTutorial {
 	
 	@Override
 	public void render() {
+		
+		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
 
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		

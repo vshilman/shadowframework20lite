@@ -18,6 +18,8 @@ import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveArray;
 import shadow.pipeline.SFPrimitiveIndices;
 import shadow.pipeline.SFProgramComponent;
+import shadow.pipeline.SFPrimitive.PrimitiveBlock;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFArray;
@@ -34,34 +36,14 @@ public class ShadowObjLoader {
 
 	private static SFPrimitive primitive=new SFPrimitive();
 
-	
-	private class SimpleObjMeshGeometry extends SFMeshGeometry{
-		
-		
-		public SimpleObjMeshGeometry(SFPrimitive primitive) {
-			super(primitive);
-			allocateGraphicsMemory();
-		}
-
-		@Override
-		public void compile() {
-			//nothing to do
-		}
-		
-		@Override
-		public SFDataset generateNewDatasetInstance() {
-			return new SimpleObjMeshGeometry(primitive);
-		}
-	}
-	
 	static{
 		try {
-			SFProgramComponentLoader.loadComponents(new File("objLoaderPipeline/objLoaderPipeline.txt"));
+			SFProgramComponentLoader.loadComponents(new File("objLoaderPipeline/objLoaderPipeline.txt"),new SFPipelineBuilder());
 
 			try {
-				primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
-				primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
-				primitive.addPrimitiveElement(SFPipelineRegister.getFromName("Tx0"), (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
+				primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
+				primitive.addPrimitiveElement(PrimitiveBlock.NORMAL, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
+				primitive.addPrimitiveElement(PrimitiveBlock.TXO, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
 				primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("OBJBasicTess")));
 			} catch (SFException e) {
 				e.printStackTrace();
@@ -98,9 +80,11 @@ public class ShadowObjLoader {
 		
 		for (int i = 0; i < file.getGeometriesNumber(); i++) {
 			
-			SFMeshGeometry geometry=new SimpleObjMeshGeometry(primitive);
+			SFMeshGeometry geometry=new SFMeshGeometry();
+			geometry.setPrimitive(primitive);
 
-			SFPrimitiveArray primitiveData=geometry.getArray();//SFPipeline.getSfPipelineMemory().generatePrimitiveArray(primitive);
+			SFPrimitiveArray primitiveData=SFPipeline.getSfPipelineMemory().generatePrimitiveArray(primitive);
+			geometry.setArray(primitiveData);
 			geometries.add(geometry);
 			
 			final ArrayList<Vertex3f> vertices=new ArrayList<Vertex3f>();
@@ -160,30 +144,29 @@ public class ShadowObjLoader {
 					}	
 				}
 				
-				int prIndices[][]=new int[1][];
+				int size=1;
 				if(file.getNormals().length>0){
-					prIndices=new int[2][];
+					size++;
 				}
 				if(file.getTexCoord().length>0){
-					prIndices=new int[prIndices.length+1][];
+					size++;
 				}
 				
-				for (int j = 0; j < prIndices.length; j++) {
-					prIndices[j]=new int[3];
-				}
+				int[] prIndices=new int[3*size];
 				
 				for (int j = 0; j < vertices.size(); j+=3) {
 					SFPrimitiveIndices indices=new SFPrimitiveIndices(primitive);
 					
-					for (int k = 0; k < prIndices.length; k++) {
-						prIndices[k][0]=j;
-						prIndices[k][1]=j+1;
-						prIndices[k][2]=j+2;
+					for (int k = 0; k < size; k++) {
+						prIndices[k*3+0]=j;
+						prIndices[k*3+1]=j+1;
+						prIndices[k*3+2]=j+2;
 					}
 					indices.setPrimitiveIndices(prIndices);
 					primitiveData.setElement(elementIndex+(j/3), indices);
 				}
 			
+				
 			} catch (SFArrayElementException e) {
 				e.printStackTrace();
 			}

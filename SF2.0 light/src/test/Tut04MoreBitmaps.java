@@ -4,9 +4,9 @@ package test;
 import java.awt.event.KeyEvent;
 
 import shadow.image.SFBitmap;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
@@ -18,7 +18,7 @@ import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 
 public class Tut04MoreBitmaps extends SFTutorial{
 	
-	private SFTextureData[] texture;
+	private SFPipelineTexture[] texture;
 	private int selectedTexture=0;
 	private SFProgram program;
 	
@@ -39,7 +39,7 @@ public class Tut04MoreBitmaps extends SFTutorial{
 		
 		SFBitmap[] bitmap = getAllBitmaps();
 		
-		texture=new SFTextureData[bitmap.length];
+		texture=new SFPipelineTexture[bitmap.length];
 		for (int i = 0; i < bitmap.length; i++) {
 			texture[i]=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateBitmapTexture(bitmap[i], Filter.LINEAR,
 					WrapMode.REPEAT, WrapMode.REPEAT);
