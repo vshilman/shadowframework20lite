@@ -17,7 +17,7 @@ import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeCylinder;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeGlass;
 import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 
 public class Tut02MoreGeometries extends SFBasicTutorial{
 

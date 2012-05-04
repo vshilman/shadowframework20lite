@@ -71,6 +71,11 @@
 @write color texture0%texCoord0
 @end
 
+@begin LightStep DrawNormals
+@use normal 
+@write fColor normal
+@end
+
 @begin LightStep Deferred
 @param intensity,lPosition as PLight01
 @use normal 

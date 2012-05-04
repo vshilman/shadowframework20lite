@@ -8,7 +8,6 @@ package deferredShading;
  * problemi con la posizione della luce
  * ad esempio il vettore della vista (0,0,-1) in realtà è (0,0,1)
  */
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,15 +15,13 @@ import java.util.List;
 
 import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
-import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.SFRenderedTexture;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
 import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
-import shadow.objloader.example.ShadowObjLoaderExample;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
@@ -32,21 +29,23 @@ import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
+import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 import shadow.system.SFArrayElementException;
 
 public class TrueDeferred extends SFTutorial {
 	
-	private SFTextureData texture0;
-	private SFTextureData texture1;
-	private SFTextureData texture2;
-	private SFTextureData texture3;
+	private SFPipelineTexture texture0;
+	private SFPipelineTexture texture1;
+	private SFPipelineTexture texture2;
+	private SFPipelineTexture texture3;
 	private int shownTexture;
 	
 	private static ArrayList<SFGeometry> geometries;
@@ -75,7 +74,7 @@ public class TrueDeferred extends SFTutorial {
 		System.err.println("Number of geometries is "+geometries.size());
 		
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 			
 			TrueDeferred.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "FirstStepDF");
 			TrueDeferred.finalprogram=SFPipeline.getStaticImageProgram(materials2, "SecondStepDF");
@@ -117,16 +116,18 @@ public class TrueDeferred extends SFTutorial {
 	}
 	@Override
 	public void init() {
+		
+		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
 	
 		//primo passo del deferred: passaggio da 3D a 2D
 		
-		texture0 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFFormat.RGB8,  Filter.LINEAR,
+		texture0 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
-		texture1 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFFormat.RGB8,  Filter.LINEAR,
+		texture1 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
-		texture2 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFFormat.RGB8,  Filter.LINEAR,
+		texture2 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
-		texture3 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFFormat.RGB8,  Filter.LINEAR,
+		texture3 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		
 		SFRenderedTexture renderedTexture=new SFRenderedTexture();

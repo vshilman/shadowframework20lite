@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
@@ -13,16 +12,15 @@ import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
-import shadow.pipeline.SFPipelineStructure;
-import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFStructureArray;
-import shadow.pipeline.SFStructureData;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
+import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.renderer.data.SFStructureReference;
-import shadow.system.SFArrayElementException;
+import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
+import shadow.renderer.SFStructureReference;
 
 public class ShadowObjLoaderExample extends SFTutorial{
 
@@ -39,9 +37,9 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		SFGL20Pipeline.setup();
 
 		ShadowObjLoaderExample tut03Bitmap=new ShadowObjLoaderExample();
-		String[] materials={"TexturedMat"};
+		String[] materials={"BasicMat"};
 		
-		SimpleObjFile file=SimpleObjFile.getFromFile("models/cubo.obj");
+		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
 		ShadowObjLoader shadowObjLoader=new ShadowObjLoader();
 		geometries=shadowObjLoader.extractGeometries(file);
@@ -49,7 +47,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		System.err.println("Number of geometries is "+geometries.size());
 		
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 
 			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "BasicLSPN");
 		} catch (IOException e) {
@@ -58,39 +56,38 @@ public class ShadowObjLoaderExample extends SFTutorial{
 			e.printStackTrace();
 		}
 		
+		ShadowObjLoaderExample.materialData=SFTutorialsUtilities.generateMaterialData(program, 0, 0);
+		SFVertex3f[] materialData={new SFVertex3f(1,1,0),new SFVertex3f(0.1f,0.1f,0.1f)};
+		materialReference=SFTutorialsUtilities.generateStructureDataReference(program, ShadowObjLoaderExample.materialData, materialData);
+
 		//Light
-		SFPipelineStructure lighStructure=SFPipeline.getStructure("PLight01");
-		SFPipelineStructureInstance lightStructureInstance=((List<SFPipelineStructureInstance>)(program.getLightStep().getStructures())).get(0);
-		lightData=SFPipeline.getSfPipelineMemory().generateStructureData(lightStructureInstance.getStructure()); 
-		lightReference=new SFStructureReference(lightData,lightData.generateElement()); 
-		SFStructureData lit=new SFStructureData(lightStructureInstance.getStructure());
-		((SFVertex3f)lit.getValue(0)).set3f(1, 1, 1);
-		((SFVertex3f)lit.getValue(1)).set3f(0, 0, -1);
-		try {
-			lightReference.setStructureData(lit);
-		} catch (SFArrayElementException e) {
-			e.printStackTrace();
-		}
+		ShadowObjLoaderExample.lightData=SFTutorialsUtilities.generateLightData(program, 0);
+		SFVertex3f[] lightData={new SFVertex3f(2, 1, 1),new SFVertex3f(1, 1, -1)};
+		lightReference=SFTutorialsUtilities.generateStructureDataReference(program, ShadowObjLoaderExample.lightData, lightData);
 		
 		tut03Bitmap.prepareFrame("Rendered Texture", 600, 600);
 	}
 	
 	@Override
 	public void init() {
-	loadImageTexture("models/Chrysanthemum.jpg");
+		//loadImageTexture("models/Chrysanthemum.jpg");
 	}
 	
 	
 	@Override
 	public void render() {
+		
+		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
 
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		
 		//load material data
-		SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
+		if(materialData!=null)
+			SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
 		
 		//load light data
-		SFPipeline.getSfPipelineGraphics().loadStructureData(lightData, lightReference.getMaterialIndex());
+		if(lightData!=null)
+			SFPipeline.getSfPipelineGraphics().loadStructureData(lightData, lightReference.getMaterialIndex());
 		
 		for (int i = 0; i < geometries.size(); i++) {
 			geometries.get(i).drawGeometry(0);//Lod value is actually ignored.
