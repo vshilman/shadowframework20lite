@@ -3,6 +3,8 @@ package shadow.pipeline.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import shadow.math.SFValue1f;
+import shadow.math.SFValuenf;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFExpressionSqrt extends SFExpressionOperator{
@@ -33,5 +35,11 @@ public class SFExpressionSqrt extends SFExpressionOperator{
 	@Override
 	protected SFExpressionOperator cloneOperator() {
 		return new SFExpressionSqrt();
+	}
+	
+	@Override
+	public SFValuenf evaluate(SFValuesMap values) {
+		SFValuenf sum=getExpressionElement(0).evaluate(values);
+		return new SFValue1f((float)Math.sqrt(sum.get()[0]));
 	}
 }

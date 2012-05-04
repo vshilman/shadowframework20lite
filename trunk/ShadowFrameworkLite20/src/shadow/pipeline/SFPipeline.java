@@ -1,6 +1,9 @@
 package shadow.pipeline;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -14,11 +17,39 @@ import java.util.HashMap;
  * @author Alessandro Martinelli
  */
 public class SFPipeline {
+	
+	private static class SFProgramTrace implements Comparable<SFProgramTrace>{
+		
+		private SFProgramComponent[] components;
+		private SFProgram program;
+		
+		private SFProgramTrace(SFProgramComponent[] components) {
+			super();
+			this.components = components;
+		}
 
+		@Override
+		public int compareTo(SFProgramTrace o) {
+			if(o.components.length!=components.length)
+				return o.components.length-components.length;
+			
+			for (int i = 0; i < components.length; i++) {
+				int compare=components[i].hashCode()-o.components[i].hashCode();
+				if(compare!=0)
+					return compare;
+			}
+			
+			return 0;
+		}
+	}
+	
+	
 	// Pipeline components.
 	private HashMap<String, SFProgramComponent> components=new HashMap<String, SFProgramComponent>();
 	private HashMap<String, SFPipelineGrid> grids=new HashMap<String, SFPipelineGrid>();
 	private HashMap<String, SFPipelineStructure> structures=new HashMap<String, SFPipelineStructure>();
+	
+	private List<SFProgramTrace> traces=new ArrayList<SFProgramTrace>();
 
 	private SFProgramBuilder sfProgramBuilder;
 	private SFPipelineGraphics sfPipelineGraphics;
@@ -114,18 +145,54 @@ public class SFPipeline {
 	 */
 	public static SFProgram getStaticProgram(SFPrimitive primitive, String material[], String light) {
 
-		SFProgram program=pipeline.sfProgramBuilder.generateNewProgram();
-
-		program.setPrimitive(primitive);
+		SFProgramTrace trace=generateTrace(primitive, material, light);
 		
-		for (int i=0; i < material.length; i++) {
-			SFProgramComponent component=pipeline.components.get(material[i]);
-			program.setMaterial(i,component);
-		}
-		program.setLightStep(pipeline.components.get(light));
-		// Now program is returned, and it is ready to be used
+		int index = Collections.binarySearch(pipeline.traces, trace); 
+		
+		if(index>=0){
+		
+			return pipeline.traces.get(index).program;
+			
+		}else{
+			SFProgram program=pipeline.sfProgramBuilder.generateNewProgram();
 
-		return program;
+			program.setPrimitive(primitive);
+			
+			for (int i=0; i < material.length; i++) {
+				program.setMaterial(i,pipeline.components.get(material[i]));
+			}
+			program.setLightStep(pipeline.components.get(light));
+			
+			trace.program=program;
+			
+			pipeline.traces.add(trace);
+			Collections.sort(pipeline.traces);
+			
+			// Now program is returned, and it is ready to be used
+			return program;
+		}
+		
+		
+		
+
+	}
+
+	public static SFProgramTrace generateTrace(SFPrimitive primitive, String[] material, String light) {
+		int primitiveComponents=0;
+		if(primitive!=null)
+			primitiveComponents=primitive.getComponents().length;
+		int componentSize=primitiveComponents+material.length+1;
+		SFProgramComponent[] components = new SFProgramComponent[componentSize];
+		for (int i = 0; i < primitiveComponents; i++) {
+			components[i]=primitive.getComponents()[i];
+		}
+		for (int i = 0; i < material.length; i++) {
+			components[i+primitiveComponents]=pipeline.components.get(material[i]);
+		}
+		components[components.length-1]=pipeline.components.get(light);
+		
+		SFProgramTrace trace=new SFProgramTrace(components);
+		return trace;
 	}
 
 	/**
@@ -141,102 +208,31 @@ public class SFPipeline {
 	 */
 	public static SFProgram getStaticImageProgram(String material[], String light) {
 
-		SFProgram program=pipeline.sfProgramBuilder.generateImageProgram();
-
-		for (int i=0; i < material.length; i++) {
-			program.setMaterial(i,pipeline.components.get(material[i]));
+		SFProgramTrace trace=generateTrace(null, material, light);
+		
+		int index = Collections.binarySearch(pipeline.traces, trace); 
+		
+		if(index>=0){
+		
+			return pipeline.traces.get(index).program;
+			
+		}else{
+			SFProgram program=pipeline.sfProgramBuilder.generateImageProgram();
+			
+			for (int i=0; i < material.length; i++) {
+				program.setMaterial(i,pipeline.components.get(material[i]));
+			}
+			program.setLightStep(pipeline.components.get(light));
+			
+			trace.program=program;
+			
+			pipeline.traces.add(trace);
+			Collections.sort(pipeline.traces);
+			
+			// Now program is returned, and it is ready to be used
+			return program;
 		}
-		program.setLightStep(pipeline.components.get(light));
-		
-		return program;
 	}
 	
-
-	/*
-	@Override
-	public void setModelPosition(float modelX,float modelY,float modelZ){
-		sfPipelineGraphics.setModelPosition(modelX,modelY,modelZ);
-	}
-	
-	@Override
-	public void loadStructure(String strucuteCode, SFArray<SFValuenf> structure,int index){
-		sfPipelineGraphics.loadStructure(strucuteCode,structure,index);
-	}
-	
-	@Override
-	public void loadBuffer1f(SFParameteri parameter, SFArray<SFValue1f> points,int indexP){
-		sfPipelineGraphics.loadBuffer1f(parameter,points,indexP);
-	}
-	
-	@Override
-	public void loadBuffer2f(SFParameteri parameter, SFArray<SFVertex2f> points){
-		sfPipelineGraphics.loadBuffer2f(parameter,points);
-	}
-	
-	@Override
-	public void loadBuffer3f(SFParameteri parameter, SFArray<SFVertex3f> points){
-		sfPipelineGraphics.loadBuffer3f(parameter,points);
-	}
-	
-	@Override
-	public void loadBuffer4f(SFParameteri parameter, SFArray<SFVertex4f> points){
-		sfPipelineGraphics.loadBuffer4f(parameter,points);
-	}
-	
-	@Override
-	public void renderElements(int elements){
-		sfPipelineGraphics.renderElements(elements);
-	}
-	
-	@Override
-	public SFArray<SFVertex2f> generateVertices2f(){
-		return sfPipelineGraphics.generateVertices2f();
-	}
-	
-	@Override
-	public SFArray<SFMatrix2f> generateTransforms2f(){
-		return sfPipelineGraphics.generateTransforms2f();
-	}
-
-	@Override
-	public SFArray<SFVertex3f> generateVertices3f(){
-		return sfPipelineGraphics.generateVertices3f();
-	}
-
-	@Override
-	public SFArray<SFMatrix3f> generateTransforms3f(){
-		return sfPipelineGraphics.generateTransforms3f();
-	}
-	
-	@Override
-	public SFArray<SFVertex4f> generateVertices4f(){
-		return sfPipelineGraphics.generateVertices4f();
-	}
-
-	@Override
-	public SFArray<SFMatrix4f> generateTransforms4f(){
-		return sfPipelineGraphics.generateTransforms4f();
-	}
-	
-	@Override
-	public SFStructureArray generateStructureData(SFPipelineStructure structure){
-		return sfPipelineGraphics.generateStructureData(structure);
-	}
-		
-	@Override
-	public SFPrimitiveArray generatePrimitiveArray(){
-		return sfPipelineGraphics.generatePrimitiveArray();
-	}
-
-	@Override
-	public void drawPrimitives(SFPrimitiveArray primitives,List<SFPipelineStructure> structures,
-			int first,int count){
-		sfPipelineGraphics.drawPrimitives(primitives,structures,first,count);
-	}
-	
-	@Override
-	public void loadMaterial(SFStructureArray array,SFPipelineStructure structure,int indexOfData){
-		sfPipelineGraphics.loadMaterial(array,structure,indexOfData);
-	}*/
 	
 }

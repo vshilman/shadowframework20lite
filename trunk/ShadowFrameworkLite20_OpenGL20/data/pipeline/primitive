@@ -50,6 +50,7 @@
 @write color diffColor 
 @end
 
+
 @begin Material BlackMat
 @write color (0,0,0,1) 
 @end
@@ -67,6 +68,7 @@
 @write color texture0%texCoord0
 @write color1 texture1%texCoord0
 @end
+
 
 @begin LightStep ColorSubtract
 @use color
@@ -142,6 +144,18 @@
 @define tmp3:3 (0.4,0,0)
 @write color tmp2
 @write color1 tmp3
+@end
+
+@begin LightStep BasicLSPN2
+@param intensity,lPosition as PLight01
+@use normal 
+@use position
+@use color
+@define tmp1:3 lPosition-position
+@define tmp2:1 #(tmp1?tmp1)
+@define tmp3:3 0.6+0.4*((normal?tmp1)/tmp2) 
+@write fColor color*intensity*tmp3
+//@write fColor color
 @end
 
 @begin LightStep RedStep

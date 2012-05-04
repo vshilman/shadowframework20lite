@@ -15,10 +15,11 @@ import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeCylinder;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeGlass;
 import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 
 public class Tut09Coloring extends SFBasicTutorial{
 
+	private static final long serialVersionUID=0;
 	private static SFMeshGeometry[] geometries;
 	private int geometriesIndex=0;
 	

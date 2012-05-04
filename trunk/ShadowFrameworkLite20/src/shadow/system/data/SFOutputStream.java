@@ -20,4 +20,5 @@ public interface SFOutputStream {
 
 	public abstract void writeBinaryData(int[] values,int bitSize);
 
+	public abstract void writeBinaryData(int value,int bitSize);
 }

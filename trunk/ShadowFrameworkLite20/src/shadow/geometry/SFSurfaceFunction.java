@@ -20,9 +20,9 @@
 package shadow.geometry;
 
 import shadow.math.SFVertex3f;
-import shadow.renderer.SFAsset;
+import shadow.system.SFInitiable;
 
-public abstract class SFSurfaceFunction extends SFAsset{
+public abstract class SFSurfaceFunction implements SFInitiable{
 
 	private static final float eps=0.01f;
 	
@@ -32,6 +32,10 @@ public abstract class SFSurfaceFunction extends SFAsset{
 	
 	public SFVertex3f getPosition(float u,float v){	
 		return new SFVertex3f(getX(u, v),getY(u, v),getZ(u, v));
+	}
+	
+	public void getPosition(float u,float v,SFVertex3f write){	
+		write.set3f(getX(u, v),getY(u, v),getZ(u, v));
 	}
 
 	public SFVertex3f getDu(float u,float v){
@@ -56,8 +60,4 @@ public abstract class SFSurfaceFunction extends SFAsset{
 		return normal;
 	}
 	
-	@Override
-	public void init() {
-		//Functions should not require initialization...
-	}
 }

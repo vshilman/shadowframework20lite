@@ -2,8 +2,9 @@ package shadow.renderer;
 
 import shadow.math.SFMatrix3f;
 import shadow.math.SFVertex3f;
+import shadow.system.SFInitiable;
 
-public class SFCamera {
+public class SFCamera implements SFInitiable{
 
 	private SFVertex3f F=new SFVertex3f();
 	private SFVertex3f Dir=new SFVertex3f();
@@ -20,8 +21,9 @@ public class SFCamera {
 	
 	private boolean isPerspective=false;
 	
-	public SFCamera(SFVertex3f focus, SFVertex3f dir, SFVertex3f left, SFVertex3f up, float leftL,
-			float upL,float distance,float delta) {
+	public SFCamera(SFVertex3f focus, SFVertex3f dir, 
+			SFVertex3f left, SFVertex3f up, float leftL,
+			float upL,float distance) {
 		super();
 		getF().set(focus);
 		getDir().set(dir);
@@ -31,6 +33,11 @@ public class SFCamera {
 		this.setUpL(upL);
 		this.setDistance(distance);
 		update();
+	}
+
+	@Override
+	public void init() {
+		
 	}
 	
 	/*public void draw(GL2 gl){

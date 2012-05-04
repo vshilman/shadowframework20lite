@@ -4,18 +4,16 @@ import shadow.geometry.SFGeometry;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveArray;
-import shadow.pipeline.parameters.SFPipelineRegister;
-import shadow.renderer.data.SFPrimitiveData;
 
 /**
  * Responsibility: draw.
  * 
  * @author Alessandro Martinelli
  */
-public abstract class SFMeshGeometry extends SFGeometry{
+public class SFMeshGeometry extends SFGeometry {
 
-	//private SFPrimitive primitive;
-	private SFPrimitiveData primitiveData=new SFPrimitiveData();
+	private SFPrimitive primitive;
+	//private SFPrimitiveData primitiveData=new SFPrimitiveData();
 	private SFPrimitiveArray array;
 	private int firstElement=-1;
 	private int lastElement=-1;
@@ -23,22 +21,34 @@ public abstract class SFMeshGeometry extends SFGeometry{
 	public SFMeshGeometry() {
 		super();
 	}
-	
-	protected SFMeshGeometry(SFPrimitive primitive) {
-		super();
-		this.primitiveData.setPrimitive(primitive);
-	}
-	
-	
-	protected SFPrimitiveData getPrimitiveData() {
-		return primitiveData;
-	}
 
-	protected void setPrimitive(SFPrimitive primitive) {
-		this.primitiveData.setPrimitive(primitive);
+	@Override
+	public void drawGeometry(int lod) {
+		//lod is still ignored
+		//this is much ok...
+		if(firstElement!=-1)
+			SFPipeline.getSfPipelineGraphics().drawPrimitives(array,firstElement,lastElement-firstElement);
+	}
+	
+	@Override
+	public void compile() {
+		//Nothing to Do; SFMeshGeometry can be used for directly built geometries.
+	}
+	
+	@Override
+	public void init() {
 		if(firstElement==-1){
 			compile();
 		}
+	}
+	
+	protected SFMeshGeometry(SFPrimitive primitive) {
+		super();
+		this.primitive=primitive;
+	}
+
+	public void setPrimitive(SFPrimitive primitive) {
+		this.primitive=primitive;
 	}
 
 	public int getFirstElement() {
@@ -55,7 +65,6 @@ public abstract class SFMeshGeometry extends SFGeometry{
 	}
 
 
-
 	public int getLastElement() {
 		return lastElement;
 	}
@@ -69,53 +78,15 @@ public abstract class SFMeshGeometry extends SFGeometry{
 	public SFPrimitiveArray getArray() {
 		return array;
 	}
-
-
-	@Override
-	public void drawGeometry(int lod) {
-		//lod is still ignored
-		//this is much ok...
-		SFPipeline.getSfPipelineGraphics().drawPrimitives(array,firstElement,lastElement-firstElement);
-	}
-
 	
-	@Override
-	public SFPipelineRegister[] getGeometricRegisters() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setArray(SFPrimitiveArray array) {
+		this.array=array;
 	}
 	
 	@Override
 	public SFPrimitive getPrimitive() {
-		return primitiveData.getPrimitive();
+		return primitive;
 	}
-	
-	
-	@Override
-	public String getTessellator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 
-	@Override
-	public void allocateGraphicsMemory() {
-		this.array=SFPipeline.getSfPipelineMemory().generatePrimitiveArray(primitiveData.getPrimitive());
-	}
-	
-	@Override
-	public void freeGraphicsMemory() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void init() {
-		System.err.println("Compiling?");
-		if(firstElement==-1){
-			System.err.println("Yes!");
-			compile();
-		}
-	}
 	
 }

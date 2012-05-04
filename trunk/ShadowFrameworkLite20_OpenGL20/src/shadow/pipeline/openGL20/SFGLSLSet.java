@@ -34,6 +34,8 @@ import shadow.system.SFUpdatable;
 
 public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 	
+	private static final boolean REPORT_SHADERS=false;
+	
 	private int frShader,vxShader,program;
 	private boolean initialized=false;
 	
@@ -56,7 +58,7 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 			System.out.println("Failed Crate Fr shader");
 			System.exit(0);
 		}else{
-			System.out.println("Shader Fr created");
+			//System.out.println("Shader Fr created");
 		}
 		
 		updateFragmentShader(gl);
@@ -67,7 +69,8 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 		
 		int length[]={shaderText[0].length()};
 		
-		System.err.println("shaderText[0] " + shaderText[0]);
+		if(REPORT_SHADERS)
+			System.out.println("shaderText[0] " + shaderText[0]);
 		
 		gl.glShaderSourceARB(frShader,1,shaderText,length,0);
 
@@ -84,10 +87,11 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 
 			byte[] b=new byte[3000];
 			gl.glGetInfoLogARB(frShader,b.length,status,0,b,0);
-			
-			System.out.println(new String(b));
+
+			if(REPORT_SHADERS)
+				System.out.println(new String(b));
 		}else{
-			System.out.println("Shader is ok ");
+			//System.out.println("Shader is ok ");
 		}
 	}
 	
@@ -107,8 +111,9 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 		String shaderText[]={loadVertexShaderText()};
 
 		int length[]={shaderText[0].length()};
-		
-		System.err.println("shaderText[0] " + shaderText[0]);
+
+		if(REPORT_SHADERS)
+			System.err.println("shaderText[0] " + shaderText[0]);
 		
 		gl.glShaderSourceARB(vxShader,1,shaderText,length,0);
 		
@@ -119,17 +124,19 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 		gl.glGetObjectParameterivARB(vxShader,GL2.GL_OBJECT_COMPILE_STATUS_ARB,status,0);
 	
 		if(status[0]==0){
-			System.out.println("Shader has a problems");
+			if(REPORT_SHADERS)
+				System.out.println("Shader has a problems");
 			int len[]=new int[1];
 			gl.glGetObjectParameterivARB(vxShader, GL2.GL_OBJECT_COMPILE_STATUS_ARB,
 					len,0);
 
 			byte[] b=new byte[20000];
 			gl.glGetInfoLogARB(vxShader,b.length,status,0,b,0);
-			
-			System.out.println(new String(b));
+
+			if(REPORT_SHADERS)
+				System.out.println(new String(b));
 		}else{
-			System.out.println("Shader is ok ");
+			//System.out.println("Shader is ok ");
 		}
 	}
 	
@@ -141,7 +148,7 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 			System.out.println("Failed Create program");
 			System.exit(0);
 		}else{
-			System.out.println("Program created");
+			//System.out.println("Program created");
 		}
 		
 		updateProgram(gl);
@@ -160,15 +167,17 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 		
 		//System.out.println("Status "+status2[0]);
 		if(status2[0]==0){
-			System.out.println("Something failed "+status2[0]);
+			if(REPORT_SHADERS)
+				System.out.println("Something failed "+status2[0]);
 			int len[]=new int[1];
 			gl.glGetObjectParameterivARB(program, GL2.GL_OBJECT_COMPILE_STATUS_ARB,
 					len,0);
 
 			byte[] b=new byte[2000];
 			gl.glGetInfoLogARB(program,b.length,status,0,b,0);
-			
-			System.err.println("new String(b) " + new String(b));
+
+			if(REPORT_SHADERS)
+				System.err.println("new String(b) " + new String(b));
 		}
 
 		gl.glValidateProgramARB(program);

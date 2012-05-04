@@ -12,6 +12,8 @@ public interface SFPipelineGraphics {
 	
 	public void rotateModel(float rotX,float rotY,float rotZ);
 	
+	public void setupTransform(float[] transform);
+	
 	public void drawPrimitives(SFPrimitiveArray primitives,int first,int count);
 	
 	public void loadStructureData(SFStructureArray array,int indexOfData);
@@ -21,4 +23,5 @@ public interface SFPipelineGraphics {
 	public void setPipelineState(SFPipelineRenderingState state);
 	
 	public void executeAccumulationOperation(AccumulatorOperation operation,float value);
+	
 }

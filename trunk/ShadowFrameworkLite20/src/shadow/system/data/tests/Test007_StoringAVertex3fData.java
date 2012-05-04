@@ -5,15 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import shadow.math.SFVertex3f;
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
 import shadow.system.data.java.SFInputStreamJava;
 import shadow.system.data.java.SFOutputStreamJava;
 import shadow.system.data.objects.SFCompositeDataArray;
-import shadow.system.data.objects.SFFloat;
-import shadow.system.data.objects.SFInt;
-import shadow.system.data.objects.SFString;
 import shadow.system.data.objects.SFVertex3fData;
 
 public class Test007_StoringAVertex3fData {

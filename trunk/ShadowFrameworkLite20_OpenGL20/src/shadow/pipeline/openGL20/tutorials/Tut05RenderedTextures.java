@@ -5,14 +5,15 @@ import java.io.File;
 import java.io.IOException;
 
 import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.SFRenderedTexture;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFProgram;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.pipeline.openGL20.tutorials.bitmapsExample.PerlinNoise3;
@@ -20,9 +21,10 @@ import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 
 public class Tut05RenderedTextures extends SFTutorial{
 
-	private SFTextureData texture;
-	private SFTextureData texture1;
-	private SFTextureData texture2;
+	private static final long serialVersionUID=0;
+	private SFPipelineTexture texture;
+	private SFPipelineTexture texture1;
+	private SFPipelineTexture texture2;
 	private int shownTexture;
 	private SFProgram programGenerate;
 	private SFProgram programShow;
@@ -34,7 +36,7 @@ public class Tut05RenderedTextures extends SFTutorial{
 		Tut05RenderedTextures tut03Bitmap=new Tut05RenderedTextures();
 		String[] materials={"TexturedMat"};
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"),new SFPipelineBuilder());
 
 			tut03Bitmap.programGenerate=SFPipeline.getStaticImageProgram(materials, "BasicGrayAndBright");
 			tut03Bitmap.programShow=SFPipeline.getStaticImageProgram(materials, "BasicColor");
@@ -55,9 +57,9 @@ public class Tut05RenderedTextures extends SFTutorial{
 		texture=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateBitmapTexture(bitmap, Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		
-		texture1 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFFormat.RGB8,  Filter.LINEAR,
+		texture1 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
-		texture2 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFFormat.RGB8,  Filter.LINEAR,
+		texture2 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		
 		SFRenderedTexture renderedTexture=new SFRenderedTexture();

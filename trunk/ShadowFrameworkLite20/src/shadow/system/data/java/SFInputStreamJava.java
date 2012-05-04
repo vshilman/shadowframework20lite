@@ -42,6 +42,20 @@ public class SFInputStreamJava implements SFInputStream {
 
 		return data;
 	}
+	
+	@Override
+	public int readBinaryData(int bitSize) {
+		int byteSize = ((bitSize - 1) >> 3) + 1;
+
+		byte[] bytes = readBytes(byteSize);
+		int value = 0;
+		for (int j = 0; j < byteSize; j++) {
+			int byteValue = bytes[ j];
+			value += ((byteValue >= 0 ? byteValue : 256 + byteValue) << (8 * j));// is
+		}
+
+		return value;
+	}
 
 	/*
 	 * (non-Javadoc)

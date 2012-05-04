@@ -10,12 +10,13 @@ import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPrimitive;
+import shadow.pipeline.SFPrimitive.PrimitiveBlock;
 import shadow.pipeline.SFPrimitiveArray;
 import shadow.pipeline.SFPrimitiveIndices;
 import shadow.pipeline.SFProgramComponent;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFArray;
 import shadow.system.SFArrayElementException;
 import shadow.system.SFException;
@@ -28,12 +29,12 @@ public class SFPrimitiveDataTest {
 
 		try {
 			SFGL20Pipeline.setup();
-			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"),new SFPipelineBuilder());
 			
 			SFPrimitive primitive=new SFPrimitive();
 			
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle")));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
+			primitive.addPrimitiveElement(PrimitiveBlock.NORMAL, (SFProgramComponent)(SFPipeline.getModule("Triangle")));
+			primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));
 
 			
@@ -57,29 +58,28 @@ public class SFPrimitiveDataTest {
 				normalsArray.setElement(normalsIndex+0,new SFVertex3f(0,0,1));
 				
 				SFPrimitiveIndices indices=new SFPrimitiveIndices(primitive);
-				int prIndices[][]={{normalsIndex,normalsIndex,normalsIndex},
-						{verticesIndex+0,verticesIndex+1,verticesIndex+2,
-					verticesIndex+3,verticesIndex+4,verticesIndex+5},};
+				int prIndices[]={normalsIndex,normalsIndex,normalsIndex,
+						verticesIndex+0,verticesIndex+1,verticesIndex+2,
+					verticesIndex+3,verticesIndex+4,verticesIndex+5};
 				indices.setPrimitiveIndices(prIndices);
 				primitiveData.setElement(elementIndex, indices);
 				
 				SFPrimitiveIndices indicesBack=new SFPrimitiveIndices(primitive);
 				primitiveData.getElement(elementIndex, indicesBack);
 				
-				int idsBack[][]=indicesBack.getPrimitiveIndices();
+				int idsBack[]=indicesBack.getPrimitiveIndices();
 				System.out.println("idsBack.length="+idsBack.length);
 				for (int i = 0; i < idsBack.length; i++) {
-					System.out.println("idsBack[i].length="+idsBack[i].length);
-					for (int j = 0; j < idsBack[i].length; j++) {
-						System.out.println("idsBack[i][j]="+idsBack[i][j]);
-						int index=idsBack[i][j];
-						SFVertex3f v=new SFVertex3f(0,0,0);
-						if(i==1)
-							verticesArray.getElement(verticesIndex+index, v);
-						if(i==0)
-							normalsArray.getElement(normalsIndex+index, v);
-						System.out.println(v);
+					System.out.println("idsBack[i]="+idsBack[i]);
+					int index=idsBack[i];
+					SFVertex3f v=new SFVertex3f(0,0,0);
+					if(i<3){
+						normalsArray.getElement(verticesIndex+index, v);
+					}else{
+						verticesArray.getElement(normalsIndex+index, v);
 					}
+						
+					System.out.println(v);
 				}
 				
 				
@@ -102,5 +102,5 @@ public class SFPrimitiveDataTest {
 		}
 		
 	}
-
+	
 }

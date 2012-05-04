@@ -3,6 +3,8 @@ package shadow.pipeline.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import shadow.math.SFValue1f;
+import shadow.math.SFValuenf;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFExpressionDot extends SFExpressionOperator{
@@ -43,5 +45,12 @@ public class SFExpressionDot extends SFExpressionOperator{
 	@Override
 	protected SFExpressionOperator cloneOperator() {
 		return new SFExpressionDot();
+	}
+	
+	@Override
+	public SFValuenf evaluate(SFValuesMap values) {
+		SFValuenf value1=getExpressionElement(0).evaluate(values);
+		SFValuenf value2=getExpressionElement(1).evaluate(values);
+		return new SFValue1f(value1.dot(value2));
 	}
 }

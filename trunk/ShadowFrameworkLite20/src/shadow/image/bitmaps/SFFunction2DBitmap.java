@@ -22,7 +22,7 @@ package shadow.image.bitmaps;
 import java.nio.ByteBuffer;
 
 import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
 
 public abstract class SFFunction2DBitmap extends SFBitmap{
 
@@ -36,9 +36,9 @@ public abstract class SFFunction2DBitmap extends SFBitmap{
 		height=getHeight();
 		
 		if(rgb){
-			this.setFormat(SFFormat.RGB8);
+			this.setFormat(SFImageFormat.RGB8);
 		}else{
-			this.setFormat(SFFormat.GRAY8);
+			this.setFormat(SFImageFormat.GRAY8);
 		}
 		
 		int size=1;

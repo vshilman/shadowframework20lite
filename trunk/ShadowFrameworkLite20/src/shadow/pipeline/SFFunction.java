@@ -14,17 +14,12 @@ public class SFFunction {
 	private SFParameteri parameter;
 	private SFExpressionElement function;
 	
-	public SFFunction(SFParameteri globalV, SFExpressionElement function,/*String function,*/ List<SFParameteri> set) {
+	public SFFunction(SFParameteri globalV, SFExpressionElement function, List<SFParameteri> set) {
 		super();
 		this.parameter = globalV;
-		this.function = function;// SFExpressionParser.getParser().parseString(function,set);
-		try {
-			this.function.evaluateType();
-		} catch (SFExpressionException e) {
-			e.printStackTrace();
-		}
+		if(function!=null)
+			setFunction(function);
 	}
-	
 	
 	public SFParameteri getParameter() {
 		return parameter;
@@ -40,5 +35,10 @@ public class SFFunction {
 	
 	public void setFunction(SFExpressionElement function) {
 		this.function = function;
+		try {
+			this.function.evaluateType();
+		} catch (SFExpressionException e) {
+			e.printStackTrace();
+		}
 	}
 }

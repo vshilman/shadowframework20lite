@@ -2,15 +2,12 @@ package shadow.pipeline.openGL20.tutorials.utils;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
-import javax.media.opengl.GLException;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
@@ -20,8 +17,6 @@ import shadow.pipeline.openGL20.SFGL2;
 import shadow.system.SFInitiator;
 
 import com.sun.opengl.util.FPSAnimator;
-import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureIO;
 
 /**
  * controls:
@@ -49,9 +44,7 @@ public abstract class SFTutorial extends JFrame implements KeyListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle(frameName);
 		
-		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(GLProfile.GL2));
-		capabilities.setStencilBits(8);
-		GLCanvas canvas=new GLCanvas(capabilities);
+		GLCanvas canvas=new GLCanvas(new GLCapabilities(GLProfile.get(GLProfile.GL2)));
 		canvas.addGLEventListener(new SFEventListener());
 		FPSAnimator animator=new FPSAnimator(canvas,30);
 		animator.start();
@@ -71,7 +64,7 @@ public abstract class SFTutorial extends JFrame implements KeyListener{
 			
 			GL2 gl=(GL2)(arg0.getGL());
 			gl.glClearColor(1,1,1,1);
-			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT | GL.GL_STENCIL_BUFFER_BIT);
+			gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 			
 			gl.glEnable(GL.GL_DEPTH_TEST);
 			
@@ -106,21 +99,6 @@ public abstract class SFTutorial extends JFrame implements KeyListener{
 			
 		}
 		
-	}
-	
-	public int loadImageTexture(String imageFile){
-		try {
-			Texture texture=TextureIO.newTexture(new File(imageFile),true);
-			texture.bind();
-			
-			return texture.getTextureObject();
-			
-		} catch (GLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return 0;
 	}
 	
 	@Override

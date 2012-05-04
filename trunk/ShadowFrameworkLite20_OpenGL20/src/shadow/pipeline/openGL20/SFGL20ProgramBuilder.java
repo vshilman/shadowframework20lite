@@ -2,6 +2,7 @@ package shadow.pipeline.openGL20;
 
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFProgramBuilder;
+import shadow.pipeline.java.SFGL20GenericProgram;
 
 public class SFGL20ProgramBuilder implements SFProgramBuilder{
 

@@ -42,9 +42,9 @@ public class SFMatrix3f extends SFValuenf{
 		float cos=(float)(Math.cos(angle));
 		float sin=(float)(Math.sin(angle));
 
-		m.A=cos;m.B=sin;m.C=0;
-		m.D=-sin;m.E=cos;m.F=0;
-		m.G=0;m.H=0;m.I=1;
+		m.v[0]=cos;m.v[1]=sin;m.v[2]=0;
+		m.v[3]=-sin;m.v[4]=cos;m.v[5]=0;
+		m.v[6]=0;m.v[7]=0;m.v[8]=1;
 
 		return m;
 	}
@@ -54,9 +54,9 @@ public class SFMatrix3f extends SFValuenf{
 		float cos=(float)(Math.cos(angle));
 		float sin=(float)(Math.sin(angle));
 
-		m.A=cos;m.B=0;m.C=sin;
-		m.D=0;m.E=1;m.F=0;
-		m.G=-sin;m.H=0;m.I=cos;
+		m.v[0]=cos;m.v[1]=0;m.v[2]=sin;
+		m.v[3]=0;m.v[4]=1;m.v[5]=0;
+		m.v[6]=-sin;m.v[7]=0;m.v[8]=cos;
 
 		return m;
 	}
@@ -66,9 +66,9 @@ public class SFMatrix3f extends SFValuenf{
 		float cos=(float)(Math.cos(angle));
 		float sin=(float)(Math.sin(angle));
 
-		m.A=1;m.B=0;m.C=0;
-		m.D=0;m.E=cos;m.F=sin;
-		m.G=0;m.H=-sin;m.I=cos;
+		m.v[0]=1;m.v[1]=0;m.v[2]=0;
+		m.v[3]=0;m.v[4]=cos;m.v[5]=sin;
+		m.v[6]=0;m.v[7]=-sin;m.v[8]=cos;
 
 		return m;
 	}
@@ -76,9 +76,9 @@ public class SFMatrix3f extends SFValuenf{
 	public static SFMatrix3f getTransposed(SFMatrix3f m){
 		SFMatrix3f n=new SFMatrix3f();
 
-		n.A=m.A;n.D=m.B;n.G=m.C;
-		n.B=m.D;n.E=m.E;n.H=m.F;
-		n.C=m.G;n.F=m.H;n.I=m.I;
+		n.v[0]=m.v[0];n.v[3]=m.v[1];n.v[6]=m.v[2];
+		n.v[1]=m.v[3];n.v[4]=m.v[4];n.v[7]=m.v[5];
+		n.v[2]=m.v[6];n.v[5]=m.v[7];n.v[8]=m.v[8];
 
 		return n;
 	}
@@ -87,9 +87,9 @@ public class SFMatrix3f extends SFValuenf{
 	public static SFMatrix3f getIdentity(){
 		SFMatrix3f n=new SFMatrix3f();
 
-		n.A=1;n.D=0;n.G=0;
-		n.B=0;n.E=1;n.H=0;
-		n.C=0;n.F=0;n.I=1;
+		n.v[0]=1;n.v[3]=0;n.v[6]=0;
+		n.v[1]=0;n.v[4]=1;n.v[7]=0;
+		n.v[2]=0;n.v[5]=0;n.v[8]=1;
 
 		return n;
 	}
@@ -97,9 +97,9 @@ public class SFMatrix3f extends SFValuenf{
 	public static SFMatrix3f getAmpl(float AmplX,float AmplY,float AmplZ){
 		SFMatrix3f n=new SFMatrix3f();
 
-		n.A=AmplX;n.D=0;n.G=0;
-		n.B=0;n.E=AmplY;n.H=0;
-		n.C=0;n.F=0;n.I=AmplZ;
+		n.v[0]=AmplX;n.v[3]=0;n.v[6]=0;
+		n.v[1]=0;n.v[4]=AmplY;n.v[7]=0;
+		n.v[2]=0;n.v[5]=0;n.v[8]=AmplZ;
 
 		return n;
 	}
@@ -107,21 +107,21 @@ public class SFMatrix3f extends SFValuenf{
 	public static SFMatrix3f getInverse(SFMatrix3f m){
 		SFMatrix3f n=new SFMatrix3f();
 
-		float delta = m.A * ( m.E*m.I-m.F*m.H ) - m.B * ( m.D*m.I-m.F*m.G ) + m.C * ( m.D*m.H-m.E*m.G );
+		float delta = m.v[0] * ( m.v[4]*m.v[8]-m.v[5]*m.v[7] ) - m.v[1] * ( m.v[3]*m.v[8]-m.v[5]*m.v[6] ) + m.v[2] * ( m.v[3]*m.v[7]-m.v[4]*m.v[6] );
 
 		if(delta!=0)
 		{
 			delta=1/delta;
 
-			n.A=delta*(m.E*m.I-m.F*m.H);
-			n.B=-delta*(m.B*m.I-m.C*m.H);
-			n.C=delta*(m.B*m.F-m.C*m.E);
-			n.D=-delta*(m.D*m.I-m.F*m.G);
-			n.E=delta*(m.A*m.I-m.C*m.G);
-			n.F=-delta*(m.A*m.F-m.C*m.D);
-			n.G=delta*(m.D*m.H-m.E*m.G);
-			n.H=-delta*(m.A*m.H-m.B*m.G);
-			n.I=delta*(m.A*m.E-m.B*m.D);
+			n.v[0]=delta*(m.v[4]*m.v[8]-m.v[5]*m.v[7]);
+			n.v[1]=-delta*(m.v[1]*m.v[8]-m.v[2]*m.v[7]);
+			n.v[2]=delta*(m.v[1]*m.v[5]-m.v[2]*m.v[4]);
+			n.v[3]=-delta*(m.v[3]*m.v[8]-m.v[5]*m.v[6]);
+			n.v[4]=delta*(m.v[0]*m.v[8]-m.v[2]*m.v[6]);
+			n.v[5]=-delta*(m.v[0]*m.v[5]-m.v[2]*m.v[3]);
+			n.v[6]=delta*(m.v[3]*m.v[7]-m.v[4]*m.v[6]);
+			n.v[7]=-delta*(m.v[0]*m.v[7]-m.v[1]*m.v[6]);
+			n.v[8]=delta*(m.v[0]*m.v[4]-m.v[1]*m.v[3]);
 		}
 
 		return n;
@@ -145,17 +145,11 @@ public class SFMatrix3f extends SFValuenf{
 		return m;
 	}
 
-	public void set(SFMatrix3f m){
-		A=m.A;B=m.B;C=m.C;
-		D=m.D;E=m.E;F=m.F;
-		G=m.G;H=m.H;I=m.I;
-	}
-
 	public String toString()
 	{
-		return "GLMatrix3f \n " + A+" "+ B+" "+ C+" \n"+
-								D+" "+ E+" "+ F+" \n"+
-								G+" "+ H+" "+ I+" \n";
+		return "GLMatrix3f \n " + v[0]+" "+ v[1]+" "+ v[2]+" \n"+
+				v[3]+" "+ v[4]+" "+ v[5]+" \n"+
+				v[6]+" "+ v[7]+" "+ v[8]+" \n";
 	}
 
 
@@ -163,17 +157,17 @@ public class SFMatrix3f extends SFValuenf{
 	{
 		SFMatrix3f n=new SFMatrix3f();
 
-		n.A= A*m.A + B*m.D + C*m.G;
-		n.B= A*m.B + B*m.E + C*m.H;
-		n.C= A*m.C + B*m.F + C*m.I;
+		n.v[0]= v[0]*m.v[0] + v[1]*m.v[3] + v[2]*m.v[6];
+		n.v[1]= v[0]*m.v[1] + v[1]*m.v[4] + v[2]*m.v[7];
+		n.v[2]= v[0]*m.v[2] + v[1]*m.v[5] + v[2]*m.v[8];
 
-		n.D= D*m.A + E*m.D + F*m.G;
-		n.E= D*m.B + E*m.E + F*m.H;
-		n.F= D*m.C + E*m.F + F*m.I;
+		n.v[3]= v[3]*m.v[0] + v[4]*m.v[3] + v[5]*m.v[6];
+		n.v[4]= v[3]*m.v[1] + v[4]*m.v[4] + v[5]*m.v[7];
+		n.v[5]= v[3]*m.v[2] + v[4]*m.v[5] + v[5]*m.v[8];
 
-		n.G= G*m.A + H*m.D + I*m.G;
-		n.H= G*m.B + H*m.E + I*m.H;
-		n.I= G*m.C + H*m.F + I*m.I;
+		n.v[6]= v[6]*m.v[0] + v[7]*m.v[3] + v[8]*m.v[6];
+		n.v[7]= v[6]*m.v[1] + v[7]*m.v[4] + v[8]*m.v[7];
+		n.v[8]= v[6]*m.v[2] + v[7]*m.v[5] + v[8]*m.v[8];
 
 		return n;
 	}
@@ -181,9 +175,9 @@ public class SFMatrix3f extends SFValuenf{
 	public SFVertex3f Mult(SFVertex3f p){
 		SFVertex3f n=new SFVertex3f(3);
 
-		n.setX( A*p.getX() + B*p.getY() + C*p.getZ() );
-		n.setY( D*p.getX() + E*p.getY() + F*p.getZ() );
-		n.setZ( G*p.getX() + H*p.getY() + I*p.getZ() );
+		n.setX( v[0]*p.getX() + v[1]*p.getY() + v[2]*p.getZ() );
+		n.setY( v[3]*p.getX() + v[4]*p.getY() + v[5]*p.getZ() );
+		n.setZ( v[6]*p.getX() + v[7]*p.getY() + v[8]*p.getZ() );
 
 		return n;
 	}
@@ -192,9 +186,9 @@ public class SFMatrix3f extends SFValuenf{
 
 		float x=(float)p.getX(),y=(float)p.getY(),z=(float)p.getZ();
 		
-		p.setX( A*x + B*y + C*z);
-		p.setY( D*x + E*y + F*z);
-		p.setZ( G*x + H*y + I*z);
+		p.setX( v[0]*x + v[1]*y + v[2]*z);
+		p.setY( v[3]*x + v[4]*y + v[5]*z);
+		p.setZ( v[6]*x + v[7]*y + v[8]*z);
 
 	}
 
@@ -202,178 +196,130 @@ public class SFMatrix3f extends SFValuenf{
 	 * @return Returns the a.
 	 */
 	public float getA() {
-		return A;
+		return v[0];
 	}
 	/**
 	 * @param a The a to set.
 	 */
 	public void setA(float a) {
-		A = a;
+		v[0] = a;
 	}
 	/**
 	 * @return Returns the b.
 	 */
 	public float getB() {
-		return B;
+		return v[1];
 	}
 	/**
 	 * @param b The b to set.
 	 */
 	public void setB(float b) {
-		B = b;
+		v[1] = b;
 	}
 	/**
 	 * @return Returns the c.
 	 */
 	public float getC() {
-		return C;
+		return v[2];
 	}
 	/**
 	 * @param c The c to set.
 	 */
 	public void setC(float c) {
-		C = c;
+		v[2] = c;
 	}
 	/**
 	 * @return Returns the d.
 	 */
 	public float getD() {
-		return D;
+		return v[3];
 	}
 	/**
 	 * @param d The d to set.
 	 */
 	public void setD(float d) {
-		D = d;
+		v[3] = d;
 	}
 	/**
 	 * @return Returns the e.
 	 */
 	public float getE() {
-		return E;
+		return v[4];
 	}
 	/**
 	 * @param e The e to set.
 	 */
 	public void setE(float e) {
-		E = e;
+		v[4] = e;
 	}
 	/**
 	 * @return Returns the f.
 	 */
 	public float getF() {
-		return F;
+		return v[5];
 	}
 	/**
 	 * @param f The f to set.
 	 */
 	public void setF(float f) {
-		F = f;
+		v[5] = f;
 	}
 	/**
 	 * @return Returns the g.
 	 */
 	public float getG() {
-		return G;
+		return v[6];
 	}
 	/**
 	 * @param g The g to set.
 	 */
 	public void setG(float g) {
-		G = g;
+		v[6] = g;
 	}
 	/**
 	 * @return Returns the h.
 	 */
 	public float getH() {
-		return H;
+		return v[7];
 	}
 	/**
 	 * @param h The h to set.
 	 */
 	public void setH(float h) {
-		H = h;
+		v[7] = h;
 	}
 	/**
 	 * @return Returns the i.
 	 */
 	public float getI() {
-		return I;
+		return v[8];
 	}
 	/**
 	 * @param i The i to set.
 	 */
 	public void setI(float i) {
-		I = i;
+		v[8] = i;
 	}
-	
-	public void setByIndex(int index,float val){
-		if(index==0)
-			A=val;
-		else if(index==1)
-			B=val;
-		else if(index==2)
-			C=val;
-		else if(index==3)
-			D=val;
-		else if(index==4)
-			E=val;
-		else if(index==5)
-			F=val;
-		else if(index==6)
-			G=val;
-		else if(index==7)
-			H=val;
-		else if(index==8)
-			I=val;
-	}
-	
-	public float getByIndex(int index){
-		if(index==0)
-			return A;
-		else if(index==1)
-			return B;
-		else if(index==2)
-			return C;
-		else if(index==3)
-			return D;
-		else if(index==4)
-			return E;
-		else if(index==5)
-			return F;
-		else if(index==6)
-			return G;
-		else if(index==7)
-			return H;
-		
-		return I; 
-	}
-	
-	
-	private float A,B,C;
-	private float D,E,F;
-	private float G,H,I;
-	
 	
 	public SFMatrix3f() {
 		super(9);
 		
-		A=1;
-		E=1;
-		I=1;
+		v[0]=1;
+		v[4]=1;
+		v[8]=1;
 	}
 
 	public SFMatrix3f(float a, float b, float c, float d, float e, float f, float g, float h, float i) {
 		super(9);
-		A = a;
-		B = b;
-		C = c;
-		D = d;
-		E = e;
-		F = f;
-		G = g;
-		H = h;
-		I = i;
+		v[0] = a;
+		v[1] = b;
+		v[2] = c;
+		v[3] = d;
+		v[4] = e;
+		v[5] = f;
+		v[6] = g;
+		v[7] = h;
+		v[8] = i;
 	}
 
 }

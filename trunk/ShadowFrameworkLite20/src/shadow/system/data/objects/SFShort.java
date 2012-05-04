@@ -35,4 +35,18 @@ public class SFShort extends SFPrimitiveType {
 	public SFShort clone(){
 		return new SFShort(shortValue);
 	}
+	
+	public int getByte(int byteIndex) {
+		int value = shortValue >> (byteIndex * 8);
+		return value & 0xff;
+	}
+
+	public void setByte(int byteIndex, int value) {
+		value = value & 0xff;
+		value = value << (byteIndex * 8);
+		int mask = 0xff << (byteIndex * 8);
+		mask = (-1) - mask;
+		shortValue = (short)(shortValue & mask);
+		shortValue += value; 
+	}
 }

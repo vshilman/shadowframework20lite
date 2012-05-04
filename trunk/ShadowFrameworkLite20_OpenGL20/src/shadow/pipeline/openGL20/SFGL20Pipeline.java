@@ -2,6 +2,8 @@ package shadow.pipeline.openGL20;
 
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.expression.SFExpressionGeneratorKeeper;
+import shadow.pipeline.java.SFGL20ExpressionGenerator;
+import shadow.pipeline.java.SFGL20PipelineMemory;
 
 public class SFGL20Pipeline {
 	public static void setup(){

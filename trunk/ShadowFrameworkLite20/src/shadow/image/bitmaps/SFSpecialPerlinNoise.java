@@ -22,7 +22,7 @@ package shadow.image.bitmaps;
 import java.nio.ByteBuffer;
 
 import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
 
 public class SFSpecialPerlinNoise extends SFBitmap{
 
@@ -58,7 +58,7 @@ public class SFSpecialPerlinNoise extends SFBitmap{
 	private void setup(float[] weights, float[] colors) {
 		int width=getWidth();
 		int height=getHeight();
-		this.setFormat(SFFormat.RGB8);
+		this.setFormat(SFImageFormat.RGB8);
 		
 		int size=3;
 		ByteBuffer buffer=ByteBuffer.allocateDirect(width*height*size);

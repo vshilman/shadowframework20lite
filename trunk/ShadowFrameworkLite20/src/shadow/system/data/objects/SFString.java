@@ -5,34 +5,39 @@ import shadow.system.data.SFOutputStream;
 
 public class SFString extends SFPrimitiveType {
 
-	private String label;
+	private String string;
+	
+	public SFString() {
+		super();
+		this.string = "";
+	}
 	
 	public SFString(String label) {
 		super();
-		this.label = label;
+		this.string = label;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getString() {
+		return string;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setString(String label) {
+		this.string = label;
 	}
 
 	@Override
 	public void readFromStream(SFInputStream stream) {
-		label=stream.readString();
+		string=stream.readString();
 	}
 	
 	@Override
 	public void writeOnStream(SFOutputStream stream) {
-		stream.writeString(label);
+		stream.writeString(string);
 	}
 	
 
 	@Override
 	public SFString clone() {
-		return new SFString(label);
+		return new SFString(string);
 	}
 }

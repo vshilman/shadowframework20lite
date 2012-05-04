@@ -2,6 +2,8 @@ package shadow.pipeline.expression;
 
 import java.util.LinkedList;
 
+import shadow.math.SFValuenf;
+
 public class SFExpressionMinus extends SFExpressionOperator{
 	
 	public SFExpressionMinus() {
@@ -33,5 +35,14 @@ public class SFExpressionMinus extends SFExpressionOperator{
 	
 	protected SFExpressionOperator cloneOperator() {
 		return new SFExpressionMinus();
+	}
+	
+	@Override
+	public SFValuenf evaluate(SFValuesMap values) {
+		SFValuenf sum=getExpressionElement(0).evaluate(values);
+		for (int i = 1; i < getElementSize(); i++) {
+			sum.addMult(-1, getExpressionElement(i).evaluate(values));
+		}
+		return sum;
 	}
 }

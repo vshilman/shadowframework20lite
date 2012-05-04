@@ -6,29 +6,31 @@ import java.io.IOException;
 
 import shadow.geometry.geometries.SFMeshGeometry;
 import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.SFRenderedTexture;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPrimitive;
+import shadow.pipeline.SFPrimitive.PrimitiveBlock;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFProgramComponent;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.pipeline.openGL20.tutorials.bitmapsExample.PerlinNoise3;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeCylinder;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFException;
 
 public class Tut06TexturedGeometry extends SFTutorial{
 
-	private SFTextureData texture;
-	private SFTextureData texture1;
-	private SFTextureData texture2;
+	private static final long serialVersionUID=0;
+	private SFPipelineTexture texture;
+	private SFPipelineTexture texture1;
+	private SFPipelineTexture texture2;
 	private int shownTexture;
 	private SFProgram programGenerate;
 	private SFProgram programShow;
@@ -42,12 +44,12 @@ public class Tut06TexturedGeometry extends SFTutorial{
 		Tut06TexturedGeometry tut06TexturedGeometry=new Tut06TexturedGeometry();
 		String[] materials={"TexturedMat"};
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"),new SFPipelineBuilder());
 
 			SFPrimitive primitive=new SFPrimitive();
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("Tx0"), (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
+			primitive.addPrimitiveElement(PrimitiveBlock.NORMAL, (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
+			primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
+			primitive.addPrimitiveElement(PrimitiveBlock.TXO, (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));
 			
 			tut06TexturedGeometry.programGenerate=SFPipeline.getStaticImageProgram(materials, "BasicGrayAndBright");
@@ -74,9 +76,9 @@ public class Tut06TexturedGeometry extends SFTutorial{
 		texture=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateBitmapTexture(bitmap, Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		
-		texture1 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFFormat.RGB8,  Filter.LINEAR,
+		texture1 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
-		texture2 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFFormat.RGB8,  Filter.LINEAR,
+		texture2 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(200, 200, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT);
 		
 		SFRenderedTexture renderedTexture=new SFRenderedTexture();

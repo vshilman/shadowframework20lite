@@ -18,11 +18,8 @@ public class SFGlobalVSetGL20Implementor{
 		declarations.put(SFParameteri.GLOBAL_FLOAT2, "vec2");
 		declarations.put(SFParameteri.GLOBAL_FLOAT3, "vec3");
 		declarations.put(SFParameteri.GLOBAL_FLOAT4, "vec4");
-		//declarations.put(SFParameter.GLOBAL_MATRIX2, "matrix"); ???
-		//declarations.put(SFParameter.GLOBAL_MATRIX4, "matrix"); ???
 		declarations.put(SFParameteri.GLOBAL_MATRIX4, "matrix4f");
 		declarations.put(SFParameteri.GLOBAL_TEXTURE, "sampler2D");
-		//declarations.put(SFParameter.GLOBAL_TRANSFORM2, "sampler2D");
 	}
 	
 	public static String generateShaderParameters(List<SFParameteri> set) {
@@ -34,7 +31,7 @@ public class SFGlobalVSetGL20Implementor{
 				String name=pr.getName();
 				if(pr instanceof SFPipelineRegister)
 					name=SFGL20GlobalV.getRegisterName((SFPipelineRegister)pr);
-				String declaration=SFGL20GlobalV.getModifiers(pr)+" "+SFGL20GlobalV.getType(pr.getType())+" "+
+				String declaration=SFGL20GlobalV.getModifiers(pr)+" "+SFGlobalVSetGL20Implementor.getDeclarationString(pr.getType())+" "+
 				name+";\n";
 				
 				parameters+=declaration;
@@ -48,49 +45,47 @@ public class SFGlobalVSetGL20Implementor{
 	}	
 	
 	public static String generateInstancedStructures(SFPipelineStructureInstance instance,
-			SFParameteri functionParameter,String suffix){
+			SFParameteri functionParameter,String suffix,List<SFParameteri> parameters){
 		
 		SFPipelineStructure structure=instance.getStructure();
 		Iterator<SFParameteri> data=instance.getParameters().iterator();
 		
 		String res="\n";
 		List<SFParameteri> sfParameters=structure.getAllParameters();
-		int index=0;
+		
 		for (Iterator<SFParameteri> iterator = sfParameters.iterator(); iterator.hasNext();) {
 			SFParameteri sfParameteri = (SFParameteri) iterator.next();
-			short param_=sfParameteri.getType();//Should never be GLOBAL_UNIDENTIFIED!!
-//			if(param_==SFParameteri.GLOBAL_UNIDENTIFIED){
-//				if(param_==SFParameteri.GLOBAL_UNIDENTIFIED){//Still
-//					param_=functionParameter.getType();
-//				}
-//			}
-			res+="uniform "+getDeclarationString(param_)+" "+suffix+data.next().getName()+";\n";
-			index++;
+			boolean found=false;
+			for (SFParameteri parameter : parameters) {
+				if(parameter.getName().equalsIgnoreCase(sfParameteri.getName())){
+					found=true;
+				}
+			}
+			if(!found){
+				short param_=sfParameteri.getType();//Should never be GLOBAL_UNIDENTIFIED!!
+	//			if(param_==SFParameteri.GLOBAL_UNIDENTIFIED){
+	//				if(param_==SFParameteri.GLOBAL_UNIDENTIFIED){//Still
+	//					param_=functionParameter.getType();
+	//				}
+	//			}
+				res+="uniform "+getDeclarationString(param_)+" "+suffix+data.next().getName()+";\n";
+				parameters.add(sfParameteri);
+			}
+			
 		}
 		
 		return res;
 	}
 
-	public static String generateInstancedGrids(SFPipelineGridInstance instance,SFParameteri functionParameter,String suffix){
+	public static String generateInstancedGrids(SFPipelineGridInstance instance,short type,String suffix){
 		
 		Iterator<SFParameteri> data=instance.getParameters().iterator();
 		
 		String res="\n";
 		
-		short param_=functionParameter.getType();
 		for (; data.hasNext();) {
-			res+="uniform "+getDeclarationString(param_)+" "+suffix+data.next().getName()+";\n";
+			res+="uniform "+getDeclarationString(type)+" "+suffix+data.next().getName()+";\n";
 		}
-		
-//		for (Iterator<SFParameteri> iterator = sfParameters.iterator(); iterator.hasNext();) {
-//			SFParameteri sfParameteri = (SFParameteri) iterator.next();
-//			//short param_=sfParameteri.getType();
-//			//if(param_==SFParameteri.GLOBAL_UNIDENTIFIED){
-//			short param_=functionParameter.getType();
-//			//}
-//			
-//			index++;
-//		}
 		
 		return res;
 	}

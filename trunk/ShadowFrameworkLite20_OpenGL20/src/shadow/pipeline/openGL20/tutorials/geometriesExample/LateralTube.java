@@ -1,10 +1,12 @@
 package shadow.pipeline.openGL20.tutorials.geometriesExample;
 
-import shadow.geometry.editing.SFConcreteTriangleExtractor;
+import shadow.geometry.curves.SFBasisSpline2;
 import shadow.geometry.functions.SFCurvedTubeFunction;
 import shadow.geometry.geometries.SFQuadsSurfaceGeometry;
+import shadow.geometry.geometries.SFSimpleTexCoordGeometryuv;
+import shadow.math.SFValuenf;
+import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPrimitive;
-import shadow.system.data.objects.SFVertex3fData;
 
 public class LateralTube {
 	
@@ -12,35 +14,41 @@ public class LateralTube {
 		
 		SFCurvedTubeFunction function=new SFCurvedTubeFunction();
 
+		SFBasisSpline2<SFValuenf> centralCurve=new SFBasisSpline2<SFValuenf>(false);
+		SFBasisSpline2<SFValuenf> rayCurve=new SFBasisSpline2<SFValuenf>(false);
+		
 		//Primo Pezzo
-		function.getData().getCc().add(new SFVertex3fData(0,0,0));
-		function.getData().getCc().add(new SFVertex3fData(0.0f,0.1f,0));
-		function.getData().getCc().add(new SFVertex3fData(0.0f,0.2f,0));
-		function.getData().getCc().add(new SFVertex3fData(0.0f,0.3f,0));
-		function.getData().getCc().add(new SFVertex3fData(0.0f,0.4f,0));
+		centralCurve.add(new SFVertex3f(0,0,0));
+		centralCurve.add(new SFVertex3f(0.0f,0.1f,0));
+		centralCurve.add(new SFVertex3f(0.0f,0.2f,0));
+		centralCurve.add(new SFVertex3f(0.0f,0.3f,0));
+		centralCurve.add(new SFVertex3f(0.0f,0.4f,0));
 
-		function.getData().getRc().add(new SFVertex3fData(0.1f,0,0));
-		function.getData().getRc().add(new SFVertex3fData(0.2f,0.1f,0));
-		function.getData().getRc().add(new SFVertex3fData(0.1f,0.2f,0));
-		function.getData().getRc().add(new SFVertex3fData(0.1f,0.3f,0));
-		function.getData().getRc().add(new SFVertex3fData(0.1f,0.4f,0));
+		rayCurve.add(new SFVertex3f(0.1f,0,0));
+		rayCurve.add(new SFVertex3f(0.2f,0.1f,0));
+		rayCurve.add(new SFVertex3f(0.1f,0.2f,0));
+		rayCurve.add(new SFVertex3f(0.1f,0.3f,0));
+		rayCurve.add(new SFVertex3f(0.1f,0.4f,0));
 
 		//Secondo Pezzo
-		function.getData().getCc().add(new SFVertex3fData(0.0f,0.5f,0));
-		function.getData().getCc().add(new SFVertex3fData(0.1f,0.5f,0));
-		function.getData().getCc().add(new SFVertex3fData(0.2f,0.5f,0));
+		
+		centralCurve.add(new SFVertex3f(0.0f,0.5f,0));
+		centralCurve.add(new SFVertex3f(0.1f,0.5f,0));
+		centralCurve.add(new SFVertex3f(0.2f,0.5f,0));
 
-		function.getData().getRc().add(new SFVertex3fData(0.1f,0.4f,0));
-		function.getData().getRc().add(new SFVertex3fData(0.1f,0.4f,0));
-		function.getData().getRc().add(new SFVertex3fData(0.2f,0.4f,0));
+		rayCurve.add(new SFVertex3f(0.1f,0.4f,0));
+		rayCurve.add(new SFVertex3f(0.1f,0.4f,0));
+		rayCurve.add(new SFVertex3f(0.2f,0.4f,0));
 		
 		//Terzo Pezzo
-		function.getData().getCc().add(new SFVertex3fData(0.3f,0.5f,0));
-		function.getData().getRc().add(new SFVertex3fData(0.2f,0.4f,0));
+		centralCurve.add(new SFVertex3f(0.3f,0.5f,0));
+		rayCurve.add(new SFVertex3f(0.2f,0.4f,0));
 		
-		SFConcreteTriangleExtractor trianglesExtractor=new SFConcreteTriangleExtractor();
+		function.setCentralCurve(centralCurve);
+		function.setRayCurve(rayCurve);
+		
 		SFQuadsSurfaceGeometry quadsSurfaceGeometry=new SFQuadsSurfaceGeometry(primitive,
-				function, new TexCoordFunction(), trianglesExtractor, 6, 8);
+				function, new SFSimpleTexCoordGeometryuv(1,1), 6, 8);
 		
 		quadsSurfaceGeometry.compile();
 		return quadsSurfaceGeometry;

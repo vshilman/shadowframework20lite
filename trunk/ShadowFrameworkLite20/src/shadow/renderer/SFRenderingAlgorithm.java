@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shadow.material.SFLightStep;
+import shadow.system.SFInitiable;
 
-public class SFRenderingAlgorithm {
+public class SFRenderingAlgorithm implements SFInitiable{
 
 	private List<SFLightStep> steps=new ArrayList<SFLightStep>();
 	private List<SFLodFilter> filters=new ArrayList<SFLodFilter>();
@@ -13,6 +14,11 @@ public class SFRenderingAlgorithm {
 	public SFRenderingAlgorithm(List<SFLightStep> steps) {
 		super();
 		this.steps.addAll(steps);
+	}
+	
+	@Override
+	public void init() {
+		
 	}
 
 	public SFRenderingAlgorithm(List<SFLightStep> steps,

@@ -44,5 +44,8 @@ public class SFParameter extends SFParameteri {
 		this.type = type;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return name+"("+type+")";
+	}
 }

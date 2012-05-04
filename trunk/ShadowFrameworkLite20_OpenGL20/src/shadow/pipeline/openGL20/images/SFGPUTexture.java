@@ -22,7 +22,7 @@ package shadow.pipeline.openGL20.images;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
-import shadow.image.SFTextureData;
+import shadow.image.SFPipelineTexture;
 import shadow.pipeline.openGL20.SFGL2;
 
 /**
@@ -37,7 +37,7 @@ public class SFGPUTexture {
 	private int texture_object;
 	private float vp[]=new float[4];
 	
-	public void initShadowTexture(SFTextureData data) {
+	public void initShadowTexture(SFPipelineTexture data) {
 
 		GL2 gl=SFGL2.getGL();
 		

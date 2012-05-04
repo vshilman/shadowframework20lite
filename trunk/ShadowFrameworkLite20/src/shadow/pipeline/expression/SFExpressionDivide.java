@@ -3,6 +3,8 @@ package shadow.pipeline.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import shadow.math.SFValue1f;
+import shadow.math.SFValuenf;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFExpressionDivide extends SFExpressionOperator{
@@ -29,6 +31,8 @@ public class SFExpressionDivide extends SFExpressionOperator{
 	@Override
 	public void evaluateType() throws SFExpressionException {
 		updateSubExpressions();
+		
+		//NOTE: duplicated code with SFExpressionClamp
 
 		//Get a list of all Elements which have a different type from previous one
 		LinkedList<SFExpressionElement> cElements = getTypesSeparatorList();
@@ -41,5 +45,12 @@ public class SFExpressionDivide extends SFExpressionOperator{
 	@Override
 	protected SFExpressionOperator cloneOperator() {
 		return new SFExpressionDivide();
+	}
+	
+	@Override
+	public SFValuenf evaluate(SFValuesMap values) {
+		SFValuenf value1=getExpressionElement(0).evaluate(values);
+		SFValuenf value2=getExpressionElement(1).evaluate(values);
+		return new SFValue1f(value1.get()[0]/value2.get()[1]);
 	}
 }

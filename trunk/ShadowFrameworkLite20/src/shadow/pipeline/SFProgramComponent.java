@@ -16,7 +16,7 @@ public class SFProgramComponent extends SFPipelineElement {
 	private LinkedList<SFParameteri> temps=new LinkedList<SFParameteri>();
 	
 	private LinkedList<SFPipelineStructureInstance> structures=new LinkedList<SFPipelineStructureInstance>();
-	private SFPipelineGridInstance grid;
+	private LinkedList<SFPipelineGridInstance> grid=new LinkedList<SFPipelineGridInstance>();
 	
 	private List<SFParameteri> set=null;
 	
@@ -26,12 +26,12 @@ public class SFProgramComponent extends SFPipelineElement {
 		registers.add(global);
 	}
 	
-	public void addCodeString(SFFunction function){
+	public void addCodeFunction(SFFunction function){
 		code.add(function);
 	}
 	
-	public void setGridInstance(SFPipelineGridInstance grid){
-		this.grid=grid;
+	public void addGridInstance(SFPipelineGridInstance grid){
+		this.grid.add(grid);
 	}
 
 	public void addStructureInstance(SFPipelineStructureInstance structure){
@@ -48,7 +48,7 @@ public class SFProgramComponent extends SFPipelineElement {
 		return structures;
 	}
 	
-	public SFPipelineGridInstance getGrid() {
+	public List<SFPipelineGridInstance> getGrid() {
 		return grid;
 	}
 
@@ -73,19 +73,25 @@ public class SFProgramComponent extends SFPipelineElement {
 		this.name = name;
 	}
 	
-	public List<SFParameteri> getParameterSet(){
+	public synchronized List<SFParameteri> getParameterSet(){
 		if(set==null){
 			set=new LinkedList<SFParameteri>();
 			set.addAll(registers);
-			set.addAll(temps);
 			
 			for (Iterator<SFPipelineStructureInstance> iterator = structures.iterator(); iterator.hasNext();) {
 				set.addAll(((SFPipelineStructureInstance) iterator.next()).getParameters());
 			}
 			
-			if(grid!=null)
+			for (SFPipelineGridInstance grid : this.grid) {
 				set.addAll(((SFPipelineGridInstance) grid).getParameters());
+			}
+				
 		}
+		if(temps.size()!=0){
+			set.addAll(temps);
+			temps.clear();
+		}
+		
 		return set;
 	}
 }

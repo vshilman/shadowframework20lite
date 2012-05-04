@@ -21,10 +21,6 @@ public class SFVoidData implements SFDataObject{
 		return data;
 	}
 	
-	@Override
-	public int elementsSize() {
-		return 0;
-	}
 	
 	@Override
 	public void readFromStream(SFInputStream stream) {
@@ -36,8 +32,4 @@ public class SFVoidData implements SFDataObject{
 		//DO not write anything
 	}
 	
-	@Override
-	public SFDataObject sonsObject(int son) {
-		return null;
-	}
 }

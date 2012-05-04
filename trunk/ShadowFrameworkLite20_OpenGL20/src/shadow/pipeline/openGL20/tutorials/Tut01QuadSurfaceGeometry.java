@@ -10,10 +10,12 @@ import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeCylinder;
 import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 
 public class Tut01QuadSurfaceGeometry extends SFBasicTutorial{
 
+	private static final long serialVersionUID=0;
+	
 	public Tut01QuadSurfaceGeometry(SFProgram program,
 			SFStructureArray lightData, SFStructureReference lightReference,
 			SFStructureArray materialData,SFStructureReference materialReference,

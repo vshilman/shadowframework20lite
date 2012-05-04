@@ -47,7 +47,7 @@ public abstract class SFParameteri {
 	public static int getTypeDimension(short type){
 		switch(type){
 			case GLOBAL_GENERIC: return 0;
-			case GLOBAL_FLOAT: return 0;
+			case GLOBAL_FLOAT: return 1;
 			case GLOBAL_FLOAT2: return 2;
 			case GLOBAL_FLOAT3: return 3;
 			case GLOBAL_FLOAT4: return 4;

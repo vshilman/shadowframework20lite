@@ -6,13 +6,16 @@ import javax.media.opengl.GL2;
 import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPipelineGraphics;
 import shadow.pipeline.SFPipelineRenderingState;
+import shadow.pipeline.SFPipelineRenderingState.AccumulatorOperation;
 import shadow.pipeline.SFPipelineRenderingState.StencilFunction;
 import shadow.pipeline.SFPipelineRenderingState.StencilOperation;
+import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveArray;
 import shadow.pipeline.SFPrimitiveIndices;
 import shadow.pipeline.SFStructureArray;
-import shadow.pipeline.SFPipelineRenderingState.AccumulatorOperation;
-import shadow.pipeline.parameters.SFPipelineRegister;
+import shadow.pipeline.java.SFGL20GenericProgram;
+import shadow.pipeline.java.SFGL20PrimitiveArray;
+import shadow.pipeline.java.SFGL20StructureArray;
 import shadow.system.SFInitiable;
 import shadow.system.SFInitiator;
 
@@ -22,6 +25,9 @@ public class SFGL20PipelineGraphics implements SFPipelineGraphics, SFInitiable {
 	private static float modelX=0, modelY=0, modelZ=0;
 	private static float rotX=0, rotY=0, rotZ=0;
 	private static float projection[]=null;
+	
+	private static boolean useTransform=false;
+	private static float[] transform;
 	
 	private static int baseQuadList=-1;
 	//TODO : should have all the tessellations...
@@ -48,26 +54,38 @@ public class SFGL20PipelineGraphics implements SFPipelineGraphics, SFInitiable {
 		SFGL20PipelineGraphics.rotY=rotY;
 		SFGL20PipelineGraphics.rotZ=rotZ;
 	}
+	
+	@Override
+	public void setupTransform(float[] transform) {
+		staticSetupTransform(transform);
+	}
+
+	public static void staticSetupTransform(float[] transform) {
+		SFGL20PipelineGraphics.transform=transform;
+		SFGL20PipelineGraphics.useTransform=true;
+	}
 
 	@Override
 	public void drawPrimitives(SFPrimitiveArray primitives, int first, int count) {
 
-		((SFGL20Program)program).setTransformData(modelX,modelY,modelZ,rotX,rotY,rotZ);
+		if(useTransform)
+			((SFGL20Program)program).setTransformData(transform);
+		else
+			((SFGL20Program)program).setTransformData(modelX,modelY,modelZ,rotX,rotY,rotZ);
+		useTransform=false;
 
 		if(projection!=null)
 			((SFGL20Program)program).setupProjection(projection);
 		
 		SFGL20PrimitiveArray prArray=(SFGL20PrimitiveArray) primitives;
 
-		SFPipelineRegister registers[]=primitives.getRegisters();
-
-		Integer[][] uniforms=((SFGL20Program)program).getData().getAllPrimitiveUniforms(
-				registers);
+		SFPrimitive primitive=primitives.getPrimitive();
 
 		for (int i=first; i < count + first; i++) {
+
 			SFPrimitiveIndices indices=prArray.getValue(i);
-			((SFGL20Program)program).setIndexedData(indices,prArray.getPrimitiveData(),uniforms,
-					registers);
+			
+			((SFGL20Program)program).setIndexedData(indices,prArray.getPrimitiveData(),primitive);
 
 			GL2 gl=SFGL2.getGL();
 
@@ -104,7 +122,7 @@ public class SFGL20PipelineGraphics implements SFPipelineGraphics, SFInitiable {
 		baseQuadList=gl.glGenLists(1);
 		
 		gl.glNewList(baseTriangleList, GL2.GL_COMPILE);
-			int N=20;
+			int N=6;
 			float step=1.0f / N;
 			for (int k=0; k < N; k++) {
 				float v1=k * step;
@@ -131,6 +149,7 @@ public class SFGL20PipelineGraphics implements SFPipelineGraphics, SFInitiable {
 		gl.glEndList();
 	}
 	
+
 	private static int getStencilFunc(StencilFunction function){
 		switch (function) {
 			case ALWAYS: return GL2.GL_ALWAYS;

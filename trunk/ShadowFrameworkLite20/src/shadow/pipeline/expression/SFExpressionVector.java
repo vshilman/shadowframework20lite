@@ -3,6 +3,7 @@ package shadow.pipeline.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import shadow.math.SFValuenf;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFExpressionVector extends SFExpressionOperator{
@@ -40,6 +41,15 @@ public class SFExpressionVector extends SFExpressionOperator{
 			default: this.setType(SFParameteri.GLOBAL_FLOAT4); break;
 		}
 		this.setType(list.getFirst().getType());
+	}
+	
+	@Override
+	public SFValuenf evaluate(SFValuesMap values) {
+		SFValuenf subValues=new SFValuenf(getElementSize());
+		for (int i = 0; i < getElementSize(); i++) {
+			subValues.get()[i]=getExpressionElement(i).evaluate(values).get()[0];
+		}
+		return subValues;
 	}
 	
 	protected SFExpressionOperator cloneOperator() {

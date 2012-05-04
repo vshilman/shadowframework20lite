@@ -2,12 +2,14 @@ package shadow.image;
 
 import java.nio.ByteBuffer;
 
+import shadow.system.SFInitiable;
+
 
 /**
  * SFBitmap requires some image generation process to define image data, which are stored as a ByteBuffer.
  * If data have not been defined, the 'data' field is null.
  * */
-public class SFBitmap {
+public class SFBitmap implements SFInitiable{
 	
 	public SFBitmap() {
 		super();
@@ -34,7 +36,7 @@ public class SFBitmap {
 	 * @param format format of the image
 	 * @return the image being generated.
 	 */
-	public static SFBitmap generateRGBImage(int width,int height,SFFormat format){
+	public static SFBitmap generateRGBImage(int width,int height,SFImageFormat format){
 		SFBitmap ret=new SFBitmap();
 		ret.setWidth(width);
 		ret.setHeight(height);
@@ -47,7 +49,7 @@ public class SFBitmap {
 	/** height of the image in pixels*/
 	private int height;
 	/** format of the image*/
-	private SFFormat format=SFFormat.ARGB8;
+	private SFImageFormat format=SFImageFormat.ARGB8;
 	
 	/** data type depends on Image generation mode*/
 	private ByteBuffer data;
@@ -68,11 +70,11 @@ public class SFBitmap {
 		this.height = height;
 	}
 
-	public SFFormat getFormat() {
+	public SFImageFormat getFormat() {
 		return format;
 	}
 
-	public void setFormat(SFFormat format) {
+	public void setFormat(SFImageFormat format) {
 		this.format = format;
 	}
 
@@ -82,5 +84,11 @@ public class SFBitmap {
 
 	public void setData(ByteBuffer data) {
 		this.data = data;
+	}
+	
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
 	}
 }

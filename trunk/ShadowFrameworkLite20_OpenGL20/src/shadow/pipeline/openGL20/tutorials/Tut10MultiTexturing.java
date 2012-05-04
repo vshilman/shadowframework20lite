@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.IOException;
 
 import shadow.image.SFBitmap;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFProgram;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.pipeline.openGL20.tutorials.bitmapsExample.PerlinNoise1;
@@ -19,12 +20,13 @@ import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 
 public class Tut10MultiTexturing extends SFTutorial{
 
+	private static final long serialVersionUID=0;
 	private static final int FIRST_TEXTURE=0;
 	private static final int SECOND_TEXTURE=1;
 	private static final int BOTH=2;
 	
-	private SFTextureData texture1;
-	private SFTextureData texture2;
+	private SFPipelineTexture texture1;
+	private SFPipelineTexture texture2;
 	private int shownTexture=0;
 	private SFProgram programShow1Texture;
 	private SFProgram programMultiTextures;
@@ -38,7 +40,7 @@ public class Tut10MultiTexturing extends SFTutorial{
 		String[] materials2={"TexturedMat2"};
 		
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"),new SFPipelineBuilder());
 
 			/*
 			 * Generate two programs, the first allows to show 1 single texture,

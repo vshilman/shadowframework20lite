@@ -4,29 +4,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
 
+import shadow.pipeline.SFPipelineElement;
 import shadow.pipeline.SFPipelineModuleWrongException;
-import shadow.pipeline.loader.parser.SFBeginParser;
-import shadow.pipeline.loader.parser.SFDefineParser;
-import shadow.pipeline.loader.parser.SFEdgeParser;
-import shadow.pipeline.loader.parser.SFEndParser;
-import shadow.pipeline.loader.parser.SFFloat2Parser;
-import shadow.pipeline.loader.parser.SFFloat3Parser;
-import shadow.pipeline.loader.parser.SFFloat4Parser;
-import shadow.pipeline.loader.parser.SFFloatParser;
-import shadow.pipeline.loader.parser.SFGridParser;
-import shadow.pipeline.loader.parser.SFInternalParser;
-import shadow.pipeline.loader.parser.SFMatrix2Parser;
-import shadow.pipeline.loader.parser.SFMatrix3Parser;
-import shadow.pipeline.loader.parser.SFMatrix4Parser;
-import shadow.pipeline.loader.parser.SFParamParser;
-import shadow.pipeline.loader.parser.SFPathParser;
-import shadow.pipeline.loader.parser.SFUseParser;
-import shadow.pipeline.loader.parser.SFVertexParser;
-import shadow.pipeline.loader.parser.SFWriteParser;
+import shadow.pipeline.builder.SFBuilderElement;
+import shadow.pipeline.builder.SFIPipelineBuilder;
 import shadow.system.SFException;
 
 public class SFProgramComponentLoader {
@@ -42,6 +29,7 @@ public class SFProgramComponentLoader {
 		parsers.put(COMMAND_STRING+"grid",new SFGridParser());	
 		parsers.put(COMMAND_STRING+"define",new SFDefineParser());
 		parsers.put(COMMAND_STRING+"write",new SFWriteParser());
+		parsers.put(COMMAND_STRING+"rewrite",new SFRewriteParser());
 		parsers.put(COMMAND_STRING+"end",new SFEndParser());
 		parsers.put(COMMAND_STRING+"include",new SFIncludeParser());
 		parsers.put(COMMAND_STRING+"vertex",new SFVertexParser());
@@ -62,9 +50,8 @@ public class SFProgramComponentLoader {
 	private static class SFIncludeParser implements SFLineParser{
 		
 		@Override
-		public SFParsableElement parseLine(SFParsableElement component,
-				StringTokenizer lineToken, int codeLine)
-				throws SFException {
+		public void parseLine(SFIPipelineBuilder builder,
+				StringTokenizer lineToken, int codeLine) throws SFException {
 			
 			if(lineToken.hasMoreTokens()){
 				String filename=lineToken.nextToken();
@@ -72,7 +59,7 @@ public class SFProgramComponentLoader {
 					String parsingRooString_=parsingRoot;
 						String file=parsingRoot+"\\"+filename;
 						try {
-							loadComponents(new File(file));
+							loadComponents(new File(file),builder);
 						} catch (IOException e) {
 							throw new SFException("Cannot Open Inclueded File "+filename);
 						} catch (SFPipelineModuleWrongException e) {
@@ -86,70 +73,64 @@ public class SFProgramComponentLoader {
 					parsingRoot=parsingRooString_;
 				}
 			}	
-			return component;
 		}
 	}
 	
-	public static void loadComponents(File f) throws IOException,
+	public static void loadComponents(InputStream stream,SFIPipelineBuilder builder) throws IOException,
+			SFPipelineModuleWrongException{
+		parsingRoot="";
+		BufferedReader reader=new BufferedReader(new InputStreamReader(stream));
+		loadComponents(reader,builder);
+	}
+	
+	public static void loadComponents(File f,SFIPipelineBuilder builder) throws IOException,
 			SFPipelineModuleWrongException{
 		parsingRoot=f.getParent();
 		BufferedReader reader=new BufferedReader(new FileReader(f));
-		loadComponents(reader);
+		loadComponents(reader,builder);
 	}
 	
 
-	private static void loadComponents(BufferedReader stream) throws IOException,
+	private static void loadComponents(BufferedReader stream,SFIPipelineBuilder builder) throws IOException,
 						SFPipelineModuleWrongException{
 		
-		ArrayList<SFParsableElement> components=new ArrayList<SFParsableElement>();
-		SFParsableElement temp=null;
-		
-		ArrayList<String> errors=new ArrayList<String>();
+		ArrayList<SFBuilderElement> components=new ArrayList<SFBuilderElement>();
+		SFBuilderElement temp=null;
 		
 		String line=stream.readLine();
 		int lineCounter=0;
 		
 		while(line!=null){
-			
-			try {
-				StringTokenizer tokenizer=new StringTokenizer(line);
-				if(tokenizer.hasMoreTokens()){
-					String command=tokenizer.nextToken();
-					if(command.startsWith(COMMAND_STRING)){
-						SFLineParser parser=parsers.get(command);
-						if(parser==null){
-							throw new SFException("Unknown Command Line (" +lineCounter+"):"+line);
-						}
-						if(temp!=null){
-							boolean found=false;
-							for (String string : temp.getAllCommands()) {
-								found=found || (COMMAND_STRING+string).equalsIgnoreCase(command);
-							}
-							if(!found){
-								throw new SFException("Unknown or Invalid Command Line (" +lineCounter+"):"+line);
-							}	
-						}
-						SFParsableElement sfsc=parser.parseLine(temp, tokenizer, lineCounter);
-						if(sfsc==null && temp!=null)
-							components.add(temp);
-						temp=sfsc;
-					}else if(!command.startsWith(COMMENT_STRING)){
+
+			StringTokenizer tokenizer=new StringTokenizer(line);
+			if(tokenizer.hasMoreTokens()){
+				String command=tokenizer.nextToken();
+				if(command.startsWith(COMMAND_STRING)){
+					SFLineParser parser=parsers.get(command);
+					if(parser==null){
 						throw new SFException("Unknown Command Line (" +lineCounter+"):"+line);
 					}
-				}//else line is blank, and that is ok.
-			}catch (SFException e) {
-				String errorMessage=e.getMessage();
-				errors.add(errorMessage);
-			}
+					if(temp!=null){
+						boolean found=false;
+						for (String string : temp.getAllCommands()) {
+							found=found || (COMMAND_STRING+string).equalsIgnoreCase(command);
+						}
+						if(!found){
+							throw new SFException("Unknown or Invalid Command Line (" +lineCounter+"):"+line);
+						}	
+					}
+					builder.setComponent((SFPipelineElement)temp);
+					parser.parseLine(builder, tokenizer, lineCounter);
+					if(builder.getComponent()==null && temp!=null)
+						components.add(temp);
+					temp=(SFBuilderElement)builder.getComponent();
+				}else if(!command.startsWith(COMMENT_STRING)){
+					throw new SFException("Unknown Command Line (" +lineCounter+"):"+line);
+				}
+			}//else line is blank, and that is ok.
 			
 			line=stream.readLine();
 			lineCounter++;
 		}
-
-		if(errors.size()!=0){
-			SFPipelineModuleWrongException sfCwex=new SFPipelineModuleWrongException();
-			sfCwex.setList(errors);
-			throw sfCwex;
-		}	
 	}
 }

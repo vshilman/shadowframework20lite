@@ -1,9 +1,9 @@
 package shadow.pipeline.openGL20.tutorials;
 
 import shadow.image.SFBitmap;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.bitmaps.SFSpecialPerlinNoise;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgram;
@@ -12,8 +12,9 @@ import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 
 public class Tut03Bitmap extends SFTutorial{
-	
-	private SFTextureData texture;
+
+	private static final long serialVersionUID=0;
+	private SFPipelineTexture texture;
 	private SFProgram program;
 	
 	public static void main(String[] args) {

@@ -8,9 +8,9 @@ import shadow.geometry.SFGeometry;
 import shadow.material.SFLightStep;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgram;
-import shadow.renderer.data.SFStructureReference;
+import shadow.system.SFInitiable;
 
-public class SFRenderer {
+public class SFRenderer implements SFInitiable{
 
 	private SFRenderingAlgorithm algorithm;// =new GLBaseRenderingAlgorithm();
 	private SFCamera camera;
@@ -47,6 +47,11 @@ public class SFRenderer {
 	public void clearLights(){
 		lights.clear();
 	}
+	
+	@Override
+	public void init() {
+		
+	}
 
 	/**
 	 * GLRenderer is defined to be the main rendering algorithm for all the
@@ -70,7 +75,7 @@ public class SFRenderer {
 				//TODO: light data is loaded, but there's work to be done here.
 				//TODO: do this on lightStep preparation, it's done on a light step point of view.
 				//SFPipeline.getSfPipelineGraphics().loadStructure(lightStep.getProgramName(),lightStep.getStructuresBuffer(0),0);	
-				render(scene,filter,i,lightStep);
+				render(scene,filter,lightStep);
 			lightStep.closeStep(); 
 			i++;
 		}
@@ -78,55 +83,67 @@ public class SFRenderer {
 	}
 
 
-	private void render(SFNode node, SFLodFilter definition,
-			int lightStepIndex, SFLightStep lightStep) {
+	private void render(SFNode node, SFLodFilter definition, SFLightStep lightStep) {
 		
 		if (definition.acceptNode(node)) {	
-			renderNodeContent(node,definition,lightStepIndex,lightStep);
+			renderNodeContent(node,definition,lightStep);
 			for (SFNode son : node) {
-				render(son,definition,lightStepIndex,lightStep);
+				render(son,definition,lightStep);
 			}
 		}
 	}
 
-	private void renderNodeContent(SFNode node, SFLodFilter definition,
-			int lightSteIndex, SFLightStep lightStep) {
+	private void renderNodeContent(SFNode node, SFLodFilter definition, SFLightStep lightStep) {
 		
 		if(node.isDrawable()){
 
-			// Load rendering program
-			SFProgram program=node.getProgram(lightSteIndex,lightStep);
-			SFPipeline.getSfProgramBuilder().loadProgram(program);
-
-			// it is supposed that a Node has only 1 material
-			// that is not wrong if SFObject is going to extend Node
-			// if(node.getMaterial()!=null)
-			//TODO: material data is not loaded
-			List<SFStructureReference> materials=node.getMaterialsStructures();
-			for (SFStructureReference sfMaterial : materials) {
-				
-				int index=sfMaterial.getMaterialIndex();
-				SFPipeline.getSfPipelineGraphics().loadStructureData(sfMaterial.getTable(), index);
-					
-				//SFPipeline.getSfPipelineGraphics().loadStructure(table.getCode(),table.getData(),index);	
-			}
-			
-			for (SFProgramStructureReference sfLight : lights) {
-				
-				int index=sfLight.getStructure().getMaterialIndex();
-				SFPipeline.getSfPipelineGraphics().loadStructureData(sfLight.getStructure().getTable(), index);
-					
-				//SFPipeline.getSfPipelineGraphics().loadStructure(table.getCode(),table.getData(),index);	
-			}
+			setupRenderingData(node.getModel(), lightStep);
 
 			// Place the object Node
 			// only positions are going to be set. Other transforms resides into
 			// geometry level
-			SFPipeline.getSfPipelineGraphics().translateModel(node.getPosition());
+			node.getTransform().apply();
 
 			// render the NODE root Geometry
-			SFGeometry rootGeometry=node.getRootGeometry();
+			SFGeometry rootGeometry=node.getModel().getRootGeometry();
 			renderGeometry(rootGeometry,definition);
+		}
+	}
+
+	public void setupRenderingData(SFModel model,
+			SFLightStep lightStep) {
+		// Load rendering program
+		SFProgram program=model.getProgram(lightStep);
+		SFPipeline.getSfProgramBuilder().loadProgram(program);
+		
+		for (SFProgramStructureReference sfLight : lights) {
+			
+			int index=sfLight.getStructure().getMaterialIndex();
+			SFPipeline.getSfPipelineGraphics().loadStructureData(sfLight.getStructure().getTable(), index);
+				
+			//SFPipeline.getSfPipelineGraphics().loadStructure(table.getCode(),table.getData(),index);	
+		}
+
+		setupMaterialData(model);
+	}
+
+	public static void setupMaterialData(SFRenderable model) {
+		// it is supposed that a Node has only 1 material
+		// that is not wrong if SFObject is going to extend Node
+		// if(node.getMaterial()!=null)
+		//TODO: material data is not loaded
+		List<SFStructureReference> materials=model.getMaterialsStructures();
+		for (SFStructureReference sfMaterial : materials) {
+			
+			int index=sfMaterial.getMaterialIndex();
+			SFPipeline.getSfPipelineGraphics().loadStructureData(sfMaterial.getTable(), index);
+				
+			//SFPipeline.getSfPipelineGraphics().loadStructure(table.getCode(),table.getData(),index);	
+		}
+		
+		List<SFTextureReference> textures=model.getTextures();
+		for (SFTextureReference sfTextureReference : textures) {
+			sfTextureReference.apply();
 		}
 	}
 

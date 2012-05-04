@@ -19,13 +19,10 @@
 */
 package shadow.image.bitmaps;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
 
 public class SFSimplePerlinNoise extends SFBitmap{
 
@@ -61,9 +58,9 @@ public class SFSimplePerlinNoise extends SFBitmap{
 		int height=getHeight();
 
 		if(rgb){
-			this.setFormat(SFFormat.RGB8);
+			this.setFormat(SFImageFormat.RGB8);
 		}else{
-			this.setFormat(SFFormat.GRAY8);
+			this.setFormat(SFImageFormat.GRAY8);
 		}
 		this.weights=weights;
 		
