@@ -41,7 +41,15 @@ public class SFOutputStreamJs implements SFOutputStream {
 		}
 	}
 	
-
+	@Override
+	public void writeBinaryData(int value, int bitSize) {
+		try {
+			stream.write(value);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void writeShorts(short[] values) {
 		try {

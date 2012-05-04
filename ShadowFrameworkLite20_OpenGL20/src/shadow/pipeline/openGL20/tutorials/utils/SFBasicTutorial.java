@@ -5,12 +5,14 @@ import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPrimitiveArray;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFStructureArray;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 
 public class SFBasicTutorial extends SFTutorial{
 
+	private static final long serialVersionUID=0;
+	
 	private SFProgram program;
-	private float[] projection={1,0,0,0,
+	public static float[] projection={1,0,0,0,
 								0,1,0,0,	
 								0,0,1,0,
 								0,0,0,1};

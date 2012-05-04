@@ -5,14 +5,13 @@ import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
-import shadow.renderer.SFAsset;
 import shadow.system.SFArrayElementException;
 import shadow.system.data.SFDataObject;
 import shadow.system.data.SFDataset;
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
 
-public class SFStructureArrayData extends SFAsset implements SFDataset{
+public class SFStructureArrayData extends SFDataAsset<SFStructureArray> implements SFDataset{
 
 	private SFStructureArray array;
 
@@ -34,22 +33,21 @@ public class SFStructureArrayData extends SFAsset implements SFDataset{
 	}
 	
 	@Override
-	public void init() {
-		
+	protected SFStructureArray buildResource() {
+		return array;
 	}
 
 	
+	public void invalidate() {
+	}
+
+
 	public class SFStructureArrayDataObject implements SFDataObject{
 		
 
 		@Override
 		public SFStructureArrayDataObject clone() {
 			return new SFStructureArrayDataObject();
-		}
-		
-		@Override
-		public int elementsSize() {
-			return 0;
 		}
 		
 		@Override
@@ -92,11 +90,5 @@ public class SFStructureArrayData extends SFAsset implements SFDataset{
 				e.printStackTrace();
 			}
 		}
-		
-		@Override
-		public SFDataObject sonsObject(int son) {
-			return null;
-		}
-
 	}
 }

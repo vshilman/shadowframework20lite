@@ -52,7 +52,7 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 		
 		public SFLibraryRecord(String name,SFDataset dataset) {
 			super();
-			this.name.setLabel(name);
+			this.name.setString(name);
 			this.object.setDataset(dataset);
 		}
 
@@ -66,12 +66,12 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 		
 		@Override
 		public int compareTo(SFLibraryRecord o) {
-			return name.getLabel().compareTo(o.name.getLabel());
+			return name.getString().compareTo(o.name.getString());
 		}
 		
 		@Override
 		public SFLibraryRecord clone() {
-			return new SFLibraryRecord(name.getLabel(), object.getDataset());
+			return new SFLibraryRecord(name.getString(), object.getDataset());
 		}
 	} 
 	
@@ -93,7 +93,7 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 		public RecordData next() {
 			if( index<records.size()){
 				SFLibraryRecord record=records.get(index);
-				RecordData data=new RecordData(record.name.getLabel(),record.object.getDataset());
+				RecordData data=new RecordData(record.name.getString(),record.object.getDataset());
 				index++;
 				return data;
 			}
@@ -125,7 +125,9 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 	 * @param name The name of this record.
 	 * @param dataset The dataset called with that name. 
 	 */
-	public void put(String name,SFDataset dataset){
+	public void put(String name,SFDataset dataset) throws NullPointerException{
+		if(dataset==null)
+			throw new NullPointerException("Dataset cannot be null");
 		SFLibraryRecord record=new SFLibraryRecord(name, dataset);
 		records.getDataObject().add(record);
 		Collections.sort(records.getDataObject());
@@ -137,11 +139,15 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 	 * @return
 	 */
 	public synchronized SFDataset retrieveDataset(String name){
-		searchRecord.name.setLabel(name);
+		searchRecord.name.setString(name);
 		int index= Collections.binarySearch(records.getDataObject(), searchRecord);
 		if(index<0)
 			return null;
 		return records.getDataObject().get(index).object.getDataset();
+	}
+	
+	public void addLibrary(SFObjectsLibrary library){
+		this.records.addAll(library.records);
 	}
 	
 	/**
@@ -169,6 +175,9 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 	@Override
 	public String getType() {
 		return this.getClass().getSimpleName();
+	}
+
+	public void invalidate() {
 	}
 	
 }

@@ -13,11 +13,12 @@ import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 import shadow.system.SFArrayElementException;
 
 public class SFStructuresTest {
@@ -30,7 +31,7 @@ public class SFStructuresTest {
 
 		try {
 			SFGL20Pipeline.setup();
-			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"));
+			SFProgramComponentLoader.loadComponents(new File("data/pipeline/primitive"),new SFPipelineBuilder());
 			
 			//Material
 			SFPipelineStructure materialStructure=SFPipeline.getStructure("Mat01");

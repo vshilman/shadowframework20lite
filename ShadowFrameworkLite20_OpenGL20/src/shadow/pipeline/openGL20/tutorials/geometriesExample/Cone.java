@@ -1,20 +1,17 @@
 package shadow.pipeline.openGL20.tutorials.geometriesExample;
 
 import shadow.geometry.SFSurfaceFunction;
-import shadow.geometry.editing.SFConcreteTriangleExtractor;
 import shadow.geometry.geometries.SFQuadsSurfaceGeometry;
+import shadow.geometry.geometries.SFSimpleTexCoordGeometryuv;
 import shadow.pipeline.SFPrimitive;
-import shadow.system.data.SFDataObject;
-import shadow.system.data.SFDataset;
 
 public class Cone {
 	
 	public SFQuadsSurfaceGeometry generateGeometry(SFPrimitive primitive) {
 		ConeFunction function=new ConeFunction();
 		
-		SFConcreteTriangleExtractor trianglesExtractor=new SFConcreteTriangleExtractor();
 		SFQuadsSurfaceGeometry quadsSurfaceGeometry=new SFQuadsSurfaceGeometry(primitive,
-				function, new TexCoordFunction(), trianglesExtractor, 5, 2);
+				function, new SFSimpleTexCoordGeometryuv(1,1), 5, 2);
 		
 		quadsSurfaceGeometry.compile();
 		return quadsSurfaceGeometry;
@@ -43,20 +40,9 @@ public class Cone {
 		}
 		
 		@Override
-		public SFDataset generateNewDatasetInstance() {
-			return null;
-		}
-		
-		@Override
-		public SFDataObject getSFDataObject() {
+		public void init() {
 			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public String getType() {
-			// TODO Auto-generated method stub
-			return null;
+			
 		}
 	}
 

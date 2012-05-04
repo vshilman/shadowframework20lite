@@ -21,19 +21,28 @@ package shadow.system.data;
 
 
 /**
- * A shadow Element which can be stored in or written from a BytesStream.
- * Any Dataset is even classified by its cardinality N; code and cardinality
- * are written before datasets as an header. Cardinality has different 
- * meanings, depending on the specific datasets, but usually it stays for 
- * 'number of sub-elements this element contains' 
+ * An Object which can be stored in a ShadowFramework stream.
+ *  
  * @author Alessandro Martinelli
  */
 public interface SFDataset {
 	
+	/**
+	 * Return a String identifying the type of this SFDataset. Objects from the same class should return
+	 * the same String.
+	 * @return  the identifying String
+	 */
 	public String getType();
 	
+	/**
+	 * Return the SFDataObject effectively containing data for this SFDataset
+	 * @return
+	 */
 	public SFDataObject getSFDataObject();
-	/** clone this Dataset
+	
+	/** generate a new Instance of the same class as this Dataset
 	 */
 	public SFDataset generateNewDatasetInstance();
+
+	public void invalidate();
 }

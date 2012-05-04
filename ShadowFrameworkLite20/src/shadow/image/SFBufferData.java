@@ -8,9 +8,9 @@ package shadow.image;
 public abstract class SFBufferData {
 
 	private int width,height;
-	private SFFormat format;
+	private SFImageFormat format;
 	
-	public SFBufferData(int width, int height, SFFormat format) {
+	public SFBufferData(int width, int height, SFImageFormat format) {
 		super();
 		this.width = width;
 		this.height = height;
@@ -25,7 +25,7 @@ public abstract class SFBufferData {
 		return height;
 	}
 
-	public SFFormat getFormat() {
+	public SFImageFormat getFormat() {
 		return format;
 	}
 	

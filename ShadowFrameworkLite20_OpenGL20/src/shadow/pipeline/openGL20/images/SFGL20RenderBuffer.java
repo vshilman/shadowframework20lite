@@ -3,7 +3,7 @@ package shadow.pipeline.openGL20.images;
 import javax.media.opengl.GL;
 
 import shadow.image.SFBufferData;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
 import shadow.pipeline.openGL20.SFGL2;
 
 /**
@@ -16,7 +16,7 @@ public class SFGL20RenderBuffer extends SFBufferData implements
 
 	int renderBuffer = -1;
 
-	public SFGL20RenderBuffer(int width, int height, SFFormat format) {
+	public SFGL20RenderBuffer(int width, int height, SFImageFormat format) {
 		super(width, height, format);
 	}
 

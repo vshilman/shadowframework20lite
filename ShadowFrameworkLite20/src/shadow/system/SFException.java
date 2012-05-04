@@ -5,7 +5,7 @@ package shadow.system;
  * has encountered a problem.
  * @author Alessandro Martinelli
  */
-public class SFException extends Exception{
+public class SFException extends RuntimeException{
 	
 	public SFException(String arg0) {
 		super(arg0);

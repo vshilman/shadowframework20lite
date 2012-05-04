@@ -87,7 +87,7 @@ public class SFVertex3f extends SFVertex2f{
 		v[2]=vx.v[2];
 	}
 	
-	public double dot3f(SFVertex3f vx){
+	public float dot3f(SFVertex3f vx){
 		return vx.v[0]*v[0]+vx.v[1]*v[1]+vx.v[2]*v[2];
 	}
 	

@@ -2,7 +2,7 @@ package shadow.pipeline;
 
 import java.util.ArrayList;
 
-public class SFPipelineModuleWrongException extends Exception{
+public class SFPipelineModuleWrongException extends RuntimeException{
 
 	private ArrayList<String> list=new ArrayList<String>();
 

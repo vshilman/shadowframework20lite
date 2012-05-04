@@ -1,6 +1,6 @@
 package shadow.renderer;
 
-import shadow.renderer.data.SFStructureReference;
+
 
 public class SFProgramStructureReference {
 	

@@ -3,6 +3,8 @@ package shadow.pipeline.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import shadow.math.SFValue1f;
+import shadow.math.SFValuenf;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFExpressionTextureEvaluation extends SFExpressionOperator{
@@ -33,5 +35,10 @@ public class SFExpressionTextureEvaluation extends SFExpressionOperator{
 	@Override
 	protected SFExpressionOperator cloneOperator() {
 		return new SFExpressionTextureEvaluation();
+	}
+	
+	@Override
+	public SFValuenf evaluate(SFValuesMap values) {
+		return new SFValue1f(0);
 	}
 }

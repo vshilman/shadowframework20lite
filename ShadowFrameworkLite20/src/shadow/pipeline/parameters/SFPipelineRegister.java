@@ -82,7 +82,7 @@ public class SFPipelineRegister extends SFParameter{
 		predefinedGlobalV.put("color5",new SFPipelineRegister(GLOBAL_FLOAT4, "color5",WROTE_BY_MATERIAL));
 		predefinedGlobalV.put("color6",new SFPipelineRegister(GLOBAL_FLOAT4, "color6",WROTE_BY_MATERIAL));
 		predefinedGlobalV.put("color7",new SFPipelineRegister(GLOBAL_FLOAT4, "color7",WROTE_BY_MATERIAL));
-		predefinedGlobalV.put("color8",new SFPipelineRegister(GLOBAL_FLOAT4, "color8",WROTE_BY_MATERIAL));
+		predefinedGlobalV.put("color8",new SFPipelineRegister(GLOBAL_FLOAT4, "color8",WROTE_BY_MATERIAL));		
 		predefinedGlobalV.put("P0",new SFPipelineRegister(GLOBAL_FLOAT3, "P0",WROTE_BY_PRIMITIVE));
 		predefinedGlobalV.put("N0",new SFPipelineRegister(GLOBAL_FLOAT3, "N0",WROTE_BY_PRIMITIVE));
 		predefinedGlobalV.put("du0",new SFPipelineRegister(GLOBAL_FLOAT3, "du0",WROTE_BY_PRIMITIVE));

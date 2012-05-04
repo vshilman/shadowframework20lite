@@ -1,6 +1,6 @@
 package shadow.system;
 
-public class SFArrayElementException extends Exception{
+public class SFArrayElementException extends RuntimeException{
 
 	//constant 0xffadf=== 0xshadow where s,h and w are truncated to f
 	public static final long serialVersionUID=0xffadf+SFArrayElementException.class.hashCode();

@@ -4,15 +4,15 @@ import javax.media.opengl.GL;
 
 import shadow.image.SFBitmap;
 import shadow.image.SFBufferData;
-import shadow.image.SFFormat;
+import shadow.image.SFImageFormat;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.SFRenderedTextureFactory;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
 
 public class SFGL20RenderedTextureFactory implements SFRenderedTextureFactory{
 
-	public static int getGLFormat(SFFormat format){
+	public static int getGLFormat(SFImageFormat format){
 		switch (format) {
 			case ARGB8: return GL.GL_RGBA8;
 			case DEPTH16: return GL.GL_DEPTH_COMPONENT16;
@@ -30,29 +30,29 @@ public class SFGL20RenderedTextureFactory implements SFRenderedTextureFactory{
 
 	@Override
 	public SFBufferData generatePlainBuffer(int width, int height) {
-		SFGL20RenderBuffer renderBuffer = new SFGL20RenderBuffer(width, height, SFFormat.ARGB8);
+		SFGL20RenderBuffer renderBuffer = new SFGL20RenderBuffer(width, height, SFImageFormat.ARGB8);
 		renderBuffer.build();
 		return renderBuffer;
 	}
 	
 	@Override
 	public SFBufferData generatePlainBuffer(int width, int height,
-			SFFormat format) {
+			SFImageFormat format) {
 		SFGL20RenderBuffer renderBuffer = new SFGL20RenderBuffer(width, height, format);
 		renderBuffer.build();
 		return renderBuffer;
 	}
 	
 	@Override
-	public SFTextureData generateTextureBuffer(int width, int height,
-			SFFormat format, Filter filters, WrapMode wrapS, WrapMode wrapT) {
+	public SFPipelineTexture generateTextureBuffer(int width, int height,
+			SFImageFormat format, Filter filters, WrapMode wrapS, WrapMode wrapT) {
 		SFGL20Texture texture=new SFGL20Texture(width, height, format, filters, wrapS, wrapT);
 		texture.build();
 		return texture;
 	}
 	
 	@Override
-	public SFTextureData generateBitmapTexture(SFBitmap bitmap, Filter filters,
+	public SFPipelineTexture generateBitmapTexture(SFBitmap bitmap, Filter filters,
 			WrapMode wrapS, WrapMode wrapT) {
 		SFGL20Texture texture=new SFGL20Texture(bitmap.getWidth(), bitmap.getHeight(), bitmap.getFormat(), filters, wrapS, wrapT);
 		texture.loadBitmap(bitmap);

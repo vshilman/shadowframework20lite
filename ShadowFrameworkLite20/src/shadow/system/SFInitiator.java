@@ -37,8 +37,10 @@ public class SFInitiator {
 	}
 
 	public static void addInitiable(SFInitiable initiable) {
-		if (!initiator.initiables.contains(initiable))
+		if (!initiator.initiables.contains(initiable)){
+			//System.out.println("initializing "+initiable);
 			initiator.initiables.add(initiable);
+		}
 	}
 
 	public static void solveInitiables() {

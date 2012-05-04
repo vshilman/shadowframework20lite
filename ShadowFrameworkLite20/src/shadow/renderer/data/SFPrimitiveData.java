@@ -1,13 +1,9 @@
 package shadow.renderer.data;
 
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map.Entry;
-
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPrimitive;
+import shadow.pipeline.SFPrimitive.PrimitiveBlock;
 import shadow.pipeline.SFProgramComponent;
-import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFException;
 import shadow.system.data.objects.SFCompositeDataArray;
 import shadow.system.data.objects.SFDataList;
@@ -43,20 +39,20 @@ public class SFPrimitiveData extends SFCompositeDataArray{
 	private void setupPrimitive(){
 		int index=0;
 		primitive=new SFPrimitive();
-		primitive.setAdaptingTessellator((SFProgramComponent)SFPipeline.getModule(primitiveData.get(index).getLabel()));
+		primitive.setAdaptingTessellator((SFProgramComponent)SFPipeline.getModule(primitiveData.get(index).getString()));
 		index++;
-		List<Entry<SFPipelineRegister, SFProgramComponent>> primitiveMap=primitive.getPrimitiveMap();
-		primitiveMap.clear();
+		
 		try {
-			while(index<primitiveData.size()){
-				SFPipelineRegister register=SFPipelineRegister.getFromName(primitiveData.get(index).getLabel());
+			int size=(primitiveData.size()-1)>>1;
+			SFProgramComponent[] components=new SFProgramComponent[size];
+			PrimitiveBlock[] blocks=new PrimitiveBlock[size];
+			for (int i = 0; i < size; i++) {
+				blocks[i]=PrimitiveBlock.getBlock(new Integer(primitiveData.get(index).getString()));//SFPipelineRegister.getFromName(primitiveData.get(index).getLabel());
 				index++;
-				SFProgramComponent programComponent=(SFProgramComponent)SFPipeline.getModule(primitiveData.get(index).getLabel());
+				components[i]=(SFProgramComponent)SFPipeline.getModule(primitiveData.get(index).getString());
 				index++;
-				Entry<SFPipelineRegister, SFProgramComponent> entry=
-						new AbstractMap.SimpleEntry<SFPipelineRegister,SFProgramComponent>(register,programComponent);
-				primitiveMap.add(entry);
 			}
+			primitive.setPrimitiveElements(blocks, components);
 		} catch (SFException e) {
 			e.printStackTrace();
 		}
@@ -66,10 +62,13 @@ public class SFPrimitiveData extends SFCompositeDataArray{
 		primitiveData.clear();
 		primitiveData.add(new SFString(primitive.getTessellator().getName()));
 		
-		List<Entry<SFPipelineRegister, SFProgramComponent>> primitiveMap=primitive.getPrimitiveMap();
-		for (Entry<SFPipelineRegister, SFProgramComponent> entry : primitiveMap) {
-			primitiveData.add(new SFString(entry.getKey().getName()));
-			primitiveData.add(new SFString(entry.getValue().getName()));
+		SFProgramComponent[] components=primitive.getComponents();
+		PrimitiveBlock[] blocks=primitive.getBlocks();
+		
+		for (int i = 0; i < blocks.length; i++) {
+			primitiveData.add(new SFString(""+blocks[i].getIndex()));
+			primitiveData.add(new SFString(components[i].getName()));
 		}
+		
 	}
 }

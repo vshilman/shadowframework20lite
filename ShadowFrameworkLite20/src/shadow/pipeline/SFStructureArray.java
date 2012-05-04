@@ -3,8 +3,9 @@ package shadow.pipeline;
 import shadow.math.SFValuenf;
 import shadow.system.SFArray;
 import shadow.system.SFArrayElementException;
+import shadow.system.SFInitiable;
 
-public interface SFStructureArray extends SFArray<SFStructureData>{
+public interface SFStructureArray extends SFArray<SFStructureData>,SFInitiable{
 
 	
 	/** writes a <E> with the content of the element at a given position

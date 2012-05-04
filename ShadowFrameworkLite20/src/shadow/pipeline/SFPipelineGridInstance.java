@@ -3,7 +3,6 @@ package shadow.pipeline;
 import java.util.LinkedList;
 import java.util.List;
 
-import shadow.pipeline.SFPipelineGrid;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFPipelineGridInstance {
@@ -29,4 +28,6 @@ public class SFPipelineGridInstance {
 	public int size(){
 		return params.size();
 	}
+
 }
+

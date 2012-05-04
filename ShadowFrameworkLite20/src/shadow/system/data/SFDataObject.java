@@ -7,10 +7,6 @@ package shadow.system.data;
  * @author Alessandro Martinelli
  */
 public interface SFDataObject{
-
-	public int elementsSize();
-	
-	public SFDataObject sonsObject(int son);
 	
 	/**Read all the data from a stream, given the cardinality 
 	 * associated with this data. The Data read from readFromStream

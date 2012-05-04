@@ -5,16 +5,11 @@ package shadow.system.data;
  * 
  * @author Alessandro Martinelli
  */
-public interface SFDataCenterListener {
+public interface SFDataCenterListener<T extends SFDataset> {
 	/**
 	 * Called when a Dataset is ready 
 	 * @param dataset the ready dataset
 	 */
-	public void onDatasetAvailable(String name, SFDataset dataset);
+	public void onDatasetAvailable(String name, T dataset);
 	
-	/**
-	 * Called when a Dataset cannot be loaded
-	 * @param name the dataset name
-	 */
-	public void onDatasetUnAvailable(String name);
 }

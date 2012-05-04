@@ -21,9 +21,14 @@ package shadow.system;
 
 
 /**
- * Something which can be initialized
+ * Something which can be initialized, base interface
+ * for all graphical elements used in the ShadowFramework 
+ * 
  * @author Alessandro Martinelli
  */
 public interface SFInitiable {
+	/**
+	 * initialize this SFInitiable
+	 */
 	public void init();
 }

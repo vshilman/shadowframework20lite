@@ -20,7 +20,6 @@
 package shadow.system;
 
 
-
 /**
  * This interface represent an indexed set of Elements.
  * 
@@ -28,14 +27,24 @@ package shadow.system;
  * @param <E> The Type of the elements in the array 
  */
 public interface SFArray<E>{
+	
 	/** @return the number of elements in the array */
-	public int getElementsCount();
+	public abstract int getElementsCount();
+
 	/** writes a <E> with the content of the element at a given position
 	 * @param index the index at which element is 
 	 * read
 	 * @param element the element where to store data
 	 * */
-	public void getElement(int index,E element) throws SFArrayElementException;
+	public abstract void getElement(int index, E element)
+			throws SFArrayElementException;
+	
+	/**
+	 * Generate a valid instance of E
+	 * @return
+	 */
+	public E generateSample();
+	
 	/** Writes the content of a given element at the given position
 	 * @param index the index at which element is written
 	 * @param element the element where data are read
@@ -54,13 +63,5 @@ public interface SFArray<E>{
 	 * @param index starting position at which elements will be destroyed
 	 * @param elementsCount the number of elements which will be destroyed*/
 	public abstract void eraseElements(int index,int elementsCount);
-	
-	/**Compile this array; while compiled, generate and erase methods are ignored
-	 * and access to Array data with get/setElement should be faster.*/
-	public abstract void setCompiledState();
-
-	/**Put this array in editing mode. While in editing mode, 
-	 * every operation is allowed, but access to the array may slow down.*/
-	public abstract void setEditingState();
 	
 }

@@ -3,6 +3,7 @@ package shadow.pipeline.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import shadow.math.SFValuenf;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFExpressionMult extends SFExpressionOperator{
@@ -68,5 +69,14 @@ public class SFExpressionMult extends SFExpressionOperator{
 	
 	protected SFExpressionOperator cloneOperator() {
 		return new SFExpressionMult();
+	}
+	
+	@Override
+	public SFValuenf evaluate(SFValuesMap values) {
+		SFValuenf mult=getExpressionElement(0).evaluate(values);
+		for (int i = 1; i < getElementSize(); i++) {
+			mult.mult( getExpressionElement(i).evaluate(values));
+		}
+		return mult;
 	}
 }

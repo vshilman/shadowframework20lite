@@ -4,12 +4,11 @@ import java.awt.event.KeyEvent;
 
 import shadow.geometry.geometries.SFMeshGeometry;
 import shadow.image.SFBitmap;
-import shadow.image.SFTextureData;
-import shadow.image.SFTextureData.Filter;
-import shadow.image.SFTextureData.WrapMode;
+import shadow.image.SFPipelineTexture;
+import shadow.image.SFPipelineTexture.Filter;
+import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.bitmaps.SFSpecialPerlinNoise;
 import shadow.pipeline.SFPipeline;
-import shadow.pipeline.SFPipelineGraphics;
 import shadow.pipeline.SFPipelineRenderingState;
 import shadow.pipeline.SFPipelineRenderingState.StencilFunction;
 import shadow.pipeline.SFPipelineRenderingState.StencilOperation;
@@ -22,11 +21,13 @@ import shadow.pipeline.openGL20.tutorials.geometriesExample.LateralTube;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.Mushroom;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeCylinder;
 import shadow.pipeline.openGL20.tutorials.geometriesExample.StrangeGlass;
+import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 
 public class Tut07StencilMask extends SFTutorial{
 
+	private static final long serialVersionUID=0;
 	private SFProgram program;
 	private SFProgram programTexture;
 	private float[] projection={1,0,0,0,
@@ -37,7 +38,7 @@ public class Tut07StencilMask extends SFTutorial{
 	private static SFMeshGeometry[] geometries;
 	private int geometriesIndex=0;
 
-	private SFTextureData texture;
+	private SFPipelineTexture texture;
 	
 	private SFPipelineRenderingState maskGeneration=new SFPipelineRenderingState();
 	private SFPipelineRenderingState maskApplication=new SFPipelineRenderingState();
@@ -140,6 +141,8 @@ public class Tut07StencilMask extends SFTutorial{
 	
 	@Override
 	public void render() {
+
+		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
 		
 		if(maskEffect)
 			SFPipeline.getSfPipelineGraphics().setPipelineState(maskGeneration);

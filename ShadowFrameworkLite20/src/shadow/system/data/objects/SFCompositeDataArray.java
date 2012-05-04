@@ -25,7 +25,6 @@ public abstract class SFCompositeDataArray implements SFDataObject{
 		return dataObject;
 	}
 
-	@Override
 	public int elementsSize() {
 		return dataObject.size();
 	}
@@ -44,23 +43,4 @@ public abstract class SFCompositeDataArray implements SFDataObject{
 		}
 	}
 	
-	@Override
-	public SFDataObject sonsObject(int son) {
-		return dataObject.get(son);
-	}
-	
-//	@Override
-//	public SFDataObject clone() {
-//		final ArrayList<SFDataObject> generatorDataObject=this.dataObject;
-//		SFCompositeDataArray composite=new SFCompositeDataArray(){
-//			@Override
-//			public void generateData() {
-//				for (SFDataObject sfDataObject : generatorDataObject) {
-//					dataObject.add(sfDataObject.clone());
-//				}
-//			}
-//		};
-//		
-//		return composite;
-//	}
 }

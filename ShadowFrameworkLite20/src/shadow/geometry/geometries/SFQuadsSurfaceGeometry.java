@@ -1,114 +1,46 @@
 package shadow.geometry.geometries;
 
-import java.util.List;
-import java.util.Map.Entry;
-
 import shadow.geometry.SFSurfaceFunction;
-import shadow.geometry.editing.SFSurfaceQuadsExtractor;
+import shadow.geometry.SFSurfaceGeometryTexCoordFunctionuv;
 import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
+import shadow.operational.SFStandardQuadExtractor;
+import shadow.operational.grid.SFGridOperations;
+import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPipelineGrid;
 import shadow.pipeline.SFPrimitive;
+import shadow.pipeline.SFPrimitive.PrimitiveBlock;
+import shadow.pipeline.SFPrimitiveGrid;
 import shadow.pipeline.SFPrimitiveIndices;
-import shadow.pipeline.SFProgramComponent;
-import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFArray;
 import shadow.system.SFArrayElementException;
-import shadow.system.data.SFDataset;
-import shadow.system.data.objects.SFCompositeDataArray;
-import shadow.system.data.objects.SFDatasetObject;
-import shadow.system.data.objects.SFFloatArray;
-import shadow.system.data.objects.SFInt;
-import shadow.system.data.objects.SFIntArray;
 
 /**
  * A Mesh Geometry Built Upon a SurfaceFunction
- * Will use extractors to generate Surface Code
  * 
  * @author Alessandro Martinelli
  */
 public class SFQuadsSurfaceGeometry extends SFMeshGeometry{
 
-	private enum Blocks{
-		POSITION,
-		NORMAL,
-		DU,
-		DV,
-		TXO;
-	}
-	
-	private class SFQuadSurfaceGeometryData extends SFCompositeDataArray{
-		
-		private SFIntArray positions;
-		private SFFloatArray u_splits;
-		private SFFloatArray v_splits;
-		private SFInt Nu;
-		private SFInt Nv;
-		private SFDatasetObject surfaceFunction;
-		private SFDatasetObject extractor;
-		private SFDatasetObject texCoordFunction;
-		
-		@Override
-		public void generateData() {
-			positions=new SFIntArray(0);
-			u_splits=new SFFloatArray(0);
-			v_splits=new SFFloatArray(0);
-			Nu=new SFInt(0);
-			Nv=new SFInt(0);
-			surfaceFunction=new SFDatasetObject(null);
-			extractor=new SFDatasetObject(null);
-			texCoordFunction=new SFDatasetObject(null);
-			addDataObject(positions);
-			addDataObject(u_splits);
-			addDataObject(v_splits);
-			addDataObject(Nu);
-			addDataObject(Nv);
-			addDataObject(surfaceFunction);
-			addDataObject(extractor);
-			addDataObject(texCoordFunction);
-			System.err.println("Primitive Data "+getPrimitiveData());
-			addDataObject(getPrimitiveData());
-		}
-		
-		@Override
-		public SFQuadSurfaceGeometryData clone() {
-			return new SFQuadSurfaceGeometryData();
-		}
-	}
-	
+	private int Nv,Nu;
+	private float vSplits[];
+	private float uSplits[];
+	private SFSurfaceGeometryTexCoordFunctionuv functionuv;
+	private int positions[]=new int[0];
+	private SFSurfaceFunction surfaceFunction;
 	
 	public SFQuadsSurfaceGeometry() {
-		setData(new SFQuadSurfaceGeometryData());
 	}
 
 
 	public SFQuadsSurfaceGeometry(SFPrimitive primitive,
 			SFSurfaceFunction function,
-			SFSurfaceGeometryTexCoordFunctionuv texCoord,
-			SFSurfaceQuadsExtractor extractor,int N_u,int N_v) {
+			SFSurfaceGeometryTexCoordFunctionuv texCoord,int N_u,int N_v) {
 		super(primitive);
-		setData(new SFQuadSurfaceGeometryData());
 		this.setFunction(function);
-		this.setExtractor(extractor);
 		this.setTexCoord(texCoord);
-
-		initSplits(N_u, N_v);
-		
-	}
-	
-
-	private void initSplits(int N_u, int N_v) {
-		this.setNu(N_u);
-		this.setNv(N_v);
-		setU_splits(new float[N_u]);
-		setV_splits(new float[N_v]);
-		float stepU=1.0f/(N_u-1.0f);
-		float stepV=1.0f/(N_v-1.0f);
-		for (int i = 0; i < N_u; i++) {
-			getU_splits()[i]=i*stepU;
-		}
-		for (int i = 0; i < N_v; i++) {
-			getV_splits()[i]=i*stepV;
-		}
+		setNu(N_u);
+		setNv(N_v);
 	}
 	
 
@@ -116,17 +48,14 @@ public class SFQuadsSurfaceGeometry extends SFMeshGeometry{
 	public void compile() {
 		
 		if(getArray()==null)			
-			allocateGraphicsMemory();
+			setArray(SFPipeline.getSfPipelineMemory().generatePrimitiveArray(getPrimitive()));
 		
-		//clearElements();		
-		int pr=getExtractor().getPrimitivesNumber();
+		//clearElements();
+		int pr=getPrimitive().isQuad()?1:2;
 		
 		updateElements(getNu(),getNv(),pr);
 		
 		SFPrimitive primitive=getPrimitive();
-		
-		//Remember to introduce 'block' concept into pipeline
-		List<Entry<SFPipelineRegister, SFProgramComponent>> blocks=primitive.getPrimitiveMap();
 		
 		//for each blocks, what should i do?
 
@@ -136,67 +65,53 @@ public class SFQuadsSurfaceGeometry extends SFMeshGeometry{
 			indices[k]=indices[0].clone();
 		}
 		try {
-			int index=0;
-			getArray().generateElements(pr*(getNu()-1)*(getNv()-1));
-			for (Entry<SFPipelineRegister, SFProgramComponent> entry : blocks) { //Iterate over all the blocks..
-				SFPipelineRegister register=entry.getKey();
-				SFArray<SFValuenf> values=getArray().getPrimitiveData(index);
+			//int index=0;
+			
+			SFPrimitiveGrid grid[] = primitive.getGridInstances();
+			
+			for (int gridIndex = 0; gridIndex < grid.length; gridIndex++) {
+				SFArray<SFValuenf> values=getArray().getPrimitiveData(gridIndex);
+				compileBlockIndices(pr, indices, gridIndex, values);
 				
-				Blocks block = getBlock(register);
-				compileBlockIndices(pr, indices, index, values,block);
-				
-				index++;
 			}
+			
 		} catch (SFArrayElementException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 
 
-	private static Blocks getBlock(SFPipelineRegister register) {
-		String registerName=register.getName();
-		char[] rName=registerName.toCharArray(); 
-		
-		Blocks block=Blocks.POSITION;
-		if(rName[0]=='N'){
-			block=Blocks.NORMAL;
-		}else if(rName.length>1 && rName[0]=='T' && rName[1]=='x'){
-			block=Blocks.TXO;
-		}else if(rName.length>1 && rName[0]=='d' && rName[1]=='u'){
-			block=Blocks.DU;
-		}else if(rName.length>1 && rName[0]=='d' && rName[1]=='v'){
-			block=Blocks.DV;
-		}
-		return block;
-	}
-
-
 	private void compileBlockIndices(int pr, SFPrimitiveIndices[] indices,
-			int index, SFArray<SFValuenf> values, Blocks block)
+			int gridIndex, SFArray<SFValuenf> values)
 			throws SFArrayElementException {
+		PrimitiveBlock block=getPrimitive().getGridInstances()[gridIndex].getBlock();
+		SFPipelineGrid grid=getPrimitive().getGridInstances()[gridIndex].getGrid();
 
-		int n1=getExtractor().getN1();
+		SFStandardQuadExtractor extractor=new SFStandardQuadExtractor(grid);
+		
+		int n1=SFGridOperations.getGridDimension(grid);
 		SFValuenf[] vertices = getDataArray(getNu(), getNv(), n1, block);//all positions are built up...
-		getPositions()[index]=values.generateElements(vertices.length);
+		getPositions()[gridIndex]=values.generateElements(vertices.length);
 		
 		int[][] prIndices=new int[pr][];
 		for(int k=0;k<pr;k++){
-			prIndices[k]=indices[k].getPrimitiveIndices()[index];
+			prIndices[k]=indices[k].getPrimitiveIndices();
 		}	//That's doing it...
+		
 
 		for(int i=0;i<getNv()-1;i++){
 			for(int j=0;j<getNu()-1;j++){//for each element in the grid
+				extractor.extractIndices(prIndices, getPrimitive().getIndicesPositions()[gridIndex],
+						values, vertices, getPositions()[gridIndex], getNu(), getNv() , i, j);
 				
-				getExtractor().extractIndices(prIndices,
-						values, vertices, getPositions()[index], getNu(), getNv() , i, j);
 				for(int k=0;k<pr;k++){
 					int indexElement=(i*(getNu()-1)+j)*pr+k;
-					getArray().setElementData(indexElement, indices[k], index);
+					getArray().setElementData(indexElement, indices[k], gridIndex);
 				}
 			}	
 		}
+		
 	}
 
 	/**
@@ -205,12 +120,8 @@ public class SFQuadsSurfaceGeometry extends SFMeshGeometry{
 	 * @param Nv
 	 * @param pr
 	 */
-	public void updateElements(int Nu, int Nv, int pr) {
-		int countElement=0;
-		for (int i = 0; i < (Nu-1)*(Nv-1); i++) {
-			for(int k=0;k<pr;k++)
-				countElement++;
-		}
+	public int updateElements(int Nu, int Nv, int pr) {
+		int countElement=(Nu-1)*(Nv-1)*pr;
 		if(getLastElement()-getFirstElement()!=countElement){
 			if(getLastElement()>getFirstElement())
 				getArray().eraseElements(getFirstElement(),getLastElement()-getFirstElement());
@@ -218,10 +129,11 @@ public class SFQuadsSurfaceGeometry extends SFMeshGeometry{
 			setFirstElement(firstElement);
 			setLastElement(firstElement+countElement);
 		}
+		return countElement;
 	}
 	
 
-	private SFValuenf[] getDataArray(int Nu, int Nv, int n1,Blocks block) {
+	private SFValuenf[] getDataArray(int Nu, int Nv, int n1,PrimitiveBlock block) {
 		SFValuenf vertices[]=new SFValuenf[((Nv-1)*n1+1)*((Nu-1)*n1+1)];
 		float stepn1=1.0f/n1;
 		int index=0;
@@ -250,96 +162,106 @@ public class SFQuadsSurfaceGeometry extends SFMeshGeometry{
 	
 	
 	public float[] getU_splits() {
-		return getData().u_splits.getFloatValues();
+		return uSplits;
 	}
 
 
 	public void setU_splits(float[] uSplits) {
-		getData().u_splits.setFloatValues(uSplits) ;
+		this.uSplits=uSplits;
 	}
 
 
 	public float[] getV_splits() {
-		return getData().v_splits.getFloatValues();
+		return vSplits;
 	}
 
 
 	public void setV_splits(float[] vSplits) {
-		getData().v_splits.setFloatValues(vSplits) ;
-	}
-	
-	@Override
-	public SFDataset generateNewDatasetInstance() {
-		return new SFQuadsSurfaceGeometry();
+		this.vSplits=vSplits;
 	}
 
 
-	private int getNu() {
-		return getData().Nu.getIntValue();
+	public int getNu() {
+		return Nu;
 	}
 
 
-	private void setNu(int nu) {
-		getData().Nu.setIntValue(nu);
+	public void setNu(int nu) {
+		this.Nu=nu;
+		setU_splits(new float[nu]);
+		float stepU=1.0f/(nu-1.0f);
+		for (int i = 0; i < nu; i++) {
+			getU_splits()[i]=i*stepU;
+		}
 	}
 
 
-	private int getNv() {
-		return getData().Nv.getIntValue();
+	public int getNv() {
+		return Nv;
 	}
 
 
-	private void setNv(int nv) {
-		getData().Nv.setIntValue(nv);
+	public void setNv(int nv) {
+		this.Nv=nv;
+		setV_splits(new float[nv]);
+		float stepV=1.0f/(nv-1.0f);
+		for (int i = 0; i < nv; i++) {
+			getV_splits()[i]=i*stepV;
+		}
 	}
 
 
-	private int[] getPositions() {
-		if(getData().positions.getIntValues().length==0){
-			int blocksSize=getPrimitive().getPrimitiveMap().size();
+	public int[] getPositions() {
+		if(positions.length==0){
+			int blocksSize=getPrimitive().getBlocks().length;
 			setPositions(new int[blocksSize]);
 		}
-		return getData().positions.getIntValues();
+		return positions;
+	}
+
+	public void setPositions(int positions[]) {
+		this.positions=positions;
 	}
 
 
-	private void setPositions(int positions[]) {
-		getData().positions.setIntValues(positions);
+	public SFSurfaceFunction getFunction() {
+		return surfaceFunction;
 	}
 
 
-	private SFSurfaceFunction getFunction() {
-		return (SFSurfaceFunction)(getData().surfaceFunction.getDataset());
+	public void setFunction(SFSurfaceFunction surfaceFunction) {
+		this.surfaceFunction=surfaceFunction;
 	}
 
 
-	private void setFunction(SFSurfaceFunction function) {
-		getData().surfaceFunction.setDataset(function);
+	public SFSurfaceGeometryTexCoordFunctionuv getTexCoord() {
+		return this.functionuv;
 	}
 
 
-	private SFSurfaceQuadsExtractor getExtractor() {
-		return (SFSurfaceQuadsExtractor)(getData().extractor.getDataset());
+	public void setTexCoord(SFSurfaceGeometryTexCoordFunctionuv texCoord) {
+		this.functionuv=texCoord;
 	}
 
 
-	private void setExtractor(SFSurfaceQuadsExtractor extractor) {
-		getData().extractor.setDataset(extractor);
+	public SFSurfaceGeometryTexCoordFunctionuv getFunctionuv() {
+		return functionuv;
 	}
 
 
-	private SFSurfaceGeometryTexCoordFunctionuv getTexCoord() {
-		return (SFSurfaceGeometryTexCoordFunctionuv)(getData().texCoordFunction.getDataset());
+	public void setFunctionuv(SFSurfaceGeometryTexCoordFunctionuv functionuv) {
+		this.functionuv = functionuv;
 	}
 
 
-	private void setTexCoord(SFSurfaceGeometryTexCoordFunctionuv texCoord) {
-		getData().texCoordFunction.setDataset(texCoord);
-	}
-
-	private SFQuadSurfaceGeometryData getData() {
-		return (SFQuadSurfaceGeometryData)super.getSFDataObject();
+	public SFSurfaceFunction getSurfaceFunction() {
+		return surfaceFunction;
 	}
 
 
+	public void setSurfaceFunction(SFSurfaceFunction surfaceFunction) {
+		this.surfaceFunction = surfaceFunction;
+	}
+
+	
 }

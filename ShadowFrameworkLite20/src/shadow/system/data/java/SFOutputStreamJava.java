@@ -41,6 +41,20 @@ public class SFOutputStreamJava implements SFOutputStream {
 		writeBytes(bytes);
 	}
 	
+	@Override
+	public void writeBinaryData(int value, int bitSize) {
+		int byteSize = ((bitSize - 1) >> 3) + 1;
+		
+		byte[] bytes = new byte[byteSize];
+		
+		for (int j = 0; j < byteSize; j++) {
+			byte byteValue=(byte)((value & (0xff<<(8*j)))>>(8*j));
+			bytes[j] = byteValue;
+		}
+		
+		writeBytes(bytes);
+	}
+	
 	/* (non-Javadoc)
 	 * @see shadow.system.SFIOutputStram#writeDataObjectHeader(short, int)
 	 */

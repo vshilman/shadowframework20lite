@@ -25,7 +25,6 @@ public class SFDataList<T extends SFDataObject> implements SFDataObject, List<T>
 		return dataObject;
 	}
 
-	@Override
 	public int elementsSize() {
 		return dataObject.size();
 	}
@@ -45,11 +44,6 @@ public class SFDataList<T extends SFDataObject> implements SFDataObject, List<T>
 		for (int i = 0; i < dataObject.size(); i++) {
 			dataObject.get(i).writeOnStream(stream);
 		}
-	}
-	
-	@Override
-	public SFDataObject sonsObject(int son) {
-		return dataObject.get(son);
 	}
 	
 	@Override

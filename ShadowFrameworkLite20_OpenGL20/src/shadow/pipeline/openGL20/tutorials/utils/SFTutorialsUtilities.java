@@ -10,13 +10,14 @@ import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFPrimitive;
+import shadow.pipeline.SFPrimitive.PrimitiveBlock;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
+import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
-import shadow.pipeline.parameters.SFPipelineRegister;
-import shadow.renderer.data.SFStructureReference;
+import shadow.renderer.SFStructureReference;
 import shadow.system.SFArrayElementException;
 import shadow.system.SFException;
 
@@ -35,10 +36,10 @@ public class SFTutorialsUtilities {
 
 		SFProgram program=null;
 		try {
-			SFProgramComponentLoader.loadComponents(new File(filename));
+			SFProgramComponentLoader.loadComponents(new File(filename),new SFPipelineBuilder());
 
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule(positionProgram)));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("P"), (SFProgramComponent)(SFPipeline.getModule(normalProgram)));
+			primitive.addPrimitiveElement(PrimitiveBlock.NORMAL, (SFProgramComponent)(SFPipeline.getModule(positionProgram)));
+			primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule(normalProgram)));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule(tessellationProgram)));
 
 			//primitives, transform
@@ -66,11 +67,11 @@ public class SFTutorialsUtilities {
 
 		SFProgram program=null;
 		try {
-			SFProgramComponentLoader.loadComponents(new File(filename));
+			SFProgramComponentLoader.loadComponents(new File(filename),new SFPipelineBuilder());
 
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("N"), (SFProgramComponent)(SFPipeline.getModule(positionProgram)));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("dU"), (SFProgramComponent)(SFPipeline.getModule(duProgram)));
-			primitive.addPrimitiveElement(SFPipelineRegister.getFromName("dV"), (SFProgramComponent)(SFPipeline.getModule(dvProgram)));
+			primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule(positionProgram)));
+			primitive.addPrimitiveElement(PrimitiveBlock.DU, (SFProgramComponent)(SFPipeline.getModule(duProgram)));
+			primitive.addPrimitiveElement(PrimitiveBlock.DV, (SFProgramComponent)(SFPipeline.getModule(dvProgram)));
 			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule(tessellationProgram)));
 
 			//primitives, transform
@@ -97,7 +98,7 @@ public class SFTutorialsUtilities {
 
 		SFProgram program=null;
 		try {
-			SFProgramComponentLoader.loadComponents(new File(filename));
+			SFProgramComponentLoader.loadComponents(new File(filename),new SFPipelineBuilder());
 
 			program=SFPipeline.getStaticImageProgram(materials, lightStep);
 		} catch (IOException e) {

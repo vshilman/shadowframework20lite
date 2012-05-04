@@ -17,8 +17,8 @@ public interface SFIDataCenter {
 	 * @param name  the name of the Dataset which should be loaded
 	 * @param listener a listener, called after this DataCenter have tried to load the DataObject. 
 	 */
-	public void makeDatasetAvailable(String name,SFDataCenterListener listener);
+	public void makeDatasetAvailable(String name,SFDataCenterListener<?> listener);
 
 	
-	public void releaseDataset(String name,SFDataCenterListener listener);
+	//public void releaseDataset(String name,SFDataCenterListener<?> listener);
 }

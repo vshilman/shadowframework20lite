@@ -17,4 +17,6 @@ public interface SFInputStream {
 	public abstract String readString();
 
 	public abstract int[] readBinaryData(int n,int bitSize);
+	
+	public abstract int readBinaryData(int bitSize);
 }

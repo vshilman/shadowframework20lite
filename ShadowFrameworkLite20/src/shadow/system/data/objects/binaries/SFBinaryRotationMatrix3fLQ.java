@@ -56,8 +56,8 @@ public class SFBinaryRotationMatrix3fLQ extends SFBinaryValue{
 		write.setI(c2*c3);
 		
 		for (int i = 0; i < 9; i++) {
-			if(SFStaticAnglesSet.getAngleslq().equal(0, write.getByIndex(i)))
-				write.setByIndex(i, 0);	
+			if(SFStaticAnglesSet.getAngleslq().equal(0, write.get()[0]))
+				write.get()[i]=0;	
 		}
 	}
 	

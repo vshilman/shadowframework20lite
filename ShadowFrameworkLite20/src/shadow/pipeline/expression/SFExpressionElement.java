@@ -3,6 +3,8 @@ package shadow.pipeline.expression;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import shadow.math.SFValuenf;
+
 
 public abstract class SFExpressionElement {
 	
@@ -18,22 +20,26 @@ public abstract class SFExpressionElement {
 	public String getElement() {
 		return element;
 	}
+	
+	public SFExpressionElement getExpressionElement(int index) {
+		return list.get(index);
+	}
 
 	public void setElement(String element) {
 		this.element = element;
 	}
 
-	protected int getElementSize(){
+	public int getElementSize(){
 		return list.size();
 	}
 	
-	protected void addElement(SFExpressionElement element){
+	public void addElement(SFExpressionElement element){
 		if(element==null)
 			throw new NullPointerException();
 		list.add(element);
 	}
 	
-	protected void removeElement(SFExpressionElement element){
+	public void removeElement(SFExpressionElement element){
 		if(element==null)
 			throw new NullPointerException();
 		list.remove(element);
@@ -51,6 +57,8 @@ public abstract class SFExpressionElement {
 	
 	public abstract void addSubExpression(SFExpressionElement element) 
 			throws ArrayIndexOutOfBoundsException;
+	
+	public abstract SFValuenf evaluate(SFValuesMap values);
 
 	public void traverse(SFExpressionElementInterpreter intepreter){
 		intepreter.startElement(this);
@@ -63,4 +71,14 @@ public abstract class SFExpressionElement {
 		intepreter.closeElement(this);
 	}  
 
+	@Override
+	public String toString() {
+		String elString=getElement()+"("+getType()+")";
+		if(list.size()>1)
+			return "{"+elString+":"+list+"}";
+		else if (list.size()==1)
+			return "{"+elString+":"+list.get(0)+"}";
+		
+		return elString;
+	}
 }

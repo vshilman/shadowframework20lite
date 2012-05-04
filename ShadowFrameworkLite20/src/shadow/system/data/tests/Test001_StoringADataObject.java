@@ -21,7 +21,7 @@ public class Test001_StoringADataObject {
 		MyCompositeDataObject dataObject=new MyCompositeDataObject();
 		
 		dataObject.intData.setIntValue(0);
-		dataObject.floatData.setIntValue(0);
+		dataObject.floatData.setFloatValue(0);
 		
 		//write it
 		try {
@@ -40,7 +40,7 @@ public class Test001_StoringADataObject {
 
 		
 		dataObject=new MyCompositeDataObject();
-		dataObject.stringData.setLabel("Delta");
+		dataObject.stringData.setString("Delta");
 		
 		//read it
 		try {

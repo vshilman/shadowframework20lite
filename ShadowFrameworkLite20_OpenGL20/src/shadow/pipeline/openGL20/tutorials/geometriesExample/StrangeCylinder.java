@@ -1,20 +1,17 @@
 package shadow.pipeline.openGL20.tutorials.geometriesExample;
 
 import shadow.geometry.SFSurfaceFunction;
-import shadow.geometry.editing.SFConcreteTriangleExtractor;
 import shadow.geometry.geometries.SFQuadsSurfaceGeometry;
+import shadow.geometry.geometries.SFSimpleTexCoordGeometryuv;
 import shadow.pipeline.SFPrimitive;
-import shadow.system.data.SFDataObject;
-import shadow.system.data.SFDataset;
 
 public class StrangeCylinder {
 	
 	public SFQuadsSurfaceGeometry generateGeometry(SFPrimitive primitive) {
 		CylinderFunction function=new CylinderFunction();
 		
-		SFConcreteTriangleExtractor trianglesExtractor=new SFConcreteTriangleExtractor();
 		SFQuadsSurfaceGeometry quadsSurfaceGeometry=new SFQuadsSurfaceGeometry(primitive,
-				function, new TexCoordFunction(), trianglesExtractor, 3, 2);
+				function, new SFSimpleTexCoordGeometryuv(1,1), 3, 2);
 		
 		quadsSurfaceGeometry.compile();
 		return quadsSurfaceGeometry;
@@ -42,22 +39,11 @@ public class StrangeCylinder {
 			// TODO Auto-generated method stub
 			return 0.5f*(float)((v));
 		}
-		
+
 		@Override
-		public SFDataset generateNewDatasetInstance() {
-			return null;
-		}
-		
-		@Override
-		public SFDataObject getSFDataObject() {
+		public void init() {
 			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public String getType() {
-			// TODO Auto-generated method stub
-			return null;
+			
 		}
 	}
 }

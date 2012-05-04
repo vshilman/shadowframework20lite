@@ -6,11 +6,25 @@ public class SFPipelineGrid extends SFPipelineStructure{
 	protected short[] corners=new short[0];
 	protected short[][] edges=new short[0][];
 	protected short[][] paths=new short[0][];
+	protected SFFunction[] functions;
 
 	public String[] getNames() {
 		return names;
 	}
+	
+	public int getNameIndex(String name){
+		
+		for (int i = 0; i < names.length; i++) {
+			if(name.equalsIgnoreCase(names[i]))
+				return i;
+		}
+		return -1;
+	}
 
+	public int getGridSize(){
+		return names.length;
+	}
+	
 	public void setNames(String[] names) {
 		this.names = names;
 	}
@@ -42,5 +56,10 @@ public class SFPipelineGrid extends SFPipelineStructure{
 	public int size(){
 		return names.length;
 	}
+
+	public SFFunction[] getFunctions() {
+		return functions;
+	}
+
 
 }

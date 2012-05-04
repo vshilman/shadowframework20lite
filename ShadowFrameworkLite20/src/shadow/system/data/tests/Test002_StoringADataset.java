@@ -80,6 +80,9 @@ public class Test002_StoringADataset {
 		public SFDataObject getSFDataObject() {
 			return intArray;
 		}
+
+		public void invalidate() {
+		}
 		
 	}
 }

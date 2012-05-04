@@ -3,10 +3,9 @@ package shadow.geometry;
 import java.util.ArrayList;
 
 import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.parameters.SFPipelineRegister;
-import shadow.renderer.SFGraphicsAsset;
+import shadow.system.SFInitiable;
 
-public abstract class SFGeometry extends SFGraphicsAsset{
+public abstract class SFGeometry implements SFInitiable{
 
 	public static final int LOD_HINT_DISCARD=-1;
 	
@@ -22,8 +21,6 @@ public abstract class SFGeometry extends SFGraphicsAsset{
 	
 	public boolean changed=true;
 	
-	public abstract String getTessellator();
-	public abstract SFPipelineRegister[] getGeometricRegisters();
 	
 	public abstract SFPrimitive getPrimitive();
 	//public abstract String[] getTransforms();
@@ -90,5 +87,4 @@ public abstract class SFGeometry extends SFGraphicsAsset{
 		}
 	}
 
-	
 }

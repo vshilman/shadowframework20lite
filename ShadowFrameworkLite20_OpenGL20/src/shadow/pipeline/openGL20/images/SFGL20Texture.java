@@ -6,8 +6,8 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import shadow.image.SFBitmap;
-import shadow.image.SFFormat;
-import shadow.image.SFTextureData;
+import shadow.image.SFImageFormat;
+import shadow.image.SFPipelineTexture;
 import shadow.pipeline.openGL20.SFGL2;
 
 /**
@@ -15,11 +15,11 @@ import shadow.pipeline.openGL20.SFGL2;
  * 
  * @author Alessandro
  */
-public class SFGL20Texture extends SFTextureData implements SFGL20ImageObject{
+public class SFGL20Texture extends SFPipelineTexture implements SFGL20ImageObject{
 
 	private int textureObject=-1;
 
-	public SFGL20Texture(int width, int height, SFFormat format,
+	public SFGL20Texture(int width, int height, SFImageFormat format,
 			Filter filters, WrapMode wrapS, WrapMode wrapT) {
 		super(width, height, format, filters, wrapS, wrapT);
 	}
@@ -96,7 +96,7 @@ public class SFGL20Texture extends SFTextureData implements SFGL20ImageObject{
 		}
 		gl.glBindTexture(GL.GL_TEXTURE_2D, textureObject);
 		setupParameters(gl);
-		if(bitmap.getFormat()==SFFormat.GRAY8){
+		if(bitmap.getFormat()==SFImageFormat.GRAY8){
 			gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL2.GL_LUMINANCE, 
 					bitmap.getWidth(), bitmap.getHeight(), 0, GL2.GL_RED, GL.GL_UNSIGNED_BYTE, (ByteBuffer)bitmap.getData());
 		}else{

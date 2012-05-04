@@ -5,7 +5,7 @@ import java.util.List;
 import shadow.pipeline.parameters.SFParameteri;
 
 
-public class SFBasicExpressionGenerator implements SFExpressionGeneratori {
+public class SFBasicExpressionGenerator implements SFIExpressionGenerator {
 
 	@Override
 	public SFExpressionOperator getOperator(String operatorSymbol){
@@ -34,8 +34,8 @@ public class SFBasicExpressionGenerator implements SFExpressionGeneratori {
 	}
 
 	@Override
-	public SFExpressionElement getExpressionElement(String value, List<SFParameteri> set){
-		return new SFExpressionVariable(value,set);
+	public SFExpressionElement getExpressionElement(String value, short type){
+		return new SFExpressionVariable(value,type);
 	}
 	
 	@Override

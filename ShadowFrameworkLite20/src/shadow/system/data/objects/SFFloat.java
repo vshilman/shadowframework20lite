@@ -7,6 +7,10 @@ public class SFFloat extends SFPrimitiveType {
 
 	private float floatValue;
 	
+	public SFFloat() {
+		this.floatValue = 0;
+	}
+	
 	public SFFloat(float floatValue) {
 		this.floatValue = floatValue;
 	}
@@ -15,7 +19,7 @@ public class SFFloat extends SFPrimitiveType {
 		return floatValue;
 	}
 
-	public void setIntValue(float floatValue) {
+	public void setFloatValue(float floatValue) {
 		this.floatValue = floatValue;
 	}
 

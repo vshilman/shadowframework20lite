@@ -12,13 +12,13 @@ public class SFExpressionGeneratorKeeper {
 		return keeper;
 	}
 
-	private SFExpressionGeneratori generator;
+	private SFIExpressionGenerator generator;
 
-	public SFExpressionGeneratori getGenerator() {
+	public SFIExpressionGenerator getGenerator() {
 		return generator;
 	}
 
-	public void setGenerator(SFExpressionGeneratori generator) {
+	public void setGenerator(SFIExpressionGenerator generator) {
 		this.generator = generator;
 	}
 	

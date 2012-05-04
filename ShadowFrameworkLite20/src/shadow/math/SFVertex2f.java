@@ -39,6 +39,12 @@ public class SFVertex2f extends SFValue1f{
 		v[1]=(float)y;
 	}
 	
+
+	public SFVertex2f(SFVertex2f vertex) {
+		super(2);
+		set(vertex);
+	}
+	
 	public String toString(){
 		return "x:"+v[0]+",y:"+v[1];
 	}

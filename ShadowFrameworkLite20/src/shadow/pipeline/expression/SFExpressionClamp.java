@@ -3,6 +3,8 @@ package shadow.pipeline.expression;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import shadow.math.SFValue1f;
+import shadow.math.SFValuenf;
 import shadow.pipeline.parameters.SFParameteri;
 
 public class SFExpressionClamp extends SFExpressionOperator{
@@ -41,5 +43,10 @@ public class SFExpressionClamp extends SFExpressionOperator{
 	@Override
 	protected SFExpressionOperator cloneOperator() {
 		return new SFExpressionClamp();
+	}
+	
+	@Override
+	public SFValuenf evaluate(SFValuesMap values) {
+		return new SFValue1f(0);
 	}
 }

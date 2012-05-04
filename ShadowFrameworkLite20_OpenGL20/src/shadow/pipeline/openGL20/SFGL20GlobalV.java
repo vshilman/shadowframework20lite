@@ -1,21 +1,9 @@
 package shadow.pipeline.openGL20;
 
-import java.util.HashMap;
-
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
 
 public class SFGL20GlobalV {
- 
-	public static HashMap<Short, String> definitions=new HashMap<Short, String>(); 
-	static{
-		definitions.put(SFParameteri.GLOBAL_FLOAT, "float");
-		definitions.put(SFParameteri.GLOBAL_FLOAT2, "vec2");
-		definitions.put(SFParameteri.GLOBAL_FLOAT3, "vec3");
-		definitions.put(SFParameteri.GLOBAL_FLOAT4, "vec4");
-		definitions.put(SFParameteri.GLOBAL_MATRIX4, "mat4");
-		definitions.put(SFParameteri.GLOBAL_TEXTURE, "sampler2D");
-	}
 	
 	public static String getRegisterName(SFPipelineRegister register){		
 		if(register.getName().equalsIgnoreCase("vertex"))
@@ -68,7 +56,4 @@ public class SFGL20GlobalV {
 		return "uniform";
 	}
 	
-	public static String getType(short type){		
-		return definitions.get(type);
-	}
 }

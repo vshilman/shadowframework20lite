@@ -6,5 +6,7 @@ package shadow.system.data;
  * @author Alessandro Martinelli
  */
 public interface SFAbstractDatasetFactory {
-	public SFDataset createDataset(String typeName);
+	public void writeDataset(SFOutputStream stream,SFDataset dataset);
+	public SFDataset readDataset(SFInputStream stream);
+	public SFDataset createDataset(String type);
 }
