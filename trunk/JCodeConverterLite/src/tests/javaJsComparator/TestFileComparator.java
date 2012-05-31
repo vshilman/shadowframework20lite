@@ -47,7 +47,7 @@ public class TestFileComparator {
 
 			String name = "\n" + javaTests.get(i).substring(JAVA_DIRECTORY.length()) + " VS "
 					+ jsTests.get(i).substring(JS_DIRECTORY.length());
-			System.out.println(name);
+			System.out.print(name);
 			logWriter.write(name + "\n");
 
 			ArrayList<CodePattern> javaPatterns = new ArrayList<CodePattern>(getCodePatterns(
@@ -78,19 +78,14 @@ public class TestFileComparator {
 										.compare(javaPatterns, j, jsPatterns, k);
 								if (result != null) {
 									for (int l = 0; l < result[0].length; l++) {
-										logWriter.write("\t" + javaPatterns.get(result[0][l]).toString());
+										logWriter.write("\t" + javaPatterns.get(result[0][l]).toString()
+												+ "\n");
 										javaConfirmations[result[0][l]] = true;
-										if (l < result[0].length - 1) {
-											logWriter.write(";\t");
-										}
 									}
-									logWriter.write("  --->  ");
 									for (int l = 0; l < result[1].length; l++) {
-										logWriter.write("\t\t" + jsPatterns.get(result[1][l]).toString());
+										logWriter.write("\t\t" + jsPatterns.get(result[1][l]).toString()
+												+ "\n");
 										jsConfirmations[result[1][l]] = true;
-										if (l < result[1].length - 1) {
-											logWriter.write(";\t");
-										}
 									}
 									logWriter.write("\n");
 									found = true;
@@ -102,31 +97,38 @@ public class TestFileComparator {
 				}
 			}
 
-			String sw = "\tunmatched javaPatterns:";
-			System.out.println(sw);
-			logWriter.write(sw + "\n");
+			StringWriter javaUnmatchWriter = new StringWriter();
+			StringWriter jsUnmatchWriter = new StringWriter();
+
 			for (int j = 0; j < javaConfirmations.length; j++) {
 				if (!javaConfirmations[j]) {
-					sw = "\t\t" + javaPatterns.get(j).toString();
-					System.out.println(sw);
-					logWriter.write(sw + "\n");
+					javaUnmatchWriter.write("\t\t" + javaPatterns.get(j).toString() + "\n");
 				}
 			}
 
-			sw = "\tunmatched jsPatterns:";
-			System.out.println(sw);
-			logWriter.write(sw + "\n");
 			for (int j = 0; j < jsConfirmations.length; j++) {
 				if (jsPatterns.get(j).getPatternType().get(0) == PatternType.CONSTRUCTOR_DECLARATION
 						&& !jsConfirmations[j]) {
 					jsConfirmations[j] = isDefaultConstructor(jsPatterns.get(j));
 				}
 				if (!jsConfirmations[j]) {
-					sw = "\t\t" + jsPatterns.get(j).toString();
-					System.out.println(sw);
-					logWriter.write(sw + "\n");
+					jsUnmatchWriter.write("\t\t" + jsPatterns.get(j).toString() + "\n");
 				}
 			}
+
+			String sw = "\tunmatched javaPatterns:\n";
+			if (javaUnmatchWriter.toString().length() != 0 || jsUnmatchWriter.toString().length() != 0) {
+				System.out.println("\n" + sw + javaUnmatchWriter);
+			} else {
+				System.out.println(": test is OK!!");
+			}
+			logWriter.write(sw + javaUnmatchWriter + "\n");
+
+			sw = "\tunmatched jsPatterns:\n";
+			if (javaUnmatchWriter.toString().length() != 0 || jsUnmatchWriter.toString().length() != 0) {
+				System.out.println(sw + jsUnmatchWriter);
+			}
+			logWriter.write(sw + jsUnmatchWriter + "\n");
 		}
 
 		FileStringUtility.writeTextFile("./src/tests/javaJsComparator/ComparatorLog.txt",
@@ -144,10 +146,18 @@ public class TestFileComparator {
 
 		StringWriter writer = new StringWriter();
 		for (String string : list) {
-			writer.write(string);
+			int index = string.indexOf("//");
+			if (index != -1) {
+				writer.write(string.substring(0, index));
+			} else {
+				writer.write(string);
+			}
 		}
 
 		String totalString = writer.toString();
+
+		totalString = removeCommentBlocks(totalString);
+
 		char[] totalStringChars = totalString.toCharArray();
 
 		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
@@ -159,5 +169,18 @@ public class TestFileComparator {
 
 		Collection<CodePattern> javaPatterns = interpretation.values();
 		return javaPatterns;
+	}
+
+	private static String removeCommentBlocks(String totalString) {
+		int beginof = totalString.indexOf("/*");
+		int endof = totalString.indexOf("*/", beginof + 1);
+		while (beginof != -1 && endof != -1) {
+			String tmp = totalString.substring(0, beginof);
+			tmp += totalString.substring(endof + 2);
+			totalString = tmp;
+			beginof = totalString.indexOf("/*");
+			endof = totalString.indexOf("*/", beginof + 1);
+		}
+		return totalString;
 	}
 }
