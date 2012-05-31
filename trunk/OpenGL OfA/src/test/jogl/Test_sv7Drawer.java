@@ -156,12 +156,7 @@ public class Test_sv7Drawer {
 		float[] mvMatrixv = new float[] { cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, 0, 0, zoom, 1 };
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		float[] normalMatrixv = new float[9];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		float[] normalMatrixv = Util.mat3Traspose(Util.mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
 		gl.glFrontFace(GL2.GL_CW);

@@ -105,12 +105,7 @@ Test_sv8Drawer.prototype = {
 		var mvMatrixv = new Float32Array([ cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, 0, 0, zoom, 1 ]);
 		mvMatrix = mvMatrixv;
 		
-		var normalMatrixv = new Float32Array(9);
-		for ( var i = 0; i < 3; i++) {
-			for ( var j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		var normalMatrixv = mat3Traspose(mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = normalMatrixv;
 
 		gl.frontFace(gl.CCW);

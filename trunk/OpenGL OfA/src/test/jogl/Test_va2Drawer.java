@@ -339,12 +339,7 @@ public class Test_va2Drawer {
 		float[] mvMatrixv = new float[] { cy, sx * sy, -cx * sy, 0, 0, cx, sx, 0, sy, -cy * sx, cx * cy, 0, -cy * xPos - sy * zPos, -cx - sx * sy * xPos - cx * yPos + cy * sx * zPos, -sx + cx * sy * xPos - sx * yPos - cx * cy * zPos, 1 };
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		float[] normalMatrixv = new float[9];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		float[] normalMatrixv = Util.mat3Traspose(Util.mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
 		gl.glUniform3f(ambientColorUniform, 0.1f, 0.1f, 0.1f);
@@ -403,12 +398,7 @@ public class Test_va2Drawer {
 		mvMatrixv[10] *= 10;
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		normalMatrixv = new float[9];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		normalMatrixv = Util.mat3Traspose(Util.mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, greenVertexPositionBuffer[0]);
@@ -434,12 +424,7 @@ public class Test_va2Drawer {
 		mvMatrixv[14] += 2 * sx;
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		normalMatrixv = new float[9];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		normalMatrixv = Util.mat3Traspose(Util.mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexPositionBuffer[0]);
@@ -470,12 +455,7 @@ public class Test_va2Drawer {
 		mvMatrixv[14] += -cx * sy * xt + sx * yt + cx * cy * zt;
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		normalMatrixv = new float[9];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		normalMatrixv = Util.mat3Traspose(Util.mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, tractorVertexPositionBuffer[0]);
@@ -519,12 +499,7 @@ public class Test_va2Drawer {
 		mvMatrixv[15] = 1;
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		normalMatrixv = new float[9];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		normalMatrixv = Util.mat3Traspose(Util.mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, seagulVertexPositionBuffer[0]);
