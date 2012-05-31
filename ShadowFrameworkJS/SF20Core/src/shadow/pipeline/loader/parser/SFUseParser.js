@@ -1,6 +1,0 @@
-
-function SFUseParser(){
-}
-
-SFUseParser.prototype = {
-};

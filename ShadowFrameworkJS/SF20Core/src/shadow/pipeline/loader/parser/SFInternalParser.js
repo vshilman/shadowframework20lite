@@ -1,6 +1,0 @@
-
-function SFInternalParser(){
-}
-
-SFInternalParser.prototype = {
-};

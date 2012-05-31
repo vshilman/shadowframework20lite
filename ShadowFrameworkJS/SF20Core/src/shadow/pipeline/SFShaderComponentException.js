@@ -1,6 +1,0 @@
-
-function SFShaderComponentException(){
-}
-
-SFShaderComponentException.prototype = {
-};

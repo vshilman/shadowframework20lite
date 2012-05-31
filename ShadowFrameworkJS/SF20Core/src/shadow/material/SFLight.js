@@ -1,6 +1,0 @@
-
-function SFLight(){
-}
-
-SFLight.prototype = {
-};

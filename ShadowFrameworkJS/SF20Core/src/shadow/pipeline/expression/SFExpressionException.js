@@ -1,6 +1,0 @@
-
-function SFExpressionException(){
-}
-
-SFExpressionException.prototype = {
-};
