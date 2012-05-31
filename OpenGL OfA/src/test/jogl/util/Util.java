@@ -50,7 +50,8 @@ public class Util {
 		int shader = gl.glCreateShaderObjectARB(type);
 
 		if (shader == 0) {
-			System.out.println("Failed Create " + (GL2.GL_FRAGMENT_SHADER == type ? "fragment" : "vertex") + " shader");
+			System.out.println("Failed Create " + (GL2.GL_FRAGMENT_SHADER == type ? "fragment" : "vertex")
+					+ " shader");
 			System.exit(0);
 		}
 
@@ -269,5 +270,38 @@ public class Util {
 		c[2] = a[8] * b[0] + a[9] * b[1] + a[10] * b[2] + a[11] * b[3];
 		c[3] = a[12] * b[0] + a[13] * b[1] + a[14] * b[2] + a[15] * b[3];
 		return c;
+	}
+
+	public static float[] mat4ToInverseMat3(float[] a) {
+		float c = a[0], d = a[1], e = a[2], g = a[4], f = a[5], h = a[6], i = a[8], j = a[9], k = a[10], l = k
+				* f - h * j, o = -k * g + h * i, m = j * g - f * i, n = c * l + d * o + e * m;
+		if (n == 0)
+			return null;
+		n = 1 / n;
+		float[] b = new float[9];
+		b[0] = l * n;
+		b[1] = (-k * d + e * j) * n;
+		b[2] = (h * d - e * f) * n;
+		b[3] = o * n;
+		b[4] = (k * c - e * i) * n;
+		b[5] = (-h * c + e * g) * n;
+		b[6] = m * n;
+		b[7] = (-j * c + d * i) * n;
+		b[8] = (f * c - d * g) * n;
+		return b;
+	}
+
+	public static float[] mat3Traspose(float[] a) {
+		float[] b = new float[9];
+		b[0] = a[0];
+		b[1] = a[3];
+		b[2] = a[6];
+		b[3] = a[1];
+		b[4] = a[4];
+		b[5] = a[7];
+		b[6] = a[2];
+		b[7] = a[5];
+		b[8] = a[8];
+		return b;
 	}
 }

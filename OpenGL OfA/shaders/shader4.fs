@@ -11,8 +11,6 @@ uniform vec3 uAmbientColor;
 uniform vec3 uPointLightingLocation;
 uniform vec3 uPointLightingColor;
 
-uniform sampler2D uSampler;
-
 uniform bool uShader;
 
 

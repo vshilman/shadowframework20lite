@@ -219,12 +219,7 @@ Test_sv9Drawer.prototype = {
 		var mvMatrixv = new Float32Array([ 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, zoom, 1 ]);
 		mvMatrix = mvMatrixv;
 		
-		var normalMatrixv = new Float32Array(9);
-		for ( var i = 0; i < 3; i++) {
-			for ( var j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		var normalMatrixv = mat3Traspose(mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = normalMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0]);
@@ -248,11 +243,7 @@ Test_sv9Drawer.prototype = {
 		mvMatrixv = multiplyMatrix(rotationMatrix, mvMatrixv);
 		mvMatrix = mvMatrixv;
 
-		for ( var i = 0; i < 3; i++) {
-			for ( var j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		normalMatrixv = mat3Traspose(mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = normalMatrixv;
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer[0]);

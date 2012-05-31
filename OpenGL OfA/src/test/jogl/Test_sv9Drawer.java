@@ -227,12 +227,7 @@ public class Test_sv9Drawer {
 		float[] mvMatrixv = new float[] { 10, 0, 0, 0, 0, 10, 0, 0, 0, 0, 10, 0, 0, 0, zoom, 1 };
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		float[] normalMatrixv = new float[9];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		float[] normalMatrixv = Util.mat3Traspose(Util.mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, greenVertexPositionBuffer[0]);
@@ -256,11 +251,7 @@ public class Test_sv9Drawer {
 		mvMatrixv = Util.multiplyMatrix(rotationMatrix, mvMatrixv);
 		mvMatrix = BufferUtil.newFloatBuffer(mvMatrixv);
 
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				normalMatrixv[i + 3 * j] = mvMatrixv[i + 4 * j];
-			}
-		}
+		normalMatrixv = Util.mat3Traspose(Util.mat4ToInverseMat3(mvMatrixv));
 		normalMatrix = BufferUtil.newFloatBuffer(normalMatrixv);
 
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, sphereVertexPositionBuffer[0]);
