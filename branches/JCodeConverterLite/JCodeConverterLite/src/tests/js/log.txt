@@ -1,0 +1,1996 @@
+
+test_sv1Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexColorAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartriangleVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartriangleVertexColorBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsquareVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsquareVertexColorBuffer = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv1Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv1Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader1.fs", "shaders/shader1.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexColorAttribute  = gl.getAttribLocation(shaderProgram, "aVertexColor")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexColorAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> triangleVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices = [0.0,1.0,0.0,-1.0,-1.0,0.0,1.0,-1.0,0.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> triangleVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> triangleVertexPositionBuffer[2]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> triangleVertexColorBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcolors = [1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> triangleVertexColorBuffer[1]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> triangleVertexColorBuffer[2]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> squareVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices2 = [1.0,1.0,0.0,-1.0,1.0,0.0,1.0,-1.0,0.0,-1.0,-1.0,0.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> squareVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> squareVertexPositionBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> squareVertexColorBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcolors2 = []
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 4 ; i++ )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varc = i<<2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> colors2[c]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> colors2[c+1]  = 0.75
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> colors2[c+2]  = 0.8
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> colors2[c+3]  = 1
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> squareVertexColorBuffer[1]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> squareVertexColorBuffer[2]  = 4
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,-1.5,0,0,1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, triangleVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexColorAttribute, triangleVertexColorBuffer[1], gl.FLOAT, false, 0, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLES, 0, triangleVertexPositionBuffer[2])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,1.5,0,0,1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, squareVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexColorAttribute, squareVertexColorBuffer[1], gl.FLOAT, false, 0, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_STRIP, 0, squareVertexPositionBuffer[2])
+
+test_sv2Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexColorAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpyramidVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpyramidVertexColorBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varbaseVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varbaseVertexColorBuffer = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngle = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv2Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv2Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader1.fs", "shaders/shader1.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexColorAttribute  = gl.getAttribLocation(shaderProgram, "aVertexColor")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexColorAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices = [0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[2]  = 6
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexColorBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexColorBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcolors = [1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexColorBuffer[1]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexColorBuffer[2]  = 6
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> baseVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices2 = [-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> baseVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> baseVertexPositionBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> baseVertexColorBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexColorBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcolors2 = [0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> baseVertexColorBuffer[1]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> baseVertexColorBuffer[2]  = 4
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAngle)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAngle)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cx,sx*sx,-cx*sx,0,0,cx,sx,0,sx,-cx*sx,cx*cx,0,0,0,-8,1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CCW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexColorBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexColorAttribute, pyramidVertexColorBuffer[1], gl.FLOAT, false, 0, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, baseVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexColorBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexColorAttribute, baseVertexColorBuffer[1], gl.FLOAT, false, 0, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_STRIP, 0, baseVertexPositionBuffer[2])
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAngle + = 1.57*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+
+test_sv3Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> vartextureCoordAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varsamplerUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartexture1 = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngle = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv3Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv3Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader2.fs", "shaders/shader2.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute  = gl.getAttribLocation(shaderProgram, "aTextureCoord")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(textureCoordAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> samplerUniform  = gl.getUniformLocation(shaderProgram, "uSampler")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertices  = [-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords = [0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndices = [0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[2]  = 36
+[METHOD_DECLARATION] -------> , initTexture : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> texture1[0]  = gl.createTexture()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, texture1[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, null)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex.src  = "images/crate.gif"
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAngle)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAngle)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cx*cx,cx*(sx*sx+sx),sx*sx-cx*cx*sx,0,-cx*sx,cx*cx-sx*sx*sx,cx*(sx*sx+sx),0,sx,-cx*sx,cx*cx,0,0,0,-8,1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CCW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, cubeVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, cubeVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, texture1[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAngle + = 1.57*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+
+test_sv4Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> vartextureCoordAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varsamplerUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextures = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAnglex = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedx = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngley = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedy = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzoom = -8
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime2 = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcommands = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varfilter = 0
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv4Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv4Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader2.fs", "shaders/shader2.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute  = gl.getAttribLocation(shaderProgram, "aTextureCoord")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(textureCoordAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> samplerUniform  = gl.getUniformLocation(shaderProgram, "uSampler")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices = [-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords = [0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndices = [0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[2]  = 36
+[METHOD_DECLARATION] -------> , initTexture : function ( gl )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textures[i]  = gl.createTexture()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, null)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex.src  = "images/crate.gif"
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[CALL, LINE_OF_CODE] -------> this.handleKeys()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcy = Math.cos(rAngley)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsy = Math.sin(rAngley)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-cy*sx,cx*cy,0,0,0,zoom,1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CCW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, cubeVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, cubeVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[filter])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAnglex + = speedx*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAngley + = speedy*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+[METHOD_DECLARATION] -------> , handleKeys : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime2!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime2
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom + = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[1] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom - = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[2] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[3] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx + = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[4] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[5] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy + = 2*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime2  = timeNow
+[METHOD_DECLARATION] -------> , setCommands : function ( e, value )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==65 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[0]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==90 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[1]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==38 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[2]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==40 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[3]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==37 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[4]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==39 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[5]  = value
+[METHOD_DECLARATION] -------> , keyPressed : function ( e )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==70 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> filter  = filter==2?0:(filter+1)
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, true)
+[METHOD_DECLARATION] -------> , keyReleased : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, false)
+
+test_sv5Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> vartextureCoordAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varsamplerUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextures = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAnglex = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedx = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngley = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedy = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzoom = -8
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime2 = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcommands = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varwrapper = 0
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv5Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv5Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader2.fs", "shaders/shader2.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute  = gl.getAttribLocation(shaderProgram, "aTextureCoord")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(textureCoordAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> samplerUniform  = gl.getUniformLocation(shaderProgram, "uSampler")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices = [-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords = [-1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndices = [0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[2]  = 36
+[METHOD_DECLARATION] -------> , initTexture : function ( gl )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textures[i]  = gl.createTexture()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.MIRRORED_REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.MIRRORED_REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, null)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex.src  = "images/roof.gif"
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[CALL, LINE_OF_CODE] -------> this.handleKeys()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcy = Math.cos(rAngley)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsy = Math.sin(rAngley)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-cy*sx,cx*cy,0,0,0,zoom,1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CCW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, cubeVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, cubeVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[wrapper])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAnglex + = speedx*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAngley + = speedy*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+[METHOD_DECLARATION] -------> , handleKeys : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime2!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime2
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom + = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[1] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom - = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[2] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[3] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx + = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[4] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[5] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy + = 2*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime2  = timeNow
+[METHOD_DECLARATION] -------> , setCommands : function ( e, value )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==65 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[0]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==90 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[1]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==38 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[2]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==40 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[3]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==37 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[4]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==39 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[5]  = value
+[METHOD_DECLARATION] -------> , keyPressed : function ( e )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==87 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> wrapper  = wrapper==2?0:(wrapper+1)
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, true)
+[METHOD_DECLARATION] -------> , keyReleased : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, false)
+
+test_sv6Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexNormalAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> vartextureCoordAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varsamplerUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varambientColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varlightingDirectionUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> vardirectionalColorUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextures = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnormalMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAnglex = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedx = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngley = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedy = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzoom = -8
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime2 = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcommands = new Array()
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv6Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv6Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader3.fs", "shaders/shader3.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexNormalAttribute  = gl.getAttribLocation(shaderProgram, "aVertexNormal")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexNormalAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textureCoordAttribute  = gl.getAttribLocation(shaderProgram, "aTextureCoord")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(textureCoordAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> nMatrixUniform  = gl.getUniformLocation(shaderProgram, "uNMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> samplerUniform  = gl.getUniformLocation(shaderProgram, "uSampler")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> ambientColorUniform  = gl.getUniformLocation(shaderProgram, "uAmbientColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lightingDirectionUniform  = gl.getUniformLocation(shaderProgram, "uLightingDirection")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> directionalColorUniform  = gl.getUniformLocation(shaderProgram, "uDirectionalColor")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix3fv(nMatrixUniform, false, normalMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(ambientColorUniform, 0.1, 0.1, 0.1)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlightingDirection = [0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3fv(lightingDirectionUniform, lightingDirection)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(directionalColorUniform, 0.7, 0.7, 0.7)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices = [-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexNormalBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnormals = [0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexNormalBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords = [-1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndices = [0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[2]  = 36
+[METHOD_DECLARATION] -------> , initTexture : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textures[0]  = gl.createTexture()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, null)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex.src  = "images/muro.gif"
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[CALL, LINE_OF_CODE] -------> this.handleKeys()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcy = Math.cos(rAngley)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsy = Math.sin(rAngley)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-cy*sx,cx*cy,0,0,0,zoom,1])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CCW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, cubeVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, cubeVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, cubeVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAnglex + = speedx*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAngley + = speedy*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+[METHOD_DECLARATION] -------> , handleKeys : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime2!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime2
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom + = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[1] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom - = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[2] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[3] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx + = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[4] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[5] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy + = 2*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime2  = timeNow
+[METHOD_DECLARATION] -------> , setCommands : function ( e, value )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==65 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[0]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==90 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[1]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==38 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[2]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==40 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[3]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==37 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[4]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==39 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[5]  = value
+[METHOD_DECLARATION] -------> , keyPressed : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, true)
+[METHOD_DECLARATION] -------> , keyReleased : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, false)
+
+test_sv7Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexNormalAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varambientColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingLocationUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varshaderUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderChoice = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnormalMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAnglex = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedx = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngley = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedy = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzoom = -8
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime2 = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcommands = new Array()
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv7Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv7Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader4.fs", "shaders/shader4.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexNormalAttribute  = gl.getAttribLocation(shaderProgram, "aVertexNormal")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexNormalAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> nMatrixUniform  = gl.getUniformLocation(shaderProgram, "uNMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> ambientColorUniform  = gl.getUniformLocation(shaderProgram, "uAmbientColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingLocationUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingLocation")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingColorUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderUniform  = gl.getUniformLocation(shaderProgram, "uShader")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix3fv(nMatrixUniform, false, normalMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(ambientColorUniform, 0.1, 0.1, 0.1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingLocationUniform, 0, 0, -5.1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingColorUniform, 0.7, 0.7, 0.7)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlatitudeBands = 15
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlongitudeBands = 15
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varradius = 2
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnormals = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexIndices = new Array()
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i <= latitudeBands ; i++ )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartheta = i*Math.PI/latitudeBands
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsinTheta = Math.sin(theta)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcosTheta = Math.cos(theta)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j <= longitudeBands ; j++ )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varphi = (j*2*Math.PI/longitudeBands)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsinPhi = Math.sin(phi)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcosPhi = Math.cos(phi)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varx = cosPhi*sinTheta
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vary = cosTheta
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varz = sinPhi*sinTheta
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varindex = 3*(j+i*(longitudeBands+1))
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertices[index]  = radius*x
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertices[index+1]  = radius*y
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertices[index+2]  = radius*z
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normals[index]  = x
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normals[index+1]  = y
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normals[index+2]  = z
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < latitudeBands ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < longitudeBands ; j++ )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varfirst = (i*(longitudeBands+1))+j
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsecond = first+longitudeBands+1
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varindex = 6*(j+i*longitudeBands)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index]  = first
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+1]  = second
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+2]  = first+1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+3]  = second
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+4]  = second+1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+5]  = first+1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexPositionBuffer[2]  = vertices.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer[2]  = vertices.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(sphereVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndexBuffer[2]  = sphereVertexIndices.length
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[CALL, LINE_OF_CODE] -------> this.handleKeys()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(shaderUniform, shaderChoice)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcy = Math.cos(rAngley)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsy = Math.sin(rAngley)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-cy*sx,cx*cy,0,0,0,zoom,1])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, sphereVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, sphereVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, sphereVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAnglex + = speedx*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAngley + = speedy*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+[METHOD_DECLARATION] -------> , handleKeys : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime2!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime2
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom + = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[1] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom - = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[2] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[3] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx + = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[4] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[5] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy + = 2*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime2  = timeNow
+[METHOD_DECLARATION] -------> , setCommands : function ( e, value )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==65 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[0]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==90 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[1]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==38 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[2]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==40 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[3]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==37 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[4]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==39 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[5]  = value
+[METHOD_DECLARATION] -------> , keyPressed : function ( e )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==83 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderChoice  = shaderChoice==1?0:(shaderChoice+1)
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, true)
+[METHOD_DECLARATION] -------> , keyReleased : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, false)
+
+test_sv8Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexNormalAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varambientColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingLocationUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingSpecularColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingDiffuseColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmaterialShininessUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varteapotVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varteapotVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varteapotVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnormalMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAnglex = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedx = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngley = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedy = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzoom = -8
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime2 = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcommands = new Array()
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv8Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv8Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader5.fs", "shaders/shader5.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexNormalAttribute  = gl.getAttribLocation(shaderProgram, "aVertexNormal")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexNormalAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> nMatrixUniform  = gl.getUniformLocation(shaderProgram, "uNMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> ambientColorUniform  = gl.getUniformLocation(shaderProgram, "uAmbientColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingLocationUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingLocation")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingSpecularColorUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingSpecularColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingDiffuseColorUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingDiffuseColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> materialShininessUniform  = gl.getUniformLocation(shaderProgram, "uMaterialShininess")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix3fv(nMatrixUniform, false, normalMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(ambientColorUniform, 0.1, 0.1, 0.1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingLocationUniform, -1, 0, -5.1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingDiffuseColorUniform, 0.7, 0.7, 0.7)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingSpecularColorUniform, 0.7, 0.7, 0.7)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1f(materialShininessUniform, 10)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varteapot = loadObj("models/teapot.obj")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(teapot.vertexPositions), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexPositionBuffer[2]  = teapot.vertexPositions.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(teapot.vertexNormals), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexNormalBuffer[2]  = teapot.vertexNormals.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(teapot.indices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> teapotVertexIndexBuffer[2]  = teapot.indices.length
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[CALL, LINE_OF_CODE] -------> this.handleKeys()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcy = Math.cos(rAngley)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsy = Math.sin(rAngley)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-cy*sx,cx*cy,0,0,0,zoom,1])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CCW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, teapotVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, teapotVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, teapotVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, teapotVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, teapotVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAnglex + = speedx*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAngley + = speedy*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+[METHOD_DECLARATION] -------> , handleKeys : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime2!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime2
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom + = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[1] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom - = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[2] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[3] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx + = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[4] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[5] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy + = 2*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime2  = timeNow
+[METHOD_DECLARATION] -------> , setCommands : function ( e, value )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==65 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[0]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==90 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[1]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==38 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[2]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==40 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[3]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==37 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[4]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==39 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[5]  = value
+[METHOD_DECLARATION] -------> , keyPressed : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, true)
+[METHOD_DECLARATION] -------> , keyReleased : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, false)
+
+test_sv9Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexNormalAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> vartextureCoordAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varsamplerUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varambientColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingLocationUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingSpecularColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingDiffuseColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmaterialShininessUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varalphaUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vargreenVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vargreenVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vargreenVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextures = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnormalMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzoom = -8
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime2 = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcommands = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastMouseX = -1
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastMouseY = -1
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrotationMatrix = new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1])
+[CONSTRUCTOR_DECLARATION] -------> function Test_sv9Drawer (  )
+[CLASS_DECLARATION] -------> Test_sv9Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader6.fs", "shaders/shader6.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexNormalAttribute  = gl.getAttribLocation(shaderProgram, "aVertexNormal")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexNormalAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textureCoordAttribute  = gl.getAttribLocation(shaderProgram, "aTextureCoord")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(textureCoordAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> nMatrixUniform  = gl.getUniformLocation(shaderProgram, "uNMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> samplerUniform  = gl.getUniformLocation(shaderProgram, "uSampler")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> ambientColorUniform  = gl.getUniformLocation(shaderProgram, "uAmbientColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingLocationUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingLocation")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingSpecularColorUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingSpecularColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingDiffuseColorUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingDiffuseColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> materialShininessUniform  = gl.getUniformLocation(shaderProgram, "uMaterialShininess")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> alphaUniform  = gl.getUniformLocation(shaderProgram, "uAlpha")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix3fv(nMatrixUniform, false, normalMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(ambientColorUniform, 0.1, 0.1, 0.1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingLocationUniform, -10, 0, 5)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingDiffuseColorUniform, 0.4, 0.4, 0.4)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingSpecularColorUniform, 0.5, 0.5, 0.5)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1f(materialShininessUniform, 50)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlatitudeBands = 30
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlongitudeBands = 30
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varradius = 2
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnormals = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsphereVertexIndices = new Array()
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i <= latitudeBands ; i++ )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartheta = i*Math.PI/latitudeBands
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsinTheta = Math.sin(theta)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcosTheta = Math.cos(theta)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j <= longitudeBands ; j++ )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varphi = (j*2*Math.PI/longitudeBands)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsinPhi = Math.sin(phi)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcosPhi = Math.cos(phi)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varx = cosPhi*sinTheta
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vary = cosTheta
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varz = sinPhi*sinTheta
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varu = 1-j/longitudeBands
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varv = 1-i/latitudeBands
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varindex = 3*(j+i*(longitudeBands+1))
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertices[index]  = radius*x
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertices[index+1]  = radius*y
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertices[index+2]  = radius*z
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normals[index]  = x
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normals[index+1]  = y
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normals[index+2]  = z
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> index  = 2*(j+i*(longitudeBands+1))
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textureCoords[index]  = u
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textureCoords[index+1]  = v
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < latitudeBands ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < longitudeBands ; j++ )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varfirst = (i*(longitudeBands+1))+j
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsecond = first+longitudeBands+1
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varindex = 6*(j+i*longitudeBands)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index]  = first
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+1]  = second
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+2]  = first+1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+3]  = second
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+4]  = second+1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndices[index+5]  = first+1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexPositionBuffer[2]  = vertices.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexNormalBuffer[2]  = vertices.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexTextureCoordBuffer[2]  = textureCoords.length/2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(sphereVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> sphereVertexIndexBuffer[2]  = sphereVertexIndices.length
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices2 = [-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords2 = [0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexNormalBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnormals2 = [0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexNormalBuffer[2]  = 4
+[METHOD_DECLARATION] -------> , initTexture : function ( gl )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 2 ; i++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textures[i]  = gl.createTexture()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex1 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1.src  = "images/bubble.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex2 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex2)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, null)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2.src  = "images/grass.gif"
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.0, 0.0, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.blendFunc(gl.SRC_ALPHA, gl.ONE)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.BLEND)
+[CALL, LINE_OF_CODE] -------> this.handleKeys()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([10,0,0,0,0,10,0,0,0,0,10,0,0,0,zoom,1])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, greenVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, greenVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, greenVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1f(alphaUniform, 1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,zoom,1])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = multiplyMatrix(rotationMatrix, mvMatrix)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, sphereVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, sphereVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, sphereVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, sphereVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1f(alphaUniform, 0.8)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, sphereVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[METHOD_DECLARATION] -------> , handleKeys : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime2!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime2
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom + = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[1] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom - = 5*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime2  = timeNow
+[METHOD_DECLARATION] -------> , setCommands : function ( e, value )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==65 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[0]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==90 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[1]  = value
+[METHOD_DECLARATION] -------> , keyPressed : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, true)
+[METHOD_DECLARATION] -------> , keyReleased : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, false)
+[METHOD_DECLARATION] -------> , mousePressed : function ( e )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastMouseX  = e.clientX
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastMouseY  = e.clientY
+[METHOD_DECLARATION] -------> , mouseDragged : function ( e )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vardeltaX = e.clientX-lastMouseX
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vardeltaY = e.clientY-lastMouseY
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAnglex = deltaY*0.01
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngley = deltaX*0.01
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcy = Math.cos(rAngley)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsy = Math.sin(rAngley)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnewRotationMatrix = new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-cy*sx,cx*cy,0,0,0,0,1])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rotationMatrix  = multiplyMatrix(rotationMatrix, newRotationMatrix)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastMouseX  = e.clientX
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastMouseY  = e.clientY
+
+test_va1Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> vartextureCoordAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varsamplerUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vardoorVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vardoorVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vargreenVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vargreenVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpyramidVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpyramidVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextures = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAnglex = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedx = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varrAngley = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeedy = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzoom = -8
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime2 = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcommands = new Array()
+[CONSTRUCTOR_DECLARATION] -------> function Test_va1Drawer (  )
+[CLASS_DECLARATION] -------> Test_va1Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader2.fs", "shaders/shader2.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute  = gl.getAttribLocation(shaderProgram, "aTextureCoord")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(textureCoordAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> samplerUniform  = gl.getUniformLocation(shaderProgram, "uSampler")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices1 = [0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices1), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[2]  = 6
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords1 = [3.0,0.0,0.0,6.0,6.0,6.0,0.0,6.0,6.0,6.0,0.0,6.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords1), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexTextureCoordBuffer[2]  = 6
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices2 = [-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[2]  = 16
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords2 = [0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[2]  = 16
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndices = [0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices3 = [-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices3), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords3 = [0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords3), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices4 = [-0.2,-1.0,1.001,0.2,-1.0,1.001,-0.2,0.0,1.001,0.2,0.0,1.001]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices4), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexPositionBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords4 = [0.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords4), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexTextureCoordBuffer[2]  = 4
+[METHOD_DECLARATION] -------> , initTexture : function ( gl )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 4 ; i++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textures[i]  = gl.createTexture()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex1 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1.src  = "images/muro.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex2 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex2)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2.src  = "images/roof.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex3 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex3.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex3)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex3.src  = "images/grass.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex4 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex4.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[3])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex4)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, null)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex4.src  = "images/door.gif"
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.71, 0.91, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[CALL, LINE_OF_CODE] -------> this.handleKeys()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(rAnglex)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcy = Math.cos(rAngley)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsy = Math.sin(rAngley)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-cy*sx,cx*cy,0,0,-cx,zoom-sx,1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CCW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, cubeVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, cubeVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, doorVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, doorVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[3])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_STRIP, 0, doorVertexPositionBuffer[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.disable(gl.CULL_FACE)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix2  = new Float32Array(mvMatrix)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[0] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[1] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[2] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[8] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[9] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[10] * = 10
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, greenVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, greenVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = mvMatrix2
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[13] + = 2*cx
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[14] + = 2*sx
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, pyramidVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2])
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAnglex + = speedx*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> rAngley + = speedy*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+[METHOD_DECLARATION] -------> , handleKeys : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime2!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime2
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom + = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[1] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zoom - = 5*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[2] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[3] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedx + = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[4] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy - = 2*elapsed*0.001
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[5] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speedy + = 2*elapsed*0.001
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime2  = timeNow
+[METHOD_DECLARATION] -------> , setCommands : function ( e, value )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==65 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[0]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==90 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[1]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==38 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[2]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==40 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[3]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==37 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[4]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==39 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[5]  = value
+[METHOD_DECLARATION] -------> , keyPressed : function ( e )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==87 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> wrapper  = wrapper==2?0:(wrapper+1)
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, true)
+[METHOD_DECLARATION] -------> , keyReleased : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, false)
+
+test_va2Drawer.js
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexPositionAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varvertexNormalAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> vartextureCoordAttribute
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnMatrixUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varsamplerUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varambientColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingLocationUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingSpecularColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpointLightingDiffuseColorUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmaterialShininessUniform
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varalphaUniform
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vardoorVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vardoorVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vardoorVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vargreenVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vargreenVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vargreenVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpyramidVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpyramidVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpyramidVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpyramidVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartractorVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartractorVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartractorVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartractorVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varseagulVertexPositionBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varseagulVertexNormalBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varseagulVertexTextureCoordBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varseagulVertexIndexBuffer = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextures = new Array()
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varpMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varmvMatrix
+[VARIABLE_DECLARATION, LINE_OF_CODE] -------> varnormalMatrix
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlastTime = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcommands = new Array()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varseagulAngle = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartractorx = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpitch = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varyaw = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varxPos = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varyStart = -1.5
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varyPos = yStart
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzPos = 10
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varspeed = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlspeed = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varpitchRate = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varyawRate = 0
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varjoggingAngle = 0
+[CONSTRUCTOR_DECLARATION] -------> function Test_va2Drawer (  )
+[CLASS_DECLARATION] -------> Test_va2Drawer . prototype =
+[METHOD_DECLARATION] ------->  initShaders : function ( gl )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varshaderProgram = getShaderProgram(gl, "shaders/shader6.fs", "shaders/shader6.vs")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexPositionAttribute  = gl.getAttribLocation(shaderProgram, "aVertexPosition")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexPositionAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vertexNormalAttribute  = gl.getAttribLocation(shaderProgram, "aVertexNormal")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(vertexNormalAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> shaderProgram.textureCoordAttribute  = gl.getAttribLocation(shaderProgram, "aTextureCoord")
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enableVertexAttribArray(textureCoordAttribute)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrixUniform  = gl.getUniformLocation(shaderProgram, "uPMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrixUniform  = gl.getUniformLocation(shaderProgram, "uMVMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> nMatrixUniform  = gl.getUniformLocation(shaderProgram, "uNMatrix")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> samplerUniform  = gl.getUniformLocation(shaderProgram, "uSampler")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> ambientColorUniform  = gl.getUniformLocation(shaderProgram, "uAmbientColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingLocationUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingLocation")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingSpecularColorUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingSpecularColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pointLightingDiffuseColorUniform  = gl.getUniformLocation(shaderProgram, "uPointLightingDiffuseColor")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> materialShininessUniform  = gl.getUniformLocation(shaderProgram, "uMaterialShininess")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> alphaUniform  = gl.getUniformLocation(shaderProgram, "uAlpha")
+[METHOD_DECLARATION] -------> , setMatrixUniforms : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniformMatrix3fv(nMatrixUniform, false, normalMatrix)
+[METHOD_DECLARATION] -------> , initBuffers : function ( gl )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices1 = [0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,0.0,1.0,0.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,0.0,1.0,0.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,0.0,1.0,0.0,1.0,-1.0,1.0,1.0,-1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices1), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexPositionBuffer[2]  = 12
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexNormalBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnormals1 = [-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals1), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexNormalBuffer[2]  = 12
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords1 = [3.0,0.0,0.0,6.0,6.0,6.0,3.0,0.0,0.0,6.0,6.0,6.0,3.0,0.0,6.0,6.0,0.0,6.0,3.0,0.0,0.0,6.0,6.0,6.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords1), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexTextureCoordBuffer[2]  = 12
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndices = [0,1,2,3,5,4,6,7,8,9,10,11]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pyramidVertexIndexBuffer[2]  = 12
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices2 = [-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexPositionBuffer[2]  = 16
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexNormalBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnormals2 = [0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexNormalBuffer[2]  = 16
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords2 = [0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords2), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexTextureCoordBuffer[2]  = 16
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcubeVertexIndices = [0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubeVertexIndices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> cubeVertexIndexBuffer[2]  = 24
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices3 = [-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices3), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexPositionBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexNormalBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnormals3 = [0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals3), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexNormalBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords3 = [0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords3), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> greenVertexTextureCoordBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexPositionBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varvertices4 = [-0.2,-1.0,1.001,0.2,-1.0,1.001,-0.2,0.0,1.001,0.2,0.0,1.001]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices4), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexPositionBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexNormalBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varnormals4 = [0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals4), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexNormalBuffer[2]  = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexTextureCoordBuffer[0])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartextureCoords4 = [0.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoords4), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> doorVertexTextureCoordBuffer[2]  = 4
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartractor = loadObj("models/tractor.obj")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, tractorVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(tractor.vertexPositions), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexPositionBuffer[2]  = tractor.vertexPositions.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, tractorVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(tractor.vertexNormals), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexNormalBuffer[2]  = tractor.vertexNormals.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, tractorVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(tractor.vertexTextureCoords), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexTextureCoordBuffer[2]  = tractor.vertexTextureCoords.length/2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, tractorVertexIndexBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(tractor.indices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorVertexIndexBuffer[2]  = tractor.indices.length
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varseagul = loadObj("models/seagul.obj")
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexPositionBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, seagulVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(seagul.vertexPositions), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexPositionBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexPositionBuffer[2]  = seagul.vertexPositions.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexNormalBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, seagulVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(seagul.vertexNormals), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexNormalBuffer[1]  = 3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexNormalBuffer[2]  = seagul.vertexNormals.length/3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexTextureCoordBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, seagulVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(seagul.vertexTextureCoords), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexTextureCoordBuffer[1]  = 2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexTextureCoordBuffer[2]  = seagul.vertexTextureCoords.length/2
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexIndexBuffer[0]  = gl.createBuffer()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, seagulVertexIndexBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(seagul.indices), gl.STATIC_DRAW)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexIndexBuffer[1]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulVertexIndexBuffer[2]  = seagul.indices.length
+[METHOD_DECLARATION] -------> , initTexture : function ( gl )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 6 ; i++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> textures[i]  = gl.createTexture()
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex1 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex1.src  = "images/muro.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex2 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex2)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex2.src  = "images/roof.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex3 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex3.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex3)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex3.src  = "images/grass.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex4 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex4.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[3])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex4)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex4.src  = "images/door.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex5 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex5.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[4])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex5)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.MIRRORED_REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.MIRRORED_REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex5.src  = "images/tractor.gif"
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartex6 = new Image()
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex6.onload  = function()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[5])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex6)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.generateMipmap(gl.TEXTURE_2D)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, null)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tex6.src  = "images/seagul.gif"
+[METHOD_DECLARATION] -------> , drawScene : function ( gl )
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clearColor(0.0, 0.71, 0.91, 1.0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.DEPTH_TEST)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.cullFace(gl.BACK)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[CALL, LINE_OF_CODE] -------> this.handleKeys()
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.viewport(0, 0, 500, 500)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcx = Math.cos(-pitch)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsx = Math.sin(-pitch)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcy = Math.cos(-yaw)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varsy = Math.sin(-yaw)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pMatrix  = new Float32Array([2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array([cy,sx*sy,-cx*sy,0,0,cx,sx,0,sy,-cy*sx,cx*cy,0,-cy*xPos-sy*zPos,-cx-sx*sy*xPos-cx*yPos+cy*sx*zPos,-sx+cx*sy*xPos-sx*yPos-cx*cy*zPos,1])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(ambientColorUniform, 0.1, 0.1, 0.1)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varlightLoc = new Float32Array([0,4,2,1])
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartlightLoc = multiplyMatrixVector(pMatrix, multiplyMatrixVector(mvMatrix, lightLoc))
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingLocationUniform, tlightLoc[0], tlightLoc[1], tlightLoc[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingDiffuseColorUniform, 0.5, 0.5, 0.5)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform3f(pointLightingSpecularColorUniform, 0.5, 0.5, 0.5)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1f(materialShininessUniform, 50)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1f(alphaUniform, 1)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.frontFace(gl.CCW)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, cubeVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, cubeVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, cubeVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, doorVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, doorVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, doorVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, doorVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[3])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_STRIP, 0, doorVertexPositionBuffer[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.disable(gl.CULL_FACE)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix2  = new Float32Array(mvMatrix)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[0] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[1] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[2] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[8] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[9] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[10] * = 10
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, greenVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, greenVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, greenVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, greenVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[2])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawArrays(gl.TRIANGLE_STRIP, 0, greenVertexPositionBuffer[2])
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array(mvMatrix2)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.enable(gl.CULL_FACE)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[13] + = 2*cx
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[14] + = 2*sx
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, pyramidVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, pyramidVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.activeTexture(gl.TEXTURE0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[1])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, pyramidVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = new Float32Array(mvMatrix2)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 12 ; i++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[i] * = 0.01
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varxt = -11+tractorx
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varyt = -1
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varzt = 4
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[12] + = cy*xt+sy*zt
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[13] + = sx*sy*xt+cx*yt-cy*sx*zt
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[14] + = -cx*sy*xt+sx*yt+cx*cy*zt
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, tractorVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, tractorVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, tractorVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, tractorVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, tractorVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, tractorVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[4])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, tractorVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, tractorVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix  = mvMatrix2
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varcs = Math.cos(seagulAngle)
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varss = Math.sin(seagulAngle)
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> xt  = -3*cs-xPos
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yt  = 2-yPos
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zt  = 4*ss-zPos
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vars = 0.3
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[0]  = cs*cy*s-s*ss*sy
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[1]  = cy*s*ss*sx+cs*s*sx*sy
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[2]  = -cx*cy*s*ss-cs*cx*s*sy
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[3]  = 0
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[4]  = 0
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[5]  = cx*s
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[6]  = s*sx
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[7]  = 0
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[8]  = cy*s*ss+cs*s*sy
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[9]  = -cs*cy*s*sx+s*ss*sx*sy
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[10]  = cs*cx*cy*s-cx*s*ss*sy
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[11]  = 0
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[12]  = cy*xt+sy*zt
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[13]  = -cx+sx*sy*xt+cx*yt-cy*sx*zt
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[14]  = -sx-cx*sy*xt+sx*yt+cx*cy*zt
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> mvMatrix[15]  = 1
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix  = new Float32Array(9)
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( vari=0 ; i < 3 ; i++ )
+[FOR, ASSIGNMENT, LINE_OF_CODE] -------> for ( varj=0 ; j < 3 ; j++ )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> normalMatrix[i+3*j]  = mvMatrix[i+4*j]
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, seagulVertexPositionBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexPositionAttribute, seagulVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, seagulVertexNormalBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(vertexNormalAttribute, seagulVertexNormalBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ARRAY_BUFFER, seagulVertexTextureCoordBuffer[0])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.vertexAttribPointer(textureCoordAttribute, seagulVertexTextureCoordBuffer[1], gl.FLOAT, false, 0, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindTexture(gl.TEXTURE_2D, textures[5])
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.uniform1i(samplerUniform, 0)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, seagulVertexIndexBuffer[0])
+[CALL, LINE_OF_CODE] -------> this.setMatrixUniforms(gl)
+[OPENGL_CALL, LINE_OF_CODE] -------> gl.drawElements(gl.TRIANGLES, seagulVertexIndexBuffer[2], gl.UNSIGNED_SHORT, 0)
+[CALL, LINE_OF_CODE] -------> this.animate()
+[METHOD_DECLARATION] -------> , animate : function (  )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> vartimeNow = new Date().getTime()
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lastTime!=0 )
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varelapsed = timeNow-lastTime
+[VARIABLE_DECLARATION, VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> varmove = false
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( speed!=0 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> xPos - = Math.sin(yaw)*speed*elapsed
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zPos - = Math.cos(yaw)*speed*elapsed
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> move  = true
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( lspeed!=0 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> xPos + = Math.cos(yaw)*lspeed*elapsed
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> zPos - = Math.sin(yaw)*lspeed*elapsed
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> move  = true
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( move )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> joggingAngle + = elapsed*0.0104
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yPos  = Math.sin(joggingAngle)/20+yStart
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yaw + = yawRate*elapsed
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pitch + = pitchRate*elapsed
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> seagulAngle + = 0.0008*elapsed
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorx + = 0.0008*elapsed
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( tractorx>22 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> tractorx  = 0
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lastTime  = timeNow
+[METHOD_DECLARATION] -------> , handleKeys : function (  )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[0] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speed  = 0.003
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if ( commands[1] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speed  = -0.003
+[ISOLATED_KEYWORDS] -------> else
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> speed  = 0
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[2] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pitchRate  = 0.00174
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if ( commands[3] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pitchRate  = -0.00174
+[ISOLATED_KEYWORDS] -------> else
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> pitchRate  = 0
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[4] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yawRate  = 0.00174
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if ( commands[5] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yawRate  = -0.00174
+[ISOLATED_KEYWORDS] -------> else
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> yawRate  = 0
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( commands[6] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lspeed  = 0.003
+[ELSE, ELSE_IF, ASSIGNMENT, LINE_OF_CODE] ------->  else if ( commands[7] )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lspeed  = -0.003
+[ISOLATED_KEYWORDS] -------> else
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> lspeed  = 0
+[METHOD_DECLARATION] -------> , setCommands : function ( e, value )
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==87 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[0]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==83 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[1]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==38 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[2]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==40 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[3]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==37 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[4]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==39 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[5]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==68 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[6]  = value
+[IF, ASSIGNMENT, LINE_OF_CODE] ------->  if ( e.keyCode==65 )
+[VARIABLE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> commands[7]  = value
+[METHOD_DECLARATION] -------> , keyPressed : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, true)
+[METHOD_DECLARATION] -------> , keyReleased : function ( e )
+[CALL, LINE_OF_CODE] -------> this.setCommands(e, false)
