@@ -39,10 +39,10 @@ public class FileStringUtility {
 			reader.close();
 		} catch (FileNotFoundException e) {
 			System.err
-					.println("BasicTextFileIO.loadTextFile(String): Non posso trovare il file!");
+					.println("FileStringUtility.loadTextFile(String): Non posso trovare il file!");
 		} catch (IOException e) {
 			System.err
-					.println("BasicTextFileIO.loadTextFile(String): Non posso leggere il file!");
+					.println("FileStringUtility.loadTextFile(String): Non posso leggere il file!");
 		}
 
 		return list;
@@ -64,10 +64,10 @@ public class FileStringUtility {
 			writer.close();
 		} catch (FileNotFoundException e) {
 			System.err
-					.println("BasicTextFileIO.loadTextFile(String): Non posso creare o aprire il file!");
+					.println("FileStringUtility.writeTextFile(String,String[]): Non posso creare o aprire il file: "+filename);
 		} catch (IOException e) {
 			System.err
-					.println("BasicTextFileIO.loadTextFile(String): Non posso scrivere il file!");
+					.println("FileStringUtility.writeTextFile(String,String[]): Non posso scrivere il file: "+filename);
 		}
 
 	}
@@ -87,10 +87,10 @@ public class FileStringUtility {
 			writer.close();
 		} catch (FileNotFoundException e) {
 			System.err
-					.println("BasicTextFileIO.loadTextFile(String): Non posso creare o aprire il file!");
+					.println("FileStringUtility.writeTextFile(String,String): Non posso creare o aprire il file: "+filename);
 		} catch (IOException e) {
 			System.err
-					.println("BasicTextFileIO.loadTextFile(String): Non posso scrivere il file!");
+					.println("FileStringUtility.writeTextFile(String,String): Non posso scrivere il file: "+filename);
 		}
 
 	}
@@ -117,10 +117,10 @@ public class FileStringUtility {
 			reader.close();
 		} catch (FileNotFoundException e) {
 			System.err
-					.println("BasicTextFileIO.loadTextFile(String): Non posso trovare il file!");
+					.println("FileStringUtility.loadTextFileOnOneString(String): Non posso trovare il file: "+filename);
 		} catch (IOException e) {
 			System.err
-					.println("BasicTextFileIO.loadTextFile(String): Non posso leggere il file!");
+					.println("FileStringUtility.loadTextFileOnOneString(String): Non posso leggere il file: "+filename);
 		}
 
 		return writer.toString();

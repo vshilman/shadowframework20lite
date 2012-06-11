@@ -58,11 +58,34 @@ public class Block  implements CodeModule{
 				}
 				//merges Sub Block with their declaration line into DeclaredBlocks 
 				if(((CodeLine)modules.get(i)).isBlockDeclaration() && i<modules.size()-1){
-					DeclaredBlock block=new DeclaredBlock((CodeLine)(modules.get(i)),(Block)(modules.get(i+1)));
-					modules.remove(i);
-					modules.remove(i);
-					modules.add(i,block);
-					block.getRelatedBlock().correctBlock();
+					
+					CodeLine blockDeclarationLine = (CodeLine)(modules.get(i));
+					Block relatedBlock = (Block)(modules.get(i+1));
+
+					//Start of : Array into Brackets correction
+					boolean isDeclaredBlock = true;
+					if(relatedBlock.getSize()==1){
+						if(relatedBlock.getSubModule(0) instanceof CodeLine){
+							CodeLine firstRelatedBlockLine = (CodeLine)(relatedBlock.getSubModule(0));
+							if(firstRelatedBlockLine.isBlockDeclaration()){
+								isDeclaredBlock=false;//because it is an array declaration!!
+								CodeLine codeLine = new CodeLine(blockDeclarationLine.getCodeLine()+
+										"{"+firstRelatedBlockLine.getCodeLine()+"}", false);
+								modules.remove(i);
+								modules.remove(i);
+								modules.add(i,codeLine);
+							}
+						}
+					}
+					//End of : Array into Brackets correction
+					
+					if(isDeclaredBlock){
+						DeclaredBlock block=new DeclaredBlock(blockDeclarationLine,relatedBlock);
+						modules.remove(i);
+						modules.remove(i);
+						modules.add(i,block);
+						block.getRelatedBlock().correctBlock();
+					}
 				}
 			}
 		}

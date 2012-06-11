@@ -6,14 +6,19 @@ import java.util.List;
 import codeconverter.Block;
 import codeconverter.utility.FileStringUtility;
 
+/**
+ * A simple test about the use of Blocks. 
+ * This test tries to generate blocks from one of SFModules. 
+ * 
+ * @author Alessandro
+ */
 public class BlocksTest001 {
 
 	public static void main(String[] args) {
 		List<String> list=FileStringUtility
 				.loadTextFile("../ShadowFramework2.0/src/shadow/system/data/SFOutputStream.java");
-		// List<String>
-		// list=FileStringUtility.loadTextFile("src/testPackage/ComplexClass.java");
 
+		//TODO : here we can use TestingUtilities.generateFileString, doing the same thing
 		StringWriter writer=new StringWriter();
 		for (String string : list) {
 			writer.write(string);

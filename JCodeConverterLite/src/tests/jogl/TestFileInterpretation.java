@@ -36,6 +36,7 @@ public class TestFileInterpretation {
 			System.out.println(name);
 			logWriter.write(name + "\n");
 
+			//TODO : here we should use TestingUtilities.generateFileString, doing the same thing
 			List<String> list = FileStringUtility.loadTextFile(file);
 
 			StringWriter writer = new StringWriter();

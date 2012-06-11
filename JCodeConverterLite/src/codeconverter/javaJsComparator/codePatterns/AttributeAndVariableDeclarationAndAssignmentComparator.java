@@ -19,6 +19,7 @@ public class AttributeAndVariableDeclarationAndAssignmentComparator implements C
 	@Override
 	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
 			List<CodePattern> jsCodePatterns, int jsIndex) {
+		
 		if (javaCodePatterns.get(javaIndex).getPatternType().size() < 2) {
 			return null;
 		}

@@ -19,6 +19,7 @@ public class BlocksTest002 {
 		//		.loadTextFile("../ShadowFramework2.0/src/shadow/system/data/SFOutputStream.java");
 		 List<String> list=FileStringUtility.loadTextFile("src/testPackage/House.java");
 
+		//TODO : here we can use TestingUtilities.generateFileString, doing the same thing
 		StringWriter writer=new StringWriter();
 		for (String string : list) {
 			writer.write(string);
@@ -38,7 +39,7 @@ public class BlocksTest002 {
 		for (CodeModule codeModule : keys) {
 			CodePattern pattern=interpretation.get(codeModule);
 			if(pattern!=null)
-				System.err.println("["+codeModule+"]:"+pattern);
+				System.out.println("["+codeModule+"]:"+pattern);
 			else
 				System.err.println("["+codeModule+"]: unidentified");
 		}
