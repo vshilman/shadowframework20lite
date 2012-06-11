@@ -47,7 +47,7 @@ public class TestFileComparator {
 
 			String name = "\n" + javaTests.get(i).substring(JAVA_DIRECTORY.length()) + " VS "
 					+ jsTests.get(i).substring(JS_DIRECTORY.length());
-			System.out.print(name);
+			System.out.println(name);
 			logWriter.write(name + "\n");
 
 			ArrayList<CodePattern> javaPatterns = new ArrayList<CodePattern>(getCodePatterns(
@@ -64,32 +64,37 @@ public class TestFileComparator {
 			boolean found = false;
 
 			for (int j = 0; j < javaPatterns.size(); j++) {
-				if (javaPatterns.get(j).getPatternType().get(0) == PatternType.LIBRARY_DECLARATION) {
-					javaConfirmations[j] = true;
-				}
-				if (!javaConfirmations[j]) {
-					found = false;
-					for (int k = 0; k < jsPatterns.size(); k++) {
-						if (found)
-							break;
-						if (!jsConfirmations[k]) {
-							for (CodePatternComparator codePatternComparator : comparators) {
-								int[][] result = codePatternComparator
-										.compare(javaPatterns, j, jsPatterns, k);
-								if (result != null) {
-									for (int l = 0; l < result[0].length; l++) {
-										logWriter.write("\t" + javaPatterns.get(result[0][l]).toString()
-												+ "\n");
-										javaConfirmations[result[0][l]] = true;
+				if(javaPatterns.get(j)==null){
+					javaConfirmations[j] = false;
+				}else{
+					
+					if (javaPatterns.get(j).getPatternType().get(0) == PatternType.LIBRARY_DECLARATION) {
+						javaConfirmations[j] = true;
+					}
+					if (!javaConfirmations[j]) {
+						found = false;
+						for (int k = 0; k < jsPatterns.size(); k++) {
+							if (found)
+								break;
+							if (!jsConfirmations[k]) {
+								for (CodePatternComparator codePatternComparator : comparators) {
+									int[][] result = codePatternComparator
+											.compare(javaPatterns, j, jsPatterns, k);
+									if (result != null) {
+										for (int l = 0; l < result[0].length; l++) {
+											logWriter.write("\t" + javaPatterns.get(result[0][l]).toString()
+													+ "\n");
+											javaConfirmations[result[0][l]] = true;
+										}
+										for (int l = 0; l < result[1].length; l++) {
+											logWriter.write("\t\t" + jsPatterns.get(result[1][l]).toString()
+													+ "\n");
+											jsConfirmations[result[1][l]] = true;
+										}
+										logWriter.write("\n");
+										found = true;
+										break;
 									}
-									for (int l = 0; l < result[1].length; l++) {
-										logWriter.write("\t\t" + jsPatterns.get(result[1][l]).toString()
-												+ "\n");
-										jsConfirmations[result[1][l]] = true;
-									}
-									logWriter.write("\n");
-									found = true;
-									break;
 								}
 							}
 						}
@@ -101,7 +106,7 @@ public class TestFileComparator {
 			StringWriter jsUnmatchWriter = new StringWriter();
 
 			for (int j = 0; j < javaConfirmations.length; j++) {
-				if (!javaConfirmations[j]) {
+				if (!javaConfirmations[j] && javaPatterns.get(j)!=null) {
 					javaUnmatchWriter.write("\t\t" + javaPatterns.get(j).toString() + "\n");
 				}
 			}

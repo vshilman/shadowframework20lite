@@ -58,6 +58,7 @@ public class BlockUtilities {
 	}
 
 	public static Block generateBlocks(char[] totalStringChars) {
+		
 		ArrayList<Integer> findBlockOpen=findPosition(totalStringChars,'{');
 		ArrayList<Integer> findBlockClose=findPosition(totalStringChars,'}');
 		

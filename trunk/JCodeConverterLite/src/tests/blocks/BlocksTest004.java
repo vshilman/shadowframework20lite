@@ -19,7 +19,8 @@ public class BlocksTest004 {
 	public static void main(String[] args) {
 		//List<String> list=FileStringUtility
 		//		.loadTextFile("../ShadowFramework2.0/src/shadow/system/data/SFOutputStream.java");
-		
+
+		//TODO : here we can use TestingUtilities.generateFileString, doing the same thing
 		List<String> list=FileStringUtility.loadTextFile("src/testPackage/Expressions.java");
 		//List<String> list=FileStringUtility.loadTextFile("src/testPackage/House.java");
 

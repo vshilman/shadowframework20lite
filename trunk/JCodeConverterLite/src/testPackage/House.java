@@ -10,11 +10,16 @@ public class House {
 	private int baseWidth;
 	private int baseHeight;
 	
+	private int[] houseData;
+	
 	public House(int roofHeight, int baseWidth, int baseHeight) {
 		super();
 		this.roofHeight = roofHeight;
 		this.baseWidth = baseWidth;
 		this.baseHeight = baseHeight;
+		
+		int[] houseData = {1,0,2,1,2};
+		this.houseData = houseData;
 	}
 
 	public int getRoofHeight() {
@@ -41,4 +46,9 @@ public class House {
 		this.baseHeight = baseHeight;
 	}
 
+	public int[] getHouseData() {
+		return houseData;
+	}
+
+	
 }

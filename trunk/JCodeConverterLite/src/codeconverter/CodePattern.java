@@ -74,6 +74,11 @@ public class CodePattern {
 				return elements.get(i);
 			}
 		}
+		for (int i = 0; i < elements.size(); i++) {
+			ICodePiece subPiece=elements.get(i).getPieceByType(type);
+			if(subPiece!=null)
+				return subPiece;
+		}
 		return null;
 	}
 	
@@ -89,43 +94,40 @@ public class CodePattern {
 		
 		CodePattern pattern=new CodePattern();
 		pattern.patternType.addAll(this.patternType);
-		try {
-			char[] lineCodeChars=lineCode.toCharArray();
-			int index=0;
-			int elementIndex=0;
 		
-			while (index < lineCodeChars.length && elementIndex < elements.size()) {
-				if (lineCodeChars[index] == ' ' || lineCodeChars[index] == '\t') {
-					index++;
+		char[] lineCodeChars=lineCode.toCharArray();
+		int index=0;
+		int elementIndex=0;
+	
+		while (index < lineCodeChars.length && elementIndex < elements.size()) {
+			if (lineCodeChars[index] == ' ' || lineCodeChars[index] == '\t') {
+				index++;
+			} else {
+				ICodePiece piece=elements.get(elementIndex);
+				ICodePieceMatch pieceMatch=piece.elementMatch(lineCode,index);
+				int result=pieceMatch.getMatchPosition();
+				
+				if (result == -1) {
+					return null;
 				} else {
-					ICodePiece piece=elements.get(elementIndex);
-					ICodePieceMatch pieceMatch=piece.elementMatch(lineCode,index);
-					int result=pieceMatch.getMatchPosition();
-					
-					if (result == -1) {
-						return null;
-					} else {
-						index=result;
-						pattern.elements.add(pieceMatch.getDataPiece());
-						elementIndex++;
-					}
+					index=result;
+					pattern.elements.add(pieceMatch.getDataPiece());
+					elementIndex++;
 				}
 			}
-			if (elementIndex == elements.size() && index == lineCodeChars.length) {
-				return pattern;
-			}else if(index == lineCodeChars.length){
-				for (int i = elementIndex; i < elements.size(); i++) {
-					//TODO: Fa schifo
-					if(!(elements.get(i) instanceof OptionalCode)){
-						return null;
-					}
-				}
-				return pattern;
-			}
-		} catch (Exception e) {
-			System.err.println("Exception while trying to match ["+lineCode+"]");
-			e.printStackTrace();
 		}
+		if (elementIndex == elements.size() && index == lineCodeChars.length) {
+			return pattern;
+		}else if(index == lineCodeChars.length){
+			for (int i = elementIndex; i < elements.size(); i++) {
+				//TODO: Fa schifo
+				if(!(elements.get(i) instanceof OptionalCode)){
+					return null;
+				}
+			}
+			return pattern;
+		}
+		
 		
 		return null;
 	}	

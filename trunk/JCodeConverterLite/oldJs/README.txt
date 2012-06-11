@@ -4,3 +4,5 @@ Io invece ho scritto i nuovi pattern js sulla base di quelli di java.
 Se sei d'accordo con il mio ragionamento puoi pure cancellare questo package.
 
 Stefano
+
+Sì, hai fatto bene, è proprio come dici!
