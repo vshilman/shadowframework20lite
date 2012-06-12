@@ -13,7 +13,7 @@ public class JavaIf  extends CodePattern{
 		addCodePiece(new OptionalCode(new UniqueKeyword("else")),new UniqueKeyword("if"),
 				new UniqueKeyword("("),
 				new JavaBooleanExpression(),new UniqueKeyword(")"));
-		addCodePattern(PatternType.IF,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.IF,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 }

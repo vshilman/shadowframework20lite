@@ -14,7 +14,7 @@ public class JavaConstructorDeclaration extends CodePattern {
 				new UniqueKeyword("("),
 				new JavaMethodVariables(),new UniqueKeyword(")"),
 				new OptionalCode(new JavaThrowsDeclaration()));
-		addCodePattern(PatternType.CONSTRUCTOR_DECLARATION);
+		addPatternType(PatternType.CONSTRUCTOR_DECLARATION);
 	}
 	
 }

@@ -19,7 +19,7 @@ public class JavaVariableDeclarationAndAssignment extends CodePattern {
 				new OptionalCode(new BestAlternativeCode(true, 
 						new JoglMethodEvaluation("."), new JavaAlgebraicExpression(),
 						new JavaBitwiseExpression(), new JavaNewStatement(), new JavaMethodEvaluation("."))));
-		addCodePattern(PatternType.VARIABLE_DECLARATION, PatternType.VARIABLE_ASSIGNMENT,
+		addPatternType(PatternType.VARIABLE_DECLARATION, PatternType.VARIABLE_ASSIGNMENT,
 				PatternType.ASSIGNMENT, PatternType.LINE_OF_CODE);
 	}
 }

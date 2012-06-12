@@ -16,6 +16,6 @@ public class JavaAttributeDeclaration extends CodePattern {
 						new JavaName(),new OptionalCode(new UniqueKeyword("=")),
 						new OptionalCode(new Number())
 				),","));
-		addCodePattern(PatternType.ATTRIBUTE_DECLARATION);
+		addPatternType(PatternType.ATTRIBUTE_DECLARATION);
 	}
 }
