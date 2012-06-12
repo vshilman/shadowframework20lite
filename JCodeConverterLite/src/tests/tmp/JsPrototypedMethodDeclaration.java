@@ -16,7 +16,7 @@ public class JsPrototypedMethodDeclaration  extends CodePattern {
 				new UniqueKeyword("]"),new UniqueKeyword("="));
 		addCodePiece(new UniqueKeyword("function"), new UniqueKeyword("("), new JsMethodVariables(),
 				new UniqueKeyword(")"));
-		addCodePattern(PatternType.METHOD_DECLARATION);
+		addPatternType(PatternType.METHOD_DECLARATION);
 	}
 	
 }
