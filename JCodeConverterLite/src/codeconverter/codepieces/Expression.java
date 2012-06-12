@@ -22,6 +22,7 @@ public abstract class Expression extends ICodePiece{
 		for (ICodePiece iCodePiece : piece) {
 			pieces.add(iCodePiece);
 		}
+		setPieceType(PieceType.EXPRESSION);
 	}
 
 	private int checkSeparators(String data, int matchPosition,
@@ -37,13 +38,6 @@ public abstract class Expression extends ICodePiece{
 		}
 		
 		return -1;
-	}
-	
-	
-	
-	@Override
-	public PieceType getPieceType() {
-		return PieceType.EXPRESSION;
 	}
 	
 	

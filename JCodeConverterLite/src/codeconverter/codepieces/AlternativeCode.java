@@ -20,11 +20,7 @@ public class AlternativeCode extends ICodePiece{
 			this.pieces.add(iCodePiece);
 		}
 		this.mandatory=mandatory;
-	}
-	
-	@Override
-	public PieceType getPieceType() {
-		return PieceType.SEQUENCE;
+		setPieceType(PieceType.SEQUENCE);
 	}
 	
 	@Override

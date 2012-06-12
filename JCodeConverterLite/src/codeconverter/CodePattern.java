@@ -40,7 +40,7 @@ public class CodePattern {
 	 * classify patterns.  
 	 * @param piece
 	 */
-	public void addCodePattern(PatternType... type) {
+	public void addPatternType(PatternType... type) {
 		for (int i=0; i < type.length; i++) {
 			patternType.add(type[i]);
 		}

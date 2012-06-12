@@ -1,0 +1,92 @@
+<class-diagram version="1.0.1" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="codeconverter.js.JsBooleanExpression" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/js/JsBooleanExpression.java" binary="false">    
+    <position x="727" y="120" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="codeconverter.java.JavaAlgebraicExpression" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/java/JavaAlgebraicExpression.java" 
+    binary="false">    
+    <position x="107" y="-48" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="codeconverter.codepieces.Expression" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/codepieces/Expression.java" binary="false">    
+    <position x="430" y="35" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="codeconverter.js.JsAlgebraicExpression" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/js/JsAlgebraicExpression.java" 
+    binary="false">    
+    <position x="724" y="-47" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="codeconverter.java.JavaBitwiseExpression" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/java/JavaBitwiseExpression.java" 
+    binary="false">    
+    <position x="102" y="34" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="codeconverter.js.JsBitwiseExpression" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/js/JsBitwiseExpression.java" binary="false">    
+    <position x="730" y="38" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="codeconverter.java.JavaBooleanExpression" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/java/JavaBooleanExpression.java" 
+    binary="false">    
+    <position x="103" y="119" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <generalization>    
+    <end type="SOURCE" nodeId="4"/>    
+    <end type="TARGET" nodeId="3"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="2"/>    
+    <end type="TARGET" nodeId="3"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="5"/>    
+    <end type="TARGET" nodeId="3"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="1"/>    
+    <end type="TARGET" nodeId="3"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="7"/>    
+    <end type="TARGET" nodeId="3"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="6"/>    
+    <end type="TARGET" nodeId="3"/>  
+  </generalization>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

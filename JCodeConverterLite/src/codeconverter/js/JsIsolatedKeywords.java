@@ -12,6 +12,6 @@ public class JsIsolatedKeywords extends CodePattern{
 	
 	public JsIsolatedKeywords() {
 		addCodePiece(new KeywordSet(isolatedKeyword));
-		addCodePattern(PatternType.ISOLATED_KEYWORDS);
+		addPatternType(PatternType.ISOLATED_KEYWORDS);
 	}
 }

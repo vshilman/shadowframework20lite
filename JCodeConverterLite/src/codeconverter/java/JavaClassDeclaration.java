@@ -15,7 +15,7 @@ public class JavaClassDeclaration extends CodePattern{
 				new UniqueKeyword("class"),new Name(PieceType.NAME),
 				new OptionalCode(new JavaExtendsDeclaration()),
 				new OptionalCode(new JavaImplementsDeclaration()));
-		addCodePattern(PatternType.CLASS_DECLARATION);
+		addPatternType(PatternType.CLASS_DECLARATION);
 	}
 
 }

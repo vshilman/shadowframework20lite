@@ -4,14 +4,11 @@ import codeconverter.PieceType;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.UniqueKeyword;
 
-public class JsVariable extends CompositeCodePiece{
+public class JsVariable extends CompositeCodePiece {
 
 	public JsVariable() {
-		add(new UniqueKeyword("var"),new JsName(PieceType.NAME));
+		add(new UniqueKeyword("var"), new JsName(PieceType.NAME));
+		setPieceType(PieceType.VARIABLE);
 	}
-	
-	@Override
-	public PieceType getPieceType() {
-		return PieceType.VARIABLE;
-	}
+
 }

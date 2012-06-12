@@ -14,7 +14,7 @@ public class JavaAttributeDeclarationAndAssignemnt extends CodePattern {
 				new UniqueKeyword("="),
 				new AlternativeCode(true,new JavaNewStatement(),new JavaAlgebraicExpression(),
 						new JavaBitwiseExpression(),new JoglMethodEvaluation("."),new JavaMethodEvaluation(".")));
-		addCodePattern(PatternType.ATTRIBUTE_DECLARATION,PatternType.ATTRIBUTE_ASSIGNMENT,PatternType.ASSIGNMENT);
+		addPatternType(PatternType.ATTRIBUTE_DECLARATION,PatternType.ATTRIBUTE_ASSIGNMENT,PatternType.ASSIGNMENT);
 	}
 
 }

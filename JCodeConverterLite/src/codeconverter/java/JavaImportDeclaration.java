@@ -8,7 +8,7 @@ public class JavaImportDeclaration extends CodePattern {
 	
 	public JavaImportDeclaration() {
 		addCodePiece(new UniqueKeyword("import"),new JavaName());
-		addCodePattern(PatternType.LIBRARY_DECLARATION);
+		addPatternType(PatternType.LIBRARY_DECLARATION);
 	}
 	
 }

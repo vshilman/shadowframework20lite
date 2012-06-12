@@ -21,6 +21,6 @@ public class JavaVariableAssignment extends CodePattern{
 				new UniqueKeyword("="),
 				new BestAlternativeCode(true,new JoglMethodEvaluation("."), new JavaMethodEvaluation("."),
 						new JavaAlgebraicExpression(),new JavaBitwiseExpression(),new JavaNewStatement()));
-		addCodePattern(PatternType.VARIABLE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.VARIABLE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 }

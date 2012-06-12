@@ -41,7 +41,7 @@ public class JavaFor  extends CodePattern{
 				new JavaAlgebraicExpression(),
 				new UniqueKeyword(";"),
 				update,new UniqueKeyword(")"));
-		addCodePattern(PatternType.FOR,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.FOR,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 }
