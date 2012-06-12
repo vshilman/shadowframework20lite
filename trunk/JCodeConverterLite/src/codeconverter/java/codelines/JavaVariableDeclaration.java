@@ -8,6 +8,6 @@ public class JavaVariableDeclaration extends CodePattern{
 
 	public JavaVariableDeclaration() {
 		addCodePiece(new JavaVariable());
-		addCodePattern(PatternType.VARIABLE_DECLARATION,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.VARIABLE_DECLARATION,PatternType.LINE_OF_CODE);
 	}
 }

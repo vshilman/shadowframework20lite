@@ -18,7 +18,7 @@ public class JsElse  extends CodePattern{
 						new JsBooleanExpression(),
 						new UniqueKeyword(")")))
 				);
-		addCodePattern(PatternType.ELSE,PatternType.ELSE_IF,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.ELSE,PatternType.ELSE_IF,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 }

@@ -17,7 +17,7 @@ public class JsReturnPattern extends CodePattern{
 				new OptionalCode(new UniqueKeyword("this.")),
 				new AlternativeCode(true,new JsAlgebraicExpression(),new JsBitwiseExpression(),
 						new WebGlMethodEvaluation("."),new JsMethodEvaluation(".")));
-		addCodePattern(PatternType.RETURN,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.RETURN,PatternType.LINE_OF_CODE);
 	}
 	
 }

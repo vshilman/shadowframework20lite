@@ -15,7 +15,7 @@ import codeconverter.java.jogl.JoglMethodEvaluation;
 
 public class JavaBitwiseExpression extends Expression{
 
-	public static String[] algebraicSymbols={
+	public static String[] bitwiseSymbols={
 		"&","|","^","~","<<",">>",">>>"
 	};
 	
@@ -57,7 +57,7 @@ public class JavaBitwiseExpression extends Expression{
 
 	@Override
 	public String[] getExpressionSeparators() {
-		return algebraicSymbols;
+		return bitwiseSymbols;
 	}
 	
 }

@@ -8,6 +8,6 @@ public class JsVariableDeclaration extends CodePattern{
 
 	public JsVariableDeclaration() {
 		addCodePiece(new JsVariable());
-		addCodePattern(PatternType.VARIABLE_DECLARATION,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.VARIABLE_DECLARATION,PatternType.LINE_OF_CODE);
 	}
 }

@@ -17,7 +17,7 @@ public class JavaReturnPattern extends CodePattern{
 				new OptionalCode(new UniqueKeyword("this.")),
 				new AlternativeCode(true, new JavaAlgebraicExpression(), new JavaBitwiseExpression(),
 						new JoglMethodEvaluation("."), new JavaMethodEvaluation(".")));
-		addCodePattern(PatternType.RETURN,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.RETURN,PatternType.LINE_OF_CODE);
 	}
 	
 }

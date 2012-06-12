@@ -1,0 +1,17 @@
+<class-diagram version="1.0.1" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="false" dependencies="false" nesting-relationships="true">  
+  <interface id="1" corner="BOTTOM_RIGHT" language="java" name="codeconverter.javaJsComparator.CodePatternComparator" 
+    project="JCodeConverterLite" 
+    file="/JCodeConverterLite/src/codeconverter/javaJsComparator/CodePatternComparator.java" binary="false">    
+    <position x="157" y="36" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

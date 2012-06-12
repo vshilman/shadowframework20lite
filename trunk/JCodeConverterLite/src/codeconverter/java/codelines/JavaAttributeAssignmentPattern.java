@@ -16,7 +16,7 @@ public class JavaAttributeAssignmentPattern extends CodePattern{
 		addCodePiece(new UniqueKeyword("this."),new JavaName(PieceType.NAME),new UniqueKeyword("="),
 				new AlternativeCode(true, new JavaNewStatement(), new JavaAlgebraicExpression(),
 						new JavaBitwiseExpression()));
-		addCodePattern(PatternType.ATTRIBUTE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.ATTRIBUTE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 

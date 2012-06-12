@@ -10,7 +10,7 @@ public class JsConstructorDeclaration extends CodePattern {
 	public JsConstructorDeclaration() {
 		addCodePiece(new UniqueKeyword("function"), new JsName(PieceType.NAME), new UniqueKeyword("("),
 				new JsMethodVariables(), new UniqueKeyword(")"));
-		addCodePattern(PatternType.CONSTRUCTOR_DECLARATION);
+		addPatternType(PatternType.CONSTRUCTOR_DECLARATION);
 	}
 
 }

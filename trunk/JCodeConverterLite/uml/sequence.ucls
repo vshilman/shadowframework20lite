@@ -1,0 +1,42 @@
+<class-diagram version="1.0.1" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="codeconverter.js.JsMethodVariables" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/js/JsMethodVariables.java" binary="false">    
+    <position x="209" y="325" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="codeconverter.codepieces.CodeSequence" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/codepieces/CodeSequence.java" 
+    binary="false">    
+    <position x="300" y="170" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="codeconverter.java.JavaMethodVariables" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/java/JavaMethodVariables.java" 
+    binary="false">    
+    <position x="387" y="325" width="-1" height="-1"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <generalization>    
+    <end type="SOURCE" nodeId="1"/>    
+    <end type="TARGET" nodeId="2"/>  
+  </generalization>  
+  <generalization>    
+    <end type="SOURCE" nodeId="3"/>    
+    <end type="TARGET" nodeId="2"/>  
+  </generalization>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
