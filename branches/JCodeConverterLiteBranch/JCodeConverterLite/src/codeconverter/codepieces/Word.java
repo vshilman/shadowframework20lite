@@ -10,7 +10,6 @@ import codeconverter.PieceType;
  */
 public class Word extends ICodePiece{
 
-	private PieceType pieceType;
 	private String word;
 	private ICodePiece wordBuilder=null; 
 	
@@ -27,14 +26,6 @@ public class Word extends ICodePiece{
 			return wordBuilder.elementMatch(data,matchPosition);
 		}
 		return new ICodePieceMatch(-1,null);
-	}
-
-	public PieceType getPieceType() {
-		return pieceType;
-	}
-
-	public void setPieceType(PieceType pieceType) {
-		this.pieceType=pieceType;
 	}
 	
 	public String getWord() {

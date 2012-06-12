@@ -12,7 +12,7 @@ public class JsClassDeclaration extends CodePattern{
 		addCodePiece(new Name(PieceType.NAME),new UniqueKeyword("."),new UniqueKeyword("prototype"),
 				new UniqueKeyword("=")
 				);
-		addCodePattern(PatternType.CLASS_DECLARATION);
+		addPatternType(PatternType.CLASS_DECLARATION);
 	}
 
 }

@@ -60,11 +60,17 @@ public class BooleanExpressionComparator extends CodePieceComparator {
 					return false;
 				}
 				if (javaPiece.getPieces().get(1).getPieceType() == PieceType.EXPRESSION) {
-					compare(javaPiece.getPieces().get(1), jsPiece.getPieces().get(1));
+					if (!compare(javaPiece.getPieces().get(1), jsPiece.getPieces().get(1))) {
+						return false;
+					}
 				} else if (javaPiece.getPieces().get(2).getPieceType() == PieceType.EXPRESSION) {
-					compare(javaPiece.getPieces().get(2), jsPiece.getPieces().get(2));
+					if (!compare(javaPiece.getPieces().get(2), jsPiece.getPieces().get(2))) {
+						return false;
+					}
 				} else if (javaPiece.getPieces().get(1).getPieceType() == PieceType.VARIABLE) {
-					nameComparator.compare(javaPiece.getPieces().get(1), jsPiece.getPieces().get(1));
+					if (!nameComparator.compare(javaPiece.getPieces().get(1), jsPiece.getPieces().get(1))) {
+						return false;
+					}
 				} else {
 					return false;
 				}

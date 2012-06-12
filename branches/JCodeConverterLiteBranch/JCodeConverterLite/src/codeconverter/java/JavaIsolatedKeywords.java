@@ -14,6 +14,6 @@ public class JavaIsolatedKeywords extends CodePattern{
 	
 	public JavaIsolatedKeywords() {
 		addCodePiece(new KeywordSet(isolatedKeyword));
-		addCodePattern(PatternType.ISOLATED_KEYWORDS);
+		addPatternType(PatternType.ISOLATED_KEYWORDS);
 	}
 }

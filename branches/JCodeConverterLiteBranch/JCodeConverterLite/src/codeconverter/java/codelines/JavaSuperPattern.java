@@ -15,7 +15,7 @@ public class JavaSuperPattern extends CodePattern{
 		addCodePiece(new UniqueKeyword("super"),new UniqueKeyword("("),
 				new OptionalCode(new CodeSequence(new AlternativeCode(true,new JavaAlgebraicExpression(),new JavaBitwiseExpression()),", ")),
 				new UniqueKeyword(")"));
-		addCodePattern(PatternType.SUPER,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.SUPER,PatternType.LINE_OF_CODE);
 	}
 
 }

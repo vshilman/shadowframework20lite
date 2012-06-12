@@ -22,6 +22,6 @@ public class JsVariableAssignment extends CodePattern{
 				new UniqueKeyword("="),
 				new BestAlternativeCode(true,new WebGlMethodEvaluation("."), new JsMethodEvaluation("."),
 						new JsAlgebraicExpression(),new JsBitwiseExpression(),new JsNewStatement(),new JsArrayContent()));
-		addCodePattern(PatternType.VARIABLE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.VARIABLE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 }

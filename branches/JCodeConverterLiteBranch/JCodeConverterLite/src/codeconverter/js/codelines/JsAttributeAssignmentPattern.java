@@ -16,7 +16,7 @@ public class JsAttributeAssignmentPattern extends CodePattern{
 		addCodePiece(new UniqueKeyword("this."),new JsName(PieceType.NAME),new UniqueKeyword("="),
 				new AlternativeCode(true, new JsNewStatement(), new JsAlgebraicExpression(),
 						new JsBitwiseExpression()));
-		addCodePattern(PatternType.ATTRIBUTE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.ATTRIBUTE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 

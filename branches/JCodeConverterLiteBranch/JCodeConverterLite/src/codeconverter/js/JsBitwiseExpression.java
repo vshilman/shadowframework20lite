@@ -13,7 +13,7 @@ import codeconverter.js.webgl.WebGlMethodEvaluation;
 
 public class JsBitwiseExpression extends Expression{
 
-	public static String[] algebraicSymbols={
+	public static String[] bitwiseSymbols={
 		"&","|","^","~","<<",">>",">>>"
 	};
 	
@@ -50,7 +50,7 @@ public class JsBitwiseExpression extends Expression{
 
 	@Override
 	public String[] getExpressionSeparators() {
-		return algebraicSymbols;
+		return bitwiseSymbols;
 	}
 	
 }

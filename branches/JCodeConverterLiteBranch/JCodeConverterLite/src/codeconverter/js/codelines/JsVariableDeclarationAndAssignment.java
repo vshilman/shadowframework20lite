@@ -20,7 +20,7 @@ public class JsVariableDeclarationAndAssignment extends CodePattern {
 				new OptionalCode(new BestAlternativeCode(true,
 						new WebGlMethodEvaluation("."), new JsAlgebraicExpression(), new JsBitwiseExpression(),
 						new JsNewStatement(), new JsMethodEvaluation("."), new JsArrayContent())));
-		addCodePattern(PatternType.VARIABLE_DECLARATION, PatternType.VARIABLE_ASSIGNMENT,
+		addPatternType(PatternType.VARIABLE_DECLARATION, PatternType.VARIABLE_ASSIGNMENT,
 				PatternType.ASSIGNMENT, PatternType.LINE_OF_CODE);
 	}
 }

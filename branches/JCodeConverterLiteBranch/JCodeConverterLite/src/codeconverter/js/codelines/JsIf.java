@@ -13,7 +13,7 @@ public class JsIf  extends CodePattern{
 		addCodePiece(new OptionalCode(new UniqueKeyword("else")),new UniqueKeyword("if"),
 				new UniqueKeyword("("),
 				new JsBooleanExpression(),new UniqueKeyword(")"));
-		addCodePattern(PatternType.IF,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
+		addPatternType(PatternType.IF,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 	
 }

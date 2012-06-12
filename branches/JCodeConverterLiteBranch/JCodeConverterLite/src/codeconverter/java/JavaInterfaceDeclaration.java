@@ -12,7 +12,7 @@ public class JavaInterfaceDeclaration  extends CodePattern{
 		addCodePiece(new CodeSequence(new JavaModifier(),""),
 				new UniqueKeyword("interface"),new JavaName(),
 				new OptionalCode(new JavaExtendsDeclaration()));
-		addCodePattern(PatternType.CLASS_DECLARATION);
+		addPatternType(PatternType.CLASS_DECLARATION);
 	}
 		
 }

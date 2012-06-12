@@ -15,7 +15,7 @@ public class JavaMethodDeclaration extends CodePattern{
 				new JavaMethodVariables(),
 				new UniqueKeyword(")"),
 				new OptionalCode(new JavaThrowsDeclaration()));
-		addCodePattern(PatternType.METHOD_DECLARATION);
+		addPatternType(PatternType.METHOD_DECLARATION);
 	}
 
 }
