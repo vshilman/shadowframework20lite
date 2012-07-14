@@ -1,4 +1,4 @@
-package tests.javaJsComparator;
+package tests.js;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -13,23 +13,22 @@ import codeconverter.BlockInterpreter;
 import codeconverter.CodeModule;
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
-import codeconverter.java.JavaCodePatternInterpreter;
+import codeconverter.js.JsCodePatternInterpreter;
 import codeconverter.utility.FileStringUtility;
 
-public class TestJavaTypesStructure {
+public class TestFileInterpretation {
 
-	private static final String DIRECTORY = "../OpenGL OfA/src/test/jogl/";
+	private static final String DIRECTORY = "../OpenGL OfA/src/test/WebGL/";
 
 	public static void main(String[] args) {
-
 		ArrayList<String> tests = new ArrayList<String>();
 
-		for (int i = 1; i <= 9; i++) {
-			tests.add(DIRECTORY + "Test_sv" + i + "Drawer.java");
+		for (int i = 4; i <= 4; i++) {
+			tests.add(DIRECTORY + "test_sv" + i + "Drawer.js");
 		}
 
-		for (int i = 1; i <= 2; i++) {
-			tests.add(DIRECTORY + "Test_va" + i + "Drawer.java");
+		for (int i = 1; i <= 0; i++) {
+			tests.add(DIRECTORY + "test_va" + i + "Drawer.js");
 		}
 
 		StringWriter logWriter = new StringWriter();
@@ -40,12 +39,13 @@ public class TestJavaTypesStructure {
 
 			String totalString = TestingUtilities.generateFileString(file);
 			char[] totalStringChars = totalString.toCharArray();
+			//System.out.println(totalString);
 
 			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
 
-			// System.out.println(fileBlock.print());
+			//System.out.println(fileBlock.print());
 
-			BlockInterpreter interpreter = new BlockInterpreter(new JavaCodePatternInterpreter());
+			BlockInterpreter interpreter = new BlockInterpreter(new JsCodePatternInterpreter());
 			HashMap<CodeModule, CodePattern> interpretation = interpreter.getInterpretation(fileBlock);
 
 			Set<CodeModule> keys = interpretation.keySet();
@@ -53,20 +53,18 @@ public class TestJavaTypesStructure {
 				CodePattern pattern = interpretation.get(codeModule);
 				String result;
 				if (pattern == null) {
-					result = "[unidentified] -------> " + codeModule;
+					result="[unidentified] -------> " + codeModule;
 					System.out.println(result);
 					logWriter.write(result+"\n");
 				} else {
-					result = "[" + patternType(pattern) + "] -------> " + pattern;
+					result="[" + patternType(pattern) + "] -------> " + pattern;
 					//System.out.println(result);
-					//System.out.println(pattern.printTypes() + "\n");
 					logWriter.write(result+"\n");
-					logWriter.write(pattern.printTypes()+"\n\n");
 				}
 			}
 		}
 		
-		FileStringUtility.writeTextFile("./src/tests/javaJsComparator/JavaLog.txt", logWriter.toString());
+		FileStringUtility.writeTextFile("./src/tests/js/log.txt", logWriter.toString());
 
 	}
 

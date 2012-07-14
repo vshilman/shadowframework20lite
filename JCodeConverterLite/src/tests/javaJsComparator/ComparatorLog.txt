@@ -3,16 +3,16 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 	public class Test_sv1Drawer
 		Test_sv1Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int vertexColorAttribute    
+	private int vertexColorAttribute   
 		var vertexColorAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
 	private int[] triangleVertexPositionBuffer   = new  int  [ 3 ] 
@@ -27,10 +27,10 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 	private int[] squareVertexColorBuffer   = new  int  [ 3 ] 
 		var squareVertexColorBuffer  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
 	 public void initShaders   ( GL2 gl   )
@@ -75,6 +75,9 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  triangleVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, triangleVertexPositionBuffer [ 0 ] )
 
+	float[] vertices   = { 0.0f,1.0f,0.0f,-1.0f,-1.0f,0.0f,1.0f,-1.0f,0.0f }
+		var vertices  = [ 0.0,1.0,0.0,-1.0,-1.0,0.0,1.0,-1.0,0.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices  ), gl. STATIC_DRAW )
 
@@ -90,6 +93,9 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  triangleVertexColorBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, triangleVertexColorBuffer [ 0 ] )
 
+	float[] colors   = { 1.0f,0.0f,0.0f,1.0f,0.0f,1.0f,0.0f,1.0f,0.0f,0.0f,1.0f,1.0f }
+		var colors  = [ 1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  colors.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  colors   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( colors  ), gl. STATIC_DRAW )
 
@@ -104,6 +110,9 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  squareVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, squareVertexPositionBuffer [ 0 ] )
+
+	float[] vertices2   = { 1.0f,1.0f,0.0f,-1.0f,1.0f,0.0f,1.0f,-1.0f,0.0f,-1.0f,-1.0f,0.0f }
+		var vertices2  = [ 1.0,1.0,0.0,-1.0,1.0,0.0,1.0,-1.0,0.0,-1.0,-1.0,0.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices2  ), gl. STATIC_DRAW )
@@ -125,9 +134,6 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 
 	for ( int i   = 0 ; i   < 4 ; i   ++  )
 		for ( var i  = 0 ; i  < 4 ; i  ++  )
-
-	int c   =  i  <<2
-		var c  = i <<2
 
 	colors2  [  c   ]  = 1
 		colors2 [ c  ]  = 1
@@ -165,6 +171,14 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 	 gl . gl Clear ( GL2 .GL_ COLOR_BUFFER_BIT|GL2 .GL_ DEPTH_BUFFER_BIT )
 		gl. clear ( gl. COLOR_BUFFER_BIT|gl. DEPTH_BUFFER_BIT )
 
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 }
+		pMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 ] )
+
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
+	float[] mvMatrixv   = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,-1.5f,0,0,1 }
+		mvMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,-1.5,0,0,1 ] )
+
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  triangleVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, triangleVertexPositionBuffer [ 0 ] )
 
@@ -182,6 +196,10 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 
 	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLES, 0,  triangleVertexPositionBuffer  [ 2 ] )
 		gl. drawArrays ( gl. TRIANGLES, 0, triangleVertexPositionBuffer [ 2 ] )
+
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
+	mvMatrixv    = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,1.5f,0,0,1 }
+		mvMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,1.5,0,0,1 ] )
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  squareVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, squareVertexPositionBuffer [ 0 ] )
@@ -202,33 +220,24 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, squareVertexPositionBuffer [ 2 ] )
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
-		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
-		var vertices  = [ 0.0,1.0,0.0,-1.0,-1.0,0.0,1.0,-1.0,0.0 ]
-		var colors  = [ 1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0 ]
-		var vertices2  = [ 1.0,1.0,0.0,-1.0,1.0,0.0,1.0,-1.0,0.0,-1.0,-1.0,0.0 ]
-		pMatrix   = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 ] )
-		mvMatrix   = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,-1.5,0,0,1 ] )
-		mvMatrix   = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,1.5,0,0,1 ] )
 
 
 Test_sv2Drawer.java VS test_sv2Drawer.js
 	public class Test_sv2Drawer
 		Test_sv2Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int vertexColorAttribute    
+	private int vertexColorAttribute   
 		var vertexColorAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
 	private int[] pyramidVertexPositionBuffer   = new  int  [ 3 ] 
@@ -243,10 +252,10 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 	private int[] baseVertexColorBuffer   = new  int  [ 3 ] 
 		var baseVertexColorBuffer  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
 	private double rAngle   = 0
@@ -297,6 +306,9 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexPositionBuffer [ 0 ] )
 
+	float[] vertices   = { 0.0f,1.0f,0.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f }
+		var vertices  = [ 0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices  ), gl. STATIC_DRAW )
 
@@ -311,6 +323,9 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexColorBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexColorBuffer [ 0 ] )
+
+	float[] colors   = { 1.0f,0.0f,0.0f,1.0f,0.0f,1.0f,0.0f,1.0f,0.0f,0.0f,1.0f,1.0f,0.0f,1.0f,0.0f,1.0f,0.0f,0.0f,1.0f,1.0f,0.0f,1.0f,0.0f,1.0f }
+		var colors  = [ 1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  colors.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  colors   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( colors  ), gl. STATIC_DRAW )
@@ -327,6 +342,9 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  baseVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, baseVertexPositionBuffer [ 0 ] )
 
+	float[] vertices2   = { -1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f }
+		var vertices2  = [ -1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices2  ), gl. STATIC_DRAW )
 
@@ -341,6 +359,9 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  baseVertexColorBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, baseVertexColorBuffer [ 0 ] )
+
+	float[] colors2   = { 0.0f,1.0f,0.0f,1.0f,0.0f,0.0f,1.0f,1.0f,0.0f,0.0f,1.0f,1.0f,0.0f,1.0f,0.0f,1.0f }
+		var colors2  = [ 0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  colors2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  colors2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( colors2  ), gl. STATIC_DRAW )
@@ -377,6 +398,14 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 
 	float sx   = ( float )  Math.sin   (  rAngle   )
 		var sx  =  Math.sin  ( rAngle  )
+
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
+	float[] mvMatrixv   = new  float  [  ]  {  cx  , sx  * sx  ,-cx* sx  ,0,0, cx  , sx  ,0, sx  ,-cx* sx  , cx  * cx  ,0,0,0,-8,1 }
+		mvMatrix   = new Float32Array  ( [ cx ,sx *sx ,-cx*sx ,0,0,cx ,sx ,0,sx ,-cx*sx ,cx *cx ,0,0,0,-8,1 ] )
 
 	 gl . gl FrontFace ( GL2 .GL_ CCW )
 		gl. frontFace ( gl. CCW )
@@ -432,9 +461,6 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	rAngle   + = 1.57* elapsed  *0.001
 		rAngle  + = 1.57*elapsed *0.001
 
@@ -442,35 +468,27 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 		lastTime   = timeNow 
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
-		var vertices  = [ 0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0 ]
-		var colors  = [ 1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0 ]
-		var vertices2  = [ -1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0 ]
-		var colors2  = [ 0.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0,1.0 ]
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		mvMatrix   = new  Float32Array  ( [ cx ,sx *sx ,-cx*sx ,0,0,cx ,sx ,0,sx ,-cx*sx ,cx *cx ,0,0,0,-8,1 ] )
 
 
 Test_sv3Drawer.java VS test_sv3Drawer.js
 	public class Test_sv3Drawer
 		Test_sv3Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int textureCoordAttribute    
+	private int textureCoordAttribute   
 		var textureCoordAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int samplerUniform    
+	private int samplerUniform   
 		var samplerUniform 
 
 	private int[] cubeVertexPositionBuffer   = new  int  [ 3 ] 
@@ -485,10 +503,10 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 	private int[] texture1   = new  int  [ 1 ] 
 		var texture1  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
 	private double rAngle   = 0
@@ -542,6 +560,9 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
 
+	float[] vertices   = { -1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f }
+		var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices  ), gl. STATIC_DRAW )
 
@@ -557,6 +578,9 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords   = { 0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,1.0f,1.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f }
+		var textureCoords  = [ 0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords  ), gl. STATIC_DRAW )
 
@@ -571,6 +595,9 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+
+	short[] cubeVertexIndices   = { 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 }
+		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  cubeVertexIndices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( cubeVertexIndices  ), gl. STATIC_DRAW )
@@ -634,6 +661,14 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 	float sx   = ( float )  Math.sin   (  rAngle   )
 		var sx  =  Math.sin  ( rAngle  )
 
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
+	float[] mvMatrixv   = new  float  [  ]  {  cx  * cx  , cx  * (  sx  * sx  + sx   ), sx  * sx  - cx  * cx  * sx  ,0,-cx* sx  , cx  * cx  - sx  * sx  * sx  , cx  * (  sx  * sx  + sx   ),0, sx  ,-cx* sx  , cx  * cx  ,0,0,0,-8,1 }
+		mvMatrix   = new Float32Array  ( [ cx *cx ,cx *( sx *sx +sx  ),sx *sx -cx *cx *sx ,0,-cx*sx ,cx *cx -sx *sx *sx ,cx *( sx *sx +sx  ),0,sx ,-cx*sx ,cx *cx ,0,0,0,-8,1 ] )
+
 	 gl . gl FrontFace ( GL2 .GL_ CCW )
 		gl. frontFace ( gl. CCW )
 
@@ -679,9 +714,6 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	rAngle   + = 1.57* elapsed  *0.001
 		rAngle  + = 1.57*elapsed *0.001
 
@@ -689,34 +721,27 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 		lastTime   = timeNow 
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
-		var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
-		var textureCoords  = [ 0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0 ]
-		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 ]
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		mvMatrix   = new  Float32Array  ( [ cx *cx ,cx *( sx *sx +sx  ),sx *sx -cx *cx *sx ,0,-cx*sx ,cx *cx -sx *sx *sx ,cx *( sx *sx +sx  ),0,sx ,-cx*sx ,cx *cx ,0,0,0,-8,1 ] )
 
 
 Test_sv4Drawer.java VS test_sv4Drawer.js
 	public class Test_sv4Drawer
 		Test_sv4Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int textureCoordAttribute    
+	private int textureCoordAttribute   
 		var textureCoordAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int samplerUniform    
+	private int samplerUniform   
 		var samplerUniform 
 
 	private int[] cubeVertexPositionBuffer   = new  int  [ 3 ] 
@@ -731,10 +756,10 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 	private int[] textures   = new  int  [ 3 ] 
 		var textures  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
 	private double rAnglex   = 0
@@ -809,6 +834,9 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
 
+	float[] vertices   = { -1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f }
+		var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices  ), gl. STATIC_DRAW )
 
@@ -824,6 +852,9 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords   = { 0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f,0.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,1.0f,1.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f,0.0f,0.0f,0.0f,0.0f,1.0f,0.0f,1.0f,1.0f,0.0f,1.0f }
+		var textureCoords  = [ 0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords  ), gl. STATIC_DRAW )
 
@@ -838,6 +869,9 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+
+	short[] cubeVertexIndices   = { 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 }
+		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  cubeVertexIndices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( cubeVertexIndices  ), gl. STATIC_DRAW )
@@ -938,6 +972,14 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
 
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
+	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
+		mvMatrix   = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
+
 	 gl . gl FrontFace ( GL2 .GL_ CCW )
 		gl. frontFace ( gl. CCW )
 
@@ -983,9 +1025,6 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	rAnglex   + =  speedx  * elapsed  *0.001
 		rAnglex  + = speedx *elapsed *0.001
 
@@ -1003,9 +1042,6 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 
 	 if ( lastTime2  !=0 )
 		 if ( lastTime2 !=0 )
-
-	long elapsed   =  timeNow  - lastTime2  
-		var elapsed  = timeNow -lastTime2 
 
 	 if ( commands  [ 0 ] )
 		 if ( commands [ 0 ] )
@@ -1104,34 +1140,27 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
-		var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
-		var textureCoords  = [ 0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0 ]
-		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 ]
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		mvMatrix   = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 
 Test_sv5Drawer.java VS test_sv5Drawer.js
 	public class Test_sv5Drawer
 		Test_sv5Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int textureCoordAttribute    
+	private int textureCoordAttribute   
 		var textureCoordAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int samplerUniform    
+	private int samplerUniform   
 		var samplerUniform 
 
 	private int[] cubeVertexPositionBuffer   = new  int  [ 3 ] 
@@ -1146,10 +1175,10 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 	private int[] textures   = new  int  [ 3 ] 
 		var textures  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
 	private double rAnglex   = 0
@@ -1224,6 +1253,9 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
 
+	float[] vertices   = { -1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f }
+		var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices  ), gl. STATIC_DRAW )
 
@@ -1239,6 +1271,9 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords   = { -1.0f,-1.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f,-1.0f,-1.0f,-1.0f,2.0f,-1.0f,-1.0f,2.0f,-1.0f,2.0f,2.0f,2.0f,2.0f,-1.0f,2.0f,-1.0f,-1.0f,2.0f,-1.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f,-1.0f,-1.0f,-1.0f,-1.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f }
+		var textureCoords  = [ -1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords  ), gl. STATIC_DRAW )
 
@@ -1253,6 +1288,9 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+
+	short[] cubeVertexIndices   = { 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 }
+		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  cubeVertexIndices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( cubeVertexIndices  ), gl. STATIC_DRAW )
@@ -1377,6 +1415,14 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
 
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
+	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
+		mvMatrix   = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
+
 	 gl . gl FrontFace ( GL2 .GL_ CCW )
 		gl. frontFace ( gl. CCW )
 
@@ -1422,9 +1468,6 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	rAnglex   + =  speedx  * elapsed  *0.001
 		rAnglex  + = speedx *elapsed *0.001
 
@@ -1442,9 +1485,6 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 
 	 if ( lastTime2  !=0 )
 		 if ( lastTime2 !=0 )
-
-	long elapsed   =  timeNow  - lastTime2  
-		var elapsed  = timeNow -lastTime2 
 
 	 if ( commands  [ 0 ] )
 		 if ( commands [ 0 ] )
@@ -1543,49 +1583,42 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
-		var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
-		var textureCoords  = [ -1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0 ]
-		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 ]
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		mvMatrix   = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 
 Test_sv6Drawer.java VS test_sv6Drawer.js
 	public class Test_sv6Drawer
 		Test_sv6Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int vertexNormalAttribute    
+	private int vertexNormalAttribute   
 		var vertexNormalAttribute 
 
-	private int textureCoordAttribute    
+	private int textureCoordAttribute   
 		var textureCoordAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int nMatrixUniform    
+	private int nMatrixUniform   
 		var nMatrixUniform 
 
-	private int samplerUniform    
+	private int samplerUniform   
 		var samplerUniform 
 
-	private int ambientColorUniform    
+	private int ambientColorUniform   
 		var ambientColorUniform 
 
-	private int lightingDirectionUniform    
+	private int lightingDirectionUniform   
 		var lightingDirectionUniform 
 
-	private int directionalColorUniform    
+	private int directionalColorUniform   
 		var directionalColorUniform 
 
 	private int[] cubeVertexPositionBuffer   = new  int  [ 3 ] 
@@ -1603,13 +1636,13 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 	private int[] textures   = new  int  [ 1 ] 
 		var textures  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
-	private FloatBuffer normalMatrix    
+	private FloatBuffer normalMatrix   
 		var normalMatrix 
 
 	private double rAnglex   = 0
@@ -1696,6 +1729,10 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 	 gl . gl Uniform3f (  ambientColorUniform  , 0.1f, 0.1f, 0.1f )
 		gl. uniform3f ( ambientColorUniform , 0.1, 0.1, 0.1 )
 
+	FloatBuffer lightingDirection   =   BufferUtil.newFloatBuffer   (  lightingDirectionv   )
+	float[] lightingDirectionv   = new  float  [  ]  { 0.57735026918962576450914878050196f,0.57735026918962576450914878050196f,0.57735026918962576450914878050196f }
+		var lightingDirection  = new Float32Array  ( [ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ] )
+
 	 gl . gl Uniform3fv (  lightingDirectionUniform  ,  lightingDirectionv.length  ,  lightingDirection   )
 		gl. uniform3fv ( lightingDirectionUniform , lightingDirection  )
 
@@ -1710,6 +1747,9 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
+
+	float[] vertices   = { -1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f }
+		var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices  ), gl. STATIC_DRAW )
@@ -1726,6 +1766,9 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexNormalBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexNormalBuffer [ 0 ] )
 
+	float[] normals   = { 0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f }
+		var normals  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals  ), gl. STATIC_DRAW )
 
@@ -1741,6 +1784,9 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords   = { -1.0f,-1.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f,-1.0f,-1.0f,-1.0f,2.0f,-1.0f,-1.0f,2.0f,-1.0f,2.0f,2.0f,2.0f,2.0f,-1.0f,2.0f,-1.0f,-1.0f,2.0f,-1.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f,-1.0f,-1.0f,-1.0f,-1.0f,2.0f,-1.0f,2.0f,2.0f,-1.0f,2.0f }
+		var textureCoords  = [ -1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords  ), gl. STATIC_DRAW )
 
@@ -1755,6 +1801,9 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+
+	short[] cubeVertexIndices   = { 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 }
+		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  cubeVertexIndices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( cubeVertexIndices  ), gl. STATIC_DRAW )
@@ -1836,6 +1885,13 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
 
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
+		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
+
 	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 		mvMatrix   = mvMatrixv 
 
@@ -1896,9 +1952,6 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	rAnglex   + =  speedx  * elapsed  *0.001
 		rAnglex  + = speedx *elapsed *0.001
 
@@ -1916,9 +1969,6 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 
 	 if ( lastTime2  !=0 )
 		 if ( lastTime2 !=0 )
-
-	long elapsed   =  timeNow  - lastTime2  
-		var elapsed  = timeNow -lastTime2 
 
 	 if ( commands  [ 0 ] )
 		 if ( commands [ 0 ] )
@@ -2011,48 +2061,39 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
-		FloatBuffer lightingDirection   =   BufferUtil.newFloatBuffer   (  lightingDirectionv   )
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
-		var lightingDirection  = new  Float32Array  ( [ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ] )
-		var vertices  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
-		var normals  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0 ]
-		var textureCoords  = [ -1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,2.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0,-1.0,-1.0,-1.0,-1.0,2.0,-1.0,2.0,2.0,-1.0,2.0 ]
-		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15,16,17,18,16,18,19,20,21,22,20,22,23 ]
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 
 Test_sv7Drawer.java VS test_sv7Drawer.js
 	public class Test_sv7Drawer
 		Test_sv7Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int vertexNormalAttribute    
+	private int vertexNormalAttribute   
 		var vertexNormalAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int nMatrixUniform    
+	private int nMatrixUniform   
 		var nMatrixUniform 
 
-	private int ambientColorUniform    
+	private int ambientColorUniform   
 		var ambientColorUniform 
 
-	private int pointLightingLocationUniform    
+	private int pointLightingLocationUniform   
 		var pointLightingLocationUniform 
 
-	private int pointLightingColorUniform    
+	private int pointLightingColorUniform   
 		var pointLightingColorUniform 
 
-	private int shaderUniform    
+	private int shaderUniform   
 		var shaderUniform 
 
 	private int shaderChoice   = 0
@@ -2067,13 +2108,13 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 	private int[] sphereVertexIndexBuffer   = new  int  [ 3 ] 
 		var sphereVertexIndexBuffer  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
-	private FloatBuffer normalMatrix    
+	private FloatBuffer normalMatrix   
 		var normalMatrix 
 
 	private double rAnglex   = 0
@@ -2184,9 +2225,6 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 	for ( int i   = 0 ; i   <=  latitudeBands   ; i   ++  )
 		for ( var i  = 0 ; i  <= latitudeBands  ; i  ++  )
 
-	float theta   = ( float ) (  i  * Math.PI  / latitudeBands   )
-		var theta  = i *Math.PI /latitudeBands 
-
 	float sinTheta   = ( float )  Math.sin   (  theta   )
 		var sinTheta  =  Math.sin  ( theta  )
 
@@ -2195,9 +2233,6 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 
 	for ( int j   = 0 ; j   <=  longitudeBands   ; j   ++  )
 		for ( var j  = 0 ; j  <= longitudeBands  ; j  ++  )
-
-	float phi   = ( float ) (  j  *2* Math.PI  / longitudeBands   )
-		var phi  = ( j *2*Math.PI /longitudeBands  )
 
 	float sinPhi   = ( float )  Math.sin   (  phi   )
 		var sinPhi  =  Math.sin  ( phi  )
@@ -2237,36 +2272,6 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 
 	for ( int i   = 0 ; i   <  latitudeBands   ; i   ++  )
 		for ( var i  = 0 ; i  < latitudeBands  ; i  ++  )
-
-	for ( int j   = 0 ; j   <  longitudeBands   ; j   ++  )
-		for ( var j  = 0 ; j  < longitudeBands  ; j  ++  )
-
-	short first   = ( short ) (  (  i  * (  longitudeBands  +1 ) )+ j   )
-		var first  = ( i *( longitudeBands +1 ) )+j 
-
-	short second   = ( short ) (  first  + longitudeBands  +1 )
-		var second  = first +longitudeBands +1
-
-	int index   = 6* (  j  + i  * longitudeBands   )
-		var index  = 6*( j +i *longitudeBands  )
-
-	sphereVertexIndices  [  index   ]  =  first  
-		sphereVertexIndices [ index  ]  = first 
-
-	sphereVertexIndices  [  index  +1 ]  =  second  
-		sphereVertexIndices [ index +1 ]  = second 
-
-	sphereVertexIndices  [  index  +2 ]  = ( short ) (  first  +1 )
-		sphereVertexIndices [ index +2 ]  = first +1
-
-	sphereVertexIndices  [  index  +3 ]  =  second  
-		sphereVertexIndices [ index +3 ]  = second 
-
-	sphereVertexIndices  [  index  +4 ]  = ( short ) (  second  +1 )
-		sphereVertexIndices [ index +4 ]  = second +1
-
-	sphereVertexIndices  [  index  +5 ]  = ( short ) (  first  +1 )
-		sphereVertexIndices [ index +5 ]  = first +1
 
 	 gl . gl GenBuffers ( 1,  sphereVertexPositionBuffer  , 0 )
 		sphereVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
@@ -2352,6 +2357,13 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
 
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
+		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
+
 	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 		mvMatrix   = mvMatrixv 
 
@@ -2397,9 +2409,6 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	rAnglex   + =  speedx  * elapsed  *0.001
 		rAnglex  + = speedx *elapsed *0.001
 
@@ -2417,9 +2426,6 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 
 	 if ( lastTime2  !=0 )
 		 if ( lastTime2 !=0 )
-
-	long elapsed   =  timeNow  - lastTime2  
-		var elapsed  = timeNow -lastTime2 
 
 	 if ( commands  [ 0 ] )
 		 if ( commands [ 0 ] )
@@ -2518,45 +2524,42 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 
 Test_sv8Drawer.java VS test_sv8Drawer.js
 	public class Test_sv8Drawer
 		Test_sv8Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int vertexNormalAttribute    
+	private int vertexNormalAttribute   
 		var vertexNormalAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int nMatrixUniform    
+	private int nMatrixUniform   
 		var nMatrixUniform 
 
-	private int ambientColorUniform    
+	private int ambientColorUniform   
 		var ambientColorUniform 
 
-	private int pointLightingLocationUniform    
+	private int pointLightingLocationUniform   
 		var pointLightingLocationUniform 
 
-	private int pointLightingSpecularColorUniform    
+	private int pointLightingSpecularColorUniform   
 		var pointLightingSpecularColorUniform 
 
-	private int pointLightingDiffuseColorUniform    
+	private int pointLightingDiffuseColorUniform   
 		var pointLightingDiffuseColorUniform 
 
-	private int materialShininessUniform    
+	private int materialShininessUniform   
 		var materialShininessUniform 
 
 	private int[] teapotVertexPositionBuffer   = new  int  [ 3 ] 
@@ -2568,13 +2571,13 @@ Test_sv8Drawer.java VS test_sv8Drawer.js
 	private int[] teapotVertexIndexBuffer   = new  int  [ 3 ] 
 		var teapotVertexIndexBuffer  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
-	private FloatBuffer normalMatrix    
+	private FloatBuffer normalMatrix   
 		var normalMatrix 
 
 	private double rAnglex   = 0
@@ -2757,6 +2760,13 @@ Test_sv8Drawer.java VS test_sv8Drawer.js
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
 
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
+		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
+
 	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 		mvMatrix   = mvMatrixv 
 
@@ -2802,9 +2812,6 @@ Test_sv8Drawer.java VS test_sv8Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	rAnglex   + =  speedx  * elapsed  *0.001
 		rAnglex  + = speedx *elapsed *0.001
 
@@ -2822,9 +2829,6 @@ Test_sv8Drawer.java VS test_sv8Drawer.js
 
 	 if ( lastTime2  !=0 )
 		 if ( lastTime2 !=0 )
-
-	long elapsed   =  timeNow  - lastTime2  
-		var elapsed  = timeNow -lastTime2 
 
 	 if ( commands  [ 0 ] )
 		 if ( commands [ 0 ] )
@@ -2917,54 +2921,51 @@ Test_sv8Drawer.java VS test_sv8Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 
 Test_sv9Drawer.java VS test_sv9Drawer.js
 	public class Test_sv9Drawer
 		Test_sv9Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int vertexNormalAttribute    
+	private int vertexNormalAttribute   
 		var vertexNormalAttribute 
 
-	private int textureCoordAttribute    
+	private int textureCoordAttribute   
 		var textureCoordAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int nMatrixUniform    
+	private int nMatrixUniform   
 		var nMatrixUniform 
 
-	private int samplerUniform    
+	private int samplerUniform   
 		var samplerUniform 
 
-	private int ambientColorUniform    
+	private int ambientColorUniform   
 		var ambientColorUniform 
 
-	private int pointLightingLocationUniform    
+	private int pointLightingLocationUniform   
 		var pointLightingLocationUniform 
 
-	private int pointLightingSpecularColorUniform    
+	private int pointLightingSpecularColorUniform   
 		var pointLightingSpecularColorUniform 
 
-	private int pointLightingDiffuseColorUniform    
+	private int pointLightingDiffuseColorUniform   
 		var pointLightingDiffuseColorUniform 
 
-	private int materialShininessUniform    
+	private int materialShininessUniform   
 		var materialShininessUniform 
 
-	private int alphaUniform    
+	private int alphaUniform   
 		var alphaUniform 
 
 	private int[] greenVertexPositionBuffer   = new  int  [ 3 ] 
@@ -2991,13 +2992,13 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	private int[] textures   = new  int  [ 2 ] 
 		var textures  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
-	private FloatBuffer normalMatrix    
+	private FloatBuffer normalMatrix   
 		var normalMatrix 
 
 	private float zoom   = -8
@@ -3014,6 +3015,9 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 
 	private int lastMouseY   = -1
 		var lastMouseY  = -1
+
+	private float[] rotationMatrix   = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1 }
+		var rotationMatrix  = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1 ] )
 
 	 public void initShaders   ( GL2 gl   )
 		 initShaders : function ( gl  )
@@ -3123,9 +3127,6 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	for ( int i   = 0 ; i   <=  latitudeBands   ; i   ++  )
 		for ( var i  = 0 ; i  <= latitudeBands  ; i  ++  )
 
-	float theta   = ( float ) (  i  * Math.PI  / latitudeBands   )
-		var theta  = i *Math.PI /latitudeBands 
-
 	float sinTheta   = ( float )  Math.sin   (  theta   )
 		var sinTheta  =  Math.sin  ( theta  )
 
@@ -3134,9 +3135,6 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 
 	for ( int j   = 0 ; j   <=  longitudeBands   ; j   ++  )
 		for ( var j  = 0 ; j  <= longitudeBands  ; j  ++  )
-
-	float phi   = ( float ) (  j  *2* Math.PI  / longitudeBands   )
-		var phi  = ( j *2*Math.PI /longitudeBands  )
 
 	float sinPhi   = ( float )  Math.sin   (  phi   )
 		var sinPhi  =  Math.sin  ( phi  )
@@ -3191,36 +3189,6 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 
 	for ( int i   = 0 ; i   <  latitudeBands   ; i   ++  )
 		for ( var i  = 0 ; i  < latitudeBands  ; i  ++  )
-
-	for ( int j   = 0 ; j   <  longitudeBands   ; j   ++  )
-		for ( var j  = 0 ; j  < longitudeBands  ; j  ++  )
-
-	short first   = ( short ) (  (  i  * (  longitudeBands  +1 ) )+ j   )
-		var first  = ( i *( longitudeBands +1 ) )+j 
-
-	short second   = ( short ) (  first  + longitudeBands  +1 )
-		var second  = first +longitudeBands +1
-
-	int index   = 6* (  j  + i  * longitudeBands   )
-		var index  = 6*( j +i *longitudeBands  )
-
-	sphereVertexIndices  [  index   ]  =  first  
-		sphereVertexIndices [ index  ]  = first 
-
-	sphereVertexIndices  [  index  +1 ]  =  second  
-		sphereVertexIndices [ index +1 ]  = second 
-
-	sphereVertexIndices  [  index  +2 ]  = ( short ) (  first  +1 )
-		sphereVertexIndices [ index +2 ]  = first +1
-
-	sphereVertexIndices  [  index  +3 ]  =  second  
-		sphereVertexIndices [ index +3 ]  = second 
-
-	sphereVertexIndices  [  index  +4 ]  = ( short ) (  second  +1 )
-		sphereVertexIndices [ index +4 ]  = second +1
-
-	sphereVertexIndices  [  index  +5 ]  = ( short ) (  first  +1 )
-		sphereVertexIndices [ index +5 ]  = first +1
 
 	 gl . gl GenBuffers ( 1,  sphereVertexPositionBuffer  , 0 )
 		sphereVertexPositionBuffer [ 0 ]  = gl. createBuffer (  )
@@ -3288,6 +3256,9 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
 
+	float[] vertices2   = { -1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f }
+		var vertices2  = [ -1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices2  ), gl. STATIC_DRAW )
 
@@ -3303,6 +3274,9 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords2   = { 0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f }
+		var textureCoords2  = [ 0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords2  ), gl. STATIC_DRAW )
 
@@ -3317,6 +3291,9 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexNormalBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexNormalBuffer [ 0 ] )
+
+	float[] normals2   = { 0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f }
+		var normals2  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals2  ), gl. STATIC_DRAW )
@@ -3410,6 +3387,13 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	 gl . gl Clear ( GL2 .GL_ COLOR_BUFFER_BIT|GL2 .GL_ DEPTH_BUFFER_BIT )
 		gl. clear ( gl. COLOR_BUFFER_BIT|gl. DEPTH_BUFFER_BIT )
 
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	float[] mvMatrixv   = new  float  [  ]  { 10,0,0,0,0,10,0,0,0,0,10,0,0,0, zoom  ,1 }
+		var mvMatrixv  = new Float32Array  ( [ 10,0,0,0,0,10,0,0,0,0,10,0,0,0,zoom ,1 ] )
+
 	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 		mvMatrix   = mvMatrixv 
 
@@ -3454,6 +3438,9 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 
 	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLE_STRIP, 0,  greenVertexPositionBuffer  [ 2 ] )
 		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, greenVertexPositionBuffer [ 2 ] )
+
+	mvMatrixv    = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,0,0, zoom  ,1 }
+		mvMatrixv   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,zoom ,1 ] )
 
 	mvMatrixv    =   Util.multiplyMatrix   (  rotationMatrix  ,  mvMatrixv   )
 		mvMatrixv   =  multiplyMatrix  ( rotationMatrix , mvMatrixv  )
@@ -3514,9 +3501,6 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 
 	 if ( lastTime2  !=0 )
 		 if ( lastTime2 !=0 )
-
-	long elapsed   =  timeNow  - lastTime2  
-		var elapsed  = timeNow -lastTime2 
 
 	 if ( commands  [ 0 ] )
 		 if ( commands [ 0 ] )
@@ -3596,6 +3580,9 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
 
+	float[] newRotationMatrix   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0,0,1 }
+		var newRotationMatrix  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,0,1 ] )
+
 	rotationMatrix    =   Util.multiplyMatrix   (  rotationMatrix  ,  newRotationMatrix   )
 		rotationMatrix   =  multiplyMatrix  ( rotationMatrix , newRotationMatrix  )
 
@@ -3606,36 +3593,27 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 		lastMouseY   = e.clientY 
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
-		var rotationMatrix  = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1 ] )
-		var vertices2  = [ -1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0 ]
-		var textureCoords2  = [ 0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0 ]
-		var normals2  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0 ]
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		var mvMatrixv  = new  Float32Array  ( [ 10,0,0,0,0,10,0,0,0,0,10,0,0,0,zoom ,1 ] )
-		mvMatrixv   = new  Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,zoom ,1 ] )
-		var newRotationMatrix  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,0,1 ] )
 
 
 Test_va1Drawer.java VS test_va1Drawer.js
 	public class Test_va1Drawer
 		Test_va1Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int textureCoordAttribute    
+	private int textureCoordAttribute   
 		var textureCoordAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int samplerUniform    
+	private int samplerUniform   
 		var samplerUniform 
 
 	private int[] doorVertexPositionBuffer   = new  int  [ 3 ] 
@@ -3668,10 +3646,10 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	private int[] textures   = new  int  [ 4 ] 
 		var textures  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
 	private double rAnglex   = 0
@@ -3743,6 +3721,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexPositionBuffer [ 0 ] )
 
+	float[] vertices1   = { 0.0f,1.0f,0.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f }
+		var vertices1  = [ 0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices1   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices1  ), gl. STATIC_DRAW )
 
@@ -3757,6 +3738,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexTextureCoordBuffer [ 0 ] )
+
+	float[] textureCoords1   = { 3.0f,0.0f,0.0f,6.0f,6.0f,6.0f,0.0f,6.0f,6.0f,6.0f,0.0f,6.0f }
+		var textureCoords1  = [ 3.0,0.0,0.0,6.0,6.0,6.0,0.0,6.0,6.0,6.0,0.0,6.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords1   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords1  ), gl. STATIC_DRAW )
@@ -3773,6 +3757,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
 
+	float[] vertices2   = { -1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f }
+		var vertices2  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices2  ), gl. STATIC_DRAW )
 
@@ -3787,6 +3774,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
+
+	float[] textureCoords2   = { 0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,0.0f,0.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f }
+		var textureCoords2  = [ 0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords2  ), gl. STATIC_DRAW )
@@ -3803,6 +3793,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
 
+	short[] cubeVertexIndices   = { 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15 }
+		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  cubeVertexIndices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( cubeVertexIndices  ), gl. STATIC_DRAW )
 
@@ -3817,6 +3810,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
+
+	float[] vertices3   = { -1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f }
+		var vertices3  = [ -1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices3   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices3  ), gl. STATIC_DRAW )
@@ -3833,6 +3829,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords3   = { 0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f }
+		var textureCoords3  = [ 0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords3   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords3  ), gl. STATIC_DRAW )
 
@@ -3848,6 +3847,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexPositionBuffer [ 0 ] )
 
+	float[] vertices4   = { -0.2f,-1.0f,1.001f,0.2f,-1.0f,1.001f,-0.2f,0.0f,1.001f,0.2f,0.0f,1.001f }
+		var vertices4  = [ -0.2,-1.0,1.001,0.2,-1.0,1.001,-0.2,0.0,1.001,0.2,0.0,1.001 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices4   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices4  ), gl. STATIC_DRAW )
 
@@ -3862,6 +3864,9 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexTextureCoordBuffer [ 0 ] )
+
+	float[] textureCoords4   = { 0.0f,1.0f,1.0f,1.0f,0.0f,0.0f,1.0f,0.0f }
+		var textureCoords4  = [ 0.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords4   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords4  ), gl. STATIC_DRAW )
@@ -4015,6 +4020,13 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
+
+	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
+	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,-cx, zoom  - sx  ,1 }
+		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,-cx,zoom -sx ,1 ] )
 
 	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 		mvMatrix   = mvMatrixv 
@@ -4178,9 +4190,6 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	rAnglex   + =  speedx  * elapsed  *0.001
 		rAnglex  + = speedx *elapsed *0.001
 
@@ -4198,9 +4207,6 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	 if ( lastTime2  !=0 )
 		 if ( lastTime2 !=0 )
-
-	long elapsed   =  timeNow  - lastTime2  
-		var elapsed  = timeNow -lastTime2 
 
 	 if ( commands  [ 0 ] )
 		 if ( commands [ 0 ] )
@@ -4293,63 +4299,51 @@ Test_va1Drawer.java VS test_va1Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
-		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
-		var vertices1  = [ 0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0 ]
-		var textureCoords1  = [ 3.0,0.0,0.0,6.0,6.0,6.0,0.0,6.0,6.0,6.0,0.0,6.0 ]
-		var vertices2  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
-		var textureCoords2  = [ 0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0 ]
-		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15 ]
-		var vertices3  = [ -1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0 ]
-		var textureCoords3  = [ 0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0 ]
-		var vertices4  = [ -0.2,-1.0,1.001,0.2,-1.0,1.001,-0.2,0.0,1.001,0.2,0.0,1.001 ]
-		var textureCoords4  = [ 0.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0 ]
-		pMatrix   = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,-cx,zoom -sx ,1 ] )
 
 
 Test_va2Drawer.java VS test_va2Drawer.js
 	public class Test_va2Drawer
 		Test_va2Drawer . prototype =
 
-	private int vertexPositionAttribute    
+	private int vertexPositionAttribute   
 		var vertexPositionAttribute 
 
-	private int vertexNormalAttribute    
+	private int vertexNormalAttribute   
 		var vertexNormalAttribute 
 
-	private int textureCoordAttribute    
+	private int textureCoordAttribute   
 		var textureCoordAttribute 
 
-	private int pMatrixUniform    
+	private int pMatrixUniform   
 		var pMatrixUniform 
 
-	private int mvMatrixUniform    
+	private int mvMatrixUniform   
 		var mvMatrixUniform 
 
-	private int nMatrixUniform    
+	private int nMatrixUniform   
 		var nMatrixUniform 
 
-	private int samplerUniform    
+	private int samplerUniform   
 		var samplerUniform 
 
-	private int ambientColorUniform    
+	private int ambientColorUniform   
 		var ambientColorUniform 
 
-	private int pointLightingLocationUniform    
+	private int pointLightingLocationUniform   
 		var pointLightingLocationUniform 
 
-	private int pointLightingSpecularColorUniform    
+	private int pointLightingSpecularColorUniform   
 		var pointLightingSpecularColorUniform 
 
-	private int pointLightingDiffuseColorUniform    
+	private int pointLightingDiffuseColorUniform   
 		var pointLightingDiffuseColorUniform 
 
-	private int materialShininessUniform    
+	private int materialShininessUniform   
 		var materialShininessUniform 
 
-	private int alphaUniform    
+	private int alphaUniform   
 		var alphaUniform 
 
 	private int[] doorVertexPositionBuffer   = new  int  [ 3 ] 
@@ -4421,13 +4415,13 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	private int[] textures   = new  int  [ 6 ] 
 		var textures  = new  Array  (  )
 
-	private FloatBuffer pMatrix    
+	private FloatBuffer pMatrix   
 		var pMatrix 
 
-	private FloatBuffer mvMatrix    
+	private FloatBuffer mvMatrix   
 		var mvMatrix 
 
-	private FloatBuffer normalMatrix    
+	private FloatBuffer normalMatrix   
 		var normalMatrix 
 
 	private long lastTime   = 0
@@ -4550,6 +4544,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexPositionBuffer [ 0 ] )
 
+	float[] vertices1   = { 0.0f,1.0f,0.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,0.0f,1.0f,0.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,0.0f,1.0f,0.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,0.0f,1.0f,0.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f }
+		var vertices1  = [ 0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,0.0,1.0,0.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,0.0,1.0,0.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,0.0,1.0,0.0,1.0,-1.0,1.0,1.0,-1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices1   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices1  ), gl. STATIC_DRAW )
 
@@ -4564,6 +4561,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexNormalBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexNormalBuffer [ 0 ] )
+
+	float[] normals1   = { -0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,-0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,-0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,0.0f,0.44721359549995793928183473374626f,-0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,-0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,-0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,0.89442719099991587856366946749251f,0.0f,0.44721359549995793928183473374626f,0.89442719099991587856366946749251f,0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f,0.89442719099991587856366946749251f,0.44721359549995793928183473374626f,0.0f }
+		var normals1  = [ -0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals1   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals1  ), gl. STATIC_DRAW )
@@ -4580,6 +4580,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  pyramidVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, pyramidVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords1   = { 3.0f,0.0f,0.0f,6.0f,6.0f,6.0f,3.0f,0.0f,0.0f,6.0f,6.0f,6.0f,3.0f,0.0f,6.0f,6.0f,0.0f,6.0f,3.0f,0.0f,0.0f,6.0f,6.0f,6.0f }
+		var textureCoords1  = [ 3.0,0.0,0.0,6.0,6.0,6.0,3.0,0.0,0.0,6.0,6.0,6.0,3.0,0.0,6.0,6.0,0.0,6.0,3.0,0.0,0.0,6.0,6.0,6.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords1.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords1   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords1  ), gl. STATIC_DRAW )
 
@@ -4594,6 +4597,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  pyramidVertexIndexBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, pyramidVertexIndexBuffer [ 0 ] )
+
+	short[] pyramidVertexIndices   = { 0,1,2,3,5,4,6,7,8,9,10,11 }
+		var pyramidVertexIndices  = [ 0,1,2,3,5,4,6,7,8,9,10,11 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  pyramidVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  pyramidVertexIndices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( pyramidVertexIndices  ), gl. STATIC_DRAW )
@@ -4610,6 +4616,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexPositionBuffer [ 0 ] )
 
+	float[] vertices2   = { -1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f,1.0f,-1.0f,1.0f,-1.0f }
+		var vertices2  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices2  ), gl. STATIC_DRAW )
 
@@ -4624,6 +4633,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexNormalBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexNormalBuffer [ 0 ] )
+
+	float[] normals2   = { 0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f,-1.0f,0.0f,0.0f }
+		var normals2  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals2  ), gl. STATIC_DRAW )
@@ -4640,6 +4652,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  cubeVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, cubeVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords2   = { 0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f,0.0f,0.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f,0.0f,10.0f }
+		var textureCoords2  = [ 0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords2.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords2   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords2  ), gl. STATIC_DRAW )
 
@@ -4654,6 +4669,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndexBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer [ 0 ] )
+
+	short[] cubeVertexIndices   = { 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15 }
+		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ELEMENT_ARRAY_BUFFER,  cubeVertexIndices.length  * BufferUtil.SIZEOF_SHORT  ,   BufferUtil.newShortBuffer   (  cubeVertexIndices   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ELEMENT_ARRAY_BUFFER, new  Uint16Array  ( cubeVertexIndices  ), gl. STATIC_DRAW )
@@ -4670,6 +4688,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexPositionBuffer [ 0 ] )
 
+	float[] vertices3   = { -1.0f,-1.0f,-1.0f,-1.0f,-1.0f,1.0f,1.0f,-1.0f,-1.0f,1.0f,-1.0f,1.0f }
+		var vertices3  = [ -1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices3   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices3  ), gl. STATIC_DRAW )
 
@@ -4684,6 +4705,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexNormalBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexNormalBuffer [ 0 ] )
+
+	float[] normals3   = { 0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f }
+		var normals3  = [ 0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals3   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals3  ), gl. STATIC_DRAW )
@@ -4700,6 +4724,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  greenVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, greenVertexTextureCoordBuffer [ 0 ] )
 
+	float[] textureCoords3   = { 0.0f,10.0f,0.0f,0.0f,10.0f,0.0f,10.0f,10.0f }
+		var textureCoords3  = [ 0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords3.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords3   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords3  ), gl. STATIC_DRAW )
 
@@ -4714,6 +4741,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexPositionBuffer [ 0 ] )
+
+	float[] vertices4   = { -0.2f,-1.0f,1.001f,0.2f,-1.0f,1.001f,-0.2f,0.0f,1.001f,0.2f,0.0f,1.001f }
+		var vertices4  = [ -0.2,-1.0,1.001,0.2,-1.0,1.001,-0.2,0.0,1.001,0.2,0.0,1.001 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  vertices4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  vertices4   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( vertices4  ), gl. STATIC_DRAW )
@@ -4730,6 +4760,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexNormalBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexNormalBuffer [ 0 ] )
 
+	float[] normals4   = { 0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f,0.0f,0.0f,1.0f }
+		var normals4  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0 ]
+
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  normals4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  normals4   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( normals4  ), gl. STATIC_DRAW )
 
@@ -4744,6 +4777,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  doorVertexTextureCoordBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, doorVertexTextureCoordBuffer [ 0 ] )
+
+	float[] textureCoords4   = { 0.0f,1.0f,1.0f,1.0f,0.0f,0.0f,1.0f,0.0f }
+		var textureCoords4  = [ 0.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0 ]
 
 	 gl . gl BufferData ( GL2 .GL_ ARRAY_BUFFER,  textureCoords4.length  * BufferUtil.SIZEOF_FLOAT  ,   BufferUtil.newFloatBuffer   (  textureCoords4   ), GL2 .GL_ STATIC_DRAW )
 		gl. bufferData ( gl. ARRAY_BUFFER, new  Float32Array  ( textureCoords4  ), gl. STATIC_DRAW )
@@ -5076,8 +5112,14 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	float sy   = ( float )  Math.sin   ( -yaw )
 		var sy  =  Math.sin  ( -yaw )
 
+	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		var pMatrixv  = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+
 	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 		pMatrix   = pMatrixv 
+
+	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,-cy* xPos  - sy  * zPos  ,-cx- sx  * sy  * xPos  - cx  * yPos  + cy  * sx  * zPos  ,-sx+ cx  * sy  * xPos  - sx  * yPos  - cx  * cy  * zPos  ,1 }
+		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,-cy*xPos -sy *zPos ,-cx-sx *sy *xPos -cx *yPos +cy *sx *zPos ,-sx+cx *sy *xPos -sx *yPos -cx *cy *zPos ,1 ] )
 
 	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 		mvMatrix   = mvMatrixv 
@@ -5090,6 +5132,9 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl Uniform3f (  ambientColorUniform  , 0.1f, 0.1f, 0.1f )
 		gl. uniform3f ( ambientColorUniform , 0.1, 0.1, 0.1 )
+
+	float[] lightLoc   = new  float  [  ]  { 0,4,2,1 }
+		var lightLoc  = new Float32Array  ( [ 0,4,2,1 ] )
 
 	float[] tlightLoc   =   Util.multiplyMatrixVector   (  pMatrixv  ,   Util.multiplyMatrixVector   (  mvMatrixv  ,  lightLoc   ) )
 		var tlightLoc  =  multiplyMatrixVector  ( pMatrixv ,  multiplyMatrixVector  ( mvMatrixv , lightLoc  ) )
@@ -5487,17 +5532,11 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 if ( lastTime  !=0 )
 		 if ( lastTime !=0 )
 
-	long elapsed   =  timeNow  - lastTime  
-		var elapsed  = timeNow -lastTime 
-
 	boolean move   =  false  
 		var move  = false 
 
 	 if ( speed  !=0 )
 		 if ( speed !=0 )
-
-	xPos   - =   Math.sin   (  yaw   )* speed  * elapsed  
-		xPos  - =  Math.sin  ( yaw  )*speed *elapsed 
 
 	zPos   - =   Math.cos   (  yaw   )* speed  * elapsed  
 		zPos  - =  Math.cos  ( yaw  )*speed *elapsed 
@@ -5508,9 +5547,6 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 if ( lspeed  !=0 )
 		 if ( lspeed !=0 )
 
-	xPos   + =   Math.cos   (  yaw   )* lspeed  * elapsed  
-		xPos  + =  Math.cos  ( yaw  )*lspeed *elapsed 
-
 	zPos   - =   Math.sin   (  yaw   )* lspeed  * elapsed  
 		zPos  - =  Math.sin  ( yaw  )*lspeed *elapsed 
 
@@ -5519,9 +5555,6 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 if ( move   )
 		 if ( move  )
-
-	joggingAngle   + =  elapsed  *0.0104
-		joggingAngle  + = elapsed *0.0104
 
 	yPos    = ( float ) (   Math.sin   (  joggingAngle   )/20+ yStart   )
 		yPos   =  Math.sin  ( joggingAngle  )/20+yStart 
@@ -5688,21 +5721,4 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	unmatched javaPatterns:
 
 	unmatched jsPatterns:
-		var vertices1  = [ 0.0,1.0,0.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,0.0,1.0,0.0,-1.0,-1.0,-1.0,1.0,-1.0,-1.0,0.0,1.0,0.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,0.0,1.0,0.0,1.0,-1.0,1.0,1.0,-1.0,-1.0 ]
-		var normals1  = [ -0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,-0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,-0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.0,0.44721359549995793928183473374626,0.89442719099991587856366946749251,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0,0.89442719099991587856366946749251,0.44721359549995793928183473374626,0.0 ]
-		var textureCoords1  = [ 3.0,0.0,0.0,6.0,6.0,6.0,3.0,0.0,0.0,6.0,6.0,6.0,3.0,0.0,6.0,6.0,0.0,6.0,3.0,0.0,0.0,6.0,6.0,6.0 ]
-		var pyramidVertexIndices  = [ 0,1,2,3,5,4,6,7,8,9,10,11 ]
-		var vertices2  = [ -1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,1.0,-1.0,-1.0,1.0,1.0,-1.0,1.0,1.0,1.0,1.0,-1.0,1.0,-1.0,-1.0,-1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0,-1.0,1.0,-1.0 ]
-		var normals2  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0 ]
-		var textureCoords2  = [ 0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,10.0,0.0,10.0 ]
-		var cubeVertexIndices  = [ 0,1,2,0,2,3,4,5,6,4,6,7,8,9,10,8,10,11,12,13,14,12,14,15 ]
-		var vertices3  = [ -1.0,-1.0,-1.0,-1.0,-1.0,1.0,1.0,-1.0,-1.0,1.0,-1.0,1.0 ]
-		var normals3  = [ 0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0 ]
-		var textureCoords3  = [ 0.0,10.0,0.0,0.0,10.0,0.0,10.0,10.0 ]
-		var vertices4  = [ -0.2,-1.0,1.001,0.2,-1.0,1.001,-0.2,0.0,1.001,0.2,0.0,1.001 ]
-		var normals4  = [ 0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0 ]
-		var textureCoords4  = [ 0.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0 ]
-		var pMatrixv  = new  Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-		var mvMatrixv  = new  Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,-cy*xPos -sy *zPos ,-cx-sx *sy *xPos -cx *yPos +cy *sx *zPos ,-sx+cx *sy *xPos -sx *yPos -cx *cy *zPos ,1 ] )
-		var lightLoc  = new  Float32Array  ( [ 0,4,2,1 ] )
 

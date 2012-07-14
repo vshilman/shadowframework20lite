@@ -9,6 +9,7 @@ import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.js.JsAlgebraicExpression;
 import codeconverter.js.JsArrayContent;
+import codeconverter.js.JsArrayDeclaration;
 import codeconverter.js.JsBitwiseExpression;
 import codeconverter.js.JsMethodEvaluation;
 import codeconverter.js.JsName;
@@ -21,7 +22,7 @@ public class JsVariableAssignment extends CodePattern{
 		addCodePiece(new JsName(PieceType.NAME),new OptionalCode(new KeywordSet("+","*","-","/")),
 				new UniqueKeyword("="),
 				new BestAlternativeCode(true,new WebGlMethodEvaluation("."), new JsMethodEvaluation("."),
-						new JsAlgebraicExpression(),new JsBitwiseExpression(),new JsNewStatement(),new JsArrayContent()));
+						new JsAlgebraicExpression(),new JsBitwiseExpression(),new JsNewStatement(),new JsArrayContent(),new JsArrayDeclaration()));
 		addPatternType(PatternType.VARIABLE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}
 }

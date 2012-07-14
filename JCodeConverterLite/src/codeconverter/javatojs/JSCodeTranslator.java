@@ -227,12 +227,12 @@ public class JSCodeTranslator implements CodeTranslator{
 		}
 	} 
 	
-	private String translatePiece(ICodePiece piece){
-		
-		if(piece.getPieceType()==PieceType.VARIABLE){
-			return piece.toString();
-		}
-		return piece.toString();
-	}
+//	private String translatePiece(ICodePiece piece){
+//		
+//		if(piece.getPieceType()==PieceType.VARIABLE){
+//			return piece.toString();
+//		}
+//		return piece.toString();
+//	}
 
 }

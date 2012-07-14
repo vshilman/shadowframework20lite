@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import tests.TestingUtilities;
 import tests.blocks.BlockUtilities;
 import codeconverter.Block;
 import codeconverter.BlockInterpreter;
@@ -37,15 +38,7 @@ public class TestJsTypesStructure {
 			System.out.println(name);
 			logWriter.write(name + "\n");
 
-			//TODO : here we should use TestingUtilities.generateFileString, doing the same thing
-			List<String> list = FileStringUtility.loadTextFile(file);
-
-			StringWriter writer = new StringWriter();
-			for (String string : list) {
-				writer.write(string);
-			}
-
-			String totalString = writer.toString();
+			String totalString = TestingUtilities.generateFileString(file).toString();
 			char[] totalStringChars = totalString.toCharArray();
 
 			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);

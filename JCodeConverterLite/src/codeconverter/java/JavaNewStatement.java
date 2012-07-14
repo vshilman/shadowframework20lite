@@ -20,12 +20,6 @@ public class JavaNewStatement extends CompositeCodePiece{
 		setPieceType(PieceType.NEW_STATEMENT);
 		add(new UniqueKeyword("new "));
 		add(name);
-//		add(new OptionalCode(
-//				new CompositeCodePiece(
-//						new UniqueKeyword("["),
-//						new OptionalCode(new JavaAlgebraicExpression()),
-//						new UniqueKeyword("]")
-//				)));
 		add(new OptionalCode(new CompositeCodePiece(
 						new UniqueKeyword("("),
 						new CodeSequence(new OptionalCode(algebraicExpression),","),

@@ -25,8 +25,6 @@ public class TestingUtilities {
 	 */
 	public static String generateFileString(String filename) {
 		List<String> list=FileStringUtility.loadTextFile(filename);
-		//List<String> list=FileStringUtility.loadTextFile("src/testPackage/Expressions.java");
-		//List<String> list=FileStringUtility.loadTextFile("src/testPackage/House.java");
 	
 		StringWriter writer=new StringWriter();
 		String adding="";
@@ -46,7 +44,7 @@ public class TestingUtilities {
 			}	
 		}
 		
-		String totalString=writer.toString();
+		String totalString=writer.toString();	
 		int beginof=totalString.indexOf("/*");
 		int endof=totalString.indexOf("*/");
 		while(beginof!=-1 && endof!=-1){
@@ -55,7 +53,6 @@ public class TestingUtilities {
 			totalString=tmp;
 			beginof=totalString.indexOf("/*");
 			endof=totalString.indexOf("*/");
-			System.out.println();
 		}
 		return totalString;
 	}

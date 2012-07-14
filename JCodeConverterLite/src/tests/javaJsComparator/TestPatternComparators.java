@@ -107,11 +107,16 @@ public class TestPatternComparators {
 				"private int[] triangleVertexPositionBuffer = new int[3]",
 				"var triangleVertexPositionBuffer = new Array()",
 				new JavaAttributeDeclarationAndAssignemnt(), new JsVariableDeclarationAndAssignment());
-		
+
 		compare(new OpenGlGenBuffersMethodComparator(),
 				"gl.glGenBuffers(1, triangleVertexPositionBuffer, 0)",
-				"triangleVertexPositionBuffer[0] = gl.createBuffer()",
-				new JoglMethodAccess(), new JsVariableAssignment());
+				"triangleVertexPositionBuffer[0] = gl.createBuffer()", new JoglMethodAccess(),
+				new JsVariableAssignment());
+		
+		compare(new VariableDeclarationAndAssignmentComparator(),
+				"float[] vertices ={0.0f, 1.0f, 0.0f, -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f}",
+				"var vertices = [ 0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0 ]", new JavaVariableDeclarationAndAssignment(),
+				new JsVariableDeclarationAndAssignment());
 
 	}
 
@@ -124,6 +129,8 @@ public class TestPatternComparators {
 		jsMatch.add(jsPattern.match(jsLine));
 
 		if (javaMatch.get(0) != null && jsMatch.get(0) != null) {
+			// System.out.println(javaMatch.get(0).printTypes());
+			// System.out.println(jsMatch.get(0).printTypes());
 			int[][] result = comparator.compare(javaMatch, 0, jsMatch, 0);
 			if (result != null) {
 				System.out.print("true");

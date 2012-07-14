@@ -4,6 +4,8 @@ import codeconverter.ICodePiece;
 import codeconverter.ICodePiece.ICodePieceMatch;
 import codeconverter.codepieces.Number;
 import codeconverter.java.JavaAlgebraicExpression;
+import codeconverter.java.JavaArrayContent;
+import codeconverter.java.JavaArrayDeclaration;
 import codeconverter.java.JavaBitwiseExpression;
 import codeconverter.java.JavaBooleanExpression;
 import codeconverter.java.JavaMethodEvaluation;
@@ -15,6 +17,8 @@ import codeconverter.java.JavaVariable;
 import codeconverter.java.jogl.JoglConstant;
 import codeconverter.java.jogl.JoglMethodEvaluation;
 import codeconverter.javaJsComparator.CodePieceComparator;
+import codeconverter.javaJsComparator.codePieces.ArrayContentComparator;
+import codeconverter.javaJsComparator.codePieces.ArrayDeclarationComparator;
 import codeconverter.javaJsComparator.codePieces.BooleanExpressionComparator;
 import codeconverter.javaJsComparator.codePieces.ExpressionComparator;
 import codeconverter.javaJsComparator.codePieces.MethodComparator;
@@ -27,6 +31,8 @@ import codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator;
 import codeconverter.javaJsComparator.codePieces.TernaryOperatorComparator;
 import codeconverter.javaJsComparator.codePieces.VariableComparator;
 import codeconverter.js.JsAlgebraicExpression;
+import codeconverter.js.JsArrayContent;
+import codeconverter.js.JsArrayDeclaration;
 import codeconverter.js.JsBitwiseExpression;
 import codeconverter.js.JsBooleanExpression;
 import codeconverter.js.JsMethodEvaluation;
@@ -75,11 +81,17 @@ public class TestPieceComparators {
 		compare(new MethodVariablesComparator(), "GL2 gl, int miao, String bau", "gl,miao,bau",
 				new JavaMethodVariables(), new JsMethodVariables());
 
-		compare(new VariableComparator(), "int ciao", "var ciao", new JavaVariable(),
-				new JsVariable());
-		
-		compare(new NumberComparator(), "1.0f", "1.0", new Number(),
-				new Number());
+		compare(new VariableComparator(), "int ciao", "var ciao", new JavaVariable(), new JsVariable());
+
+		compare(new NumberComparator(), "1.0f", "1.0", new Number(), new Number());
+
+		compare(new ArrayContentComparator(), "{0.0f, 1.0f, 0.0f, -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f}",
+				"[0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0]", new JavaArrayContent(),
+				new JsArrayContent());
+
+		compare(new ArrayDeclarationComparator(), "new float[] { 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 }",
+				"new Float32Array([ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 ])", new JavaArrayDeclaration(),
+				new JsArrayDeclaration());
 
 	}
 
