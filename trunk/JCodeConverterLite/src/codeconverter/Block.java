@@ -75,6 +75,8 @@ public class Block  implements CodeModule{
 								modules.remove(i);
 								modules.add(i,codeLine);
 							}
+						}else if(relatedBlock.getSubModule(0) instanceof Block){
+							relatedBlock.modules.set(0, relatedBlock.getSubModule(0).getSubModule(0));
 						}
 					}
 					//End of : Array into Brackets correction

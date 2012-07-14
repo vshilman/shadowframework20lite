@@ -8,12 +8,13 @@ import codeconverter.PatternType;
 import codeconverter.PieceType;
 import codeconverter.javaJsComparator.CodePatternComparator;
 import codeconverter.javaJsComparator.ComparatorUtilities;
+import codeconverter.javaJsComparator.codePieces.ArrayContentComparator;
+import codeconverter.javaJsComparator.codePieces.ArrayDeclarationComparator;
 import codeconverter.javaJsComparator.codePieces.ExpressionComparator;
 import codeconverter.javaJsComparator.codePieces.MethodComparator;
 import codeconverter.javaJsComparator.codePieces.NewStatementComparator;
 import codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator;
 import codeconverter.javaJsComparator.codePieces.VariableComparator;
-import codeconverter.javaJsComparator.special.ArrayContentComparator;
 
 public class VariableDeclarationAndAssignmentComparator implements CodePatternComparator {
 
@@ -44,6 +45,27 @@ public class VariableDeclarationAndAssignmentComparator implements CodePatternCo
 				if (!new ExpressionComparator().compare(javaPattern.getPieceByType(PieceType.EXPRESSION),
 						jsPattern.getPieceByType(PieceType.EXPRESSION))) {
 					return null;
+				}
+			}
+			
+			/*
+			 * compare this: float[] pMatrixv = new float [ ]
+			 * {1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 } pMatrix =
+			 * BufferUtil.newFloatBuffer (pMatrixv )
+			 * 
+			 * with this: pMatrix = new Float32Array ( [
+			 * 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 ] )
+			 */
+
+			if (javaPattern.getPieces().get(2).getPieceType() == PieceType.CALL
+					&& jsPattern.getPieces().get(2).getPieceType() == PieceType.ARRAY_DECLARATION) {
+				ICodePiece call = javaPattern.getPieceByType(PieceType.CALL);
+				String vectorName = call.getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.NAME).toString();
+
+				int[][] result = ComparatorUtilities.findArrayDecalation(javaCodePatterns, javaIndex, jsIndex,
+						jsPattern, call, vectorName);
+				if (result != null) {
+					return result;
 				}
 			}
 
@@ -106,19 +128,6 @@ public class VariableDeclarationAndAssignmentComparator implements CodePatternCo
 							return new int[][] { new int[] { javaIndex }, new int[] { jsIndex, foundIndex[0], foundIndex[1] } };
 						}
 					}
-
-					if (jsPattern.getPieces().get(2).getPieceType() == PieceType.NEW_STATEMENT) {
-						ICodePiece call = javaPattern.getPieces().get(2).getPieces().get(2)
-								.getPieceByType(PieceType.COMPOSITE);
-						String vectorName = call.getPieceByType(PieceType.SEQUENCE).toString().trim();
-
-						int[][] result = ComparatorUtilities.findArrayDecalation(javaCodePatterns, javaIndex, jsIndex, jsPattern,
-								call, vectorName,2);
-						if (result != null) {
-							return result;
-						}
-					}
-
 					return null;
 				}
 			}
@@ -129,44 +138,32 @@ public class VariableDeclarationAndAssignmentComparator implements CodePatternCo
 					return null;
 				}
 			}
+			
+			if (javaPattern.getPieces().get(2).getPieceType() == PieceType.ARRAY_CONTENT) {
+				if (!new ArrayContentComparator().compare(javaPattern.getPieceByType(PieceType.ARRAY_CONTENT),
+						jsPattern.getPieceByType(PieceType.ARRAY_CONTENT))) {
+					return null;
+				}
+			}
+			
+			
+			if (javaPattern.getPieces().get(2).getPieceType() == PieceType.ARRAY_DECLARATION) {
+				if (!new ArrayDeclarationComparator().compare(javaPattern.getPieceByType(PieceType.ARRAY_DECLARATION),
+						jsPattern.getPieceByType(PieceType.ARRAY_DECLARATION))) {
+					return null;
+				}
+			}
 
 			if (javaPattern.getPieces().get(2).getPieceType() == PieceType.NEW_STATEMENT) {
 				if (!new NewStatementComparator().compare(
 						javaPattern.getPieceByType(PieceType.NEW_STATEMENT),
 						jsPattern.getPieceByType(PieceType.NEW_STATEMENT))) {
-
-					if (javaPattern.getPieceByType(PieceType.NEW_STATEMENT).getPieceByType(PieceType.TYPE)
-							.getPieceByType(PieceType.TYPE).toString().equals("float")
-							&& jsPattern.getPieceByType(PieceType.NEW_STATEMENT)
-									.getPieceByType(PieceType.TYPE).getPieceByType(PieceType.TYPE).toString()
-									.equals("Float32Array")) {
-						if (javaCodePatterns.size() > javaIndex + 1) {
-							if (javaCodePatterns.get(javaIndex + 1).getPatternType().get(0) == PatternType.ARRAY_CONTENT_DECLARTION) {
-								if (new ArrayContentComparator().compare(
-										javaCodePatterns.get(javaIndex + 1),
-										jsPattern.getPieceByType(PieceType.NEW_STATEMENT)
-												.getPieceByType(PieceType.COMPOSITE)
-												.getPieceByType(PieceType.SEQUENCE)
-												.getPieceByType(PieceType.ARRAY_CONTENT))) {
-									return new int[][] { new int[] { javaIndex, javaIndex + 1 }, new int[] { jsIndex } };
-								}
-							}
-						}
-					}
-
 					return null;
 				}
 			}
+			
 		} else {
-			if (javaCodePatterns.size() > javaIndex + 1) {
-				if (javaCodePatterns.get(javaIndex + 1).getPatternType().get(0) == PatternType.ARRAY_CONTENT_DECLARTION) {
-					if (!new ArrayContentComparator().compare(javaCodePatterns.get(javaIndex + 1),
-							jsPattern.getPieceByType(PieceType.ARRAY_CONTENT))) {
-						return null;
-					}
-				}
-			}
-			return new int[][] { new int[] { javaIndex, javaIndex + 1 }, new int[] { jsIndex } };
+			return null;
 		}
 
 		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };

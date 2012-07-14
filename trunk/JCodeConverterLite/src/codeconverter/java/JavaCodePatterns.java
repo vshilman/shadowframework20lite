@@ -25,7 +25,6 @@ public class JavaCodePatterns {
 		patterns.add(new JavaClassDeclaration());
 		patterns.add(new JavaMethodDeclaration());
 		patterns.add(new JavaElse());
-		//patterns.add(new JavaArrayDeclaration());
 		patterns.add(new JavaFor());
 		patterns.add(new JavaIf());
 		patterns.add(new JavaAttributeDeclarationAndAssignemnt());
@@ -43,7 +42,6 @@ public class JavaCodePatterns {
 		patterns.add(new JoglMethodAccess());
 		patterns.add(new JavaMethodAccess());
 		patterns.add(new JavaConstructorDeclaration());
-		patterns.add(new JavaArrayContentDeclaration());
 		
 		return patterns;
 	}

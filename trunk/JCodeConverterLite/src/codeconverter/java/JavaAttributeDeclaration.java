@@ -11,11 +11,9 @@ import codeconverter.codepieces.UniqueKeyword;
 public class JavaAttributeDeclaration extends CodePattern {
 
 	public JavaAttributeDeclaration() {
-		addCodePiece(new CodeSequence(true,new JavaModifier()," "),new JavaType(),
-				new CodeSequence(new CompositeCodePiece(
-						new JavaName(),new OptionalCode(new UniqueKeyword("=")),
-						new OptionalCode(new Number())
-				),","));
+		addCodePiece(new CodeSequence(true, new JavaModifier(), " "), new JavaType(), new CodeSequence(
+				new CompositeCodePiece(new JavaName(), new OptionalCode(new CompositeCodePiece(
+						new UniqueKeyword("="), new Number()))), ","));
 		addPatternType(PatternType.ATTRIBUTE_DECLARATION);
 	}
 }

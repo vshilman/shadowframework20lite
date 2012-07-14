@@ -3,7 +3,6 @@ package tests.blocks;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import codeconverter.Block;
 import codeconverter.BlockInterpreter;
@@ -52,7 +51,7 @@ public class BlocksTest003 {
 		
 		JSCodeTranslator translator=new JSCodeTranslator();
 
-		Set<CodeModule> keys=interpretation.keySet();
+//		Set<CodeModule> keys=interpretation.keySet();
 //		for (CodeModule codeModule : keys) {
 //			CodePattern pattern=interpretation.get(codeModule);
 //			if(pattern!=null && (pattern instanceof JavaConstructorDeclaration))

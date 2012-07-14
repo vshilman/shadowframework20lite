@@ -1,36 +1,25 @@
-package codeconverter.javaJsComparator.special;
+package codeconverter.javaJsComparator.codePieces;
 
 import java.util.List;
 
-import codeconverter.CodePattern;
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
-import codeconverter.javaJsComparator.codePieces.BooleanExpressionComparator;
-import codeconverter.javaJsComparator.codePieces.ExpressionComparator;
-import codeconverter.javaJsComparator.codePieces.MethodComparator;
-import codeconverter.javaJsComparator.codePieces.NameComparator;
-import codeconverter.javaJsComparator.codePieces.NewStatementComparator;
-import codeconverter.javaJsComparator.codePieces.OpenGlConstantComparator;
-import codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator;
-import codeconverter.javaJsComparator.codePieces.TernaryOperatorComparator;
+import codeconverter.javaJsComparator.CodePieceComparator;
 
-public class ArrayContentComparator {
+public class ArrayContentComparator extends CodePieceComparator {
 
 	private ExpressionComparator expressionComparator;
-
-	public boolean compare(CodePattern javaCodePattern, ICodePiece jsCodePiece) {
+	
+	@Override
+	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
 		initializeComparators();
-
-		if (jsCodePiece == null) {
-			return false;
-		}
-
-		List<ICodePiece> javaPieces = javaCodePattern.getPieces().get(0).getPieces();
-		List<ICodePiece> jsPieces = jsCodePiece.getPieces().get(1).getPieces();
-
-		for (int j = 0; j < javaPieces.size(); j++) {
-			if (javaPieces.get(j).getPieceType() == PieceType.EXPRESSION) {
-				if (!expressionComparator.compare(javaPieces.get(j), jsPieces.get(j))) {
+		
+		List<ICodePiece> javaPiecesComp = javaPieces.get(1).getPieces();
+		List<ICodePiece> jsPiecesComp = jsPieces.get(1).getPieces();
+		
+		for (int j = 0; j < javaPiecesComp.size(); j++) {
+			if (javaPiecesComp.get(j).getPieceType() == PieceType.EXPRESSION) {
+				if (!expressionComparator.compare(javaPiecesComp.get(j), jsPiecesComp.get(j))) {
 					return false;
 				}
 			}

@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import tests.TestingUtilities;
 import tests.blocks.BlockUtilities;
 import codeconverter.Block;
 import codeconverter.BlockDataInterpreter;
@@ -47,7 +48,7 @@ public class TestFileComparator {
 
 			String name = "\n" + javaTests.get(i).substring(JAVA_DIRECTORY.length()) + " VS "
 					+ jsTests.get(i).substring(JS_DIRECTORY.length());
-			System.out.println(name);
+			System.out.print(name);
 			logWriter.write(name + "\n");
 
 			ArrayList<CodePattern> javaPatterns = new ArrayList<CodePattern>(getCodePatterns(
@@ -64,10 +65,10 @@ public class TestFileComparator {
 			boolean found = false;
 
 			for (int j = 0; j < javaPatterns.size(); j++) {
-				if(javaPatterns.get(j)==null){
+				if (javaPatterns.get(j) == null) {
 					javaConfirmations[j] = false;
-				}else{
-					
+				} else {
+
 					if (javaPatterns.get(j).getPatternType().get(0) == PatternType.LIBRARY_DECLARATION) {
 						javaConfirmations[j] = true;
 					}
@@ -78,22 +79,24 @@ public class TestFileComparator {
 								break;
 							if (!jsConfirmations[k]) {
 								for (CodePatternComparator codePatternComparator : comparators) {
-									int[][] result = codePatternComparator
-											.compare(javaPatterns, j, jsPatterns, k);
+									int[][] result = codePatternComparator.compare(javaPatterns, j,
+											jsPatterns, k);
 									if (result != null) {
-										for (int l = 0; l < result[0].length; l++) {
-											logWriter.write("\t" + javaPatterns.get(result[0][l]).toString()
-													+ "\n");
-											javaConfirmations[result[0][l]] = true;
+										if (!alreadyConfirmed(result, javaConfirmations, jsConfirmations)) {
+											for (int l = 0; l < result[0].length; l++) {
+												logWriter.write("\t"
+														+ javaPatterns.get(result[0][l]).toString() + "\n");
+												javaConfirmations[result[0][l]] = true;
+											}
+											for (int l = 0; l < result[1].length; l++) {
+												logWriter.write("\t\t"
+														+ jsPatterns.get(result[1][l]).toString() + "\n");
+												jsConfirmations[result[1][l]] = true;
+											}
+											logWriter.write("\n");
+											found = true;
+											break;
 										}
-										for (int l = 0; l < result[1].length; l++) {
-											logWriter.write("\t\t" + jsPatterns.get(result[1][l]).toString()
-													+ "\n");
-											jsConfirmations[result[1][l]] = true;
-										}
-										logWriter.write("\n");
-										found = true;
-										break;
 									}
 								}
 							}
@@ -106,7 +109,7 @@ public class TestFileComparator {
 			StringWriter jsUnmatchWriter = new StringWriter();
 
 			for (int j = 0; j < javaConfirmations.length; j++) {
-				if (!javaConfirmations[j] && javaPatterns.get(j)!=null) {
+				if (!javaConfirmations[j] && javaPatterns.get(j) != null) {
 					javaUnmatchWriter.write("\t\t" + javaPatterns.get(j).toString() + "\n");
 				}
 			}
@@ -141,29 +144,26 @@ public class TestFileComparator {
 
 	}
 
+	private static boolean alreadyConfirmed(int[][] result, boolean[] javaConfirmations,
+			boolean[] jsConfirmations) {
+		for (int l = 0; l < result[0].length; l++) {
+			if (javaConfirmations[result[0][l]])
+				return true;
+		}
+		for (int l = 0; l < result[1].length; l++) {
+			if (jsConfirmations[result[1][l]])
+				return true;
+		}
+		return false;
+	}
+
 	private static boolean isDefaultConstructor(CodePattern codePattern) {
 		return codePattern.getPieceByType(PieceType.METHOD_VARIABLES).getPieces().size() == 0;
 	}
 
 	private static Collection<CodePattern> getCodePatterns(String file, BlockDataInterpreter blockInterpreter) {
 
-		List<String> list = FileStringUtility.loadTextFile(file);
-
-		StringWriter writer = new StringWriter();
-		for (String string : list) {
-			int index = string.indexOf("//");
-			if (index != -1) {
-				writer.write(string.substring(0, index));
-			} else {
-				writer.write(string);
-			}
-		}
-
-		String totalString = writer.toString();
-
-		totalString = removeCommentBlocks(totalString);
-
-		char[] totalStringChars = totalString.toCharArray();
+		char[] totalStringChars = TestingUtilities.generateFileString(file).toCharArray();
 
 		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
 
@@ -176,16 +176,4 @@ public class TestFileComparator {
 		return javaPatterns;
 	}
 
-	private static String removeCommentBlocks(String totalString) {
-		int beginof = totalString.indexOf("/*");
-		int endof = totalString.indexOf("*/", beginof + 1);
-		while (beginof != -1 && endof != -1) {
-			String tmp = totalString.substring(0, beginof);
-			tmp += totalString.substring(endof + 2);
-			totalString = tmp;
-			beginof = totalString.indexOf("/*");
-			endof = totalString.indexOf("*/", beginof + 1);
-		}
-		return totalString;
-	}
 }

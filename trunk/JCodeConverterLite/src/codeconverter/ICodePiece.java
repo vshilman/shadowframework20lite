@@ -19,22 +19,23 @@ public abstract class ICodePiece{
 	 */
 	public class ICodePieceMatch{
 		
-		private int matcPosition;
+		private int matchPosition;
 		private ICodePiece dataPiece;
 		
 		public ICodePieceMatch(int line, ICodePiece dataPiece) {
 			super();
-			this.matcPosition=line;
+			this.matchPosition=line;
 			this.dataPiece=dataPiece;
 		}
 
 		public int getMatchPosition() {
-			return matcPosition;
+			return matchPosition;
 		}
-
+		
 		public ICodePiece getDataPiece() {
 			return dataPiece;
 		}
+
 	}
 
 	protected List<ICodePiece> pieces=new ArrayList<ICodePiece>();
@@ -94,6 +95,11 @@ public abstract class ICodePiece{
 		for (ICodePiece codePiece : pieces) {
 			if(codePiece.getPieceType()==type)
 				return codePiece;
+		}
+		for (ICodePiece codePiece : pieces) {
+			ICodePiece subPiece=codePiece.getPieceByType(type);
+			if(subPiece!=null)
+				return subPiece;
 		}
 		return null;
 	}
