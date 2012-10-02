@@ -6,7 +6,6 @@ import shadow.pipeline.java.SFGL20GenericProgram;
 
 public class SFGL20ProgramBuilder implements SFProgramBuilder{
 
-	
 	@Override
 	public SFProgram generateNewProgram() {
 		return new SFGL20Program();

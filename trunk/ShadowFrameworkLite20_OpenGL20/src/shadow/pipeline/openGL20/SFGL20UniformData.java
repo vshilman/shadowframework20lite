@@ -1,17 +1,18 @@
 package shadow.pipeline.openGL20;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import shadow.image.SFPipelineTexture;
 import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
-import shadow.pipeline.SFPipelineGridInstance;
-import shadow.pipeline.SFPipelineStructure;
+import shadow.pipeline.SFPipelineGraphics.Module;
+import shadow.pipeline.SFPipelineGrid;
 import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveIndices;
 import shadow.pipeline.SFProgramComponent;
+import shadow.pipeline.SFProgramModule;
 import shadow.pipeline.SFStructureData;
 import shadow.pipeline.java.SFGL20ValuenfArray;
 import shadow.pipeline.java.SFProgramDataModel;
@@ -22,28 +23,37 @@ public class SFGL20UniformData implements SFProgramDataModel {
 	
 	private SFGLSLSet program;
 	
-	private HashMap<SFPipelineStructure, Integer[]> structureUniforms=new HashMap<SFPipelineStructure, Integer[]>();
-	//private HashMap<String, Integer[]> gridUniforms=new HashMap<String, Integer[]>();
+	private int[][] transformStructureUniforms;
+	private int[][] materialStructureUniforms;
+	private int[][] lightStructureUniforms;
+	private int[] transformTextures;
+	private int[] materialTextures;
+	private int[] lightTextures;
+	
 	private List<Integer[]> gridUniforms=new ArrayList<Integer[]>();
 	
 	public int[] mainUniforms;
 	
-	private Integer[] getUniforms(String prefix,SFPipelineStructureInstance instance){
-		Integer[] data=new Integer[instance.size()];
+	private int[] getUniforms(String prefix,SFPipelineStructureInstance instance,ArrayList<Integer> textures){
+		int[] data=new int[instance.size()];
 		List<SFParameteri> parameters=instance.getParameters();
 		for (int i = 0; i < data.length; i++) {
 			SFParameteri param=parameters.get(i);
 			String name=prefix+param.getName();
 			data[i]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),name);
+			if(param.getType()==SFParameteri.GLOBAL_TEXTURE){
+				textures.add(data[i]);
+			}
+				
 		}
 		return data;
 	}
 	
-	private Integer[] getUniforms(String prefix,SFPipelineGridInstance instance){
+	private Integer[] getUniforms(String prefix,SFPipelineGrid instance){
 		Integer[] data=new Integer[instance.size()];
-		List<SFParameteri> parameters=instance.getParameters();
+		SFParameteri[] parameters=instance.getParameters();
 		for (int i = 0; i < data.length; i++) {
-			SFParameteri param=parameters.get(i);
+			SFParameteri param=parameters[i];
 			String name=prefix+param.getName();
 			data[i]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),name);
 		}
@@ -53,48 +63,64 @@ public class SFGL20UniformData implements SFProgramDataModel {
 	void evaluateUniforms(SFGL20AbstractProgram program) {
 		this.program=program;
 		
-		//Primitive Uniforms
-		
 		gridUniforms.clear();
-		structureUniforms.clear();
 		
 		SFPrimitive primitive=program.getPrimitive();
 		if(primitive!=null){
 			for (int i = 0; i < primitive.getBlocks().length; i++) {
 				SFProgramComponent component=primitive.getComponents()[i];
 				SFPipelineRegister register=primitive.getBlocks()[i].getRegister();
-				List<SFPipelineStructureInstance> structures=component.getStructures();
-				for (SFPipelineStructureInstance sfPipelineStructureInstance : structures) {
-					structureUniforms.put(sfPipelineStructureInstance.getStructure(), getUniforms(register.getName(), sfPipelineStructureInstance));
-				}
-				List<SFPipelineGridInstance> grids=component.getGrid();
-				for (SFPipelineGridInstance sfPipelineGridInstance : grids) {
+				List<SFPipelineGrid> grids=component.getGrid();
+				for (SFPipelineGrid sfPipelineGridInstance : grids) {
+					
 					gridUniforms.add(getUniforms(register.getName(), sfPipelineGridInstance));
 				}
 			}
 		}
 		
-		List<SFProgramComponent> materials=program.getMaterials();
-		for (SFProgramComponent component : materials) {
-			List<SFPipelineStructureInstance> structures=component.getStructures();
-			for (SFPipelineStructureInstance sfPipelineStructureInstance : structures) {
-				structureUniforms.put(sfPipelineStructureInstance.getStructure(), getUniforms("", sfPipelineStructureInstance));
-			}
-		}
-		
-		List<SFPipelineStructureInstance> structures=program.getLight().getStructures();
-		for (SFPipelineStructureInstance sfPipelineStructureInstance : structures) {
-			structureUniforms.put(sfPipelineStructureInstance.getStructure(), getUniforms("", sfPipelineStructureInstance));
-		}
+		ArrayList<Integer> textures=new ArrayList<Integer>();
+		transformStructureUniforms=evaluateStructureUniforms(program.getTransforms(),textures);
+		this.transformTextures=listToInts(textures);
+		textures.clear();
+		materialStructureUniforms=evaluateStructureUniforms(program.getMaterials(),textures);
+		this.materialTextures=listToInts(textures);
+		textures.clear();
+		lightStructureUniforms=evaluateStructureUniforms(program.getLight(),textures);
+		this.lightTextures=listToInts(textures);
 		
 		mainUniforms=new int[3];
 		mainUniforms[0]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"projection");
 		mainUniforms[1]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"modelview");
 		mainUniforms[2]=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"vectorsModelview");
 		
-		evaluateTextureUniforms(program);
+	}
+	
+	private static int[] listToInts(ArrayList<Integer> list){
+		int[] values=new int[list.size()];
+		for (int i = 0; i < values.length; i++) {
+			values[i]=list.get(i);
+		}
+		return values;
+	}
+
+	public int[][] evaluateStructureUniforms(SFProgramModule module,ArrayList<Integer> textures) {
+		if(module!=null){
+			List<SFPipelineStructureInstance> allStructures=new ArrayList<SFPipelineStructureInstance>();
+			for (int i = 0; i < module.getComponents().length; i++) {
+				SFProgramComponent component=module.getComponents()[i];
+				allStructures.addAll(component.getStructures());
+			}
+			
+			int[][] uniforms=new int[allStructures.size()][];
+
+			for (int i = 0; i < uniforms.length; i++) {
+				SFPipelineStructureInstance sfPipelineStructureInstance=allStructures.get(i);
+				uniforms[i]=getUniforms("", sfPipelineStructureInstance,textures);
+			}
+			return uniforms;
+		}
 		
-		
+		return new int[0][];
 	}
 	
 
@@ -103,50 +129,91 @@ public class SFGL20UniformData implements SFProgramDataModel {
 		//Primitive Uniforms
 		
 		gridUniforms.clear();
-		structureUniforms.clear();
-		
-		List<SFProgramComponent> materials=program.getMaterials();
-		for (SFProgramComponent component : materials) {
-			List<SFPipelineStructureInstance> structures=component.getStructures();
-			for (SFPipelineStructureInstance sfPipelineStructureInstance : structures) {
-				structureUniforms.put(sfPipelineStructureInstance.getStructure(), getUniforms("", sfPipelineStructureInstance));
-			}
-		}
-		
-		List<SFPipelineStructureInstance> structures=program.getLight().getStructures();
-		for (SFPipelineStructureInstance sfPipelineStructureInstance : structures) {
-			structureUniforms.put(sfPipelineStructureInstance.getStructure(), getUniforms("", sfPipelineStructureInstance));
-		}
-
-		evaluateTextureUniforms(program);
+		ArrayList<Integer> textures=new ArrayList<Integer>();
+		materialStructureUniforms=evaluateStructureUniforms(program.getMaterials(),textures);
+		this.materialTextures=listToInts(textures);
+		textures.clear();
+		lightStructureUniforms=evaluateStructureUniforms(program.getLight(),textures);
+		this.lightTextures=listToInts(textures);
 	}
 
-	private void evaluateTextureUniforms(SFGLSLSet program) {
-		int index=0;
-		while(index<8){
-			
-			int textureLevel=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"texture"+index);
-			if(textureLevel>=0)
-				SFGL2.getGL().glUniform1i(textureLevel, index);
-			
-			index++;
+	
+	@Override
+	public void setData(Module module, int index, SFPipelineTexture texture) {
+		int level=index;
+		int[] textures=transformTextures;
+		if(module==Module.LIGHT){
+			level+=transformTextures.length+materialTextures.length;
+			textures=lightTextures;
+		}else if(module==Module.MATERIAL){
+			level+=transformTextures.length;
+			textures=materialTextures;
+		}
+		
+		texture.apply(level);
+		//with its related uniform..
+		SFGL2.getGL().glUniform1i(textures[index], level);
+	}
+	
+
+//	private void evaluateTextureUniforms(SFGLSLSet program) {
+//		int index=0;
+//		while(index<8){
+//			
+//			int textureLevel=SFGL2.getGL().glGetUniformLocation(program.getProgram(),"texture"+index);
+//			if(textureLevel>=0)
+//				SFGL2.getGL().glUniform1i(textureLevel, index);
+//			
+//			index++;
+//		}
+//	}
+	
+	@Override
+	public void setData(Module module, int index, SFStructureData data) {
+		switch (module) {
+			case LIGHT:
+					setData(lightStructureUniforms[index], data);
+				break;
+			case MATERIAL:
+				setData(materialStructureUniforms[index], data);
+				break;
+			case TRANSFORM:
+				setData(transformStructureUniforms[index], data);
+				break;
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see shadow.pipeline.openGL20.SFProgramDataModel#setData(shadow.pipeline.SFPipelineStructure, shadow.pipeline.SFStructureData)
-	 */
-	@Override
-	public void setData(SFPipelineStructure structure, SFStructureData data){
+	
+	public void setData(int[] uniforms,SFStructureData data){
 		
-		Integer[] uniforms=structureUniforms.get(structure);
-		
-		for (int i=0; i < uniforms.length; i++) {
-			SFValuenf v=data.getValue(i);
-			if(v.getSize()==3){
-				SFVertex3f v3=(SFVertex3f)(v);
-				SFGL2.getGL().glUniform3f(uniforms[i],v3.getX(),v3.getY(),v3.getZ());
+		if(uniforms!=null){
+			for (int i=0; i < uniforms.length; i++) {
+				SFValuenf v=data.getValue(i);
+				if(v.getSize()==3){
+					SFGL2.getGL().glUniform3f(uniforms[i],v.get()[0],v.get()[1],v.get()[2]);
+				}else if(v.getSize()==1){
+					SFGL2.getGL().glUniform1f(uniforms[i],v.get()[0]);
+				}
 			}
+		}
+	}
+	
+	@Override
+	public void sendVertex(SFValuenf value) {
+		int uniformIndex=0;
+		Integer[] uniform=gridUniforms.get(uniformIndex);
+		switch (value.getSize()) {
+			case 1:
+				SFGL2.getGL().glUniform1f(uniform[0],value.get()[0]);
+			break;
+			case 2:
+				SFGL2.getGL().glUniform2f(uniform[0],value.get()[0],value.get()[1]);
+				break;
+			case 3:
+				SFGL2.getGL().glUniform3f(uniform[0],value.get()[0],value.get()[1],value.get()[2]);
+				break;
+			default:
+				break;
 		}
 	}
 	
@@ -163,7 +230,7 @@ public class SFGL20UniformData implements SFProgramDataModel {
 		int[] positions=primitive.getIndicesPositions();
 		int[] sizes=primitive.getIndicesSizes();
 		
-		for (int i = 0; i < datas.length; i++) {
+		for (int i = 0; i < datas.length && i<gridUniforms.size(); i++) {
 			
 			int position=positions[i];
 			int size=sizes[i];
@@ -171,7 +238,7 @@ public class SFGL20UniformData implements SFProgramDataModel {
 			
 			
 			Integer[] uniform=gridUniforms.get(uniformIndex);
-			short type=primitive.getGridInstances()[i].getType();
+			short type=primitive.getType(i);
 			switch (type) {
 				case SFPipelineRegister.GLOBAL_FLOAT:
 					for (int j=0; j < size; j++) {
@@ -201,11 +268,19 @@ public class SFGL20UniformData implements SFProgramDataModel {
 	
 	@Override
 	public void setTransformData(float[] transform) {
+		
+		SFVertex3f v1=new SFVertex3f(transform[0],transform[1],transform[2]);
+		SFVertex3f v2=new SFVertex3f(transform[3],transform[4],transform[5]);
+		SFVertex3f v3=new SFVertex3f(transform[6],transform[7],transform[8]);
+		//TODO : work on this normalize!
+//		v1.normalize3f();
+//		v2.normalize3f();
+//		v3.normalize3f();
 
 		float vModelview[]={//you know this is not going to work properly, but let's say it's right most of the times..
-				transform[0],	transform[3],	transform[6],0,
-				transform[1],	transform[4],	transform[7],0,
-				transform[2],	transform[5],	transform[8],0,
+				v1.getX(),	v2.getX(),	v3.getX(),0,
+				v1.getY(),	v2.getY(),	v3.getY(),0,
+				v1.getZ(),	v2.getZ(),	v3.getZ(),0,
 				0,0,0,1
 		};
 		float modelview[]={//you know this is not going to work properly, but let's say it's right most of the times..
@@ -220,39 +295,9 @@ public class SFGL20UniformData implements SFProgramDataModel {
 		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[2],1,false,vModelview,0);
 	}
 
-	/* (non-Javadoc)
-	 * @see shadow.pipeline.openGL20.SFProgramDataModel#setTransformData(float, float, float)
-	 */
-	@Override
-	public void setTransformData( float x, float y, float z, float rx,float ry,float rz){
-		
-		float c1=(float)(Math.cos(rz));
-		float s1=(float)(Math.sin(rz));
-		float c2=(float)(Math.cos(rx));
-		float s2=(float)(Math.sin(rx));
-		float c3=(float)(Math.cos(ry));
-		float s3=(float)(Math.sin(ry));
-		
-		float modelview[]={
-				c1*c3+s1*s2*s3,		c1*s2*s3-c3*s1,	c2*s3,0,
-				c2*s1,				c1*c2,			-s2,0,
-				c3*s1*s2-c1*s3,		s1*s3+c1*c3*s2,	c2*c3,0,
-				x,y,z,1
-		};
-		
-		float vModelview[]={
-				c1*c3+s1*s2*s3,		c1*s2*s3-c3*s1,	c2*s3,0,
-				c2*s1,				c1*c2,			-s2,0,
-				c3*s1*s2-c1*s3,		s1*s3+c1*c3*s2,	c2*c3,0,
-				0,0,0,1
-		};
-		
-		//All transforms are identity no more..
-		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[1],1,false,modelview,0);
-		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[2],1,false,vModelview,0);
-	}
-
 	public void setupProjetion(float projection[]){
 		SFGL2.getGL().glUniformMatrix4fv(mainUniforms[0],1,false,projection,0);
 	}
+
+	
 }

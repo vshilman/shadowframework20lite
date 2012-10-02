@@ -21,6 +21,7 @@ package shadow.pipeline.openGL20;
 
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFProgramComponent;
+import shadow.pipeline.SFProgramModule;
 import shadow.pipeline.parameters.SFPipelineRegister;
 
 /* GTL: Geometry-Texturing-Lighting
@@ -51,7 +52,8 @@ public class SFGL20ImageProgram  extends SFGL20AbstractProgram {
 	}
 	
 	@Override
-	public SFPrimitive getPrimitive() {
-		return null;
+	public void setTransform(SFProgramModule transform) {
+		// TODO Auto-generated method stub
 	}
+	
 }
