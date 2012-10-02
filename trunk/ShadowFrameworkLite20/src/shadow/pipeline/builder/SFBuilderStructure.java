@@ -35,6 +35,7 @@ public class SFBuilderStructure extends SFPipelineStructure implements SFBuilder
 		allCommands.add("matrix4");
 		allCommands.add("transform2");
 		allCommands.add("transform3");
+		allCommands.add("texture");
 		allCommands.add("end");
 	}
 	

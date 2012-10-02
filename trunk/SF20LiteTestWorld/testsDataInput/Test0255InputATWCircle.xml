@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+
+	<SFVertexListData16 name="RationalCircleModelNormals">
+		<vertices>
+			<vertices_element>(0.0,0.0,-1.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+
+	
+	<SFVertexListData16 name="RationalCircleModelDus">
+		<vertices>
+			<vertices_element>(1.0,0.0,0.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	
+	
+	<SFVertexListData16 name="RationalCircleModelDvs">
+		<vertices>
+			<vertices_element>(0.0,1.0,0.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+
+	<SFVertexListData16 name="RationalCircleModelPositions">
+		<vertices>
+			<vertices_element>(0.0,0.0,0.0)</vertices_element>
+			<vertices_element>(1.0,0.0,0.0)</vertices_element>
+			<vertices_element>(0.0,1.0,0.0)</vertices_element>
+			<vertices_element>(-1.0,0.0,0.0)</vertices_element>
+			<vertices_element>(0.0,-1.0,0.0)</vertices_element>
+			<vertices_element>(1.0,1.0,0.0)</vertices_element>
+			<vertices_element>(-1.0,1.0,0.0)</vertices_element>
+			<vertices_element>(-1.0,-1.0,0.0)</vertices_element>
+			<vertices_element>(1.0,-1.0,0.0)</vertices_element>
+			<vertices_element>(0.5,0.0,0.0)</vertices_element>
+			<vertices_element>(0.0,0.5,0.0)</vertices_element>
+			<vertices_element>(-0.5,0.0,0.0)</vertices_element>
+			<vertices_element>(0.0,-0.5,0.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	
+	<SFVertexListData16 name="RationalCircleModelWeights">
+		<vertices>
+			<vertices_element>(1.0)</vertices_element>
+			<vertices_element>(0.707)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	
+	<SFPrimitiveArrayData name="RationalCircleModel">
+		<primitive>Rational2DGeometry</primitive>
+		<references id="primitiveData">
+			<reference>RationalCircleModelNormals</reference>
+			<reference>RationalCircleModelPositions</reference>
+			<reference>RationalCircleModelWeights</reference>
+		</references>
+		<primitives>
+			<primitives_element>(0,0,1,2,9,5,10,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,2,3,10,6,11,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,3,4,11,7,12,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,4,1,12,8,9,0,0,0,0,1,0)</primitives_element>
+		</primitives>
+	</SFPrimitiveArrayData>
+	
+	
+	<SFPrimitiveArrayData name="TexturedRationalCircleModel">
+		<primitive>Rational2DGeometryTxO</primitive>
+		<references id="primitiveData">
+			<reference>RationalCircleModelNormals</reference>
+			<reference>RationalCircleModelPositions</reference>
+			<reference>RationalCircleModelWeights</reference>
+			<reference>RationalCircleModelPositions</reference>
+			<reference>RationalCircleModelWeights</reference>
+		</references>
+		<primitives>
+			<primitives_element>(0,0,1,2,9,5,10,0,0,0,0,1,0,0,1,2,9,5,10,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,2,3,10,6,11,0,0,0,0,1,0,0,2,3,10,6,11,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,3,4,11,7,12,0,0,0,0,1,0,0,3,4,11,7,12,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,4,1,12,8,9,0,0,0,0,1,0,0,4,1,12,8,9,0,0,0,0,1,0)</primitives_element>
+		</primitives>
+	</SFPrimitiveArrayData>
+	
+	
+	
+	<SFPrimitiveArrayData name="BumpMappedRationalCircleModel">
+		<primitive>Rational2DGeometryBumpMap</primitive>
+		<references id="primitiveData">
+			<reference>RationalCircleModelNormals</reference>
+			<reference>RationalCircleModelDus</reference>
+			<reference>RationalCircleModelDvs</reference>
+			<reference>RationalCircleModelPositions</reference>
+			<reference>RationalCircleModelWeights</reference>
+			<reference>RationalCircleModelPositions</reference>
+			<reference>RationalCircleModelWeights</reference>
+		</references>
+		<primitives>
+			<primitives_element>(0,0,0,0,1,2,9,5,10,0,0,0,0,1,0,0,1,2,9,5,10,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,0,0,2,3,10,6,11,0,0,0,0,1,0,0,2,3,10,6,11,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,0,0,3,4,11,7,12,0,0,0,0,1,0,0,3,4,11,7,12,0,0,0,0,1,0)</primitives_element>
+			<primitives_element>(0,0,0,0,4,1,12,8,9,0,0,0,0,1,0,0,4,1,12,8,9,0,0,0,0,1,0)</primitives_element>
+		</primitives>
+		
+	</SFPrimitiveArrayData>
+	
+	
+	<SFObjectModelData name="PlainRationalCircle">
+		<SFMeshGeometryData name="geometry">
+			<linesData>RationalCircleModel</linesData>
+			<firstElement>0</firstElement>
+			<lastElement>4</lastElement>
+		</SFMeshGeometryData>
+		<transformProgramComponents>BasicPNTransform</transformProgramComponents>
+		<materialsProgramComponents>BasicMat</materialsProgramComponents>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>1</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+	</SFObjectModelData>
+	
+
+	<SFObjectModelData name="TexturedRationalCircle">
+		<SFMeshGeometryData name="geometry">
+			<linesData>TexturedRationalCircleModel</linesData>
+			<firstElement>0</firstElement>
+			<lastElement>4</lastElement>
+		</SFMeshGeometryData>
+		<transformProgramComponents>BasicPNTx0Transform</transformProgramComponents>
+		<materialsProgramComponents>TexturedMat</materialsProgramComponents>
+	</SFObjectModelData>
+	
+	<SFObjectModelData name="BumpMappedRationalCircle">
+		<SFMeshGeometryData name="geometry">
+			<linesData>BumpMappedRationalCircleModel</linesData>
+			<firstElement>0</firstElement>
+			<lastElement>4</lastElement>
+		</SFMeshGeometryData>
+		<transformProgramComponents>BasicBumpMapTransform</transformProgramComponents>
+		<materialsProgramComponents>ImprovedBumpMappedMat</materialsProgramComponents>
+	</SFObjectModelData>
+</library>

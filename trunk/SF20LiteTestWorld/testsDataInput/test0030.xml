@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.9,0.8,0.2)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+
+	<SFTransformedCurveData name="BackExternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<z>0.2</z>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>ExternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	
+	<SFTransformedCurveData name="BackInternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<z>0.2</z>ì
+		</SFTranslateAndScaleFixed16Data>
+		<curve>InternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+
+	<SFGroupMeshGeometryData name="FrameworkSurface">
+		<primitive>Triangle3PN</primitive>
+		<geometries>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(3,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<rayCurve>InternalFrameworkContour</rayCurve>
+					<centralCurve>ExternalFrameworkContour</centralCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(3,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<centralCurve>BackExternalFrameworkContour</centralCurve>
+					<rayCurve>ExternalFrameworkContour</rayCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(3,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<rayCurve>BackInternalFrameworkContour</rayCurve>
+					<centralCurve>InternalFrameworkContour</centralCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(3,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<centralCurve>BackInternalFrameworkContour</centralCurve>
+					<rayCurve>BackExternalFrameworkContour</rayCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+		</geometries>
+	</SFGroupMeshGeometryData>
+	
+	<SFObjectModelData name="FrameworkModel">
+		<geometry>FrameworkSurface</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:0</structures_element>
+			</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>

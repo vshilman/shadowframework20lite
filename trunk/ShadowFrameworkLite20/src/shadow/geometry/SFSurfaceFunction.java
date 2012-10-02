@@ -19,45 +19,26 @@
 */
 package shadow.geometry;
 
-import shadow.math.SFVertex3f;
+import shadow.math.SFValuenf;
+import shadow.operational.grid.SFRectangularGrid;
+import shadow.pipeline.SFIndexRange;
+import shadow.pipeline.SFPrimitiveArray;
+import shadow.pipeline.SFPrimitiveBlock;
+import shadow.system.SFArray;
 import shadow.system.SFInitiable;
 
-public abstract class SFSurfaceFunction implements SFInitiable{
+public interface SFSurfaceFunction extends SFInitiable{
+	
+	public enum SFSurfaceInfo{
+		POSITION,
+		NORMAL,
+		DU,
+		DV
+	};
+	
+	public void updateRectangularModel(SFRectangularGrid<SFValuenf[]> values,float[] us,float vs[],SFSurfaceInfo[] infos);
 
-	private static final float eps=0.01f;
+	public void updateParametrizedModel(int position,SFArray<SFValuenf> parameters,SFIndexRange range,SFPrimitiveArray array,SFPrimitiveBlock block,int gridIndex);
 	
-	public abstract float getX(float u,float v);
-	public abstract float getY(float u,float v);
-	public abstract float getZ(float u,float v);
-	
-	public SFVertex3f getPosition(float u,float v){	
-		return new SFVertex3f(getX(u, v),getY(u, v),getZ(u, v));
-	}
-	
-	public void getPosition(float u,float v,SFVertex3f write){	
-		write.set3f(getX(u, v),getY(u, v),getZ(u, v));
-	}
-
-	public SFVertex3f getDu(float u,float v){
-		SFVertex3f p1=getPosition(u-eps, v);
-		SFVertex3f p2=getPosition(u+eps, v);
-		p2.subtract3f(p1);
-		p2.mult(1.0f/(2*eps));
-		return p2;
-	}
-	
-	public SFVertex3f getDv(float u,float v){
-		SFVertex3f p1=getPosition(u, v);
-		SFVertex3f p2=getPosition(u, v+eps);
-		p2.subtract3f(p1);
-		p2.mult(1.0f/eps);
-		return p2;
-	}
-	
-	public SFVertex3f getNormal(float u,float v){
-		SFVertex3f normal=getDu(u, v).cross(getDv(u, v));
-		normal.normalize3f();
-		return normal;
-	}
-	
+	public int extractParametrizedModel(SFArray<SFValuenf> parameters,SFIndexRange range,SFPrimitiveArray array,SFPrimitiveBlock block,int gridIndex);
 }

@@ -1,9 +1,10 @@
 package shadow.system.data.objects;
 
+import shadow.system.data.SFCharsetObject;
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
 
-public class SFFloatArray extends SFPrimitiveType{
+public class SFFloatArray extends SFPrimitiveType  implements SFCharsetObject{
 
 	private float[] floatValues;
 	
@@ -36,5 +37,16 @@ public class SFFloatArray extends SFPrimitiveType{
 	@Override
 	public SFFloatArray clone(){
 		return new SFFloatArray(floatValues.length);
+	}
+	
+
+	@Override
+	public void setStringValue(String value) {
+		SFCharsetObjectUtils.readFloats(floatValues, value, this.getClass().getSimpleName());
+	}
+	
+	@Override
+	public String toStringValue() {
+		return SFCharsetObjectUtils.writeFloats(floatValues);
 	}
 }

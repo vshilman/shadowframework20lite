@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFVertexListData16 name="NORMALS">
+		<vertices>
+			<vertices_element>(0.0,0.0,1.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFVertexListData16 name="POSITIONS">
+		<vertices>
+			<vertices_element>(1.0,0.0)</vertices_element>
+			<vertices_element>(0.0,0.0)</vertices_element>
+			<vertices_element>(0.0,0.0)</vertices_element>
+			<vertices_element>(0.0,1.0)</vertices_element>
+			<vertices_element>(-0.5,1.0)</vertices_element>
+			<vertices_element>(-1.0,0.5)</vertices_element>
+			<vertices_element>(-1.0,0.0)</vertices_element>
+			<vertices_element>(-1.0,-0.0)</vertices_element>
+			<vertices_element>(-0.5,-1.0)</vertices_element>
+			<vertices_element>(0.0,-1.0)</vertices_element>
+			<vertices_element>(0.0,-1.0)</vertices_element>
+			<vertices_element>(1.0,-0.5)</vertices_element>
+			<vertices_element>(1.0,1.0)</vertices_element>
+			<vertices_element>(0.7,0.7)</vertices_element>
+			<vertices_element>(0.7,1.0)</vertices_element>
+			<vertices_element>(0.7,0.7)</vertices_element>
+			<vertices_element>(1.0,0.7)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	
+	<SFPrimitiveArrayData name="LinesPrimitiveData">
+		<primitive>Line3PN</primitive>
+		<references id="primitiveData">
+			<reference>POSITIONS</reference>
+			<reference>NORMALS</reference>
+		</references>
+		<primitives>
+			<primitives_element>(0,3,1,2,0,0,0,0)</primitives_element>
+			<primitives_element>(3,6,4,5,0,0,0,0)</primitives_element>
+			<primitives_element>(6,9,7,8,0,0,0,0)</primitives_element>
+			<primitives_element>(9,0,10,11,0,0,0,0)</primitives_element>
+			<primitives_element>(3,12,13,14,0,0,0,0)</primitives_element>
+			<primitives_element>(0,12,15,16,0,0,0,0)</primitives_element>
+		</primitives>
+	</SFPrimitiveArrayData>
+
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(0.0,0.5,0.0)</values_element>
+			<values_element>(0.5,0.5,0.0)</values_element>
+			<values_element>(0.5,0.0,0.5)</values_element>
+			<values_element>(0.0,0.0,0.5)</values_element>
+			<values_element>(0.5,0.0,1.0)</values_element>
+			<values_element>(0.5,1.0,0.0)</values_element>
+			<values_element>(0.6,1.0,0.4)</values_element>
+			<values_element>(0.0,1.0,1.0)</values_element>
+			<values_element>(1.0,0.6,0.0)</values_element>
+			<values_element>(1.0,0.84800005,0.0)</values_element>
+			<values_element>(0.0,0.6,0.2)</values_element>
+			<values_element>(0.1,0.0,0.3)</values_element>
+			<values_element>(1.0,1.0,1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+		</values> 
+	</SFStructureArrayDataUnit8>
+	
+	<SFFillGeometryData name="FillGeometry">
+		<primitive>Triangle3PN</primitive>
+		<SFMeshGeometryData name="meshGeometry">
+			<linesData>LinesPrimitiveData</linesData>
+			<firstElement>0</firstElement>
+			<lastElement>6</lastElement>
+		</SFMeshGeometryData>
+	</SFFillGeometryData>
+	
+	<SFObjectModelData name="FillGeometryModel">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,0.0,0.0)</position>
+			<orientation>-3.1415927:3.1415927:3:(10,10,10):(-3.1415927,-3.1415927,-3.1415927):</orientation>
+			<scale>0.8</scale>
+		</SFRigidTransformData>
+		<transformProgramComponents>BasicPNTransform</transformProgramComponents>
+		<geometry>FillGeometry</geometry>
+		<materialsProgramComponents>BasicMat</materialsProgramComponents>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>5</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+	</SFObjectModelData>
+	
+</library>

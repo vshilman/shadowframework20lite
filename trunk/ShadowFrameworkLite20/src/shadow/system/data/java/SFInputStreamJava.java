@@ -15,9 +15,16 @@ public class SFInputStreamJava implements SFInputStream {
 		this.stream = stream;
 		this.keeper = keeper;
 	}
+	
+	@Override
+	public String readName() {
+		return readString();
+	}
 
 	@Override
 	public String readString() {
+//		int n=readInt();
+//		return ""+n;
 		int n = readBytes(1)[0];
 		byte[] data = readBytes(n);
 		return new String(data);
@@ -143,6 +150,11 @@ public class SFInputStreamJava implements SFInputStream {
 		return fs;
 	}
 
+	@Override
+	public byte readByte() {
+		return readBytes(1)[0];
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

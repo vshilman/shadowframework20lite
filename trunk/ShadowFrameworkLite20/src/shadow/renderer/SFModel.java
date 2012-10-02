@@ -1,34 +1,49 @@
 package shadow.renderer;
 
-
 import java.util.HashMap;
 
 import shadow.geometry.SFGeometry;
-import shadow.material.SFLightStep;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgram;
 
+public class SFModel  {
 
-public class SFModel extends SFRenderable {
+	private SFProgramModuleStructures transform=new SFProgramModuleStructures();
 
-	private HashMap<SFLightStep, SFProgram> programs = new HashMap<SFLightStep, SFProgram>();
+	private SFProgramModuleStructures material=new SFProgramModuleStructures();
 	
-	//private ArrayList<SFProgram> programs = new ArrayList<SFProgram>();
+	private HashMap<String, SFProgram> programs = new HashMap<String, SFProgram>();
+	
 	private SFGeometry rootGeometry=null;
 	
 	public SFGeometry getRootGeometry() {
 		return rootGeometry;
 	}
 
+	public SFProgramModuleStructures getMaterialComponent() {
+		return material;
+	}
+
+	public void setMaterialComponent(SFProgramModuleStructures material) {
+		this.material = material;
+	}
+	
 	public void setRootGeometry(SFGeometry rootGeometry) {
 		this.rootGeometry = rootGeometry;
 	}
 	
-	public SFProgram evaluateProgram(SFLightStep step){
-		
-		SFProgram program=SFPipeline.getStaticProgram(getRootGeometry().getPrimitive()
-				,getMaterialsNames(),step.getProgramName());
-		programs.put(step,program);
+	public void setTransformComponent(SFProgramModuleStructures transformComponent) {
+		this.transform = transformComponent;
+	}
+
+	public SFProgramModuleStructures getTransformComponent() {
+		return transform;
+	}
+
+	public SFProgram evaluateProgram(SFProgramModuleStructures light){
+		SFProgram program=SFPipeline.getStaticProgram(getRootGeometry().getPrimitive(),
+				transform.getProgram(),material.getProgram(),light.getProgram());
+		programs.put(light.getProgram(),program);
 		
 		return program;
 	}
@@ -37,20 +52,19 @@ public class SFModel extends SFRenderable {
 		programs.clear();
 	}
 
-	public SFProgram getProgram(SFLightStep step){
-		SFProgram program=programs.get(step);
+	public SFProgram getProgram(SFProgramModuleStructures light){
+		SFProgram program=programs.get(light.getProgram());
 		if(program!=null){
 			return program;
 		}
-		return evaluateProgram(step);
+		return evaluateProgram(light);
 	}
 	
 	public SFModel clone(){
 		SFModel model=new SFModel();
 		model.rootGeometry=rootGeometry;
-		model.getMaterialsComponents().addAll(getMaterialsComponents());
-		model.getMaterialsStructures().addAll(getMaterialsStructures());
-		model.getTextures().addAll(getTextures());
+		model.transform=transform.clone();
+		model.setMaterialComponent(getMaterialComponent().clone());
 		return model;
 	}
 }

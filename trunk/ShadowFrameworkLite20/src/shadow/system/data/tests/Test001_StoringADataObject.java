@@ -10,7 +10,6 @@ import shadow.system.data.SFOutputStream;
 import shadow.system.data.java.SFInputStreamJava;
 import shadow.system.data.java.SFOutputStreamJava;
 import shadow.system.data.objects.SFCompositeDataArray;
-import shadow.system.data.objects.SFFloat;
 import shadow.system.data.objects.SFInt;
 import shadow.system.data.objects.SFString;
 
@@ -20,8 +19,8 @@ public class Test001_StoringADataObject {
 		
 		MyCompositeDataObject dataObject=new MyCompositeDataObject();
 		
-		dataObject.intData.setIntValue(0);
-		dataObject.floatData.setFloatValue(0);
+		dataObject.intData.setIntValue(2);
+		dataObject.intData2.setIntValue(2);
 		
 		//write it
 		try {
@@ -77,17 +76,17 @@ public class Test001_StoringADataObject {
 	
 	public static class MyCompositeDataObject extends SFCompositeDataArray{
 		
-		public SFFloat floatData;
 		public SFInt intData;
+		public SFInt intData2;
 		public SFString stringData;
 		
 		@Override
 		public void generateData() {
-			floatData=new SFFloat(2.5f);
 			intData=new SFInt(4);
+			intData2=new SFInt(4);
 			stringData=new SFString("Hello");
-			getDataObject().add(floatData);
 			getDataObject().add(intData);
+			getDataObject().add(intData2);
 			getDataObject().add(stringData);
 		}
 		

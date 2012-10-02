@@ -18,6 +18,7 @@ public class SFParsableProgramComponent extends SFProgramComponent implements SF
 		allCommands.add("begin");
 		allCommands.add("use");
 		allCommands.add("write");
+		allCommands.add("rewrite");
 		allCommands.add("param");
 		allCommands.add("grid");
 		allCommands.add("define");

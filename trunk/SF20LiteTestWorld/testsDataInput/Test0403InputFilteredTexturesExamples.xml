@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element><!-- 0 -->
+			<values_element>(1.0,0.0,0.0)</values_element><!-- 1 -->
+			<values_element>(0.0,0.5,0.0)</values_element><!-- 2 -->
+			<values_element>(0.5,0.5,0.0)</values_element><!-- 3 -->
+			<values_element>(0.5,0.0,0.5)</values_element><!-- 4 -->
+			<values_element>(0.0,0.0,0.5)</values_element><!-- 5 -->
+			<values_element>(0.5,0.0,1.0)</values_element><!-- 6 -->
+			<values_element>(0.5,1.0,0.0)</values_element><!-- 7 -->
+			<values_element>(0.6,1.0,0.4)</values_element><!-- 8 -->
+			<values_element>(0.0,1.0,1.0)</values_element><!-- 9 -->
+			<values_element>(1.0,0.6,0.0)</values_element><!-- 10 -->
+			<values_element>(1.0,0.84,0.0)</values_element><!-- 11 -->
+			<values_element>(0.0,0.6,0.2)</values_element><!-- 12 -->
+			<values_element>(0.1,0.0,0.3)</values_element><!-- 13 -->
+			<values_element>(1.0,1.0,1.0)</values_element><!-- 14 -->
+			<values_element>(0.6,0.6,0.6)</values_element><!-- 15 -->
+			<values_element>(0.0,0.0,1.0)</values_element><!-- 16 -->
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFFunction2DBitmapData name="CircularBitmap10">
+		<width>4</width>
+		<height>4</height>
+		<SFBasicBitmapFunctionsData name="function">
+			<function>Circle</function>
+		</SFBasicBitmapFunctionsData>
+	</SFFunction2DBitmapData>
+	<SFBitmapTextureData name="PerlinTexture01">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap10</bitmap>
+			<weights>(0.0,1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFFunction2DBitmapData name="RandomBitmap">
+		<width>8</width>
+		<height>8</height>
+		<SFFunctionRandomizerData name="function">
+			<seed>100</seed>
+		</SFFunctionRandomizerData>
+	</SFFunction2DBitmapData>
+	<SFBitmapTextureData name="PerlinTexture03">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>RandomBitmap</bitmap>
+			<weights>(0.0,0.5,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture04">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>RandomBitmap</bitmap>
+			<weights>(0.0,0.8,0.2)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFFunction2DBitmapData name="CircularBitmap4">
+		<width>4</width>
+		<height>4</height>
+		<SFBasicBitmapFunctionsData name="function">
+			<function>Circle</function>
+		</SFBasicBitmapFunctionsData>
+	</SFFunction2DBitmapData>
+	<SFBitmapTextureData name="PerlinTexture02">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap4</bitmap>
+			<weights>(0,0.6,0.0,0.6,-0.2)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFStructureArrayData16 name="BasicSizes">
+		<structure>TextureFilterData</structure>
+		<values>
+			<values_element>(0.005)(6.0)</values_element>
+		</values>
+	</SFStructureArrayData16>
+	<SFFilteredRenderedTextureData name="ReddishGrayAndBrightPerlinNoise">
+		<lightStep>InterpolatedTexturedColor</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>PerlinTexture04</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>10</refIndex>
+			</SFStructureReferenceData>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>3</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<materialsProgramComponents>TexturedMat</materialsProgramComponents>
+		<references id="materialsStructures">
+		</references>
+	</SFFilteredRenderedTextureData>
+	<SFFilteredRenderedTextureData name="PerlinTextureBumpMap">
+		<lightStep>DrawNormals</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>PerlinTexture04</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicSizes</tableData>
+				<refIndex>0</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsProgramComponents>NormalFromHeightField</materialsProgramComponents>
+	</SFFilteredRenderedTextureData>
+	<SFFilteredRenderedTextureData name="PerlinTexture03x04">
+		<lightStep>BasicColor</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>PerlinTexture02</texture>
+			</SFTextureReferenceData>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>1</textureLevel>
+				<texture>PerlinTexture03</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<textures>
+			<textures_element>200:200:GRAY8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsProgramComponents>TextureMultiplier</materialsProgramComponents>
+	</SFFilteredRenderedTextureData>
+	<SFFilteredRenderedTextureData name="PerlinTexture03+04">
+		<lightStep>BasicColor</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>PerlinTexture02</texture>
+			</SFTextureReferenceData>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>1</textureLevel>
+				<texture>PerlinTexture03</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<textures>
+			<textures_element>200:200:GRAY8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsProgramComponents>TextureSummer</materialsProgramComponents>
+	</SFFilteredRenderedTextureData>
+	<SFFilteredRenderedTextureData name="PerlinTexture03+04Colors">
+		<lightStep>BasicColor</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>PerlinTexture03</texture>
+			</SFTextureReferenceData>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>1</textureLevel>
+				<texture>PerlinTexture02</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>0</refIndex>
+			</SFStructureReferenceData>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>2</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<materialsProgramComponents>ColouredTextureSummer</materialsProgramComponents>
+	</SFFilteredRenderedTextureData>
+	<SFFilteredRenderedTextureData name="PerlinTexture03x04BumpMap">
+		<lightStep>DrawNormals</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>PerlinTexture03x04</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicSizes</tableData>
+				<refIndex>0</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsProgramComponents>NormalFromHeightField</materialsProgramComponents>
+	</SFFilteredRenderedTextureData>
+	
+	<SFBitmapTextureData name="Voronoi04">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFTextureRepeaterValueList name="vertices">
+					<SFVertexListDataUnit8 name="vertices">
+						<vertices>
+							<vertices_element>(0.4,0.3)</vertices_element>
+							<vertices_element>(0.8,0.2)</vertices_element>
+							<vertices_element>(0.2,0.8)</vertices_element>
+							<vertices_element>(0.3,0.7)</vertices_element>
+							<vertices_element>(0.8,0.5)</vertices_element>
+							<vertices_element>(0.6,0.4)</vertices_element>
+							<vertices_element>(0.1,0.2)</vertices_element>
+							<vertices_element>(0.9,0.6)</vertices_element>
+							<vertices_element>(0.6,0.5)</vertices_element>
+						</vertices>
+					</SFVertexListDataUnit8>
+				</SFTextureRepeaterValueList>
+				<model>Model7</model>
+				<distance>Distance</distance>
+			</SFVoronoiBitmapFunctionData>
+			<weights>(0,1.0)</weights>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	
+	<SFFilteredRenderedTextureData name="ColouredVoronoi04">
+		<lightStep>InterpolatedTexturedColor</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>Voronoi04</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>10</refIndex>
+			</SFStructureReferenceData>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>3</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<materialsProgramComponents>TexturedMat</materialsProgramComponents>
+		<references id="materialsStructures">
+		</references>
+	</SFFilteredRenderedTextureData>
+	
+	<SFFilteredRenderedTextureData name="Voronoi04BumpMap">
+		<lightStep>DrawNormals</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>Voronoi04</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicSizes</tableData>
+				<refIndex>0</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsProgramComponents>NormalFromHeightField</materialsProgramComponents>
+	</SFFilteredRenderedTextureData>
+	
+</library>

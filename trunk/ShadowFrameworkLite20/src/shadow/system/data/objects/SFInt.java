@@ -2,10 +2,11 @@ package shadow.system.data.objects;
 
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
+import shadow.system.data.SFWritableDataObject;
 
-public class SFInt extends SFPrimitiveType {
+public class SFInt extends SFPrimitiveType  implements SFWritableDataObject{
 
-	private int intValue;
+	protected int intValue;
 
 	public SFInt(int intValue) {
 		super();
@@ -34,32 +35,14 @@ public class SFInt extends SFPrimitiveType {
 	public SFInt clone() {
 		return new SFInt(intValue);
 	}
-
-	public int getByte(int byteIndex) {
-		int value = intValue >> (byteIndex * 8);
-		return value & 0xff;
-	}
-
-	public void setByte(int byteIndex, int value) {
-		value = value & 0xff;
-		value = value << (byteIndex * 8);
-		int mask = 0xff << (byteIndex * 8);
-		mask = (-1) - mask;
-		intValue = intValue & mask;
-		intValue += value; 
+	
+	@Override
+	public void setStringValue(String value) {
+		intValue=new Integer(value);
 	}
 	
-	public int getShort(int shortIndex) {
-		int value = intValue >> (shortIndex * 16);
-		return value & 0xffff;
-	}
-
-	public void setShort(int shortIndex, int value) {
-		value = value & 0xffff;
-		value = value << (shortIndex * 16);
-		int mask = 0xffff << (shortIndex * 16);
-		mask = (-1) - mask;
-		intValue = intValue & mask;
-		intValue += value; 
+	@Override
+	public String toStringValue() {
+		return intValue+"";
 	}
 }

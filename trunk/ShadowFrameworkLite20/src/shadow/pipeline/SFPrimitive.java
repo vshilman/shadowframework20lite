@@ -9,182 +9,132 @@ import shadow.pipeline.parameters.SFPipelineRegister;
 /**
  * A complete description of a Geometric Primitive.
  * 
- * 		- It's tessellator.
  * 		- The Map of Primitive and Slots. 
  * 
  * @author Alessandro Martinelli
  */
-public class SFPrimitive {
+public class SFPrimitive extends SFProgramModule{
 
-	public enum PrimitiveBlock{
-		POSITION(SFPipelineRegister.getFromName("P")),
-		NORMAL(SFPipelineRegister.getFromName("N")),
-		DU(SFPipelineRegister.getFromName("du")),
-		DV(SFPipelineRegister.getFromName("dv")),
-		TXO(SFPipelineRegister.getFromName("Tx0"));
-		private SFPipelineRegister register;
-
-		private PrimitiveBlock(SFPipelineRegister register) {
-			this.register = register;
-		}
-		
-		public SFPipelineRegister getRegister(){
-			return register;
-		}
-		
-		public short getType(){
-			return register.getType();
-		}
-		
-		public static PrimitiveBlock getBlock(SFPipelineRegister register){
-			PrimitiveBlock[] blocks=PrimitiveBlock.values();
-			for (int i = 0; i < blocks.length; i++) {
-				if(blocks[i].getRegister()==register){
-					return blocks[i];
-				}
-			}
-			return POSITION;
-		}
-
-		public int getIndex() {
-			return ordinal();
-		}
-
-		public static PrimitiveBlock getBlock(int index){
-			return values()[index];
-		}
-	}
-	
-	private SFProgramComponent tessellator; 
 	private int[] indicesPositions;
 	private int[] indicesSizes;
 	private int indicesCount;
-	private int positionBlockIndex; 
-	private boolean isQuad;
+	private SFGridModel gridModel;
 	
-	private PrimitiveBlock[] blocks=new PrimitiveBlock[0];
-	private SFProgramComponent[] components=new SFProgramComponent[0];
-	private SFPrimitiveGrid grids[];
+	private SFPrimitiveBlock blocks[]=new SFPrimitiveBlock[0];
+	private SFPipelineGrid grids[];
+	private int gridBlocksIndex[];
+	private short types[];
+	//private SFPrimitiveGrid grids[];
 	
 	public SFPrimitive() {
 		super();
 	}
 	
-	//TODO Remove this!!
-	public boolean containRegister(SFPipelineRegister register){
-		for (int i = 0; i < blocks.length; i++) {
-			if(register==blocks[i].getRegister())
-				return true;
-		}
-		return false;
+	public SFPrimitive(String name,SFGridModel gridModel) {
+		super(name);
+		this.gridModel=gridModel;
 	}
 	
-	
-	public void setPrimitiveElements(PrimitiveBlock[] blocks,SFProgramComponent[] components){
+	public void setPrimitiveElements(SFPrimitiveBlock[] blocks,SFProgramComponent[] components){
 		this.blocks=blocks;
 		this.components=components;
 		generateGridInstances();
 	}
-	
-	
-	public void addPrimitiveElement(PrimitiveBlock block,SFProgramComponent component){
-		//The implementation of this method should appear non optimal;
-		//nevertheless you should be aware that this is the least called method of SFPrimitive 
-		//(No more than 4-5 times for each primitive)
-		//and the choice in here will accelerate any other (much more used) call in this class
-		//Furthermore, viewers will also call setPrimitiveElements instead of this.
-		PrimitiveBlock[] tmpBlocks=new PrimitiveBlock[this.blocks.length+1];
-		for (int i = 0; i < blocks.length; i++) {
-			tmpBlocks[i]=blocks[i];
-		}
-		tmpBlocks[blocks.length]=block;
-		blocks=tmpBlocks;
-		//C++:delete blocks;
-		SFProgramComponent[] tmpComponents=new SFProgramComponent[this.components.length+1];
-		for (int i = 0; i < components.length; i++) {
-			tmpComponents[i]=components[i];
-		}
-		tmpComponents[components.length]=component;
-		components=tmpComponents;
-		//C++:delete components;
-		generateGridInstances();
-	}
+
 	
 	public void generateGridInstances(){
 		/*C++: 
 		 * if(gridInstances!=null) 
 		 * 		delete gridInstances;
 		 * */
-		List<SFPrimitiveGrid> grids=new ArrayList<SFPrimitiveGrid>();
-		for (int i = 0; i < components.length; i++) {
-			List<SFPipelineGridInstance> grid=getComponents()[i].getGrid();
-			for (SFPipelineGridInstance sfPipelineGridInstance : grid) {
-				SFPrimitiveGrid grid_=new SFPrimitiveGrid(blocks[i], sfPipelineGridInstance);
-				grids.add(grid_);
-				if(blocks[i]==PrimitiveBlock.POSITION && sfPipelineGridInstance.getParameters().get(0).getType()==SFParameteri.GLOBAL_GENERIC){
-					positionBlockIndex=grids.size()-1;
-					isQuad=grid_.getGrid().getCorners().length==4;
-				}
+		List<SFPipelineGrid> grids=new ArrayList<SFPipelineGrid>();
+		List<Integer> gridBlocksIndex=new ArrayList<Integer>();
+		List<Short> types=new ArrayList<Short>();
+		for (int i = 0; i < blocks.length; i++) {
+			List<SFPipelineGrid> grid=getComponents()[i].getGrid();
+			for (SFPipelineGrid sfPipelineGridInstance : grid) {
+				grids.add(sfPipelineGridInstance);
+				gridBlocksIndex.add(i);
+				short type=sfPipelineGridInstance.getParameterType(0);
+				if(type==SFParameteri.GLOBAL_GENERIC)
+					type=blocks[i].getType();
+				types.add(type);
 			}
 		}
 		//C++: delete grids;
-		this.grids=grids.toArray(new SFPrimitiveGrid[grids.size()]);
+		this.grids=grids.toArray(new SFPipelineGrid[grids.size()]);
+		this.gridBlocksIndex=new int[gridBlocksIndex.size()];
+		for (int i = 0; i < this.gridBlocksIndex.length; i++) {
+			this.gridBlocksIndex[i]=gridBlocksIndex.get(i);
+		}
+		this.types=new short[types.size()];
+		for (int i = 0; i < this.types.length; i++) {
+			this.types[i]=types.get(i);
+		}
 		generateIndicesSizes();
 	}
 	
 	/**
 	 * @return -1 if there is no Txo Block
 	 */
-	public int findTxoBlockPosition(){
-		for (int i = 0; i < grids.length; i++) {
-			if(grids[i].getBlock()==PrimitiveBlock.TXO){
+	public int findBlockPosition(SFPrimitiveBlock block){
+		for (int i = 0; i < blocks.length; i++) {
+			if(blocks[i]==block){
 				return i;
 			}
 		}
 		return -1;
-	}
-
-	public int getPositionBlockIndex() {
-		return positionBlockIndex;
-	}
-
-	public PrimitiveBlock[] getBlocks(){
-		return blocks;
 	}
 	
 	public SFProgramComponent[] getComponents(){
 		return components;
 	}
 	
-	public SFPrimitiveGrid[] getGridInstances() {
+	public SFPipelineGrid[] getGrids() {
 		return grids;
 	}
-
-	public SFProgramComponent getTessellator() {
-		return tessellator;
+	
+	public SFGridModel getGridModel() {
+		return gridModel;
 	}
 
-	public void setAdaptingTessellator(SFProgramComponent adaptingTessellator) {
-		this.tessellator=adaptingTessellator;
+	public int getGridsCount(){
+		return grids.length;
 	}
 	
-	public boolean isQuad(){
-		return isQuad;
+	public SFPrimitiveBlock getBlock(int gridIndex){
+		return blocks[gridBlocksIndex[gridIndex]];
+	}
+
+	public SFPipelineGrid getGrid(int gridIndex){
+		return grids[gridIndex];
+	}
+
+	public short getType(int gridIndex){
+		return types[gridIndex];
 	}
 	
-	public PrimitiveBlock getBlock(SFPipelineRegister register) {
+	public int getGridBlocksIndex(int gridIndex){
+		return gridBlocksIndex[gridIndex];
+	}
+	
+	public SFPrimitiveBlock[] getBlocks() {
+		return blocks;
+	}
+
+	public SFPrimitiveBlock getBlock(SFPipelineRegister register) {
 		String registerName=register.getName();
 		char[] rName=registerName.toCharArray(); 
 		
-		PrimitiveBlock block=PrimitiveBlock.POSITION;
+		SFPrimitiveBlock block=SFPrimitiveBlock.POSITION;
 		if(rName[0]=='N'){
-			block=PrimitiveBlock.NORMAL;
+			block=SFPrimitiveBlock.NORMAL;
 		}else if(rName.length>1 && rName[0]=='T' && rName[1]=='x'){
-			block=PrimitiveBlock.TXO;
+			block=SFPrimitiveBlock.TXO;
 		}else if(rName.length>1 && rName[0]=='d' && rName[1]=='u'){
-			block=PrimitiveBlock.DU;
+			block=SFPrimitiveBlock.DU;
 		}else if(rName.length>1 && rName[0]=='d' && rName[1]=='v'){
-			block=PrimitiveBlock.DV;
+			block=SFPrimitiveBlock.DV;
 		}
 		return block;
 	}
@@ -200,6 +150,10 @@ public class SFPrimitive {
 	public int[] getIndicesSizes() {
 		return indicesSizes;
 	}
+	
+	public boolean isQuad(){
+		return gridModel==SFGridModel.Quad;
+	}
 
 	private void generateIndicesSizes() {
 		indicesPositions=new int[this.grids.length];
@@ -207,8 +161,23 @@ public class SFPrimitive {
 		indicesCount=0;
 		for (int i = 0; i < this.grids.length; i++) {
 			indicesPositions[i]=indicesCount;
-			indicesSizes[i]=this.grids[i].getGrid().getGridSize();
+			indicesSizes[i]=this.grids[i].getGridSize();
 			indicesCount+=indicesSizes[i];
 		}
+	}
+	
+	
+	public SFPrimitive getConstructionPrimitive(){
+		SFPrimitive primitive=new SFPrimitive("",this.gridModel);
+		
+		for (int i = 0; i < blocks.length; i++) {
+			if(blocks[i]==SFPrimitiveBlock.POSITION){
+				SFProgramComponent[] components={this.components[i]};
+				SFPrimitiveBlock[] blocks={SFPrimitiveBlock.UV};
+				primitive.setPrimitiveElements(blocks, components);
+			}
+		}
+		
+		return primitive;
 	}
 }

@@ -1,74 +1,94 @@
 package shadow.renderer.data;
 
-import shadow.pipeline.SFPipeline;
-import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.SFPrimitive.PrimitiveBlock;
-import shadow.pipeline.SFProgramComponent;
-import shadow.system.SFException;
-import shadow.system.data.objects.SFCompositeDataArray;
-import shadow.system.data.objects.SFDataList;
-import shadow.system.data.objects.SFString;
 
-public class SFPrimitiveData extends SFCompositeDataArray{
-
-	private SFPrimitive primitive;
-	private SFDataList<SFString> primitiveData;
-	
-	@Override
-	public void generateData() {
-		primitiveData=new SFDataList<SFString>(new SFString(""));
-		addDataObject(primitiveData);
-	}
-	
-	@Override
-	public SFCompositeDataArray clone() {
-		return new SFPrimitiveData();
-	}
-
-	public SFPrimitive getPrimitive() {
-		if(primitive==null)
-			setupPrimitive();
-		return primitive;
-	}
-
-	public void setPrimitive(SFPrimitive primitive) {
-		this.primitive = primitive;
-		retrievePrimitiveData();
-	}
-
-	private void setupPrimitive(){
-		int index=0;
-		primitive=new SFPrimitive();
-		primitive.setAdaptingTessellator((SFProgramComponent)SFPipeline.getModule(primitiveData.get(index).getString()));
-		index++;
-		
-		try {
-			int size=(primitiveData.size()-1)>>1;
-			SFProgramComponent[] components=new SFProgramComponent[size];
-			PrimitiveBlock[] blocks=new PrimitiveBlock[size];
-			for (int i = 0; i < size; i++) {
-				blocks[i]=PrimitiveBlock.getBlock(new Integer(primitiveData.get(index).getString()));//SFPipelineRegister.getFromName(primitiveData.get(index).getLabel());
-				index++;
-				components[i]=(SFProgramComponent)SFPipeline.getModule(primitiveData.get(index).getString());
-				index++;
-			}
-			primitive.setPrimitiveElements(blocks, components);
-		} catch (SFException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void retrievePrimitiveData(){
-		primitiveData.clear();
-		primitiveData.add(new SFString(primitive.getTessellator().getName()));
-		
-		SFProgramComponent[] components=primitive.getComponents();
-		PrimitiveBlock[] blocks=primitive.getBlocks();
-		
-		for (int i = 0; i < blocks.length; i++) {
-			primitiveData.add(new SFString(""+blocks[i].getIndex()));
-			primitiveData.add(new SFString(components[i].getName()));
-		}
-		
-	}
-}
+//public class SFPrimitiveData extends SFDataObjectsList<SFPrimitiveData.SFPrimitiveBlockData>{
+//
+//	protected static class SFPrimitiveBlockData extends SFCompositeDataArray implements SFWritableDataObject{
+//	
+//		public SFString name;
+//		public SFShort block;
+//		
+//		@Override
+//		public SFCompositeDataArray clone() {
+//			return new SFPrimitiveBlockData();
+//		}
+//		
+//		@Override
+//		public void generateData() {
+//			name=new SFString();
+//			block=new SFShort((short)0);
+//			addDataObject(name);
+//			addDataObject(block);
+//		}
+//		
+//		@Override
+//		public String toStringValue() {
+//			return "("+SFPrimitiveBlock.getBlock(block.getShortValue())+":"+name.getString()+")";
+//		}
+//		
+//		@Override
+//		public void setStringValue(String value) {
+//			StringTokenizer tokenizer=new StringTokenizer(value,"(:)",false);
+//			String token=tokenizer.nextToken();
+//			System.err.println("token "+token);
+//			block.setShortValue((short)(SFPrimitiveBlock.valueOf(token).getIndex()));
+//			name.setStringValue(tokenizer.nextToken());
+//		}
+//	}
+//	
+//	
+//	private static final long serialVersionUID=0;
+//	private SFPrimitive primitive;
+//
+//	public SFPrimitiveData() {
+//		super(new SFPrimitiveBlockData());
+//	}
+//
+//	public SFPrimitive getPrimitive() {
+//		if(primitive==null)
+//			setupPrimitive();
+//		return primitive;
+//	}
+//
+//	public void setPrimitive(SFPrimitive primitive) {
+//		this.primitive = primitive;
+//		retrievePrimitiveData();
+//	}
+//
+//	private void setupPrimitive(){
+//		
+//		if(1==1)
+//			throw new SFException("Drop ME!! I'm useless!!");
+//		
+//		int index=0;
+//		//TODO : Bad! STILL BAD; but this is going to be dropped
+//		primitive=new SFPrimitive("",SFGridModel.Triangle);
+//		
+//		try {
+//			int size=(size());
+//			SFProgramComponent[] components=new SFProgramComponent[size];
+//			SFPrimitiveBlock[] blocks=new SFPrimitiveBlock[size];
+//			for (int i = 0; i < size; i++) {
+//				blocks[i]=SFPrimitiveBlock.getBlock(get(index).block.getShortValue());//SFPipelineRegister.getFromName(primitiveData.get(index).getLabel());
+//				components[i]=(SFProgramComponent)SFPipeline.getModule(get(index).name.getString());
+//				index++;
+//			}
+//			primitive.setPrimitiveElements(blocks, components);
+//		} catch (SFException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	private void retrievePrimitiveData(){
+//		clear();
+//		
+//		SFProgramComponent[] components=primitive.getComponents();
+//		
+//		for (int gridIndex = 0; gridIndex < primitive.getGridSize(); gridIndex++) {
+//			SFPrimitiveBlockData blockData=new SFPrimitiveBlockData();
+//			blockData.name.setString(components[primitive.getGridBlocksIndex(gridIndex)].getName());
+//			blockData.block.setShortValue((short)primitive.getBlock(gridIndex).getIndex());
+//			add(blockData);
+//		}
+//	}
+//}

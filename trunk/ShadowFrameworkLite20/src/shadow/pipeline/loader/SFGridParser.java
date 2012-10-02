@@ -36,13 +36,14 @@ public class SFGridParser implements SFLineParser {
 							String paramType = lineToken.nextToken();
 							// TODO : param definition goes here
 							List<String> pars = extractNames(params);
-
+							
 							StringTokenizer tok2 = new StringTokenizer(
 									paramType, ":");
-							String moduleString=tok2.nextToken();
+							String model=tok2.nextToken();
+							int n=new Integer(tok2.nextToken());
 							String type=tok2.nextToken();
 
-							builder.buildGrid(pars, moduleString,type);
+							builder.buildGrid(pars, model,type,n);
 
 						} else {
 							throw new SFException(

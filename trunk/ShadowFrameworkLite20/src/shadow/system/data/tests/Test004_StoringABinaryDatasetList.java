@@ -76,5 +76,15 @@ public class Test004_StoringABinaryDatasetList {
 		public void setValue(int value) {
 			super.setValue(value);
 		}
+		
+		@Override
+		public void setStringValue(String value) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		public String toStringValue() {
+			return "";
+		}
 	}
 }

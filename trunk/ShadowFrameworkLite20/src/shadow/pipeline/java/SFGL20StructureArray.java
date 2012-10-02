@@ -32,17 +32,13 @@ public class SFGL20StructureArray extends SFGL20ListData<SFStructureData> implem
 	
 	@Override
 	protected SFStructureData generateGenericElement() {
+		//TODO should use a prototype
 		return new SFStructureData(structure);
 	}
 	
 	@Override
 	public SFPipelineStructure getPipelineStructure() {
 		return structure;
-	}
-	
-	@Override
-	public SFStructureData generateSample() {
-		return new SFStructureData(structure);
 	}
 	
 	
@@ -80,6 +76,11 @@ public class SFGL20StructureArray extends SFGL20ListData<SFStructureData> implem
 	
 	@Override
 	public void init() {
-		
+		//init will become necessary when we will use Object Buffer to store values data
+	}
+	
+	@Override
+	public void destroy() {
+		//destroy will become necessary when we will use Object Buffer to store values data
 	}
 }

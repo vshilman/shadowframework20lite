@@ -23,8 +23,8 @@ public class SFBitmapTexture implements SFRenderedTexturesSet{
 	}
 
 	@Override
-	public void apply(int index,int level) {
-		texture.apply(level);
+	public SFPipelineTexture getTexture(int index) {
+		return texture;
 	}
 	
 	@Override
@@ -32,6 +32,18 @@ public class SFBitmapTexture implements SFRenderedTexturesSet{
 		if(texture==null)
 			texture=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateBitmapTexture(bitmap, Filter.LINEAR_MIPMAP,
 					WrapMode.REPEAT, WrapMode.REPEAT);
+	}
+	
+	@Override
+	public void update() {
+		
+	}
+	
+	@Override
+	public void destroy() {
+		if(texture!=null){
+			
+		}
 	}
 
 	@Override

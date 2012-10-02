@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.9,0.8,0.2)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	
+	<SFBezier3Data name="FirstCurve">
+		<SFVertexListData16 name="vertices">
+			<vertices>
+				<vertices_element>(-0.8,-0.7,0)</vertices_element>
+				<vertices_element>(-0.8,-0.2,0)</vertices_element>
+				<vertices_element>(-0.8,0.2,0)</vertices_element>
+				<vertices_element>(-0.8,0.7,0)</vertices_element>
+			</vertices>
+		</SFVertexListData16>
+	</SFBezier3Data>
+	
+	<SFBezier3Data name="SecondCurve">
+		<SFVertexListData16 name="vertices">
+			<vertices>
+				<vertices_element>(-0.2,-0.7,0)</vertices_element>
+				<vertices_element>(-0.2,-0.2,1.0)</vertices_element>
+				<vertices_element>(-0.2,0.2,0.5)</vertices_element>
+				<vertices_element>(-0.2,0.7,0)</vertices_element>
+			</vertices>
+		</SFVertexListData16>
+	</SFBezier3Data>
+	
+	<SFBezier3Data name="ThirdCurve">
+		<SFVertexListData16 name="vertices">
+			<vertices>
+				<vertices_element>(0.2,-0.7,0)</vertices_element>
+				<vertices_element>(0.2,-0.2,-0.5)</vertices_element>
+				<vertices_element>(0.2,0.2,-1.0)</vertices_element>
+				<vertices_element>(0.2,0.7,0)</vertices_element>
+			</vertices>
+		</SFVertexListData16>
+	</SFBezier3Data>
+	
+	<SFBezier3Data name="FourthCurve">
+		<SFVertexListData16 name="vertices">
+			<vertices>
+				<vertices_element>(0.8,-0.7,0)</vertices_element>
+				<vertices_element>(0.8,-0.2,0)</vertices_element>
+				<vertices_element>(0.8,0.2,0)</vertices_element>
+				<vertices_element>(0.8,0.7,0)</vertices_element>
+			</vertices>
+		</SFVertexListData16>
+	</SFBezier3Data>
+	
+	<SFBezier3Data name="ProductCurve">
+		<SFVertexListData16 name="vertices">
+			<vertices>
+			</vertices>
+		</SFVertexListData16>
+	</SFBezier3Data>
+	
+
+	<SFQuadsSurfaceGeometryData name="CubicPatchSurface">
+		<NuNv>(2,2)</NuNv>
+		<SFTensorProductSurfaceData name="surfaceFunction">
+			<references id="guideLines">
+				<reference>FirstCurve</reference>
+				<reference>SecondCurve</reference>
+				<reference>ThirdCurve</reference>
+				<reference>FourthCurve</reference>
+			</references>
+			<productCurve>ProductCurve</productCurve>
+		</SFTensorProductSurfaceData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle3PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	
+	
+	<SFObjectModelData name="CubicPatchModel">
+	
+		<geometry>CubicPatchSurface</geometry>
+
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+		    <program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:0</structures_element>
+			</structures>
+		</SFProgramAssetData>
+	
+	</SFObjectModelData>
+</library>

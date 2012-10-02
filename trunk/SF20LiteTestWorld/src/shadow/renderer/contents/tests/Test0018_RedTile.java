@@ -1,77 +1,76 @@
 package shadow.renderer.contents.tests;
 
+import shadow.geometry.SFSurfaceFunction;
 import shadow.geometry.curves.data.SFBasisSplineData;
 import shadow.geometry.curves.data.SFLineData;
-import shadow.geometry.data.SFSimpleTexCoordGeometryuvData;
 import shadow.geometry.functions.data.SFSplineCurvedTubeFunctionData;
 import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
-import shadow.geometry.vertices.SFVertexFixedListData;
+import shadow.geometry.vertices.SFVertexListData16;
 import shadow.image.SFImageFormat;
 import shadow.image.SFPipelineTexture.Filter;
 import shadow.image.SFPipelineTexture.WrapMode;
-import shadow.image.SFRenderedTexturesSet;
-import shadow.image.SFTexture;
 import shadow.image.data.SFDrawnRenderedTextureData;
 import shadow.math.SFVertex3f;
-import shadow.renderer.contents.tests.common.CommonData;
-import shadow.renderer.contents.tests.common.CommonPipeline;
-import shadow.renderer.contents.tests.common.CommonTextures;
 import shadow.renderer.data.SF2DCameraData;
+import shadow.renderer.data.SFDataAsset;
 import shadow.renderer.data.SFObjectModelData;
-import shadow.renderer.data.SFOneStepAlgorithmData;
 import shadow.renderer.data.SFReferenceNodeData;
 import shadow.renderer.data.SFRendererData;
-import shadow.renderer.viewer.SFDataUtility;
-import shadow.renderer.viewer.SFTextureViewer;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
-import shadow.system.data.SFDataCenter;
-import shadow.system.data.SFDataCenterListener;
-import shadow.system.data.SFObjectsLibrary;
 
-public class Test0018_RedTile {
+/**
+ * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.
+ * No data will be generated (so nothing will work) until you do that; as an
+ * alternative, you can set SFAbstractTest.storeData to true, and then run each test
+ * one by one in test number order.
+ * <br/> 
+ * Go to {@link SFAbstractTest} for general informations about this tests.
+ * <br/>
+ * Open the related FILENAME.xml file for a detailed view of this test contents. 
+ * <br/>
+ * Objective: TODO 
+ * 
+ * @author Alessandro Martinelli
+ */
+public class Test0018_RedTile extends SFAbstractTest{
 
-	private static final String root = "testsData";
+	private static final String FILENAME = "test0018";
 
-	/**
-	 * TODO missing test description
-	 */
 	public static void main(String[] args) {
+		execute(new Test0018_RedTile());
+	}
 
-		// Preparation
-		SFViewerObjectsLibrary objectsLibrary = CommonData.generateDataSettings();
-		SFObjectsLibrary library=objectsLibrary.getLibrary();
-		CommonPipeline pipeline=new CommonPipeline();
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+	
+	@Override
+	public void viewTestData() {
+		
+		loadLibraryAsDataCenter();
 
-		SFSplineCurvedTubeFunctionData curvedTubefunction=new SFSplineCurvedTubeFunctionData();
+		viewTextureSet("TileTexture", 0);
+	}
+	
+	@Override
+	public void buildTestData() {
+		
+		copyAssets("test0002", library, "BasicMatColours");
 
-			curvedTubefunction.addCurve(new SFLineData(new SFVertexFixedListData(),
-					new SFVertex3f(-0.9f, -0.9f, -0.00f),new SFVertex3f(-0.9f, 0.9f, -0.00f)));
-			curvedTubefunction.addCurve(new SFBasisSplineData(new SFVertexFixedListData(),
-					new SFVertex3f(-0.8f, -0.9f, -0.00f),new SFVertex3f(-0.8f, -0.8f, -0.1f),
-					new SFVertex3f(-0.8f, 0.8f, -0.1f),new SFVertex3f(-0.8f, 0.9f, -0.00f)));
-			curvedTubefunction.addCurve(new SFBasisSplineData(new SFVertexFixedListData(),
-					new SFVertex3f(0.8f, -0.9f, -0.00f),new SFVertex3f(0.8f, -0.8f, -0.1f),
-					new SFVertex3f(0.8f, 0.8f, -0.1f),new SFVertex3f(0.8f, 0.9f, -0.00f)));
-			curvedTubefunction.addCurve(new SFLineData(new SFVertexFixedListData(),
-					new SFVertex3f(0.9f, -0.9f, -0.00f),new SFVertex3f(0.9f, 0.9f, -0.00f)));
-			
-			
+		copyAssets("test0014", library,  "OriginalNoise", "PerlinTexture2",
+				"FullScreenRectangle","PebblesGround");
+		
 		SFQuadsSurfaceGeometryData geometry=new SFQuadsSurfaceGeometryData();
-			geometry.setup(curvedTubefunction, 8, 8, new SFSimpleTexCoordGeometryuvData(), pipeline.getPrimitive());
+			SFDataAsset<SFSurfaceFunction> curvedTubefunction = generateTileSurface();
+			geometry.setup(curvedTubefunction, 8, 8, "Triangle2PN");
 			library.put("Tile", geometry);
-			
-		SFViewerObjectsLibrary test0002Library=new SFViewerObjectsLibrary(root, "test0002.sf");
-			library.put("BasicMatColours", test0002Library.getLibrary().retrieveDataset("BasicMatColours"));
-
+	
 		SFObjectModelData tileModel=new SFObjectModelData();
 			tileModel.setGeometry("Tile");
-			tileModel.addMaterial("BasicMat", "BasicMatColours", 1);
+			tileModel.getMaterialComponent().addStructure("BasicMatColours", 1);
+			tileModel.getTransformComponent().setProgram("BasicPNTransform");
+			tileModel.getMaterialComponent().setProgram("BasicMat");
 			library.put("TileModel", tileModel);
-		
-		SFViewerObjectsLibrary test0014Library=new SFViewerObjectsLibrary(root, "test0014.sf");
-			library.put("PerlinTexture2", test0014Library.getLibrary().retrieveDataset("PerlinTexture2"));
-			library.put("FullScreenRectangle", test0014Library.getLibrary().retrieveDataset("FullScreenRectangle"));
-			library.put("PebblesGround", test0014Library.getLibrary().retrieveDataset("PebblesGround"));
 			
 		SFReferenceNodeData referenceNode=new SFReferenceNodeData();
 			referenceNode.addNode("PebblesGround");
@@ -79,27 +78,31 @@ public class Test0018_RedTile {
 		library.put("TileTextureModel", referenceNode);
 		
 		SFDrawnRenderedTextureData drawnTexture=new SFDrawnRenderedTextureData();
-			drawnTexture.setRenderer(new SFRendererData(new SFOneStepAlgorithmData("BumpMaps"),new SF2DCameraData(0.5f, 0.5f)));
+			drawnTexture.setRenderer(new SFRendererData("BumpMaps",new SF2DCameraData(0.5f, 0.5f)));
 			drawnTexture.setNode("TileTextureModel");
 			drawnTexture.addOutputTexture(200, 200, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT);
 			drawnTexture.addOutputTexture(200, 200, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT);
 			library.put("TileTexture", drawnTexture);
-
-		SFDataUtility.saveDataset(root, "test0018.sf", library);
-		
-		SFDataCenter.setDataCenterImplementation(new SFViewerObjectsLibrary(
-				root, "test0018.sf"));
-
-		SFDataCenter.getDataCenter().makeDatasetAvailable("TileTexture", new SFDataCenterListener<SFDrawnRenderedTextureData>() {
-			@Override
-			public void onDatasetAvailable(String name, SFDrawnRenderedTextureData dataset) {
-				SFRenderedTexturesSet set=dataset.getResource();
-				SFTexture texture=new SFTexture(set, 0);
-				SFTextureViewer.generateFrame(texture,CommonTextures.generateTextureSelectionController(texture, set.getTextureSize()));
-			}
-		});		
-		
+			
+			
+			
+		store(library);
 	}
 
-	
+	/* SurfaceFunction used for the Tile Model*/
+	public SFDataAsset<SFSurfaceFunction> generateTileSurface() {
+		SFSplineCurvedTubeFunctionData curvedTubefunction=new SFSplineCurvedTubeFunctionData();
+
+		curvedTubefunction.addCurve(new SFLineData(new SFVertexListData16(),
+				new SFVertex3f(-0.9f, -0.9f, -0.00f),new SFVertex3f(-0.9f, 0.9f, -0.00f)));
+		curvedTubefunction.addCurve(new SFBasisSplineData(new SFVertexListData16(),
+				new SFVertex3f(-0.8f, -0.9f, -0.00f),new SFVertex3f(-0.8f, -0.8f, -0.1f),
+				new SFVertex3f(-0.8f, 0.8f, -0.1f),new SFVertex3f(-0.8f, 0.9f, -0.00f)));
+		curvedTubefunction.addCurve(new SFBasisSplineData(new SFVertexListData16(),
+				new SFVertex3f(0.8f, -0.9f, -0.00f),new SFVertex3f(0.8f, -0.8f, -0.1f),
+				new SFVertex3f(0.8f, 0.8f, -0.1f),new SFVertex3f(0.8f, 0.9f, -0.00f)));
+		curvedTubefunction.addCurve(new SFLineData(new SFVertexListData16(),
+				new SFVertex3f(0.9f, -0.9f, -0.00f),new SFVertex3f(0.9f, 0.9f, -0.00f)));
+		return curvedTubefunction;
+	}
 }

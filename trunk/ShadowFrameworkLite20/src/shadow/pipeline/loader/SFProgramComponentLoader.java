@@ -32,10 +32,14 @@ public class SFProgramComponentLoader {
 		parsers.put(COMMAND_STRING+"rewrite",new SFRewriteParser());
 		parsers.put(COMMAND_STRING+"end",new SFEndParser());
 		parsers.put(COMMAND_STRING+"include",new SFIncludeParser());
-		parsers.put(COMMAND_STRING+"vertex",new SFVertexParser());
-		parsers.put(COMMAND_STRING+"edge",new SFEdgeParser());
-		parsers.put(COMMAND_STRING+"path",new SFPathParser());
-		parsers.put(COMMAND_STRING+"internal",new SFInternalParser());
+		parsers.put(COMMAND_STRING+"component",new SFComponentParser());
+		parsers.put(COMMAND_STRING+"block",new SFBlockParser());
+		parsers.put(COMMAND_STRING+"domain",new SFDomainParser());
+		parsers.put(COMMAND_STRING+"texture",new SFTextureParser());
+		//parsers.put(COMMAND_STRING+"vertex",new SFVertexParser());
+		//parsers.put(COMMAND_STRING+"edge",new SFEdgeParser());
+		//parsers.put(COMMAND_STRING+"path",new SFPathParser());
+		//parsers.put(COMMAND_STRING+"internal",new SFInternalParser());
 		parsers.put(COMMAND_STRING+"float",new SFFloatParser());
 		parsers.put(COMMAND_STRING+"float2",new SFFloat2Parser());
 		parsers.put(COMMAND_STRING+"float3",new SFFloat3Parser());

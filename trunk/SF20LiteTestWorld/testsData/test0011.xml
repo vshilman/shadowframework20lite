@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(0.0,0.5,0.0)</values_element>
+			<values_element>(0.5,0.5,0.0)</values_element>
+			<values_element>(0.5,0.0,0.5)</values_element>
+			<values_element>(0.0,0.0,0.5)</values_element>
+			<values_element>(0.5,0.0,1.0)</values_element>
+			<values_element>(0.5,1.0,0.0)</values_element>
+			<values_element>(0.6,1.0,0.4)</values_element>
+			<values_element>(0.0,1.0,1.0)</values_element>
+			<values_element>(1.0,0.6,0.0)</values_element>
+			<values_element>(1.0,0.84800005,0.0)</values_element>
+			<values_element>(0.0,0.6,0.2)</values_element>
+			<values_element>(0.1,0.0,0.3)</values_element>
+			<values_element>(1.0,1.0,1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFObjectModelData name="BlueMushroom">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.5</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:16</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="Mushroom">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1)</vertices_element>
+						<vertices_element>(0.024,0.2)</vertices_element>
+						<vertices_element>(0.0,0.3)</vertices_element>
+						<vertices_element>(0.0,0.4)</vertices_element>
+						<vertices_element>(0.0,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1)</vertices_element>
+						<vertices_element>(0.2,0.2)</vertices_element>
+						<vertices_element>(0.048,0.3)</vertices_element>
+						<vertices_element>(0.048,0.4)</vertices_element>
+						<vertices_element>(0.448,0.5)</vertices_element>
+						<vertices_element>(0.048,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFReferenceNodeData name="MushroomScene02">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.70000005</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>OrangeMushroom</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFReferenceNodeData name="MushroomScene03">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.70000005</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>BlueMushroom</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFReferenceNodeData name="MushroomScene04">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>-0.5</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>BlueMushroom</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFReferenceNodeData name="MushroomScene05">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.5</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>OrangeMushroom</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFReferenceNodeData name="MushroomScene06">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,0.0,0.0)</position>
+			<orientation>(-0.0,-0.5181,-0.0)</orientation>
+			<scale>1.0</scale>
+		</SFRigidTransformData>
+		<references id="nodes">
+			<reference>MushroomScene02</reference>
+			<reference>MushroomScene03</reference>
+			<reference>MushroomScene04</reference>
+			<reference>MushroomScene05</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFReferenceNodeData name="MushroomScene07">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.5</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>MushroomScene06</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFReferenceNodeData name="MushroomScene08">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>MushroomScene06</reference>
+			<reference>MushroomScene07</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFObjectModelData name="OrangeMushroom">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.5</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:10</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>

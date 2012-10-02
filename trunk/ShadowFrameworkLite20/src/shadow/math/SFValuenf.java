@@ -60,7 +60,6 @@ public class SFValuenf {
 		v.set(this);
 		return v;
 	}
-	
 
 	public void mult(float m) {
 		for (int i = 0; i < v.length; i++) {

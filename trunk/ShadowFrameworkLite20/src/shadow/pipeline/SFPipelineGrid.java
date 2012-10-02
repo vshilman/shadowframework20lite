@@ -1,65 +1,105 @@
 package shadow.pipeline;
 
-public class SFPipelineGrid extends SFPipelineStructure{
-	
-	protected String[] names=new String[0];
-	protected short[] corners=new short[0];
-	protected short[][] edges=new short[0][];
-	protected short[][] paths=new short[0][];
-	protected SFFunction[] functions;
+import java.util.List;
 
-	public String[] getNames() {
-		return names;
-	}
+import shadow.pipeline.parameters.SFParameteri;
+import shadow.system.SFException;
+
+public class SFPipelineGrid {
 	
-	public int getNameIndex(String name){
-		
-		for (int i = 0; i < names.length; i++) {
-			if(name.equalsIgnoreCase(names[i]))
-				return i;
+	private int n;
+	private SFGridModel model;
+	protected SFFunction[] edgeFunctions;
+	protected SFFunction[] internalsFunctions;
+	
+	private SFParameteri[] params;
+
+	public SFPipelineGrid(int n,SFGridModel model,
+			List<SFParameteri> params) {
+		super();
+		this.model=model;
+		this.n = n;
+		if(params.size()!=getGridSize()){
+			throw new SFException("SFPipelineGrid malformed, "+getGridSize()+" parameters was attended, only "+params.size()+" was given");
 		}
-		return -1;
-	}
-
-	public int getGridSize(){
-		return names.length;
+		this.params=new SFParameteri[params.size()];
+		for (int i = 0; i < params.size(); i++) {
+			this.params[i]=params.get(i);
+		}
+		
+		prepareFunctionsArrays();
 	}
 	
-	public void setNames(String[] names) {
-		this.names = names;
+	private void prepareFunctionsArrays(){
+		if(n==1){
+			edgeFunctions=new SFFunction[0];
+			internalsFunctions=new SFFunction[0];
+			
+			return;
+		}
+		int edgeFunctionsSize=model.getEdges()*(n-2);
+		int cornerSize=model.getCorners();
+		int internalsFunctionsSize=getGridSize()-cornerSize-edgeFunctionsSize;
+		
+		edgeFunctions=new SFFunction[edgeFunctionsSize];
+		internalsFunctions=new SFFunction[internalsFunctionsSize];
 	}
 
-	public short[] getCorners() {
-		return corners;
+	public int getN(){
+		return n;
 	}
 
-	public void setCorners(short[] corners) {
-		this.corners = corners;
+	public SFParameteri[] getParameters() {
+		return params;
 	}
-
-	public short[][] getEdges() {
-		return edges;
+	
+	public int getGridSize() {
+		return this.model.getGridSize(this.n);
 	}
-
-	public void setEdges(short[][] edges) {
-		this.edges = edges;
-	}
-
-	public short[][] getPaths() {
-		return paths;
-	}
-
-	public void setPaths(short[][] paths) {
-		this.paths = paths;
-	}
-
+	
 	public int size(){
-		return names.length;
+		return params.length;
 	}
 
-	public SFFunction[] getFunctions() {
-		return functions;
+	public SFGridModel getModel() {
+		return model;
+	}
+	
+	public boolean isTriangular(){
+		return model==SFGridModel.Triangle;
+	}
+	
+	
+	public void addFunction(SFFunction function,SFParameteri wrote){
+		int index=0;
+		for (int i = model.getEdges(); i < params.length; i++) {
+			if(params[i].getName().equalsIgnoreCase(wrote.getName())){
+				index=i;
+				i=params.length;
+			}
+		}
+
+		function.compileFunction(params);
+
+		if(index<model.getCorners()+edgeFunctions.length) {
+			index-=model.getCorners();
+			edgeFunctions[index]=(function);
+		}else{
+			index-=(model.getCorners()+edgeFunctions.length);
+			internalsFunctions[index]=(function);
+		}
+	}
+	
+	public SFFunction[] getEdgeFunctions(){
+		return edgeFunctions;
 	}
 
-
+	public SFFunction[] getInternalsFunctions(){
+		return internalsFunctions;
+	}
+	
+	public short getParameterType(int parameterIndex){
+		return params[parameterIndex].getType();
+	}
 }
+

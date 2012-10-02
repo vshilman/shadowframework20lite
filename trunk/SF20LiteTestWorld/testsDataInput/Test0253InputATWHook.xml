@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+
+     <SFSplineCurvedTubeFunctionData name="HookSurface">
+		<references id="curvesData">
+			<SFBasisSplineData name="reference">
+				<SFVertexListData16 name="vertices">
+					<vertices>
+							<vertices_element>(0.0,0.0)</vertices_element>
+							<vertices_element>(0.05,0.2)</vertices_element>
+							<vertices_element>(-0.4,0.3)</vertices_element>
+							<vertices_element>(-0.4,0.6)</vertices_element>
+							<vertices_element>(0.0,0.8)</vertices_element>
+							<vertices_element>(0.1,0.5)</vertices_element>
+							<vertices_element>(0.3,0.51)</vertices_element>
+					</vertices>
+				</SFVertexListData16>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="reference">
+				<SFVertexListData16 name="vertices">
+					<vertices>
+							<vertices_element>(0.05,0.0)</vertices_element>
+							<vertices_element>(0.1,0.2)</vertices_element>
+							<vertices_element>(-0.2,0.4)</vertices_element>
+							<vertices_element>(0.0,0.6)</vertices_element>
+							<vertices_element>(0.1,0.5)</vertices_element>
+							<vertices_element>(0.3,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListData16>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			
+		</references>
+	</SFSplineCurvedTubeFunctionData>
+	
+	
+	<SFQuadsSurfaceGeometryData name="PlainHookModel">
+		<NuNv>(8,8)</NuNv>
+		<surfaceFunction>HookSurface</surfaceFunction>
+		<primitive>Triangle3PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFTranslateAndScaleFixed16Data name="Transform01">
+		<x>0.0</x>
+		<y>-0.5</y>
+		<z>0.0</z>
+		<scale>2.5</scale>
+	</SFTranslateAndScaleFixed16Data>
+	<SFObjectModelData name="PlainHook">
+		<transform>Transform01</transform>
+		<geometry>PlainHookModel</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:1</structures_element>
+			</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="TexturedHookModel">
+		<NuNv>(8,8)</NuNv>
+		<surfaceFunction>HookSurface</surfaceFunction>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>10.0</du>
+			<dv>10.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle3PNTxO</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="TexturedHook">
+		<transform>Transform01</transform>
+		<geometry>TexturedHookModel</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<textures>
+				<textures_element>OBTilesTexture:0:0</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="BumpMappedHookModel">
+		<NuNv>(8,8)</NuNv>
+		<surfaceFunction>HookSurface</surfaceFunction>
+		<texCoordFunction>0</texCoordFunction>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>10.0</du>
+			<dv>10.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle3BumpMap</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="BumpMappedHook">
+		<transform>Transform01</transform>
+		<geometry>BumpMappedHookModel</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicBumpMapTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>ImprovedBumpMappedMat</program>
+			<textures>
+				<textures_element>PebblesTextures:1:0</textures_element>
+				<textures_element>PebblesTextures:0:1</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>

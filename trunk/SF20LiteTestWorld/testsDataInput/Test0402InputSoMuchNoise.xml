@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFFunction2DBitmapData name="CircularBitmap10">
+		<width>4</width>
+		<height>4</height>
+		<SFBasicBitmapFunctionsData name="function">
+			<function>Circle</function>
+		</SFBasicBitmapFunctionsData>
+	</SFFunction2DBitmapData>
+	<SFBitmapTextureData name="PerlinTexture01">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap10</bitmap>
+			<weights>(0.0,1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture02">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap10</bitmap>
+			<weights>(0,0.5,0.5)</weights>
+			<interpolant>Linear</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture03">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap10</bitmap>
+			<weights>(0,0.8,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture04">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap10</bitmap>
+			<weights>(0,0.1,0.1,0.2,0.6)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture05">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap10</bitmap>
+			<weights>(0,0.1,0.1,0.2,0.2,0.2,0.2)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture06">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap10</bitmap>
+			<weights>(0,0.1,0.1,0.2,0.2,0.2,0.2,-0.1,-0.1,-0.1,0.1,0.1)</weights>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture07">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<SFBasicBitmapFunctionsData name="bitmap">
+				<function>Sum</function>
+			</SFBasicBitmapFunctionsData>
+			<weights>(0,0.2,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFFunction2DBitmapData name="SumBitmap10">
+		<width>4</width>
+		<height>4</height>
+		<SFBasicBitmapFunctionsData name="function">
+			<function>Sum</function>
+		</SFBasicBitmapFunctionsData>
+	</SFFunction2DBitmapData>
+	<SFFunction2DBitmapData name="MatrixBitmap30">
+		<width>30</width>
+		<height>30</height>
+		<SFBasicBitmapFunctionsData name="function">
+			<function>Matrix</function>
+		</SFBasicBitmapFunctionsData>
+	</SFFunction2DBitmapData>
+	<SFBitmapTextureData name="PerlinTexture61">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>300</width>
+			<height>300</height>
+			<bitmap>MatrixBitmap30</bitmap>
+			<weights>(0.0,1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture62">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>300</width>
+			<height>300</height>
+			<bitmap>MatrixBitmap30</bitmap>
+			<weights>(0.0,0.25,0.25,0.25,0.11,0.11)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture63">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>300</width>
+			<height>300</height>
+			<bitmap>MatrixBitmap30</bitmap>
+			<weights>(0.0,0.05,0.05,0.05,0.11,0.11,0.11,0.11,0.11)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture64">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>300</width>
+			<height>300</height>
+			<bitmap>MatrixBitmap30</bitmap>
+			<weights>(0.0,0.05,0.05,0.05,0.11,0.11,0.11,0.11,0.11)</weights>
+			<interpolant>Nearest</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture65">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>300</width>
+			<height>300</height>
+			<bitmap>MatrixBitmap30</bitmap>
+			<weights>(0.0,0.15,0.05,0.05,0.11,0.11,0.11,0.11)</weights>
+			<interpolant>Linear</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture71">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>SumBitmap10</bitmap>
+			<weights>(0.0,0.7,0.0,0.7)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture72">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>SumBitmap10</bitmap>
+			<weights>(-0.5,1.0,-1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture73">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>SumBitmap10</bitmap>
+			<weights>(0.1,0.1,0.4,0.4)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture74">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>SumBitmap10</bitmap>
+			<weights>(0.1,0.1,0.4,0.4,0,0,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture75">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>SumBitmap10</bitmap>
+			<weights>(0,0.25,0.25,0.25,0.25)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture76">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>SumBitmap10</bitmap>
+			<weights>(0,0.25,0.15,0.05,0.25,0.11,0.05,0.11,0.11,0.05,0.05)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapArrayData name="Bitmap4416">
+		<width>4</width>
+		<height>4</height>
+		<bitmap>(10,100,100,150,100,150,10,100,255,10,150,255,150,255,255,10)</bitmap>
+	</SFBitmapArrayData>
+	<SFBitmapTextureData name="PerlinTexture81">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416</bitmap>
+			<weights>(0,0.20,0.20,0.20,0.20,0.05,0.05,0.05,0.05)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture82">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416</bitmap>
+			<weights>(0,0.40,0.00,0.00,0.10,0.15,0.15,0.10,0.10,0.10,0.10)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture83">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416</bitmap>
+			<weights>(0,1.0,-1.0,1.0,-1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture84">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416</bitmap>
+			<weights>(0,0.6,-1.0,0.6,-1.0,0.6,-1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture85">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416</bitmap>
+			<weights>(0,1.0,-1.5,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapArrayData name="Bitmap4416_2">
+		<width>4</width>
+		<height>4</height>
+		<bitmap>(255,240,230,210,190,170,150,120,140,140,110,80,60,40,20,0)</bitmap>
+	</SFBitmapArrayData>
+	<SFBitmapTextureData name="PerlinTexture86">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416_2</bitmap>
+			<weights>(0,0.20,0.20,0.20,0.20,0.05,0.05,0.05,0.05)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture87">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416_2</bitmap>
+			<weights>(0,0.40,0.00,0.00,0.10,0.15,0.15,0.10,0.10)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture88">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416_2</bitmap>
+			<weights>(0,1.0,-1.0,1.0,-1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture89">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416_2</bitmap>
+			<weights>(0,0.6,-1.0,0.6,-1.0,0.6,-1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture90">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416_2</bitmap>
+			<weights>(0,1.0,-1.5,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapArrayData name="Bitmap224">
+		<width>8</width>
+		<height>2</height>
+		<bitmap>(0,255,125,0,0,255,255,0,0,125,125,0,0,100,100,0)</bitmap>
+	</SFBitmapArrayData>
+	<SFBitmapTextureData name="PerlinTexture91">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap224</bitmap>
+			<weights>(0,0.5,0.5)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture92">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap224</bitmap>
+			<weights>(0,0.5,0.5,-1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture93">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap224</bitmap>
+			<weights>(0,0.2,0.2,0.2,0.2,0.2,0.2)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture94">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap224</bitmap>
+			<weights>(0,0.05,0.05,0.05,0.25,0.20,0.20,0.25)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture95">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap224</bitmap>
+			<weights>(0,0.0,0.5,0,0,0.5,-0.1,0.1,-0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapArrayData name="Bitmap2243">
+		<width>4</width>
+		<height>4</height>
+		<bitmap>(0,255,100,0 , 0,100,255,0 , 255,0,100,0 , 0,100,0,255)</bitmap>
+	</SFBitmapArrayData>
+	<SFBitmapTextureData name="PerlinTexture100">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap2243</bitmap>
+			<weights>(0,0.2,0.2,0.2,0.2,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture101">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap2243</bitmap>
+			<weights>(0,0.25,0.25,0.25,0.25)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+</library>

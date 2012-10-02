@@ -17,26 +17,32 @@ public interface SFIPipelineBuilder {
 	
 	public void buildDefineRule( String pWrote,short type, String function) ;
 
-	public void addGridVertex(String token);
+	//public void addGridVertex(String token);
 
 	public void buildWriteRule(String wrote, String function)
 			throws SFException;
 
-	public void buildRewriteRule(String wrote, String function)
-			throws SFException;
+	public void buildRewriteRule(String wrote, String function) throws SFException;
 	
 	public void buildParamRule(short parameter, String use);
 
-	public void buildPath(List<String> paths);
+	//public void buildPath(List<String> paths);
 
 	public void buildParamRule(String moduleString, List<String> pars);
 
-	public void buildGridInternals(List<String> internals);
+	//public void buildGridInternals(List<String> internals);
 
-	public void buildGrid(List<String> pars, String moduleString, String typeString);
+	public void buildGrid(List<String> pars, String model,String type, int n);
+	
+	public void buildComponent(String componentName) ;
+
+	public void buildDomain(String domain) ;
+
+	public void buildBlock(String block,String primitiveComponent) ;
 
 	public void closeElement();
 
-	public void buildEdge(List<String> edges);
+	//public void buildEdge(List<String> edges);
+	
 
 }

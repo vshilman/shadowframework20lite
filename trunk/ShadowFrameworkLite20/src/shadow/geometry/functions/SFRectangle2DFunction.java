@@ -1,8 +1,7 @@
 package shadow.geometry.functions;
 
-import shadow.geometry.SFSurfaceFunction;
 
-public class SFRectangle2DFunction extends SFSurfaceFunction{
+public class SFRectangle2DFunction  extends SFUnoptimizedSurfaceFunction{
 
 	private float x,y,w,h;
 
@@ -28,10 +27,16 @@ public class SFRectangle2DFunction extends SFSurfaceFunction{
 	public float getZ(float u, float v) {
 		return 0;
 	}
+
 	
 	@Override
 	public void init() {
-		//nothing to do
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 
 	public float getX() {

@@ -1,17 +1,15 @@
 package shadow.geometry.functions;
 
 import shadow.geometry.SFCurve;
-import shadow.geometry.SFSurfaceFunction;
-import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
 
 /**
  * @author Alessandro
  */
-public class SFRadialSurfaceFunction  extends SFSurfaceFunction {
+public class SFRadialSurfaceFunction  extends SFUnoptimizedSurfaceFunction {
 
-	private SFCurve<SFValuenf> borderCurve;
-	private SFCurve<SFValuenf> rayCurve;
+	private SFCurve borderCurve;
+	private SFCurve rayCurve;
 	private SFVertex3f r0=new SFVertex3f();
 	private SFVertex3f r1=new SFVertex3f();
 	private SFVertex3f pv=new SFVertex3f();
@@ -21,18 +19,18 @@ public class SFRadialSurfaceFunction  extends SFSurfaceFunction {
 		
 	}
 	
-	public SFRadialSurfaceFunction(SFCurve<SFValuenf> borderCurve,
-			SFCurve<SFValuenf> rayCurve) {
+	public SFRadialSurfaceFunction(SFCurve borderCurve,
+			SFCurve rayCurve) {
 		super();
 		setBorderCurve(borderCurve);
 		setRayCurve(rayCurve);
 	}
 
-	public void setBorderCurve(SFCurve<SFValuenf> borderCurve) {
+	public void setBorderCurve(SFCurve borderCurve) {
 		this.borderCurve = borderCurve;
 	}
 
-	public void setRayCurve(SFCurve<SFValuenf> rayCurve) {
+	public void setRayCurve(SFCurve rayCurve) {
 		this.rayCurve = rayCurve;
 		rayCurve.getVertex(0, r0);
 		rayCurve.getVertex(1, r1);
@@ -56,10 +54,16 @@ public class SFRadialSurfaceFunction  extends SFSurfaceFunction {
 		//B=(+r1.getY()*p.getX()+r1.getX()*p.getY())/dot;
 		return p;
 	}
+
 	
 	@Override
 	public void init() {
-			
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 	
 	private void evaluateAB(float u){

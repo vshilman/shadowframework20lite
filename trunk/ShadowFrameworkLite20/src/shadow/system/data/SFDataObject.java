@@ -18,4 +18,5 @@ public interface SFDataObject{
 	public void writeOnStream(SFOutputStream stream);
 	
 	public SFDataObject clone();
+	
 }

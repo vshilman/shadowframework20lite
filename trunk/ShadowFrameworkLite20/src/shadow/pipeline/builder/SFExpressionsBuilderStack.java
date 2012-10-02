@@ -10,7 +10,6 @@ public class SFExpressionsBuilderStack {
 	public ArrayList<LinkedList<SFExpressionOperator>> storedExpressiond=new ArrayList<LinkedList<SFExpressionOperator>>();
 	public ArrayList<SFExpressionElement> storedlSymbol=new ArrayList<SFExpressionElement>();
 	public ArrayList<Integer> storedlastIndexOf=new ArrayList<Integer>();
-	public ArrayList<String> storedFunction=new ArrayList<String>();
 	private SFExpressionBuilderData sfExpressionBuilderData;
 
 	public SFExpressionsBuilderStack(SFExpressionBuilderData sfExpressionBuilderData) {
@@ -21,7 +20,6 @@ public class SFExpressionsBuilderStack {
 		storedExpressiond.add(sfExpressionBuilderData.getExpressions());
 		storedlSymbol.add(sfExpressionBuilderData.getlSymbol());
 		storedlastIndexOf.add(sfExpressionBuilderData.getIndexOfLastOperation());
-		storedFunction.add(null);
 		
 		sfExpressionBuilderData.setExpressions(new LinkedList<SFExpressionOperator>());
 		sfExpressionBuilderData.setlSymbol(null);
@@ -31,11 +29,11 @@ public class SFExpressionsBuilderStack {
 	}
 
 	public void popExpressions(){
-		sfExpressionBuilderData.setLastValue(sfExpressionBuilderData.getExpressions().get(0));
+		if(sfExpressionBuilderData.getExpressions().size()>0)
+			sfExpressionBuilderData.setLastValue(sfExpressionBuilderData.getExpressions().get(0));
 		int position=storedExpressiond.size()-1;
 		sfExpressionBuilderData.setExpressions(storedExpressiond.remove(position));
 		sfExpressionBuilderData.setlSymbol(storedlSymbol.remove(position));
 		sfExpressionBuilderData.setIndexOfLastOperation(storedlastIndexOf.remove(position));
-		sfExpressionBuilderData.setFunctionOperator(storedFunction.remove(position));
 	}
 }

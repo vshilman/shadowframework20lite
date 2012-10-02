@@ -46,7 +46,7 @@ public class Test002_StoringADataset {
 			FileInputStream input=new FileInputStream("examplesData\\Test002.sf");
 			SFInputStream inputStream=new SFInputStreamJava(input, new DefaultExceptionKeeper());
 			
-			String type=inputStream.readString();
+			/*String type=*/inputStream.readString();
 			dataset.getSFDataObject().readFromStream(inputStream);
 			
 			for(int i=0;i<20;i++){

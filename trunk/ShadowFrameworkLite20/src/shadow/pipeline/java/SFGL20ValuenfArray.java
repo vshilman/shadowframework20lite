@@ -22,9 +22,5 @@ public class SFGL20ValuenfArray extends SFGL20ListData<SFValuenf>{
 	protected SFValuenf generateGenericElement() {
 		return new SFValuenf(n);
 	}
-	
-	@Override
-	public SFValuenf generateSample() {
-		return new SFValuenf(n);
-	}
+
 }

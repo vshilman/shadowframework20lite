@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFFunction2DBitmapData name="OriginalNoise">
+		<width>8</width>
+		<height>8</height>
+		<SFFunctionRandomizerData name="function">
+			<seed>500</seed>
+		</SFFunctionRandomizerData>
+	</SFFunction2DBitmapData>
+	<SFBitmapTextureData name="PerlinTexture">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>OriginalNoise</bitmap>
+			<weights>(0.3,0.1,0.05,0.05,0.1,0.1,0.1)</weights>
+			<interpolant>Linear</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture2">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>OriginalNoise</bitmap>
+			<weights>(0.5,0.2,0.15,0.05,0.1,0.1,0.1)</weights>
+			<interpolant>Linear</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+</library>

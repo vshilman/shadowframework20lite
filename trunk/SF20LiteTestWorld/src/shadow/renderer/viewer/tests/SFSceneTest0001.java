@@ -4,16 +4,17 @@ import shadow.geometry.SFGeometry;
 import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
 import shadow.math.SFVertex3f;
 import shadow.pipeline.SFStructureArray;
+import shadow.renderer.SFAbstractReferenceNode;
 import shadow.renderer.SFNode;
 import shadow.renderer.SFObjectModel;
-import shadow.renderer.SFProgramStructureReference;
 import shadow.renderer.SFReferenceNode;
 import shadow.renderer.SFStructureReference;
 import shadow.renderer.contents.tests.common.CommonMaterial;
+import shadow.renderer.contents.tests.common.CommonPipeline;
 import shadow.renderer.data.SFStructureArrayData;
+import shadow.renderer.data.utils.SFViewerDatasetFactory;
+import shadow.renderer.data.utils.SFViewerObjectsLibrary;
 import shadow.renderer.viewer.SFViewer;
-import shadow.renderer.viewer.SFViewerDatasetFactory;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
 import shadow.system.data.SFDataCenter;
 
 
@@ -23,13 +24,14 @@ public class SFSceneTest0001 {
 	public static void main(String[] args) {
 
 		SFViewer.prepare();
+		CommonPipeline.prepare();
 		SFDataCenter.setDatasetFactory(new SFViewerDatasetFactory());
 		// 3) Retrieve the library and make model available so that it can be added to a Viewer
 		SFDataCenter.setDataCenterImplementation(
 				new SFViewerObjectsLibrary(SFGenerateLibrary.root,SFGenerateLibrary.filename));
 		
 		//Create scenegraph root
-		SFReferenceNode rootSceneNode=new SFReferenceNode();
+		SFAbstractReferenceNode rootSceneNode=new SFReferenceNode();
 		
 			//add a 'Tube' at random position
 			rootSceneNode.addNode(generateModelaAtRandomPosition("Tube"));
@@ -71,10 +73,9 @@ public class SFSceneTest0001 {
 		//update camera 
 		viewer.getCamera().update();
 		
-		
+		viewer.getCamera().setPerspective(true);
 		//NOTE: to verify camera content call viewer.getCamera().extractTransform();
 	}
-	
 	
 	public static SFNode generateModelaAtRandomPosition(String modelName){
 		
@@ -86,18 +87,25 @@ public class SFSceneTest0001 {
 		int index=(int)(materialsNumber*Math.random());
 		if(index==materialsNumber)
 			index=0;
+		
 		//Extract the index-th material from file libraries/library
-		SFStructureArray array=((SFStructureArrayData)SFDataCenter.getDataCenter().getAlreadyAvailableDataset("Materials")).getArray();
+		SFStructureArray array=((SFStructureArrayData<?>)SFDataCenter.getDataCenter().getAlreadyAvailableDataset("Materials")).getArray();
 		SFStructureReference materialReference=new SFStructureReference(array, index);//generateStructureDataReference( "Materials", materialData);
 
+		node.getModel().getMaterialComponent().setProgram("BasicMat");
+		node.getModel().getMaterialComponent().addData(materialReference);
+
 		//Set the selected material to the node
-		node.getModel().addMaterial(new SFProgramStructureReference("BasicMat",materialReference));
+		
+		//	node.getModel().addMaterialStructure(materialReference);
 		
 			//Add to this node a reference to the model 'modelName'; modelNames are the ones
 			//available in 'libraries/library', actually containing only 'Tube', 'Mushroom' and 'Glass'
 			SFGeometry geometry=((SFQuadsSurfaceGeometryData)SFDataCenter.getDataCenter().getAlreadyAvailableDataset(modelName)).getResource();
 			node.getModel().setRootGeometry(geometry);
 		
+		node.getModel().getTransformComponent().setProgram("BasicPNTransform");
+			
 		//setup Node position 	
 		node.getTransform().setPosition(new SFVertex3f((float)((4*Math.random())-2),0,(float)((2.4*Math.random())-1.2f)));
 		

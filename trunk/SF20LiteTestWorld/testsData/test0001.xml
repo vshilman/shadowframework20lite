@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SFCurvedTubeFunctionData name="">
+	<SFBasisSplineData name="firstCurve">
+		<SFVertexListDataUnit8 name="vertices">
+			<vertices>
+				<vertices_element>(0.0,0.0)</vertices_element>
+				<vertices_element>(0.0,0.1)</vertices_element>
+				<vertices_element>(0.024,0.2)</vertices_element>
+				<vertices_element>(0.0,0.3)</vertices_element>
+				<vertices_element>(0.0,0.4)</vertices_element>
+				<vertices_element>(0.0,0.5)</vertices_element>
+			</vertices>
+		</SFVertexListDataUnit8>
+		<closed>0</closed>
+	</SFBasisSplineData>
+	<SFBasisSplineData name="secondCurve">
+		<SFVertexListDataUnit8 name="vertices">
+			<vertices>
+				<vertices_element>(0.1,0.0)</vertices_element>
+				<vertices_element>(0.2,0.1)</vertices_element>
+				<vertices_element>(0.2,0.2)</vertices_element>
+				<vertices_element>(0.048,0.3)</vertices_element>
+				<vertices_element>(0.048,0.4)</vertices_element>
+				<vertices_element>(0.448,0.5)</vertices_element>
+				<vertices_element>(0.048,0.5)</vertices_element>
+			</vertices>
+		</SFVertexListDataUnit8>
+		<closed>0</closed>
+	</SFBasisSplineData>
+</SFCurvedTubeFunctionData>

@@ -1,12 +1,24 @@
 package shadow.pipeline.expression;
 
 import shadow.math.SFValuenf;
+import shadow.pipeline.parameters.SFParameteri;
+import shadow.system.SFException;
 
 public class SFExpressionVariable extends SFExpressionElement {
 
 	public SFExpressionVariable(String element, short type) {
 		super(element);
 		setType(type);
+	}
+	
+	@Override
+	public SFExpressionElement cloneAsIndexed(SFParameteri[] toBeIndexed) {
+		for (int i = 0; i < toBeIndexed.length; i++) {
+			if(toBeIndexed[i].getName().equalsIgnoreCase(getElement())){
+				return new SFExpressionIndex(i);
+			}
+		}
+		return this;
 	}
 
 	@Override
@@ -20,18 +32,18 @@ public class SFExpressionVariable extends SFExpressionElement {
 	}
 
 	@Override
-	public SFValuenf evaluate(SFValuesMap values) {
+	public SFValuenf evaluate(SFExpressionValuesList values) {
 
 		try {
-			return values.getValue(getElement()).cloneValue();
-		} catch (ArrayIndexOutOfBoundsException e) {
-			
 			SFValuenf value = values.generateValue();
-			float d = new Float(getElement());
+			double d = new Double(getElement());
 			for (int i = 0; i < value.get().length; i++) {
-				value.get()[i] = d;
+				value.get()[i] = (float)d;
 			}
 			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SFException("Cannot evaluate unindexed value "+getElement());
 		}
 	}
 

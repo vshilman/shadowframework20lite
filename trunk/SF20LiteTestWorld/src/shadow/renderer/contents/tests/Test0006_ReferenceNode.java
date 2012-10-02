@@ -1,51 +1,51 @@
 package shadow.renderer.contents.tests;
 
-import shadow.renderer.contents.tests.common.CommonData;
-import shadow.renderer.contents.tests.common.CommonPipeline;
 import shadow.renderer.data.SFObjectModelData;
 import shadow.renderer.data.SFReferenceNodeData;
-import shadow.renderer.viewer.SFDataUtility;
-import shadow.renderer.viewer.SFViewer;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
-import shadow.system.data.SFDataCenter;
-import shadow.system.data.SFDataCenterListener;
-import shadow.system.data.SFObjectsLibrary;
+import shadow.renderer.data.transforms.SFTranslateFixed16Data;
+import shadow.renderer.data.utils.SFViewerObjectsLibrary;
 
 /**
+ * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.
+ * No data will be generated (so nothing will work) until you do that; as an
+ * alternative, you can set SFAbstractTest.storeData to true, and then run each test
+ * one by one in test number order.
  * <br/>
- * <h1>SF Contents Test/Tutorial Series</h1>
- * This Test/Tutorial is a part of a series whose aim is showing SF contents.
- * Each test is performed following the basic steps of any SF content lifetime.
- * <ol>
- * 		<li>Editing</li>
- * 		<li>Storing</li>
- * 		<li>Viewing</li>		
- * </ol>
- * Each SF content Module has a '*Data' counterpart which is involved in data processing.
- * The '*.Data' module will generate a proper SF module, and will be discarded when
- * unnecessary. 
+ * Go to {@link SFAbstractTest} for general informations about this tests.
+ * <br/>
+ * Open the related FILENAME.xml file for a detailed view of this test contents. 
+ * <br/>
+ * 
+ * 
+ * Objective:TODO
  * 
  * @author Alessandro Martinelli
  */
-public class Test0006_ReferenceNode {
+public class Test0006_ReferenceNode extends SFAbstractTest{
 
-	private static final String root = "testsData";
+	private static final String FILENAME="test0006";
 	
-	/**
-	 * TODO missing test description
-	 */
 	public static void main(String[] args) {
+		execute(new Test0006_ReferenceNode());
+	}
+	
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+	
+	@Override
+	public void viewTestData() {
+
+		loadLibraryAsDataCenter();
 		
-		//Preparation
+		viewNode("Scene01");
+	}
 
-		SFViewerObjectsLibrary objectsLibrary = CommonData.generateDataSettings();
-		SFObjectsLibrary library=objectsLibrary.getLibrary();
-		CommonPipeline.prepare();
+	@Override
+	public void buildTestData() {
 
-		//copying "PerlinTexture" and "TextureMushroom" from Test0004 to library
-		SFViewerObjectsLibrary test0004Library=new SFViewerObjectsLibrary(root, "test0004.sf");
-			library.put("PerlinTexture", test0004Library.getLibrary().retrieveDataset("PerlinTexture"));
-			library.put("TexturedMushroom", test0004Library.getLibrary().retrieveDataset("TexturedMushroom"));
+		copyAssets("test0004", library, "PerlinTexture", "TexturedMushroom");
 		
 		//copying "ReddishGrayAndBrightPerlinNoise" from Test0005 to library
 		SFViewerObjectsLibrary test0005Library=new SFViewerObjectsLibrary(root, "test0005.sf");
@@ -53,20 +53,29 @@ public class Test0006_ReferenceNode {
 
 		//First Object 
 		SFObjectModelData objectModel1=new SFObjectModelData();//Asset
-			objectModel1.placeGeometry("TexturedMushroom", -0.5f, -0.2f, 0);
-			objectModel1.addTexture("TexturedMat", "ReddishGrayAndBrightPerlinNoise", 0, 0);
+			objectModel1.setGeometry("TexturedMushroom");
+			objectModel1.setTransform(new SFTranslateFixed16Data(-0.5f, -0.2f, 0));
+			objectModel1.getMaterialComponent().addTexture( 0,"ReddishGrayAndBrightPerlinNoise");
+			objectModel1.getTransformComponent().setProgram("BasicPNTx0Transform");
+			objectModel1.getMaterialComponent().setProgram("TexturedMat");
 			library.put("MushroomObject01", objectModel1);
 		
 		//Second Object 
 		SFObjectModelData objectModel2=new SFObjectModelData();//Asset
-			objectModel2.placeGeometry("TexturedMushroom", 0.5f, -0.7f, 0);
-			objectModel2.addTexture("TexturedMat", "ReddishGrayAndBrightPerlinNoise", 0, 1);
+			objectModel2.setGeometry("TexturedMushroom");
+			objectModel2.setTransform(new SFTranslateFixed16Data(0.5f, -0.7f, 0));
+			objectModel2.getMaterialComponent().addTexture(  1, "ReddishGrayAndBrightPerlinNoise");
+			objectModel2.getTransformComponent().setProgram("BasicPNTx0Transform");
+			objectModel2.getMaterialComponent().setProgram("TexturedMat");
 			library.put("MushroomObject02", objectModel2);
 
 		//Third Object 	
 		SFObjectModelData objectModel3=new SFObjectModelData();//Asset
-			objectModel3.placeGeometry("TexturedMushroom", 0.5f, +0.3f, 0);
-			objectModel3.addTexture("TexturedMat", "PerlinTexture");
+			objectModel3.setGeometry("TexturedMushroom");
+			objectModel3.setTransform(new SFTranslateFixed16Data( 0.5f, +0.3f, 0));
+			objectModel3.getMaterialComponent().addTexture( "PerlinTexture");
+			objectModel3.getTransformComponent().setProgram("BasicPNTx0Transform");
+			objectModel3.getMaterialComponent().setProgram("TexturedMat");
 			library.put("MushroomObject03", objectModel3);
 
 		//Second Object 
@@ -76,18 +85,6 @@ public class Test0006_ReferenceNode {
 			scene.addNode("MushroomObject03");
 			library.put("Scene01", scene);
 			
-		// 2) Store the library containing all elements into 'testsData\test0002.sf'
-		SFDataUtility.saveDataset(root, "test0006.sf", library);
-			
-		// 3) Retrieve the library and make model available so that it can be added to a Viewer
-		SFDataCenter.setDataCenterImplementation(new SFViewerObjectsLibrary(root,"test0006.sf"));
-		
-		SFDataCenter.getDataCenter().makeDatasetAvailable("Scene01", new SFDataCenterListener<SFReferenceNodeData>() {
-			@Override
-			public void onDatasetAvailable(String name, SFReferenceNodeData dataset) {
-				SFViewer.generateFrame(dataset.getResource(),SFViewer.getLightStepController());
-			}
-		});
+		store(library);
 	}
-
 }

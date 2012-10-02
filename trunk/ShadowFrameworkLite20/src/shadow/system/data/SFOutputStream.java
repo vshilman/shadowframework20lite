@@ -4,6 +4,8 @@ package shadow.system.data;
 
 public interface SFOutputStream {
 
+	public abstract void writeByte(int value);
+	
 	public abstract void writeShort(short value);
 	
 	public abstract void writeShorts(short[] values);
@@ -21,4 +23,7 @@ public interface SFOutputStream {
 	public abstract void writeBinaryData(int[] values,int bitSize);
 
 	public abstract void writeBinaryData(int value,int bitSize);
+	
+	public abstract void writeName(String s);
+
 }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFBitmapTextureData name="Voronoi01">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,1.0)</weights>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFRandomizedValueListData2D name="vertices">
+					<size>30</size>
+					<seed>9000</seed>
+				</SFRandomizedValueListData2D>
+				<model>MODEL6</model>
+				<distance>DISTANCE</distance>
+			</SFVoronoiBitmapFunctionData>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="Voronoi02">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,1.0)</weights>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.5,0.0)</vertices_element>
+						<vertices_element>(0.5,0.1)</vertices_element>
+						<vertices_element>(0.024,0.2)</vertices_element>
+						<vertices_element>(0.5,0.3)</vertices_element>
+						<vertices_element>(0.5,0.4)</vertices_element>
+						<vertices_element>(0.5,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<model>MODEL2</model>
+				<distance>DISTANCE</distance>
+			</SFVoronoiBitmapFunctionData>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="Voronoi03">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,1.0)</weights>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.4,0.3)</vertices_element>
+						<vertices_element>(0.8,0.2)</vertices_element>
+						<vertices_element>(0.2,0.8)</vertices_element>
+						<vertices_element>(0.3,0.70000005)</vertices_element>
+						<vertices_element>(0.8,0.5)</vertices_element>
+						<vertices_element>(0.6,0.4)</vertices_element>
+						<vertices_element>(0.1,0.2)</vertices_element>
+						<vertices_element>(0.90000004,0.6)</vertices_element>
+						<vertices_element>(0.6,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<model>MODEL7</model>
+				<distance>DISTANCE</distance>
+			</SFVoronoiBitmapFunctionData>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="Voronoi04">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,1.0)</weights>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFTextureRepeaterValueList name="vertices">
+					<SFVertexListDataUnit8 name="vertices">
+						<vertices>
+							<vertices_element>(0.4,0.3)</vertices_element>
+							<vertices_element>(0.8,0.2)</vertices_element>
+							<vertices_element>(0.2,0.8)</vertices_element>
+							<vertices_element>(0.3,0.70000005)</vertices_element>
+							<vertices_element>(0.8,0.5)</vertices_element>
+							<vertices_element>(0.6,0.4)</vertices_element>
+							<vertices_element>(0.1,0.2)</vertices_element>
+							<vertices_element>(0.90000004,0.6)</vertices_element>
+							<vertices_element>(0.6,0.5)</vertices_element>
+						</vertices>
+					</SFVertexListDataUnit8>
+				</SFTextureRepeaterValueList>
+				<model>MODEL7</model>
+				<distance>DISTANCE</distance>
+			</SFVoronoiBitmapFunctionData>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+</library>

@@ -30,7 +30,7 @@ import java.util.Iterator;
  */
 public class SFUpdater{
 	
-	private static SFUpdater updater;
+	private static SFUpdater updater=new SFUpdater();
 
 	private ArrayList<SFUpdatable> updatables=new ArrayList<SFUpdatable>();
 	
@@ -52,9 +52,10 @@ public class SFUpdater{
 		
 		for (Iterator<SFUpdatable> iterator=updater.updatables.iterator(); iterator
 				.hasNext();) {
-			SFUpdatable initiable=(SFUpdatable) iterator.next();
-			initiable.update();
+			SFUpdatable updatable=(SFUpdatable) iterator.next();
+			updatable.update();
 		}
 		
+		updater.updatables.clear();
 	}
 }

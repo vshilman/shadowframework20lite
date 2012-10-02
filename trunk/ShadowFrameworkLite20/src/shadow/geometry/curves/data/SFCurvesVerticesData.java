@@ -1,35 +1,39 @@
 package shadow.geometry.curves.data;
 
-import shadow.geometry.SFCurve;
 import shadow.geometry.SFValuesList;
+import shadow.geometry.curves.SFControlPointsCurve;
 import shadow.math.SFValuenf;
 import shadow.renderer.data.SFDataAsset;
 import shadow.renderer.data.SFLibraryReference;
+import shadow.system.data.SFNamedParametersObject;
 import shadow.system.data.objects.SFShort;
-import shadow.system.data.utils.SFGenericInfoObjectBuilder;
 
-public abstract class SFCurvesVerticesData<T extends SFValuenf> extends SFDataAsset<SFCurve<T>> {
+public abstract class SFCurvesVerticesData extends SFDataAsset<SFControlPointsCurve> {
 
-	protected SFLibraryReference<SFDataAsset<SFValuesList<SFValuenf>>> vertices = 
-		new SFLibraryReference<SFDataAsset<SFValuesList<SFValuenf>>>();
+	protected SFLibraryReference<SFValuesList<SFValuenf>> vertices = 
+		new SFLibraryReference<SFValuesList<SFValuenf>>();
 	protected SFShort closed=new SFShort((short)0);
 	
 	public SFCurvesVerticesData() {
-		setData(SFGenericInfoObjectBuilder.generateObjectBuilder(vertices,closed));
+		SFNamedParametersObject parameters=new SFNamedParametersObject();
+		parameters.addObject("vertices", vertices);
+		parameters.addObject("closed", closed);
+		setData(parameters);
+		setReferences(vertices);
 	}
 	
 	public SFCurvesVerticesData(SFDataAsset<SFValuesList<SFValuenf>> vertices) {
 		this.vertices.setDataset(vertices);
 	}
 
-	public void setVertices(SFDataAsset<SFValuesList<SFValuenf>> dataset, T... vertices) {
+	public void setVertices(SFDataAsset<SFValuesList<SFValuenf>> dataset, SFValuenf... vertices) {
 		setVertices(dataset);
 		for (int i = 0; i < vertices.length; i++) {
 			addVertex(vertices[i]);
 		}
 	}
 
-	public void addVertex(T value){
+	public void addVertex(SFValuenf value){
 		this.vertices.getDataset().getResource().addValue(value);
 	}
 	

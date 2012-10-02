@@ -43,6 +43,23 @@ public abstract class SFParameteri {
 		}
 		return null;
 	}
+
+	
+	public static int getExpressionDimension(short type){
+		switch(type){
+			case GLOBAL_GENERIC: return 0;
+			case GLOBAL_FLOAT: return 1;
+			case GLOBAL_FLOAT2: return 2;
+			case GLOBAL_FLOAT3: return 3;
+			case GLOBAL_FLOAT4: return 4;
+			case GLOBAL_MATRIX2: return 2;
+			case GLOBAL_MATRIX3: return 3;
+			case GLOBAL_MATRIX4: return 4;
+			case GLOBAL_TEXTURE: return 1;
+		}
+		return 0;
+	}
+	
 	
 	public static int getTypeDimension(short type){
 		switch(type){

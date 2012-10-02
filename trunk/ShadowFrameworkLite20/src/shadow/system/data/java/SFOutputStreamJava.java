@@ -17,7 +17,19 @@ public class SFOutputStreamJava implements SFOutputStream {
 	}
 	
 	@Override
+	public void writeName(String s) {
+		writeString(s);
+	}
+
+	//ArrayList<String> stringlist=new ArrayList<String>();
+	
+	@Override
 	public void writeString(String s) {
+//		if(!stringlist.contains(s)){
+//			stringlist.add(s);
+//		}
+//		writeInt(stringlist.indexOf(s));
+		
 		byte[] length={(byte)s.length()};
 		writeBytes(length);
 		writeBytes(s.getBytes());
@@ -170,6 +182,12 @@ public class SFOutputStreamJava implements SFOutputStream {
 		} catch (IOException e) {
 			keeper.launch(e);
 		}
+	}
+	
+	@Override
+	public void writeByte(int value) {
+		byte[] bs={(byte)value};
+		writeBytes(bs);
 	}
 	
 	private void writeFloat(byte[] data,int index,float value){

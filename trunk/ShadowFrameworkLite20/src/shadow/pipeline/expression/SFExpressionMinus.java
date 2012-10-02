@@ -18,7 +18,6 @@ public class SFExpressionMinus extends SFExpressionOperator{
 		LinkedList<SFExpressionElement> cElements = getTypesSeparatorList();
 			
 		if(cElements.size()>1){
-
 			//Tells if there are only vectors.
 			boolean onlyVectors = hasOnlyVectors(cElements);
 			if(onlyVectors){
@@ -38,8 +37,11 @@ public class SFExpressionMinus extends SFExpressionOperator{
 	}
 	
 	@Override
-	public SFValuenf evaluate(SFValuesMap values) {
+	public SFValuenf evaluate(SFExpressionValuesList values) {
 		SFValuenf sum=getExpressionElement(0).evaluate(values);
+		if(getElementSize()==1){
+			sum.mult(-1);
+		}
 		for (int i = 1; i < getElementSize(); i++) {
 			sum.addMult(-1, getExpressionElement(i).evaluate(values));
 		}

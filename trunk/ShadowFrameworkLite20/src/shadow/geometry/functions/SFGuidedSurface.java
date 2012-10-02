@@ -1,7 +1,6 @@
 package shadow.geometry.functions;
 
 import shadow.geometry.SFCurve;
-import shadow.geometry.SFSurfaceFunction;
 import shadow.math.SFMatrix3f;
 import shadow.math.SFVertex3f;
 
@@ -10,16 +9,16 @@ import shadow.math.SFVertex3f;
  * B.getTmin()==C.getTmin();
  * B.getTmax()==C.getTmax();
  */
-public class SFGuidedSurface extends SFSurfaceFunction{
+public class SFGuidedSurface  extends SFUnoptimizedSurfaceFunction{
 
-	private SFCurve<SFVertex3f> A;
-	private SFCurve<SFVertex3f> B;
-	private SFCurve<SFVertex3f> C;
+	private SFCurve A;
+	private SFCurve B;
+	private SFCurve C;
 	
 	private float maxTA;
 	private float maxTB;
 	
-	public SFGuidedSurface(SFCurve<SFVertex3f> a, SFCurve<SFVertex3f> b, SFCurve<SFVertex3f> c) {
+	public SFGuidedSurface(SFCurve a, SFCurve b, SFCurve c) {
 		super();
 		this.A = a;
 		this.B = b;
@@ -32,10 +31,16 @@ public class SFGuidedSurface extends SFSurfaceFunction{
 		getTransformInverse(startingTransform);
 
 	}
+
 	
 	@Override
 	public void init() {
-		
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 	
 	private float[] startingTransform=new float[16];

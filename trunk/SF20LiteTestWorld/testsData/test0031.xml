@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFTransformedCurveData name="BackExternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.2</z>
+			<scale>1.0</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>ExternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	<SFTransformedCurveData name="BackInternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.2</z>
+			<scale>1.0</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>InternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(0.0,0.5,0.0)</values_element>
+			<values_element>(0.5,0.5,0.0)</values_element>
+			<values_element>(0.5,0.0,0.5)</values_element>
+			<values_element>(0.0,0.0,0.5)</values_element>
+			<values_element>(0.5,0.0,1.0)</values_element>
+			<values_element>(0.5,1.0,0.0)</values_element>
+			<values_element>(0.6,1.0,0.4)</values_element>
+			<values_element>(0.0,1.0,1.0)</values_element>
+			<values_element>(1.0,0.6,0.0)</values_element>
+			<values_element>(1.0,0.84800005,0.0)</values_element>
+			<values_element>(0.0,0.6,0.2)</values_element>
+			<values_element>(0.1,0.0,0.3)</values_element>
+			<values_element>(1.0,1.0,1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.90000004,0.8,0.2)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFUniformBezier33fData name="ExternalFrameworkContour">
+		<bezierData>
+			<bezierData_element>9:-0.70000005:-0.5:0.0:-0.5:0.0:0.0:0.0:0.6:0.0:</bezierData_element>
+			<bezierData_element>9:0.0:0.6:0.0:0.5:0.0:0.0:0.5:-0.5:0.0:</bezierData_element>
+		</bezierData>
+	</SFUniformBezier33fData>
+	<SFObjectModelData name="FrameworkModel">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>FrameworkSurface</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:0</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFGroupMeshGeometryData name="FrameworkSurface">
+		<geometries>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(3,8)</NuNv>
+				<SFSplineCurvedTubeFunctionData name="surfaceFunction">
+					<references id="curvesData">
+						<reference>InternalFrameworkContour</reference>
+						<reference>ExternalFrameworkContour</reference>
+						<reference>MiddleExternalFrameworkContour1</reference>
+						<reference>MiddleExternalFrameworkContour2</reference>
+						<reference>BackExternalFrameworkContour</reference>
+						<reference>BackInternalFrameworkContour</reference>
+						<reference>InternalFrameworkContour</reference>
+					</references>
+				</SFSplineCurvedTubeFunctionData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+		</geometries>
+		<primitive>Triangle3PN</primitive>
+	</SFGroupMeshGeometryData>
+	<SFUniformBezier33fData name="InternalFrameworkContour">
+		<bezierData>
+			<bezierData_element>9:0.0:-0.5:0.0:-0.5:-0.2:0.0:0.0:0.5:0.0:</bezierData_element>
+			<bezierData_element>9:0.0:0.5:0.0:0.5:-0.2:0.0:0.4:-0.5:0.0:</bezierData_element>
+		</bezierData>
+	</SFUniformBezier33fData>
+	<SFTransformedCurveData name="MiddleExternalFrameworkContour1">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.020000001</z>
+			<scale>1.4000001</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>ExternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	<SFTransformedCurveData name="MiddleExternalFrameworkContour2">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>-0.020000001</z>
+			<scale>1.4000001</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>BackExternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	<SFReferenceNodeData name="OBTilesDrawnTextureNode">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>OBTilesModel0</reference>
+			<reference>OBTilesModel1</reference>
+			<reference>OBTilesModel2</reference>
+			<reference>OBTilesModel3</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFObjectModelData name="OBTilesModel0">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>OBTilesRectangle0</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:16</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFObjectModelData name="OBTilesModel1">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>OBTilesRectangle1</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:16</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFObjectModelData name="OBTilesModel2">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>OBTilesRectangle2</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:10</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFObjectModelData name="OBTilesModel3">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>OBTilesRectangle3</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:10</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="OBTilesRectangle0">
+		<NuNv>(2,2)</NuNv>
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<x>0.0</x>
+			<y>0.0</y>
+			<w>1.0</w>
+			<h>1.0</h>
+		</SFRectangle2DFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFQuadsSurfaceGeometryData name="OBTilesRectangle1">
+		<NuNv>(2,2)</NuNv>
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<x>-1.0</x>
+			<y>-1.0</y>
+			<w>1.0</w>
+			<h>1.0</h>
+		</SFRectangle2DFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFQuadsSurfaceGeometryData name="OBTilesRectangle2">
+		<NuNv>(2,2)</NuNv>
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<x>-1.0</x>
+			<y>0.0</y>
+			<w>1.0</w>
+			<h>1.0</h>
+		</SFRectangle2DFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFQuadsSurfaceGeometryData name="OBTilesRectangle3">
+		<NuNv>(2,2)</NuNv>
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<x>0.0</x>
+			<y>-1.0</y>
+			<w>1.0</w>
+			<h>1.0</h>
+		</SFRectangle2DFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFDrawnRenderedTextureData name="OBTilesTexture">
+		<textures>
+			<textures_element>20:20:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<node>OBTilesDrawnTextureNode</node>
+		<SFRendererData name="renderer">
+			<SF2DCameraData name="camera">
+				<leftL>0.5</leftL>
+				<upL>0.5</upL>
+			</SF2DCameraData>
+			<SFProgramAssetData name="light">
+				<program>BasicColor</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+		</SFRendererData>
+		<depthUse>0</depthUse>
+	</SFDrawnRenderedTextureData>
+</library>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class SFPipelineModuleWrongException extends RuntimeException{
 
+	private static final long serialVersionUID=0;
+	
 	private ArrayList<String> list=new ArrayList<String>();
 
 	public SFPipelineModuleWrongException(){

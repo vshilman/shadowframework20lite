@@ -2,19 +2,28 @@ package shadow.geometry.vertices;
 
 import shadow.geometry.SFValuesIterator;
 import shadow.geometry.SFValuesList;
-import shadow.geometry.curves.data.SFFixedFloat;
+import shadow.geometry.data.SFFixedFloat16;
 import shadow.math.SFTransform3f;
-import shadow.math.SFVertex3f;
 import shadow.renderer.data.SFDataAsset;
+import shadow.system.data.SFNamedParametersObject;
 import shadow.system.data.objects.SFBinaryDataList;
+
+
+//TODO : DROP!!!
 
 public class SFRigidTransform3FixedListData extends SFDataAsset<SFValuesList<SFTransform3f>>{
 
-	private SFBinaryDataList<SFFixedFloat> vertices=
-		new SFBinaryDataList<SFFixedFloat>(new SFFixedFloat());
+	private SFBinaryDataList<SFFixedFloat16> vertices=
+		new SFBinaryDataList<SFFixedFloat16>(new SFFixedFloat16());
 	
 	public SFRigidTransform3FixedListData(){
-		setData(vertices);
+		prepare();
+	}
+	
+	private void prepare() {
+		SFNamedParametersObject parameters=new SFNamedParametersObject();
+		parameters.addObject("vertices", vertices);
+		setData(parameters);
 	}
 	
 	private class SFBinarySFTransform3fListIterator implements SFValuesIterator<SFTransform3f>{
@@ -45,6 +54,10 @@ public class SFRigidTransform3FixedListData extends SFDataAsset<SFValuesList<SFT
 			//Nothing special
 		}
 		@Override
+		public void destroy() {
+			//Nothing special
+		}
+		@Override
 		public int getSize() {
 			return vertices.elementsSize()/3;
 		}
@@ -60,13 +73,13 @@ public class SFRigidTransform3FixedListData extends SFDataAsset<SFValuesList<SFT
 		}
 		@Override
 		public int addValue(SFTransform3f read) {
-			vertices.getDataObject().add(new SFFixedFloat(read.get()[0]));
-			vertices.getDataObject().add(new SFFixedFloat(read.get()[1]));
-			vertices.getDataObject().add(new SFFixedFloat(read.get()[3]));
-			vertices.getDataObject().add(new SFFixedFloat(read.get()[4]));
-			vertices.getDataObject().add(new SFFixedFloat(read.get()[9]));
-			vertices.getDataObject().add(new SFFixedFloat(read.get()[10]));
-			vertices.getDataObject().add(new SFFixedFloat(read.get()[11]));
+			vertices.getDataObject().add(new SFFixedFloat16(read.get()[0]));
+			vertices.getDataObject().add(new SFFixedFloat16(read.get()[1]));
+			vertices.getDataObject().add(new SFFixedFloat16(read.get()[3]));
+			vertices.getDataObject().add(new SFFixedFloat16(read.get()[4]));
+			vertices.getDataObject().add(new SFFixedFloat16(read.get()[9]));
+			vertices.getDataObject().add(new SFFixedFloat16(read.get()[10]));
+			vertices.getDataObject().add(new SFFixedFloat16(read.get()[11]));
 			return getSize();
 		}
 		@Override
@@ -88,13 +101,13 @@ public class SFRigidTransform3FixedListData extends SFDataAsset<SFValuesList<SFT
 	}
 	
 	public void add(SFTransform3f vertex){
-		vertices.getDataObject().add(new SFFixedFloat(vertex.get()[0]));
-		vertices.getDataObject().add(new SFFixedFloat(vertex.get()[1]));
-		vertices.getDataObject().add(new SFFixedFloat(vertex.get()[3]));
-		vertices.getDataObject().add(new SFFixedFloat(vertex.get()[4]));
-		vertices.getDataObject().add(new SFFixedFloat(vertex.get()[9]));
-		vertices.getDataObject().add(new SFFixedFloat(vertex.get()[10]));
-		vertices.getDataObject().add(new SFFixedFloat(vertex.get()[11]));
+		vertices.getDataObject().add(new SFFixedFloat16(vertex.get()[0]));
+		vertices.getDataObject().add(new SFFixedFloat16(vertex.get()[1]));
+		vertices.getDataObject().add(new SFFixedFloat16(vertex.get()[3]));
+		vertices.getDataObject().add(new SFFixedFloat16(vertex.get()[4]));
+		vertices.getDataObject().add(new SFFixedFloat16(vertex.get()[9]));
+		vertices.getDataObject().add(new SFFixedFloat16(vertex.get()[10]));
+		vertices.getDataObject().add(new SFFixedFloat16(vertex.get()[11]));
 	}
 	
 	@Override

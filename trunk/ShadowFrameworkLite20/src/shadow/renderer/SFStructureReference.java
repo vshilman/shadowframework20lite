@@ -4,7 +4,6 @@ import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
 import shadow.system.SFArrayElementException;
-import shadow.system.SFInitiable;
 
 /**
  * A Reference to a SFStructureArray.
@@ -12,7 +11,7 @@ import shadow.system.SFInitiable;
  * 
  * @author Alessandro Martinelli
  */
-public class SFStructureReference implements SFInitiable{
+public class SFStructureReference {
 	
 	private SFPipelineStructure structure;
 	private SFStructureArray tableData;
@@ -47,7 +46,7 @@ public class SFStructureReference implements SFInitiable{
 		return structure;
 	}
 
-	public int getMaterialIndex() {
+	public int getIndex() {
 		return refIndex;
 	}
 
@@ -66,11 +65,6 @@ public class SFStructureReference implements SFInitiable{
 	
 	public void setTable(SFStructureArray table) {
 		this.tableData=table;
-	}
-	
-	@Override
-	public void init() {
-		
 	}
 
 	public void setStructureData(SFStructureData data) throws SFArrayElementException{

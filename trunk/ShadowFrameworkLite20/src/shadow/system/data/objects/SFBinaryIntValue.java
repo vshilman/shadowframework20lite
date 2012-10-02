@@ -21,4 +21,14 @@ public class SFBinaryIntValue extends SFBinaryValue{
 	protected int getBitSize() {
 		return 0;
 	}
+	
+	@Override
+	public void setStringValue(String value) {
+		setValue(new Integer(value));
+	}
+
+	@Override
+	public String toStringValue() {
+		return ""+value;
+	}
 }

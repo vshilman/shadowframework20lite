@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.9,0.8,0.2)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	
+	<SFContinuosBezier3Data name="ExternalFrameworkContour">
+		<SFVertexListData16 name="vertices">
+			<vertices>
+				<vertices_element>(-0.7,0.8)</vertices_element>
+				<vertices_element>(-0.3,0.8)</vertices_element>
+				<vertices_element>(-0.3,0.7)</vertices_element>
+				<vertices_element>(0.0,0.7)</vertices_element>
+				<vertices_element>(0.3,0.7)</vertices_element>
+				<vertices_element>(0.3,0.8)</vertices_element>
+				<vertices_element>(0.6,0.9)</vertices_element>
+				<vertices_element>(0.8,0.2)</vertices_element>
+				<vertices_element>(0.8,-0.2)</vertices_element>
+				<vertices_element>(0.6,-0.8)</vertices_element>
+				<vertices_element>(0.2,-0.9)</vertices_element>
+				<vertices_element>(-0.2,-0.9)</vertices_element>
+				<vertices_element>(-0.45,-0.8)</vertices_element>
+				<vertices_element>(-0.8,-0.2)</vertices_element>
+				<vertices_element>(-0.8,0.2)</vertices_element>
+				<vertices_element>(-0.7,0.8)</vertices_element>
+			</vertices>
+		</SFVertexListData16>
+		<closed>1</closed>
+	</SFContinuosBezier3Data>
+	
+	<SFTransformedCurveData name="InternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<scale>0.8</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>ExternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	
+	<SFTransformedCurveData name="BackExternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<z>0.2</z>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>ExternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	
+	<SFTransformedCurveData name="BackInternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<z>0.2</z>
+			<scale>0.8</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>InternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+
+	<SFGroupMeshGeometryData name="FrameworkSurface">
+		<primitive>Triangle3PN</primitive>
+		<geometries>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(6,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<rayCurve>InternalFrameworkContour</rayCurve>
+					<centralCurve>ExternalFrameworkContour</centralCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(6,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<centralCurve>BackExternalFrameworkContour</centralCurve>
+					<rayCurve>ExternalFrameworkContour</rayCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(6,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<rayCurve>BackInternalFrameworkContour</rayCurve>
+					<centralCurve>InternalFrameworkContour</centralCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(6,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<centralCurve>BackInternalFrameworkContour</centralCurve>
+					<rayCurve>BackExternalFrameworkContour</rayCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+		</geometries>
+	</SFGroupMeshGeometryData>
+	
+	<SFObjectModelData name="FrameworkModel">
+		<geometry>FrameworkSurface</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:0</structures_element>
+			</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>

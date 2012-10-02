@@ -17,7 +17,7 @@ public class SFValue1f extends SFValuenf{
 		this.v[0] = (float)x;
 	}
 	
-	public void storeOn1f(float []f){
+	public void storeOn1f(float[] f){
 		f[0]=v[0];
 	}
 	

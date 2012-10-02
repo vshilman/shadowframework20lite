@@ -1,8 +1,6 @@
 package shadow.pipeline.java;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import shadow.system.SFArray;
 import shadow.system.SFArrayElementException;
@@ -21,6 +19,11 @@ public abstract class SFGL20ListData<E> implements SFArray<E>{
 		}
 	}
 	
+	@Override
+	public E generateSample() {
+		return generateGenericElement();
+	}
+	
 	//Used only by implementation
 	public E getValue(int index){
 		return data.get(index);
@@ -36,11 +39,9 @@ public abstract class SFGL20ListData<E> implements SFArray<E>{
 	@Override
 	public int generateElements(int count) {
 		int index=data.size();
-		List<E> es=new LinkedList<E>();
 		for (int i = 0; i < count; i++) {
-			es.add(generateGenericElement());
+			data.add(generateGenericElement());
 		}
-		data.addAll(es);
 		return index;
 	}
 	

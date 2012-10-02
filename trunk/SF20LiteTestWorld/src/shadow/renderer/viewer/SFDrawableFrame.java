@@ -17,12 +17,15 @@ import javax.swing.JMenuItem;
 import shadow.pipeline.openGL20.SFGL2;
 import shadow.system.SFDrawable;
 import shadow.system.SFInitiator;
+import shadow.system.SFUpdater;
 
 import com.sun.opengl.util.FPSAnimator;
 
 public class SFDrawableFrame extends JFrame{
 	
 	private static final long serialVersionUID=0;
+	
+	private GLCanvas canvas;
 
 	public SFDrawableFrame(String title,int width,int height,SFDrawable drawable,SFFrameController... controllers) {
 		
@@ -32,25 +35,31 @@ public class SFDrawableFrame extends JFrame{
 		
 		GLCapabilities capabilities=new GLCapabilities(GLProfile.get(GLProfile.GL2));
 		capabilities.setStencilBits(8);
-		GLCanvas canvas=new GLCanvas(capabilities);
+		this.canvas=new GLCanvas(capabilities);
 		
 		canvas.addGLEventListener(new SFDrawableFrameListener(drawable));
 		FPSAnimator animator=new FPSAnimator(canvas,60);
 		animator.start();
 		
-		if(controllers.length>0){
-			JMenuBar bar=new JMenuBar();
-			
-			for (int i = 0; i < controllers.length; i++) {
-				bar.add(generateMenu(controllers[i]));
-			}
-			
-			setJMenuBar(bar);
+		JMenuBar bar=new JMenuBar();
+		
+		for (int i = 0; i < controllers.length; i++) {
+			bar.add(generateMenu(controllers[i]));
 		}
+		
+		setJMenuBar(bar);
 		
 		getContentPane().add(canvas);
 	}
 	
+	
+	
+	public GLCanvas getGLCanvas() {
+		return canvas;
+	}
+
+
+
 	public JMenu generateMenu(final SFFrameController controller){
 		JMenu menu=new JMenu(controller.getName());
 		for (int i = 0; i < controller.getAlternatives().length; i++) {
@@ -81,6 +90,7 @@ public class SFDrawableFrame extends JFrame{
 			SFGL2.setGl((GL2)(arg0.getGL()));
 			
 			SFInitiator.solveInitiables();
+			SFUpdater.refresh();
 			
 			/*long time1=System.nanoTime();
 			float time=(time1-timeOld)*0.001f*0.001f;
@@ -96,6 +106,11 @@ public class SFDrawableFrame extends JFrame{
 
 		@Override
 		public void init(GLAutoDrawable arg0) {
+			SFGL2.setGl((GL2)(arg0.getGL()));
+			
+			SFInitiator.solveInitiables();
+			SFUpdater.refresh();
+			
 			drawable.init();
 		}
 		

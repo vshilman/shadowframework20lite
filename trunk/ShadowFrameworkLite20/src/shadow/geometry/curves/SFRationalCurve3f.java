@@ -5,11 +5,11 @@ import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
 import shadow.math.SFVertex4f;
 
-public class SFRationalCurve3f implements SFCurve<SFVertex3f>{
+public class SFRationalCurve3f extends SFUnOptimizedCurve<SFVertex3f> implements SFCurve{
 
-	private SFCurve<SFVertex4f> curve;
+	private SFCurve curve;
 	
-	public SFRationalCurve3f(SFCurve<SFVertex4f> curve) {
+	public SFRationalCurve3f(SFCurve curve) {
 		super();
 		this.curve = curve;
 	}
@@ -54,7 +54,12 @@ public class SFRationalCurve3f implements SFCurve<SFVertex3f>{
 	
 	@Override
 	public void init() {
-		
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 	
 }

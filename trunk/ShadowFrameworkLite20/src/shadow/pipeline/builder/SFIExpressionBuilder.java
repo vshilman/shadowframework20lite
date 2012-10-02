@@ -23,7 +23,7 @@ public interface SFIExpressionBuilder {
 	/**
 	 * Generate a value
 	 */
-	public void generateValue(String token, List<SFParameteri> set);
+	public void generateValue(String token, SFParameteri[] set);
 	/**
 	 * Generate an operator
 	 */

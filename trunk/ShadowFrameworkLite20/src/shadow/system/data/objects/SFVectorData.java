@@ -2,8 +2,9 @@ package shadow.system.data.objects;
 
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
+import shadow.system.data.SFWritableDataObject;
 
-public class SFVectorData extends SFPrimitiveType{
+public class SFVectorData extends SFPrimitiveType  implements SFWritableDataObject{
 
 	private float[] floatValues;
 	
@@ -31,5 +32,15 @@ public class SFVectorData extends SFPrimitiveType{
 	@Override
 	public SFVectorData clone(){
 		return new SFVectorData(floatValues.length);
+	}
+	
+	@Override
+	public void setStringValue(String value) {
+		SFCharsetObjectUtils.readFloats(floatValues, value, getClass().getSimpleName());
+	}
+	
+	@Override
+	public String toStringValue() {
+		return SFCharsetObjectUtils.writeFloats(floatValues);
 	}
 }

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.9,0.8,0.2)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	
+	<SFCurvedTubeFunctionData name="StrangeGlassSurface">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1)</vertices_element>
+						<vertices_element>(0.024,0.2)</vertices_element>
+						<vertices_element>(0.0,0.3)</vertices_element>
+						<vertices_element>(0.0,0.4)</vertices_element>
+						<vertices_element>(0.0,0.5)</vertices_element>
+						<vertices_element>(0.0,0.6)</vertices_element>
+						<vertices_element>(0.0,0.7)</vertices_element>
+						<vertices_element>(0.0,0.8)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1)</vertices_element>
+						<vertices_element>(0.2,0.2)</vertices_element>
+						<vertices_element>(0.048,0.3)</vertices_element>
+						<vertices_element>(0.048,0.4)</vertices_element>
+						<vertices_element>(0.2,0.5)</vertices_element>
+						<vertices_element>(0.2,0.6)</vertices_element>
+						<vertices_element>(0.5,0.7)</vertices_element>
+						<vertices_element>(0.4,0.8)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+	</SFCurvedTubeFunctionData>
+	
+	<SFQuadsSurfaceGeometryData name="PlainStrangeGlassModel">
+		<NuNv>(8,8)</NuNv>
+		<surfaceFunction>StrangeGlassSurface</surfaceFunction>
+		<primitive>Triangle3PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	
+	<SFObjectModelData name="PlainStrangeGlass">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,-0.5,0.5)</position>
+			<orientation>-3.1415927:3.1415927:3:(10,10,10):(-3.1415927,-3.1415927,-3.1415927):</orientation>
+			<scale>1.0</scale>
+		</SFRigidTransformData>
+		<geometry>PlainStrangeGlassModel</geometry>
+		<transformProgramComponents>BasicPNTransform</transformProgramComponents>
+		<materialsProgramComponents>BasicMat</materialsProgramComponents>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>Colors</tableData>
+				<refIndex>0</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+	</SFObjectModelData>
+	
+	<SFQuadsSurfaceGeometryData name="GlassModel">
+		<NuNv>(2,2)</NuNv>
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<x>-0.5</x>
+			<y>0.5</y>
+			<w>1.0</w>
+			<h>-1.0</h>
+		</SFRectangle2DFunctionData>
+		<SFRectangle2DFunctionData name="texCoordFunction">
+			<x>0.0</x>
+			<y>0.0</y>
+			<w>1.0</w>
+			<h>1.0</h>
+		</SFRectangle2DFunctionData>
+		<primitive>Triangle3PNTxO</primitive>
+	</SFQuadsSurfaceGeometryData>
+	
+	<SFBitmapTextureData name="GlassTexture">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>Bitmap4416</bitmap>
+			<weights>(0,0,0,0,0,0,1.0)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	
+	<SFBitmapArrayData name="Bitmap4416">
+		<width>4</width>
+		<height>4</height>
+		<bitmap>(0,0,0,255,0,255,0,0,255,0,0,255,0,255,255,0)</bitmap>
+	</SFBitmapArrayData>
+	
+	<SFObjectModelData name="Glass">
+		<geometry>GlassModel</geometry>
+		<transformProgramComponents>BasicPNTx0Transform</transformProgramComponents>
+		<materialsProgramComponents>BasicMat</materialsProgramComponents>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>Colors</tableData>
+				<refIndex>0</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<textures>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>GlassTexture</texture>
+			</SFTextureReferenceData>
+		</textures>
+		<materialsProgramComponents>BasicTexturedTransparencyMat</materialsProgramComponents>
+	</SFObjectModelData>
+	
+	<SFReferenceNodeData name="Scene0001">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>Glass</reference>
+			<reference>PlainStrangeGlass</reference>
+		</references>
+	</SFReferenceNodeData>
+
+	<SFPeriodicAnimationData name="Scene0001Rotation">
+		<startingPosition>0</startingPosition>
+		<endingPosition>6000</endingPosition>
+		<SFRotateAnimationData name="animation">
+			<direction>(0.0,1.0,0.0)</direction>
+			<startAngle>0.0</startAngle>
+			<lastAngle>6.2831855</lastAngle>
+			<duration>6000</duration>
+			<startingTime>0</startingTime>
+			<node>Scene0001</node>
+		</SFRotateAnimationData>
+	</SFPeriodicAnimationData>
+	
+	<SFStructureArrayDataUnit8 name="Lights">
+		<structure>PLight01</structure>
+		<values>
+			<values_element>(1.0,1.0,1.0)(1.0,1.0,-1.0)</values_element>
+			<values_element>(1.0,1.0,1.0)(0.0,0.0,-1.0)</values_element>
+			<values_element>(1.0,1.0,1.0)(-1.0,0.0,0.0)</values_element>
+			<values_element>(1.0,1.0,1.0)(0.0,1.0,-0.5)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	
+	<SFDrawnRenderedTextureData name="Scene0001RenderedTexture">
+		<textures>
+			<textures_element>800:800:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<node>Scene0001</node>
+		<SFRendererData name="renderer">
+			<SF2DCameraData name="camera">
+				<leftL>0.25</leftL>
+				<upL>0.25</upL>
+			</SF2DCameraData>
+			<lightProgramComponent>BasicLSPN2</lightProgramComponent>
+			<lightsStructures>
+				<SFStructureReferenceData name="">
+					<tableData>Lights</tableData>
+					<refIndex>1</refIndex>
+				</SFStructureReferenceData>
+			</lightsStructures>
+		</SFRendererData>
+		<depthUse>0</depthUse>
+	</SFDrawnRenderedTextureData>
+
+</library>

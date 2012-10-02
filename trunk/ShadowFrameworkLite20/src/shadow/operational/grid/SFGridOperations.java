@@ -1,98 +1,98 @@
 package shadow.operational.grid;
 
 import shadow.math.SFValuenf;
-import shadow.operational.SFGridMap;
-import shadow.pipeline.SFFunction;
-import shadow.pipeline.SFPipelineGrid;
-import shadow.system.SFArray;
 
 public class SFGridOperations {
 
-	/**
-	 * Correct values using one grid rewrite rules
-	 * Corrected values are written into an array.
-	 * 
-	 * @param grid The grid.
-	 * @param array the array where the elaboration output is placed.
-	 * @param data an array of vertices containing all necessary
-	 * @param indices 
-	 * @param offset An offset to be applied to indices.
-	 */
-	public static void correctValues(SFPipelineGrid grid,SFArray<SFValuenf> array,SFValuenf[] data, int[] indices,int indicesOffset,int offset) {
-		
-		SFGridMap map=new SFGridMap(grid, data, indices, indicesOffset);
-		SFFunction[] functions=grid.getFunctions();
-		
-		for (int k = 0; k < functions.length; k++) {
-			SFFunction function=functions[k];
-			String name=function.getParameter().getName();
-			int index=grid.getNameIndex(name);
-			SFValuenf value=function.getFunction().evaluate(map);
-			//data[indices[index]].set(value);
-			array.setElement(offset+indices[index+indicesOffset], value);
+	private static SFValuenf evaluateEdge(SFGridCircle<SFValuenf> circle,int edgeIndex,float t){
+		int n=circle.getN();
+		float T=t*(n-1);
+		int index1=(int)(T);
+		T-=index1;
+		int index2=index1+1;
+		SFValuenf value=circle.getValue(edgeIndex, index1).cloneValue();
+		value.mult(1-T);
+		if(index2<n-1){
+			value.addMult(T, circle.getValue(edgeIndex, index2));
+		}else{
+			value.addMult(T, circle.getValue(circle.round(edgeIndex+1), 0));
 		}
+		return value;
 	}
+	
+	//used by SFCurvesMeshGeometry, should be extended to any grid
+	public static void updateCircle2(SFTriangularGrid<SFValuenf> sfTriangularGrid,
+			int index) {
+	
+		SFGridCircle<SFValuenf> innerCircle=sfTriangularGrid.circles[index];
+		SFGridCircle<SFValuenf> outerCircle=sfTriangularGrid.circles[index-1];
+		
+		if(innerCircle.getN()==1){
 
-	public static int getGridDimension(SFPipelineGrid grid) {
-		return grid.getEdges()[0].length-1;
-	}
+			int n=outerCircle.getN();
+			SFValuenf value=new SFValuenf(outerCircle.getValue(0, 0).get().length);
+			value.mult(0);
+			int count=0;
+			for (int edge = 0; edge < outerCircle.getEdges(); edge++) {
 
-	/**
-	 * Generate The indices of 2 triangles which approximate a quad.
-	 * 
-	 * @param triangularGrid the reference triangular grid used to define the two triangles
-	 * @param output 
-	 * @param offset
-	 * @param size
-	 * @param indices
-	 */
-	public static void generateQuadTrianglesIndices(SFPipelineGrid triangularGrid,int[][] output, 
-			int positionInOutputs, int size, int[] indices) {
-		
-		
-		int gridDimension=getGridDimension(triangularGrid);
-		
-		int [] tmp_S=output[0];
-			tmp_S[positionInOutputs+triangularGrid.getCorners()[0]]=(indices[0]);
-			tmp_S[positionInOutputs+triangularGrid.getCorners()[1]]=(indices[size-1]);
-			tmp_S[positionInOutputs+triangularGrid.getCorners()[2]]=(indices[gridDimension*size]);
-			for (int k = 1; k < triangularGrid.getEdges()[0].length-1; k++) {
-				tmp_S[positionInOutputs+triangularGrid.getEdges()[0][k]]=indices[k];
+				SFValuenf A=outerCircle.getValue(edge, 0).cloneValue();
+				SFValuenf AB=outerCircle.getValue(edge, 1).cloneValue();
+				SFValuenf AC=outerCircle.getValue(outerCircle.round(edge-1), n-2).cloneValue();
+				
+				value.addMult(0.75f,AB);
+				value.addMult(0.75f,AC);
+				value.addMult(-0.666f,A);
+				count++;
 			}
-			for (int k = 1; k < triangularGrid.getEdges()[1].length-1; k++) {
-				tmp_S[positionInOutputs+triangularGrid.getEdges()[1][k]]=indices[size-1+k*gridDimension];
+			value.mult(1.0f/count);
+			innerCircle.setValue(0, 0, value);
+			
+		}else{
+			
+			int n=outerCircle.getN();
+			float outerStep=1.0f/(n-1);
+			int n1=innerCircle.getN();
+			
+			for (int edge = 0; edge < outerCircle.getEdges(); edge++) {
+
+				SFValuenf A=outerCircle.getValue(edge, 0).cloneValue();
+				SFValuenf AB=outerCircle.getValue(edge, 1).cloneValue();
+				SFValuenf AC=outerCircle.getValue(outerCircle.round(edge-1), n-2).cloneValue();
+				SFValuenf AB2=outerCircle.getValue(edge, 2).cloneValue();
+				SFValuenf AC2=outerCircle.getValue(outerCircle.round(edge-1), n-3).cloneValue();
+				
+				
+				SFValuenf Ainner=new SFValuenf(AB);
+				Ainner.mult(0.5f);
+				Ainner.addMult(0.5f, AC);
+				Ainner.addMult(0.25f, AB2);
+				Ainner.addMult(0.25f, AC2);
+				Ainner.addMult(-0.5f, A);
+				innerCircle.setValue(edge, 0, Ainner);
 			}
-			for (int k = 1; k < triangularGrid.getEdges()[2].length-1; k++) {
-				tmp_S[positionInOutputs+triangularGrid.getEdges()[2][k]]=indices[gridDimension*size-k*size];
-			}
-			int position=gridDimension*3;//three edges
-			for (int l = 1; l < gridDimension; l++) {
-				for (int k = 1; k < gridDimension-l; k++) {
-					tmp_S[positionInOutputs+position]=indices[k+l*(size)];
-					position++;
+			
+			for (int edge = 0; edge < outerCircle.getEdges(); edge++) {
+				
+				SFValuenf firstDirection=new SFValuenf(innerCircle.getValue(edge, 0));
+				firstDirection.subtract(outerCircle.getValue(edge, 1));
+				SFValuenf secondDirection=new SFValuenf(innerCircle.getValue(innerCircle.round(edge+1), 0));
+				secondDirection.subtract(outerCircle.getValue(edge, n-2));
+
+				for (int inEdgeIndex = 1; inEdgeIndex < n1-1; inEdgeIndex++) {
+					
+					float T=(inEdgeIndex)/(n1-1.0f);
+					SFValuenf borderInnerValue=new SFValuenf(firstDirection);
+					borderInnerValue.mult(1-T);
+					borderInnerValue.addMult(T, secondDirection);
+					
+					float t=(1.5f+inEdgeIndex)*outerStep;
+					borderInnerValue.add(evaluateEdge(outerCircle, edge, t));
+					
+					innerCircle.setValue(edge, inEdgeIndex, borderInnerValue);
 				}
 			}	
-			
-		tmp_S=output[1];
-			tmp_S[positionInOutputs+triangularGrid.getCorners()[0]]=(indices[size*size-1]);
-			tmp_S[positionInOutputs+triangularGrid.getCorners()[1]]=(indices[gridDimension*size]);
-			tmp_S[positionInOutputs+triangularGrid.getCorners()[2]]=(indices[size-1]);
-			for (int k = 1; k < triangularGrid.getEdges()[0].length-1; k++) {
-				tmp_S[positionInOutputs+triangularGrid.getEdges()[0][k]]=indices[size*size-1-k];
-			}
-			for (int k = 1; k < triangularGrid.getEdges()[1].length-1; k++) {
-				tmp_S[positionInOutputs+triangularGrid.getEdges()[1][k]]=indices[size*size-1-(size-1+k*gridDimension)];
-			}
-			for (int k = 1; k < triangularGrid.getEdges()[2].length-1; k++) {
-				tmp_S[positionInOutputs+triangularGrid.getEdges()[2][k]]=indices[size*size-1-(gridDimension*size-k*size)];
-			}
-			position=gridDimension*3;//three edges
-			for (int l = 1; l < gridDimension; l++) {
-				for (int k = 1; k < gridDimension-l; k++) {
-					tmp_S[positionInOutputs+position]=indices[size*size-1-k-l*(size)];
-					position++;
-				}
-			}
+		}	
+
 	}
 
 }

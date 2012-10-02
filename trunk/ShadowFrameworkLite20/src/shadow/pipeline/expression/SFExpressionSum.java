@@ -3,7 +3,6 @@ package shadow.pipeline.expression;
 import java.util.LinkedList;
 
 import shadow.math.SFValuenf;
-import shadow.pipeline.parameters.SFParameteri;
 
 public class SFExpressionSum extends SFExpressionOperator {
 
@@ -41,7 +40,7 @@ public class SFExpressionSum extends SFExpressionOperator {
 	}
 	
 	@Override
-	public SFValuenf evaluate(SFValuesMap values) {
+	public SFValuenf evaluate(SFExpressionValuesList values) {
 		SFValuenf sum=getExpressionElement(0).evaluate(values);
 		for (int i = 1; i < getElementSize(); i++) {
 			sum.addMult(1, getExpressionElement(i).evaluate(values));

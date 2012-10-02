@@ -1,20 +1,19 @@
 package shadow.pipeline.builder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
 import shadow.pipeline.SFFunction;
+import shadow.pipeline.SFGridModel;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineElement;
 import shadow.pipeline.SFPipelineGrid;
-import shadow.pipeline.SFPipelineGridInstance;
 import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFPipelineStructureInstance;
+import shadow.pipeline.SFPrimitiveBlock;
 import shadow.pipeline.SFProgramComponent;
-import shadow.pipeline.expression.SFExpressionElement;
 import shadow.pipeline.expression.data.SFExpressionParser;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
@@ -23,16 +22,21 @@ import shadow.system.SFException;
 
 public class SFPipelineBuilder implements SFIPipelineBuilder {
 
-	private static HashMap<String, Class> typeMap=new HashMap<String, Class>();
+	private static HashMap<String, Class<?>> typeMap=new HashMap<String, Class<?>>();
 	
 	static{
-		typeMap.put("Tessellator", SFParsableProgramComponent.class);
-		typeMap.put("Primitive", SFParsableProgramComponent.class);
-		typeMap.put("Transforms", SFParsableProgramComponent.class);
-		typeMap.put("Material", SFParsableProgramComponent.class);
-		typeMap.put("LightStep", SFParsableProgramComponent.class);
-		typeMap.put("Grid", SFBuilderGrid.class);
+		//typeMap.put("Tessellator", SFParsableProgramComponent.class);
+		typeMap.put("PrimitiveComponent", SFParsableProgramComponent.class);
+		typeMap.put("TransformsComponent", SFParsableProgramComponent.class);
+		typeMap.put("MaterialComponent", SFParsableProgramComponent.class);
+		typeMap.put("LightStepComponent", SFParsableProgramComponent.class);
+		//typeMap.put("Grid", SFBuilderGrid.class);
 		typeMap.put("Structure", SFBuilderStructure.class);
+
+		typeMap.put("Primitive", SFParsablePrimitive.class);
+		typeMap.put("Transform", SFParsableProgramModule.class);
+		typeMap.put("Material", SFParsableProgramModule.class);
+		typeMap.put("LightStep", SFParsableProgramModule.class);
 	}
 	
 	public static SFBuilderElement getElement(String type) {
@@ -60,22 +64,15 @@ public class SFPipelineBuilder implements SFIPipelineBuilder {
 		this.component=(SFPipelineElement)temp;
 	}
 	
-	public void buildDefineRule( String pWrote,short type, SFExpressionElement function) {
-		SFParameter param=new SFParameter(pWrote,type);
-		SFProgramComponent cmp=(SFProgramComponent)getComponent();
-		cmp.addParameter(param);
-		SFFunction functionCode = new SFFunction(param,function,cmp.getParameterSet());
-		cmp.addCodeFunction(functionCode);
-	}
-
 	public void buildDefineRule( String pWrote,short type, String function) {
 		SFParameter param=new SFParameter(pWrote,type);
 		SFProgramComponent cmp=(SFProgramComponent)getComponent();
 		cmp.addParameter(param);
 		
 		SFExpressionBuilder builder=new SFExpressionBuilder();
-		SFExpressionParser.getParser().parseString(function, cmp.getParameterSet(),builder);
-		SFFunction functionCode = new SFFunction(param,builder.getBuiltExpression(),cmp.getParameterSet());
+		
+		SFExpressionParser.getParser().parseString(function,  cmp.getParameterArray(),builder);
+		SFFunction functionCode = new SFFunction(param,builder.getBuiltExpression());
 		cmp.addCodeFunction(functionCode);
 	}
 	
@@ -106,13 +103,13 @@ public class SFPipelineBuilder implements SFIPipelineBuilder {
 		cmp.addRegister(global);
 	}
 
-	/* (non-Javadoc)
-	 * @see shadow.pipeline.builder.SFIPipelineBuilder#addGridVertex(java.lang.String)
-	 */
-	@Override
-	public void addGridVertex(String token) {
-		((SFBuilderGrid)(getComponent())).loadVertex(token);
-	}
+//	/* (non-Javadoc)
+//	 * @see shadow.pipeline.builder.SFIPipelineBuilder#addGridVertex(java.lang.String)
+//	 */
+//	@Override
+//	public void addGridVertex(String token) {
+//		((SFBuilderGrid)(getComponent())).loadVertex(token);
+//	}
 
 	/* (non-Javadoc)
 	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildWriteRule(java.lang.String, java.lang.String)
@@ -124,54 +121,34 @@ public class SFPipelineBuilder implements SFIPipelineBuilder {
 		((SFProgramComponent)getComponent()).addRegister(global);
 		
 		SFExpressionBuilder builder=new SFExpressionBuilder();
-		SFExpressionParser.getParser().parseString(function, cmp.getParameterSet(),builder);
-		SFFunction functionCode = new SFFunction(global,builder.getBuiltExpression(),cmp.getParameterSet());
+		SFExpressionParser.getParser().parseString(function, cmp.getParameterArray(),builder);
+		SFFunction functionCode = new SFFunction(global,builder.getBuiltExpression());
 		cmp.addCodeFunction(functionCode);
 	}
 	
-	
-	public void buildWriteRule(String wrote, SFExpressionElement function) throws SFException {
-		SFPipelineRegister global=SFPipelineRegister.getFromName(wrote);
-		SFProgramComponent cmp=(SFProgramComponent)getComponent();
-		((SFProgramComponent)getComponent()).addRegister(global);
-		
-		SFFunction functionCode = new SFFunction(global,function,cmp.getParameterSet());
-		cmp.addCodeFunction(functionCode);
-	}
-
 
 	/* (non-Javadoc)
 	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildWriteRule(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public void buildRewriteRule(String wrote, String function) throws SFException {
-		SFBuilderGrid grid=(SFBuilderGrid)getComponent();
+		
+		SFProgramComponent cmp = (SFProgramComponent) getComponent();
+		//SFBuilderGrid grid=(SFBuilderGrid)getComponent();
 		SFParameteri parameter=new SFParameter(wrote,SFParameteri.GLOBAL_GENERIC);
 		
-		List<String> parameters=SFBuilderGrid.getVerticesLoading();
-		List<SFParameteri> params=new ArrayList<SFParameteri>();
-		for (String sfParameteri : parameters) {
-			params.add(new SFParameter(sfParameteri));
+		for (SFPipelineGrid gridInstance : cmp.getGrid()) {
+			SFParameteri[] parameters=gridInstance.getParameters();
+			for (int i = 0; i < parameters.length; i++) {
+				if(parameters[i].getName().equalsIgnoreCase(parameter.getName())){
+					SFExpressionBuilder builder=new SFExpressionBuilder();
+					SFExpressionParser.getParser().parseString(function, parameters,builder);
+					SFFunction functionCode = new SFFunction(parameter,builder.getBuiltExpression());
+					gridInstance.addFunction(functionCode,parameter);
+				}
+			}
 		}
 		
-		SFExpressionBuilder builder=new SFExpressionBuilder();
-		SFExpressionParser.getParser().parseString(function, params,builder);
-		SFFunction functionCode = new SFFunction(parameter,builder.getBuiltExpression(),params);
-		grid.addFunction(functionCode);
-	}
-
-	public void buildRewriteRule(String wrote, SFExpressionElement function) throws SFException {
-		SFBuilderGrid grid=(SFBuilderGrid)getComponent();
-		SFParameteri parameter=new SFParameter(wrote,SFParameteri.GLOBAL_GENERIC);
-		
-		List<String> parameters=SFBuilderGrid.getVerticesLoading();
-		List<SFParameteri> params=new ArrayList<SFParameteri>();
-		for (String sfParameteri : parameters) {
-			params.add(new SFParameter(sfParameteri));
-		}
-		
-		SFFunction functionCode = new SFFunction(parameter,function,params);
-		grid.addFunction(functionCode);
 	}
 
 	
@@ -187,14 +164,14 @@ public class SFPipelineBuilder implements SFIPipelineBuilder {
 	
 	
 
-	/* (non-Javadoc)
-	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildPath(java.util.ArrayList)
-	 */
-	@Override
-	public void buildPath(List<String> paths) {
-		SFBuilderGrid grid=(SFBuilderGrid)getComponent();
-		grid.loadPath(paths);
-	}
+//	/* (non-Javadoc)
+//	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildPath(java.util.ArrayList)
+//	 */
+//	@Override
+//	public void buildPath(List<String> paths) {
+//		SFBuilderGrid grid=(SFBuilderGrid)getComponent();
+//		grid.loadPath(paths);
+//	}
 
 	//TODO: this is not ok...
 	/* (non-Javadoc)
@@ -224,13 +201,13 @@ public class SFPipelineBuilder implements SFIPipelineBuilder {
 		cmp.addStructureInstance(instance);
 	}
 
-	/* (non-Javadoc)
-	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildGridInternals(java.util.ArrayList)
-	 */
-	@Override
-	public void buildGridInternals(List<String> internals) {
-		((SFBuilderGrid)getComponent()).loadInternal(internals);
-	}
+//	/* (non-Javadoc)
+//	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildGridInternals(java.util.ArrayList)
+//	 */
+//	@Override
+//	public void buildGridInternals(List<String> internals) {
+//		((SFBuilderGrid)getComponent()).loadInternal(internals);
+//	}
 	
 	private HashMap<String, Short> types=new HashMap<String, Short>();
 	{
@@ -240,26 +217,42 @@ public class SFPipelineBuilder implements SFIPipelineBuilder {
 		types.put("float3", SFParameter.GLOBAL_FLOAT3);
 		types.put("float4", SFParameter.GLOBAL_FLOAT4);
 	}
+	
+	@Override
+	public void buildComponent(String componentName) {
+		SFParsableProgramModule module=(SFParsableProgramModule)getComponent();
+		module.addComponent((SFProgramComponent)SFPipeline.getModule(componentName));
+	}
 
+	@Override
+	public void buildBlock(String block, String primitiveComponent) {
+		SFParsablePrimitive module=(SFParsablePrimitive)getComponent();
+		SFPrimitiveBlock prBlock=SFPrimitiveBlock.valueOf(block);
+		module.addComponent(prBlock,(SFProgramComponent)SFPipeline.getModule(primitiveComponent));
+	}
+	
+	@Override
+	public void buildDomain(String domain) {
+		SFParsablePrimitive module=(SFParsablePrimitive)getComponent();
+		module.setGridModel(SFGridModel.valueOf(domain));
+	}
+	
 	/* (non-Javadoc)
 	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildGrid(java.util.List, java.lang.String)
 	 */
 	@Override
-	public void buildGrid(List<String> pars, String moduleString, String typeString) {
+	public void buildGrid(List<String> pars, String model,String type, int n) {
 		Vector<SFParameteri> params_ = new Vector<SFParameteri>();
 	
-		SFPipelineElement module = SFPipeline
-				.getModule(moduleString);
 		SFProgramComponent cmp = (SFProgramComponent) getComponent();
 
-		short type=types.get(typeString);
-
 		for (Iterator<String> parsIterator = pars.iterator(); parsIterator.hasNext();) {
-			params_.add(new SFParameter(parsIterator.next(),type));
+			params_.add(new SFParameter(parsIterator.next(),types.get(type)));
 		}
+		
+		SFGridModel gridModel=SFGridModel.valueOf(model);
 
-		SFPipelineGridInstance instance = new SFPipelineGridInstance(
-				(SFPipelineGrid) module, params_);
+		SFPipelineGrid instance = new SFPipelineGrid(n+1, gridModel, params_);
 		
 		cmp.addGridInstance(instance);
 		
@@ -276,14 +269,14 @@ public class SFPipelineBuilder implements SFIPipelineBuilder {
 		setComponent(null);
 	}
 
-	/* (non-Javadoc)
-	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildEdge(java.util.ArrayList)
-	 */
-	@Override
-	public void buildEdge(List<String> edges) {
-		SFBuilderGrid grid=(SFBuilderGrid)getComponent();	
-		grid.loadEdge(edges);
-	}
+//	/* (non-Javadoc)
+//	 * @see shadow.pipeline.builder.SFIPipelineBuilder#buildEdge(java.util.ArrayList)
+//	 */
+//	@Override
+//	public void buildEdge(List<String> edges) {
+//		SFBuilderGrid grid=(SFBuilderGrid)getComponent();	
+//		grid.loadEdge(edges);
+//	}
 
 	
 	

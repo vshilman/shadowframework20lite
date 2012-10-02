@@ -98,10 +98,21 @@ public class SFVertex3f extends SFVertex2f{
 	}
 	
 	public void normalize3f(){
-		float lengthRec=1/(float)(Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]));
+		float lengthRec=1/getLength();
 		v[0]*=lengthRec;
 		v[1]*=lengthRec;
 		v[2]*=lengthRec;
+	}
+
+	public float getLength() {
+		return (float)(Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]));
+	}
+
+	public static float getDistance(SFVertex3f v1,SFVertex3f v2) {
+		float x=v1.getX()-v2.getX();
+		float y=v1.getY()-v2.getY();
+		float z=v1.getZ()-v2.getZ();
+		return (float)(Math.sqrt(x*x+y*y+z*z));
 	}
 	
 	public void mult(float a){
@@ -109,7 +120,7 @@ public class SFVertex3f extends SFVertex2f{
 		v[2]*=a;
 	}
 
-	public void storeOn3f(float []f){
+	public void storeOn3f(float[] f){
 		storeOn2f(f);
 		f[2]=v[2];
 	}

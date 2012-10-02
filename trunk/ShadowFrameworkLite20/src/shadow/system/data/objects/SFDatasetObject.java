@@ -45,4 +45,5 @@ public class SFDatasetObject<T extends SFDataset> extends SFPrimitiveType {
 			return false;
 		return ((SFDatasetObject<?>)obj).dataset==dataset;
 	}
+
 }

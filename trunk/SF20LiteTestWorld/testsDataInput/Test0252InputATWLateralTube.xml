@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFCurvedTubeFunctionData name="LateralTubeSurface">
+	
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1)</vertices_element>
+						<vertices_element>(0.0,0.2)</vertices_element>
+						<vertices_element>(0.0,0.3)</vertices_element>
+						<vertices_element>(0.0,0.4)</vertices_element>
+						<vertices_element>(0.0,0.5)</vertices_element>
+						<vertices_element>(0.1,0.5)</vertices_element>
+						<vertices_element>(0.2,0.5)</vertices_element>
+						<vertices_element>(0.3,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1)</vertices_element>
+						<vertices_element>(0.1,0.2)</vertices_element>
+						<vertices_element>(0.1,0.3)</vertices_element>
+						<vertices_element>(0.1,0.4)</vertices_element>
+						<vertices_element>(0.1,0.42)</vertices_element>
+						<vertices_element>(0.1,0.44)</vertices_element>
+						<vertices_element>(0.2,0.4)</vertices_element>
+						<vertices_element>(0.3,0.4)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+						
+	</SFCurvedTubeFunctionData>
+	<SFQuadsSurfaceGeometryData name="PlainLateralTubeModel">
+		<NuNv>(8,8)</NuNv>
+		<surfaceFunction>LateralTubeSurface</surfaceFunction>
+		<primitive>Triangle3PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="PlainLateralTube">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,-0.6,0.0)</position>
+			<orientation>(0.0,0.0,0.0)</orientation>
+			<scale>2.0</scale>
+		</SFRigidTransformData>
+		<geometry>PlainLateralTubeModel</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:1</structures_element>
+			</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="TexturedLateralTubeModel">
+		<NuNv>(8,8)</NuNv>
+		<surfaceFunction>LateralTubeSurface</surfaceFunction>
+		<texCoordFunction>0</texCoordFunction>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>10.0</du>
+			<dv>10.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle3PNTxO</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="TexturedLateralTube">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,-0.6,0.0)</position>
+			<orientation>(0.0,0.0,0.0)</orientation>
+			<scale>2.0</scale>
+		</SFRigidTransformData>
+		<geometry>TexturedLateralTubeModel</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<textures>
+				<textures_element>OBTilesTexture:0:0</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="BumpMappedLateralTubeModel">
+		<NuNv>(8,8)</NuNv>
+		<surfaceFunction>LateralTubeSurface</surfaceFunction>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>10.0</du>
+			<dv>10.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle3BumpMap</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="BumpMappedLateralTube">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,-0.6,0.0)</position>
+			<orientation>(0.0,0.0,0.0)</orientation>
+			<scale>2.0</scale>
+		</SFRigidTransformData>
+		<geometry>BumpMappedLateralTubeModel</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicBumpMapTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>ImprovedBumpMappedMat</program>
+			<textures>
+				<textures_element>PebblesTextures:1:0</textures_element>
+				<textures_element>PebblesTextures:0:1</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>

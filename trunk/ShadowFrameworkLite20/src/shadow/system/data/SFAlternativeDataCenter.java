@@ -1,7 +1,5 @@
 package shadow.system.data;
 
-import shadow.system.data.SFDataCenter;
-import shadow.system.data.SFIDataCenter;
 
 public abstract class SFAlternativeDataCenter implements SFIDataCenter{
 

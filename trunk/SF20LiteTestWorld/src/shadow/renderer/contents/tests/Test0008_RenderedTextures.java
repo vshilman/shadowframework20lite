@@ -1,74 +1,70 @@
 package shadow.renderer.contents.tests;
 
-import shadow.geometry.data.SFSimpleTexCoordGeometryuvData;
 import shadow.geometry.functions.data.SFSplineCurvedTubeFunctionData;
 import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
-import shadow.image.SFDrawnRenderedTexture;
 import shadow.image.SFImageFormat;
 import shadow.image.SFPipelineTexture.Filter;
 import shadow.image.SFPipelineTexture.WrapMode;
-import shadow.image.SFTexture;
 import shadow.image.data.SFDrawnRenderedTextureData;
-import shadow.renderer.contents.tests.common.CommonData;
-import shadow.renderer.contents.tests.common.CommonPipeline;
-import shadow.renderer.contents.tests.common.CommonTextures;
 import shadow.renderer.data.SF2DCameraData;
 import shadow.renderer.data.SFObjectModelData;
-import shadow.renderer.data.SFOneStepAlgorithmData;
 import shadow.renderer.data.SFRendererData;
-import shadow.renderer.viewer.SFDataUtility;
-import shadow.renderer.viewer.SFTextureViewer;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
-import shadow.system.data.SFDataCenter;
-import shadow.system.data.SFDataCenterListener;
-import shadow.system.data.SFObjectsLibrary;
 
 /**
- * 
- * TODO missing test description
- * 
+ * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.
+ * No data will be generated (so nothing will work) until you do that; as an
+ * alternative, you can set SFAbstractTest.storeData to true, and then run each test
+ * one by one in test number order.
  * <br/>
- * <h1>SF Contents Test/Tutorial Series</h1>
- * This Test/Tutorial is a part of a series whose aim is showing SF contents.
- * Each test is performed following the basic steps of any SF content lifetime.
- * <ol>
- * 		<li>Editing</li>
- * 		<li>Storing</li>
- * 		<li>Viewing</li>		
- * </ol>
- * Each SF content Module has a '*Data' counterpart which is involved in data processing.
- * The '*.Data' module will generate a proper SF module, and will be discarded when
- * unnecessary. 
+ * Go to {@link SFAbstractTest} for general informations about this tests.
+ * <br/>
+ * Open the related FILENAME.xml file for a detailed view of this test contents. 
+ * <br/>
+ * Objective: TODO
  * 
  * @author Alessandro Martinelli
  */
-public class Test0008_RenderedTextures {
+public class Test0008_RenderedTextures extends SFAbstractTest{
 
-	private static final String root = "testsData";
+	private static final String FILENAME = "test0008";
 	
 	/**
 	 * TODO missing test description
 	 */
 	public static void main(String[] args) {
+		execute(new Test0008_RenderedTextures());
+	}
+	
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+
+	@Override
+	public void viewTestData() {
+
+		loadLibraryAsDataCenter();
 		
-		//Preparation
-		SFViewerObjectsLibrary objectsLibrary = CommonData.generateDataSettings();
-		SFObjectsLibrary library=objectsLibrary.getLibrary();
-		CommonPipeline pipeline=new CommonPipeline();
-		
-		SFSplineCurvedTubeFunctionData curvedTubefunction = (SFSplineCurvedTubeFunctionData) SFDataUtility
-				.loadDataset(root, "test0007.sf");
+		viewTextureSet("FishTextures", 0);	
+	}
+	
+	@Override
+	public void buildTestData() {
+
+		SFSplineCurvedTubeFunctionData curvedTubefunction = loadDataset("test0007");
 
 		SFQuadsSurfaceGeometryData geometry=new SFQuadsSurfaceGeometryData();
-			geometry.setup(curvedTubefunction, 8, 4, new SFSimpleTexCoordGeometryuvData(), pipeline.getTexturePrimitive());
+			geometry.setup(curvedTubefunction, 8, 4, "Triangle2PN");
 			library.put("FishGeometry", geometry);
 		
 		SFObjectModelData objectModel=new SFObjectModelData();
-			objectModel.getRootGeometryReference().setReference("FishGeometry");
+			objectModel.setGeometry("FishGeometry");
+			objectModel.getTransformComponent().setProgram("BasicPNTransform");
+			objectModel.getMaterialComponent().setProgram("BlackMat");
 			library.put("Fish", objectModel);
 			
 		SFDrawnRenderedTextureData drawnTexture=new SFDrawnRenderedTextureData();
-			SFRendererData renderer=new SFRendererData(new SFOneStepAlgorithmData("NormalAndPosition"),new SF2DCameraData(0.5f, 0.5f));
+			SFRendererData renderer=new SFRendererData("NormalAndPosition",new SF2DCameraData(0.5f, 0.5f));
 			drawnTexture.setRenderer(renderer);
 			drawnTexture.setNode("Fish");
 			drawnTexture.addOutputTexture(200, 200, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT);
@@ -76,19 +72,7 @@ public class Test0008_RenderedTextures {
 			library.put("FishTextures", drawnTexture);
 
 		// 2) Store the library containing all elements into 'testsData\test0002.sf'
-		SFDataUtility.saveDataset(root, "test0008.sf", library);
-
-		// 3) Retrieve the library and make model available so that it can be added to a Viewer
-		SFDataCenter.setDataCenterImplementation(new SFViewerObjectsLibrary(root,"test0008.sf"));
-
-		SFDataCenter.getDataCenter().makeDatasetAvailable("FishTextures", new SFDataCenterListener<SFDrawnRenderedTextureData>() {
-			@Override
-			public void onDatasetAvailable(String name, SFDrawnRenderedTextureData dataset) {
-				SFDrawnRenderedTexture drawnTexture=(SFDrawnRenderedTexture)dataset.getResource();
-				SFTexture texture=new SFTexture(drawnTexture, 0);
-				SFTextureViewer.generateFrame(texture,CommonTextures.generateTextureSelectionController(texture, 2));
-			}
-		});		
-		
+		store(library);
 	}
+
 }

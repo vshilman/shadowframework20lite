@@ -1,0 +1,2171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFObjectModelData name="ACS01BannerA">
+		<SFTranslateAndScaleData name="transform">
+			<position>(0.0,0.0,0.1)</position>
+			<scale>1.0</scale>
+		</SFTranslateAndScaleData>
+		<geometry>ACS01BannerAgeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:3</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFVertexListData16 name="ACS01BannerAVertices">
+		<vertices>
+			<vertices_element>(0.4,2.8000002,0.1)</vertices_element>
+			<vertices_element>(0.8,3.6000001,0.1)</vertices_element>
+			<vertices_element>(1.0,2.4,0.1)</vertices_element>
+			<vertices_element>(0.5,3.1000001,0.1)</vertices_element>
+			<vertices_element>(0.70000005,3.1000001,0.1)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFMeshGeometryData name="ACS01BannerAgeom">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Microtube2</primitive>
+			<references id="primitiveData">
+				<reference>ACS01BannerAVertices</reference>
+				<reference>ACS01BannerSizes</reference>
+			</references>
+			<primitives>
+				<primitives_element>(0,1,4,0,0,1)</primitives_element>
+				<primitives_element>(1,2,4,0,0,1)</primitives_element>
+				<primitives_element>(2,3,4,0,0,1)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>3</lastElement>
+	</SFMeshGeometryData>
+	<SFObjectModelData name="ACS01BannerC">
+		<SFTranslateAndScaleData name="transform">
+			<position>(0.0,0.0,0.1)</position>
+			<scale>1.0</scale>
+		</SFTranslateAndScaleData>
+		<geometry>ACS01BannerCgeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:4</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFVertexListData16 name="ACS01BannerCVertices">
+		<vertices>
+			<vertices_element>(1.6,3.4,0.1)</vertices_element>
+			<vertices_element>(1.0,3.0000002,0.1)</vertices_element>
+			<vertices_element>(1.4000001,2.4,0.1)</vertices_element>
+			<vertices_element>(1.8000001,2.6000001,0.1)</vertices_element>
+			<vertices_element>(1.2,2.7,0.1)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFMeshGeometryData name="ACS01BannerCgeom">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Microtube2</primitive>
+			<references id="primitiveData">
+				<reference>ACS01BannerCVertices</reference>
+				<reference>ACS01BannerSizes</reference>
+			</references>
+			<primitives>
+				<primitives_element>(0,4,1,0,1,1)</primitives_element>
+				<primitives_element>(4,3,2,1,0,1)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>2</lastElement>
+	</SFMeshGeometryData>
+	<SFVertexListData16 name="ACS01BannerSizes">
+		<vertices>
+			<vertices_element>(0.010000001)</vertices_element>
+			<vertices_element>(0.040000003)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFClonedArrayReference name="ACS01_Frame">
+		<SFObjectModelData name="node">
+			<SFTranslateAndScaleData name="transform">
+				<position>(0.0,0.0,0.1)</position>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleData>
+			<geometry>PRQuadrilateralSleeve</geometry>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicPNTx0Transform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>BasicTexturedMat</program>
+				<structures>
+					<structures_element>Colors:1</structures_element>
+				</structures>
+				<textures>
+					<textures_element>PerlinTexture64:</textures_element>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>FrontExternal</properties_element>
+			<properties_element>FrontInternal</properties_element>
+			<properties_element>Transform</properties_element>
+		</properties>
+		<constants>
+		</constants>
+		<elements>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0)</vertices_element>
+					<vertices_element>(-2.2,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.2)</vertices_element>
+					<vertices_element>(-2.4,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.2,0.0)</vertices_element>
+					<vertices_element>(-2.2,1.8000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,0.2)</vertices_element>
+					<vertices_element>(-2.4,2.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.2,1.8000001)</vertices_element>
+					<vertices_element>(-0.8,1.8000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,2.0)</vertices_element>
+					<vertices_element>(-0.6,2.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.8,1.8000001)</vertices_element>
+					<vertices_element>(-0.8,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.6,2.0)</vertices_element>
+					<vertices_element>(-0.6,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,0.0)</vertices_element>
+					<vertices_element>(-0.8,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,0.2)</vertices_element>
+					<vertices_element>(-0.8,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.8,0.0)</vertices_element>
+					<vertices_element>(-0.2,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.6,0.2)</vertices_element>
+					<vertices_element>(-0.2,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.0)</vertices_element>
+					<vertices_element>(0.2,3.0000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,0.0)</vertices_element>
+					<vertices_element>(-0.2,3.0000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.0)</vertices_element>
+					<vertices_element>(0.8,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.2)</vertices_element>
+					<vertices_element>(0.6,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.8,0.0)</vertices_element>
+					<vertices_element>(0.8,1.8000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.6,0.2)</vertices_element>
+					<vertices_element>(0.6,2.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.8,1.8000001)</vertices_element>
+					<vertices_element>(1.6,1.8000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.6,2.0)</vertices_element>
+					<vertices_element>(1.8000001,2.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.6,1.8000001)</vertices_element>
+					<vertices_element>(1.6,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.8000001,2.0)</vertices_element>
+					<vertices_element>(1.8000001,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.6,0.0)</vertices_element>
+					<vertices_element>(2.2,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.8000001,0.2)</vertices_element>
+					<vertices_element>(2.2,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.4,0.0)</vertices_element>
+					<vertices_element>(2.4,5.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.2,0.0)</vertices_element>
+					<vertices_element>(2.2,5.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.4,0.0,0.4)</vertices_element>
+					<vertices_element>(2.4,0.0,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.4,0.2,0.4)</vertices_element>
+					<vertices_element>(2.4,0.2,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-0.2</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.4,0.0,2.4)</vertices_element>
+					<vertices_element>(2.4,5.0,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.2,0.0,2.4)</vertices_element>
+					<vertices_element>(2.2,5.0,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.2,0.2,2.4)</vertices_element>
+					<vertices_element>(0.2,0.2,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.2,0.0,2.4)</vertices_element>
+					<vertices_element>(0.2,0.0,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.0,2.4)</vertices_element>
+					<vertices_element>(0.2,5.0,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,0.0,2.4)</vertices_element>
+					<vertices_element>(0.0,5.0,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0,2.4)</vertices_element>
+					<vertices_element>(-2.8000002,3.0000002,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.0000002,0.0,2.4)</vertices_element>
+					<vertices_element>(-3.0000002,3.0000002,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0)</vertices_element>
+					<vertices_element>(-2.8000002,3.0000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.0000002,0.0)</vertices_element>
+					<vertices_element>(-3.0000002,3.0000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,2.8000002,0.4)</vertices_element>
+					<vertices_element>(0.2,2.8000002,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,3.0000002,0.4)</vertices_element>
+					<vertices_element>(0.2,3.0000002,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-0.2</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,3.0000002)</vertices_element>
+					<vertices_element>(0.2,5.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,3.0000002)</vertices_element>
+					<vertices_element>(0.0,5.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+		</elements>
+	</SFClonedArrayReference>
+	<SFClonedArrayReference name="ACS01_Roof">
+		<SFObjectModelData name="node">
+			<SFTranslateAndScaleData name="transform">
+				<position>(0.0,0.0,0.1)</position>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleData>
+			<geometry>PRQuadrilateral2Faces</geometry>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicPNTx0Transform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>BasicTexturedMat</program>
+				<structures>
+					<structures_element>Colors:2</structures_element>
+				</structures>
+				<textures>
+					<textures_element>PerlinTexture85:</textures_element>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>FrontExternal</properties_element>
+			<properties_element>FrontInternal</properties_element>
+			<properties_element>Transform</properties_element>
+		</properties>
+		<constants>
+		</constants>
+		<elements>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,2.9,-0.2)</vertices_element>
+					<vertices_element>(0.0,4.0,1.3000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.4,2.9,-0.2)</vertices_element>
+					<vertices_element>(-3.4,4.0,1.3000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>-0.2</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,4.0,1.3000001)</vertices_element>
+					<vertices_element>(0.0,2.9,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.4,4.0,1.3000001)</vertices_element>
+					<vertices_element>(-3.4,2.9,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>-0.2</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,2.9,-0.2)</vertices_element>
+					<vertices_element>(-3.4,2.9,-0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,2.7,-0.2)</vertices_element>
+					<vertices_element>(-3.4,2.7,-0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>3.0000002</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.4,2.7,-0.2)</vertices_element>
+					<vertices_element>(-3.4,2.9,-0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.4,3.8000002,1.3000001)</vertices_element>
+					<vertices_element>(-3.4,4.0,1.3000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>3.4</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.4,3.8000002,1.3000001)</vertices_element>
+					<vertices_element>(-3.4,4.0,1.3000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.4,2.7,2.8000002)</vertices_element>
+					<vertices_element>(-3.4,2.9,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>3.4</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,4.9,-0.2)</vertices_element>
+					<vertices_element>(1.2,6.3,-0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,4.9,2.8000002)</vertices_element>
+					<vertices_element>(1.2,6.3,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>-0.2</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,6.3,-0.2)</vertices_element>
+					<vertices_element>(2.6000001,4.9,-0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,6.3,2.8000002)</vertices_element>
+					<vertices_element>(2.6000001,4.9,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>-0.2</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,4.9,-0.2)</vertices_element>
+					<vertices_element>(-0.2,4.9,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,4.7000003,-0.2)</vertices_element>
+					<vertices_element>(-0.2,4.7000003,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>2.8000002</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,4.7000003,2.8000002)</vertices_element>
+					<vertices_element>(-0.2,4.9,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,6.0000005,2.8000002)</vertices_element>
+					<vertices_element>(1.2,6.3,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>-3.0000002</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,6.0000005,2.8000002)</vertices_element>
+					<vertices_element>(1.2,6.3,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.6000001,4.7000003,2.8000002)</vertices_element>
+					<vertices_element>(2.6000001,4.9,2.8000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>-3.0000002</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+		</elements>
+	</SFClonedArrayReference>
+	<SFClonedArrayReference name="ACS01_Walls">
+		<SFObjectModelData name="node">
+			<SFTranslateAndScaleData name="transform">
+				<position>(0.0,0.0,0.1)</position>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleData>
+			<geometry>PRQuadrilateral2Faces</geometry>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicBumpMapTransform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>TexturedMat</program>
+				<structures>
+				</structures>
+				<textures>
+					<textures_element>ReddishGrayAndBrightPerlinNoise00:</textures_element>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>FrontExternal</properties_element>
+			<properties_element>FrontInternal</properties_element>
+			<properties_element>Transform</properties_element>
+		</properties>
+		<constants>
+			<constants_element>PerlinTexture85</constants_element>
+		</constants>
+		<elements>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,0.2,0.1)</vertices_element>
+					<vertices_element>(-2.4,2.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.2,0.1)</vertices_element>
+					<vertices_element>(-2.8000002,2.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,2.0,0.1)</vertices_element>
+					<vertices_element>(-0.2,3.0000002,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,2.0,0.1)</vertices_element>
+					<vertices_element>(-2.8000002,3.0000002,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.6,2.0,0.1)</vertices_element>
+					<vertices_element>(-0.6,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,2.0,0.1)</vertices_element>
+					<vertices_element>(-0.2,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.6,0.2,0.1)</vertices_element>
+					<vertices_element>(0.6,2.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.2,0.1)</vertices_element>
+					<vertices_element>(0.2,2.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,2.0,0.1)</vertices_element>
+					<vertices_element>(1.2,6.0000005,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.1,2.0,0.1)</vertices_element>
+					<vertices_element>(0.1,5.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.3000002,2.0,0.1)</vertices_element>
+					<vertices_element>(2.3000002,5.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,2.0,0.1)</vertices_element>
+					<vertices_element>(1.2,6.0000005,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.8000001,2.0,0.1)</vertices_element>
+					<vertices_element>(1.8000001,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.2,2.0,0.1)</vertices_element>
+					<vertices_element>(2.2,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.3000002,0.2,2.4)</vertices_element>
+					<vertices_element>(2.3000002,5.0,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.3000002,0.2,0.4)</vertices_element>
+					<vertices_element>(2.3000002,5.0,0.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-0.1</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.3000002,0.2,2.45)</vertices_element>
+					<vertices_element>(2.3000002,5.0,2.45)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,0.2,2.45)</vertices_element>
+					<vertices_element>(1.2,6.0000005,2.45)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.1</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,0.2,2.45)</vertices_element>
+					<vertices_element>(1.2,6.0000005,2.45)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.1,0.2,2.45)</vertices_element>
+					<vertices_element>(0.1,5.0,2.45)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.1</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,0.0,2.45)</vertices_element>
+					<vertices_element>(0.0,3.0000002,2.45)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0,2.45)</vertices_element>
+					<vertices_element>(-2.8000002,3.0000002,2.45)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.1</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8500001,0.0,2.5)</vertices_element>
+					<vertices_element>(-2.8500001,3.0000002,2.5)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8500001,0.0,1.4000001)</vertices_element>
+					<vertices_element>(-2.8500001,3.8000002,1.4000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-0.1</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8500001,0.0,1.4000001)</vertices_element>
+					<vertices_element>(-2.8500001,3.8000002,1.4000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8500001,0.0,0.2)</vertices_element>
+					<vertices_element>(-2.8500001,3.0000002,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-0.1</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,3.0000002,0.4)</vertices_element>
+					<vertices_element>(0.0,5.0,0.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.0,3.0000002,2.4)</vertices_element>
+					<vertices_element>(0.0,5.0,2.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.1</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+		</elements>
+	</SFClonedArrayReference>
+	<SFClonedArrayReference name="ACS02_Dummies">
+		<SFObjectModelData name="node">
+			<SFNoTransformData name="transform">
+			</SFNoTransformData>
+			<geometry>Dummygeom</geometry>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicPNTransform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>BasicMat</program>
+				<structures>
+					<structures_element>Colors:1</structures_element>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>Transform</properties_element>
+		</properties>
+		<constants>
+		</constants>
+		<elements>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.2</x>
+				<y>0.0</y>
+				<z>4.0</z>
+				<scale>0.75000006</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-0.6</x>
+				<y>0.0</y>
+				<z>4.0</z>
+				<scale>0.75000006</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-1.4000001</x>
+				<y>0.0</y>
+				<z>4.0</z>
+				<scale>0.75000006</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-2.2</x>
+				<y>0.0</y>
+				<z>4.0</z>
+				<scale>0.75000006</scale>
+			</SFTranslateAndScaleFixed16Data>
+		</elements>
+	</SFClonedArrayReference>
+	<SFClonedArrayReference name="ACS02_Frame">
+		<SFObjectModelData name="node">
+			<SFTranslateAndScaleData name="transform">
+				<position>(0.0,0.0,0.1)</position>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleData>
+			<geometry>PRQuadrilateralSleeve</geometry>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicPNTx0Transform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>BasicTexturedMat</program>
+				<structures>
+					<structures_element>Colors:1</structures_element>
+				</structures>
+				<textures>
+					<textures_element>PerlinTexture64:</textures_element>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>FrontExternal</properties_element>
+			<properties_element>FrontInternal</properties_element>
+			<properties_element>Transform</properties_element>
+		</properties>
+		<constants>
+		</constants>
+		<elements>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0)</vertices_element>
+					<vertices_element>(-2.2,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.2)</vertices_element>
+					<vertices_element>(-2.4,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.2,0.0)</vertices_element>
+					<vertices_element>(-2.2,1.8000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,0.2)</vertices_element>
+					<vertices_element>(-2.4,2.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.2,1.8000001)</vertices_element>
+					<vertices_element>(-0.8,1.8000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,2.0)</vertices_element>
+					<vertices_element>(-0.6,2.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.8,1.8000001)</vertices_element>
+					<vertices_element>(-0.8,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.6,2.0)</vertices_element>
+					<vertices_element>(-0.6,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,0.0)</vertices_element>
+					<vertices_element>(-0.8,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,0.2)</vertices_element>
+					<vertices_element>(-0.8,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.8,0.0)</vertices_element>
+					<vertices_element>(-0.2,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.6,0.2)</vertices_element>
+					<vertices_element>(-0.2,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.0)</vertices_element>
+					<vertices_element>(0.2,3.0000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,0.0)</vertices_element>
+					<vertices_element>(-0.2,3.0000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.0)</vertices_element>
+					<vertices_element>(0.8,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.2)</vertices_element>
+					<vertices_element>(0.6,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.8,0.0)</vertices_element>
+					<vertices_element>(0.8,1.8000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.6,0.2)</vertices_element>
+					<vertices_element>(0.6,2.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.8,1.8000001)</vertices_element>
+					<vertices_element>(1.6,1.8000001)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.6,2.0)</vertices_element>
+					<vertices_element>(1.8000001,2.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.6,1.8000001)</vertices_element>
+					<vertices_element>(1.6,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.8000001,2.0)</vertices_element>
+					<vertices_element>(1.8000001,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.6,0.0)</vertices_element>
+					<vertices_element>(2.2,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.8000001,0.2)</vertices_element>
+					<vertices_element>(2.2,0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.4,0.0)</vertices_element>
+					<vertices_element>(2.4,3.0000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.2,0.0)</vertices_element>
+					<vertices_element>(2.2,3.0000002)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.4</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.4,0.0,4.4)</vertices_element>
+					<vertices_element>(2.4,3.0000002,4.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.4,0.0,0.4)</vertices_element>
+					<vertices_element>(2.4,3.0000002,0.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-0.2</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0,4.4)</vertices_element>
+					<vertices_element>(-2.8000002,3.0000002,4.4)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0,0.0)</vertices_element>
+					<vertices_element>(-2.8000002,3.0000002,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>-0.2</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0,4.2000003)</vertices_element>
+					<vertices_element>(2.2,0.0,4.2000003)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.2,4.2000003)</vertices_element>
+					<vertices_element>(2.2,0.2,4.2000003)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+		</elements>
+	</SFClonedArrayReference>
+	<SFClonedArrayReference name="ACS02_Roof">
+		<SFObjectModelData name="node">
+			<SFTranslateAndScaleData name="transform">
+				<position>(0.0,0.0,0.1)</position>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleData>
+			<geometry>PRQuadrilateral2Faces</geometry>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicPNTx0Transform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>BasicTexturedMat</program>
+				<structures>
+					<structures_element>Colors:2</structures_element>
+				</structures>
+				<textures>
+					<textures_element>PerlinTexture85:</textures_element>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>FrontExternal</properties_element>
+			<properties_element>FrontInternal</properties_element>
+			<properties_element>Transform</properties_element>
+		</properties>
+		<constants>
+		</constants>
+		<elements>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.6000001,2.9,-0.2)</vertices_element>
+					<vertices_element>(2.6000001,4.0,2.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.2,2.9,-0.2)</vertices_element>
+					<vertices_element>(-3.2,4.0,2.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>-0.2</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.6000001,4.0,2.2)</vertices_element>
+					<vertices_element>(2.6000001,2.9,4.6000004)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.2,4.0,2.2)</vertices_element>
+					<vertices_element>(-3.2,2.9,4.6000004)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>-0.2</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.6000001,2.9,-0.2)</vertices_element>
+					<vertices_element>(-3.2,2.9,-0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.6000001,2.7,-0.2)</vertices_element>
+					<vertices_element>(-3.2,2.7,-0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>4.8</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.2,2.7,-0.2)</vertices_element>
+					<vertices_element>(-3.2,2.9,-0.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.2,3.8000002,2.2)</vertices_element>
+					<vertices_element>(-3.2,4.0,2.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>5.8</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.2,3.8000002,2.2)</vertices_element>
+					<vertices_element>(-3.2,4.0,2.2)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-3.2,2.7,4.6000004)</vertices_element>
+					<vertices_element>(-3.2,2.9,4.6000004)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>5.8</x>
+				<y>0.0</y>
+				<z>0.0</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+		</elements>
+	</SFClonedArrayReference>
+	<SFClonedArrayReference name="ACS02_Walls">
+		<SFObjectModelData name="node">
+			<SFTranslateAndScaleData name="transform">
+				<position>(0.0,0.0,0.1)</position>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleData>
+			<geometry>PRQuadrilateral2Faces</geometry>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicBumpMapTransform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>TexturedMat</program>
+				<structures>
+				</structures>
+				<textures>
+					<textures_element>ReddishGrayAndBrightPerlinNoise00:</textures_element>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>FrontExternal</properties_element>
+			<properties_element>FrontInternal</properties_element>
+			<properties_element>Transform</properties_element>
+		</properties>
+		<constants>
+			<constants_element>PerlinTexture85</constants_element>
+		</constants>
+		<elements>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.4,0.2,0.1)</vertices_element>
+					<vertices_element>(-2.4,2.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.2,0.1)</vertices_element>
+					<vertices_element>(-2.8000002,2.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,2.0,0.1)</vertices_element>
+					<vertices_element>(-0.2,3.0000002,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,2.0,0.1)</vertices_element>
+					<vertices_element>(-2.8000002,3.0000002,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.6,2.0,0.1)</vertices_element>
+					<vertices_element>(-0.6,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-0.2,2.0,0.1)</vertices_element>
+					<vertices_element>(-0.2,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.6,0.2,0.1)</vertices_element>
+					<vertices_element>(0.6,2.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.2,0.2,0.1)</vertices_element>
+					<vertices_element>(0.2,2.0,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,2.0,0.1)</vertices_element>
+					<vertices_element>(1.2,3.0000002,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.1,2.0,0.1)</vertices_element>
+					<vertices_element>(0.1,3.0000002,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.3000002,2.0,0.1)</vertices_element>
+					<vertices_element>(2.3000002,3.0000002,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.2,2.0,0.1)</vertices_element>
+					<vertices_element>(1.2,3.0000002,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(1.8000001,2.0,0.1)</vertices_element>
+					<vertices_element>(1.8000001,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.2,2.0,0.1)</vertices_element>
+					<vertices_element>(2.2,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(2.2,0.0,4.25)</vertices_element>
+					<vertices_element>(2.2,3.0000002,4.25)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(-2.8000002,0.0,4.25)</vertices_element>
+					<vertices_element>(-2.8000002,3.0000002,4.25)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.1</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+		</elements>
+	</SFClonedArrayReference>
+	<SFBitmapArrayData name="Bitmap4416">
+		<width>4</width>
+		<height>4</height>
+		<bitmap>(10,100,100,150,100,150,10,100,255,10,150,255,150,255,255,10)</bitmap>
+	</SFBitmapArrayData>
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(1.0,0.70000005,0.70000005)</values_element>
+			<values_element>(0.5,0.5,0.5)</values_element>
+			<values_element>(0.3,0.1,0.0)</values_element>
+			<values_element>(1.5000001,1.0,0.0)</values_element>
+			<values_element>(0.3,0.6,1.0)</values_element>
+			<values_element>(0.24800001,0.2,0.2)</values_element>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(1.0,0.6,0.6)</values_element>
+			<values_element>(0.5,0.2,0.2)</values_element>
+			<values_element>(0.8,0.5,0.1)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFObjectModelData name="Dummy01">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>Dummygeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:1</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFVertexListData16 name="DummySizes">
+		<vertices>
+			<vertices_element>(0.010000001)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFVertexListData16 name="DummyVertices">
+		<vertices>
+			<vertices_element>(0.0,0.70000005,0.0)</vertices_element>
+			<vertices_element>(-0.3,0.70000005,0.0)</vertices_element>
+			<vertices_element>(-0.3,0.90000004,0.0)</vertices_element>
+			<vertices_element>(-0.3,1.1500001,0.0)</vertices_element>
+			<vertices_element>(-0.3,1.4000001,0.0)</vertices_element>
+			<vertices_element>(-0.3,1.6,0.0)</vertices_element>
+			<vertices_element>(-0.15,1.6,0.0)</vertices_element>
+			<vertices_element>(-0.05,1.6,0.0)</vertices_element>
+			<vertices_element>(-0.05,1.8000001,0.0)</vertices_element>
+			<vertices_element>(-0.05,1.8500001,0.0)</vertices_element>
+			<vertices_element>(-0.1,1.9000001,0.0)</vertices_element>
+			<vertices_element>(-0.15,1.95,0.0)</vertices_element>
+			<vertices_element>(-0.15,2.0,0.0)</vertices_element>
+			<vertices_element>(-0.15,2.2,0.0)</vertices_element>
+			<vertices_element>(0.0,2.2,0.0)</vertices_element>
+			<vertices_element>(0.15,2.2,0.0)</vertices_element>
+			<vertices_element>(0.15,2.0,0.0)</vertices_element>
+			<vertices_element>(0.15,1.95,0.0)</vertices_element>
+			<vertices_element>(0.1,1.9000001,0.0)</vertices_element>
+			<vertices_element>(0.05,1.8500001,0.0)</vertices_element>
+			<vertices_element>(0.05,1.8000001,0.0)</vertices_element>
+			<vertices_element>(0.05,1.6,0.0)</vertices_element>
+			<vertices_element>(0.15,1.6,0.0)</vertices_element>
+			<vertices_element>(0.3,1.6,0.0)</vertices_element>
+			<vertices_element>(0.3,1.4000001,0.0)</vertices_element>
+			<vertices_element>(0.3,1.1500001,0.0)</vertices_element>
+			<vertices_element>(0.3,0.90000004,0.0)</vertices_element>
+			<vertices_element>(0.3,0.70000005,0.0)</vertices_element>
+			<vertices_element>(0.15,0.70000005,0.0)</vertices_element>
+			<vertices_element>(0.0,0.70000005,0.0)</vertices_element>
+			<vertices_element>(0.0,0.4,0.0)</vertices_element>
+			<vertices_element>(0.0,0.010000001,0.0)</vertices_element>
+			<vertices_element>(0.2,0.010000001,0.0)</vertices_element>
+			<vertices_element>(0.4,0.010000001,0.0)</vertices_element>
+			<vertices_element>(0.4,0.010000001,-0.15)</vertices_element>
+			<vertices_element>(0.4,0.010000001,-0.3)</vertices_element>
+			<vertices_element>(0.2,0.010000001,-0.3)</vertices_element>
+			<vertices_element>(-0.4,0.010000001,-0.3)</vertices_element>
+			<vertices_element>(-0.4,0.010000001,0.0)</vertices_element>
+			<vertices_element>(-0.4,0.010000001,0.2)</vertices_element>
+			<vertices_element>(0.0,0.010000001,0.2)</vertices_element>
+			<vertices_element>(0.2,0.010000001,0.2)</vertices_element>
+			<vertices_element>(0.4,0.010000001,0.2)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFMeshGeometryData name="Dummygeom">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Microtube2</primitive>
+			<references id="primitiveData">
+				<reference>DummyVertices</reference>
+				<reference>DummySizes</reference>
+			</references>
+			<primitives>
+				<primitives_element>(0,2,1,0,0,0)</primitives_element>
+				<primitives_element>(2,4,3,0,0,0)</primitives_element>
+				<primitives_element>(4,6,5,0,0,0)</primitives_element>
+				<primitives_element>(6,8,7,0,0,0)</primitives_element>
+				<primitives_element>(8,10,9,0,0,0)</primitives_element>
+				<primitives_element>(10,12,11,0,0,0)</primitives_element>
+				<primitives_element>(12,14,13,0,0,0)</primitives_element>
+				<primitives_element>(14,16,15,0,0,0)</primitives_element>
+				<primitives_element>(16,18,17,0,0,0)</primitives_element>
+				<primitives_element>(18,20,19,0,0,0)</primitives_element>
+				<primitives_element>(20,22,21,0,0,0)</primitives_element>
+				<primitives_element>(22,24,23,0,0,0)</primitives_element>
+				<primitives_element>(24,26,25,0,0,0)</primitives_element>
+				<primitives_element>(26,28,27,0,0,0)</primitives_element>
+				<primitives_element>(28,30,29,0,0,0)</primitives_element>
+				<primitives_element>(30,32,31,0,0,0)</primitives_element>
+				<primitives_element>(32,34,33,0,0,0)</primitives_element>
+				<primitives_element>(34,36,35,0,0,0)</primitives_element>
+				<primitives_element>(36,38,37,0,0,0)</primitives_element>
+				<primitives_element>(38,40,39,0,0,0)</primitives_element>
+				<primitives_element>(40,42,41,0,0,0)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>21</lastElement>
+	</SFMeshGeometryData>
+	<SFFunction2DBitmapData name="MatrixBitmap30">
+		<width>30</width>
+		<height>30</height>
+		<SFBasicBitmapFunctionsData name="function">
+			<function>MATRIX</function>
+		</SFBasicBitmapFunctionsData>
+	</SFFunction2DBitmapData>
+	<SFGroupMeshGeometryData name="PRQuadrilateral2Faces">
+		<geometries>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(2,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<SFLineData name="centralCurve">
+						<vertices>FrontInternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+					<SFLineData name="rayCurve">
+						<vertices>FrontExternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+				</SFBicurvedLoftedSurfaceData>
+				<SFBicurvedLoftedSurfaceData name="texCoordFunction">
+					<SFLineData name="centralCurve">
+						<vertices>FrontInternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+					<SFLineData name="rayCurve">
+						<vertices>FrontExternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+				</SFBicurvedLoftedSurfaceData>
+				<primitive>QuadPDuvDerivedNTxO</primitive>
+			</SFQuadsSurfaceGeometryData>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(2,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<SFTransformedCurveData name="centralCurve">
+						<SFNoTransformData name="transform">
+						</SFNoTransformData>
+						<SFLineData name="curve">
+							<vertices>FrontExternal</vertices>
+							<closed>0</closed>
+						</SFLineData>
+					</SFTransformedCurveData>
+					<SFTransformedCurveData name="rayCurve">
+						<SFNoTransformData name="transform">
+						</SFNoTransformData>
+						<SFLineData name="curve">
+							<vertices>FrontInternal</vertices>
+							<closed>0</closed>
+						</SFLineData>
+					</SFTransformedCurveData>
+				</SFBicurvedLoftedSurfaceData>
+				<SFBicurvedLoftedSurfaceData name="texCoordFunction">
+					<SFLineData name="centralCurve">
+						<vertices>FrontInternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+					<SFLineData name="rayCurve">
+						<vertices>FrontExternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+				</SFBicurvedLoftedSurfaceData>
+				<primitive>QuadPDuvDerivedNTxO</primitive>
+			</SFQuadsSurfaceGeometryData>
+		</geometries>
+		<primitive>QuadPDuvDerivedNTxO</primitive>
+	</SFGroupMeshGeometryData>
+	<SFGroupMeshGeometryData name="PRQuadrilateralSleeve">
+		<geometries>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(2,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<SFLineData name="centralCurve">
+						<vertices>FrontInternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+					<SFLineData name="rayCurve">
+						<vertices>FrontExternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+				</SFBicurvedLoftedSurfaceData>
+				<SFBicurvedLoftedSurfaceData name="texCoordFunction">
+					<SFLineData name="centralCurve">
+						<vertices>FrontInternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+					<SFLineData name="rayCurve">
+						<vertices>FrontExternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+				</SFBicurvedLoftedSurfaceData>
+				<primitive>QuadPDuvDerivedNTxO</primitive>
+			</SFQuadsSurfaceGeometryData>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(2,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<SFTransformedCurveData name="centralCurve">
+						<SFNoTransformData name="transform">
+						</SFNoTransformData>
+						<SFLineData name="curve">
+							<vertices>FrontExternal</vertices>
+							<closed>0</closed>
+						</SFLineData>
+					</SFTransformedCurveData>
+					<SFTransformedCurveData name="rayCurve">
+						<SFNoTransformData name="transform">
+						</SFNoTransformData>
+						<SFLineData name="curve">
+							<vertices>FrontInternal</vertices>
+							<closed>0</closed>
+						</SFLineData>
+					</SFTransformedCurveData>
+				</SFBicurvedLoftedSurfaceData>
+				<SFBicurvedLoftedSurfaceData name="texCoordFunction">
+					<SFLineData name="centralCurve">
+						<vertices>FrontExternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+					<SFLineData name="rayCurve">
+						<vertices>FrontInternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+				</SFBicurvedLoftedSurfaceData>
+				<primitive>QuadPDuvDerivedNTxO</primitive>
+			</SFQuadsSurfaceGeometryData>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(2,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<SFTransformedCurveData name="centralCurve">
+						<SFNoTransformData name="transform">
+						</SFNoTransformData>
+						<SFLineData name="curve">
+							<vertices>FrontInternal</vertices>
+							<closed>0</closed>
+						</SFLineData>
+					</SFTransformedCurveData>
+					<SFLineData name="rayCurve">
+						<vertices>FrontInternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+				</SFBicurvedLoftedSurfaceData>
+				<SFBicurvedLoftedSurfaceData name="texCoordFunction">
+					<SFTransformedCurveData name="centralCurve">
+						<SFNoTransformData name="transform">
+						</SFNoTransformData>
+						<SFLineData name="curve">
+							<vertices>FrontInternal</vertices>
+							<closed>0</closed>
+						</SFLineData>
+					</SFTransformedCurveData>
+					<SFLineData name="rayCurve">
+						<vertices>FrontInternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+				</SFBicurvedLoftedSurfaceData>
+				<primitive>QuadPDuvDerivedNTxO</primitive>
+			</SFQuadsSurfaceGeometryData>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(2,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<SFLineData name="centralCurve">
+						<vertices>FrontExternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+					<SFTransformedCurveData name="rayCurve">
+						<SFNoTransformData name="transform">
+						</SFNoTransformData>
+						<SFLineData name="curve">
+							<vertices>FrontExternal</vertices>
+							<closed>0</closed>
+						</SFLineData>
+					</SFTransformedCurveData>
+				</SFBicurvedLoftedSurfaceData>
+				<SFBicurvedLoftedSurfaceData name="texCoordFunction">
+					<SFLineData name="centralCurve">
+						<vertices>FrontExternal</vertices>
+						<closed>0</closed>
+					</SFLineData>
+					<SFTransformedCurveData name="rayCurve">
+						<SFNoTransformData name="transform">
+						</SFNoTransformData>
+						<SFLineData name="curve">
+							<vertices>FrontExternal</vertices>
+							<closed>0</closed>
+						</SFLineData>
+					</SFTransformedCurveData>
+				</SFBicurvedLoftedSurfaceData>
+				<primitive>QuadPDuvDerivedNTxO</primitive>
+			</SFQuadsSurfaceGeometryData>
+		</geometries>
+		<primitive>QuadPDuvDerivedNTxO</primitive>
+	</SFGroupMeshGeometryData>
+	<SFBitmapTextureData name="PerlinTexture00">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,0.2,0.2,0.2,0.2,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+			<SFBitmapArrayData name="bitmap">
+				<width>4</width>
+				<height>4</height>
+				<bitmap>(0,255,100,0,0,100,255,0,255,0,100,0,0,100,0,255)</bitmap>
+			</SFBitmapArrayData>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture64">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>300</width>
+			<height>300</height>
+			<weights>(0.0,0.05,0.05,0.05,0.11,0.11,0.11,0.11,0.11)</weights>
+			<interpolant>Nearest</interpolant>
+			<bitmap>MatrixBitmap30</bitmap>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture85">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,1.0,-1.5,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+			<bitmap>Bitmap4416</bitmap>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFFilteredRenderedTextureData name="ReddishGrayAndBrightPerlinNoise00">
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<SFProgramAssetData name="lightComponent">
+			<program>ReddishBrightAndNormal</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>PerlinTexture00:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFFilteredRenderedTextureData>
+	<SFReferenceNodeData name="SLAvatarCenterShop01">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,-0.6,0.0)</position>
+			<orientation>(0.0,0.0,0.0)</orientation>
+			<scale>0.2</scale>
+		</SFRigidTransformData>
+		<references id="nodes">
+			<reference>ACS01_Frame</reference>
+			<reference>ACS01_Walls</reference>
+			<reference>ACS01_Roof</reference>
+			<reference>ACS01BannerA</reference>
+			<reference>ACS01BannerC</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFReferenceNodeData name="SLAvatarCenterShop02">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,0.0,0.0)</position>
+			<orientation>(0.0,0.0,0.0)</orientation>
+			<scale>0.2</scale>
+		</SFRigidTransformData>
+		<references id="nodes">
+			<reference>ACS02_Frame</reference>
+			<reference>ACS02_Walls</reference>
+			<reference>ACS02_Roof</reference>
+			<reference>ACS02_Dummies</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFReferenceNodeData name="SLAvatarCenterShops">
+		<SFRigidTransformData name="transform">
+			<position>(0.0,0.0,0.0)</position>
+			<orientation>(0.0,0.0,0.0)</orientation>
+			<scale>0.2</scale>
+		</SFRigidTransformData>
+		<references id="nodes">
+			<reference>SLAvatarCenterShop01</reference>
+			<reference>SLAvatarCenterShop02</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFClonedArrayReference name="Test_Frame">
+		<SFObjectModelData name="node">
+			<SFTranslateAndScaleData name="transform">
+				<position>(0.0,0.0,0.1)</position>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleData>
+			<geometry>PRQuadrilateralSleeve</geometry>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicBumpMapTransform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>BasicTexturedMat</program>
+				<structures>
+					<structures_element>Colors:1</structures_element>
+				</structures>
+				<textures>
+					<textures_element>PerlinTexture85:</textures_element>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>FrontExternal</properties_element>
+			<properties_element>FrontInternal</properties_element>
+			<properties_element>Transform</properties_element>
+		</properties>
+		<constants>
+			<constants_element>PerlinTexture85</constants_element>
+		</constants>
+		<elements>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.6,-0.2,0.1)</vertices_element>
+					<vertices_element>(0.6,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.1,-0.2,0.1)</vertices_element>
+					<vertices_element>(0.1,0.2,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.6,0.2,0.1)</vertices_element>
+					<vertices_element>(0.6,0.8,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFVertexListData16 name="">
+				<vertices>
+					<vertices_element>(0.1,0.2,0.1)</vertices_element>
+					<vertices_element>(0.1,0.6,0.1)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<SFTranslateAndScaleFixed16Data name="">
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0.2</z>
+				<scale>1.0</scale>
+			</SFTranslateAndScaleFixed16Data>
+		</elements>
+	</SFClonedArrayReference>
+</library>

@@ -2,9 +2,9 @@ package shadow.renderer.data;
 
 import shadow.renderer.SFCamera;
 import shadow.system.data.SFDataset;
+import shadow.system.data.SFNamedParametersObject;
 import shadow.system.data.objects.SFFloat;
 import shadow.system.data.objects.SFVertex3fData;
-import shadow.system.data.utils.SFGenericInfoObjectBuilder;
 
 public class SFCameraData extends SFDataAsset<SFCamera>{
 
@@ -17,7 +17,15 @@ public class SFCameraData extends SFDataAsset<SFCamera>{
 	private SFFloat upL=new SFFloat(0);
 	
 	public SFCameraData() {
-		setData(SFGenericInfoObjectBuilder.generateObjectBuilder(focus,left,up,dir,distance,leftL,upL));
+		SFNamedParametersObject parameters=new SFNamedParametersObject();
+		parameters.addObject("focus", focus);
+		parameters.addObject("left", left);
+		parameters.addObject("up", up);
+		parameters.addObject("dir", dir);
+		parameters.addObject("distance", distance);
+		parameters.addObject("leftL", leftL);
+		parameters.addObject("upL", upL);
+		setData(parameters);
 	}
 	
 	@Override

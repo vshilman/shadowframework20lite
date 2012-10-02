@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(0.0,0.5,0.0)</values_element>
+			<values_element>(0.5,0.5,0.0)</values_element>
+			<values_element>(0.5,0.0,0.5)</values_element>
+			<values_element>(0.0,0.0,0.5)</values_element>
+			<values_element>(0.5,0.0,1.0)</values_element>
+			<values_element>(0.5,1.0,0.0)</values_element>
+			<values_element>(0.6,1.0,0.4)</values_element>
+			<values_element>(0.0,1.0,1.0)</values_element>
+			<values_element>(1.0,0.6,0.0)</values_element>
+			<values_element>(1.0,0.84800005,0.0)</values_element>
+			<values_element>(0.0,0.6,0.2)</values_element>
+			<values_element>(0.1,0.0,0.3)</values_element>
+			<values_element>(1.0,1.0,1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFQuadsSurfaceGeometryData name="Mushroom">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1)</vertices_element>
+						<vertices_element>(0.024,0.2)</vertices_element>
+						<vertices_element>(0.0,0.3)</vertices_element>
+						<vertices_element>(0.0,0.4)</vertices_element>
+						<vertices_element>(0.0,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1)</vertices_element>
+						<vertices_element>(0.2,0.2)</vertices_element>
+						<vertices_element>(0.048,0.3)</vertices_element>
+						<vertices_element>(0.048,0.4)</vertices_element>
+						<vertices_element>(0.448,0.5)</vertices_element>
+						<vertices_element>(0.048,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="RedMushroom">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.9</y>
+			<z>0.0</z>
+			<scale>2.5</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:2</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	<SFReferenceNodeData name="RedMushroomReference">
+		<SFRigidTransformData name="transform">
+			<orientation>-3.1415927:3.1415927:3:(10,10,10):(-3.1415927,-2.1415927,-3.1415927):</orientation>
+			<scale>1.0</scale>
+		</SFRigidTransformData>
+		<nodes>
+			<node>RedMushroom</node>
+		</nodes>
+	</SFReferenceNodeData>
+	
+	<SFDrawnRenderedTextureData name="MushroomTextures">
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+			<textures_element>200:200:ARGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+			<textures_element>200:200:GRAY8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<node>RedMushroomReference</node>
+		<SFRendererData name="renderer">
+			<SF2DCameraData name="camera">
+				<leftL>0.1</leftL>
+				<upL>0.5</upL>
+			</SF2DCameraData>
+			<SFProgramAssetData name="light">
+				<program>BumpMaps</program>
+			</SFProgramAssetData>
+		</SFRendererData>
+		<depthUse>1</depthUse>
+	</SFDrawnRenderedTextureData>
+	
+	
+	
+	<SFStructureArrayDataUnit8 name="Dimensions">
+		<structure>Dim2D</structure>
+		<values>
+			<values_element>(0.15),(0.15)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	
+	<SFRandomizedValueListData3D name="Points2">
+		<size>200</size>
+		<seed>1000</seed>
+	</SFRandomizedValueListData3D>
+
+	<SFPrimitiveArrayData name="PrimitiveData">
+		<primitive>SpriteP</primitive>
+		<references id="primitiveData">
+			<reference>Points2</reference>
+		</references>
+	</SFPrimitiveArrayData>
+	
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.0,1.0,0.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+
+	<SFPointsCloudData name="PrimitiveGeometry">
+		<primitiveData>PrimitiveData</primitiveData>
+		<firstPoint>0</firstPoint>
+		<pointsSize>200</pointsSize>
+	</SFPointsCloudData>
+	
+	<SFObjectModelData name="MushroomsArray">
+		<geometry>PrimitiveGeometry</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>SpriteTransformDuDv</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>ImprovedBumpMappedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>MushroomTextures:1</textures_element>
+				<textures_element>MushroomTextures:0</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	<SFObjectModelData name="PointSprites">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>-0.7</x>
+			<y>-0.7</y>
+			<z>-0.7</z>
+			<scale>1.4</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>PrimitiveGeometry</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>SpriteTransformDuDv</program>
+			<structures>
+				<structures_element>Dimensions:0</structures_element>
+			</structures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>ImprovedBumpMappedMat</program>
+			<textures>
+				<textures_element>MushroomTextures:1</textures_element>
+				<textures_element>MushroomTextures:0</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	<SFReferenceNodeData name="PointSpritesReference">
+		<nodes>
+			<node>PointSprites</node>
+		</nodes>
+	</SFReferenceNodeData>
+</library>

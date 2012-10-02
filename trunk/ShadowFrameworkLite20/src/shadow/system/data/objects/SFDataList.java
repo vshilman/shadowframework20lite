@@ -171,4 +171,5 @@ public class SFDataList<T extends SFDataObject> implements SFDataObject, List<T>
 	public <U extends Object> U[] toArray(U[] a) {
 		return dataObject.toArray(a);
 	}
+
 }
