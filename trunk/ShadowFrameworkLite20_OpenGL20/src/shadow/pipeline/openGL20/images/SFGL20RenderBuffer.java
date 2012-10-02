@@ -1,6 +1,7 @@
 package shadow.pipeline.openGL20.images;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL2;
 
 import shadow.image.SFBufferData;
 import shadow.image.SFImageFormat;
@@ -30,11 +31,16 @@ public class SFGL20RenderBuffer extends SFBufferData implements
 
 		if (renderBuffer == -1) {
 			int rbo[] = new int[1];
+			
+			
 			SFGL2.getGL().glGenRenderbuffers(1, rbo, 0);
 			renderBuffer = rbo[0];
+			SFGL2.getGL().glBindRenderbuffer(GL.GL_RENDERBUFFER, rbo[0]);
 			SFGL2.getGL().glRenderbufferStorage(GL.GL_RENDERBUFFER,
-					SFGL20RenderedTextureFactory.getGLFormat(getFormat()),
+					GL2.GL_DEPTH_COMPONENT16,
+					//SFGL20RenderedTextureFactory.getGLFormat(getFormat()),
 					getWidth(), getHeight());
+			SFGL2.getGL().glBindRenderbuffer(GL.GL_RENDERBUFFER, 0);
 		}
 	}
 
