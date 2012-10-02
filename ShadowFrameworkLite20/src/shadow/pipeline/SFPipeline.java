@@ -20,21 +20,20 @@ public class SFPipeline {
 	
 	private static class SFProgramTrace implements Comparable<SFProgramTrace>{
 		
-		private SFProgramComponent[] components;
+		private String[] modulesNames;
 		private SFProgram program;
 		
-		private SFProgramTrace(SFProgramComponent[] components) {
+		private SFProgramTrace(String[] modulesNames) {
 			super();
-			this.components = components;
+			this.modulesNames = modulesNames;
 		}
 
 		@Override
 		public int compareTo(SFProgramTrace o) {
-			if(o.components.length!=components.length)
-				return o.components.length-components.length;
-			
-			for (int i = 0; i < components.length; i++) {
-				int compare=components[i].hashCode()-o.components[i].hashCode();
+			if(modulesNames.length!=o.modulesNames.length)
+				return (modulesNames.length-o.modulesNames.length);
+			for (int i = 0; i < modulesNames.length; i++) {
+				int compare=modulesNames[i].compareTo(o.modulesNames[i]);
 				if(compare!=0)
 					return compare;
 			}
@@ -46,8 +45,9 @@ public class SFPipeline {
 	
 	// Pipeline components.
 	private HashMap<String, SFProgramComponent> components=new HashMap<String, SFProgramComponent>();
-	private HashMap<String, SFPipelineGrid> grids=new HashMap<String, SFPipelineGrid>();
+	private HashMap<String, SFProgramModule> modules=new HashMap<String, SFProgramModule>();
 	private HashMap<String, SFPipelineStructure> structures=new HashMap<String, SFPipelineStructure>();
+	private HashMap<String, SFPrimitive> primitives=new HashMap<String, SFPrimitive>();
 	
 	private List<SFProgramTrace> traces=new ArrayList<SFProgramTrace>();
 
@@ -104,19 +104,45 @@ public class SFPipeline {
 			SFProgramComponent component) {
 		pipeline.components.put(code,component);
 	}
+	
+	// Pipeline components.
+	public static void loadPrimitive(String code,
+			SFPrimitive component) {
+		pipeline.primitives.put(code,component);
+	}
+
+	// Pipeline components.
+	public static void loadShaderModule(String code,
+			SFProgramModule component) {
+		pipeline.modules.put(code,component);
+	}
+
 
 	public static SFPipelineElement getModule(String structureCode) {
 		SFPipelineStructure structure=pipeline.structures.get(structureCode);
 		if (structure != null) {
 			return structure;
 		}
-		SFProgramComponent component=pipeline.components.get(structureCode);
-		if (component != null) {
-			return component;
-		}
-		return pipeline.grids.get(structureCode);
+		return pipeline.components.get(structureCode);
 	}
 	
+	public static SFProgramModule getProgramModule(String name){
+		SFProgramModule module=pipeline.modules.get(name);
+		if(module==null){
+			SFProgramComponent component=(SFProgramComponent)(getModule(name));
+			if(component!=null){
+				module=new SFProgramModule();
+				SFProgramComponent[] components={component};
+				module.setComponents(components);
+			}
+		}
+		return module;
+	}
+
+	public static SFPrimitive getPrimitive(String name){
+		SFPrimitive module=pipeline.primitives.get(name);
+		return module;
+	}
 
 	public static SFPipelineStructure getStructure(String structureCode) {
 		return pipeline.structures.get(structureCode);
@@ -124,12 +150,9 @@ public class SFPipeline {
 
 	// Pipeline components.
 	public static void loadStructure(String code, SFPipelineStructure component) {
+//		if(pipeline.structures.containsKey(code))
+//			throw new RuntimeException("Structure "+code+" has already been loaded");
 		pipeline.structures.put(code,component);
-	}
-
-	// Pipeline components.
-	public static void loadGrid(String code, SFPipelineGrid component) {
-		pipeline.grids.put(code,component);
 	}
 
 	/**
@@ -143,9 +166,9 @@ public class SFPipeline {
 	 * @param light
 	 * @return
 	 */
-	public static SFProgram getStaticProgram(SFPrimitive primitive, String material[], String light) {
+	public static SFProgram getStaticProgram(SFPrimitive primitive, String transform, String material, String light) {
 
-		SFProgramTrace trace=generateTrace(primitive, material, light);
+		SFProgramTrace trace=generateTrace(primitive.getName(), transform, material, light);
 		
 		int index = Collections.binarySearch(pipeline.traces, trace); 
 		
@@ -157,12 +180,12 @@ public class SFPipeline {
 			SFProgram program=pipeline.sfProgramBuilder.generateNewProgram();
 
 			program.setPrimitive(primitive);
-			
-			for (int i=0; i < material.length; i++) {
-				program.setMaterial(i,pipeline.components.get(material[i]));
-			}
-			program.setLightStep(pipeline.components.get(light));
-			
+			SFProgramModule transformP=getProgramModule(transform);
+			SFProgramModule materialP=getProgramModule(material);
+			SFProgramModule lightP=getProgramModule(light);
+			program.setTransform(transformP);
+			program.setMaterial(materialP);
+			program.setLightStep(lightP);
 			trace.program=program;
 			
 			pipeline.traces.add(trace);
@@ -177,21 +200,21 @@ public class SFPipeline {
 
 	}
 
-	public static SFProgramTrace generateTrace(SFPrimitive primitive, String[] material, String light) {
-		int primitiveComponents=0;
-		if(primitive!=null)
-			primitiveComponents=primitive.getComponents().length;
-		int componentSize=primitiveComponents+material.length+1;
-		SFProgramComponent[] components = new SFProgramComponent[componentSize];
-		for (int i = 0; i < primitiveComponents; i++) {
-			components[i]=primitive.getComponents()[i];
-		}
-		for (int i = 0; i < material.length; i++) {
-			components[i+primitiveComponents]=pipeline.components.get(material[i]);
-		}
-		components[components.length-1]=pipeline.components.get(light);
+	public static SFProgramTrace generateTrace(String primitive, String transform, String material, 
+			String light) {
 		
-		SFProgramTrace trace=new SFProgramTrace(components);
+		String[] modules = {primitive,transform,material,light};
+	
+		SFProgramTrace trace=new SFProgramTrace(modules);
+		return trace;
+	}
+	
+	public static SFProgramTrace generateTrace(String material, 
+			String light) {
+		
+		String[] modules = {material,light};
+	
+		SFProgramTrace trace=new SFProgramTrace(modules);
 		return trace;
 	}
 
@@ -206,9 +229,9 @@ public class SFPipeline {
 	 * @param light
 	 * @return
 	 */
-	public static SFProgram getStaticImageProgram(String material[], String light) {
+	public static SFProgram getStaticImageProgram(String material, String light) {
 
-		SFProgramTrace trace=generateTrace(null, material, light);
+		SFProgramTrace trace=generateTrace(material, light);
 		
 		int index = Collections.binarySearch(pipeline.traces, trace); 
 		
@@ -218,11 +241,9 @@ public class SFPipeline {
 			
 		}else{
 			SFProgram program=pipeline.sfProgramBuilder.generateImageProgram();
-			
-			for (int i=0; i < material.length; i++) {
-				program.setMaterial(i,pipeline.components.get(material[i]));
-			}
-			program.setLightStep(pipeline.components.get(light));
+
+			program.setMaterial(getProgramModule(material));
+			program.setLightStep(getProgramModule(light));
 			
 			trace.program=program;
 			
@@ -233,6 +254,5 @@ public class SFPipeline {
 			return program;
 		}
 	}
-	
 	
 }

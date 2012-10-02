@@ -11,27 +11,29 @@ public abstract class SFExpressionOperator extends SFExpressionElement{
 
 	public static int SIZE_ALL=-1;
 	
-	private String operatorSymbol;
 	private int maxSize;
 
 	public SFExpressionOperator(String operatorSymbol, int maxSize) {
 		super(operatorSymbol);
-		this.operatorSymbol = operatorSymbol;
 		this.maxSize = maxSize;
 	}
-
-	public String getOperatorSymbol() {
-		return operatorSymbol;
+	
+	@Override
+	public SFExpressionElement cloneAsIndexed(SFParameteri[] toBeIndexed) {
+		SFExpressionOperator operator=cloneOperator();
+		for (int i = 0; i < list.size(); i++) {
+			operator.list.add(list.get(i).cloneAsIndexed(toBeIndexed));
+		}
+		return operator;
 	}
 
 	@Override
 	public void addSubExpression(SFExpressionElement element)
 			throws ArrayIndexOutOfBoundsException {
 		if(!(maxSize==SIZE_ALL) && getElementSize()==maxSize)
-			throw new ArrayIndexOutOfBoundsException("Too much elements in SFExpressionOperator "+operatorSymbol);
+			throw new ArrayIndexOutOfBoundsException("Too much elements in SFExpressionOperator "+getElement());
 		addElement(element);
 	}
-	
 	
 	
 	protected void updateSubExpressions() throws SFExpressionException{
@@ -53,10 +55,11 @@ public abstract class SFExpressionOperator extends SFExpressionElement{
 				throw new SFExpressionException(" Cannot apply "+this.getElement()+" with the following operands: "+s);
 			}
 
+	@SuppressWarnings("unchecked")
 	protected short separateAndWrap(LinkedList<SFExpressionElement> cElements) {
-		Iterator<SFExpressionElement> iElements;
+		
 		ArrayList<SFExpressionElement>[] typeElements=new ArrayList[cElements.size()];
-		iElements=list.iterator();
+		Iterator<SFExpressionElement> iElements=list.iterator();
 		typeElements[0]=new ArrayList<SFExpressionElement>();
 		
 		if(iElements.hasNext()){

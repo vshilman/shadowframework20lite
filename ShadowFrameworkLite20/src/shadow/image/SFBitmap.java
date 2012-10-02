@@ -2,6 +2,7 @@ package shadow.image;
 
 import java.nio.ByteBuffer;
 
+import shadow.system.SFException;
 import shadow.system.SFInitiable;
 
 
@@ -57,6 +58,11 @@ public class SFBitmap implements SFInitiable{
 	public int getWidth() {
 		return width;
 	}
+	
+	public int getGray(int x,int y){
+		byte b=data.get(getSize()*(x+width*y));
+		return (b>=0?b:b+256);
+	}
 
 	public void setWidth(int width) {
 		this.width = width;
@@ -88,7 +94,45 @@ public class SFBitmap implements SFInitiable{
 	
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
+		//TODO SFBitmap does not have an init implementation, is that generally correct?
+	}
+	
+	@Override
+	public void destroy() {
+		//TODO SFBitmap does not have a destroy implementation, is that generally correct?
+	}
+
+	public int getSize() {
+		int size=1;
+		if(getFormat()==SFImageFormat.RGB8){
+			size=3;
+		}
+		return size;
+	}
+
+	public void generateBitmap(int width, int height, int[] values, boolean rgb) {
+		setWidth(width);
+		setHeight(height);
+		if(rgb){
+			setFormat(SFImageFormat.RGB8);
+		}else{
+			setFormat(SFImageFormat.GRAY8);
+		}
 		
+		if(width*height!=values.length)
+			throw new SFException("An SFBitmapArrayData must have an array of "+(width*height)+" values, there are "+values.length+"values");
+		
+		int size=1;
+		if(rgb){
+			size=3;
+		}
+		ByteBuffer buffer=ByteBuffer.allocateDirect(width*height*size);
+		
+		for (int i = 0; i < values.length; i++) {
+			buffer.put((byte)(values[i]));
+		}
+		
+		setData(buffer);
+		buffer.rewind();
 	}
 }

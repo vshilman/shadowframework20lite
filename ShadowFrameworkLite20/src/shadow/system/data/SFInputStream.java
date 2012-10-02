@@ -2,6 +2,8 @@ package shadow.system.data;
 
 public interface SFInputStream {
 
+	public abstract byte readByte();
+	
 	public abstract short readShort();
 
 	public abstract short[] readShorts(int n);
@@ -19,4 +21,6 @@ public interface SFInputStream {
 	public abstract int[] readBinaryData(int n,int bitSize);
 	
 	public abstract int readBinaryData(int bitSize);
+	
+	public abstract String readName();
 }

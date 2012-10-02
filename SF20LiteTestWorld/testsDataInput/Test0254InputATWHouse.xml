@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFBicurvedLoftedSurfaceData name="House01WallSurface">
+		<SFUniformBezier33fData name="centralCurve">
+			<bezierData>
+				<bezierData_element>6:-0.1:0:0.7:-0.4:0:0.7</bezierData_element><!--0 -->
+				<bezierData_element>9:-0.4:0:0.7:-0.7:0:0.7:-0.7:0:0.5</bezierData_element><!--1 -->
+				<bezierData_element>6:-0.7:0:0.5:-0.7:0:0.1</bezierData_element><!--2 -->
+				<bezierData_element>9:-0.7:0:0.1:-0.7:0:0.0:-0.6:0:0.0</bezierData_element><!--3 -->
+				<bezierData_element>6:-0.6:0:0.0:-0.3:0:0.0</bezierData_element><!--4 -->
+				<bezierData_element>6:-0.3:0:0.0:-0.0:0:0.0</bezierData_element><!--5 -->
+				<bezierData_element>6:0.0:0:0.0:0.3:0:0.0</bezierData_element><!--6 -->
+				<bezierData_element>6:0.3:0:0.0:0.6:0:0.0</bezierData_element><!--7 -->
+				<bezierData_element>9:0.6:0:0.0:0.7:0:0.0:0.7:0:0.1</bezierData_element><!--8 -->
+				<bezierData_element>6:0.7:0:0.1:0.7:0:0.5</bezierData_element><!--9 -->
+				<bezierData_element>9:0.7:0:0.5:0.7:0:0.7:0.4:0:0.7</bezierData_element><!--10 -->
+				<bezierData_element>6:0.4:0:0.7:0.1:0:0.7</bezierData_element><!--11 -->
+			</bezierData>
+		</SFUniformBezier33fData>
+		<SFUniformBezier33fData name="rayCurve">
+			<bezierData>
+				<bezierData_element>6:-0.1:0.4:0.7:-0.4:0.4:0.7</bezierData_element><!--0 -->
+				<bezierData_element>9:-0.4:0.4:0.7:-0.7:0.4:0.7:-0.7:0.4:0.5</bezierData_element><!--1 -->
+				<bezierData_element>6:-0.7:0.4:0.5:-0.7:0.4:0.1</bezierData_element><!--2 -->
+				<bezierData_element>9:-0.7:0.4:0.1:-0.7:0.4:0.0:-0.6:0.4:0.0</bezierData_element><!--3 -->
+				<bezierData_element>6:-0.6:0.4:0.0:-0.3:0.4:0.0</bezierData_element><!--4 -->
+				<bezierData_element>9:-0.3:0.4:0.0:-0.3:0.8:0.0:0.0:1.6:0.0</bezierData_element><!--5 -->
+				<bezierData_element>9:0.0:1.6:0.0:0.3:0.8:0.0:0.3:0.4:0.0</bezierData_element><!--6 -->
+				<bezierData_element>6:0.3:0.4:0.0:0.6:0.4:0.0</bezierData_element><!--7 -->
+				<bezierData_element>9:0.6:0.4:0.0:0.7:0.4:0.0:0.7:0.4:0.1</bezierData_element><!--8 -->
+				<bezierData_element>6:0.7:0.4:0.1:0.7:0.4:0.5</bezierData_element><!--9 -->
+				<bezierData_element>9:0.7:0.4:0.5:0.7:0.4:0.7:0.4:0.4:0.7</bezierData_element><!--10 -->
+				<bezierData_element>6:0.4:0.4:0.7:0.1:0.4:0.7</bezierData_element><!--11 -->
+			</bezierData>
+		</SFUniformBezier33fData>
+	</SFBicurvedLoftedSurfaceData>
+	<SFBicurvedLoftedSurfaceData name="House01WallTexCoords">
+		<SFUniformBezier33fData name="centralCurve">
+			<bezierData>
+				<bezierData_element>6:-18.5:0:0:-15.5:0:0</bezierData_element><!--0 -->
+				<bezierData_element>6:-15.5:0:0:-11.5:0:0</bezierData_element><!--1 -->
+				<bezierData_element>6:-11.5:0:0:-7.5:0:0</bezierData_element><!--2 -->
+				<bezierData_element>6:-7.5:0:0:-6.0:0:0</bezierData_element><!--3 -->
+				<bezierData_element>6:-6.0:0:0:-3.0:0:0</bezierData_element><!--4 -->
+				<bezierData_element>6:-3.0:0:0:-0.0:0:0</bezierData_element><!--5 -->
+				<bezierData_element>6:0.0:0:0:3.0:0:0</bezierData_element><!--6 -->
+				<bezierData_element>6:3.0:0:0:6.0:0:0</bezierData_element><!--7 -->
+				<bezierData_element>6:6.0:0:0:7.5:0:0</bezierData_element><!--8 -->
+				<bezierData_element>6:7.5:0:0:11.5:0:0</bezierData_element><!--9 -->
+				<bezierData_element>6:11.5:0:0:15.5:0:0</bezierData_element><!--10 -->
+				<bezierData_element>6:15.5:0:0:18.5:0:0</bezierData_element><!--11 -->
+			</bezierData>
+		</SFUniformBezier33fData>
+		<SFUniformBezier33fData name="rayCurve">
+			<bezierData>
+				<bezierData_element>6:-18.5:4.0:0:-15.5:4.0:0</bezierData_element><!--0 -->
+				<bezierData_element>6:-15.5:4.0:0:-11.5:4.0:0</bezierData_element><!--1 -->
+				<bezierData_element>6:-11.5:4.0:0:-7.5:4.0:0</bezierData_element><!--2 -->
+				<bezierData_element>6:-7.5:4.0:0:-6.0:4.0:0</bezierData_element><!--3 -->
+				<bezierData_element>6:-6.0:4.0:0:-3.0:4.0:0</bezierData_element><!--4 -->
+				<bezierData_element>9:-3.0:4.0:0:-3.0:8.0:0:0.0:16:0</bezierData_element><!--5 -->
+				<bezierData_element>9:0.0:16:0:3.0:8.0:0:3.0:4.0:0</bezierData_element><!--6 -->
+				<bezierData_element>6:3.0:4.0:0:6.0:4.0:0</bezierData_element><!--7 -->
+				<bezierData_element>6:6.0:4.0:0:7.5:4.0:0</bezierData_element><!--8 -->
+				<bezierData_element>6:7.5:4.0:0:11.5:4.0:0</bezierData_element><!--9 -->
+				<bezierData_element>6:11.5:4.0:0:15.5:4.0:0</bezierData_element><!--10 -->
+				<bezierData_element>6:15.5:4.0:0:18.5:4.0:0</bezierData_element><!--11 -->
+			</bezierData>
+		</SFUniformBezier33fData>
+	</SFBicurvedLoftedSurfaceData>
+	<SFQuadsSurfaceGeometryData name="PlainHouse01WallModel">
+		<NuNv>(13,2)</NuNv>
+		<surfaceFunction>House01WallSurface</surfaceFunction>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle3PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="PlainHouse01Wall">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.8</y>
+			<z>0.0</z>
+		</SFTranslateAndScaleFixed16Data>
+		<transformProgramComponents>BasicPNTransform</transformProgramComponents>
+		<geometry>PlainHouse01WallModel</geometry>
+		<materialsProgramComponents>BasicMat</materialsProgramComponents>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>1</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="TexturedHouse01WallModel">
+		<NuNv>(13,2)</NuNv>
+		<surfaceFunction>House01WallSurface</surfaceFunction>
+		<texCoordFunction>House01WallTexCoords</texCoordFunction>
+		<primitive>Triangle3PNTxO</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="TexturedHouse01Wall">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.8</y>
+			<z>0.0</z>
+		</SFTranslateAndScaleFixed16Data>
+		<transformProgramComponents>BasicPNTx0Transform</transformProgramComponents>
+		<geometry>TexturedHouse01WallModel</geometry>
+		<textures>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>OBTilesTexture</texture>
+			</SFTextureReferenceData>
+		</textures>
+		<materialsProgramComponents>TexturedMat</materialsProgramComponents>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="BumpMappedHouse01WallModel">
+		<NuNv>(13,2)</NuNv>
+		<surfaceFunction>House01WallSurface</surfaceFunction>
+		<texCoordFunction>House01WallTexCoords</texCoordFunction>
+		<primitive>Triangle3BumpMap</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="BumpMappedHouse01Wall">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.8</y>
+			<z>0.0</z>
+		</SFTranslateAndScaleFixed16Data>
+		<transformProgramComponents>BasicBumpMapTransform</transformProgramComponents>
+		<geometry>BumpMappedHouse01WallModel</geometry>
+		<textures>
+			<SFTextureReferenceData name="">
+				<textureIndex>1</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>PebblesTextures</texture>
+			</SFTextureReferenceData>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>1</textureLevel>
+				<texture>PebblesTextures</texture>
+			</SFTextureReferenceData>
+		</textures>
+		<materialsProgramComponents>ImprovedBumpMappedMat</materialsProgramComponents>
+	</SFObjectModelData>
+</library>

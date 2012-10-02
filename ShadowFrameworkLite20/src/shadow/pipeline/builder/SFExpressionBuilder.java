@@ -1,7 +1,6 @@
 package shadow.pipeline.builder;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,13 +13,21 @@ import shadow.system.SFException;
 
 public class SFExpressionBuilder implements SFIExpressionBuilder {
 
-	private String operatorsSum = "#?:/*-+%,";
+	private static final boolean debug = false;
+	
+	private String operatorsSum = ",/*-+";
 	private List<String> availableFunctions = new ArrayList<String>();
 	{
 		availableFunctions.add("dot");
 		availableFunctions.add("sqrt");
 		availableFunctions.add("sample");
 		availableFunctions.add("clamp");
+		availableFunctions.add("sin");
+		availableFunctions.add("cos");
+		availableFunctions.add("cross");
+		availableFunctions.add("normalize");
+		availableFunctions.add("inversesqrt");
+		availableFunctions.add("pow");
 	}
 
 	// private SFExpressionOperator symbol;
@@ -28,7 +35,6 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	SFExpressionBuilderData data = new SFExpressionBuilderData();
 	private SFExpressionsBuilderStack stack = new SFExpressionsBuilderStack(data);
 	private boolean dispatchValue = false;
-	private String lastOperator;
 
 	/*
 	 * (non-Javadoc)
@@ -37,6 +43,9 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 */
 	@Override
 	public void setup() {
+		if(debug){
+			System.err.println("SFExpressionBuilder : setup....");
+		}
 		data.setExpressions(new LinkedList<SFExpressionOperator>());
 		dispatchValue = false;
 	}
@@ -49,6 +58,9 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 */
 	@Override
 	public String getOperatorsSum() {
+		if(debug){
+			System.err.println("SFExpressionBuilder : getOperatorsSum....");
+		}
 		return operatorsSum;
 	}
 
@@ -61,14 +73,25 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 */
 	@Override
 	public List<String> getAvailableFunctions() {
+		if(debug){
+			System.err.println("SFExpressionBuilder : getAvailableFunctions....");
+		}
 		return availableFunctions;
 	}
 
 	private boolean hasPriority(String operator, String otherOperator) {
-		return operatorsSum.indexOf(otherOperator) > operatorsSum.indexOf(operator);
+		int indexOfOperator = operatorsSum.indexOf(operator);
+		int indexOfOtherOperator = operatorsSum.indexOf(otherOperator);
+		if(debug){
+			System.err.println("SFExpressionBuilder : hasPriority "+operator+" "+otherOperator);
+		}
+		return indexOfOtherOperator > indexOfOperator;
 	}
 
 	private int firstIndexOfSymbolInExpressions(SFExpressionOperator symbol) {
+		if(debug){
+			System.err.println("SFExpressionBuilder : firstIndexOfSymbolInExpressions "+symbol );
+		}
 		for (int i = 0; i < data.getExpressions().size(); i++) {
 			if (data.getExpressions().get(i).getElement().equalsIgnoreCase(symbol.getElement())) {
 				return i;
@@ -85,7 +108,11 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 * .lang.String, java.util.List)
 	 */
 	@Override
-	public void generateValue(String element, List<SFParameteri> set) {
+	public void generateValue(String element, SFParameteri[] set) {
+		if(debug){
+			System.err.println("SFExpressionBuilder : generateValue "+element);
+		}
+		
 		short type = SFParameteri.GLOBAL_FLOAT;
 		try {
 			SFPipelineRegister register = SFPipelineRegister.getFromName(element);
@@ -93,9 +120,9 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 		} catch (SFException e) {
 			// Nothing to Do: the right type has been set up in the Constructor
 			SFParameteri parameter = null;
-
-			for (Iterator<SFParameteri> iterator = set.iterator(); iterator.hasNext();) {
-				SFParameteri sfParameteri = iterator.next();
+			
+			for (int i = 0; i < set.length; i++) {
+				SFParameteri sfParameteri = set[i];
 				if (sfParameteri.getName().equalsIgnoreCase(element)) {
 					parameter = sfParameteri;
 				}
@@ -127,6 +154,9 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 */
 	@Override
 	public SFExpressionElement getBuiltExpression() {
+		if(debug){
+			System.err.println("SFExpressionBuilder : getBuiltExpression ");
+		}
 		if (dispatchValue) {
 			if (data.getlSymbol() != null)
 				data.setupLastSymbol(this);
@@ -146,7 +176,24 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 */
 	@Override
 	public void dispatchFunction(String operator) {
-		data.setFunctionOperator(operator);
+		if(debug){
+			System.err.println("SFExpressionBuilder : dispatchFunction "+operator);
+		}
+		SFExpressionOperator symbol = SFExpressionGeneratorKeeper.getKeeper().getGenerator()
+				.getFunction(operator);
+		
+		if (data.getExpressions().size() == 0) {
+			if (symbol != null)
+				data.getExpressions().add(symbol);
+			data.setlSymbol(symbol);
+		} else {
+			SFExpressionOperator lastSymbol = data.getExpressions().getLast();
+			// greater priority
+			lastSymbol.addElement(symbol);
+			data.getExpressions().add(symbol);
+			data.setlSymbol(symbol);
+		}
+		dispatchValue = false;
 	}
 
 	/*
@@ -158,12 +205,17 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 */
 	@Override
 	public void dispatchOperator(String operator) {
-		if (operator.equalsIgnoreCase(",") && data.getFunctionOperator() != null) {
-			operator = data.getFunctionOperator();
+		if(debug){
+			System.err.println(data.getExpressions());
+			System.err.println("SFExpressionBuilder : dispatchOperator "+operator);
 		}
+//		if (operator.equalsIgnoreCase(",")) {//do not like...
+//			operator = data.getExpressions().getLast().getElement();
+//		}
 		
 		SFExpressionOperator symbol = SFExpressionGeneratorKeeper.getKeeper().getGenerator()
 				.getOperator(operator);
+		
 		if (data.getExpressions().size() == 0) {
 			if (data.getLastValue() != null)
 				symbol.addElement(data.getLastValue());
@@ -171,6 +223,8 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 				data.getExpressions().add(symbol);
 			data.setlSymbol(symbol);
 		} else {
+
+			String lastOperator = data.getExpressions().getLast().getElement();
 			if (hasPriority(operator, lastOperator)) {
 				SFExpressionOperator lastSymbol = data.getExpressions().getLast();
 				// greater priority
@@ -202,7 +256,6 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 			}
 		}
 		dispatchValue = false;
-		lastOperator = operator;
 	}
 
 	/*
@@ -213,6 +266,9 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 */
 	@Override
 	public void openExpression() {
+		if(debug){
+			System.err.println("SFExpressionBuilder : openExpression ");
+		}
 		stack.pushExpressions();
 	}
 
@@ -224,6 +280,9 @@ public class SFExpressionBuilder implements SFIExpressionBuilder {
 	 */
 	@Override
 	public void closeExpression() {
+		if(debug){
+			System.err.println("SFExpressionBuilder : closeExpression ");
+		}
 		if (dispatchValue) {
 			data.setupLastSymbol(this);
 		}

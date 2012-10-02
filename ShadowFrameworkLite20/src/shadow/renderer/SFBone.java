@@ -24,10 +24,15 @@ public class SFBone implements SFNode{
 		return null;
 	}
 	
+
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 	
 	@Override

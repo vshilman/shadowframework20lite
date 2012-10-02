@@ -31,4 +31,11 @@ public interface SFInitiable {
 	 * initialize this SFInitiable
 	 */
 	public void init();
+	
+	/**
+	 * Destroy this SFInitiable, 
+	 * freeing any graphical resource 
+	 * used on init process.
+	 */
+	public void destroy();
 }

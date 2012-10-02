@@ -3,72 +3,65 @@ package shadow.pipeline.data;
 import java.util.List;
 
 import shadow.pipeline.SFPipelineElement;
-import shadow.pipeline.SFProgramComponent;
-import shadow.pipeline.builder.SFBuilderElement;
-import shadow.pipeline.builder.SFBuilderGrid;
-import shadow.pipeline.builder.SFExpressionBuilder;
 import shadow.pipeline.builder.SFIPipelineBuilder;
 import shadow.pipeline.builder.SFPipelineBuilder;
-import shadow.pipeline.expression.SFExpressionElement;
+import shadow.pipeline.expression.SFBasicExpressionGenerator;
 import shadow.pipeline.expression.SFExpressionGeneratorKeeper;
-import shadow.pipeline.expression.data.SFExpressionParser;
 import shadow.system.SFException;
+import shadow.system.data.SFCharsetObjectList;
 import shadow.system.data.objects.SFCompositeDataArray;
 import shadow.system.data.objects.SFDataList;
 
-public class SFDataPipelineBuilder extends SFCompositeDataArray implements SFIPipelineBuilder {
+public class SFDataPipelineBuilder extends SFCompositeDataArray implements SFIPipelineBuilder,SFCharsetObjectList{
 
 	private SFDataList<SFPipelineInstructionObjects> allInformations;
-
-	private SFBuilderElement element;
 
 	private SFPipelineBuilder pipelineBuilder = new SFPipelineBuilder();
 
 	public SFDataPipelineBuilder() {
 		super();
-		SFExpressionGeneratorKeeper.getKeeper().setGenerator(new SFDataExpressionGenerator());
+		SFExpressionGeneratorKeeper.getKeeper().setGenerator(new SFBasicExpressionGenerator());
 	}
 
-	@Override
-	public void addGridVertex(String token) {
-		pipelineBuilder.addGridVertex(token);
-		allInformations.add(new SFPipelineInstructionObjects("Vertex", token));
-	}
+//	@Override
+//	public void addGridVertex(String token) {
+//		pipelineBuilder.addGridVertex(token);
+//		allInformations.add(new SFPipelineInstructionObjects("Vertex", token));
+//	}
 
 	@Override
 	public void buildDefineRule(String pWrote, short type, String function) {
 		pipelineBuilder.buildDefineRule(pWrote, type, function);
-
-		SFProgramComponent cmp = (SFProgramComponent) getComponent();
-		SFExpressionBuilder builder = new SFExpressionBuilder();
-		SFExpressionParser.getParser().parseString(function, cmp.getParameterSet(), builder);
-		SFExpressionElement element = builder.getBuiltExpression();
-		SFDataExpressionOperator operator = new SFDataExpressionOperator();
-		operator.addElement(element);
 		SFPipelineInstructionObjects instruction = new SFPipelineInstructionObjects("Define",
-				pWrote, type + "");
-		instruction.addObject(operator);
+				pWrote, type + "",function);
 		allInformations.add(instruction);
-
 	}
+	
+	@Override
+	public void buildComponent(String componentName) {
+		pipelineBuilder.buildComponent(componentName);
+		SFPipelineInstructionObjects instruction = new SFPipelineInstructionObjects("Component",componentName);
+		allInformations.add(instruction);
+	}
+
+//	@Override
+//	public void buildEdge(List<String> edges) {
+//		pipelineBuilder.buildEdge(edges);
+//		allInformations.add(new SFPipelineInstructionObjects("Edge", edges));
+//	}
 
 	@Override
-	public void buildEdge(List<String> edges) {
-		pipelineBuilder.buildEdge(edges);
-		allInformations.add(new SFPipelineInstructionObjects("Edge", edges));
+	public void buildGrid(List<String> pars, String model,String type, int n) {
+		pipelineBuilder.buildGrid(pars, model,type,n);
+		allInformations.add(new SFPipelineInstructionObjects("Grid", pars, model ,type,n+""));
 	}
+	
 
-	@Override
-	public void buildGrid(List<String> pars, String moduleString,String type) {
-		pipelineBuilder.buildGrid(pars, moduleString,type);
-		allInformations.add(new SFPipelineInstructionObjects("Grid", pars, moduleString,type));
-	}
-
-	@Override
-	public void buildGridInternals(List<String> internals) {
-		pipelineBuilder.buildGridInternals(internals);
-		allInformations.add(new SFPipelineInstructionObjects("Internal", internals));
-	}
+//	@Override
+//	public void buildGridInternals(List<String> internals) {
+//		pipelineBuilder.buildGridInternals(internals);
+//		allInformations.add(new SFPipelineInstructionObjects("Internal", internals));
+//	}
 
 	@Override
 	public void buildParamRule(short parameter, String use) {
@@ -82,39 +75,24 @@ public class SFDataPipelineBuilder extends SFCompositeDataArray implements SFIPi
 		allInformations.add(new SFPipelineInstructionObjects("Param2", pars, moduleString));
 	}
 
-	@Override
-	public void buildPath(List<String> paths) {
-		pipelineBuilder.buildPath(paths);
-		allInformations.add(new SFPipelineInstructionObjects("Path", paths));
-	}
+//	@Override
+//	public void buildPath(List<String> paths) {
+//		pipelineBuilder.buildPath(paths);
+//		allInformations.add(new SFPipelineInstructionObjects("Path", paths));
+//	}
 
 	@Override
 	public void buildWriteRule(String wrote, String function) throws SFException {
 		pipelineBuilder.buildWriteRule(wrote, function);
-		SFProgramComponent cmp = (SFProgramComponent) getComponent();
-
-		SFExpressionBuilder builder = new SFExpressionBuilder();
-		SFExpressionParser.getParser().parseString(function, cmp.getParameterSet(), builder);
-		SFExpressionElement element = builder.getBuiltExpression();
-		SFDataExpressionOperator operator = new SFDataExpressionOperator();
-		operator.addElement(element);
-		SFPipelineInstructionObjects instruction = new SFPipelineInstructionObjects("Write", wrote);
-		instruction.addObject(operator);
+		SFPipelineInstructionObjects instruction = new SFPipelineInstructionObjects("Write", wrote,function);
 		allInformations.add(instruction);
 	}
 	
 	@Override
 	public void buildRewriteRule(String wrote, String function) throws SFException {
 		pipelineBuilder.buildRewriteRule(wrote, function);
-		SFBuilderGrid grid=(SFBuilderGrid)getComponent();
-		
-		SFExpressionBuilder builder = new SFExpressionBuilder();
-		SFExpressionParser.getParser().parseString(function, grid.getAllParameters(), builder);
-		SFExpressionElement element = builder.getBuiltExpression();
-		SFDataExpressionOperator operator = new SFDataExpressionOperator();
-		operator.addElement(element);
-		SFPipelineInstructionObjects instruction = new SFPipelineInstructionObjects("Rewrite", wrote);
-		instruction.addObject(operator);
+		SFPipelineInstructionObjects instruction = new SFPipelineInstructionObjects("Rewrite", wrote,function);
+	
 		allInformations.add(instruction);
 	}
 
@@ -136,6 +114,16 @@ public class SFDataPipelineBuilder extends SFCompositeDataArray implements SFIPi
 		addDataObject(allInformations);
 	}
 
+	@Override
+	public void buildBlock(String block, String primitiveComponent) {
+		allInformations.add(new SFPipelineInstructionObjects("Block", block, primitiveComponent));
+	}
+	
+	@Override
+	public void buildDomain(String domain) {
+		allInformations.add(new SFPipelineInstructionObjects("Domain", domain));
+	}
+	
 	@Override
 	public void generateElement(String type, String name) {
 		pipelineBuilder.generateElement(type, name);
@@ -166,55 +154,58 @@ public class SFDataPipelineBuilder extends SFCompositeDataArray implements SFIPi
 				List<String> parameters = allInformations.get(i).getParameters();
 				String command = allInformations.get(i).commandName();
 
-				// Not the best code in the world...
 				if (command.equalsIgnoreCase("Begin")) {
 					alternativeBuilder.generateElement(allInformations.get(i).getData(0),
 							allInformations.get(i).getData(1));
 				}
-				if (command.equalsIgnoreCase("Vertex")) {
-					alternativeBuilder.addGridVertex(allInformations.get(i).getData(0));
-				}
-				if (command.equalsIgnoreCase("Edge")) {
-					alternativeBuilder.buildEdge(parameters);
-				}
+//				if (command.equalsIgnoreCase("Vertex")) {
+//					alternativeBuilder.addGridVertex(allInformations.get(i).getData(0));
+//				}
+//				if (command.equalsIgnoreCase("Edge")) {
+//					alternativeBuilder.buildEdge(parameters);
+//				}
 				if (command.equalsIgnoreCase("Define")) {
-					SFDataExpressionOperator operator = allInformations.get(i).getObject();
-					SFExpressionElement element = operator.retrieveEffectiveElement();
 					alternativeBuilder.buildDefineRule(allInformations.get(i).getData(0),
-							new Short(allInformations.get(i).getData(1)), element);
+							new Short(allInformations.get(i).getData(1)), allInformations.get(i).getData(2));
 				}
 				if (command.equalsIgnoreCase("Grid")) {
-					alternativeBuilder.buildGrid(parameters, allInformations.get(i).getData(0),allInformations.get(i).getData(1));
+					alternativeBuilder.buildGrid(parameters, allInformations.get(i).getData(0),
+							 allInformations.get(i).getData(1),
+							new Integer(allInformations.get(i).getData(2)));
 				}
-				if (command.equalsIgnoreCase("Internal")) {
-					alternativeBuilder.buildGridInternals(parameters);
-				}
+//				if (command.equalsIgnoreCase("Internal")) {
+//					alternativeBuilder.buildGridInternals(parameters);
+//				}
 				if (command.equalsIgnoreCase("Param")) {
 					alternativeBuilder.buildParamRule(new Short(allInformations.get(i).getData(0)),
 							allInformations.get(i).getData(1));
 				}
 				if (command.equalsIgnoreCase("Param2")) {
-					alternativeBuilder
-							.buildParamRule(allInformations.get(i).getData(0), parameters);
+					alternativeBuilder.buildParamRule(allInformations.get(i).getData(0), parameters);
 				}
-				if (command.equalsIgnoreCase("Path")) {
-					alternativeBuilder.buildPath(parameters);
-				}
+//				if (command.equalsIgnoreCase("Path")) {
+//					alternativeBuilder.buildPath(parameters);
+//				}
 				if (command.equalsIgnoreCase("Write")) {
-					SFDataExpressionOperator operator = allInformations.get(i).getObject();
-					SFExpressionElement element = operator.retrieveEffectiveElement();
-					alternativeBuilder.buildWriteRule(allInformations.get(i).getData(0), element);
+					alternativeBuilder.buildWriteRule(allInformations.get(i).getData(0), allInformations.get(i).getData(1));
 				}
 				if (command.equalsIgnoreCase("Rewrite")) {
-					SFDataExpressionOperator operator = allInformations.get(i).getObject();
-					SFExpressionElement element = operator.retrieveEffectiveElement();
-					alternativeBuilder.buildRewriteRule(allInformations.get(i).getData(0), element);
+					alternativeBuilder.buildRewriteRule(allInformations.get(i).getData(0), allInformations.get(i).getData(1));
 				}
 				if (command.equalsIgnoreCase("Close")) {
 					alternativeBuilder.closeElement();
 				}
 				if (command.equalsIgnoreCase("Use")) {
 					alternativeBuilder.setUseRule(allInformations.get(i).getData(0));
+				}
+				if (command.equalsIgnoreCase("Component")) {
+					alternativeBuilder.buildComponent(allInformations.get(i).getData(0));
+				}
+				if (command.equalsIgnoreCase("Domain")) {
+					alternativeBuilder.buildDomain(allInformations.get(i).getData(0));
+				}
+				if (command.equalsIgnoreCase("Block")) {
+					alternativeBuilder.buildBlock(allInformations.get(i).getData(0),allInformations.get(i).getData(1));
 				}
 			}
 		} catch (NumberFormatException e) {
@@ -224,5 +215,21 @@ public class SFDataPipelineBuilder extends SFCompositeDataArray implements SFIPi
 		}
 
 	}
-
+	
+	@Override
+	public void addCharSetObjects(String value) {
+		SFPipelineInstructionObjects instructionObject=new SFPipelineInstructionObjects();
+		instructionObject.setStringValue(value);
+		allInformations.add(instructionObject);
+	}
+	
+	@Override
+	public String getCharSetObjectString(int index) {
+		return allInformations.get(index).toStringValue();
+	}
+	
+	@Override
+	public int getSize() {
+		return allInformations.size();
+	}
 }

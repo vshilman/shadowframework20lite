@@ -7,7 +7,7 @@ import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.SFStructureData;
 import shadow.renderer.SFObjectModel;
-import shadow.renderer.data.SFStructureArrayData;
+import shadow.renderer.data.SFStructureArrayDataUnit8;
 import shadow.renderer.viewer.SFFrameController;
 import shadow.system.SFArrayElementException;
 
@@ -18,7 +18,7 @@ public class CommonMaterial {
 		SFStructureArray materialData=SFPipeline.getSfPipelineMemory().generateStructureData(materialStructure); 
 		
 		for (int j = 0; j < colours.length; j++) {
-			SFVertex3f[] material01={new SFVertex3f(colours[j][0],colours[j][1],colours[j][2]),new SFVertex3f(colours[j][0],colours[j][1],colours[j][2])};
+			SFVertex3f[] material01={new SFVertex3f(colours[j][0],colours[j][1],colours[j][2])};
 			SFStructureData mat=new SFStructureData(materialData.getPipelineStructure());
 			for (int i = 0; i < material01.length; i++) {
 				((SFVertex3f)mat.getValue(i)).set(material01[i]);
@@ -33,10 +33,38 @@ public class CommonMaterial {
 		
 		return materialData;
 	}
+	
+	public static SFStructureArray generateStructureData(String structureName,float[][] values) throws ArrayIndexOutOfBoundsException{
+		SFPipelineStructure materialStructure=((SFProgramComponent)(SFPipeline.getModule(structureName))).getStructures().get(0).getStructure();
+		SFStructureArray materialData=SFPipeline.getSfPipelineMemory().generateStructureData(materialStructure); 
+		
+		SFStructureData mat=new SFStructureData(materialData.getPipelineStructure());
+		for (int i = 0; i < values.length; i++) {
+			mat.getValue(i).set(values[i]);
+		}
+		int index=materialData.generateElement();
+		try {
+			materialData.setElement(index,mat);
+		} catch (SFArrayElementException e) {
+			e.printStackTrace();
+		}
+		
+		return materialData;
+	}
 
-	public static SFStructureArrayData generateMaterialData(float[][] colours) {
-		SFStructureArrayData material=new SFStructureArrayData();
+	
+	public static SFStructureArrayDataUnit8 generateMaterialData(float[][] colours) {
+		SFStructureArrayDataUnit8 material=new SFStructureArrayDataUnit8();
 			SFStructureArray materialArray=generateMaterial(colours); 
+			material.setStructure("Mat01");
+			material.setArray(materialArray);
+		return material;
+	}
+	
+	public static SFStructureArrayDataUnit8 generateStructureDataData(String programName,String structureName,float[][] colours) {
+		SFStructureArrayDataUnit8 material=new SFStructureArrayDataUnit8();
+			material.setStructure(structureName);
+			SFStructureArray materialArray=generateStructureData(programName,colours); 
 			material.setArray(materialArray);
 		return material;
 	}
@@ -87,7 +115,7 @@ public class CommonMaterial {
 			
 			@Override
 			public void select(int index) {
-				model.getModel().getMaterialsStructures().get(0).setRefIndex(index);
+				model.getModel().getMaterialComponent().getData().get(0).setRefIndex(index);
 			}
 		};
 	}

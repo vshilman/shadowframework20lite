@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.0,1.0,0.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFStructureArrayDataUnit8 name="Dimensions">
+		<structure>Dim2D</structure>
+		<values>
+			<values_element>(0.048)()(0.148)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFBitmapTextureData name="PerlinTexture">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,0.2,0.2,0.2,0.2,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+			<SFBitmapArrayData name="bitmap">
+				<width>4</width>
+				<height>4</height>
+				<bitmap>(0,255,100,0,0,100,255,0,255,0,100,0,0,100,0,255)</bitmap>
+			</SFBitmapArrayData>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFObjectModelData name="PointSprites">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.5</x>
+			<y>-0.5</y>
+			<z>-0.5</z>
+		</SFTranslateFixed16Data>
+		<geometry>PrimitiveGeometry</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>SpriteTransform</program>
+			<structures>
+				<structures_element>Dimensions:0</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicTexturedMat</program>
+			<structures>
+				<structures_element>Colors:0</structures_element>
+			</structures>
+			<textures>
+				<textures_element>PerlinTexture:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFRandomizedValueListData3D name="Points2">
+		<size>9000</size>
+		<seed>1000</seed>
+	</SFRandomizedValueListData3D>
+	<SFReferenceNodeData name="PointsSpriteReference">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>PointSprites</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFPrimitiveArrayData name="PrimitiveData">
+		<primitive>SpriteP</primitive>
+		<references id="primitiveData">
+			<reference>Points2</reference>
+		</references>
+		<primitives>
+		</primitives>
+	</SFPrimitiveArrayData>
+	<SFPointsCloudData name="PrimitiveGeometry">
+		<primitiveData>PrimitiveData</primitiveData>
+		<firstPoint>0</firstPoint>
+		<pointsSize>9000</pointsSize>
+	</SFPointsCloudData>
+</library>

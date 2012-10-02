@@ -1,60 +1,81 @@
 package shadow.renderer.contents.tests;
 
-import shadow.geometry.SFGeometry;
+import shadow.geometry.SFSurfaceFunction;
 import shadow.geometry.curves.data.SFUniformBezier33fData;
 import shadow.geometry.functions.data.SFBicurvedLoftedSurfaceData;
-import shadow.geometry.geometries.SFQuadsSurfaceGeometry;
+import shadow.geometry.geometries.SFParametrizedGeometry;
+import shadow.geometry.geometries.SFQuadsGridGeometry;
 import shadow.math.SFVertex3f;
+import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPrimitive;
+import shadow.pipeline.SFPrimitiveBlock;
 import shadow.pipeline.SFStructureArray;
+import shadow.renderer.SFAbstractReferenceNode;
 import shadow.renderer.SFObjectModel;
-import shadow.renderer.SFProgramStructureReference;
 import shadow.renderer.SFReferenceNode;
 import shadow.renderer.SFStructureReference;
 import shadow.renderer.contents.tests.common.CommonMaterial;
-import shadow.renderer.contents.tests.common.CommonPipeline;
-import shadow.renderer.viewer.SFDataUtility;
 import shadow.renderer.viewer.SFViewer;
-import shadow.renderer.viewer.SFViewerDatasetFactory;
-import shadow.system.data.SFDataCenter;
 
-public class Test0026_LoftGeometry {
-
-	private static final String root = "testsData";
+/**
+ * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.
+ * No data will be generated (so nothing will work) until you do that; as an
+ * alternative, you can set SFAbstractTest.storeData to true, and then run each test
+ * one by one in test number order.
+ * <br/> 
+ * Go to {@link SFAbstractTest} for general informations about this tests.
+ * <br/>
+ * Open the related FILENAME.xml file for a detailed view of this test contents. 
+ * <br/>
+ * Objective: TODO 
+ * 
+ * @author Alessandro Martinelli
+ */
+public class Test0026_LoftGeometry extends SFAbstractTest{
 	
-	private static SFObjectModel houseModel;
-	private static CommonPipeline pipeline;
-
-	/**
-	 * TODO missing test description
-	 */
+	private static final String FILENAME = "test0026";
+	
 	public static void main(String[] args) {
+		execute(new Test0026_LoftGeometry());
+	}
 
-		// Preparation
-		SFDataCenter.setDatasetFactory(new SFViewerDatasetFactory());
-		pipeline = new CommonPipeline();
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+	
+	@Override
+	public void viewTestData() {
 
-		// 3) Retrieve the library and make model available so that it can be
-		// added to a Viewer
+		//Note: Here we still use 'SFCurvedTubeFunctionData'
+		SFBicurvedLoftedSurfaceData retrievedData = loadDataset();
 
-		SFGeometry geometry = generateHouseModelGeometry();
-
-		houseModel = new SFObjectModel();
+		SFPrimitive primitive=SFPipeline.getPrimitive("Triangle2PN");
+		SFQuadsGridGeometry gridGeometry=new SFQuadsGridGeometry(primitive.getConstructionPrimitive(), 24, 3,false,false);
+		SFParametrizedGeometry geometry=new SFParametrizedGeometry(primitive,gridGeometry);
+		
+		SFSurfaceFunction surfaceFunction=retrievedData.getResource();
+		geometry.setFunction(SFPrimitiveBlock.NORMAL, surfaceFunction);
+		geometry.setFunction(SFPrimitiveBlock.POSITION, surfaceFunction);
+		geometry.init();
+		
+		SFObjectModel houseModel = new SFObjectModel();
 		houseModel.getTransform().setPosition(new SFVertex3f(0, -0.8f, 0));
 		houseModel.getModel().setRootGeometry(geometry);
+		houseModel.getModel().getTransformComponent().setProgram("BasicPNTransform");
+		houseModel.getModel().getMaterialComponent().setProgram("BasicMat");
 		SFStructureArray materialArray = CommonMaterial.generateMaterial(CommonMaterial.generateColours());
-		houseModel.getModel().addMaterial(
-				new SFProgramStructureReference("BasicMat", new SFStructureReference(materialArray,
-						0)));
-		houseModel.getModel().getMaterialsComponents().add("BasicMat");
+		houseModel.getModel().getMaterialComponent().addData(new SFStructureReference(materialArray,0));
 
-		SFReferenceNode node = new SFReferenceNode();
+		SFAbstractReferenceNode node = new SFReferenceNode();
 		node.addNode(houseModel);
 
 		SFViewer viewer = SFViewer.generateFrame(houseModel,CommonMaterial.generateColoursController(houseModel),SFViewer.getLightStepController());
 		viewer.setRotateModel(true, 0.04f);
 	}
-
-	private static SFGeometry generateHouseModelGeometry() {
+	
+	@Override
+	public void buildTestData() {
 		SFBicurvedLoftedSurfaceData function = new SFBicurvedLoftedSurfaceData();
 
 		float x1 = -0.7f;
@@ -93,19 +114,6 @@ public class Test0026_LoftGeometry {
 		function.getFirstCurve().setDataset(spline1Data);
 		function.getSecondCurve().setDataset(spline2Data);
 		
-		// 2) Store the Surface Function in file 'testsData\test0001.sf'
-		SFDataUtility.saveDataset(root, "test0026.sf", function);
-
-		// 3) Retrieve the Surface Function from file 'testsData\test0001.sf'
-						
-		//Note: Here we still use 'SFCurvedTubeFunctionData'
-		SFBicurvedLoftedSurfaceData retrievedData = (SFBicurvedLoftedSurfaceData) SFDataUtility
-				.loadDataset(root, "test0026.sf");
-		
-		SFGeometry geometry = new SFQuadsSurfaceGeometry(pipeline.getPrimitive(), retrievedData.getResource(),
-				null, 24, 2);
-		geometry.init();
-		
-		return geometry;
+		store(function);
 	}
 }

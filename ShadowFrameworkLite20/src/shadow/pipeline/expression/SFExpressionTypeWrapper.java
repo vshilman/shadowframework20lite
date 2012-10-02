@@ -17,12 +17,21 @@ public class SFExpressionTypeWrapper extends SFExpressionElement{
 	}
 	
 	@Override
+	public SFExpressionElement cloneAsIndexed(SFParameteri[] toBeIndexed) {
+		SFExpressionTypeWrapper wrapper=new SFExpressionTypeWrapper(getType());
+		for (int i = 0; i < list.size(); i++) {
+			wrapper.list.add(cloneAsIndexed(toBeIndexed));
+		}
+		return wrapper;
+	}
+	
+	@Override
 	public void evaluateType() {
 		//nothing to do.
 	}
 	
 	@Override
-	public SFValuenf evaluate(SFValuesMap values) {
+	public SFValuenf evaluate(SFExpressionValuesList values) {
 		SFValuenf subValue=getExpressionElement(0).evaluate(values);
 		int dimension=SFParameteri.getTypeDimension(this.getType());
 

@@ -18,10 +18,10 @@ public class SFWriteParser implements SFLineParser{
 					String function=lineToken.nextToken();
 					builder.buildWriteRule(wrote, function);
 				}else{
-					throw new SFException(codeLine+":  param command miss parameter type definition");
+					throw new SFException(codeLine+": param command miss parameter type definition");
 				}
 			}else{
-				throw new SFException(codeLine+":  cannot use param command without parameters");
+				throw new SFException(codeLine+": cannot use param command without parameters");
 			}
 		}
 	}	

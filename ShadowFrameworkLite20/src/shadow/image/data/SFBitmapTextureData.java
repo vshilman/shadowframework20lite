@@ -4,40 +4,26 @@ import shadow.image.SFBitmap;
 import shadow.image.SFBitmapTexture;
 import shadow.image.SFRenderedTexturesSet;
 import shadow.renderer.data.SFDataAsset;
+import shadow.renderer.data.SFDataAssetObject;
 import shadow.system.data.SFDataset;
-import shadow.system.data.objects.SFCompositeDataArray;
-import shadow.system.data.objects.SFDatasetObject;
+import shadow.system.data.SFNamedParametersObject;
 
 public class SFBitmapTextureData extends SFDataAsset<SFRenderedTexturesSet> {
 
-	private class SFBitmapTextureDataObject extends SFCompositeDataArray {
-
-		private SFDatasetObject<SFDataAsset<SFBitmap>> bitmap;
-
-		@Override
-		public void generateData() {
-			bitmap=new SFDatasetObject<SFDataAsset<SFBitmap>>(null);
-			addDataObject(bitmap);
-		}
-		
-		@Override
-		public SFCompositeDataArray clone() {
-			return new SFBitmapTextureDataObject();
-		}
-	}
-	
-	private SFBitmapTextureDataObject data=new SFBitmapTextureDataObject();
+	private SFDataAssetObject<SFBitmap> bitmap=new SFDataAssetObject<SFBitmap>(null);
 	
 	public SFBitmapTextureData() {
-		setData(data);
+		SFNamedParametersObject parameters=new SFNamedParametersObject();
+		parameters.addObject("bitmap", bitmap);
+		setData(parameters);
 	}
 
 	public void setBitmap(SFDataAsset<SFBitmap> bitmap) {
-		this.data.bitmap.setDataset(bitmap);
+		this.bitmap.setDataset(bitmap);
 	}
 	
 	public SFDataset getBitmap() {
-		return this.data.bitmap.getDataset();
+		return this.bitmap.getDataset();
 	}
 
 	@Override
@@ -47,7 +33,7 @@ public class SFBitmapTextureData extends SFDataAsset<SFRenderedTexturesSet> {
 
 	@Override
 	protected SFRenderedTexturesSet buildResource() {
-		SFBitmapTexture bitmapTexture=new SFBitmapTexture(data.bitmap.getDataset().getResource());
+		SFBitmapTexture bitmapTexture=new SFBitmapTexture(bitmap.getResource());
 		return bitmapTexture;
 	}
 }

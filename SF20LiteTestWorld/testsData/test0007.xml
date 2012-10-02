@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SFSplineCurvedTubeFunctionData name="">
+	<references id="curvesData">
+		<SFBasisSplineData name="reference">
+			<SFVertexListData16 name="vertices">
+				<vertices>
+					<vertices_element>(-0.8,-0.26000002,0.0)</vertices_element>
+					<vertices_element>(-0.35000002,-0.1,0.0)</vertices_element>
+					<vertices_element>(0.2,-0.8,0.0)</vertices_element>
+					<vertices_element>(0.90000004,-0.080000006,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<closed>0</closed>
+		</SFBasisSplineData>
+		<SFLineData name="reference">
+			<SFVertexListData16 name="vertices">
+				<vertices>
+					<vertices_element>(-0.75000006,0.0,0.6)</vertices_element>
+					<vertices_element>(0.86,0.0,0.6)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<closed>0</closed>
+		</SFLineData>
+		<SFBasisSplineData name="reference">
+			<SFVertexListData16 name="vertices">
+				<vertices>
+					<vertices_element>(-0.8,0.26000002,0.0)</vertices_element>
+					<vertices_element>(-0.35000002,0.1,0.0)</vertices_element>
+					<vertices_element>(0.3,0.6,0.0)</vertices_element>
+					<vertices_element>(0.90000004,0.020000001,0.0)</vertices_element>
+				</vertices>
+			</SFVertexListData16>
+			<closed>0</closed>
+		</SFBasisSplineData>
+	</references>
+</SFSplineCurvedTubeFunctionData>

@@ -15,9 +15,7 @@ public class SFCamera implements SFInitiable{
 	private float upL=0.3f;
 	
 	private float distance;
-	private float delta;
-	
-	private boolean isChanged=false;
+	private float delta=1;
 	
 	private boolean isPerspective=false;
 	
@@ -37,7 +35,12 @@ public class SFCamera implements SFInitiable{
 
 	@Override
 	public void init() {
-		
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 	
 	/*public void draw(GL2 gl){
@@ -62,7 +65,7 @@ public class SFCamera implements SFInitiable{
 
 	public void setDir(SFVertex3f dir) {
 		Dir = dir;
-		setDelta((float)Math.sqrt(dir.dot3f(dir)));
+		//setDelta((float)Math.sqrt(dir.dot3f(dir)));
 	}
 	
 //	public void setDirLength(float dirLength){
@@ -79,7 +82,6 @@ public class SFCamera implements SFInitiable{
 		getUp().mult(getUpL());
 		getDir().normalize3f();
 		//getDir().mult(1/getDistance());
-		setChanged(true);
 	}
 	
 //	public void setupCamera(GL2 gl){v
@@ -100,7 +102,7 @@ public class SFCamera implements SFInitiable{
 				getLeft().getZ(),getUp().getZ(),getDir().getZ()
 		);
 
-		setDelta((float)Math.sqrt(getDir().dot3f(getDir())));
+		//setDelta((float)Math.sqrt(getDir().dot3f(getDir())));
 		mat=SFMatrix3f.getInverse(mat);
 		
 		matrix[0]=mat.getA();
@@ -129,6 +131,7 @@ public class SFCamera implements SFInitiable{
 			float bl=(-2*getDistance()*getDelta())/(getDistance()-getDelta());
 		
 			matrix[0]=getDelta()*matrix[0];
+			
 			matrix[1]=getDelta()*matrix[1];
 			matrix[3]=matrix[2];
 			matrix[2]=al*matrix[2];
@@ -150,14 +153,6 @@ public class SFCamera implements SFInitiable{
 
 		}
 		return matrix;
-	}
-
-	public boolean isChanged() {
-		return isChanged;
-	}
-
-	public void setChanged(boolean isChanged) {
-		this.isChanged = isChanged;
 	}
 
 	public boolean isPerspective() {
@@ -243,6 +238,12 @@ public class SFCamera implements SFInitiable{
 
 	public void setDelta(float delta) {
 		this.delta = delta;
+	}
+
+	public void setupDimensions(float leftL, float upL) {
+		setLeftL(leftL);
+		setUpL(upL);
+		update();
 	}
 
 }

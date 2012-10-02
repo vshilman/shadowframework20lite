@@ -1,9 +1,14 @@
 package shadow.system.data.objects.binaries;
 
+import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
+import shadow.system.SFException;
+import shadow.system.data.java.SFStringTokenizerInputStream;
+import shadow.system.data.java.SFStringWriterStream;
 import shadow.system.data.objects.SFBinaryValue;
+import shadow.system.data.objects.SFCharsetObjectUtils;
 
-public class SFBinaryVector<T extends SFVertex3f> extends SFBinaryValue{
+public class SFBinaryVector<T extends SFValuenf> extends SFBinaryValue{
 
 	private int ns[];
 	private int mask[];
@@ -13,9 +18,14 @@ public class SFBinaryVector<T extends SFVertex3f> extends SFBinaryValue{
 	private int bitSize=0;
 	
 	public SFBinaryVector(float min,float max,int... ns){
+		setup(min, max, ns);
+	}
+
+	private void setup(float min, float max, int... ns) {
 		this.ns=ns;
 		shifts=new int[ns.length];
 		mask=new int[ns.length];
+		this.bitSize=0;
 		for (int i = 0; i < ns.length; i++) {
 			bitSize+=ns[i];
 			if(i==0){
@@ -31,7 +41,7 @@ public class SFBinaryVector<T extends SFVertex3f> extends SFBinaryValue{
 	
 	@Override
 	public SFBinaryValue clone() {
-		SFBinaryVector<SFVertex3f> tmp=new SFBinaryVector<SFVertex3f>(min, 0, ns);
+		SFBinaryVector<SFValuenf> tmp=new SFBinaryVector<SFValuenf>(min, 0, ns);
 		tmp.delta=delta;
 		return tmp;
 	}
@@ -41,7 +51,7 @@ public class SFBinaryVector<T extends SFVertex3f> extends SFBinaryValue{
 		return bitSize;
 	}
 	
-	public void getValue(T write){
+	public void getValue(SFValuenf write){
 		float[] data=write.get();
 		for (int i = 0; i < data.length; i++) {
 			int value= (this.value >> shifts[i]) & mask[i] ;
@@ -49,7 +59,7 @@ public class SFBinaryVector<T extends SFVertex3f> extends SFBinaryValue{
 		}
 	}
 	
-	public void setValue(T read){
+	public void setValue(SFValuenf read){
 		float[] data=read.get();
 		this.value=0;
 		for (int i = 0; i < data.length; i++) {
@@ -84,5 +94,37 @@ public class SFBinaryVector<T extends SFVertex3f> extends SFBinaryValue{
 			vertexData.setValue(vertex);
 			vertexData.getValue(vertex);
 			//System.out.println(vertex);
+	}
+	
+	@Override
+	public void setStringValue(String value) {
+		try {
+			SFStringTokenizerInputStream stream=new SFStringTokenizerInputStream(value);
+			float min=stream.readFloat();
+			float max=stream.readFloat();
+			int size=stream.readInt();
+			int ns[]=new int[size];
+			SFCharsetObjectUtils.readInts(ns, stream.readString(), getClass().getSimpleName()+"(Binary Data Dimensions)");
+			setup(min, max, ns);
+			SFValuenf valueNf=new SFValuenf(size);
+			SFCharsetObjectUtils.readFloats(valueNf.get(), stream.readString(), 
+					getClass().getSimpleName()+"(Binary Data Info)");
+			setValue(valueNf);
+		} catch (Exception e) {
+			throw new SFException("Malformed SFBinaryVectorData : "+value);
+		}
+	}
+	
+	 @Override
+	public String toStringValue() {
+		SFStringWriterStream stream=new SFStringWriterStream();
+		stream.writeFloat(min);
+		stream.writeFloat(min+delta);
+		stream.writeInt(ns.length);
+		stream.writeString(SFCharsetObjectUtils.writeInts(ns));
+		SFValuenf value=new SFValuenf(ns.length);
+		getValue(value);
+		stream.writeString(SFCharsetObjectUtils.writeFloats(value.get()));
+		return stream.getString();
 	}
 }

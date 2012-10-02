@@ -34,5 +34,4 @@ public class SFMatrix4f extends SFValuenf{
 		return n;
 	}
 	
-	//TODO: this class need to be finished	
 }

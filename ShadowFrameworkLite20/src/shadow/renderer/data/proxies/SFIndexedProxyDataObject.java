@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import shadow.system.data.SFCharsetObject;
 import shadow.system.data.SFDataCenter;
 import shadow.system.data.SFDataset;
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
+import shadow.system.data.java.SFStringTokenizerInputStream;
+import shadow.system.data.java.SFStringWriterStream;
 import shadow.system.data.objects.SFPrimitiveType;
 
-public class SFIndexedProxyDataObject extends SFPrimitiveType{
+public class SFIndexedProxyDataObject extends SFPrimitiveType implements SFCharsetObject{
 
 	private SFIndexedProxyDataCenter proxyDataCenter=new SFIndexedProxyDataCenter();
 	
@@ -66,9 +69,16 @@ public class SFIndexedProxyDataObject extends SFPrimitiveType{
 		return proxyDataCenter;
 	}
 
-	public void setProxyDataCenter(SFIndexedProxyDataCenter proxyDataCenter) {
-		this.proxyDataCenter = proxyDataCenter;
+	@Override
+	public void setStringValue(String value) {
+		SFStringTokenizerInputStream stream=new SFStringTokenizerInputStream(value);
+		readFromStream(stream);
 	}
 	
-	
+	@Override
+	public String toStringValue() {
+		SFStringWriterStream stream=new SFStringWriterStream();
+		writeOnStream(stream);
+		return stream.getString();
+	}
 }

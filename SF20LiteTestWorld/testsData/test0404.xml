@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFQuadsSurfaceGeometryData name="BumpMappingsMushroom">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1)</vertices_element>
+						<vertices_element>(0.024,0.2)</vertices_element>
+						<vertices_element>(0.0,0.3)</vertices_element>
+						<vertices_element>(0.0,0.4)</vertices_element>
+						<vertices_element>(0.0,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1)</vertices_element>
+						<vertices_element>(0.2,0.2)</vertices_element>
+						<vertices_element>(0.048,0.3)</vertices_element>
+						<vertices_element>(0.048,0.4)</vertices_element>
+						<vertices_element>(0.448,0.5)</vertices_element>
+						<vertices_element>(0.048,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>4.0</du>
+			<dv>4.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle2BumpMap</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="GraniteMushroom">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.6</y>
+			<z>0.0</z>
+			<scale>2.4</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>BumpMappingsMushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicBumpMapTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>ImprovedBumpMappedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>ReddishGrayAndBrightPerlinNoise:</textures_element>
+				<textures_element>PerlinTextureBumpMap:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>

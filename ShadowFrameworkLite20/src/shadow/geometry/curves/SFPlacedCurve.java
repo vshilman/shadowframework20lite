@@ -3,14 +3,14 @@ package shadow.geometry.curves;
 import shadow.geometry.SFCurve;
 import shadow.math.SFValuenf;
 
-public class SFPlacedCurve<T extends SFValuenf> implements SFCurve<T>{
+public class SFPlacedCurve<T extends SFValuenf> extends SFUnOptimizedCurve<T> implements SFCurve{
 
 	private float tMin;
 	private float tMax;
-	private SFCurve<T> curve;
+	private SFCurve curve;
 	
 	
-	public SFPlacedCurve(float tMin, float tMax, SFCurve<T> curve) {
+	public SFPlacedCurve(float tMin, float tMax, SFCurve curve) {
 		super();
 		this.tMin = tMin;
 		this.tMax = tMax;
@@ -38,11 +38,11 @@ public class SFPlacedCurve<T extends SFValuenf> implements SFCurve<T>{
 		this.tMax = tMax;
 	}
 
-	protected SFCurve<T> getCurve() {
+	protected SFCurve getCurve() {
 		return curve;
 	}
 
-	protected void setCurve(SFCurve<T> curve) {
+	protected void setCurve(SFCurve curve) {
 		this.curve = curve;
 	}
 
@@ -71,7 +71,11 @@ public class SFPlacedCurve<T extends SFValuenf> implements SFCurve<T>{
 	
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 }

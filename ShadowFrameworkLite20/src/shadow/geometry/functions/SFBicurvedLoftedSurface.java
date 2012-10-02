@@ -20,13 +20,12 @@
 package shadow.geometry.functions;
 
 import shadow.geometry.SFCurve;
-import shadow.geometry.SFSurfaceFunction;
 import shadow.math.SFVertex3f;
 
-public class SFBicurvedLoftedSurface  extends SFSurfaceFunction{
+public class SFBicurvedLoftedSurface  extends SFUnoptimizedSurfaceFunction{
 	
-	private SFCurve<SFVertex3f> A;
-	private SFCurve<SFVertex3f> B;
+	private SFCurve A;
+	private SFCurve B;
 	
 	private float maxTA=1;
 	private float maxTB=1;
@@ -35,7 +34,7 @@ public class SFBicurvedLoftedSurface  extends SFSurfaceFunction{
 		
 	}
 	
-	public SFBicurvedLoftedSurface(SFCurve<SFVertex3f> a, SFCurve<SFVertex3f> b) {
+	public SFBicurvedLoftedSurface(SFCurve a, SFCurve b) {
 		super();
 		A = a;
 		B = b;
@@ -91,25 +90,32 @@ public class SFBicurvedLoftedSurface  extends SFSurfaceFunction{
 	public float getZ(float u, float v) {
 		return tmp.getZ();
 	}
+
 	
 	@Override
 	public void init() {
-		
+		//Do nothing
 	}
 	
-	public SFCurve<SFVertex3f> getA() {
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
+	}
+	
+
+	public SFCurve getA() {
 		return A;
 	}
 
-	public void setA(SFCurve<SFVertex3f> a) {
+	public void setA(SFCurve a) {
 		A = a;
 	}
 
-	public SFCurve<SFVertex3f> getB() {
+	public SFCurve getB() {
 		return B;
 	}
 
-	public void setB(SFCurve<SFVertex3f> b) {
+	public void setB(SFCurve b) {
 		B = b;
 	}
 

@@ -2,19 +2,28 @@ package shadow.geometry.curves;
 
 import java.util.ArrayList;
 
-import shadow.geometry.SFCurve;
 import shadow.math.SFValuenf;
 
-public class SFBasisSpline2<T extends SFValuenf> implements SFCurve<T>{
+public class SFBasisSpline2<T extends SFValuenf> extends SFUnOptimizedCurve<T> implements SFControlPointsCurve{
 
 	private ArrayList<SFValuenf> vertices=new ArrayList<SFValuenf>();
 	private boolean closed;
 	
 	public SFBasisSpline2(boolean closed) {
-		super();
+		super(); 
 		this.closed = closed;
 	}
 
+	@Override
+	public int getControlPointSize() {
+		return vertices.size();
+	}
+	
+	@Override
+	public SFValuenf getControlPoint(int index) {
+		return vertices.get(index);
+	}
+	
 	public ArrayList<SFValuenf> getVertices() {
 		return vertices;
 	}
@@ -69,13 +78,13 @@ public class SFBasisSpline2<T extends SFValuenf> implements SFCurve<T>{
 	
 	@Override
 	public void getDevDt(float v, SFValuenf write) {
-		ArrayList<SFValuenf> pts=this.vertices;
+		ArrayList<SFValuenf> vertices=this.vertices;
 		
-		int v_index=(int)(v*pts.size());
-		if(v_index==pts.size())
+		int v_index=(int)(v*vertices.size());
+		if(v_index==vertices.size())
 			v_index--;
 		
-		float t=(v*pts.size())-v_index;
+		float t=(v*vertices.size())-v_index;
 		
 		if(closed){
 			
@@ -92,19 +101,19 @@ public class SFBasisSpline2<T extends SFValuenf> implements SFCurve<T>{
 			write.addMult(2*t, C);
 		}else{
 			if(v_index==0){
-				SFValuenf A=pts.get(0);
-				SFValuenf B=SFValuenf.middle(pts.get(0),pts.get(1));
+				SFValuenf A=vertices.get(0);
+				SFValuenf B=SFValuenf.middle(vertices.get(0),vertices.get(1));
 				write.set(B);
 				write.subtract(A);
-			}else if(v_index==pts.size()-1){
-				SFValuenf A=SFValuenf.middle(pts.get(v_index-1),pts.get(v_index));
-				SFValuenf B=pts.get(v_index);
+			}else if(v_index==vertices.size()-1){
+				SFValuenf A=SFValuenf.middle(vertices.get(v_index-1),vertices.get(v_index));
+				SFValuenf B=vertices.get(v_index);
 				write.set(B);
 				write.subtract(A);
 			}else{
-				SFValuenf A=SFValuenf.middle(pts.get(v_index-1), pts.get(v_index));
-				SFValuenf B=pts.get(v_index);
-				SFValuenf C=SFValuenf.middle(pts.get(v_index), pts.get(v_index+1));
+				SFValuenf A=SFValuenf.middle(vertices.get(v_index-1), vertices.get(v_index));
+				SFValuenf B=vertices.get(v_index);
+				SFValuenf C=SFValuenf.middle(vertices.get(v_index), vertices.get(v_index+1));
 				write.set(A);
 				write.mult(-2*(1-t));
 				write.addMult(2-4*t, B);
@@ -178,5 +187,10 @@ public class SFBasisSpline2<T extends SFValuenf> implements SFCurve<T>{
 	@Override
 	public void init() {
 		
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 }

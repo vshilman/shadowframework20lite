@@ -1,43 +1,63 @@
 package shadow.renderer.contents.tests;
 
-import shadow.renderer.contents.tests.common.CommonData;
-import shadow.renderer.contents.tests.common.CommonPipeline;
 import shadow.renderer.data.SFObjectModelData;
 import shadow.renderer.data.SFReferenceNodeData;
-import shadow.renderer.viewer.SFDataUtility;
-import shadow.renderer.viewer.SFViewer;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
-import shadow.system.data.SFDataCenter;
-import shadow.system.data.SFDataCenterListener;
-import shadow.system.data.SFObjectsLibrary;
+import shadow.renderer.data.transforms.SFTranslateFixed16Data;
 
-public class Test0010_References {
+/**
+ * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.
+ * No data will be generated (so nothing will work) until you do that; as an
+ * alternative, you can set SFAbstractTest.storeData to true, and then run each test
+ * one by one in test number order.
+ * <br/>
+ * Go to {@link SFAbstractTest} for general informations about this tests.
+ * <br/>
+ * Open the related FILENAME.xml file for a detailed view of this test contents. 
+ * <br/>
+ * Objective: TODO 
+ * 
+ * @author Alessandro Martinelli
+ */
+public class Test0010_References extends SFAbstractTest{
 
-	private static final String root = "testsData";
+	private static final String FILENAME = "test0010";
 	
-	/**
-	 * TODO missing test description
-	 */
 	public static void main(String[] args) {
+		execute(new Test0010_References());
+	}
+	
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+	
+	@Override
+	public void viewTestData() {
+		loadLibraryAsDataCenter();
 		
-		//Preparation
-		SFViewerObjectsLibrary objectsLibrary = CommonData.generateDataSettings();
-		SFObjectsLibrary library=objectsLibrary.getLibrary();
-		CommonPipeline.prepare();
-			
-		//copying "Mushroom", "RedMushroom" and "BasicMatColours" from Test0002 to library
-		SFViewerObjectsLibrary test0002Library=new SFViewerObjectsLibrary(root, "test0002.sf");
-			library.put("Mushroom", test0002Library.getLibrary().retrieveDataset("Mushroom"));
-			library.put("BasicMatColours", test0002Library.getLibrary().retrieveDataset("BasicMatColours"));
+		viewNode("MushroomsScene01");
+		
+	}
+	
+	@Override
+	public void buildTestData() {
+
+		copyAssets("test0002", library, "Mushroom","BasicMatColours");
 
 		SFObjectModelData objectModel1=new SFObjectModelData();
-			objectModel1.placeGeometry("Mushroom", -0.5f, 0, 0);
-			objectModel1.addMaterial("BasicMat", "BasicMatColours", 10);
+			objectModel1.setGeometry("Mushroom");
+			objectModel1.setTransform(new SFTranslateFixed16Data(-0.5f, 0, 0));
+			objectModel1.getMaterialComponent().addStructure("BasicMatColours", 10);
+			objectModel1.getTransformComponent().setProgram("BasicPNTransform");
+			objectModel1.getMaterialComponent().setProgram("BasicMat");
 			library.put("OrangeMushroom", objectModel1);
 			
 		SFObjectModelData objectModel2=new SFObjectModelData();
-			objectModel2.placeGeometry("Mushroom", 0.5f, 0, 0);
-			objectModel2.addMaterial("BasicMat", "BasicMatColours", 16);
+			objectModel2.setGeometry("Mushroom");
+			objectModel2.setTransform(new SFTranslateFixed16Data(0.5f, 0, 0));
+			objectModel2.getMaterialComponent().addStructure("BasicMatColours", 16);
+			objectModel2.getTransformComponent().setProgram("BasicPNTransform");
+			objectModel2.getMaterialComponent().setProgram("BasicMat");
 			library.put("BlueMushroom", objectModel2);
 
 		SFReferenceNodeData scene=new SFReferenceNodeData();
@@ -45,18 +65,6 @@ public class Test0010_References {
 			scene.addNode("BlueMushroom");
 			library.put("MushroomsScene01", scene);
 			
-		// 2) Store the library containing all elements into 'testsData\test0002.sf'
-		SFDataUtility.saveDataset(root, "test0010.sf", library);
-		
-		// 3) Retrieve the library and make model available so that it can be added to a Viewer
-		SFDataCenter.setDataCenterImplementation(new SFViewerObjectsLibrary(root,"test0010.sf"));
-
-		SFDataCenter.getDataCenter().makeDatasetAvailable("MushroomsScene01", new SFDataCenterListener<SFReferenceNodeData>() {
-			@Override
-			public void onDatasetAvailable(String name, SFReferenceNodeData dataset) {
-				SFViewer.generateFrame(dataset.getResource());
-			}
-		});
-		
+		store(library);
 	}
 }

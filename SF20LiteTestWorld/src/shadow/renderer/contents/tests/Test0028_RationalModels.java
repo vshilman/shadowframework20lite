@@ -1,84 +1,50 @@
 package shadow.renderer.contents.tests;
 
-import shadow.geometry.geometries.SFMeshGeometry;
+import shadow.geometry.geometries.data.SFMeshGeometryData;
 import shadow.math.SFValue1f;
 import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.SFPrimitive.PrimitiveBlock;
 import shadow.pipeline.SFPrimitiveArray;
 import shadow.pipeline.SFPrimitiveIndices;
-import shadow.pipeline.SFProgramComponent;
-import shadow.pipeline.SFStructureArray;
-import shadow.renderer.SFObjectModel;
-import shadow.renderer.SFProgramStructureReference;
-import shadow.renderer.SFStructureReference;
 import shadow.renderer.contents.tests.common.CommonMaterial;
-import shadow.renderer.contents.tests.common.CommonPipeline;
-import shadow.renderer.viewer.SFViewer;
-import shadow.renderer.viewer.SFViewerDatasetFactory;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
+import shadow.renderer.data.SFObjectModelData;
+import shadow.renderer.data.SFPrimitiveArrayData;
+import shadow.renderer.data.SFStructureArrayDataUnit8;
 import shadow.system.SFArray;
-import shadow.system.data.SFDataCenter;
 
-public class Test0028_RationalModels {
+public class Test0028_RationalModels extends SFAbstractTest{
 
-	private static final String root = "testsData";
-
-	private static CommonPipeline pipeline;
+	private static final String FILENAME = "test0028";
 
 	/**
 	 * TODO missing test description
 	 */
 	public static void main(String[] args) {
-
-		// contain a valid DatasetFactory
-		SFDataCenter.setDatasetFactory(new SFViewerDatasetFactory());
-		// Also prepare the pipeline
-		pipeline = new CommonPipeline();
-		// 3) Retrieve the library and make model available so that it can be
-		// added to a Viewer
-
-		SFDataCenter.setDataCenterImplementation(new SFViewerObjectsLibrary(root, "test0002.sf"));
-
-		SFPrimitive primitive = new SFPrimitive();
-		primitive.addPrimitiveElement(PrimitiveBlock.NORMAL,
-				(SFProgramComponent) (SFPipeline.getModule("Constant")));
-		primitive.addPrimitiveElement(PrimitiveBlock.POSITION,
-				(SFProgramComponent) (SFPipeline.getModule("RationalTriangle2")));
-		primitive.setAdaptingTessellator((SFProgramComponent) (SFPipeline.getModule("BasicTess")));
-
-		SFPrimitiveArray array = SFPipeline.getSfPipelineMemory().generatePrimitiveArray(primitive);
-
-		prepareArray(primitive, array);
-		
-		SFMeshGeometry geometry=new SFMeshGeometry();
-		geometry.setArray(array);
-		geometry.setFirstElement(0);
-		geometry.setLastElement(4);
-		geometry.setPrimitive(primitive);
-		
-		SFObjectModel node=new SFObjectModel();
-		
-		node.getModel().setRootGeometry(geometry);
-
-			//Note: material Data and material program are different, because the same material data can be used with different programs
-		float[][] color={{1,0,0}};
-			SFStructureArray materialArray=CommonMaterial.generateMaterial(color); 
-		
-			//Extract the index-th material from file libraries/library
-			SFStructureReference materialReference=new SFStructureReference(materialArray, 0);
-
-			//Set the selected material program to the node
-			//Note: available material programs depends upon the programs loaded into the graphics Pipeline.
-			node.getModel().addMaterial(new SFProgramStructureReference("BasicMat",materialReference));
-
-		SFViewer viewer=SFViewer.generateFrame(node);
-		viewer.setRotateModel(true, 0.01f);
+		execute(new Test0028_RationalModels());
 	}
 
-	private static void prepareArray(SFPrimitive primitive, SFPrimitiveArray array) {
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+	
+	@Override
+	public void viewTestData() {
+		
+		loadLibraryAsDataCenter();
+		
+		viewNode("BlueCircle");
+	}
+	
+	@Override
+	public void buildTestData() {
+
+		SFPrimitive primitive=SFPipeline.getPrimitive("Rational2DGeometry");
+		
+		SFPrimitiveArray array = SFPipeline.getSfPipelineMemory().generatePrimitiveArray(primitive);
+		
 		int element=array.generateElements(4);
 		SFPrimitiveIndices indices=new SFPrimitiveIndices(primitive);
 		
@@ -129,10 +95,31 @@ public class Test0028_RationalModels {
 		};
 		indices.setPrimitiveIndices(indicesArray4);
 		array.setElement(element+3, indices);
-	
-		//TODO : store SFPrimitiveIndices
+
+		SFPrimitiveArrayData primitiveArrayData = new SFPrimitiveArrayData();
 		
-		//TODO : store Basic MeshGeometry
+		primitiveArrayData.setPrimitive("Rational2DGeometry");
+		primitiveArrayData.setArray(array);
+		
+		library.put("PrimitiveData", primitiveArrayData);
+		
+		SFMeshGeometryData meshGeometryData=new SFMeshGeometryData();
+		meshGeometryData.setupGeometry("PrimitiveData", 0, 4);
+		library.put("PrimitiveGeometry", meshGeometryData);
+		
+		float[][] colours = {{0,0,1}};
+		SFStructureArrayDataUnit8 material = CommonMaterial.generateMaterialData(colours);
+			library.put("BasicMatColours", material);
+		
+		SFObjectModelData objectModel=new SFObjectModelData();
+			objectModel.setGeometry("PrimitiveGeometry");
+			objectModel.getTransformComponent().setProgram("BasicPNTransform");
+			objectModel.getMaterialComponent().setProgram("BasicMat");
+			objectModel.getMaterialComponent().addStructure("BasicMatColours", 0);
+			//we insert the material in the library
+			library.put("BlueCircle", objectModel);
+		
+		store(library);
 	}
 
 }

@@ -1,8 +1,7 @@
 package shadow.geometry.functions.data;
 
-import shadow.geometry.SFCurve;
+import shadow.geometry.curves.SFControlPointsCurve;
 import shadow.geometry.functions.SFRadialSurfaceFunction;
-import shadow.math.SFValuenf;
 import shadow.renderer.data.SFDataAsset;
 import shadow.system.data.SFDataCenterListener;
 import shadow.system.data.SFDataset;
@@ -19,16 +18,16 @@ public class SFRadialSurfaceFunctionData extends SFTwoCurvesFunctionData{
 	@Override
 	protected SFRadialSurfaceFunction buildResource() {
 		radialSurface=new SFRadialSurfaceFunction();
-		getFirstCurve().retrieveDataset(new SFDataCenterListener<SFDataAsset<SFCurve<SFValuenf>>>() {
+		getFirstCurve().retrieveDataset(new SFDataCenterListener<SFDataAsset<SFControlPointsCurve>>() {
 			@Override
-			public void onDatasetAvailable(String name,SFDataAsset<SFCurve<SFValuenf>> dataset) {
+			public void onDatasetAvailable(String name,SFDataAsset<SFControlPointsCurve> dataset) {
 				radialSurface.setBorderCurve(dataset.getResource());
 			}
 		});
 		
-		getSecondCurve().retrieveDataset(new SFDataCenterListener<SFDataAsset<SFCurve<SFValuenf>>>() {
+		getSecondCurve().retrieveDataset(new SFDataCenterListener<SFDataAsset<SFControlPointsCurve>>() {
 			@Override
-			public void onDatasetAvailable(String name,SFDataAsset<SFCurve<SFValuenf>> dataset) {
+			public void onDatasetAvailable(String name,SFDataAsset<SFControlPointsCurve> dataset) {
 				radialSurface.setRayCurve(dataset.getResource());
 			}
 		});

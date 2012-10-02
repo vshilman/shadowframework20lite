@@ -2,6 +2,7 @@ package shadow.system.data.objects.binaries;
 
 import shadow.math.SFVertex3f;
 import shadow.system.data.objects.SFBinaryValue;
+import shadow.system.data.objects.SFCharsetObjectUtils;
 
 public class SFBinaryUnitVector3FLQ extends SFBinaryValue{
 	
@@ -46,5 +47,19 @@ public class SFBinaryUnitVector3FLQ extends SFBinaryValue{
 			this.value=(indexA<<8)+indexB;
 		}
 		
+	}
+	
+	@Override
+	public void setStringValue(String value) {
+		SFVertex3f vertex=new SFVertex3f();
+		SFCharsetObjectUtils.readFloats(vertex.get(), value, getClass().getSimpleName());
+		setVertex3f(vertex);
+	}
+	
+	@Override
+	public String toStringValue() {
+		SFVertex3f vertex=new SFVertex3f();
+		getVertex3f(vertex);
+		return SFCharsetObjectUtils.writeFloats(vertex.get());
 	}
 }

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(1.0,1.0,1.0)</values_element><!-- 3 -->
+			<values_element>(1.0,1.6,0.4)</values_element><!-- 10 -->
+		</values>
+	</SFStructureArrayDataUnit8>
+	
+	<SFBitmapTextureData name="Voronoi01">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFTextureRepeaterValueList name="vertices">
+					<SFRandomizedValueListData2D name="vertices">
+						<size>80</size>
+						<seed>9000</seed>
+					</SFRandomizedValueListData2D>
+				</SFTextureRepeaterValueList>
+				<model>Model7</model>
+				<distance>Distance</distance>
+			</SFVoronoiBitmapFunctionData>
+			<weights>(0,1.0)</weights>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	
+	<SFBitmapTextureData name="Voronoi02">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFTextureRepeaterValueList name="vertices">
+					<SFRandomizedValueListData2D name="vertices">
+						<size>6</size>
+						<seed>1</seed>
+					</SFRandomizedValueListData2D>
+				</SFTextureRepeaterValueList>
+				<model>Model6</model>
+				<distance>Distance</distance>
+			</SFVoronoiBitmapFunctionData>
+			<weights>(0,1.0)</weights>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	
+	
+	<SFBitmapTextureData name="Voronoi05">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFTextureRepeaterValueList name="vertices">
+					<SFRandomizedValueListData2D name="vertices">
+						<size>20</size>
+						<seed>800</seed>
+					</SFRandomizedValueListData2D>
+				</SFTextureRepeaterValueList>
+				<model>Model2</model>
+				<distance>Distance</distance>
+			</SFVoronoiBitmapFunctionData>
+			<weights>(0,1.0)</weights>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	
+	<SFBitmapTextureData name="Voronoi04">
+		<SFBitmapFunctionPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<SFVoronoiBitmapFunctionData name="bitmap">
+				<SFTextureRepeaterValueList name="vertices">
+					<SFVertexListDataUnit8 name="vertices">
+						<vertices>
+							<vertices_element>(0.4,0.3)</vertices_element>
+							<vertices_element>(0.8,0.2)</vertices_element>
+							<vertices_element>(0.2,0.8)</vertices_element>
+							<vertices_element>(0.3,0.7)</vertices_element>
+							<vertices_element>(0.8,0.5)</vertices_element>
+							<vertices_element>(0.6,0.4)</vertices_element>
+							<vertices_element>(0.1,0.2)</vertices_element>
+							<vertices_element>(0.9,0.6)</vertices_element>
+							<vertices_element>(0.6,0.5)</vertices_element>
+						</vertices>
+					</SFVertexListDataUnit8>
+				</SFTextureRepeaterValueList>
+				<model>Model7</model>
+				<distance>Distance</distance>
+			</SFVoronoiBitmapFunctionData>
+			<weights>(0,1.0)</weights>
+		</SFBitmapFunctionPerlinNoiseData>
+	</SFBitmapTextureData>
+	
+	<SFFilteredRenderedTextureData name="ColouredVoronoi04">
+		<lightStep>InterpolatedTexturedColor</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>Voronoi04</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>1</refIndex>
+			</SFStructureReferenceData>
+			<SFStructureReferenceData name="">
+				<tableData>BasicMatColours</tableData>
+				<refIndex>0</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<materialsProgramComponents>TexturedMat</materialsProgramComponents>
+		<references id="materialsStructures">
+		</references>
+	</SFFilteredRenderedTextureData>
+	
+	<SFFilteredRenderedTextureData name="Voronoi04BumpMap">
+		<lightStep>DrawNormals</lightStep>
+		<usedTexture>
+			<SFTextureReferenceData name="">
+				<textureIndex>0</textureIndex>
+				<textureLevel>0</textureLevel>
+				<texture>Voronoi04</texture>
+			</SFTextureReferenceData>
+		</usedTexture>
+		<materialsStructures>
+			<SFStructureReferenceData name="">
+				<tableData>BasicSizes</tableData>
+				<refIndex>0</refIndex>
+			</SFStructureReferenceData>
+		</materialsStructures>
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<materialsProgramComponents>NormalFromHeightField</materialsProgramComponents>
+	</SFFilteredRenderedTextureData>
+	
+	<SFStructureArrayData16 name="BasicSizes">
+		<structure>TextureFilterData</structure>
+		<values>
+			<values_element>(0.005)(2.0)</values_element>
+		</values>
+	</SFStructureArrayData16>
+</library>

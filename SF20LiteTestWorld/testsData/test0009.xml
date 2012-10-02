@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFObjectModelData name="Hook">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>HookGeometry</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BlackMat</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="HookGeometry">
+		<NuNv>(2,17)</NuNv>
+		<SFSplineCurvedTubeFunctionData name="surfaceFunction">
+			<references id="curvesData">
+				<SFBasisSplineData name="reference">
+					<SFVertexListData16 name="vertices">
+						<vertices>
+							<vertices_element>(0.0,0.0,0.0)</vertices_element>
+							<vertices_element>(0.0,0.2,0.0)</vertices_element>
+							<vertices_element>(-0.4,0.3,0.0)</vertices_element>
+							<vertices_element>(-0.4,0.6,0.0)</vertices_element>
+							<vertices_element>(0.0,0.8,0.0)</vertices_element>
+							<vertices_element>(0.1,0.5,0.0)</vertices_element>
+							<vertices_element>(0.3,0.5,0.0)</vertices_element>
+						</vertices>
+					</SFVertexListData16>
+					<closed>0</closed>
+				</SFBasisSplineData>
+				<SFBasisSplineData name="reference">
+					<SFVertexListData16 name="vertices">
+						<vertices>
+							<vertices_element>(0.0,0.0,0.0)</vertices_element>
+							<vertices_element>(0.0,0.2,0.0)</vertices_element>
+							<vertices_element>(-0.2,0.4,0.0)</vertices_element>
+							<vertices_element>(0.0,0.6,0.0)</vertices_element>
+							<vertices_element>(0.1,0.5,0.0)</vertices_element>
+							<vertices_element>(0.3,0.5,0.0)</vertices_element>
+						</vertices>
+					</SFVertexListData16>
+					<closed>0</closed>
+				</SFBasisSplineData>
+			</references>
+		</SFSplineCurvedTubeFunctionData>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>1.0</du>
+			<dv>1.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle2PNTxO</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="HookNumber1">
+		<SFTranslateFixed16Data name="transform">
+			<x>-1.0</x>
+			<y>-1.0</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<geometry>QuarterScreenRectangle</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>HookTextures:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFObjectModelData name="HookNumber2">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>QuarterScreenRectangle</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>HookTextures:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFDrawnRenderedTextureData name="HookTextures">
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<node>Hook</node>
+		<SFRendererData name="renderer">
+			<SF2DCameraData name="camera">
+				<leftL>0.5</leftL>
+				<upL>0.5</upL>
+			</SF2DCameraData>
+			<SFProgramAssetData name="light">
+				<program>NormalAndPosition</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+		</SFRendererData>
+		<depthUse>0</depthUse>
+	</SFDrawnRenderedTextureData>
+	<SFDrawnRenderedTextureData name="HooksDrawnTexture">
+		<textures>
+			<textures_element>400:400:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+			<textures_element>400:400:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<node>HooksScene</node>
+		<SFRendererData name="renderer">
+			<SF2DCameraData name="camera">
+				<leftL>0.5</leftL>
+				<upL>0.5</upL>
+			</SF2DCameraData>
+			<SFProgramAssetData name="light">
+				<program>ReddishGrayAndBright</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+		</SFRendererData>
+		<depthUse>0</depthUse>
+	</SFDrawnRenderedTextureData>
+	<SFReferenceNodeData name="HooksScene">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>HookNumber1</reference>
+			<reference>HookNumber2</reference>
+		</references>
+	</SFReferenceNodeData>
+	<SFQuadsSurfaceGeometryData name="QuarterScreenRectangle">
+		<NuNv>(2,2)</NuNv>
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<x>0.0</x>
+			<y>0.0</y>
+			<w>1.0</w>
+			<h>1.0</h>
+		</SFRectangle2DFunctionData>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>1.0</du>
+			<dv>1.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle2PNTxO</primitive>
+	</SFQuadsSurfaceGeometryData>
+</library>

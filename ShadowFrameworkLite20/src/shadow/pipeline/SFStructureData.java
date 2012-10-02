@@ -14,11 +14,8 @@ public class SFStructureData {
 		super();
 		this.structure=structure;
 		values=new SFValuenf[structure.size()];
-		int index=0;
-		for (Iterator<SFParameteri> iterator=structure.getAllParameters()
-				.iterator(); iterator.hasNext(); index++) {
-			SFParameteri sfParameteri=iterator.next();
-			
+		for (int index = 0; index < structure.getAllParameters().size();index++) {
+			SFParameteri sfParameteri=structure.getAllParameters().get(index);	
 			values[index]=SFParameteri.generateValue(sfParameteri);
 			
 			if(values[index]==null){
@@ -48,7 +45,14 @@ public class SFStructureData {
 	}
 
 	public SFValuenf getValue(int index) {
-		return values[index];
+		//TODO: why at all?????????????????????????????????
+		try {
+			return values[index];
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new SFValuenf(3);
 	}
 
 	public SFValuenf[] getValues() {

@@ -2,6 +2,7 @@ package shadow.renderer.data;
 
 import shadow.system.data.SFDataObject;
 import shadow.system.data.SFDataset;
+import shadow.system.data.SFNamedParametersObject;
 
 
 /**
@@ -14,7 +15,7 @@ import shadow.system.data.SFDataset;
  */
 public abstract class SFAssetModule implements SFDataset{
 
-	private SFDataObject sfDataObject;
+	private SFNamedParametersObject sfDataObject;
 
 	public SFAssetModule() {
 		super();
@@ -31,7 +32,7 @@ public abstract class SFAssetModule implements SFDataset{
 	}
 
 	@Override
-	public SFDataObject getSFDataObject() {
+	public SFNamedParametersObject getSFDataObject() {
 		return sfDataObject;
 	}
 
@@ -44,11 +45,10 @@ public abstract class SFAssetModule implements SFDataset{
 	 * Should be used only by sub-classes to assign the {@link SFDataObject}
 	 * @param sfDataObject
 	 */
-	protected void setData(SFDataObject sfDataObject) {
+	protected void setData(SFNamedParametersObject sfDataObject) {
 		this.sfDataObject = sfDataObject;
 	}
 
 	public void invalidate() {
 	}
-
 }

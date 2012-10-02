@@ -1,22 +1,44 @@
 package shadow.pipeline;
 
-import shadow.math.SFVertex3f;
+import shadow.image.SFPipelineTexture;
 import shadow.pipeline.SFPipelineRenderingState.AccumulatorOperation;
 
 
 public interface SFPipelineGraphics {
 	
+	public enum Module{
+		TRANSFORM,
+		MATERIAL,
+		LIGHT
+	}
+	
 	public void setupProjection(float projection[]);
-	
-	public void translateModel(SFVertex3f modelPosition);
-	
-	public void rotateModel(float rotX,float rotY,float rotZ);
 	
 	public void setupTransform(float[] transform);
 	
+	public float[] getpProjection();
+	
+	public float[] getTransform();
+
+	public void drawCompiledPrimitives(SFPrimitiveArray primitives,int compiledGeometry);
+	
+	public void drawCompiledPointsCloud(SFPrimitiveArray primitives,int compiledGeometry);
+	
 	public void drawPrimitives(SFPrimitiveArray primitives,int first,int count);
 	
-	public void loadStructureData(SFStructureArray array,int indexOfData);
+	public void drawPointsCloud(SFPrimitiveArray primitives,int first,int count);
+
+	public int compilePrimitiveArray(SFPrimitiveArray array,int firstElement,int lastElement);
+
+	public int compilePointsCloud(SFPrimitiveArray array,int firstElement,int lastElement);
+	
+	public void updateCompiledPrimitive(SFPrimitiveArray array,int compiled);
+	
+	public void updateCompiledPointsCloud(SFPrimitiveArray array,int compiled);
+	
+	public void loadStructureData(Module module,SFStructureArray array, int inProgramIndex ,int indexOfData);
+	
+	public void loadTexture(Module module,SFPipelineTexture texture ,int indexOfTexture);
 	
 	public void drawBaseQuad();
 	

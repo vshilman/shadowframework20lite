@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SFBitmapTextureData name="PerlinTexture">
+	<SFBitmapPerlinNoiseData name="bitmap">
+		<width>200</width>
+		<height>200</height>
+		<SFBitmapArrayData name="bitmap">
+			<width>4</width>
+			<height>4</height>
+			<bitmap>(0,255,100,0 , 0,100,255,0 , 255,0,100,0 , 0,100,0,255)</bitmap>
+		</SFBitmapArrayData>
+		<weights>(0,0.2,0.2,0.2,0.2,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+		<interpolant>Cubic</interpolant>
+	</SFBitmapPerlinNoiseData>
+</SFBitmapTextureData>

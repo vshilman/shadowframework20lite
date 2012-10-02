@@ -38,8 +38,8 @@ public class SFSpecialPerlinNoise extends SFBitmap{
 		202, 46, 140, 164, 239, 103, 249, 72
 	};
 	
-	private float[] weights;
-	private float[] colors;
+//	private float[] weights;
+//	private float[] colors;
 	
 	public SFSpecialPerlinNoise(){
 		super();
@@ -62,8 +62,8 @@ public class SFSpecialPerlinNoise extends SFBitmap{
 		
 		int size=3;
 		ByteBuffer buffer=ByteBuffer.allocateDirect(width*height*size);
-		this.weights=weights;
-		this.colors=colors;
+//		this.weights=weights;
+//		this.colors=colors;
 		
 		float stepH=1.0f/height;
 		float stepW=1.0f/width;

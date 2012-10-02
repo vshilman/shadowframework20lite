@@ -1,9 +1,8 @@
 package shadow.geometry.curves;
 
-import shadow.geometry.SFCurve;
 import shadow.math.SFValuenf;
 
-public abstract class SFStandardAbstractCurve<T extends SFValuenf>  implements SFCurve<T>{
+public abstract class SFStandardAbstractCurve<T extends SFValuenf> extends SFUnOptimizedCurve<T> implements SFControlPointsCurve{
 
 	protected SFValuenf vertices[];
 	
@@ -11,9 +10,17 @@ public abstract class SFStandardAbstractCurve<T extends SFValuenf>  implements S
 		super();
 		vertices = new SFValuenf[n];
 	}
+	
+	public int getControlPointSize(){
+		return vertices.length;
+	}
 
-	public SFValuenf[] getVertices() {
-		return vertices;
+	public void setControlPoint(SFValuenf value,int index) {
+		vertices[index]=value;
+	}
+	
+	public SFValuenf getControlPoint(int index) {
+		return vertices[index];
 	}
 	
 	@Override
@@ -35,6 +42,11 @@ public abstract class SFStandardAbstractCurve<T extends SFValuenf>  implements S
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 
 }

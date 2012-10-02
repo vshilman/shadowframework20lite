@@ -14,7 +14,6 @@ public abstract class SFGeometry implements SFInitiable{
 	private int rendering_hint=0;
 	private int available_lods=0;//more a constant then 
 	
-	private SFGeometry rootGeometry;
 	private SFGeometry fatherGeometry;
 	
 	private ArrayList<SFGeometry> sonGeometries=new ArrayList<SFGeometry>();
@@ -43,14 +42,6 @@ public abstract class SFGeometry implements SFInitiable{
 	protected void setAvailable_lods(int available_lods) {
 		this.available_lods = available_lods;
 	}
-	
-	public SFGeometry getRootGeometry() {
-		return rootGeometry;
-	}
-
-	public void setRootGeometry(SFGeometry rootGeometry) {
-		this.rootGeometry = rootGeometry;
-	}
 
 	public int getSonsCount(){
 		return sonGeometries.size();
@@ -66,9 +57,6 @@ public abstract class SFGeometry implements SFInitiable{
 		return sonGeometries.get(index);
 	}
 	
-	public SFGeometry setSon(int index){
-		return sonGeometries.get(index);
-	}
 	
 	public SFGeometry getFatherGeometry() {
 		return fatherGeometry;
@@ -79,6 +67,10 @@ public abstract class SFGeometry implements SFInitiable{
 	}
 	
 	public abstract void compile();
+	
+	public abstract void update();
+
+	public abstract void decompile();
 	
 	public void rebuild(){
 		compile();

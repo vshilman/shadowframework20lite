@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SFBicurvedLoftedSurfaceData name="">
+	<SFUniformBezier33fData name="centralCurve">
+		<bezierData>
+			<bezierData_element>9:-0.70000005:-0.5:0.0:-0.5:0.0:0.0:0.0:0.6:0.0:</bezierData_element>
+			<bezierData_element>9:0.0:0.6:0.0:0.5:0.0:0.0:0.5:-0.5:0.0:</bezierData_element>
+		</bezierData>
+	</SFUniformBezier33fData>
+	<SFUniformBezier33fData name="rayCurve">
+		<bezierData>
+			<bezierData_element>9:0.0:-0.5:0.0:-0.5:-0.2:0.0:0.0:0.5:0.0:</bezierData_element>
+			<bezierData_element>9:0.0:0.5:0.0:0.5:-0.2:0.0:0.4:-0.5:0.0:</bezierData_element>
+		</bezierData>
+	</SFUniformBezier33fData>
+</SFBicurvedLoftedSurfaceData>

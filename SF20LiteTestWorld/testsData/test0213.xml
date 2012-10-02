@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFTransformedCurveData name="BackExternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.2</z>
+			<scale>1.0</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>ExternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	<SFTransformedCurveData name="BackInternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.2</z>
+			<scale>0.8</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>InternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.90000004,0.8,0.2)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFContinuosBezier3Data name="ExternalFrameworkContour">
+		<SFVertexListData16 name="vertices">
+			<vertices>
+				<vertices_element>(-0.70000005,0.8)</vertices_element>
+				<vertices_element>(-0.3,0.8)</vertices_element>
+				<vertices_element>(-0.3,0.70000005)</vertices_element>
+				<vertices_element>(0.0,0.70000005)</vertices_element>
+				<vertices_element>(0.3,0.70000005)</vertices_element>
+				<vertices_element>(0.3,0.8)</vertices_element>
+				<vertices_element>(0.6,0.90000004)</vertices_element>
+				<vertices_element>(0.8,0.2)</vertices_element>
+				<vertices_element>(0.8,-0.2)</vertices_element>
+				<vertices_element>(0.6,-0.8)</vertices_element>
+				<vertices_element>(0.2,-0.90000004)</vertices_element>
+				<vertices_element>(-0.2,-0.90000004)</vertices_element>
+				<vertices_element>(-0.45000002,-0.8)</vertices_element>
+				<vertices_element>(-0.8,-0.2)</vertices_element>
+				<vertices_element>(-0.8,0.2)</vertices_element>
+				<vertices_element>(-0.70000005,0.8)</vertices_element>
+			</vertices>
+		</SFVertexListData16>
+		<closed>1</closed>
+	</SFContinuosBezier3Data>
+	<SFObjectModelData name="FrameworkModel">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>FrameworkSurface</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:0</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFGroupMeshGeometryData name="FrameworkSurface">
+		<geometries>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(6,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<centralCurve>ExternalFrameworkContour</centralCurve>
+					<rayCurve>InternalFrameworkContour</rayCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(6,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<centralCurve>BackExternalFrameworkContour</centralCurve>
+					<rayCurve>ExternalFrameworkContour</rayCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(6,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<centralCurve>InternalFrameworkContour</centralCurve>
+					<rayCurve>BackInternalFrameworkContour</rayCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			<SFQuadsSurfaceGeometryData name="">
+				<NuNv>(6,2)</NuNv>
+				<SFBicurvedLoftedSurfaceData name="surfaceFunction">
+					<centralCurve>BackInternalFrameworkContour</centralCurve>
+					<rayCurve>BackExternalFrameworkContour</rayCurve>
+				</SFBicurvedLoftedSurfaceData>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle3PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+		</geometries>
+		<primitive>Triangle3PN</primitive>
+	</SFGroupMeshGeometryData>
+	<SFTransformedCurveData name="InternalFrameworkContour">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.8</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<curve>ExternalFrameworkContour</curve>
+	</SFTransformedCurveData>
+</library>

@@ -17,8 +17,6 @@
     You should have received a copy of the GNU General Public License
     along with Shadow Framework.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
 package shadow.math;
 
 public class SFQuaternion extends SFVertex4f{
@@ -31,6 +29,14 @@ public class SFQuaternion extends SFVertex4f{
 		super(q);
 	}
 	
+	public SFQuaternion(SFVertex3f direction,double angle) {
+		float cos=(float)(Math.cos(angle*0.5f));
+		float sin=(float)(Math.sin(angle*0.5f));
+		v[0]=cos;
+		v[1]=sin*direction.getX();
+		v[2]=sin*direction.getY();
+		v[3]=sin*direction.getZ();
+	}
 	
 	public void multTo(SFQuaternion q){
 		float w1=v[3]*q.v[3]-v[0]*q.v[0]-v[1]*q.v[1]-v[2]*q.v[2];
@@ -71,9 +77,9 @@ public class SFQuaternion extends SFVertex4f{
 		m.setB(-2*v[2]*v[3]+2*v[0]*v[1]);
 		m.setC(2*v[3]*v[1] +2*v[0]*v[2]);
 
-		m.setD(2*v[2]*v[3]+2*v[0]*v[1]);
-		m.setE(1 - 2*(v[0]*v[0] + v[2]*v[2]));
-		m.setF(2*v[1]*v[2]-2*v[0]*v[3]);
+		m.setD(- 2*v[2]*v[3]+2*v[0]*v[1]);
+		m.setE(- 1 + 2*(v[0]*v[0] + v[2]*v[2]));
+		m.setF(- 2*v[1]*v[2]-2*v[0]*v[3]);
 
 		m.setG(2*v[0]*v[2]-2*v[3]*v[1]);
 		m.setH(2*v[1]*v[1]-2*v[3]*v[0]);

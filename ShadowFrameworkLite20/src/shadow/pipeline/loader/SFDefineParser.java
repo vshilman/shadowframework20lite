@@ -2,11 +2,7 @@ package shadow.pipeline.loader;
 
 import java.util.StringTokenizer;
 
-import shadow.pipeline.SFFunction;
-import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.builder.SFIPipelineBuilder;
-import shadow.pipeline.expression.data.SFExpressionParser;
-import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.system.SFException;
 
@@ -31,7 +27,6 @@ public class SFDefineParser implements SFLineParser{
 				}else{
 					throw new SFException(codeLine+":  param command miss parameter type definition");
 				}
-				
 				builder.buildDefineRule( pWrote, type, function);
 			}else{
 				throw new SFException(codeLine+":  cannot use param command without parameters");

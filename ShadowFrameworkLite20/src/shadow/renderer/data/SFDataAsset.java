@@ -1,5 +1,8 @@
 package shadow.renderer.data;
 
+import java.util.List;
+
+import shadow.system.SFException;
 import shadow.system.SFInitiable;
 import shadow.system.SFInitiator;
 import shadow.system.data.SFDataObject;
@@ -16,14 +19,18 @@ import shadow.system.data.SFDataset;
  * 
  * @author Alessandro Martinelli
  * 
- * @param <T>
- *            the Type of graphical element which is kept by this asset.
+ * @param <T> the Type of graphical element which is kept by this asset.
  */
 public abstract class SFDataAsset<T extends SFInitiable> extends SFAssetModule implements SFDataset, SFAsset<T> {
 
 	private T resource = null;
 	
 	private static boolean updateMode=false;
+	
+	//The Number of active access to this resource
+	private int resourceLock=0;
+	
+	private SFLibraryReference<?>[] references;
 	
 	/**
 	 * Build up a valid resource using data content available from
@@ -39,15 +46,47 @@ public abstract class SFDataAsset<T extends SFInitiable> extends SFAssetModule i
 			resource = buildResource();
 			SFInitiator.addInitiable(resource);
 		}
+		resourceLock++;
 		return resource;
 	}
+	
+	public void releaseResource() throws SFException{
+		if(resourceLock<=0 || resource==null)
+			throw new SFException("A Resource has been released, but it was already unavailable");
+		resourceLock--;
+		if(resourceLock==0){
+			if(references!=null){
+				for (int i = 0; i < references.length; i++) {
+					SFDataAsset<?> asset=(references[i].getDataset());
+					asset.releaseResource();
+				}
+			}
+			SFInitiator.addDestroyable(resource);
+			resource=null;	
+		}
+	}
+	
+	@SuppressWarnings("all")
+	protected void setReferences(SFLibraryReference... references){
+		this.references=references;
+	}
+	
+	@SuppressWarnings("all")
+	public void updateReferences(List<SFLibraryReference> referencesList) {
+		SFLibraryReference[] references=new SFLibraryReference[referencesList.size()];
+		for (int i = 0; i < references.length; i++) {
+			references[i]=referencesList.get(i);
+		}
+		setReferences(references);
+	}
+	
 
-	protected static boolean isUpdateMode() {
+	public static boolean isUpdateMode() {
 		return updateMode;
 	}
 
-	protected static void setUpdateMode(boolean updateMode) {
+	public static void setUpdateMode(boolean updateMode) {
 		SFDataAsset.updateMode = updateMode;
 	}
-
+	
 }

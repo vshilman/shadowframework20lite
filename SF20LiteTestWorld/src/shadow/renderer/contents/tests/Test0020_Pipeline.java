@@ -11,47 +11,50 @@ import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.renderer.SFNode;
 import shadow.renderer.data.SFDataAsset;
-import shadow.renderer.viewer.SFDataUtility;
+import shadow.renderer.data.utils.SFDataUtility;
+import shadow.renderer.data.utils.SFViewerDatasetFactory;
+import shadow.renderer.data.utils.SFViewerObjectsLibrary;
 import shadow.renderer.viewer.SFViewer;
-import shadow.renderer.viewer.SFViewerDatasetFactory;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
 import shadow.system.data.SFDataCenter;
 import shadow.system.data.SFDataCenterListener;
 
-public class Test0020_Pipeline {
+/**
+ * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.
+ * No data will be generated (so nothing will work) until you do that; as an
+ * alternative, you can set SFAbstractTest.storeData to true, and then run each test
+ * one by one in test number order.
+ * <br/> 
+ * Go to {@link SFAbstractTest} for general informations about this tests.
+ * <br/>
+ * Open the related FILENAME.xml file for a detailed view of this test contents. 
+ * <br/>
+ * Objective: TODO 
+ * 
+ * @author Alessandro Martinelli
+ */
+public class Test0020_Pipeline extends SFAbstractTest{
 
-	private static final String root = "testsData";
+	private static final String FILENAME = "test0020";
 
-	/**
-	 * TODO missing test description
-	 */
 	public static void main(String[] args) {
+		execute(new Test0020_Pipeline());
+	}
 
-		SFDataPipelineBuilder builder=new SFDataPipelineBuilder();
-		
-		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"),builder);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SFPipelineModuleWrongException e) {
-			List<String> string=e.getList();
-			for (String string2 : string) {
-				System.err.println(string2);
-			}
-			e.printStackTrace();
-		}
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+	
+	@Override
+	public void viewTestData() {
 
-		// 2) Store the Surface Function in file 'testsData\test0001.sf'
-		SFDataUtility.saveDataObject(root, "test0020.sf", builder);
+		SFGL20Pipeline.setup();
 		
 		SFDataPipelineBuilder builder2=new SFDataPipelineBuilder();
 		SFDataUtility.loadDataset(root, "test0020.sf", builder2);
 	
-		SFGL20Pipeline.setup();
-		
 		builder2.apply(new SFPipelineBuilder());
-
-		SFDataCenter.setDatasetFactory(new SFViewerDatasetFactory());
+		
 		SFDataCenter.setDataCenterImplementation(new SFViewerObjectsLibrary(
 				root, "test0010b.sf"));
 		
@@ -66,5 +69,30 @@ public class Test0020_Pipeline {
 				});	
 	}
 
+	@Override
+	public void buildTestData() {
 
+		SFDataPipelineBuilder builder=new SFDataPipelineBuilder();
+		
+		try {
+			SFProgramComponentLoader.loadComponents(new File("data/pipeline"),builder);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SFPipelineModuleWrongException e) {
+			List<String> string=e.getList();
+			for (String string2 : string) {
+				System.err.println(string2);
+			}
+			e.printStackTrace();
+		}
+		
+		store(builder, "pipeline");
+	}
+	
+	@Override
+	public void setupAmbient() {
+		//super.setupAmbient();
+		//That's it, an exceptionally bad override, no pipeline should be pre-generated for this test
+		SFDataCenter.setDatasetFactory(new SFViewerDatasetFactory());
+	}
 }

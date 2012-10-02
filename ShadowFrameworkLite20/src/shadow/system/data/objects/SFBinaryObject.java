@@ -32,5 +32,4 @@ public class SFBinaryObject<T extends SFBinaryValue> extends SFPrimitiveType{
 		stream.writeBinaryData(binaryValue.getValue(), binaryValue.getBitSize());
 	}
 	
-	
 }

@@ -12,12 +12,24 @@ public class SFTexture {
 		this.index = index;
 	}
 	
-	public void apply(int level){
-		texturesSet.apply(index, level);
+	public SFPipelineTexture getTexture(){
+		return texturesSet.getTexture(index);
+	}
+	
+	public SFRenderedTexturesSet getTexturesSet() {
+		return texturesSet;
+	}
+
+	public int getIndex() {
+		return index;
 	}
 
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+	public void setTexturesSet(SFRenderedTexturesSet texturesSet) {
+		this.texturesSet = texturesSet;
 	}
 	
 	

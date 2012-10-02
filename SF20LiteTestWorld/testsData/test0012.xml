@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFClonedArrayReference name="ArrayModel">
+		<SFObjectModelData name="node">
+			<SFNoTransformData name="transform">
+			</SFNoTransformData>
+			<SFQuadsSurfaceGeometryData name="geometry">
+				<NuNv>(5,11)</NuNv>
+				<surfaceFunction>Func</surfaceFunction>
+				<texCoordFunction>0</texCoordFunction>
+				<primitive>Triangle2PN</primitive>
+			</SFQuadsSurfaceGeometryData>
+			<SFProgramAssetData name="transformComponent">
+				<program>BasicPNTransform</program>
+				<structures>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<program>BasicMat</program>
+				<structures>
+					<structures_element>Color:0</structures_element>
+				</structures>
+				<textures>
+				</textures>
+			</SFProgramAssetData>
+		</SFObjectModelData>
+		<properties>
+			<properties_element>Func</properties_element>
+		</properties>
+		<constants>
+		</constants>
+		<elements>
+			<SFRadialSurfaceFunctionData name="">
+				<SFBasisSplineData name="firstCurve">
+					<SFVertexListData16 name="vertices">
+						<vertices>
+							<vertices_element>(0.6,0.4)</vertices_element>
+							<vertices_element>(0.0,0.4)</vertices_element>
+							<vertices_element>(-0.1,-0.4)</vertices_element>
+							<vertices_element>(0.70000005,-0.4)</vertices_element>
+						</vertices>
+					</SFVertexListData16>
+					<closed>1</closed>
+				</SFBasisSplineData>
+				<SFBasisSplineData name="secondCurve">
+					<SFVertexListData16 name="vertices">
+						<vertices>
+							<vertices_element>(0.3,0.0,-0.1)</vertices_element>
+							<vertices_element>(0.70000005,0.0,-0.1)</vertices_element>
+							<vertices_element>(0.70000005,0.0,0.0)</vertices_element>
+						</vertices>
+					</SFVertexListData16>
+					<closed>0</closed>
+				</SFBasisSplineData>
+			</SFRadialSurfaceFunctionData>
+			<SFRadialSurfaceFunctionData name="">
+				<SFBasisSplineData name="firstCurve">
+					<SFVertexListData16 name="vertices">
+						<vertices>
+							<vertices_element>(-0.1,0.4)</vertices_element>
+							<vertices_element>(-0.70000005,0.4)</vertices_element>
+							<vertices_element>(-1.0,-0.4)</vertices_element>
+							<vertices_element>(0.0,-0.4)</vertices_element>
+						</vertices>
+					</SFVertexListData16>
+					<closed>1</closed>
+				</SFBasisSplineData>
+				<SFBasisSplineData name="secondCurve">
+					<SFVertexListData16 name="vertices">
+						<vertices>
+							<vertices_element>(-0.4,0.0,-0.3)</vertices_element>
+							<vertices_element>(0.4,0.0,-0.3)</vertices_element>
+							<vertices_element>(0.4,0.0,0.0)</vertices_element>
+						</vertices>
+					</SFVertexListData16>
+					<closed>0</closed>
+				</SFBasisSplineData>
+			</SFRadialSurfaceFunctionData>
+		</elements>
+	</SFClonedArrayReference>
+	<SFStructureArrayDataUnit8 name="Color">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.90000004,0.4)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+</library>

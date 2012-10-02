@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import shadow.math.SFValuenf;
+import shadow.pipeline.parameters.SFParameteri;
 
 
 public abstract class SFExpressionElement {
@@ -58,8 +59,10 @@ public abstract class SFExpressionElement {
 	public abstract void addSubExpression(SFExpressionElement element) 
 			throws ArrayIndexOutOfBoundsException;
 	
-	public abstract SFValuenf evaluate(SFValuesMap values);
+	public abstract SFValuenf evaluate(SFExpressionValuesList values);
 
+	public abstract SFExpressionElement cloneAsIndexed(SFParameteri[] toBeIndexed);
+	
 	public void traverse(SFExpressionElementInterpreter intepreter){
 		intepreter.startElement(this);
 			for (Iterator<SFExpressionElement> iterator = list.iterator(); iterator.hasNext();) {

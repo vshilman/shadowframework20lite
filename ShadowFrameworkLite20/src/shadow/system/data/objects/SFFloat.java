@@ -2,8 +2,9 @@ package shadow.system.data.objects;
 
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
+import shadow.system.data.SFWritableDataObject;
 
-public class SFFloat extends SFPrimitiveType {
+public class SFFloat extends SFPrimitiveType implements SFWritableDataObject{
 
 	private float floatValue;
 	
@@ -36,5 +37,15 @@ public class SFFloat extends SFPrimitiveType {
 	@Override
 	public SFFloat clone() {
 		return new SFFloat(floatValue);
+	}
+	
+	@Override
+	public void setStringValue(String value) {
+		floatValue=new Float(value);
+	}
+	
+	@Override
+	public String toStringValue() {
+		return floatValue+"";
 	}
 }

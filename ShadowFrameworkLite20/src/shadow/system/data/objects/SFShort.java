@@ -1,11 +1,12 @@
 package shadow.system.data.objects;
 
+import shadow.system.data.SFCharsetObject;
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
 
-public class SFShort extends SFPrimitiveType {
+public class SFShort extends SFPrimitiveType  implements SFCharsetObject{
 
-	private short shortValue;
+	protected short shortValue;
 	
 	public SFShort(short shortValue) {
 		super();
@@ -36,17 +37,13 @@ public class SFShort extends SFPrimitiveType {
 		return new SFShort(shortValue);
 	}
 	
-	public int getByte(int byteIndex) {
-		int value = shortValue >> (byteIndex * 8);
-		return value & 0xff;
+	@Override
+	public void setStringValue(String value) {
+		shortValue=new Short(value);
 	}
-
-	public void setByte(int byteIndex, int value) {
-		value = value & 0xff;
-		value = value << (byteIndex * 8);
-		int mask = 0xff << (byteIndex * 8);
-		mask = (-1) - mask;
-		shortValue = (short)(shortValue & mask);
-		shortValue += value; 
+	
+	@Override
+	public String toStringValue() {
+		return shortValue+"";
 	}
 }

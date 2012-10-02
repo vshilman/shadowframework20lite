@@ -1,69 +1,60 @@
 package shadow.renderer.contents.tests;
 
 import shadow.geometry.curves.data.SFBasisSplineData;
-import shadow.geometry.data.SFSimpleTexCoordGeometryuvData;
 import shadow.geometry.functions.data.SFRectangle2DFunctionData;
+import shadow.geometry.functions.data.SFSimpleTexCoordGeometryuvData;
 import shadow.geometry.functions.data.SFSplineCurvedTubeFunctionData;
 import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
-import shadow.geometry.vertices.SFVertexFixedListData;
+import shadow.geometry.vertices.SFVertexListData16;
 import shadow.image.SFImageFormat;
 import shadow.image.SFPipelineTexture.Filter;
 import shadow.image.SFPipelineTexture.WrapMode;
-import shadow.image.SFTexture;
 import shadow.image.SFTextureDataToken;
 import shadow.image.data.SFDrawnRenderedTextureData;
 import shadow.math.SFVertex3f;
-import shadow.renderer.contents.tests.common.CommonData;
-import shadow.renderer.contents.tests.common.CommonPipeline;
-import shadow.renderer.contents.tests.common.CommonTextures;
 import shadow.renderer.data.SF2DCameraData;
 import shadow.renderer.data.SFObjectModelData;
-import shadow.renderer.data.SFOneStepAlgorithmData;
 import shadow.renderer.data.SFReferenceNodeData;
 import shadow.renderer.data.SFRendererData;
-import shadow.renderer.viewer.SFDataUtility;
-import shadow.renderer.viewer.SFTextureViewer;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
-import shadow.system.data.SFDataCenter;
-import shadow.system.data.SFDataCenterListener;
-import shadow.system.data.SFObjectsLibrary;
+import shadow.renderer.data.transforms.SFTranslateFixed16Data;
 
 /**
- * 
- * TODO missing test description
- * 
+ * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.
  * <br/>
- * <h1>SF Contents Test/Tutorial Series</h1>
- * This Test/Tutorial is a part of a series whose aim is showing SF contents.
- * Each test is performed following the basic steps of any SF content lifetime.
- * <ol>
- * 		<li>Editing</li>
- * 		<li>Storing</li>
- * 		<li>Viewing</li>		
- * </ol>
- * Each SF content Module has a '*Data' counterpart which is invol
- * ved in data processing.
- * The '*.Data' module will generate a proper SF module, and will be discarded when
- * unnecessary. 
+ * Go to {@link SFAbstractTest} for general informations about this tests.
+ * <br/>
+ * Open the related FILENAME.xml file for a detailed view of this test contents. 
+ * <br/>
+ * Objective: TODO 
  * 
  * @author Alessandro Martinelli
  */
-public class Test0009_TwoStepsRenderedTextures {
+public class Test0009_TwoStepsRenderedTextures extends SFAbstractTest{
 
-	private static final String root = "testsData";
+	private static final String FILENAME = "test0009";
 	
-	/**
-	 * TODO missing test description
-	 */
 	public static void main(String[] args) {
+		execute(new Test0009_TwoStepsRenderedTextures());
+	}
+	
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+	
+	@Override
+	public void viewTestData() {
 		
-		//Preparation
-		SFViewerObjectsLibrary objectsLibrary = CommonData.generateDataSettings();
-		SFObjectsLibrary library=objectsLibrary.getLibrary();
-		CommonPipeline pipeline=new CommonPipeline();
+		loadLibraryAsDataCenter();
+		
+		viewTextureSet("HooksDrawnTexture", 0);
+	}
+	
+	@Override
+	public void buildTestData() {
 
 		SFSplineCurvedTubeFunctionData curvedTubefunction=new SFSplineCurvedTubeFunctionData();
-			curvedTubefunction.addCurve(new SFBasisSplineData(new SFVertexFixedListData(),
+			curvedTubefunction.addCurve(new SFBasisSplineData(new SFVertexListData16(),
 					new SFVertex3f(0, 0, 0),
 					new SFVertex3f(0, 0.2f, 0),
 					new SFVertex3f(-0.4f, 0.3f, 0),
@@ -72,7 +63,7 @@ public class Test0009_TwoStepsRenderedTextures {
 					new SFVertex3f(0.1f, 0.5f, 0),
 					new SFVertex3f(0.3f, 0.5f, 0)
 					));
-			curvedTubefunction.addCurve(new SFBasisSplineData(new SFVertexFixedListData(),
+			curvedTubefunction.addCurve(new SFBasisSplineData(new SFVertexListData16(),
 					new SFVertex3f(0, 0, 0),
 					new SFVertex3f(0, 0.2f, 0),
 					new SFVertex3f(-0.2f, 0.4f, 0),
@@ -81,15 +72,17 @@ public class Test0009_TwoStepsRenderedTextures {
 					new SFVertex3f(0.3f, 0.5f, 0)
 					));
 		SFQuadsSurfaceGeometryData geometry=new SFQuadsSurfaceGeometryData();
-			geometry.setup(curvedTubefunction, 17, 2, new SFSimpleTexCoordGeometryuvData(), pipeline.getTexturePrimitive());
+			geometry.setup(curvedTubefunction, 17, 2, new SFSimpleTexCoordGeometryuvData(), "Triangle2PNTxO");
 			library.put("HookGeometry", geometry);
 		
 		SFObjectModelData objectModel=new SFObjectModelData();
 			objectModel.getRootGeometryReference().setReference("HookGeometry");
+			objectModel.getTransformComponent().setProgram("BasicPNTransform");
+			objectModel.getMaterialComponent().setProgram("BlackMat");
 			library.put("Hook", objectModel);
 		
 		SFDrawnRenderedTextureData drawnTexture=new SFDrawnRenderedTextureData();
-			drawnTexture.setRenderer(new SFRendererData(new SFOneStepAlgorithmData("NormalAndPosition"),new SF2DCameraData(0.5f, 0.5f)));
+			drawnTexture.setRenderer(new SFRendererData("NormalAndPosition",new SF2DCameraData(0.5f, 0.5f)));
 			drawnTexture.setNode("Hook");//Different from the previous example... 
 			drawnTexture.addOutputTexture(new SFTextureDataToken(200, 200, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT));
 			drawnTexture.addOutputTexture(new SFTextureDataToken(200, 200, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT));
@@ -97,17 +90,22 @@ public class Test0009_TwoStepsRenderedTextures {
 		
 		//Would like to have some kind of RECT geometry...
 		SFQuadsSurfaceGeometryData geometryShow=new SFQuadsSurfaceGeometryData();
-			geometryShow.setup(new SFRectangle2DFunctionData(0, 0, 1, 1), 2, 2, new SFSimpleTexCoordGeometryuvData(), pipeline.getTexturePrimitive());
+			geometryShow.setup(new SFRectangle2DFunctionData(0, 0, 1, 1), 2, 2, new SFSimpleTexCoordGeometryuvData(), "Triangle2PNTxO");
 			library.put("QuarterScreenRectangle", geometryShow);
 		
 		SFObjectModelData visibleModel1=new SFObjectModelData();
-			visibleModel1.placeGeometry("QuarterScreenRectangle", -1, -1, 0);
-			visibleModel1.addTexture("TexturedMat", "HookTextures", 0, 1);
+			visibleModel1.setGeometry("QuarterScreenRectangle");
+			visibleModel1.setTransform(new SFTranslateFixed16Data(-1, -1, 0));
+			visibleModel1.getMaterialComponent().addTexture( 1, "HookTextures");
+			visibleModel1.getTransformComponent().setProgram("BasicPNTx0Transform");
+			visibleModel1.getMaterialComponent().setProgram("TexturedMat");
 			library.put("HookNumber1", visibleModel1);
 			
 		SFObjectModelData visibleModel2=new SFObjectModelData();
 			visibleModel2.setGeometry("QuarterScreenRectangle");
-			visibleModel2.addTexture("TexturedMat", "HookTextures", 0, 0);
+			visibleModel2.getMaterialComponent().addTexture( 0, "HookTextures");
+			visibleModel2.getTransformComponent().setProgram("BasicPNTx0Transform");
+			visibleModel2.getMaterialComponent().setProgram("TexturedMat");
 			library.put("HookNumber2", visibleModel2);
 
 		SFReferenceNodeData scene=new SFReferenceNodeData();
@@ -116,25 +114,13 @@ public class Test0009_TwoStepsRenderedTextures {
 			library.put("HooksScene", scene);
 
 		SFDrawnRenderedTextureData drawnTexture2=new SFDrawnRenderedTextureData();
-			drawnTexture2.setRenderer(new SFRendererData(new SFOneStepAlgorithmData("ReddishGrayAndBright"),new SF2DCameraData(0.5f, 0.5f)));
+			drawnTexture2.setRenderer(new SFRendererData("ReddishGrayAndBright",new SF2DCameraData(0.5f, 0.5f)));
 			drawnTexture2.setNode("HooksScene");//Different from the previous example... 
 			drawnTexture2.addOutputTexture(400, 400, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT);
 			drawnTexture2.addOutputTexture(400, 400, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT);
 		library.put("HooksDrawnTexture", drawnTexture2);
-
-		// 2) Store the library containing all elements into 'testsData\test0002.sf'
-		SFDataUtility.saveDataset(root, "test0009.sf", library);
-
-		// 3) Retrieve the library and make model available so that it can be added to a Viewer
-		SFDataCenter.setDataCenterImplementation(new SFViewerObjectsLibrary(root,"test0009.sf"));
-
-		SFDataCenter.getDataCenter().makeDatasetAvailable("HooksDrawnTexture", new SFDataCenterListener<SFDrawnRenderedTextureData>() {
-			@Override
-			public void onDatasetAvailable(String name, SFDrawnRenderedTextureData dataset) {
-				SFTexture texture=new SFTexture(dataset.getResource(), 0);
-				SFTextureViewer.generateFrame(texture,CommonTextures.generateTextureSelectionController(texture, 2));
-			}
-		});		
 		
+		store(library);
 	}
+	
 }

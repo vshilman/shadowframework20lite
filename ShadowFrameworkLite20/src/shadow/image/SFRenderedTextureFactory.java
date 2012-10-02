@@ -13,4 +13,5 @@ public interface SFRenderedTextureFactory {
 	
 	public SFPipelineTexture generateBitmapTexture(SFBitmap bitmap,Filter filters, WrapMode wrapS, WrapMode wrapT);
 	
+	public void destroyBuffer(SFBufferData bufferData);
 }

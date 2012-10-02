@@ -1,73 +1,71 @@
 package shadow.renderer.contents.tests;
 
-import shadow.geometry.data.SFSimpleTexCoordGeometryuvData;
 import shadow.geometry.functions.data.SFCurvedTubeFunctionData;
+import shadow.geometry.functions.data.SFSimpleTexCoordGeometryuvData;
 import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
-import shadow.renderer.SFNode;
-import shadow.renderer.contents.tests.common.CommonData;
-import shadow.renderer.contents.tests.common.CommonPipeline;
-import shadow.renderer.data.SFDataAsset;
 import shadow.renderer.data.SFObjectModelData;
-import shadow.renderer.viewer.SFDataUtility;
-import shadow.renderer.viewer.SFViewer;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
-import shadow.system.data.SFDataCenter;
-import shadow.system.data.SFDataCenterListener;
-import shadow.system.data.SFObjectsLibrary;
+import shadow.renderer.data.transforms.SFTranslateAndScaleFixed16Data;
 
-public class Test0015_BumpMapping {
+/**
+ * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.
+ * No data will be generated (so nothing will work) until you do that; as an
+ * alternative, you can set SFAbstractTest.storeData to true, and then run each test
+ * one by one in test number order.
+ * <br/> 
+ * Go to {@link SFAbstractTest} for general informations about this tests.
+ * <br/>
+ * Open the related FILENAME.xml file for a detailed view of this test contents. 
+ * <br/>
+ * Objective: TODO 
+ * 
+ * @author Alessandro Martinelli
+ */
+public class Test0015_BumpMapping extends SFAbstractTest{
 
-	private static final String root = "testsData";
+	private static final String FILENAME = "test0015";
 
-	/**
-	 * TODO missing test description
-	 */
 	public static void main(String[] args) {
+		execute(new Test0015_BumpMapping());
+	}
 
-		// Preparation
-		SFViewerObjectsLibrary objectsLibrary = CommonData.generateDataSettings();
-		SFObjectsLibrary library=objectsLibrary.getLibrary();
-		CommonPipeline pipeline=new CommonPipeline();
-
-		SFViewerObjectsLibrary test0014Library=new SFViewerObjectsLibrary(root, "test0014.sf");
-			library.put("PerlinTexture", test0014Library.getLibrary().retrieveDataset("PerlinTexture"));
-			library.put("PerlinTexture2", test0014Library.getLibrary().retrieveDataset("PerlinTexture2"));
-			library.put("PebblesModel", test0014Library.getLibrary().retrieveDataset("PebblesModel"));
-			library.put("FullScreenRectangle", test0014Library.getLibrary().retrieveDataset("FullScreenRectangle"));
-			library.put("PebblesTextureModel", test0014Library.getLibrary().retrieveDataset("PebblesTextureModel"));
-			library.put("PebblesGround", test0014Library.getLibrary().retrieveDataset("PebblesGround"));
-			library.put("PebblesTextures", test0014Library.getLibrary().retrieveDataset("PebblesTextures"));
+	@Override
+	public String getFilename() {
+		return FILENAME;
+	}
+	
+	@Override
+	public void viewTestData() {
 		
-		SFCurvedTubeFunctionData retrievedFunction = (SFCurvedTubeFunctionData) SFDataUtility
-				.loadDataset(root, "test0001.sf");
+		loadLibraryAsDataCenter();
+
+		viewNode("StoneMushroom");
+	}
+	
+	@Override
+	public void buildTestData() {
+		
+		
+		copyAssets("test0014", library, "OriginalNoise", "PerlinTexture", "PerlinTexture2",
+				"PebblesModel","FullScreenRectangle",
+				"PebblesTextureModel","PebblesGround",
+				"PebblesTextures");
+		
+		SFCurvedTubeFunctionData retrievedFunction = loadDataset("test0001");
 			
 		SFQuadsSurfaceGeometryData geometry=new SFQuadsSurfaceGeometryData();
-			geometry.setup(retrievedFunction, 8, 8, new SFSimpleTexCoordGeometryuvData(4,4), pipeline.getBumpMapPrimitive());
+			geometry.setup(retrievedFunction, 8, 8, new SFSimpleTexCoordGeometryuvData(4,4), "Triangle2BumpMap");
 			library.put("BumpMappingsMushroom", geometry);
 			
 		SFObjectModelData objectModel=new SFObjectModelData();
-			objectModel.placeGeometryAndScale("BumpMappingsMushroom", 0, -0.6f, 0, 2.4f);
-			objectModel.addMaterialProgram("BumpMappedMat");
-			objectModel.addTexture(0, 1, "PebblesTextures");
-			objectModel.addTexture(1, 0, "PebblesTextures");
+			objectModel.setGeometry("BumpMappingsMushroom");
+			objectModel.setTransform(new SFTranslateAndScaleFixed16Data(0, -0.6f, 0, 2.4f));
+			objectModel.getTransformComponent().setProgram("BasicBumpMapTransform");
+			objectModel.getMaterialComponent().setProgram("BumpMappedMat");
+			objectModel.getMaterialComponent().addTexture( 1, "PebblesTextures");
+			objectModel.getMaterialComponent().addTexture( 0, "PebblesTextures");
 			library.put("StoneMushroom", objectModel);
-				
-		SFDataUtility.saveDataset(root, "test0015.sf", library);
-		
-		// 3) Retrieve the library and make model available so that it can be
-		// added to a Viewer
-		SFDataCenter.setDataCenterImplementation(new SFViewerObjectsLibrary(
-				root, "test0015.sf"));
-
-
-		SFDataCenter.getDataCenter().makeDatasetAvailable("StoneMushroom",
-				new SFDataCenterListener<SFDataAsset<SFNode>>() {
-					@Override
-					public void onDatasetAvailable(String name,SFDataAsset<SFNode> dataset) {
-						SFViewer viewer=SFViewer.generateFrame(dataset.getResource());
-						viewer.setRotateModel(true, 0.03f);
-					}
-				});
+			
+		store(library);
 	}
 
 }

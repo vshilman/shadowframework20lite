@@ -19,6 +19,7 @@ public class SFExpressionDivide extends SFExpressionOperator{
 		consecutives.add(consecutive3);
 		Short[] consecutive4={SFParameteri.GLOBAL_FLOAT2,SFParameteri.GLOBAL_FLOAT};
 		consecutives.add(consecutive4);
+		
 		Short[] consecutive5={SFParameteri.GLOBAL_FLOAT,SFParameteri.GLOBAL_FLOAT};
 		consecutives.add(consecutive5);
 	}
@@ -48,7 +49,7 @@ public class SFExpressionDivide extends SFExpressionOperator{
 	}
 	
 	@Override
-	public SFValuenf evaluate(SFValuesMap values) {
+	public SFValuenf evaluate(SFExpressionValuesList values) {
 		SFValuenf value1=getExpressionElement(0).evaluate(values);
 		SFValuenf value2=getExpressionElement(1).evaluate(values);
 		return new SFValue1f(value1.get()[0]/value2.get()[1]);

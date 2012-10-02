@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	
+	<SFVertexListData16 name="ChairModelLIneData">
+		<vertices>
+				<vertices_element>(-0.2,0.0,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.15,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.3,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.0)</vertices_element>
+				<vertices_element>(-0.1,0.4,0.0)</vertices_element>
+				<vertices_element>(0.0,0.4,0.0)</vertices_element>
+				<vertices_element>(0.1,0.4,0.0)</vertices_element>
+				<vertices_element>(0.2,0.4,0.0)</vertices_element>
+				<vertices_element>(0.2,0.3,0.0)</vertices_element>
+				<vertices_element>(0.2,0.15,0.0)</vertices_element>
+				<vertices_element>(0.2,0.0,0.0)</vertices_element>
+				
+				<!-- Second Arc (Back), 11 Points -->
+				<vertices_element>(-0.2,0.0,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.3,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.6,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.8,0.4)</vertices_element>
+				<vertices_element>(-0.1,0.8,0.4)</vertices_element>
+				<vertices_element>(0.0,0.8,0.4)</vertices_element>
+				<vertices_element>(0.1,0.8,0.4)</vertices_element>
+				<vertices_element>(0.2,0.8,0.4)</vertices_element>
+				<vertices_element>(0.2,0.6,0.4)</vertices_element>
+				<vertices_element>(0.2,0.3,0.4)</vertices_element>
+				<vertices_element>(0.2,0.0,0.4)</vertices_element>
+				
+				<!-- Second Arc (Back2), 11 Points -->
+				<vertices_element>(-0.2,0.0,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.15,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.3,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.4)</vertices_element>
+				<vertices_element>(-0.1,0.4,0.4)</vertices_element>
+				<vertices_element>(0.0,0.4,0.4)</vertices_element>
+				<vertices_element>(0.1,0.4,0.4)</vertices_element>
+				<vertices_element>(0.2,0.4,0.4)</vertices_element>
+				<vertices_element>(0.2,0.3,0.4)</vertices_element>
+				<vertices_element>(0.2,0.15,0.4)</vertices_element>
+				<vertices_element>(0.2,0.0,0.4)</vertices_element>
+				
+				<!-- Lateral Arc Left, 11 Points -->
+				<vertices_element>(0.2,0.0,0.0)</vertices_element>
+				<vertices_element>(0.2,0.15,0.0)</vertices_element>
+				<vertices_element>(0.2,0.3,0.0)</vertices_element>
+				<vertices_element>(0.2,0.4,0.0)</vertices_element>
+				<vertices_element>(0.2,0.4,0.1)</vertices_element>
+				<vertices_element>(0.2,0.4,0.2)</vertices_element>
+				<vertices_element>(0.2,0.4,0.3)</vertices_element>
+				<vertices_element>(0.2,0.4,0.4)</vertices_element>
+				<vertices_element>(0.2,0.3,0.4)</vertices_element>
+				<vertices_element>(0.2,0.15,0.4)</vertices_element>
+				<vertices_element>(0.2,0.0,0.4)</vertices_element>
+				
+				<!-- Lateral Arc Right, 11 Points -->
+				<vertices_element>(-0.2,0.0,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.15,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.3,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.1)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.2)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.3)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.3,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.15,0.4)</vertices_element>
+				<vertices_element>(-0.2,0.0,0.4)</vertices_element>
+				
+				<!-- Central Right, 8 Points -->
+				<vertices_element>(0.0,0.4,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.0)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.2)</vertices_element>
+				<vertices_element>(-0.2,0.4,0.4)</vertices_element>
+				<vertices_element>(0.0,0.4,0.4)</vertices_element>
+				<vertices_element>(0.2,0.4,0.4)</vertices_element>
+				<vertices_element>(0.2,0.4,0.2)</vertices_element>
+				<vertices_element>(0.2,0.4,0.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFVertexListData16 name="ChairModelSizes">
+		<vertices>
+				<vertices_element>(0.015)</vertices_element>
+				<vertices_element>(0.015)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFMeshGeometryData name="ChairModel">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Microtube2</primitive>
+			<references id="primitiveData">
+				<reference>ChairModelLIneData</reference>
+				<reference>ChairModelSizes</reference>
+			</references>	
+			<primitives>
+				<primitives_element>(0,2,1,1,0,0)</primitives_element>
+				<primitives_element>(2,4,3,0,0,0)</primitives_element>
+				<primitives_element>(4,6,5,0,0,0)</primitives_element>
+				<primitives_element>(6,8,7,0,0,0)</primitives_element>
+				<primitives_element>(8,10,9,0,1,0)</primitives_element>
+				
+				<!-- Second Arc, 5 Segments -->
+				<primitives_element>(11,13,12,1,0,0)</primitives_element>
+				<primitives_element>(13,15,14,0,1,0)</primitives_element>
+				<primitives_element>(15,17,16,1,1,1)</primitives_element>
+				<primitives_element>(17,19,18,1,0,0)</primitives_element>
+				<primitives_element>(19,21,20,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(22,24,23,1,0,0)</primitives_element>
+				<primitives_element>(24,26,25,0,0,0)</primitives_element>
+				<primitives_element>(26,28,27,0,0,0)</primitives_element>
+				<primitives_element>(28,30,29,0,0,0)</primitives_element>
+				<primitives_element>(30,32,31,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(33,35,34,1,0,0)</primitives_element>
+				<primitives_element>(35,37,36,0,0,0)</primitives_element>
+				<primitives_element>(37,39,38,0,0,0)</primitives_element>
+				<primitives_element>(39,41,40,0,0,0)</primitives_element>
+				<primitives_element>(41,43,42,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(44,46,45,1,0,0)</primitives_element>
+				<primitives_element>(46,48,47,0,0,0)</primitives_element>
+				<primitives_element>(48,50,49,0,0,0)</primitives_element>
+				<primitives_element>(50,52,51,0,0,0)</primitives_element>
+				<primitives_element>(52,54,53,0,1,0)</primitives_element>
+		
+				<!-- Central Circle, 4 Segments -->
+				<primitives_element>(55,57,56,0,0,0)</primitives_element>
+				<primitives_element>(57,59,58,0,0,0)</primitives_element>
+				<primitives_element>(59,61,60,0,0,0)</primitives_element>
+				<primitives_element>(61,55,62,0,0,0)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>29</lastElement>
+	</SFMeshGeometryData>
+	
+	
+	
+	<SFMeshGeometryData name="TexturedChairModel">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Microtube2TxO</primitive>
+			<references id="primitiveData">
+				<reference>ChairModelLIneData</reference>
+				<reference>ChairModelSizes</reference>
+			</references>	
+			<primitives>
+				<primitives_element>(0,2,1,1,0,0)</primitives_element>
+				<primitives_element>(2,4,3,0,0,0)</primitives_element>
+				<primitives_element>(4,6,5,0,0,0)</primitives_element>
+				<primitives_element>(6,8,7,0,0,0)</primitives_element>
+				<primitives_element>(8,10,9,0,1,0)</primitives_element>
+				
+				<!-- Second Arc, 5 Segments -->
+				<primitives_element>(11,13,12,1,0,0)</primitives_element>
+				<primitives_element>(13,15,14,0,1,0)</primitives_element>
+				<primitives_element>(15,17,16,1,1,1)</primitives_element>
+				<primitives_element>(17,19,18,1,0,0)</primitives_element>
+				<primitives_element>(19,21,20,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(22,24,23,1,0,0)</primitives_element>
+				<primitives_element>(24,26,25,0,0,0)</primitives_element>
+				<primitives_element>(26,28,27,0,0,0)</primitives_element>
+				<primitives_element>(28,30,29,0,0,0)</primitives_element>
+				<primitives_element>(30,32,31,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(33,35,34,1,0,0)</primitives_element>
+				<primitives_element>(35,37,36,0,0,0)</primitives_element>
+				<primitives_element>(37,39,38,0,0,0)</primitives_element>
+				<primitives_element>(39,41,40,0,0,0)</primitives_element>
+				<primitives_element>(41,43,42,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(44,46,45,1,0,0)</primitives_element>
+				<primitives_element>(46,48,47,0,0,0)</primitives_element>
+				<primitives_element>(48,50,49,0,0,0)</primitives_element>
+				<primitives_element>(50,52,51,0,0,0)</primitives_element>
+				<primitives_element>(52,54,53,0,1,0)</primitives_element>
+		
+				<!-- Central Circle, 4 Segments -->
+				<primitives_element>(55,57,56,0,0,0)</primitives_element>
+				<primitives_element>(57,59,58,0,0,0)</primitives_element>
+				<primitives_element>(59,61,60,0,0,0)</primitives_element>
+				<primitives_element>(61,55,62,0,0,0)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>29</lastElement>
+	</SFMeshGeometryData>
+
+
+	
+	
+	<SFMeshGeometryData name="BumpMappedChairModel">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Microtube2BumpMap</primitive>
+			<references id="primitiveData">
+				<reference>ChairModelLIneData</reference>
+				<reference>ChairModelSizes</reference>
+			</references>	
+			<primitives>
+				<primitives_element>(0,2,1,1,0,0)</primitives_element>
+				<primitives_element>(2,4,3,0,0,0)</primitives_element>
+				<primitives_element>(4,6,5,0,0,0)</primitives_element>
+				<primitives_element>(6,8,7,0,0,0)</primitives_element>
+				<primitives_element>(8,10,9,0,1,0)</primitives_element>
+				
+				<!-- Second Arc, 5 Segments -->
+				<primitives_element>(11,13,12,1,0,0)</primitives_element>
+				<primitives_element>(13,15,14,0,1,0)</primitives_element>
+				<primitives_element>(15,17,16,1,1,1)</primitives_element>
+				<primitives_element>(17,19,18,1,0,0)</primitives_element>
+				<primitives_element>(19,21,20,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(22,24,23,1,0,0)</primitives_element>
+				<primitives_element>(24,26,25,0,0,0)</primitives_element>
+				<primitives_element>(26,28,27,0,0,0)</primitives_element>
+				<primitives_element>(28,30,29,0,0,0)</primitives_element>
+				<primitives_element>(30,32,31,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(33,35,34,1,0,0)</primitives_element>
+				<primitives_element>(35,37,36,0,0,0)</primitives_element>
+				<primitives_element>(37,39,38,0,0,0)</primitives_element>
+				<primitives_element>(39,41,40,0,0,0)</primitives_element>
+				<primitives_element>(41,43,42,0,1,0)</primitives_element>
+				
+				<!-- Lateral Arc, 5 Segments -->
+				<primitives_element>(44,46,45,1,0,0)</primitives_element>
+				<primitives_element>(46,48,47,0,0,0)</primitives_element>
+				<primitives_element>(48,50,49,0,0,0)</primitives_element>
+				<primitives_element>(50,52,51,0,0,0)</primitives_element>
+				<primitives_element>(52,54,53,0,1,0)</primitives_element>
+		
+				<!-- Central Circle, 4 Segments -->
+				<primitives_element>(55,57,56,0,0,0)</primitives_element>
+				<primitives_element>(57,59,58,0,0,0)</primitives_element>
+				<primitives_element>(59,61,60,0,0,0)</primitives_element>
+				<primitives_element>(61,55,62,0,0,0)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>29</lastElement>
+	</SFMeshGeometryData>
+
+	
+	<SFObjectModelData name="PlainChair">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.5</y>
+			<z>0.0</z>
+			<scale>2.0</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>ChairModel</geometry>
+		
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:1</structures_element>
+			</structures>
+		</SFProgramAssetData>
+		
+	</SFObjectModelData>
+	
+	
+	<SFObjectModelData name="TexturedChair">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.5</y>
+			<z>0.0</z>
+			<scale>2.0</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>TexturedChairModel</geometry>
+		
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+		</SFProgramAssetData>
+		
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<textures>
+				<textures_element>OBTilesTexture:0</textures_element>
+			</textures> 
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	<SFObjectModelData name="BumpMappedChair">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.5</y>
+			<z>0.0</z>
+			<scale>2.0</scale>
+		</SFTranslateAndScaleFixed16Data>
+		
+		<geometry>BumpMappedChairModel</geometry>
+		
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicBumpMapTransform</program>
+		</SFProgramAssetData>
+		
+		<SFProgramAssetData name="materialComponent">
+			<program>ImprovedBumpMappedMat</program>
+			<textures>
+				<textures_element>PebblesTextures:1</textures_element>
+				<textures_element>PebblesTextures:0</textures_element>
+			</textures> 
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>

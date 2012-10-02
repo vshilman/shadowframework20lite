@@ -43,6 +43,10 @@ public class SFExpressionMult extends SFExpressionOperator{
 		consecutives.add(consecutive15);
 		Short[] consecutive16={SFParameteri.GLOBAL_FLOAT,SFParameteri.GLOBAL_GENERIC};
 		consecutives.add(consecutive16);
+		Short[] consecutive17={SFParameteri.GLOBAL_GENERIC,SFParameteri.GLOBAL_GENERIC};
+		consecutives.add(consecutive17);
+		Short[] consecutive18={SFParameteri.GLOBAL_FLOAT3,SFParameteri.GLOBAL_MATRIX4};
+		consecutives.add(consecutive18);
 	}
 	
 	public SFExpressionMult() {
@@ -72,7 +76,7 @@ public class SFExpressionMult extends SFExpressionOperator{
 	}
 	
 	@Override
-	public SFValuenf evaluate(SFValuesMap values) {
+	public SFValuenf evaluate(SFExpressionValuesList values) {
 		SFValuenf mult=getExpressionElement(0).evaluate(values);
 		for (int i = 1; i < getElementSize(); i++) {
 			mult.mult( getExpressionElement(i).evaluate(values));

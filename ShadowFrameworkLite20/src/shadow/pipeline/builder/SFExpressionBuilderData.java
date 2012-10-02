@@ -10,13 +10,13 @@ public class SFExpressionBuilderData {
 	private SFExpressionElement lSymbol;
 	private SFExpressionElement lastValue;
 	private int indexOfLastOperation;
-	private String functionOperator=null;
 	
 	public SFExpressionBuilderData() {
 	}
 
 	public void setupLastSymbol(SFIExpressionBuilder sfExpressionBuilder) {
-		getlSymbol().addElement(getLastValue());
+		if(getlSymbol()!=null)
+			getlSymbol().addElement(getLastValue());
 	}
 
 	public LinkedList<SFExpressionOperator> getExpressions() {
@@ -50,14 +50,5 @@ public class SFExpressionBuilderData {
 	void setIndexOfLastOperation(int indexOfLastOperation) {
 		this.indexOfLastOperation = indexOfLastOperation;
 	}
-
-	public String getFunctionOperator() {
-		return functionOperator;
-	}
-
-	public void setFunctionOperator(String functionOperator) {
-		this.functionOperator = functionOperator;
-	}
-
 	
 }

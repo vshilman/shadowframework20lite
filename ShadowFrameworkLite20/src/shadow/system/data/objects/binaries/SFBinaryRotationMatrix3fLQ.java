@@ -2,6 +2,7 @@ package shadow.system.data.objects.binaries;
 
 import shadow.math.SFMatrix3f;
 import shadow.system.data.objects.SFBinaryValue;
+import shadow.system.data.objects.SFCharsetObjectUtils;
 
 /**
  * Binary representation of a 3x3 rotation matrix, base on the ZXY Left-handed positive sign convention
@@ -108,5 +109,20 @@ public class SFBinaryRotationMatrix3fLQ extends SFBinaryValue{
 		indexC=SFStaticAnglesSet.getAngleslq().getIndexByTrigonometricValues(c3, s3);
 		this.value=(indexA<<16)+(indexB<<8)+indexC;
 	}
+	
+	@Override
+	public void setStringValue(String value) {
+		SFMatrix3f matrix=new SFMatrix3f();
+		SFCharsetObjectUtils.readFloats(matrix.get(), value, getClass().getSimpleName());
+		setMatrix3f(matrix);
+	}
+	
+	@Override
+	public String toStringValue() {
+		SFMatrix3f matrix=new SFMatrix3f();
+		getMatrix3f(matrix);
+		return SFCharsetObjectUtils.writeFloats(matrix.get());
+	}
+	
 }
 

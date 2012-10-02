@@ -1,20 +1,31 @@
 package shadow.image;
 
 import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPipelineGraphics.Module;
 import shadow.pipeline.SFProgram;
-import shadow.renderer.SFRenderable;
+import shadow.renderer.SFProgramModuleStructures;
 import shadow.renderer.SFRenderer;
 
-public class SFFilteredRenderedTexture extends SFRenderable implements SFRenderedTexturesSet{
+public class SFFilteredRenderedTexture implements SFRenderedTexturesSet{
 
 	private boolean initialized=false;
 	private SFPipelineTexture[] textures;
 	private SFRenderedTexture renderedTexture=new SFRenderedTexture();
-	private String lightStep;
+	private SFProgramModuleStructures lightComponent=new SFProgramModuleStructures();
+	private SFProgramModuleStructures material=new SFProgramModuleStructures();
 	
+
+	public SFProgramModuleStructures getMaterialComponent() {
+		return material;
+	}
+
+	public void setMaterialComponent(SFProgramModuleStructures material) {
+		this.material = material;
+	}
+
 	@Override
-	public void apply(int index, int level) throws ArrayIndexOutOfBoundsException{
-		textures[index].apply(level);
+	public SFPipelineTexture getTexture(int index) {
+		return textures[index];
 	}
 	
 	@Override
@@ -33,19 +44,39 @@ public class SFFilteredRenderedTexture extends SFRenderable implements SFRendere
 						data.getWrapS(), data.getWrapT());
 				renderedTexture.addColorData(textures[i]);
 			}
+			update();
 			
-			SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);
-
-				SFProgram program=SFPipeline.getStaticImageProgram(getMaterialsNames(),lightStep);
-				SFPipeline.getSfProgramBuilder().loadProgram(program);
-			
-				SFRenderer.setupMaterialData(this);
-				
-				SFPipeline.getSfPipelineGraphics().drawBaseQuad();
-				
-			SFPipeline.getSfTexturePipeline().endRenderedTexture(renderedTexture);
 		}
 		initialized=true;
+	}
+	
+	
+	
+	@Override
+	public void update() {
+
+		SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);
+
+			SFProgram program=SFPipeline.getStaticImageProgram(getMaterialComponent().getProgram(),lightComponent.getProgram());
+			SFPipeline.getSfProgramBuilder().loadProgram(program);
+		
+			SFRenderer.setupMaterialData(Module.MATERIAL,material);
+			SFRenderer.setupMaterialData(Module.LIGHT,lightComponent);
+			
+			SFPipeline.getSfPipelineGraphics().drawBaseQuad();
+			
+		SFPipeline.getSfTexturePipeline().endRenderedTexture(renderedTexture);
+		
+		SFPipeline.getSfTexturePipeline().destroyRenderedTexture(renderedTexture);
+	}
+	
+	@Override
+	public void destroy() {
+		if(initialized){
+			for (int i = 0; i < textures.length; i++) {
+				SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().destroyBuffer(textures[i]);
+			}
+		}
 	}
 	
 	public SFRenderedTexture getRenderedTexture() {
@@ -56,13 +87,14 @@ public class SFFilteredRenderedTexture extends SFRenderable implements SFRendere
 		this.textures = textures;
 	}
 
-	public String getLightStep() {
-		return lightStep;
+	public SFProgramModuleStructures getLightComponent() {
+		return lightComponent;
+	}
+	
+	public void setLightComponent(SFProgramModuleStructures lightComponent) {
+		this.lightComponent = lightComponent;
 	}
 
-	public void setLightStep(String lightStep) {
-		this.lightStep = lightStep;
-	}
 	
 	
 }

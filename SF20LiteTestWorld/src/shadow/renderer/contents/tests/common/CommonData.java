@@ -1,7 +1,7 @@
 package shadow.renderer.contents.tests.common;
 
-import shadow.renderer.viewer.SFViewerDatasetFactory;
-import shadow.renderer.viewer.SFViewerObjectsLibrary;
+import shadow.renderer.data.utils.SFViewerDatasetFactory;
+import shadow.renderer.data.utils.SFViewerObjectsLibrary;
 import shadow.system.data.SFDataCenter;
 
 public class CommonData {

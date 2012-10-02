@@ -47,7 +47,11 @@ public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiabl
 	
 	@Override
 	public void addNode(SFNode node) {
-		nodes.add((SFBone)node);
+		try {
+			nodes.add((SFBone)node);
+		} catch (ClassCastException e) {
+			throw new SFNodeException("Only SFBone can be added to SFObjectModels");		
+		}
 	}
 	
 	
@@ -82,10 +86,14 @@ public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiabl
 		return this.getModel().getRootGeometry()!=null;
 	}
 
-
 	@Override
 	public void init() {
-		// TODO : SFObjectModel should be initialized here		
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 
 	protected List<SFBone> getNodes() {

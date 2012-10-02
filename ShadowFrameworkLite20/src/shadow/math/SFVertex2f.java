@@ -102,9 +102,19 @@ public class SFVertex2f extends SFValue1f{
 	}
 	
 	public void normalize2f(){
-		float lengthRec=1/(float)(Math.sqrt(v[0]*v[0]+v[1]*v[1]));
+		float lengthRec=1/getLength();
 		v[0]*=lengthRec;
 		v[1]*=lengthRec;
+	}
+
+	public float getLength() {
+		return (float)(Math.sqrt(v[0]*v[0]+v[1]*v[1]));
+	}
+	
+	public static float getDistance(SFVertex2f v1,SFVertex2f v2) {
+		float x=v1.getX()-v2.getX();
+		float y=v1.getY()-v2.getY();
+		return (float)(Math.sqrt(x*x+y*y));
 	}
 	
 	public void add2f(SFVertex2f vx){

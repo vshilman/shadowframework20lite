@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFObjectModelData name="BlueRectangle">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>-0.6</x>
+			<y>-0.6</y>
+			<z>0.0</z>
+			<scale>1.2</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>PrimitiveGeometry</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Color:0</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFFunction2DBitmapData name="CircularBitmap10">
+		<width>4</width>
+		<height>4</height>
+		<SFBasicBitmapFunctionsData name="function">
+			<function>CIRCLE</function>
+		</SFBasicBitmapFunctionsData>
+	</SFFunction2DBitmapData>
+	<SFStructureArrayDataUnit8 name="Color">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.0,0.0,1.0)</values_element>
+			<values_element>(1.0,1.0,0.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFVertexListData16 name="Normals">
+		<vertices>
+			<vertices_element>(0.0,0.0,-1.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFObjectModelData name="PerlinBlueAndYellowRectangle">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>-0.6</x>
+			<y>-0.6</y>
+			<z>0.0</z>
+			<scale>1.2</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>PrimitiveGeometryTextured</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>ColouredTextureSummerMaterial</program>
+			<structures>
+				<structures_element>Color:0</structures_element>
+				<structures_element>Color:1</structures_element>
+			</structures>
+			<textures>
+				<textures_element>PerlinTexture01:</textures_element>
+				<textures_element>PerlinTexture02:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFObjectModelData name="PerlinBlueRectangle">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>-0.6</x>
+			<y>-0.6</y>
+			<z>0.0</z>
+			<scale>1.2</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>PrimitiveGeometryTextured</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicTexturedMat</program>
+			<structures>
+				<structures_element>Color:0</structures_element>
+			</structures>
+			<textures>
+				<textures_element>PerlinTexture01:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFObjectModelData name="PerlinRectangle">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>-0.6</x>
+			<y>-0.6</y>
+			<z>0.0</z>
+			<scale>1.2</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>PrimitiveGeometryTextured</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>PerlinTexture01:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFBitmapTextureData name="PerlinTexture01">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,0.5,0.3,0.3)</weights>
+			<interpolant>Cubic</interpolant>
+			<bitmap>CircularBitmap10</bitmap>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="PerlinTexture02">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,0.1,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+			<bitmap>CircularBitmap10</bitmap>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFPrimitiveArrayData name="PrimitiveData">
+		<primitive>TrianglePN</primitive>
+		<references id="primitiveData">
+			<reference>Rectangle</reference>
+			<reference>Normals</reference>
+		</references>
+		<primitives>
+			<primitives_element>(0,1,2,0,0,0)</primitives_element>
+			<primitives_element>(2,1,3,0,0,0)</primitives_element>
+		</primitives>
+	</SFPrimitiveArrayData>
+	<SFPrimitiveArrayData name="PrimitiveDataTextured">
+		<primitive>TrianglePNTxO</primitive>
+		<references id="primitiveData">
+			<reference>Rectangle</reference>
+			<reference>Normals</reference>
+			<reference>Rectangle</reference>
+		</references>
+		<primitives>
+			<primitives_element>(0,1,2,0,0,0,0,1,2)</primitives_element>
+			<primitives_element>(2,1,3,0,0,0,2,1,3)</primitives_element>
+		</primitives>
+	</SFPrimitiveArrayData>
+	<SFMeshGeometryData name="PrimitiveGeometry">
+		<linesData>PrimitiveData</linesData>
+		<firstElement>0</firstElement>
+		<lastElement>2</lastElement>
+	</SFMeshGeometryData>
+	<SFMeshGeometryData name="PrimitiveGeometryTextured">
+		<linesData>PrimitiveDataTextured</linesData>
+		<firstElement>0</firstElement>
+		<lastElement>2</lastElement>
+	</SFMeshGeometryData>
+	<SFVertexListData16 name="Rectangle">
+		<vertices>
+			<vertices_element>(0.0,0.0)</vertices_element>
+			<vertices_element>(1.0,0.0)</vertices_element>
+			<vertices_element>(0.0,1.0)</vertices_element>
+			<vertices_element>(1.0,1.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+</library>

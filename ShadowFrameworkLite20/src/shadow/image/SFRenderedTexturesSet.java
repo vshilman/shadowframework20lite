@@ -1,10 +1,12 @@
 package shadow.image;
 
 import shadow.system.SFInitiable;
+import shadow.system.SFUpdatable;
 
-public interface SFRenderedTexturesSet extends SFInitiable{
+public interface SFRenderedTexturesSet extends SFInitiable,SFUpdatable{
 
-	public void apply(int index,int level) throws ArrayIndexOutOfBoundsException;
-
+	public SFPipelineTexture getTexture(int index);
+	
 	public int getTextureSize();
+	
 }

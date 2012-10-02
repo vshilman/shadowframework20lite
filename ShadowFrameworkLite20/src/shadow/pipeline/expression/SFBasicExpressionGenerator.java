@@ -1,9 +1,5 @@
 package shadow.pipeline.expression;
 
-import java.util.List;
-
-import shadow.pipeline.parameters.SFParameteri;
-
 
 public class SFBasicExpressionGenerator implements SFIExpressionGenerator {
 
@@ -21,18 +17,12 @@ public class SFBasicExpressionGenerator implements SFIExpressionGenerator {
 		if(operatorSymbol.equalsIgnoreCase("-")){
 			return new SFExpressionMinus();
 		}
-		if(operatorSymbol.equalsIgnoreCase(":")){
-			return new SFExpressionClamp();
-		}
-		if(operatorSymbol.equalsIgnoreCase("?")){
-			return new SFExpressionDot();
-		}
 		if(operatorSymbol.equalsIgnoreCase(",")){
 			return new SFExpressionVector();
 		}
 		return new SFExpressionSum();
 	}
-
+	
 	@Override
 	public SFExpressionElement getExpressionElement(String value, short type){
 		return new SFExpressionVariable(value,type);
@@ -41,5 +31,10 @@ public class SFBasicExpressionGenerator implements SFIExpressionGenerator {
 	@Override
 	public SFExpressionTypeWrapper getWrapper(short type){
 		return new SFExpressionTypeWrapper(type);
+	}
+	
+	@Override
+	public SFExpressionOperator getFunction(String functionSymbol) {
+		return new SFFunctionOperator(functionSymbol);
 	}
 }

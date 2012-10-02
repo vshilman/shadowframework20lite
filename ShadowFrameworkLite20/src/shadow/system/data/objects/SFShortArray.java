@@ -2,14 +2,15 @@ package shadow.system.data.objects;
 
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
+import shadow.system.data.SFWritableDataObject;
 
-public class SFShortArray extends SFPrimitiveType{
+public class SFShortArray extends SFPrimitiveType implements SFWritableDataObject{
 
 	private short[] shortValues;
 	
-	public SFShortArray(int shortValuesSize) {
+	public SFShortArray(short[] shortValues) {
 		super();
-		this.shortValues = new short[shortValuesSize];
+		this.shortValues = shortValues;
 	}
 
 	public short[] getShortValues() {
@@ -30,6 +31,17 @@ public class SFShortArray extends SFPrimitiveType{
 	
 	@Override
 	public SFShortArray clone(){
-		return new SFShortArray(shortValues.length);
+		return new SFShortArray(new short[shortValues.length]);
+	}
+	
+
+	@Override
+	public void setStringValue(String value) {
+		shortValues=SFCharsetObjectUtils.readShorts(value, getClass().getSimpleName());
+	}
+	
+	@Override
+	public String toStringValue() {
+		return SFCharsetObjectUtils.writeShorts(shortValues);
 	}
 }

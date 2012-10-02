@@ -7,6 +7,7 @@ import javax.media.opengl.GL2;
 
 import shadow.image.SFTexture;
 import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPipelineGraphics.Module;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.builder.SFPipelineBuilder;
@@ -21,8 +22,7 @@ public class SFTextureViewer implements SFDrawable{
 	private SFProgram program;
 	
 	public SFTextureViewer(){
-		String materials[]={"TexturedMat"};
-		program=SFPipeline.getStaticImageProgram(materials, "BasicColor");
+		program=SFPipeline.getStaticImageProgram("TexturedMat", "BasicColor");
 	}
 	
 	public static SFTextureViewer generateFrame(SFTexture texture,SFFrameController... controllers){
@@ -59,8 +59,12 @@ public class SFTextureViewer implements SFDrawable{
 		gl.glEnable(GL2.GL_DEPTH_TEST);
 		
 		try {
-			texture.apply(0);
+			
 			program.load();
+			
+			SFPipeline.getSfProgramBuilder().loadProgram(program);
+			
+			SFPipeline.getSfPipelineGraphics().loadTexture(Module.MATERIAL, texture.getTexture(), 0);
 			
 			SFPipeline.getSfPipelineGraphics().drawBaseQuad();
 			
@@ -74,5 +78,16 @@ public class SFTextureViewer implements SFDrawable{
 	public void init() {
 		
 	}
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	public void setTexture(SFTexture texture) {
+		this.texture = texture;
+	}
+
+	
 }

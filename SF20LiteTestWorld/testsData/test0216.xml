@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="Colors">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFObjectModelData name="Model">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<geometry>PrimitiveGeometry</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>Colors:0</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFVertexListDataUnit8 name="Normals">
+		<vertices>
+			<vertices_element>(0.0,0.0,1.0)</vertices_element>
+		</vertices>
+	</SFVertexListDataUnit8>
+	<SFVertexListData16 name="Points">
+		<vertices>
+			<vertices_element>(0.0,0.0)</vertices_element>
+			<vertices_element>(1.0,0.0)</vertices_element>
+			<vertices_element>(0.0,1.0)</vertices_element>
+			<vertices_element>(1.0,1.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFPrimitiveArrayData name="PrimitiveData">
+		<primitive>TrianglePN</primitive>
+		<references id="primitiveData">
+			<reference>Points</reference>
+			<reference>Normals</reference>
+		</references>
+		<primitives>
+			<primitives_element>(0,1,2,0,0,0)</primitives_element>
+		</primitives>
+	</SFPrimitiveArrayData>
+	<SFMeshGeometryData name="PrimitiveGeometry">
+		<linesData>PrimitiveData</linesData>
+		<firstElement>0</firstElement>
+		<lastElement>1</lastElement>
+	</SFMeshGeometryData>
+</library>

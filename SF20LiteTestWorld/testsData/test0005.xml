@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFBitmapTextureData name="PerlinTexture">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,0.2,0.2,0.2,0.2,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+			<SFBitmapArrayData name="bitmap">
+				<width>4</width>
+				<height>4</height>
+				<bitmap>(0,255,100,0,0,100,255,0,255,0,100,0,0,100,0,255)</bitmap>
+			</SFBitmapArrayData>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFObjectModelData name="ReddishGrayAndBrightMushroom">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.5</y>
+			<z>0.0</z>
+			<scale>2.5</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>TexturedMushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>ReddishGrayAndBrightPerlinNoise:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFFilteredRenderedTextureData name="ReddishGrayAndBrightPerlinNoise">
+		<textures>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
+		</textures>
+		<SFProgramAssetData name="lightComponent">
+			<program>ReddishGrayAndBright</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>PerlinTexture:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFFilteredRenderedTextureData>
+	<SFQuadsSurfaceGeometryData name="TexturedMushroom">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1)</vertices_element>
+						<vertices_element>(0.024,0.2)</vertices_element>
+						<vertices_element>(0.0,0.3)</vertices_element>
+						<vertices_element>(0.0,0.4)</vertices_element>
+						<vertices_element>(0.0,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1)</vertices_element>
+						<vertices_element>(0.2,0.2)</vertices_element>
+						<vertices_element>(0.048,0.3)</vertices_element>
+						<vertices_element>(0.048,0.4)</vertices_element>
+						<vertices_element>(0.448,0.5)</vertices_element>
+						<vertices_element>(0.048,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>1.0</du>
+			<dv>1.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle2PNTxO</primitive>
+	</SFQuadsSurfaceGeometryData>
+</library>

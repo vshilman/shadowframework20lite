@@ -19,7 +19,6 @@
  */
 package shadow.system;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -32,21 +31,31 @@ public class SFInitiator {
 	private static SFInitiator initiator=new SFInitiator();
 
 	private LinkedList<SFInitiable> initiables=new LinkedList<SFInitiable>();
+	private LinkedList<SFInitiable> destroyables=new LinkedList<SFInitiable>();
 
 	private SFInitiator() {
 	}
 
-	public static void addInitiable(SFInitiable initiable) {
+	public synchronized static void addInitiable(SFInitiable initiable) {
 		if (!initiator.initiables.contains(initiable)){
 			//System.out.println("initializing "+initiable);
 			initiator.initiables.add(initiable);
 		}
 	}
+	
+	public synchronized static void addDestroyable(SFInitiable initiable) {
+		if (!initiator.destroyables.contains(initiable)){
+			//System.out.println("initializing "+initiable);
+			initiator.destroyables.add(initiable);
+		}
+	}
 
-	public static void solveInitiables() {
-		for (Iterator<SFInitiable> iterator=initiator.initiables.iterator(); iterator
-				.hasNext();) {
-			SFInitiable initiable=(SFInitiable) iterator.next();
+	public synchronized static void solveInitiables() {
+		for (SFInitiable destroyable : initiator.destroyables) {
+			destroyable.destroy();
+		}
+		initiator.destroyables.clear();
+		for (SFInitiable initiable : initiator.initiables) {
 			initiable.init();
 		}
 		initiator.initiables.clear();

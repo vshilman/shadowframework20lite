@@ -1,6 +1,8 @@
 package shadow.system.data.objects;
 
-public abstract class SFBinaryValue {
+import shadow.system.data.SFCharsetObject;
+
+public abstract class SFBinaryValue implements SFCharsetObject{
 
 	protected int value;
 
@@ -21,5 +23,4 @@ public abstract class SFBinaryValue {
 	protected void setValue(int value) {
 		this.value = value;
 	}
-
 }

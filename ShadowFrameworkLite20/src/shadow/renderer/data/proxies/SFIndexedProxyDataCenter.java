@@ -15,6 +15,8 @@ public class SFIndexedProxyDataCenter extends SFAlternativeDataCenter implements
 
 	private HashMap<String, ArrayList<SFDataset>> allData = new HashMap<String, ArrayList<SFDataset>>();
 
+	private ArrayList<String> constants=new ArrayList<String>();
+	
 	private int index = 0;
 	private int size = 0;
 
@@ -82,12 +84,25 @@ public class SFIndexedProxyDataCenter extends SFAlternativeDataCenter implements
 	public void setIndex(int index) {
 		this.index = index;
 	}
+	
+	public void addConstant(String constant){
+		this.constants.add(constant);
+	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public void makeDatasetAvailable(String name, SFDataCenterListener listener) {
+	@SuppressWarnings("all")
+	public void makeDatasetAvailable(String name, final SFDataCenterListener listener) {
+		
 		if(allData.get(name)==null && dataCenter!=null){
-			dataCenter.makeDatasetAvailable(name, listener);
+			dataCenter.makeDatasetAvailable(name, new SFDataCenterListener<SFDataset>() {
+				@Override
+				public void onDatasetAvailable(String name, SFDataset dataset) {
+					if(constants.contains(name))
+						SFDataAsset.setUpdateMode(false);
+					listener.onDatasetAvailable(name, dataset);
+					SFDataAsset.setUpdateMode(true);
+				}
+			});
 		}else{
 			SFDataAsset<?> dataset = (SFDataAsset<?>) (getData(name, index));
 			dataset.invalidate();

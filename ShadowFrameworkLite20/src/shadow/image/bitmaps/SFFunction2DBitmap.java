@@ -24,27 +24,40 @@ import java.nio.ByteBuffer;
 import shadow.image.SFBitmap;
 import shadow.image.SFImageFormat;
 
-public abstract class SFFunction2DBitmap extends SFBitmap{
-
-	public abstract float getValue(float u,float v);
+public class SFFunction2DBitmap extends SFBitmap{
 	
-	public SFFunction2DBitmap(int width,int height,boolean rgb){
+	private SFBitmapFunction function;
+
+	public SFFunction2DBitmap(int width,int height,boolean rgb,SFBitmapFunction function){
 		super();
 		setWidth((short)width);
 		setHeight((short)height);
-		width=getWidth();
-		height=getHeight();
-		
+		this.function=function;
+
 		if(rgb){
 			this.setFormat(SFImageFormat.RGB8);
 		}else{
 			this.setFormat(SFImageFormat.GRAY8);
 		}
 		
-		int size=1;
-		if(rgb){
-			size=3;
-		}
+	}
+	
+	public SFBitmapFunction getFunction() {
+		return function;
+	}
+
+	public void setFunction(SFBitmapFunction function) {
+		this.function = function;
+	}
+
+	@Override
+	public void init() {
+		super.init();
+
+		int width=getWidth();
+		int height=getHeight();
+		
+		int size = getSize();
 		ByteBuffer buffer=ByteBuffer.allocateDirect(width*height*size);
 		
 		float stepH=1.0f/height;
@@ -56,14 +69,14 @@ public abstract class SFFunction2DBitmap extends SFBitmap{
 				float u=stepW*j;
 				float v=stepH*i;
 				
-				float color=255*getValue(u,v);
+				float color=255*function.getValue(u,v);
 				if(color>255)
 					color=255;
 				if(color<0)
 					color=0;
 				
 				buffer.put((byte)color); 
-				if(rgb){
+				if(size==3){
 					buffer.put((byte)color);
 					buffer.put((byte)color);
 				}
@@ -72,5 +85,7 @@ public abstract class SFFunction2DBitmap extends SFBitmap{
 		this.setWidth(width);
 		this.setHeight(height);
 		this.setData(buffer);
+		
+		buffer.rewind();
 	}
 }

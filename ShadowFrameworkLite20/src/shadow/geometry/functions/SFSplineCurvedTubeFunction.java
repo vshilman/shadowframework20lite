@@ -3,19 +3,23 @@ package shadow.geometry.functions;
 import java.util.ArrayList;
 
 import shadow.geometry.SFCurve;
-import shadow.geometry.SFSurfaceFunction;
 import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
 
-public class SFSplineCurvedTubeFunction extends SFSurfaceFunction {
+public class SFSplineCurvedTubeFunction  extends SFUnoptimizedSurfaceFunction{
 
-	private ArrayList<SFCurve<SFValuenf>> curves=new ArrayList<SFCurve<SFValuenf>>();
+	private ArrayList<SFCurve> curves=new ArrayList<SFCurve>();
 	private SFVertex3f tempVertex=new SFVertex3f();
- 	
+
+	
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		//Do nothing
+	}
+	
+	@Override
+	public void destroy() {
+		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 	
 	public SFVertex3f evaluateCurve(int index,float v){
@@ -24,7 +28,7 @@ public class SFSplineCurvedTubeFunction extends SFSurfaceFunction {
 		return tmpVertex;
 	}
 	
-	public ArrayList<SFCurve<SFValuenf>> getCurves() {
+	public ArrayList<SFCurve> getCurves() {
 		return curves;
 	}
 

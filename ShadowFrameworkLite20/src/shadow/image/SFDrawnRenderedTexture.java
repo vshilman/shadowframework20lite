@@ -15,14 +15,13 @@ public class SFDrawnRenderedTexture implements SFRenderedTexturesSet{
 	private boolean useDefaultStencilBuffer=false;
 	private int depthBuffer=-1;
 	private int stencilBuffer=-1;
-	private SFRenderedTexture renderedTexture=new SFRenderedTexture();
 	private SFRenderer renderer=new SFRenderer();
 	private SFNode node;
-	
+	SFRenderedTexture renderedTexture=new SFRenderedTexture();
 	
 	@Override
-	public void apply(int index, int level) throws ArrayIndexOutOfBoundsException{
-		textures[index].apply(level);
+	public SFPipelineTexture getTexture(int index) {
+		return textures[index];
 	}
 	
 	@Override
@@ -63,7 +62,7 @@ public class SFDrawnRenderedTexture implements SFRenderedTexturesSet{
 				textures[stencilBuffer]=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(data.getWidth(), data.getHeight(), 
 						data.getFormat(),  data.getFilters(),	data.getWrapS(), data.getWrapT());
 				renderedTexture.setStencilBuffer(textures[stencilBuffer]);
-			}else if(useDefaultDepthBuffer){
+			}else if(useDefaultStencilBuffer){
 				SFPipelineTexture data=textures[0];
 				SFBufferData bufferData=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().
 					generatePlainBuffer(data.getWidth(), data.getHeight());
@@ -96,12 +95,27 @@ public class SFDrawnRenderedTexture implements SFRenderedTexturesSet{
 				SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
 				renderer.render(node);
 				
-				
 			SFPipeline.getSfTexturePipeline().endRenderedTexture(renderedTexture);
+			
+			SFPipeline.getSfTexturePipeline().destroyRenderedTexture(renderedTexture);
 		}
 		initialized=true;
 	}
 	
+	@Override
+	public void update() {
+		
+		
+	}
+	
+	@Override
+	public void destroy() {
+		if(initialized){
+			for (int i = 0; i < textures.length; i++) {
+				SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().destroyBuffer(textures[i]);
+			}
+		}
+	}
 
 	public int getDepthBuffer() {
 		return depthBuffer;

@@ -100,7 +100,7 @@ public class SFVertex4f extends SFVertex3f{
 		v[3]*=a;
 	}
 
-	public void storeOn(float []f){
+	public void storeOn(float[] f){
 		storeOn3f(f);
 		f[3]=v[3];
 	}

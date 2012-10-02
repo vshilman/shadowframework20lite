@@ -1,15 +1,15 @@
 package shadow.geometry.curves.data;
 
-import shadow.geometry.SFCurve;
 import shadow.geometry.SFValuesIterator;
 import shadow.geometry.SFValuesList;
 import shadow.geometry.curves.SFBasisSpline2;
+import shadow.geometry.curves.SFControlPointsCurve;
 import shadow.math.SFValuenf;
 import shadow.math.SFVertex3f;
 import shadow.renderer.data.SFDataAsset;
 import shadow.system.data.SFDataCenterListener;
 
-public class SFBasisSplineData extends SFCurvesVerticesData<SFValuenf> implements SFDataCenterListener<SFDataAsset<SFValuesList<SFValuenf>>>{
+public class SFBasisSplineData extends SFCurvesVerticesData implements SFDataCenterListener<SFDataAsset<SFValuesList<SFValuenf>>>{
 
 	public SFBasisSplineData() {
 		super();
@@ -55,8 +55,10 @@ public class SFBasisSplineData extends SFCurvesVerticesData<SFValuenf> implement
 		}
 	}
 	
+	
+	
 	@Override
-	protected SFCurve<SFValuenf> buildResource() {
+	protected SFControlPointsCurve buildResource() {
 		spline=new SFBasisSpline2<SFValuenf>(super.getClosed());
 		vertices.retrieveDataset(this);
 		return spline;

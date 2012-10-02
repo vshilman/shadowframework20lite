@@ -1,0 +1,1109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(0.0,0.5,0.0)</values_element>
+			<values_element>(0.5,0.5,0.0)</values_element>
+			<values_element>(0.5,0.0,0.5)</values_element>
+			<values_element>(0.0,0.0,0.5)</values_element>
+			<values_element>(0.5,0.0,1.0)</values_element>
+			<values_element>(0.5,1.0,0.0)</values_element>
+			<values_element>(0.6,1.0,0.4)</values_element>
+			<values_element>(0.0,1.0,1.0)</values_element>
+			<values_element>(1.0,0.6,0.0)</values_element>
+			<values_element>(1.0,0.84800005,0.0)</values_element>
+			<values_element>(0.0,0.6,0.2)</values_element>
+			<values_element>(0.1,0.0,0.3)</values_element>
+			<values_element>(1.0,1.0,1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFObjectModelData name="ColouredMushroom0">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:0</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom0Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.70000005</x>
+			<y>-0.85</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom0</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom1">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:1</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFObjectModelData name="ColouredMushroom10">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:10</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom10Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.19900002</x>
+			<y>0.049000002</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom10</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom11">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:11</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom11Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.64900005</x>
+			<y>0.049000002</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom11</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom12">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:12</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom12Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.70000005</x>
+			<y>0.499</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom12</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom13">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:13</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom13Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.25</x>
+			<y>0.499</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom13</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom14">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:14</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom14Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.19900002</x>
+			<y>0.499</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom14</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom15">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:15</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom15Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.64900005</x>
+			<y>0.499</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom15</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom1Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.25</x>
+			<y>-0.85</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom1</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom2">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:2</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom2Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.19900002</x>
+			<y>-0.85</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom2</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom3">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:3</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom3Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.64900005</x>
+			<y>-0.85</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom3</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom4">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:4</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom4Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.70000005</x>
+			<y>-0.4</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom4</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom5">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:5</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom5Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.25</x>
+			<y>-0.4</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom5</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom6">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:6</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom6Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.19900002</x>
+			<y>-0.4</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom6</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom7">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:7</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom7Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>0.64900005</x>
+			<y>-0.4</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom7</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom8">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:8</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom8Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.70000005</x>
+			<y>0.049000002</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom8</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFObjectModelData name="ColouredMushroom9">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>0.6</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>Mushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:9</structures_element>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFInstancedReferenceNodeData name="ColouredMushroom9Place">
+		<SFTranslateFixed16Data name="transform">
+			<x>-0.25</x>
+			<y>0.049000002</y>
+			<z>0.0</z>
+		</SFTranslateFixed16Data>
+		<references id="nodes">
+			<reference>ColouredMushroom9</reference>
+		</references>
+	</SFInstancedReferenceNodeData>
+	<SFQuadsSurfaceGeometryData name="Mushroom">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1)</vertices_element>
+						<vertices_element>(0.024,0.2)</vertices_element>
+						<vertices_element>(0.0,0.3)</vertices_element>
+						<vertices_element>(0.0,0.4)</vertices_element>
+						<vertices_element>(0.0,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1)</vertices_element>
+						<vertices_element>(0.2,0.2)</vertices_element>
+						<vertices_element>(0.048,0.3)</vertices_element>
+						<vertices_element>(0.048,0.4)</vertices_element>
+						<vertices_element>(0.448,0.5)</vertices_element>
+						<vertices_element>(0.048,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFCompositeAnimationData name="MushroomsScene01Animations">
+		<animations>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>3844</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,-0.85,0.0)</startingPosition>
+							<endingPosition>(-0.7,-0.75,0.0)</endingPosition>
+							<duration>1465</duration>
+							<startingTime>75</startingTime>
+							<node>ColouredMushroom0Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,-0.75,0.0)</startingPosition>
+							<endingPosition>(-0.7,-0.85,0.0)</endingPosition>
+							<duration>1585</duration>
+							<startingTime>1674</startingTime>
+							<node>ColouredMushroom0Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1419</duration>
+							<startingTime>485</startingTime>
+							<node>ColouredMushroom0Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5555</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,-0.85,0.0)</startingPosition>
+							<endingPosition>(-0.25,-0.75,0.0)</endingPosition>
+							<duration>2715</duration>
+							<startingTime>26</startingTime>
+							<node>ColouredMushroom1Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,-0.75,0.0)</startingPosition>
+							<endingPosition>(-0.25,-0.85,0.0)</endingPosition>
+							<duration>2195</duration>
+							<startingTime>2914</startingTime>
+							<node>ColouredMushroom1Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1250</duration>
+							<startingTime>61</startingTime>
+							<node>ColouredMushroom1Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5631</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,-0.85,0.0)</startingPosition>
+							<endingPosition>(0.19999999,-0.75,0.0)</endingPosition>
+							<duration>2075</duration>
+							<startingTime>7</startingTime>
+							<node>ColouredMushroom2Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,-0.75,0.0)</startingPosition>
+							<endingPosition>(0.19999999,-0.85,0.0)</endingPosition>
+							<duration>2799</duration>
+							<startingTime>2134</startingTime>
+							<node>ColouredMushroom2Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1145</duration>
+							<startingTime>15</startingTime>
+							<node>ColouredMushroom2Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5162</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,-0.85,0.0)</startingPosition>
+							<endingPosition>(0.6499999,-0.75,0.0)</endingPosition>
+							<duration>1951</duration>
+							<startingTime>207</startingTime>
+							<node>ColouredMushroom3Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,-0.75,0.0)</startingPosition>
+							<endingPosition>(0.6499999,-0.85,0.0)</endingPosition>
+							<duration>2229</duration>
+							<startingTime>2470</startingTime>
+							<node>ColouredMushroom3Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1485</duration>
+							<startingTime>258</startingTime>
+							<node>ColouredMushroom3Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5771</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,-0.40000004,0.0)</startingPosition>
+							<endingPosition>(-0.7,-0.30000004,0.0)</endingPosition>
+							<duration>2122</duration>
+							<startingTime>240</startingTime>
+							<node>ColouredMushroom4Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,-0.30000004,0.0)</startingPosition>
+							<endingPosition>(-0.7,-0.40000004,0.0)</endingPosition>
+							<duration>2561</duration>
+							<startingTime>2634</startingTime>
+							<node>ColouredMushroom4Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1315</duration>
+							<startingTime>242</startingTime>
+							<node>ColouredMushroom4Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>3946</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,-0.40000004,0.0)</startingPosition>
+							<endingPosition>(-0.25,-0.30000004,0.0)</endingPosition>
+							<duration>1669</duration>
+							<startingTime>292</startingTime>
+							<node>ColouredMushroom5Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,-0.30000004,0.0)</startingPosition>
+							<endingPosition>(-0.25,-0.40000004,0.0)</endingPosition>
+							<duration>1248</duration>
+							<startingTime>2032</startingTime>
+							<node>ColouredMushroom5Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1333</duration>
+							<startingTime>235</startingTime>
+							<node>ColouredMushroom5Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>4797</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,-0.40000004,0.0)</startingPosition>
+							<endingPosition>(0.19999999,-0.30000004,0.0)</endingPosition>
+							<duration>1704</duration>
+							<startingTime>394</startingTime>
+							<node>ColouredMushroom6Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,-0.30000004,0.0)</startingPosition>
+							<endingPosition>(0.19999999,-0.40000004,0.0)</endingPosition>
+							<duration>1669</duration>
+							<startingTime>2442</startingTime>
+							<node>ColouredMushroom6Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1280</duration>
+							<startingTime>471</startingTime>
+							<node>ColouredMushroom6Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>2931</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,-0.40000004,0.0)</startingPosition>
+							<endingPosition>(0.6499999,-0.30000004,0.0)</endingPosition>
+							<duration>1207</duration>
+							<startingTime>23</startingTime>
+							<node>ColouredMushroom7Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,-0.30000004,0.0)</startingPosition>
+							<endingPosition>(0.6499999,-0.40000004,0.0)</endingPosition>
+							<duration>1020</duration>
+							<startingTime>1354</startingTime>
+							<node>ColouredMushroom7Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1404</duration>
+							<startingTime>139</startingTime>
+							<node>ColouredMushroom7Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>4710</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,0.049999952,0.0)</startingPosition>
+							<endingPosition>(-0.7,0.14999995,0.0)</endingPosition>
+							<duration>1138</duration>
+							<startingTime>300</startingTime>
+							<node>ColouredMushroom8Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,0.14999995,0.0)</startingPosition>
+							<endingPosition>(-0.7,0.049999952,0.0)</endingPosition>
+							<duration>2545</duration>
+							<startingTime>1513</startingTime>
+							<node>ColouredMushroom8Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1268</duration>
+							<startingTime>79</startingTime>
+							<node>ColouredMushroom8Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>4935</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,0.049999952,0.0)</startingPosition>
+							<endingPosition>(-0.25,0.14999995,0.0)</endingPosition>
+							<duration>2228</duration>
+							<startingTime>388</startingTime>
+							<node>ColouredMushroom9Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,0.14999995,0.0)</startingPosition>
+							<endingPosition>(-0.25,0.049999952,0.0)</endingPosition>
+							<duration>1610</duration>
+							<startingTime>2717</startingTime>
+							<node>ColouredMushroom9Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1223</duration>
+							<startingTime>407</startingTime>
+							<node>ColouredMushroom9Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>3597</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,0.049999952,0.0)</startingPosition>
+							<endingPosition>(0.19999999,0.14999995,0.0)</endingPosition>
+							<duration>1008</duration>
+							<startingTime>426</startingTime>
+							<node>ColouredMushroom10Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,0.14999995,0.0)</startingPosition>
+							<endingPosition>(0.19999999,0.049999952,0.0)</endingPosition>
+							<duration>1569</duration>
+							<startingTime>1477</startingTime>
+							<node>ColouredMushroom10Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1313</duration>
+							<startingTime>122</startingTime>
+							<node>ColouredMushroom10Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>4837</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,0.049999952,0.0)</startingPosition>
+							<endingPosition>(0.6499999,0.14999995,0.0)</endingPosition>
+							<duration>1647</duration>
+							<startingTime>453</startingTime>
+							<node>ColouredMushroom11Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,0.14999995,0.0)</startingPosition>
+							<endingPosition>(0.6499999,0.049999952,0.0)</endingPosition>
+							<duration>1937</duration>
+							<startingTime>2221</startingTime>
+							<node>ColouredMushroom11Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1293</duration>
+							<startingTime>315</startingTime>
+							<node>ColouredMushroom11Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>4109</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,0.49999988,0.0)</startingPosition>
+							<endingPosition>(-0.7,0.5999999,0.0)</endingPosition>
+							<duration>949</duration>
+							<startingTime>499</startingTime>
+							<node>ColouredMushroom12Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,0.5999999,0.0)</startingPosition>
+							<endingPosition>(-0.7,0.49999988,0.0)</endingPosition>
+							<duration>1561</duration>
+							<startingTime>1889</startingTime>
+							<node>ColouredMushroom12Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1378</duration>
+							<startingTime>125</startingTime>
+							<node>ColouredMushroom12Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5075</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,0.49999988,0.0)</startingPosition>
+							<endingPosition>(-0.25,0.5999999,0.0)</endingPosition>
+							<duration>2424</duration>
+							<startingTime>192</startingTime>
+							<node>ColouredMushroom13Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,0.5999999,0.0)</startingPosition>
+							<endingPosition>(-0.25,0.49999988,0.0)</endingPosition>
+							<duration>1763</duration>
+							<startingTime>2749</startingTime>
+							<node>ColouredMushroom13Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1437</duration>
+							<startingTime>402</startingTime>
+							<node>ColouredMushroom13Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>4099</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,0.49999988,0.0)</startingPosition>
+							<endingPosition>(0.19999999,0.5999999,0.0)</endingPosition>
+							<duration>1460</duration>
+							<startingTime>334</startingTime>
+							<node>ColouredMushroom14Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,0.5999999,0.0)</startingPosition>
+							<endingPosition>(0.19999999,0.49999988,0.0)</endingPosition>
+							<duration>1329</duration>
+							<startingTime>1881</startingTime>
+							<node>ColouredMushroom14Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1016</duration>
+							<startingTime>134</startingTime>
+							<node>ColouredMushroom14Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5169</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,0.49999988,0.0)</startingPosition>
+							<endingPosition>(0.6499999,0.5999999,0.0)</endingPosition>
+							<duration>2537</duration>
+							<startingTime>5</startingTime>
+							<node>ColouredMushroom15Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,0.5999999,0.0)</startingPosition>
+							<endingPosition>(0.6499999,0.49999988,0.0)</endingPosition>
+							<duration>1959</duration>
+							<startingTime>2704</startingTime>
+							<node>ColouredMushroom15Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1137</duration>
+							<startingTime>413</startingTime>
+							<node>ColouredMushroom15Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+		</animations>
+	</SFCompositeAnimationData>
+	<SFReferenceNodeData name="MushroomsScene01b">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>ColouredMushroom0Place</reference>
+			<reference>ColouredMushroom1Place</reference>
+			<reference>ColouredMushroom2Place</reference>
+			<reference>ColouredMushroom3Place</reference>
+			<reference>ColouredMushroom4Place</reference>
+			<reference>ColouredMushroom5Place</reference>
+			<reference>ColouredMushroom6Place</reference>
+			<reference>ColouredMushroom7Place</reference>
+			<reference>ColouredMushroom8Place</reference>
+			<reference>ColouredMushroom9Place</reference>
+			<reference>ColouredMushroom10Place</reference>
+			<reference>ColouredMushroom11Place</reference>
+			<reference>ColouredMushroom12Place</reference>
+			<reference>ColouredMushroom13Place</reference>
+			<reference>ColouredMushroom14Place</reference>
+			<reference>ColouredMushroom15Place</reference>
+		</references>
+	</SFReferenceNodeData>
+</library>

@@ -1,6 +1,8 @@
 package shadow.math;
 
-public class SFTransform3f extends SFValuenf {
+import shadow.system.SFInitiable;
+
+public class SFTransform3f extends SFValuenf implements SFInitiable{
 
 	public SFTransform3f() {
 		super(12);
@@ -58,6 +60,25 @@ public class SFTransform3f extends SFValuenf {
 			position.v[i] = this.v[i + 9];
 		}
 	}
+	
+	
+	public void transform(SFValuenf position) {
+		float x=position.get()[0];
+		float y=position.get()[1];
+		float z=position.get()[2];
+		position.get()[0]=x*v[0]+y*v[1]+z*v[2]+v[9];
+		position.get()[1]=x*v[3]+y*v[4]+z*v[5]+v[10];
+		position.get()[2]=x*v[6]+y*v[7]+z*v[8]+v[11];
+	}
+	
+	public void transformDir(SFValuenf dir) {
+		float x=dir.get()[0];
+		float y=dir.get()[1];
+		float z=dir.get()[2];
+		dir.get()[0]=x*v[0]+y*v[1]+z*v[2];
+		dir.get()[1]=x*v[3]+y*v[4]+z*v[5];
+		dir.get()[2]=x*v[6]+y*v[7]+z*v[8];
+	}
 
 	private static float[] multTmpVal=new float[12];
 	public synchronized void mult(SFTransform3f transform){
@@ -83,5 +104,15 @@ public class SFTransform3f extends SFValuenf {
 		for (int i = 0; i < multTmpVal.length; i++) {
 			this.v[i]=multTmpVal[i];
 		}
+	}
+	
+	@Override
+	public void destroy() {
+		
+	}
+	
+	@Override
+	public void init() {
+		
 	}
 }

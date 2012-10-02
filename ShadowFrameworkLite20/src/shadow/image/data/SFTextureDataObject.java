@@ -5,17 +5,21 @@ import shadow.image.SFPipelineTexture;
 import shadow.image.SFPipelineTexture.Filter;
 import shadow.image.SFPipelineTexture.WrapMode;
 import shadow.image.SFTextureDataToken;
+import shadow.system.data.SFWritableDataObject;
+import shadow.system.data.java.SFStringTokenizerInputStream;
+import shadow.system.data.java.SFStringWriterStream;
 import shadow.system.data.objects.SFCompositeDataArray;
-import shadow.system.data.objects.SFInt;
+import shadow.system.data.objects.SFIntByteField;
+import shadow.system.data.objects.SFIntShortField;
 
-public class SFTextureDataObject extends SFCompositeDataArray{
+public class SFTextureDataObject extends SFCompositeDataArray implements SFWritableDataObject{
 
-	private SFInt widthHeight;
-	private SFInt params;
+	private SFIntShortField widthHeight;
+	private SFIntByteField params;
 	
 	public void generateData() {
-		widthHeight=new SFInt(0);
-		params=new SFInt(0);
+		widthHeight=new SFIntShortField(0);
+		params=new SFIntByteField(0);
 		
 		addDataObject(widthHeight);
 		addDataObject(params);
@@ -111,4 +115,28 @@ public class SFTextureDataObject extends SFCompositeDataArray{
 		setWrapModeS(texture.getWrapS());
 		setWrapModeT(texture.getWrapT());
 	}
+	
+	@Override
+	public void setStringValue(String value) {
+		SFStringTokenizerInputStream stream=new SFStringTokenizerInputStream(value);
+		setWidth(stream.readInt());
+		setHeight(stream.readInt());
+		setFormat(SFImageFormat.valueOf(stream.readString()));
+		setFilter(Filter.valueOf(stream.readString()));
+		setWrapModeS(WrapMode.valueOf(stream.readString()));
+		setWrapModeT(WrapMode.valueOf(stream.readString()));
+	}
+	
+	@Override
+	public String toStringValue() {
+		SFStringWriterStream stream=new SFStringWriterStream();
+		stream.writeInt(getWidth());
+		stream.writeInt(getHeight());
+		stream.writeString(getFormat().toString());
+		stream.writeString(getFilter().toString());
+		stream.writeString(getWrapModeS().toString());
+		stream.writeString(getWrapModeT().toString());
+		return stream.getString();
+	}
+	
 }

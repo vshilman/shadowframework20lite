@@ -24,6 +24,7 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 		private String name;
 		private SFDataset dataset;
 		
+		
 		public RecordData(String name, SFDataset dataset) {
 			super();
 			this.name = name;
@@ -48,7 +49,7 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 	private class SFLibraryRecord extends SFCompositeDataArray implements Comparable<SFLibraryRecord>{
 		
 		private SFString name;
-		private SFDatasetObject object;
+		private SFDatasetObject<SFDataset> object;
 		
 		public SFLibraryRecord(String name,SFDataset dataset) {
 			super();
@@ -59,7 +60,7 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 		@Override
 		public void generateData() {
 			name=new SFString("");
-			object=new SFDatasetObject(null);
+			object=new SFDatasetObject<SFDataset>(null);
 			getDataObject().add(name);
 			getDataObject().add(object);
 		}

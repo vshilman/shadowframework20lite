@@ -22,18 +22,15 @@ package shadow.pipeline;
 
 public interface SFProgram{
 	
-	//A Wide set of primitives. There are more Vertex channels: Position, Normal, Du, Dv, Txo etc.
-	//One or more primitive may be assigned to each outputRegister.
 	public void setPrimitive(SFPrimitive primitive);
+	
 	//More materials may be assigned. Materials should not ovveride same values.
-	public void setMaterial(int index,SFProgramComponent material);
-	public void setLightStep(SFProgramComponent lightStep);
+	public void setTransform(SFProgramModule transform);
 	
-	public int getMaterialsSize();
-	public SFProgramComponent getMaterial(int index);
-	public SFProgramComponent getLightStep();
+	//More materials may be assigned. Materials should not ovveride same values.
+	public void setMaterial(SFProgramModule material);
 	
-	public SFPrimitive getPrimitive();
+	public void setLightStep(SFProgramModule lightStep);
 	
 	public void load();
 }

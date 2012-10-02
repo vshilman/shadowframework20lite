@@ -2,8 +2,8 @@ package shadow.renderer.data;
 
 import shadow.math.SFVertex3f;
 import shadow.renderer.SFCamera;
+import shadow.system.data.SFNamedParametersObject;
 import shadow.system.data.objects.SFFloat;
-import shadow.system.data.utils.SFGenericInfoObjectBuilder;
 
 public class SF2DCameraData extends SFDataAsset<SFCamera>{
 
@@ -11,12 +11,18 @@ public class SF2DCameraData extends SFDataAsset<SFCamera>{
 	private SFFloat upL=new SFFloat(0);
 	
 	public SF2DCameraData() {
-		setData(SFGenericInfoObjectBuilder.generateObjectBuilder(leftL,upL));
+		prepare();
 	}
-	
 	public SF2DCameraData(float leftL,float upL) {
-		setData(SFGenericInfoObjectBuilder.generateObjectBuilder(this.leftL,this.upL));
+		prepare();
 		setDimensions(leftL, upL);
+	}
+
+	private void prepare() {
+		SFNamedParametersObject parameters=new SFNamedParametersObject();
+		parameters.addObject("leftL", leftL);
+		parameters.addObject("upL", upL);
+		setData(parameters);
 	}
 	
 	@Override

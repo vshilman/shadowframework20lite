@@ -1,37 +1,40 @@
 package shadow.geometry.functions.data;
 
-import shadow.geometry.SFCurve;
 import shadow.geometry.SFSurfaceFunction;
-import shadow.math.SFValuenf;
+import shadow.geometry.curves.SFControlPointsCurve;
 import shadow.renderer.data.SFDataAsset;
 import shadow.renderer.data.SFLibraryReference;
-import shadow.system.data.utils.SFGenericInfoObjectBuilder;
+import shadow.system.data.SFNamedParametersObject;
 
 public abstract class SFTwoCurvesFunctionData extends
 		SFDataAsset<SFSurfaceFunction> {
 
-	private SFLibraryReference<SFDataAsset<SFCurve<SFValuenf>>> firstCurve=
-		new SFLibraryReference<SFDataAsset<SFCurve<SFValuenf>>>();
-	private SFLibraryReference<SFDataAsset<SFCurve<SFValuenf>>> secondCurve=
-		new SFLibraryReference<SFDataAsset<SFCurve<SFValuenf>>>();
+	private SFLibraryReference<SFControlPointsCurve> firstCurve=
+		new SFLibraryReference<SFControlPointsCurve>();
+	private SFLibraryReference<SFControlPointsCurve> secondCurve=
+		new SFLibraryReference<SFControlPointsCurve>();
 	
 	public SFTwoCurvesFunctionData() {
-		setData(SFGenericInfoObjectBuilder.generateObjectBuilder(firstCurve,secondCurve));
+		SFNamedParametersObject namedParameters=new SFNamedParametersObject();
+		namedParameters.addObject("firstCurve", firstCurve);
+		namedParameters.addObject("secondCurve", secondCurve);
+		setData(namedParameters);
+		setReferences(firstCurve,secondCurve);
 	}
 	
-	public SFLibraryReference<SFDataAsset<SFCurve<SFValuenf>>> getFirstCurve(){
+	public SFLibraryReference<SFControlPointsCurve> getFirstCurve(){
 		return firstCurve;
 	}
 	
-	public SFLibraryReference<SFDataAsset<SFCurve<SFValuenf>>> getSecondCurve(){
+	public SFLibraryReference<SFControlPointsCurve> getSecondCurve(){
 		return secondCurve;
 	}
 	
-	public void setFirstCurve(SFDataAsset<SFCurve<SFValuenf>> data){
+	public void setFirstCurve(SFDataAsset<SFControlPointsCurve> data){
 		firstCurve.setDataset(data);
 	}
 	
-	public void setSecondCurve(SFDataAsset<SFCurve<SFValuenf>> data){
+	public void setSecondCurve(SFDataAsset<SFControlPointsCurve> data){
 		secondCurve.setDataset(data);
 	}
 }

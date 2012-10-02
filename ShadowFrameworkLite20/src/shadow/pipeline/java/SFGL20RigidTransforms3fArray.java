@@ -30,8 +30,8 @@ public class SFGL20RigidTransforms3fArray implements SFRigidTransform3fArray {
 		protected void sonUpdate() {
 			effectiveTransform.set(father.effectiveTransform);
 			effectiveTransform.mult(this.transform);
-//			System.out.println("Transform "+transform);
-//			System.out.println("Effective Transform "+effectiveTransform);
+			//System.out.println("Transform "+transform);
+			//System.out.println("Effective Transform "+effectiveTransform);
 			sonsUpdate();
 		}
 
@@ -42,6 +42,7 @@ public class SFGL20RigidTransforms3fArray implements SFRigidTransform3fArray {
 		}
 
 		public void attach(SFGL20RigidTransform father) {
+			
 			if (this.father != null) {		
 				this.father.sons.remove(this);
 			}
@@ -52,14 +53,7 @@ public class SFGL20RigidTransforms3fArray implements SFRigidTransform3fArray {
 	}
 
 	private ArrayList<SFGL20RigidTransform> transforms = new ArrayList<SFGL20RigidTransforms3fArray.SFGL20RigidTransform>();
-	private static float[] matrix = new float[16];
-	static {
-		matrix[12] = 0;
-		matrix[13] = 0;
-		matrix[14] = 0;
-		matrix[15] = 1;
-	}
-
+	
 	@Override
 	public synchronized void apply(int index) {
 		SFPipeline.getSfPipelineGraphics().setupTransform(transforms.get(index).effectiveTransform.get());
@@ -69,7 +63,7 @@ public class SFGL20RigidTransforms3fArray implements SFRigidTransform3fArray {
 	public void attach(SFRigidTransform3fArray sonArray, int sonIndex,
 			int fatherIndex) {
 		
-		
+	//	System.err.println("sonIndex "+sonIndex+" fatherIndex "+fatherIndex);
 		SFGL20RigidTransforms3fArray trueSon = (SFGL20RigidTransforms3fArray) sonArray;
 		trueSon.transforms.get(sonIndex).attach(this.transforms.get(fatherIndex));
 //		System.out.println("Updating... "+sonIndex);
@@ -136,8 +130,8 @@ public class SFGL20RigidTransforms3fArray implements SFRigidTransform3fArray {
 	public void setElementOrientation(int index, SFMatrix3f matrix) {
 		transforms.get(index).transform.setMatrix(matrix);
 		transforms.get(index).update();
-//		System.out.println("Setting Element Orientation "+index);
-//
+	//	System.out.println("Setting Element Orientation "+index);
+
 //		System.out.println("Transform "+this.transforms.get(index).transform);
 //		System.out.println("Effective Transform "+this.transforms.get(index).effectiveTransform);
 	}
@@ -147,7 +141,7 @@ public class SFGL20RigidTransforms3fArray implements SFRigidTransform3fArray {
 		transforms.get(index).transform.setPosition(vertex);
 		transforms.get(index).update();
 //		System.out.println("Setting Element Position "+index);
-//
+
 //		System.out.println("Transform "+this.transforms.get(index).transform);
 //		System.out.println("Effective Transform "+this.transforms.get(index).effectiveTransform);
 	}

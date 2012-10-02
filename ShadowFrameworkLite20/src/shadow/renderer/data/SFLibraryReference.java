@@ -1,8 +1,8 @@
 package shadow.renderer.data;
 
+import shadow.system.SFInitiable;
 import shadow.system.data.SFDataCenter;
 import shadow.system.data.SFDataCenterListener;
-import shadow.system.data.SFDataset;
 import shadow.system.data.SFInputStream;
 import shadow.system.data.SFOutputStream;
 import shadow.system.data.objects.SFPrimitiveType;
@@ -13,23 +13,24 @@ import shadow.system.data.objects.SFPrimitiveType;
  * 
  * @author Alessandro Martinelli
  */
-public class SFLibraryReference<T extends SFDataset> extends SFPrimitiveType {
+public class SFLibraryReference<T extends SFInitiable> extends SFPrimitiveType{
 
 	public static final String NULL_REFERENCE = "0";
+	public static final String MISSING_REFERENCE = "0=0";
 
 	private String datasetName = NULL_REFERENCE;
-	private T dataset = null;
+	private SFDataAsset<T> dataset = null;
 
-	private class SFLibraryReferenceListener implements SFDataCenterListener<T> {
-		private SFDataCenterListener<T> listener;
+	private class SFLibraryReferenceListener implements SFDataCenterListener<SFDataAsset<T>> {
+		private SFDataCenterListener<SFDataAsset<T>> listener;
 
-		public SFLibraryReferenceListener(SFDataCenterListener<T> listener) {
+		public SFLibraryReferenceListener(SFDataCenterListener<SFDataAsset<T>> listener) {
 			super();
 			this.listener = listener;
 		}
 
 		@Override
-		public void onDatasetAvailable(String name, T dataset) {
+		public void onDatasetAvailable(String name, SFDataAsset<T> dataset) {
 			SFLibraryReference.this.dataset = dataset;
 			listener.onDatasetAvailable(name, dataset);
 		}
@@ -40,7 +41,7 @@ public class SFLibraryReference<T extends SFDataset> extends SFPrimitiveType {
 		super();
 	}
 
-	public SFLibraryReference(T dataset) {
+	public SFLibraryReference(SFDataAsset<T> dataset) {
 		super();
 		this.dataset=dataset;
 	}
@@ -54,15 +55,23 @@ public class SFLibraryReference<T extends SFDataset> extends SFPrimitiveType {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void readFromStream(SFInputStream stream) {
-		this.datasetName = stream.readString();
-		if (datasetName.equalsIgnoreCase(NULL_REFERENCE)) {
-			this.dataset = (T) (SFDataCenter.getDataCenter().readDataset(stream));
+		this.datasetName = stream.readName();
+		if (datasetName.equalsIgnoreCase(MISSING_REFERENCE)) {
+			this.datasetName=NULL_REFERENCE;
+			this.dataset=null;
+		}else if (datasetName.equalsIgnoreCase(NULL_REFERENCE)) {
+			this.dataset = (SFDataAsset<T>) (SFDataCenter.getDataCenter().readDataset(stream));
 		}
 	}
 
 	@Override
 	public void writeOnStream(SFOutputStream stream) {
-		stream.writeString(this.datasetName);
+		if (datasetName.equalsIgnoreCase(NULL_REFERENCE) && dataset==null) {
+			stream.writeName(MISSING_REFERENCE);
+			return;
+		}
+		stream.writeName(this.datasetName);
+		
 		if (datasetName.equalsIgnoreCase(NULL_REFERENCE)) {
 			SFDataCenter.getDataCenter().writeDataset(stream, dataset);
 		}
@@ -76,11 +85,13 @@ public class SFLibraryReference<T extends SFDataset> extends SFPrimitiveType {
 		return datasetName;
 	}
 
-	public void setDataset(T dataset) {
+	//TODO: rename as setDataAsset
+	public void setDataset(SFDataAsset<T> dataset) {
 		this.dataset = dataset;
 	}
 	
-	public T getDataset() {
+	//TODO: rename as getDataAsset
+	public SFDataAsset<T> getDataset() {
 		return dataset;
 	}
 
@@ -89,7 +100,7 @@ public class SFLibraryReference<T extends SFDataset> extends SFPrimitiveType {
 	 * 
 	 * @param listener
 	 */
-	public void retrieveDataset(SFDataCenterListener<T> listener) {
+	public void retrieveDataset(SFDataCenterListener<SFDataAsset<T>> listener) {
 		if (!datasetName.equalsIgnoreCase(NULL_REFERENCE)) {
 			SFDataCenter.getDataCenter().makeDatasetAvailable(datasetName,
 					new SFLibraryReferenceListener(listener));
