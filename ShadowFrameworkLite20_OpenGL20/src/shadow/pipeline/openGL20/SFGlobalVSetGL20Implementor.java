@@ -1,11 +1,9 @@
 package shadow.pipeline.openGL20;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
-import shadow.pipeline.SFPipelineGridInstance;
-import shadow.pipeline.SFPipelineStructure;
+import shadow.pipeline.SFPipelineGrid;
 import shadow.pipeline.SFPipelineStructureInstance;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
@@ -18,15 +16,13 @@ public class SFGlobalVSetGL20Implementor{
 		declarations.put(SFParameteri.GLOBAL_FLOAT2, "vec2");
 		declarations.put(SFParameteri.GLOBAL_FLOAT3, "vec3");
 		declarations.put(SFParameteri.GLOBAL_FLOAT4, "vec4");
-		declarations.put(SFParameteri.GLOBAL_MATRIX4, "matrix4f");
+		declarations.put(SFParameteri.GLOBAL_MATRIX4, "mat4");
 		declarations.put(SFParameteri.GLOBAL_TEXTURE, "sampler2D");
 	}
 	
 	public static String generateShaderParameters(List<SFParameteri> set) {
 		String parameters="";
-		Iterator<SFParameteri> list=set.iterator();
-		while(list.hasNext()){
-			SFParameteri pr=list.next();
+		for (SFParameteri pr : set) {
 			if(SFGL20GlobalV.requiresDeclaration(pr)){
 				String name=pr.getName();
 				if(pr instanceof SFPipelineRegister)
@@ -35,7 +31,7 @@ public class SFGlobalVSetGL20Implementor{
 				name+";\n";
 				
 				parameters+=declaration;
-			}	
+			}
 		}
 		return parameters;
 	}
@@ -47,14 +43,10 @@ public class SFGlobalVSetGL20Implementor{
 	public static String generateInstancedStructures(SFPipelineStructureInstance instance,
 			SFParameteri functionParameter,String suffix,List<SFParameteri> parameters){
 		
-		SFPipelineStructure structure=instance.getStructure();
-		Iterator<SFParameteri> data=instance.getParameters().iterator();
-		
 		String res="\n";
-		List<SFParameteri> sfParameters=structure.getAllParameters();
+		List<SFParameteri> sfParameters=instance.getParameters();
 		
-		for (Iterator<SFParameteri> iterator = sfParameters.iterator(); iterator.hasNext();) {
-			SFParameteri sfParameteri = (SFParameteri) iterator.next();
+		for (SFParameteri sfParameteri : sfParameters) {
 			boolean found=false;
 			for (SFParameteri parameter : parameters) {
 				if(parameter.getName().equalsIgnoreCase(sfParameteri.getName())){
@@ -62,13 +54,8 @@ public class SFGlobalVSetGL20Implementor{
 				}
 			}
 			if(!found){
-				short param_=sfParameteri.getType();//Should never be GLOBAL_UNIDENTIFIED!!
-	//			if(param_==SFParameteri.GLOBAL_UNIDENTIFIED){
-	//				if(param_==SFParameteri.GLOBAL_UNIDENTIFIED){//Still
-	//					param_=functionParameter.getType();
-	//				}
-	//			}
-				res+="uniform "+getDeclarationString(param_)+" "+suffix+data.next().getName()+";\n";
+				short param_=sfParameteri.getType();
+				res+="uniform "+getDeclarationString(param_)+" "+suffix+sfParameteri.getName()+";\n";
 				parameters.add(sfParameteri);
 			}
 			
@@ -77,14 +64,12 @@ public class SFGlobalVSetGL20Implementor{
 		return res;
 	}
 
-	public static String generateInstancedGrids(SFPipelineGridInstance instance,short type,String suffix){
-		
-		Iterator<SFParameteri> data=instance.getParameters().iterator();
+	public static String generateInstancedGrids(SFPipelineGrid instance,short type,String suffix){
 		
 		String res="\n";
 		
-		for (; data.hasNext();) {
-			res+="uniform "+getDeclarationString(type)+" "+suffix+data.next().getName()+";\n";
+		for (SFParameteri parameter : instance.getParameters()) {
+			res+="uniform "+getDeclarationString(type)+" "+suffix+parameter.getName()+";\n";
 		}
 		
 		return res;

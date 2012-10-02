@@ -1,8 +1,6 @@
 
 package shadow.pipeline.openGL20;
 
-import java.util.HashMap;
-
 import shadow.image.SFBufferData;
 import shadow.image.SFRenderedTexture;
 import shadow.image.SFRenderedTextureFactory;
@@ -13,9 +11,8 @@ import shadow.pipeline.openGL20.images.SFGL20RenderedTextureFactory;
 
 public class SFGL20TexturePipeline implements SFTexturePipeline{
 
-	private HashMap<Integer, Integer> frameBuffers=new HashMap<Integer, Integer>();
-	private float[] viewport=new float[4];
-
+	//private HashMap<Integer, Integer> frameBuffers=new HashMap<Integer, Integer>();
+	
 	static SFGL20RenderedTexture texture=new SFGL20RenderedTexture();
 	
 	private SFGL20RenderedTextureFactory factory=new SFGL20RenderedTextureFactory();

@@ -19,12 +19,6 @@
 */
 package shadow.pipeline.openGL20;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 import javax.media.opengl.GL2;
 
 import shadow.system.SFInitiable;
@@ -101,7 +95,6 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 		
 		if(vxShader==0){
 			System.out.println("Failed Create shader");
-			System.exit(0);
 		}
 	   
 		updateVertexShader(gl);
@@ -113,7 +106,7 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 		int length[]={shaderText[0].length()};
 
 		if(REPORT_SHADERS)
-			System.err.println("shaderText[0] " + shaderText[0]);
+			System.out.println("shaderText[0] " + shaderText[0]);
 		
 		gl.glShaderSourceARB(vxShader,1,shaderText,length,0);
 		
@@ -205,6 +198,18 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 		}
 	}
 
+	
+	@Override
+	public void destroy() {
+
+		//TODO: SFGLSLSet destroy function should be deeply tested
+		GL2 gl=SFGL2.getGL();
+		gl.glDeleteProgram(this.program);
+		gl.glDeleteShader(this.frShader);
+		gl.glDeleteShader(this.vxShader);
+		
+	}
+	
 	@Override
 	public void update() {
 		GL2 gl=SFGL2.getGL();
@@ -213,24 +218,4 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 		updateProgram(gl);	
 	}
 	
-	public static String loadShaderText(String fileName){
-		try{
-			BufferedReader reader=new BufferedReader(new FileReader(new File(fileName)));
-			
-			String shader="";
-			String text=reader.readLine();
-			while(text!=null){
-				shader+=text+"\n";
-				text=reader.readLine();
-			}
-			
-			return shader;
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
 }

@@ -20,25 +20,21 @@
 package shadow.pipeline.openGL20;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFProgramComponent;
-import shadow.pipeline.java.SFGL20Function;
+import shadow.pipeline.SFProgramModule;
 import shadow.pipeline.java.SFPrimitiveProgramAssociation;
-import shadow.pipeline.parameters.SFParameteri;
 import shadow.pipeline.parameters.SFPipelineRegister;
-import shadow.system.SFException;
 
 /* GTL: Geometry-Texturing-Lighting
  */
 public class SFGL20Program extends SFGL20AbstractProgram {
 
 	private ArrayList<SFPrimitiveProgramAssociation> vertexShader=new ArrayList<SFPrimitiveProgramAssociation>();
-	private List<SFParameteri> vset=new LinkedList<SFParameteri>();
-	SFPrimitive primitive;
-
+	protected SFProgramModule transforms;
+	protected SFPrimitive primitive;
+	
 	public void clearVertexShader() {
 		vertexShader.clear();
 	}
@@ -49,8 +45,7 @@ public class SFGL20Program extends SFGL20AbstractProgram {
 	}
 
 	public String loadVertexShaderText() {
-		vset.clear();
-		return getShaderText(vertexShader,vset);
+		return getShaderText(vertexShader,true);
 	}
 
 	public void write() {
@@ -64,175 +59,34 @@ public class SFGL20Program extends SFGL20AbstractProgram {
 
 	@Override
 	public void setPrimitive(SFPrimitive primitive) {
-
 		this.primitive=primitive;
-
-		addToVertexShader(primitive.getTessellator(),null);
-
-		for (int i=0; i<primitive.getBlocks().length; i++) {
+		for (int i=0; i<primitive.getComponents().length; i++) {
 			SFProgramComponent pr=primitive.getComponents()[i];
+			//this thing is so annoying... we will fix it
 			SFPipelineRegister outputRegister=primitive.getBlocks()[i].getRegister();
 			addToVertexShader(pr,outputRegister);
 		}
 	}
-
-	private static SFProgramComponent defaultPositionTransform=new SFProgramComponent() {
-		{
-			try {
-				LinkedList<SFParameteri> set=new LinkedList<SFParameteri>();
-				set.add(SFPipelineRegister.getFromName("modelview"));
-				set.add(SFPipelineRegister.getFromName("P"));
-				SFPipelineRegister register=SFPipelineRegister
-						.getFromName("position");
-				addRegister(register);
-				addCodeFunction(new SFGL20Function(register,"modelview*P",
-						set));
-			} catch (SFException e) {
-				e.printStackTrace();
-			}
-		}
-	};
-
-	private static SFProgramComponent defaultNormalTransform=new SFProgramComponent() {
-		{
-			try {
-				LinkedList<SFParameteri> set=new LinkedList<SFParameteri>();
-				set.add(SFPipelineRegister.getFromName("vectorsModelview"));
-				set.add(SFPipelineRegister.getFromName("N"));
-				SFPipelineRegister register=SFPipelineRegister
-						.getFromName("normal");
-				addRegister(register);
-				addCodeFunction(new SFGL20Function(register,"vectorsModelview*N",set));
-			} catch (SFException e) {
-				e.printStackTrace();
-			}
-		}
-	};
 	
-	private static SFProgramComponent defaultDuTransform=new SFProgramComponent() {
-		{
-			try {
-				LinkedList<SFParameteri> set=new LinkedList<SFParameteri>();
-				set.add(SFPipelineRegister.getFromName("vectorsModelview"));
-				set.add(SFPipelineRegister.getFromName("du"));
-				SFPipelineRegister register=SFPipelineRegister
-						.getFromName("duVector");
-				addRegister(register);
-				addCodeFunction(new SFGL20Function(register,"vectorsModelview*du",set));
-			} catch (SFException e) {
-				e.printStackTrace();
-			}
+	public void addToVertexShader(SFProgramModule module){
+		for (int i = 0; i < module.getComponents().length; i++) {
+			addToVertexShader(module.getComponents()[i],null);	
 		}
-	};
-	
-	private static SFProgramComponent defaultDvTransform=new SFProgramComponent() {
-		{
-			try {
-				LinkedList<SFParameteri> set=new LinkedList<SFParameteri>();
-				set.add(SFPipelineRegister.getFromName("vectorsModelview"));
-				set.add(SFPipelineRegister.getFromName("dv"));
-				SFPipelineRegister register=SFPipelineRegister
-						.getFromName("dvVector");
-				addRegister(register);
-				addCodeFunction(new SFGL20Function(register,"vectorsModelview*dv",set));
-			} catch (SFException e) {
-				e.printStackTrace();
-			}
-		}
-	};
-
-	private static SFProgramComponent defaultTexCoord=new SFProgramComponent() {
-		{
-			try {
-				LinkedList<SFParameteri> set=new LinkedList<SFParameteri>();
-				set.add(SFPipelineRegister.getFromName("Tx0"));
-				SFPipelineRegister register=SFPipelineRegister
-						.getFromName("texCoord0");
-				addRegister(register);
-				addCodeFunction(new SFGL20Function(register,"Tx0",set));
-			} catch (SFException e) {
-				e.printStackTrace();
-			}
-		}
-	};
-
-	private static SFProgramComponent defaultGLPosition=new SFProgramComponent() {
-		{
-			try {
-				LinkedList<SFParameteri> set=new LinkedList<SFParameteri>();
-				set.add(SFPipelineRegister.getFromName("position"));
-				set.add(SFPipelineRegister.getFromName("projection"));
-				SFPipelineRegister glPosition=new SFPipelineRegister(
-						SFParameteri.GLOBAL_FLOAT4,"gl_Position",
-						SFPipelineRegister.WRITE_ON_TRANSFORM);
-				addCodeFunction(new SFGL20Function(glPosition,"projection*position",
-						set));
-			} catch (SFException e) {
-				e.printStackTrace();
-			}
-		}
-	};
-
-
-	protected void checkComponent() {
-		if (!vertexShader.contains(defaultPositionTransform)) {
-			try {
-				addToVertexShader(defaultPositionTransform,
-						SFPipelineRegister.getFromName("position"));
-			} catch (SFException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
-			SFPipelineRegister register=SFPipelineRegister.getFromName("N");
-			if (primitive.containRegister(register))
-				if (!vertexShader.contains(defaultNormalTransform)) {
-					addToVertexShader(defaultNormalTransform,
-							SFPipelineRegister.getFromName("normal"));
-				}
-		} catch (SFException e) {
-			e.printStackTrace();
-		}
-		try {
-			SFPipelineRegister register=SFPipelineRegister.getFromName("du");
-			if (primitive.containRegister(register))
-				if (!vertexShader.contains(defaultDuTransform)) {
-					addToVertexShader(defaultDuTransform,
-							SFPipelineRegister.getFromName("duVector"));
-				}
-		} catch (SFException e) {
-			e.printStackTrace();
-		}
-		try {
-			SFPipelineRegister register=SFPipelineRegister.getFromName("dv");
-			if (primitive.containRegister(register))
-				if (!vertexShader.contains(defaultDvTransform)) {
-					addToVertexShader(defaultDvTransform,
-							SFPipelineRegister.getFromName("dvVector"));
-				}
-		} catch (SFException e) {
-			e.printStackTrace();
-		}
-		try {
-			SFPipelineRegister register=SFPipelineRegister.getFromName("Tx0");
-			if (primitive.containRegister(register))
-				if (!vertexShader.contains(defaultTexCoord)) {
-					addToVertexShader(defaultTexCoord,
-							SFPipelineRegister.getFromName("texCoord0"));
-				}
-		} catch (SFException e) {
-			e.printStackTrace();
-		}
-		if (!vertexShader.contains(defaultGLPosition))
-			addToVertexShader(defaultGLPosition,null);
-		
-		super.checkComponent();
 	}
 
+	@Override
+	public void setTransform(SFProgramModule transform) {
+		addToVertexShader(transform);
+		transforms=transform;
+	}
+	
 	@Override
 	public SFPrimitive getPrimitive() {
 		return primitive;
 	}
-
-
+	
+	@Override
+	public SFProgramModule getTransforms() {
+		return transforms;
+	}
 }
