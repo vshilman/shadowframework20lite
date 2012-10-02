@@ -10,8 +10,8 @@ import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.SFPrimitive.PrimitiveBlock;
 import shadow.pipeline.SFPrimitiveArray;
+import shadow.pipeline.SFPrimitiveBlock;
 import shadow.pipeline.SFPrimitiveIndices;
 import shadow.pipeline.SFProgramComponent;
 import shadow.pipeline.builder.SFPipelineBuilder;
@@ -33,9 +33,10 @@ public class SFPrimitiveDataTest {
 			
 			SFPrimitive primitive=new SFPrimitive();
 			
-			primitive.addPrimitiveElement(PrimitiveBlock.NORMAL, (SFProgramComponent)(SFPipeline.getModule("Triangle")));
-			primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule("Triangle2")));
-			primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("BasicTess")));
+			SFPrimitiveBlock[] blocks={SFPrimitiveBlock.NORMAL,SFPrimitiveBlock.POSITION};
+			SFProgramComponent[] components={(SFProgramComponent)SFPipeline.getModule("Triangle"),(SFProgramComponent)SFPipeline.getModule("Triangle2")};
+			
+			primitive.setPrimitiveElements(blocks, components);
 
 			
 			//Primitive

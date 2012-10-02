@@ -58,4 +58,12 @@ public class SFGL20RenderedTextureFactory implements SFRenderedTextureFactory{
 		texture.loadBitmap(bitmap);
 		return texture;
 	}
+	
+	@Override
+	public void destroyBuffer(SFBufferData bufferData) {
+		if(bufferData instanceof SFGL20Texture)
+			((SFGL20Texture)bufferData).destroy();
+		if(bufferData instanceof SFGL20RenderBuffer)
+			((SFGL20RenderBuffer)bufferData).destroy();	
+	}
 }

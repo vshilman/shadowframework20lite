@@ -2,6 +2,7 @@ package shadow.pipeline.openGL20.images;
 
 import java.util.Iterator;
 
+import javax.media.opengl.DebugGL2;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
@@ -12,14 +13,13 @@ import shadow.pipeline.openGL20.SFGL2;
 public class SFGL20RenderedTexture{
 
 	private int fbo;
-	private int depthReference;
-	private int stencilReference;
-	private int[] colorsReference;
 	private float vp[]=new float[4];
 	
 	public void initShadowTexture(SFRenderedTexture data) {
 
 		GL2 gl=SFGL2.getGL();
+		//DebugGL2 gl=new DebugGL2(SFGL2.getGL());
+		
 		
 		SFBufferData depthData=data.getDepthBuffer();
 		
@@ -79,9 +79,10 @@ public class SFGL20RenderedTexture{
 //	             GL2.GL_DEPTH_COMPONENT,GL.GL_FLOAT, null);
 
 		if(depthData!=null){
-			int textureObject=((SFGL20RenderBuffer)depthData).renderBuffer;
-			gl.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL.GL_DEPTH_ATTACHMENT,
-                   GL. GL_RENDERBUFFER, textureObject);
+//			int textureObject=((SFGL20RenderBuffer)depthData).renderBuffer;
+//			gl.glBindFramebuffer(GL.GL_FRAMEBUFFER,fbo);
+//			gl.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL2.GL_DEPTH_ATTACHMENT,
+//                   GL. GL_RENDERBUFFER, textureObject);
 		}
 
 		if(stencilData!=null){
@@ -95,8 +96,8 @@ public class SFGL20RenderedTexture{
 		gl.glClearDepth(2);
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		gl.glEnable(GL.GL_DEPTH_TEST);
-		//gl.glDisable(GL.GL_DEPTH_TEST);
 	
+		
 	}
 	
 	
@@ -108,12 +109,17 @@ public class SFGL20RenderedTexture{
 
 		gl.glBindFramebuffer(GL2.GL_FRAMEBUFFER,0);
 
+		gl.glBindRenderbuffer(GL2.GL_RENDERBUFFER,0);
+
 //		/*
 //		 * FIXME : actually i can't use mipmapping on texture, must be solved, which is too important.
 //		 */
 //		gl.glActiveTexture(GL.GL_TEXTURE0);
 //		gl.glBindTexture(GL.GL_TEXTURE_2D, texture_object);
 //		gl.glGenerateMipmap(GL.GL_TEXTURE_2D);
+		int nfbo[]=new int[1];
+		nfbo[0]=fbo;
+		gl.glDeleteFramebuffers(1, nfbo, 0);
 		
 		//restoring of the viewport
 		gl.glViewport((int)vp[0], (int)vp[1], (int)vp[2], (int)vp[3]);
