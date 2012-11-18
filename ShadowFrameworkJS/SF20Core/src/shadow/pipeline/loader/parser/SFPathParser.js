@@ -1,6 +1,0 @@
-
-function SFPathParser(){
-}
-
-SFPathParser.prototype = {
-};

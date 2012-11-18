@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+	
+		function Test(){
+		
+			
+			var file=loadFile("test0020.sf");
+			var builder2=new SFDataPipelineBuilder();
+			var inputStream=new SFInputStreamBinary(file);
+			builder2.readFromStream(inputStream);
+			
+			SFGL20Pipeline_setup();
+			
+			builder2.apply(new SFPipelineBuilder());
+			
+			var primitive=new SFPipeline_getPrimitive("Triangle2PN");
+	
+			var array=SFPipeline_getSfPipelineMemory().generatePrimitiveArray(primitive);
+			
+			var indices=new SFPrimitiveIndices(primitive);
+			var prIndices=indices.getPrimitiveIndices();
+			for (var i = 0; i < 6; i++) {
+				prIndices[i]=i;
+				prIndices[i+6]=i;
+			}
+			
+			array.generateElement();
+			array.setElement(0, indices);
+			
+			var arrayP=array.getPrimitiveData(0); 
+			arrayP.generateElements(6);
+			var arrayN=array.getPrimitiveData(1);
+			arrayN.generateElements(6);
+			for (var i = 0; i < 6; i++) {
+				arrayP.setElement(i, new SFVertex3f(i*0.1,0,0));
+			}
+			for (var i = 0; i < 6; i++) {
+				arrayN.setElement(i, new SFVertex3f(i*0.1,0,0));
+			}
+			
+
+			var indices2=array.generateSample();
+			array.getElement(0, indices2);
+			
+			var P=new SFVertex3f();
+			var N=new SFVertex3f();
+			for (var i = 0; i < 6; i++) {
+				alert("["+i+"]:("+indices2.getPrimitiveIndices()[i]+","+indices2.getPrimitiveIndices()[i+6]+")");
+				arrayP.getElement(indices2.getPrimitiveIndices()[i], P);
+				arrayN.getElement(indices2.getPrimitiveIndices()[i+6], N);
+				alert("["+i+"]:"+P.get()+" and "+N.get());
+			}
+		
+    		document.getElementById("Caption").innerHTML="Success! ";
+		}
+		
+    </script>
+  </head>
+  <body onload="Test();">
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Check the alert!
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+      <br/><a href="unittest0002.html">Next Text</a>
+    </div>
+  </body>
+</html>

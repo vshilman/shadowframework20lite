@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+    	function Test(){
+    		var value=new SFVertex4f(20,10,1,1);
+    		value.setByIndex(0,10);
+			value.mult1f(3);
+			var text=value.toString();
+    		document.getElementById("Caption").innerHTML="Success: "+text;
+    	}
+    </script>
+  </head>
+  <body onload="Test();">
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Testing src.shadow.pipeline.openGL20.expressions.SFGL20Divide.js
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+      <br/><a href="unittest0002.html">Next Text</a>
+    </div>
+  </body>
+</html>

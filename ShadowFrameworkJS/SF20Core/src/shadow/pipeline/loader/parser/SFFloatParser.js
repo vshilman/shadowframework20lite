@@ -1,6 +1,0 @@
-
-function SFFloatParser(){
-}
-
-SFFloatParser.prototype = {
-};

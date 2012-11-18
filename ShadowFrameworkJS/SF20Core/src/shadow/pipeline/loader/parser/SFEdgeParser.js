@@ -1,6 +1,0 @@
-
-function SFEdgeParser(){
-}
-
-SFEdgeParser.prototype = {
-};

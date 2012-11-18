@@ -1,0 +1,231 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+	
+		function SFViewer(node){
+			this.node=node;
+			this.renderer=new SFRenderer();
+			
+			var camera=new SFCamera(new SFVertex3f(0,0,0), new SFVertex3f(0,0,1), 
+				new SFVertex3f(1,0,0), new SFVertex3f(0,1,0), 1, 1, 20);
+		
+						
+			//setup camera Focus F
+			camera.setF(new SFVertex3f(0,2.7*0.5,-2.7*0.86));
+			//setup Camera's Dir, that's the Direction to which camera is oriented or camera z-axis
+			camera.setDir(new SFVertex3f(0,-0.5,0.86));
+			//setup Camera's Left, that's the camera x-axis
+			camera.setLeft(new SFVertex3f(1,0,0));
+			//setup Camera's Up, that's the camera y-axis
+			camera.setUp(new SFVertex3f(0,0.86,0.5));
+			//setup camera to be perspective
+			camera.setPerspective(true);
+			//update camera 
+			camera.update();
+		
+			camera.extractTransform();
+			this.renderer.setCamera(camera);
+		
+			//var programAsset=new SFProgramModuleStructures("BasicColor");
+			//var programAsset=new SFProgramModuleStructures("DrawNormals");
+			
+			var programAsset=new SFProgramModuleStructures("BasicLSPN2");
+			
+					var lightStructure=SFPipeline_getProgramModule("BasicLSPN2").getComponents()[0]
+								.getStructures()[0].getStructure();
+					
+					var lightArray=SFPipeline_getSfPipelineMemory().generateStructureData(lightStructure); 
+					var lightData=[new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)];
+					
+								var lightReference=new SFStructureReference(lightArray,lightArray.generateElement()); 
+					
+								var mat=new SFStructureData(lightReference.getStructure());
+								for (var i = 0; i < lightData.length; i++) {
+									mat.getValue(i).setValue(lightData[i]);
+								}
+								try {
+									lightReference.setStructureData(mat);
+								} catch (exception) {
+									e.printStackTrace();
+								}
+					programAsset.getData().push(lightReference);
+					
+			this.renderer.setLight(programAsset);
+			
+		}
+		
+		SFViewer.prototype["init"]=function(){
+			SFPipeline_getSfPipelineGraphics().init();
+		};
+		
+		SFViewer.prototype["getNode"]=function(){
+			return this.node;
+		};
+		
+		SFViewer.prototype["draw"]=function(){
+			
+			SFInitiator_solveInitiables();
+			SFUpdater_refresh();
+			
+			gl.clearColor(0.8,0.8,1,1);
+			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+			var matrix=this.renderer.getCamera().extractTransform();
+			
+			if(!this.renderer.getCamera().isPerspective){	
+				
+				var unitVolumeSize=600.0;
+				var viewport=gl.getParameter(gl.VIEWPORT);
+				var width=viewport[2];
+				var height=viewport[3];
+				for (var i = 0; i < 4; i++) {
+					matrix[i]*=unitVolumeSize/width;
+					matrix[i+4]*=unitVolumeSize/height;
+				}
+			}
+			
+			gl.enable(gl.DEPTH_TEST);
+			
+			SFPipeline_getSfPipelineGraphics().setupProjection(matrix);
+			SFPipeline_getSfPipelineGraphics().setupTransform(matrix);
+			this.renderer.render(this.node);
+			
+			
+		};
+		
+		var viewer=0;
+		var library=0;
+		
+		function timer() {
+			//requestAnimFrame(timer);
+			SFGL2_setGl(gl);
+			viewer.draw();
+		}
+	
+		function setupCanvas(canvasName){
+			var canvas = document.getElementById(canvasName);
+			initGL(canvas);
+			SFGL2_setGl(gl);
+			viewer.init();
+			timer();
+		}
+		
+		
+		function setupAmbient(){
+			//Pipeline Preparation
+			var file=loadFile("test0020.sf");
+			var builder2=new SFDataPipelineBuilder();
+			var inputStream=new SFInputStreamBinary(file);
+			builder2.readFromStream(inputStream);
+			SFGL20Pipeline_setup();
+			builder2.apply(new SFPipelineBuilder());
+			
+			// In order to work properly load utilities will need the Datacenter to
+			// contain a valid DatasetFactory
+			SFDataCenter_setDatasetFactory(new SFViewerDatasetFactory());
+			// We also add a simple data center 
+			var objectsLibrary=new SFViewerObjectsLibrary();
+			SFDataCenter_setDataCenterImplementation(objectsLibrary);
+			library = objectsLibrary.getLibrary();
+			
+		}
+		
+		function loadData(contents){
+			
+			var inputStream=new SFInputStreamBinary(contents);
+			var dataset=new SFObjectsLibrary();
+			var dataset=SFDataCenter_getDataCenter().readDataset(inputStream);
+			dataset.getSFDataObject().readFromStream(inputStream);
+			
+			SFDataCenter_setDataCenterImplementation(new SFViewerObjectsLibrary(dataset));
+		}
+		
+		function generateModelaAtRandomPosition(modelName){
+			
+			
+			//A new scenegraph node
+			var node=new SFObjectModel();
+	
+			//random index int [0,2]
+			var materialsNumber=16;
+			var index=Math.floor(materialsNumber*Math.random());
+			if(index==materialsNumber)
+				index=0;
+			
+			//Extract the index-th material from file libraries/library
+			var array=getAlreadyAvailableDataset("Materials").getArray();
+			var materialReference=new SFStructureReference(array, index);//generateStructureDataReference( "Materials", materialData);
+	
+			node.getModel().getMaterialComponent().setProgram("BasicMat");
+			node.getModel().getMaterialComponent().addData(materialReference);
+	
+			//Set the selected material to the node
+			
+			//	node.getModel().addMaterialStructure(materialReference);
+			
+				//Add to this node a reference to the model 'modelName'; modelNames are the ones
+				//available in 'libraries/library', actually containing only 'Tube', 'Mushroom' and 'Glass'
+				var geometry=(getAlreadyAvailableDataset(modelName)).getResource();
+				node.getModel().setRootGeometry(geometry);
+			
+			node.getModel().getTransformComponent().setProgram("BasicPNTransform");
+				
+			//setup Node position 	
+			node.getTransform().setPosition(new SFVertex3f(((2.0*Math.random())-1),0,((1.4*Math.random())-0.7)));
+			
+			return node;
+		}
+		
+		function Test_LoadedDataCallBack(contents){
+		
+			loadData(contents);
+			
+			var rootSceneNode=new SFReferenceNode();
+			
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Tube"));
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Tube"));
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Tube"));
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Tube"));
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Mushroom"));
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Mushroom"));
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Glass"));
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Glass"));
+				rootSceneNode.addNode(generateModelaAtRandomPosition("Glass"));
+			
+			viewer=new SFViewer(rootSceneNode);
+		
+			setupCanvas("canvas3d");
+		}
+		
+	
+		function Test(evt){
+		
+			setupAmbient();	
+			
+			files=evt.target.files; // FileList object
+			
+			loadFileCallBack(files[0],Test_LoadedDataCallBack);
+		
+		}
+		
+    </script>
+  </head>
+  <body>
+	
+	Please, load File <b>library0001.sf</b>:
+	
+	<input type="file" id="files" name="files[]" multiple />
+	<script>
+		  document.getElementById('files').addEventListener('change', Test, false);	
+    </script>
+    <br/>
+    
+    <canvas id="canvas3d" style="border: none;" width="500" height="500"> </canvas>
+	
+  </body>
+</html>

@@ -1,6 +1,0 @@
-
-function SFParameterParser(){
-}
-
-SFParameterParser.prototype = {
-};

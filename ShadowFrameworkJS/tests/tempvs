@@ -1,0 +1,8 @@
+precision mediump float;
+
+attribute vec3 tessellationParameters;
+
+void main(void){
+	gl_Position=vec4(tessellationParameters,1);
+
+}

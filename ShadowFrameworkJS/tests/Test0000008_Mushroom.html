@@ -1,0 +1,196 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+	
+		function SFViewer(node){
+			this.node=node;
+			this.renderer=new SFRenderer();
+			
+			var camera=new SFCamera(new SFVertex3f(0,0,0), new SFVertex3f(0,0,1), 
+				new SFVertex3f(1,0,0), new SFVertex3f(0,1,0), 1, 1, 20);
+		
+			camera.extractTransform();
+			this.renderer.setCamera(camera);
+		
+			//var programAsset=new SFProgramModuleStructures("BasicColor");
+			
+			var programAsset=new SFProgramModuleStructures("BasicLSPN2");
+			
+					var lightStructure=SFPipeline_getProgramModule("BasicLSPN2").getComponents()[0]
+								.getStructures()[0].getStructure();
+					
+					var lightArray=SFPipeline_getSfPipelineMemory().generateStructureData(lightStructure); 
+					var lightData=[new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)];
+					
+								var lightReference=new SFStructureReference(lightArray,lightArray.generateElement()); 
+					
+								var mat=new SFStructureData(lightReference.getStructure());
+								for (var i = 0; i < lightData.length; i++) {
+									mat.getValue(i).setValue(lightData[i]);
+								}
+								try {
+									lightReference.setStructureData(mat);
+								} catch (exception) {
+									e.printStackTrace();
+								}
+					programAsset.getData().push(lightReference);
+					
+			this.renderer.setLight(programAsset);
+			
+		}
+		
+		SFViewer.prototype["init"]=function(){
+			SFPipeline_getSfPipelineGraphics().init();
+		};
+		
+		SFViewer.prototype["getNode"]=function(){
+			return this.node;
+		};
+		
+		SFViewer.prototype["draw"]=function(){
+			
+			SFInitiator_solveInitiables();
+			SFUpdater_refresh();
+			
+			gl.clearColor(0.8,0.8,1,1);
+			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+			var matrix=this.renderer.getCamera().extractTransform();
+			
+			if(!this.renderer.getCamera().isPerspective){	
+				/*var viewport=new Array();
+				gl.glGetFloatv(GL2.GL_VIEWPORT, viewport, 0);
+				var width=viewport[2];
+				var height=viewport[3];*/
+				//for (var i = 0; i < 4; i++) {
+				//	matrix[i]*=unitVolumeSize/width;
+				//	matrix[i+4]*=unitVolumeSize/height;
+				//}
+			}
+			
+			gl.enable(gl.DEPTH_TEST);
+			//gl.enable(gl.BLEND);
+			//gl.enable(gl.ALPHA_TEST);
+			//gl.alphaFunc(gl.GREATER, 0.1);
+			////gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+			
+			
+			SFPipeline_getSfPipelineGraphics().setupProjection(matrix);
+			SFPipeline_getSfPipelineGraphics().setupTransform(matrix);
+			this.renderer.render(this.node);
+			
+			/*this.program.load();
+			this.program.apply();
+			
+			var projection=[
+					1,0,0,0,
+					0,1,0,0,
+					0,0,1,0,
+					0,0,0,1,
+			];
+			
+			SFGL20PipelineGraphics_setProgram(this.program);
+			
+			SFPipeline_getSfPipelineGraphics().setupProjection(projection);
+			
+			SFPipeline_getSfPipelineGraphics().setupTransform(projection);
+			
+			SFPipeline_getSfPipelineGraphics().drawPrimitives(this.array, 0, 1);*/
+			
+		};
+		
+		var viewer=0;
+		var library=0;
+		
+		function timer() {
+			//requestAnimFrame(timer);
+			SFGL2_setGl(gl);
+			viewer.draw();
+		}
+	
+		function setupCanvas(canvasName){
+			var canvas = document.getElementById(canvasName);
+			initGL(canvas);
+			SFGL2_setGl(gl);
+			viewer.init();
+			timer();
+		}
+		
+		
+		function setupAmbient(){
+			//Pipeline Preparation
+			var file=loadFile("test0020.sf");
+			var builder2=new SFDataPipelineBuilder();
+			var inputStream=new SFInputStreamBinary(file);
+			builder2.readFromStream(inputStream);
+			SFGL20Pipeline_setup();
+			builder2.apply(new SFPipelineBuilder());
+			
+			// In order to work properly load utilities will need the Datacenter to
+			// contain a valid DatasetFactory
+			SFDataCenter_setDatasetFactory(new SFViewerDatasetFactory());
+			// We also add a simple data center 
+			var objectsLibrary=new SFViewerObjectsLibrary();
+			SFDataCenter_setDataCenterImplementation(objectsLibrary);
+			library = objectsLibrary.getLibrary();
+			
+		}
+		
+		function loadData(contents){
+			
+			var inputStream=new SFInputStreamBinary(contents);
+			var dataset=new SFObjectsLibrary();
+			var dataset=SFDataCenter_getDataCenter().readDataset(inputStream);
+			dataset.getSFDataObject().readFromStream(inputStream);
+			
+			SFDataCenter_setDataCenterImplementation(new SFViewerObjectsLibrary(dataset));
+		}
+		
+		function Test_LoadedDataCallBack(contents){
+		
+			loadData(contents);
+			
+			var node=getAlreadyAvailableDataset("RedMushroom").getResource();
+			
+			viewer=new SFViewer(node);
+		
+			setupCanvas("canvas3d");
+		
+    		document.getElementById("Caption").innerHTML="Success!";
+		}
+		
+	
+		function Test(evt){
+		
+			setupAmbient();	
+			
+			files=evt.target.files; // FileList object
+			
+			loadFileCallBack(files[0],Test_LoadedDataCallBack);
+		
+		}
+		
+    </script>
+  </head>
+  <body>
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Check the alert!
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+    </div>
+	
+	<canvas id="canvas3d" style="border: none;" width="500" height="500"></canvas>
+	Load Your Data File:
+	
+	<input type="file" id="files" name="files[]" multiple />
+	<script>
+		  document.getElementById('files').addEventListener('change', Test, false);	
+    </script>
+  </body>
+</html>

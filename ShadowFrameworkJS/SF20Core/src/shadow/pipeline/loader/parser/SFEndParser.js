@@ -1,6 +1,0 @@
-
-function SFEndParser(){
-}
-
-SFEndParser.prototype = {
-};

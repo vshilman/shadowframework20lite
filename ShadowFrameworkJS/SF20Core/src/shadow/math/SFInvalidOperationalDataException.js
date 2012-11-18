@@ -1,6 +1,0 @@
-
-function SFInvalidOperationalDataException(){
-}
-
-SFInvalidOperationalDataException.prototype = {
-};

@@ -1,6 +1,0 @@
-
-function SFMaterial(){
-}
-
-SFMaterial.prototype = {
-};
