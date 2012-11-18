@@ -1,0 +1,222 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+	
+		function SFDrawableExample(node){
+			this.node=node;
+			this.renderer=new SFRenderer();
+			
+			var camera=new SFCamera(new SFVertex3f(0,0,0), new SFVertex3f(0,0,1), 
+				new SFVertex3f(1,0,0), new SFVertex3f(0,1,0), 1, 1, 20);
+		
+			camera.extractTransform();
+			this.renderer.setCamera(camera);
+		
+			//var programAsset=new SFProgramModuleStructures("BasicColor");
+					
+			var programAsset=new SFProgramModuleStructures("BasicLSPN2");
+			
+					var lightStructure=SFPipeline_getProgramModule("BasicLSPN2").getComponents()[0]
+								.getStructures()[0].getStructure();
+					
+					var lightArray=SFPipeline_getSfPipelineMemory().generateStructureData(lightStructure); 
+					var lightData=[new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)];
+					
+								var lightReference=new SFStructureReference(lightArray,lightArray.generateElement()); 
+					
+								var mat=new SFStructureData(lightReference.getStructure());
+								for (var i = 0; i < lightData.length; i++) {
+									mat.getValue(i).setValue(lightData[i]);
+								}
+								try {
+									lightReference.setStructureData(mat);
+								} catch (exception) {
+									e.printStackTrace();
+								}
+					programAsset.getData().push(lightReference);	
+					
+			this.renderer.setLight(programAsset);
+		}
+		
+		SFDrawableExample.prototype["init"]=function(){
+			SFPipeline_getSfPipelineGraphics().init();
+		};
+		
+		SFDrawableExample.prototype["draw"]=function(){
+		
+			SFInitiator_solveInitiables();
+			SFUpdater_refresh();
+			
+			gl.clearColor(0.8,0.8,1,1);
+			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+			var matrix=this.renderer.getCamera().extractTransform();
+			
+			if(!this.renderer.getCamera().isPerspective){	
+				/*var viewport=new Array();
+				gl.glGetFloatv(GL2.GL_VIEWPORT, viewport, 0);
+				var width=viewport[2];
+				var height=viewport[3];
+				for (var i = 0; i < 4; i++) {
+					matrix[i]*=unitVolumeSize/width;
+					matrix[i+4]*=unitVolumeSize/height;
+				}*/
+			}
+			
+			gl.enable(gl.DEPTH_TEST);
+			gl.disable(gl.CULL_FACE);
+			//gl.enable(gl.BLEND);
+			//gl.enable(gl.ALPHA_TEST);
+			//gl.alphaFunc(gl.GREATER, 0.1);
+			//gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+			
+			//alert("Drawing!!");
+			
+			SFPipeline_getSfPipelineGraphics().setupProjection(matrix);
+			this.renderer.render(this.node);
+			
+		};
+		
+		var drawableExample=0;
+	
+		function PreparePipeline(){
+			
+			var file=loadFile("test0020.sf");
+			var builder2=new SFDataPipelineBuilder();
+			var inputStream=new SFInputStreamBinary(file);
+			builder2.readFromStream(inputStream);
+			SFGL20Pipeline_setup();
+			builder2.apply(new SFPipelineBuilder());	
+		}
+	
+		function Test(){
+		
+			PreparePipeline();
+			
+			var bitmap = new SFBitmap();
+				
+			var values = [0,255,100,0 , 0,100,255,0 , 255,0,100,0 , 0,100,0,255];
+			
+			bitmap.generateBitmap(4, 4, values, false);
+
+			var g=SFBasicBitmapFunctions_SUM;
+	
+			var weight=[0,0.2,0.2,0.2,0.2,0.1,0.1,0.1,0.1,0.1,0.1];
+			var perlinNoise = new SFBitmapPerlinNoise(256,256,weight,true);
+			perlinNoise.setInterpolant(new SFCubicInterpolation());
+			perlinNoise.setBitmap(bitmap);
+			
+			SFInitiator_addInitiable(perlinNoise);
+
+			var textureSet = new SFBitmapTexture(perlinNoise);
+
+			SFInitiator_addInitiable(textureSet);
+
+			var texture = new SFTexture(textureSet, 0);
+			
+			var filteredTexture=new SFFilteredRenderedTexture();
+			filteredTexture.getLightComponent().setProgram("ReddishGrayAndBright");
+			filteredTexture.getMaterialComponent().setProgram("TexturedMat");
+			filteredTexture.getMaterialComponent().getTextures().push(texture);
+				var textures=[
+					new SFTextureDataToken(256,256, SFImageFormat_RGB8, Filter_LINEAR, WrapMode_REPEAT, WrapMode_REPEAT),
+					new SFTextureDataToken(256,256, SFImageFormat_RGB8, Filter_LINEAR, WrapMode_REPEAT, WrapMode_REPEAT)
+				];
+				filteredTexture.setTextures(textures);
+				
+				SFInitiator_addInitiable(filteredTexture);
+			
+			var texture2=new SFTexture(filteredTexture, 0);
+			
+			var model=new SFObjectModel();
+
+			var gridGeometry=new SFQuadsGridGeometry();
+			
+			gridGeometry.getQuadsGrid().setNu(4);
+			gridGeometry.getQuadsGrid().setNv(4);
+			
+			var surfaceGeometry=new SFParametrizedGeometry(gridGeometry);
+			var primitive=SFPipeline_getPrimitive("Triangle2PNTxO");
+			surfaceGeometry.setPrimitive(primitive);
+			gridGeometry.setPrimitive(primitive.getConstructionPrimitive());
+			
+			var spline1=new SFBasisSpline2(false);
+				spline1.add(new SFVertex3f(0,0,0));
+				spline1.add(new SFVertex3f(0,0.4,0));
+				spline1.add(new SFVertex3f(0,0.8,0));
+			var spline2=new SFBasisSpline2(false);
+				spline2.add(new SFVertex3f(0.4,0.0,0));
+				spline2.add(new SFVertex3f(0.4,0.4,0));
+				spline2.add(new SFVertex3f(0.4,0.85,0));
+			
+			var tube=new SFCurvedTubeFunction(spline1, spline2);
+			tube.setCentralCurve(spline1);
+			tube.setRayCurve(spline2);
+			
+			surfaceGeometry.setMainGeometryFunction(tube);
+			surfaceGeometry.setFunction(SFPrimitiveBlock_TXO, new SFSimpleTexCoordGeometryuv(2,2));
+			
+			SFInitiator_addInitiable(surfaceGeometry);
+			
+			model.getModel().setRootGeometry(surfaceGeometry);
+	
+			model.getModel().getMaterialComponent().setProgram("TexturedMat");
+				/*var matStructure=SFPipeline_getProgramModule("TexturedMat").getComponents()[0]
+							.getStructures()[0].getStructure();
+				
+				var matArray=SFPipeline_getSfPipelineMemory().generateStructureData(matStructure); 
+				var matData=[new SFVertex3f(1, 0.5, 0.5)];
+				
+				var matReference=new SFStructureReference(matArray,matArray.generateElement()); 
+				
+				var matt=new SFStructureData(matReference.getStructure());
+							for (var i = 0; i < matData.length; i++) {
+								matt.getValue(i).set3f(matData[i]);
+							}
+							matReference.setStructureData(matt);
+				
+				model.getModel().getMaterialComponent().addData(matReference);*/
+				
+				model.getModel().getMaterialComponent().getTextures().push(texture2);
+				
+			model.getModel().getTransformComponent().setProgram("BasicPNTx0Transform");
+			
+			model.getTransform().setOrientation((new SFMatrix3f()).getRotationY(1.85));
+			
+			drawableExample=new SFDrawableExample(model);
+		
+			var canvas = document.getElementById("canvas3d");
+			initGL(canvas);
+			SFGL2_setGl(gl);
+			drawableExample.init();
+			timer();
+		
+    		document.getElementById("Caption").innerHTML="Success!";
+		}
+		
+		function timer() {
+			//requestAnimFrame(timer);
+			SFGL2_setGl(gl);
+			drawableExample.draw();
+		}
+		
+    </script>
+  </head>
+  <body onload="Test();">
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Check the alert!
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+      <br/><a href="unittest0002.html">Next Text</a>
+    </div>
+	
+	<canvas id="canvas3d" style="border: none;" width="500" height="500"></canvas>
+	
+  </body>
+</html>

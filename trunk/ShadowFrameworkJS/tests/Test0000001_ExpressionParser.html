@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+		
+		function writehtml(info){
+			
+    		document.getElementById("Debug").innerHTML=info;
+		}
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+    	
+    	function SFExpressionElementInterpreterTest(){
+    		this.text="";
+    	}
+    	
+    	SFExpressionElementInterpreterTest.prototype["closeElement"]=function(element){
+    		this.text=this.text+")";
+    	};
+    	SFExpressionElementInterpreterTest.prototype["refreshElement"]=function(element){
+    		this.text=this.text+",";
+    	};
+    	SFExpressionElementInterpreterTest.prototype["startElement"]=function(element){
+    		this.text=this.text+"("+element.getElement() + "T" + element.getType() + ",";
+    	};
+    	
+	
+    	function Test(){
+    	
+    		//var data="hello(my)cool()dog";
+    		//data=splitAndKeep(data,"()");
+    		//alert(print(data))
+    	
+			//var operation = "A*u*2";
+    		var operation = "dot(duVector,tmp1),dot(dvVector,tmp1),dot(normal,tmp1),1";
+    		//var operation = "sample(texture2,texCoord0)*normal*(-1)";
+    		//var operation = "sqrt(dot(sqrt(u),sqrt(v)))*A";
+    		//var operation = "projection*modelview*A";
+    		//var operation = "2*AB-0.5*A-0.5*B";
+    		//var operation = "sample(texture2,texCoord0)";
+    		//var operation = "u*A";
+			
+			var A = new SFParameter("A", SFParameteri_GLOBAL_FLOAT3);
+			var B = new SFParameter("B", SFParameteri_GLOBAL_FLOAT3);
+			var AB = new SFParameter("B", SFParameteri_GLOBAL_FLOAT3);
+			var C = new SFParameter("C", SFParameteri_GLOBAL_FLOAT3);
+			var modelview = new SFParameter("modelview",SFParameteri_GLOBAL_MATRIX4);
+			var projection = new SFParameter("projection",SFParameteri_GLOBAL_MATRIX4);
+			var set = new Array();
+			set.push(A);
+			set.push(B);
+			set.push(C);
+			set.push(projection);
+			set.push(modelview);
+
+			var builder=new SFExpressionBuilder();
+			SFExpressionParser_getParser().parseString(operation, set,builder);
+			
+			var element = builder.getBuiltExpression();
+			
+			element.evaluateType();
+			
+			var interpreter=new SFExpressionElementInterpreterTest();
+			element.traverse(interpreter);
+			alert(interpreter.text);
+			
+    		document.getElementById("Caption").innerHTML="Success!";
+    	}
+    </script>
+  </head>
+  <body onload="Test();">
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Check the alert!
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+      <br/><a href="unittest0002.html">Next Text</a>
+    </div>
+    
+    <div id="Debug" >
+      
+    </div>
+  </body>
+</html>

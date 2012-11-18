@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+	
+    	function Test(){
+		
+			var array=new SFGL20ValuenfArray(4);
+		
+			array.generateElements(4);
+			
+			array.setElement(0, new SFVertex4f(1, 0, 0, 0));
+			array.setElement(1, new SFVertex4f(1, 1, 0, 0));
+			array.setElement(2, new SFVertex4f(1, 0, 1, 0));
+			array.setElement(3, new SFVertex4f(1, 0, 0, 1));
+		
+			var sample=array.generateSample();
+			
+			for (var i = 0; i < array.getElementsCount(); i++) {
+			
+				array.getElement(i, sample);
+				alert("sample "+sample.v);
+			}
+			
+    		document.getElementById("Caption").innerHTML="Success! ";
+    	}
+    </script>
+  </head>
+  <body onload="Test();">
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Check the alert!
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+      <br/><a href="unittest0002.html">Next Text</a>
+    </div>
+  </body>
+</html>

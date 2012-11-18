@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+	
+		function SFDrawableExample(array,program){
+			this.array=array;
+			this.program=program;
+		}
+		
+		SFDrawableExample.prototype["init"]=function(){
+			SFPipeline_getSfPipelineGraphics().init();
+		};
+		
+		SFDrawableExample.prototype["draw"]=function(){
+		
+			this.program.load();
+			this.program.apply();
+			
+			gl.clearColor(0.8,0.8,1,1);
+			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+			var projection=[
+					1,0,0,0,
+					0,1,0,0,
+					0,0,1,0,
+					0,0,0,1,
+			];
+			
+			SFGL20PipelineGraphics_setProgram(this.program);
+			
+			SFPipeline_getSfPipelineGraphics().setupProjection(projection);
+			
+			SFPipeline_getSfPipelineGraphics().setupTransform(projection);
+			
+			SFPipeline_getSfPipelineGraphics().drawPrimitives(this.array, 0, 1);
+			
+		};
+		
+		var drawableExample=0;
+	
+		function Test(){
+		
+			var file=loadFile("test0020.sf");
+			var builder2=new SFDataPipelineBuilder();
+			var inputStream=new SFInputStreamBinary(file);
+			builder2.readFromStream(inputStream);
+			
+			SFGL20Pipeline_setup();
+			
+			builder2.apply(new SFPipelineBuilder());
+			
+			var primitive=new SFPipeline_getPrimitive("Triangle2PN");
+	
+			var array=SFPipeline_getSfPipelineMemory().generatePrimitiveArray(primitive);
+			
+			var indices=new SFPrimitiveIndices(primitive);
+			var prIndices=indices.getPrimitiveIndices();
+			for (var i = 0; i < 6; i++) {
+				prIndices[i]=i;
+				prIndices[i+6]=i;
+			}
+			
+			array.generateElement();
+			array.setElement(0, indices);
+			
+			var arrayP=array.getPrimitiveData(0); 
+			arrayP.generateElements(6);
+			var arrayN=array.getPrimitiveData(1);
+			arrayN.generateElements(6);
+			
+			
+			arrayP.setElement(0, new SFVertex3f(1,0,0));
+			arrayP.setElement(1, new SFVertex3f(0,1,0));
+			arrayP.setElement(2, new SFVertex3f(0,0,1));
+			arrayP.setElement(3, new SFVertex3f(1,1,0));
+			arrayP.setElement(4, new SFVertex3f(0,1,1));
+			arrayP.setElement(5, new SFVertex3f(1,0,1));
+			var temp=new SFVertex3f();
+			for (var i = 0; i < 6; i++) {
+				arrayP.getElement(i, temp);
+				arrayN.setElement(i, temp);
+			}
+			
+			
+			var program=SFPipeline_getStaticProgram(primitive, "PN","BlackMat", "DrawNormals");
+			
+			//alert(program.loadVertexShaderText());
+			//alert(program.loadFragmentShaderText());
+		
+			drawableExample=new SFDrawableExample(array,program);
+		
+			var canvas = document.getElementById("canvas3d");
+			initGL(canvas);
+			SFGL2_setGl(gl);
+			drawableExample.init();
+			timer();
+		
+    		document.getElementById("Caption").innerHTML="Success!";
+		}
+		
+		function timer() {
+			//requestAnimFrame(timer);
+			SFGL2_setGl(gl);
+			drawableExample.draw();
+		}
+		
+    </script>
+  </head>
+  <body onload="Test();">
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Check the alert!
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+      <br/><a href="unittest0002.html">Next Text</a>
+    </div>
+	
+	<canvas id="canvas3d" style="border: none;" width="500" height="500"></canvas>
+	
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<html>
+	<head>
+		<title>House Test</title>
+		<script type="text/javascript" >
+			var sfLocation = "../src/";
+		</script>
+		<script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+		<script type="text/javascript" >
+			function SFDrawableExample(texture) {
+				this.texture = texture;
+				this.program = SFPipeline_getStaticImageProgram("TexturedMat", "BasicColor");
+			}
+
+			SFDrawableExample.prototype["init"] = function() {
+				SFPipeline_getSfPipelineGraphics().init();
+			};
+
+			SFDrawableExample.prototype["draw"] = function() {
+
+				SFInitiator_solveInitiables();
+				SFUpdater_refresh();
+
+				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+				SFPipeline_getSfProgramBuilder().loadProgram(this.program);
+
+				var texture = this.texture.getTexture();
+				SFPipeline_getSfPipelineGraphics().loadTexture(SFPipelineGraphics_Module_MATERIAL, texture, 0);
+
+				SFPipeline_getSfPipelineGraphics().drawBaseQuad();
+			};
+
+			var drawableExample = 0;
+
+			function PreparePipeline() {
+
+				var file = loadFile("test0020.sf");
+				var builder2 = new SFDataPipelineBuilder();
+				var inputStream = new SFInputStreamBinary(file);
+				builder2.readFromStream(inputStream);
+				SFGL20Pipeline_setup();
+				builder2.apply(new SFPipelineBuilder());
+			}
+
+			function Test() {
+
+				PreparePipeline();
+
+				var bitmap = new SFBitmap();
+				
+				var values = [0,255,100,0 , 0,100,255,0 , 255,0,100,0 , 0,100,0,255];
+				
+				bitmap.generateBitmap(4, 4, values, false);
+
+				var g=SFBasicBitmapFunctions_SUM;
+		
+				var weight=[0,0.2,0.2,0.2,0.2,0.1,0.1,0.1,0.1,0.1,0.1];
+				var perlinNoise = new SFBitmapPerlinNoise(256,256,weight,true);
+				perlinNoise.setInterpolant(new SFCubicInterpolation());
+				perlinNoise.setBitmap(bitmap);
+				
+				SFInitiator_addInitiable(perlinNoise);
+
+				var textureSet = new SFBitmapTexture(perlinNoise);
+
+				SFInitiator_addInitiable(textureSet);
+
+				var texture = new SFTexture(textureSet, 0);
+
+				drawableExample = new SFDrawableExample(texture);
+
+				var canvas = document.getElementById("canvas3d");
+				initGL(canvas);
+				SFGL2_setGl(gl);
+				drawableExample.init();
+				timer();
+
+				document.getElementById("Caption").innerHTML = "Success!";
+			}
+
+			function timer() {
+				//requestAnimFrame(timer);
+				SFGL2_setGl(gl);
+				drawableExample.draw();
+			}
+
+		</script>
+	</head>
+	<body onload="Test();">
+		<H1>Test</H1>
+		<div style="text-align: center">
+			Check the alert!
+			<br/>
+			<font color="#ff0000"><span id="Caption"> Failed! </span></font>
+			<br/>
+			<a href="unittest0002.html">Next Text</a>
+		</div>
+
+		<canvas id="canvas3d" style="border: none;" width="500" height="500"></canvas>
+
+	</body>
+</html>

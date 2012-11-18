@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+		
+		function writehtml(info){
+			
+    		document.getElementById("Debug").innerHTML=info;
+		}
+		
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" >
+	
+    	function Test(){
+		
+			var file=loadFile("test0020.sf");
+			var builder2=new SFDataPipelineBuilder();
+			var inputStream=new SFInputStreamBinary(file);
+			builder2.readFromStream(inputStream);
+			
+			SFGL20Pipeline_setup();
+			
+			builder2.apply(new SFPipelineBuilder());
+			
+			var primitive=new SFPipeline_getPrimitive("Triangle2PN");
+			
+			var program=SFPipeline_getStaticProgram(primitive, "BasicPNTransform","TexturedMat", "BasicLSPN");
+			
+			alert(program.loadVertexShaderText());
+			alert(program.loadFragmentShaderText());
+			
+    		document.getElementById("Caption").innerHTML="Success! ";
+    	}
+    </script>
+  </head>
+  <body onload="Test();">
+	<H1>Test</H1>
+    <div style="text-align: center">
+      Check the alert!
+      <br/> 
+      <font color="#ff0000"><span id="Caption"> Failed! </span></font>
+      <br/><a href="unittest0002.html">Next Text</a>
+    </div>
+    
+    <div id="Debug" >
+      
+    </div>
+  </body>
+</html>

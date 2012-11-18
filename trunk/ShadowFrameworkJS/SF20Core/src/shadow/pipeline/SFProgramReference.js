@@ -1,6 +1,0 @@
-
-function SFProgramReference(){
-}
-
-SFProgramReference.prototype = {
-};
