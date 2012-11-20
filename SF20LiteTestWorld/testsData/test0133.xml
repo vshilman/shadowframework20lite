@@ -604,29 +604,29 @@
 		<animations>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>3844</endingPosition>
+				<endingPosition>4887</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,-0.85,0.0)</startingPosition>
 							<endingPosition>(-0.7,-0.75,0.0)</endingPosition>
-							<duration>1465</duration>
-							<startingTime>75</startingTime>
+							<duration>1786</duration>
+							<startingTime>90</startingTime>
 							<node>ColouredMushroom0Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,-0.75,0.0)</startingPosition>
 							<endingPosition>(-0.7,-0.85,0.0)</endingPosition>
-							<duration>1585</duration>
-							<startingTime>1674</startingTime>
+							<duration>2220</duration>
+							<startingTime>2239</startingTime>
 							<node>ColouredMushroom0Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1419</duration>
-							<startingTime>485</startingTime>
+							<duration>1243</duration>
+							<startingTime>9</startingTime>
 							<node>ColouredMushroom0Place</node>
 						</SFRotateAnimationData>
 					</animations>
@@ -634,29 +634,29 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>5555</endingPosition>
+				<endingPosition>6046</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,-0.85,0.0)</startingPosition>
 							<endingPosition>(-0.25,-0.75,0.0)</endingPosition>
-							<duration>2715</duration>
-							<startingTime>26</startingTime>
+							<duration>2425</duration>
+							<startingTime>123</startingTime>
 							<node>ColouredMushroom1Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,-0.75,0.0)</startingPosition>
 							<endingPosition>(-0.25,-0.85,0.0)</endingPosition>
-							<duration>2195</duration>
-							<startingTime>2914</startingTime>
+							<duration>2536</duration>
+							<startingTime>2998</startingTime>
 							<node>ColouredMushroom1Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1250</duration>
-							<startingTime>61</startingTime>
+							<duration>1217</duration>
+							<startingTime>450</startingTime>
 							<node>ColouredMushroom1Place</node>
 						</SFRotateAnimationData>
 					</animations>
@@ -664,29 +664,29 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>5631</endingPosition>
+				<endingPosition>5348</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,-0.85,0.0)</startingPosition>
 							<endingPosition>(0.19999999,-0.75,0.0)</endingPosition>
-							<duration>2075</duration>
-							<startingTime>7</startingTime>
+							<duration>2444</duration>
+							<startingTime>269</startingTime>
 							<node>ColouredMushroom2Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,-0.75,0.0)</startingPosition>
 							<endingPosition>(0.19999999,-0.85,0.0)</endingPosition>
-							<duration>2799</duration>
-							<startingTime>2134</startingTime>
+							<duration>1639</duration>
+							<startingTime>3097</startingTime>
 							<node>ColouredMushroom2Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1145</duration>
-							<startingTime>15</startingTime>
+							<duration>1499</duration>
+							<startingTime>402</startingTime>
 							<node>ColouredMushroom2Place</node>
 						</SFRotateAnimationData>
 					</animations>
@@ -694,29 +694,29 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>5162</endingPosition>
+				<endingPosition>5761</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,-0.85,0.0)</startingPosition>
 							<endingPosition>(0.6499999,-0.75,0.0)</endingPosition>
-							<duration>1951</duration>
-							<startingTime>207</startingTime>
+							<duration>2442</duration>
+							<startingTime>114</startingTime>
 							<node>ColouredMushroom3Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,-0.75,0.0)</startingPosition>
 							<endingPosition>(0.6499999,-0.85,0.0)</endingPosition>
-							<duration>2229</duration>
-							<startingTime>2470</startingTime>
+							<duration>2361</duration>
+							<startingTime>2966</startingTime>
 							<node>ColouredMushroom3Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1485</duration>
-							<startingTime>258</startingTime>
+							<duration>1163</duration>
+							<startingTime>410</startingTime>
 							<node>ColouredMushroom3Place</node>
 						</SFRotateAnimationData>
 					</animations>
@@ -724,30 +724,210 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>5771</endingPosition>
+				<endingPosition>5649</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,-0.40000004,0.0)</startingPosition>
 							<endingPosition>(-0.7,-0.30000004,0.0)</endingPosition>
-							<duration>2122</duration>
-							<startingTime>240</startingTime>
+							<duration>2430</duration>
+							<startingTime>265</startingTime>
 							<node>ColouredMushroom4Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,-0.30000004,0.0)</startingPosition>
 							<endingPosition>(-0.7,-0.40000004,0.0)</endingPosition>
-							<duration>2561</duration>
-							<startingTime>2634</startingTime>
+							<duration>1762</duration>
+							<startingTime>3145</startingTime>
 							<node>ColouredMushroom4Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1315</duration>
-							<startingTime>242</startingTime>
+							<duration>1056</duration>
+							<startingTime>325</startingTime>
 							<node>ColouredMushroom4Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5098</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,-0.40000004,0.0)</startingPosition>
+							<endingPosition>(-0.25,-0.30000004,0.0)</endingPosition>
+							<duration>2598</duration>
+							<startingTime>92</startingTime>
+							<node>ColouredMushroom5Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,-0.30000004,0.0)</startingPosition>
+							<endingPosition>(-0.25,-0.40000004,0.0)</endingPosition>
+							<duration>1530</duration>
+							<startingTime>3117</startingTime>
+							<node>ColouredMushroom5Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1232</duration>
+							<startingTime>32</startingTime>
+							<node>ColouredMushroom5Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5425</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,-0.40000004,0.0)</startingPosition>
+							<endingPosition>(0.19999999,-0.30000004,0.0)</endingPosition>
+							<duration>2546</duration>
+							<startingTime>480</startingTime>
+							<node>ColouredMushroom6Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,-0.30000004,0.0)</startingPosition>
+							<endingPosition>(0.19999999,-0.40000004,0.0)</endingPosition>
+							<duration>1243</duration>
+							<startingTime>3465</startingTime>
+							<node>ColouredMushroom6Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1459</duration>
+							<startingTime>445</startingTime>
+							<node>ColouredMushroom6Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>3585</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,-0.40000004,0.0)</startingPosition>
+							<endingPosition>(0.6499999,-0.30000004,0.0)</endingPosition>
+							<duration>948</duration>
+							<startingTime>70</startingTime>
+							<node>ColouredMushroom7Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.6499999,-0.30000004,0.0)</startingPosition>
+							<endingPosition>(0.6499999,-0.40000004,0.0)</endingPosition>
+							<duration>1958</duration>
+							<startingTime>1062</startingTime>
+							<node>ColouredMushroom7Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1397</duration>
+							<startingTime>40</startingTime>
+							<node>ColouredMushroom7Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>3621</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,0.049999952,0.0)</startingPosition>
+							<endingPosition>(-0.7,0.14999995,0.0)</endingPosition>
+							<duration>1045</duration>
+							<startingTime>241</startingTime>
+							<node>ColouredMushroom8Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.7,0.14999995,0.0)</startingPosition>
+							<endingPosition>(-0.7,0.049999952,0.0)</endingPosition>
+							<duration>1550</duration>
+							<startingTime>1438</startingTime>
+							<node>ColouredMushroom8Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1361</duration>
+							<startingTime>236</startingTime>
+							<node>ColouredMushroom8Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>5786</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,0.049999952,0.0)</startingPosition>
+							<endingPosition>(-0.25,0.14999995,0.0)</endingPosition>
+							<duration>1939</duration>
+							<startingTime>288</startingTime>
+							<node>ColouredMushroom9Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(-0.25,0.14999995,0.0)</startingPosition>
+							<endingPosition>(-0.25,0.049999952,0.0)</endingPosition>
+							<duration>2514</duration>
+							<startingTime>2517</startingTime>
+							<node>ColouredMushroom9Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1040</duration>
+							<startingTime>472</startingTime>
+							<node>ColouredMushroom9Place</node>
+						</SFRotateAnimationData>
+					</animations>
+				</SFCompositeAnimationData>
+			</SFPeriodicAnimationData>
+			<SFPeriodicAnimationData name="">
+				<startingPosition>0</startingPosition>
+				<endingPosition>4959</endingPosition>
+				<SFCompositeAnimationData name="animation">
+					<animations>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,0.049999952,0.0)</startingPosition>
+							<endingPosition>(0.19999999,0.14999995,0.0)</endingPosition>
+							<duration>1904</duration>
+							<startingTime>48</startingTime>
+							<node>ColouredMushroom10Place</node>
+						</SFMoveAnimationData>
+						<SFMoveAnimationData name="">
+							<startingPosition>(0.19999999,0.14999995,0.0)</startingPosition>
+							<endingPosition>(0.19999999,0.049999952,0.0)</endingPosition>
+							<duration>2431</duration>
+							<startingTime>1993</startingTime>
+							<node>ColouredMushroom10Place</node>
+						</SFMoveAnimationData>
+						<SFRotateAnimationData name="">
+							<direction>(0.0,1.0,0.0)</direction>
+							<startAngle>0.0</startAngle>
+							<lastAngle>6.2831855</lastAngle>
+							<duration>1124</duration>
+							<startingTime>303</startingTime>
+							<node>ColouredMushroom10Place</node>
 						</SFRotateAnimationData>
 					</animations>
 				</SFCompositeAnimationData>
@@ -758,205 +938,25 @@
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
-							<startingPosition>(-0.25,-0.40000004,0.0)</startingPosition>
-							<endingPosition>(-0.25,-0.30000004,0.0)</endingPosition>
-							<duration>1669</duration>
-							<startingTime>292</startingTime>
-							<node>ColouredMushroom5Place</node>
-						</SFMoveAnimationData>
-						<SFMoveAnimationData name="">
-							<startingPosition>(-0.25,-0.30000004,0.0)</startingPosition>
-							<endingPosition>(-0.25,-0.40000004,0.0)</endingPosition>
-							<duration>1248</duration>
-							<startingTime>2032</startingTime>
-							<node>ColouredMushroom5Place</node>
-						</SFMoveAnimationData>
-						<SFRotateAnimationData name="">
-							<direction>(0.0,1.0,0.0)</direction>
-							<startAngle>0.0</startAngle>
-							<lastAngle>6.2831855</lastAngle>
-							<duration>1333</duration>
-							<startingTime>235</startingTime>
-							<node>ColouredMushroom5Place</node>
-						</SFRotateAnimationData>
-					</animations>
-				</SFCompositeAnimationData>
-			</SFPeriodicAnimationData>
-			<SFPeriodicAnimationData name="">
-				<startingPosition>0</startingPosition>
-				<endingPosition>4797</endingPosition>
-				<SFCompositeAnimationData name="animation">
-					<animations>
-						<SFMoveAnimationData name="">
-							<startingPosition>(0.19999999,-0.40000004,0.0)</startingPosition>
-							<endingPosition>(0.19999999,-0.30000004,0.0)</endingPosition>
-							<duration>1704</duration>
-							<startingTime>394</startingTime>
-							<node>ColouredMushroom6Place</node>
-						</SFMoveAnimationData>
-						<SFMoveAnimationData name="">
-							<startingPosition>(0.19999999,-0.30000004,0.0)</startingPosition>
-							<endingPosition>(0.19999999,-0.40000004,0.0)</endingPosition>
-							<duration>1669</duration>
-							<startingTime>2442</startingTime>
-							<node>ColouredMushroom6Place</node>
-						</SFMoveAnimationData>
-						<SFRotateAnimationData name="">
-							<direction>(0.0,1.0,0.0)</direction>
-							<startAngle>0.0</startAngle>
-							<lastAngle>6.2831855</lastAngle>
-							<duration>1280</duration>
-							<startingTime>471</startingTime>
-							<node>ColouredMushroom6Place</node>
-						</SFRotateAnimationData>
-					</animations>
-				</SFCompositeAnimationData>
-			</SFPeriodicAnimationData>
-			<SFPeriodicAnimationData name="">
-				<startingPosition>0</startingPosition>
-				<endingPosition>2931</endingPosition>
-				<SFCompositeAnimationData name="animation">
-					<animations>
-						<SFMoveAnimationData name="">
-							<startingPosition>(0.6499999,-0.40000004,0.0)</startingPosition>
-							<endingPosition>(0.6499999,-0.30000004,0.0)</endingPosition>
-							<duration>1207</duration>
-							<startingTime>23</startingTime>
-							<node>ColouredMushroom7Place</node>
-						</SFMoveAnimationData>
-						<SFMoveAnimationData name="">
-							<startingPosition>(0.6499999,-0.30000004,0.0)</startingPosition>
-							<endingPosition>(0.6499999,-0.40000004,0.0)</endingPosition>
-							<duration>1020</duration>
-							<startingTime>1354</startingTime>
-							<node>ColouredMushroom7Place</node>
-						</SFMoveAnimationData>
-						<SFRotateAnimationData name="">
-							<direction>(0.0,1.0,0.0)</direction>
-							<startAngle>0.0</startAngle>
-							<lastAngle>6.2831855</lastAngle>
-							<duration>1404</duration>
-							<startingTime>139</startingTime>
-							<node>ColouredMushroom7Place</node>
-						</SFRotateAnimationData>
-					</animations>
-				</SFCompositeAnimationData>
-			</SFPeriodicAnimationData>
-			<SFPeriodicAnimationData name="">
-				<startingPosition>0</startingPosition>
-				<endingPosition>4710</endingPosition>
-				<SFCompositeAnimationData name="animation">
-					<animations>
-						<SFMoveAnimationData name="">
-							<startingPosition>(-0.7,0.049999952,0.0)</startingPosition>
-							<endingPosition>(-0.7,0.14999995,0.0)</endingPosition>
-							<duration>1138</duration>
-							<startingTime>300</startingTime>
-							<node>ColouredMushroom8Place</node>
-						</SFMoveAnimationData>
-						<SFMoveAnimationData name="">
-							<startingPosition>(-0.7,0.14999995,0.0)</startingPosition>
-							<endingPosition>(-0.7,0.049999952,0.0)</endingPosition>
-							<duration>2545</duration>
-							<startingTime>1513</startingTime>
-							<node>ColouredMushroom8Place</node>
-						</SFMoveAnimationData>
-						<SFRotateAnimationData name="">
-							<direction>(0.0,1.0,0.0)</direction>
-							<startAngle>0.0</startAngle>
-							<lastAngle>6.2831855</lastAngle>
-							<duration>1268</duration>
-							<startingTime>79</startingTime>
-							<node>ColouredMushroom8Place</node>
-						</SFRotateAnimationData>
-					</animations>
-				</SFCompositeAnimationData>
-			</SFPeriodicAnimationData>
-			<SFPeriodicAnimationData name="">
-				<startingPosition>0</startingPosition>
-				<endingPosition>4935</endingPosition>
-				<SFCompositeAnimationData name="animation">
-					<animations>
-						<SFMoveAnimationData name="">
-							<startingPosition>(-0.25,0.049999952,0.0)</startingPosition>
-							<endingPosition>(-0.25,0.14999995,0.0)</endingPosition>
-							<duration>2228</duration>
-							<startingTime>388</startingTime>
-							<node>ColouredMushroom9Place</node>
-						</SFMoveAnimationData>
-						<SFMoveAnimationData name="">
-							<startingPosition>(-0.25,0.14999995,0.0)</startingPosition>
-							<endingPosition>(-0.25,0.049999952,0.0)</endingPosition>
-							<duration>1610</duration>
-							<startingTime>2717</startingTime>
-							<node>ColouredMushroom9Place</node>
-						</SFMoveAnimationData>
-						<SFRotateAnimationData name="">
-							<direction>(0.0,1.0,0.0)</direction>
-							<startAngle>0.0</startAngle>
-							<lastAngle>6.2831855</lastAngle>
-							<duration>1223</duration>
-							<startingTime>407</startingTime>
-							<node>ColouredMushroom9Place</node>
-						</SFRotateAnimationData>
-					</animations>
-				</SFCompositeAnimationData>
-			</SFPeriodicAnimationData>
-			<SFPeriodicAnimationData name="">
-				<startingPosition>0</startingPosition>
-				<endingPosition>3597</endingPosition>
-				<SFCompositeAnimationData name="animation">
-					<animations>
-						<SFMoveAnimationData name="">
-							<startingPosition>(0.19999999,0.049999952,0.0)</startingPosition>
-							<endingPosition>(0.19999999,0.14999995,0.0)</endingPosition>
-							<duration>1008</duration>
-							<startingTime>426</startingTime>
-							<node>ColouredMushroom10Place</node>
-						</SFMoveAnimationData>
-						<SFMoveAnimationData name="">
-							<startingPosition>(0.19999999,0.14999995,0.0)</startingPosition>
-							<endingPosition>(0.19999999,0.049999952,0.0)</endingPosition>
-							<duration>1569</duration>
-							<startingTime>1477</startingTime>
-							<node>ColouredMushroom10Place</node>
-						</SFMoveAnimationData>
-						<SFRotateAnimationData name="">
-							<direction>(0.0,1.0,0.0)</direction>
-							<startAngle>0.0</startAngle>
-							<lastAngle>6.2831855</lastAngle>
-							<duration>1313</duration>
-							<startingTime>122</startingTime>
-							<node>ColouredMushroom10Place</node>
-						</SFRotateAnimationData>
-					</animations>
-				</SFCompositeAnimationData>
-			</SFPeriodicAnimationData>
-			<SFPeriodicAnimationData name="">
-				<startingPosition>0</startingPosition>
-				<endingPosition>4837</endingPosition>
-				<SFCompositeAnimationData name="animation">
-					<animations>
-						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,0.049999952,0.0)</startingPosition>
 							<endingPosition>(0.6499999,0.14999995,0.0)</endingPosition>
-							<duration>1647</duration>
-							<startingTime>453</startingTime>
+							<duration>1031</duration>
+							<startingTime>34</startingTime>
 							<node>ColouredMushroom11Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,0.14999995,0.0)</startingPosition>
 							<endingPosition>(0.6499999,0.049999952,0.0)</endingPosition>
-							<duration>1937</duration>
-							<startingTime>2221</startingTime>
+							<duration>1902</duration>
+							<startingTime>1443</startingTime>
 							<node>ColouredMushroom11Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1293</duration>
-							<startingTime>315</startingTime>
+							<duration>1286</duration>
+							<startingTime>75</startingTime>
 							<node>ColouredMushroom11Place</node>
 						</SFRotateAnimationData>
 					</animations>
@@ -964,29 +964,29 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>4109</endingPosition>
+				<endingPosition>5596</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,0.49999988,0.0)</startingPosition>
 							<endingPosition>(-0.7,0.5999999,0.0)</endingPosition>
-							<duration>949</duration>
-							<startingTime>499</startingTime>
+							<duration>2159</duration>
+							<startingTime>335</startingTime>
 							<node>ColouredMushroom12Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,0.5999999,0.0)</startingPosition>
 							<endingPosition>(-0.7,0.49999988,0.0)</endingPosition>
-							<duration>1561</duration>
-							<startingTime>1889</startingTime>
+							<duration>1805</duration>
+							<startingTime>2971</startingTime>
 							<node>ColouredMushroom12Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1378</duration>
-							<startingTime>125</startingTime>
+							<duration>1410</duration>
+							<startingTime>320</startingTime>
 							<node>ColouredMushroom12Place</node>
 						</SFRotateAnimationData>
 					</animations>
@@ -994,29 +994,29 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>5075</endingPosition>
+				<endingPosition>3854</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,0.49999988,0.0)</startingPosition>
 							<endingPosition>(-0.25,0.5999999,0.0)</endingPosition>
-							<duration>2424</duration>
-							<startingTime>192</startingTime>
+							<duration>1485</duration>
+							<startingTime>28</startingTime>
 							<node>ColouredMushroom13Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,0.5999999,0.0)</startingPosition>
 							<endingPosition>(-0.25,0.49999988,0.0)</endingPosition>
-							<duration>1763</duration>
-							<startingTime>2749</startingTime>
+							<duration>1444</duration>
+							<startingTime>1749</startingTime>
 							<node>ColouredMushroom13Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1437</duration>
-							<startingTime>402</startingTime>
+							<duration>1035</duration>
+							<startingTime>201</startingTime>
 							<node>ColouredMushroom13Place</node>
 						</SFRotateAnimationData>
 					</animations>
@@ -1024,29 +1024,29 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>4099</endingPosition>
+				<endingPosition>3713</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,0.49999988,0.0)</startingPosition>
 							<endingPosition>(0.19999999,0.5999999,0.0)</endingPosition>
-							<duration>1460</duration>
-							<startingTime>334</startingTime>
+							<duration>1194</duration>
+							<startingTime>164</startingTime>
 							<node>ColouredMushroom14Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,0.5999999,0.0)</startingPosition>
 							<endingPosition>(0.19999999,0.49999988,0.0)</endingPosition>
-							<duration>1329</duration>
-							<startingTime>1881</startingTime>
+							<duration>1577</duration>
+							<startingTime>1414</startingTime>
 							<node>ColouredMushroom14Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1016</duration>
-							<startingTime>134</startingTime>
+							<duration>1349</duration>
+							<startingTime>110</startingTime>
 							<node>ColouredMushroom14Place</node>
 						</SFRotateAnimationData>
 					</animations>
@@ -1054,29 +1054,29 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>5169</endingPosition>
+				<endingPosition>4083</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,0.49999988,0.0)</startingPosition>
 							<endingPosition>(0.6499999,0.5999999,0.0)</endingPosition>
-							<duration>2537</duration>
-							<startingTime>5</startingTime>
+							<duration>1855</duration>
+							<startingTime>53</startingTime>
 							<node>ColouredMushroom15Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,0.5999999,0.0)</startingPosition>
 							<endingPosition>(0.6499999,0.49999988,0.0)</endingPosition>
-							<duration>1959</duration>
-							<startingTime>2704</startingTime>
+							<duration>1277</duration>
+							<startingTime>2392</startingTime>
 							<node>ColouredMushroom15Place</node>
 						</SFMoveAnimationData>
 						<SFRotateAnimationData name="">
 							<direction>(0.0,1.0,0.0)</direction>
 							<startAngle>0.0</startAngle>
 							<lastAngle>6.2831855</lastAngle>
-							<duration>1137</duration>
-							<startingTime>413</startingTime>
+							<duration>1354</duration>
+							<startingTime>5</startingTime>
 							<node>ColouredMushroom15Place</node>
 						</SFRotateAnimationData>
 					</animations>

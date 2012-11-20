@@ -61,7 +61,7 @@ public class SFProgramComponentLoader {
 				String filename=lineToken.nextToken();
 				if(!lineToken.hasMoreElements()){
 					String parsingRooString_=parsingRoot;
-						String file=parsingRoot+"\\"+filename;
+						String file=parsingRoot+"/"+filename;
 						try {
 							loadComponents(new File(file),builder);
 						} catch (IOException e) {

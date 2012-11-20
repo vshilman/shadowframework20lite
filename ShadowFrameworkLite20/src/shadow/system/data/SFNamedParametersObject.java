@@ -59,13 +59,6 @@ public class SFNamedParametersObject implements SFDataObject{
 		return this.dataObjects.get(index);
 	}
 	
-	public void setParameter(String parameterName,String value){
-		SFDataObject dataObject=dataObjects.get(getIndexOf(parameterName));
-		if(dataObject instanceof SFCharsetObject){
-			((SFCharsetObject)dataObject).setStringValue(value);	
-		}
-	}
-	
 	@Override
 	public void readFromStream(SFInputStream stream) {
 		int n=objectNames.size();

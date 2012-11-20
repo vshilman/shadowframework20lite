@@ -1,57 +1,37 @@
 package shadow.renderer;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 import shadow.pipeline.SFPipelineTransform3f;
+import shadow.pipeline.SFPipelineTransforms;
+import shadow.system.SFInitiable;
 
-public class SFBone implements SFNode{
+public class SFBone implements SFInitiable, SFTransformKeeper{
 
-	@Override
-	public void addNode(SFNode node) {
-		// TODO Auto-generated method stub
-		
+	private ArrayList<SFBone> bones=new ArrayList<SFBone>();
+	private SFPipelineTransform3f transform;
+	
+	public SFBone(){
+		this.transform=SFPipelineTransforms.generateTrasform();
 	}
 	
-	@Override
-	public SFModel getModel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public SFPipelineTransform3f getTransform() {
-		// TODO Auto-generated method stub
-		return null;
+		return transform;
 	}
 	
-
+	public void addNode(SFBone bone) {
+		this.bones.add(bone);
+		bone.transform.attachOn(this.transform);
+	}
+	
 	@Override
 	public void init() {
-		//Do nothing
+		//Nothing to do
 	}
 	
 	@Override
 	public void destroy() {
-		//Its correct: if init isn't doing anything, destroy should not do anything
+		//Nothing to do
 	}
-	
-	@Override
-	public SFBone copyNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public boolean isDrawable() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public Iterator<SFNode> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 }

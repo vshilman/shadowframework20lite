@@ -16,7 +16,7 @@ public interface SFPipelineGraphics {
 	
 	public void setupTransform(float[] transform);
 	
-	public float[] getpProjection();
+	public float[] getProjection();
 	
 	public float[] getTransform();
 

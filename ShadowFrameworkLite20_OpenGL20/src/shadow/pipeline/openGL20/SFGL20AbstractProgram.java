@@ -392,7 +392,7 @@ public abstract class SFGL20AbstractProgram extends SFGLSLSet implements SFGL20G
 		this.data=data;
 	}
 
-	SFGL20UniformData getData() {
+	protected SFGL20UniformData getData() {
 		return data;
 	}
 }

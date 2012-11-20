@@ -110,6 +110,7 @@ public class Test0001_MushroomGeometry extends SFAbstractTest{
 				new SFVertex2f(0.45f, 0.5f),
 				new SFVertex2f(0.05f, 0.5f)));
 		
+		System.err.println("Ciao");
 		store(function);
 	}
 	

@@ -1,7 +1,7 @@
 package shadow.animation;
 
 import shadow.math.SFVertex3f;
-import shadow.renderer.SFTransformNode;
+import shadow.renderer.SFTransformKeeper;
 
 /**
  * Generate a move animation.
@@ -14,14 +14,14 @@ public class SFMoveAnimation extends SFTransformNodeAnimation implements SFAnima
 	private SFVertex3f endingPosition;
 	
 	public SFMoveAnimation(SFVertex3f startingPosition, SFVertex3f endingPosition, long duration,
-			long startingTime, SFTransformNode transformNode) {
+			long startingTime, SFTransformKeeper transformNode) {
 		super(transformNode,duration,startingTime);
 		this.startingPosition = startingPosition;
 		this.endingPosition = endingPosition;
 	}
 
 	public SFMoveAnimation(SFVertex3f startingPosition, SFVertex3f endingPosition, long duration,
-			long startingTime, SFTransformNode transformNode, SFTweener tweener) {
+			long startingTime, SFTransformKeeper transformNode, SFTweener tweener) {
 		super(transformNode,duration,startingTime,tweener);
 		this.startingPosition = startingPosition;
 		this.endingPosition = endingPosition;

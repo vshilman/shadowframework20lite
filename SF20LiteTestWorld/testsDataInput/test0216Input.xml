@@ -25,6 +25,7 @@
 		</references>
 		<primitives>
 			<primitives_element>(0,1,2,0,0,0)</primitives_element>
+			<primitives_element>(1,2,3,0,0,0)</primitives_element>
 		</primitives>
 	</SFPrimitiveArrayData>
 	
@@ -38,7 +39,7 @@
 	<SFMeshGeometryData name="PrimitiveGeometry">
 		<linesData>PrimitiveData</linesData>
 		<firstElement>0</firstElement>
-		<lastElement>1</lastElement>
+		<lastElement>2</lastElement>
 	</SFMeshGeometryData>
 	
 	<SFObjectModelData name="Model">

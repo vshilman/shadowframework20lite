@@ -11,7 +11,7 @@ import shadow.system.SFInitiable;
 
 public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiable{
 
-	private List<SFBone> nodes=new ArrayList<SFBone>();	
+	private List<SFNode> nodes=new ArrayList<SFNode>();	
 	
 	private SFModel model=new SFModel();
 
@@ -24,10 +24,10 @@ public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiabl
 		}
 		
 		@Override
-		public SFBone next() {
+		public SFNode next() {
 			if(!hasNext())
 				throw new NoSuchElementException();
-			SFBone node=(SFBone)(nodes.get(index));
+			SFNode node=(nodes.get(index));
 			index++;
 			return node;
 		}
@@ -48,7 +48,7 @@ public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiabl
 	@Override
 	public void addNode(SFNode node) {
 		try {
-			nodes.add((SFBone)node);
+			nodes.add(node);
 		} catch (ClassCastException e) {
 			throw new SFNodeException("Only SFBone can be added to SFObjectModels");		
 		}
@@ -65,7 +65,7 @@ public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiabl
 	public SFNode copyNode() {
 		SFObjectModel model=new SFObjectModel();
 		model.setModel(this.model);
-		for (SFBone bone : nodes) {
+		for (SFNode bone : nodes) {
 			model.nodes.add(bone.copyNode());
 		}
 		SFVertex3f tmpV=new SFVertex3f();
@@ -96,7 +96,7 @@ public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiabl
 		//Its correct: if init isn't doing anything, destroy should not do anything
 	}
 
-	protected List<SFBone> getNodes() {
+	protected List<SFNode> getNodes() {
 		return nodes;
 	}
 

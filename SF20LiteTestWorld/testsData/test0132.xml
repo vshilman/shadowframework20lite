@@ -588,21 +588,21 @@
 		<animations>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>3232</endingPosition>
+				<endingPosition>3945</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,-0.85,0.0)</startingPosition>
 							<endingPosition>(-0.7,-0.75,0.0)</endingPosition>
-							<duration>994</duration>
-							<startingTime>320</startingTime>
+							<duration>1117</duration>
+							<startingTime>418</startingTime>
 							<node>ColouredMushroom0Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,-0.75,0.0)</startingPosition>
 							<endingPosition>(-0.7,-0.85,0.0)</endingPosition>
-							<duration>1381</duration>
-							<startingTime>1415</startingTime>
+							<duration>1795</duration>
+							<startingTime>1775</startingTime>
 							<node>ColouredMushroom0Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -610,21 +610,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>3665</endingPosition>
+				<endingPosition>4591</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,-0.85,0.0)</startingPosition>
 							<endingPosition>(-0.25,-0.75,0.0)</endingPosition>
-							<duration>1821</duration>
-							<startingTime>121</startingTime>
+							<duration>2486</duration>
+							<startingTime>323</startingTime>
 							<node>ColouredMushroom1Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,-0.75,0.0)</startingPosition>
 							<endingPosition>(-0.25,-0.85,0.0)</endingPosition>
-							<duration>1290</duration>
-							<startingTime>2175</startingTime>
+							<duration>1122</duration>
+							<startingTime>3251</startingTime>
 							<node>ColouredMushroom1Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -632,21 +632,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>3241</endingPosition>
+				<endingPosition>3710</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,-0.85,0.0)</startingPosition>
 							<endingPosition>(0.19999999,-0.75,0.0)</endingPosition>
-							<duration>1391</duration>
-							<startingTime>354</startingTime>
+							<duration>915</duration>
+							<startingTime>101</startingTime>
 							<node>ColouredMushroom2Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,-0.75,0.0)</startingPosition>
 							<endingPosition>(0.19999999,-0.85,0.0)</endingPosition>
-							<duration>1161</duration>
-							<startingTime>2025</startingTime>
+							<duration>2032</duration>
+							<startingTime>1257</startingTime>
 							<node>ColouredMushroom2Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -654,21 +654,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>4875</endingPosition>
+				<endingPosition>5372</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,-0.85,0.0)</startingPosition>
 							<endingPosition>(0.6499999,-0.75,0.0)</endingPosition>
-							<duration>2407</duration>
-							<startingTime>256</startingTime>
+							<duration>2551</duration>
+							<startingTime>499</startingTime>
 							<node>ColouredMushroom3Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,-0.75,0.0)</startingPosition>
 							<endingPosition>(0.6499999,-0.85,0.0)</endingPosition>
-							<duration>1558</duration>
-							<startingTime>2989</startingTime>
+							<duration>2019</duration>
+							<startingTime>3351</startingTime>
 							<node>ColouredMushroom3Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -676,21 +676,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>4134</endingPosition>
+				<endingPosition>2763</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,-0.40000004,0.0)</startingPosition>
 							<endingPosition>(-0.7,-0.30000004,0.0)</endingPosition>
-							<duration>1390</duration>
-							<startingTime>198</startingTime>
+							<duration>1060</duration>
+							<startingTime>480</startingTime>
 							<node>ColouredMushroom4Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,-0.30000004,0.0)</startingPosition>
 							<endingPosition>(-0.7,-0.40000004,0.0)</endingPosition>
-							<duration>2104</duration>
-							<startingTime>1836</startingTime>
+							<duration>1040</duration>
+							<startingTime>1556</startingTime>
 							<node>ColouredMushroom4Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -698,21 +698,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>4772</endingPosition>
+				<endingPosition>6060</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,-0.40000004,0.0)</startingPosition>
 							<endingPosition>(-0.25,-0.30000004,0.0)</endingPosition>
-							<duration>1001</duration>
-							<startingTime>475</startingTime>
+							<duration>2705</duration>
+							<startingTime>197</startingTime>
 							<node>ColouredMushroom5Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,-0.30000004,0.0)</startingPosition>
 							<endingPosition>(-0.25,-0.40000004,0.0)</endingPosition>
-							<duration>2714</duration>
-							<startingTime>1685</startingTime>
+							<duration>2700</duration>
+							<startingTime>3225</startingTime>
 							<node>ColouredMushroom5Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -720,21 +720,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>3708</endingPosition>
+				<endingPosition>4267</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,-0.40000004,0.0)</startingPosition>
 							<endingPosition>(0.19999999,-0.30000004,0.0)</endingPosition>
-							<duration>907</duration>
-							<startingTime>465</startingTime>
+							<duration>1271</duration>
+							<startingTime>464</startingTime>
 							<node>ColouredMushroom6Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,-0.30000004,0.0)</startingPosition>
 							<endingPosition>(0.19999999,-0.40000004,0.0)</endingPosition>
-							<duration>1841</duration>
-							<startingTime>1566</startingTime>
+							<duration>2142</duration>
+							<startingTime>1770</startingTime>
 							<node>ColouredMushroom6Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -742,21 +742,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>4426</endingPosition>
+				<endingPosition>5148</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,-0.40000004,0.0)</startingPosition>
 							<endingPosition>(0.6499999,-0.30000004,0.0)</endingPosition>
-							<duration>2638</duration>
-							<startingTime>199</startingTime>
+							<duration>2769</duration>
+							<startingTime>145</startingTime>
 							<node>ColouredMushroom7Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,-0.30000004,0.0)</startingPosition>
 							<endingPosition>(0.6499999,-0.40000004,0.0)</endingPosition>
-							<duration>996</duration>
-							<startingTime>3205</startingTime>
+							<duration>1714</duration>
+							<startingTime>3224</startingTime>
 							<node>ColouredMushroom7Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -764,21 +764,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>5639</endingPosition>
+				<endingPosition>3832</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,0.049999952,0.0)</startingPosition>
 							<endingPosition>(-0.7,0.14999995,0.0)</endingPosition>
-							<duration>2419</duration>
-							<startingTime>206</startingTime>
+							<duration>1560</duration>
+							<startingTime>161</startingTime>
 							<node>ColouredMushroom8Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,0.14999995,0.0)</startingPosition>
 							<endingPosition>(-0.7,0.049999952,0.0)</endingPosition>
-							<duration>2227</duration>
-							<startingTime>2953</startingTime>
+							<duration>1675</duration>
+							<startingTime>1933</startingTime>
 							<node>ColouredMushroom8Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -786,21 +786,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>4990</endingPosition>
+				<endingPosition>2912</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,0.049999952,0.0)</startingPosition>
 							<endingPosition>(-0.25,0.14999995,0.0)</endingPosition>
-							<duration>2353</duration>
-							<startingTime>206</startingTime>
+							<duration>1514</duration>
+							<startingTime>3</startingTime>
 							<node>ColouredMushroom9Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,0.14999995,0.0)</startingPosition>
 							<endingPosition>(-0.25,0.049999952,0.0)</endingPosition>
-							<duration>1845</duration>
-							<startingTime>2797</startingTime>
+							<duration>877</duration>
+							<startingTime>2010</startingTime>
 							<node>ColouredMushroom9Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -808,21 +808,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>4908</endingPosition>
+				<endingPosition>4531</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,0.049999952,0.0)</startingPosition>
 							<endingPosition>(0.19999999,0.14999995,0.0)</endingPosition>
-							<duration>2798</duration>
-							<startingTime>42</startingTime>
+							<duration>1264</duration>
+							<startingTime>414</startingTime>
 							<node>ColouredMushroom10Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,0.14999995,0.0)</startingPosition>
 							<endingPosition>(0.19999999,0.049999952,0.0)</endingPosition>
-							<duration>1330</duration>
-							<startingTime>3220</startingTime>
+							<duration>2286</duration>
+							<startingTime>2014</startingTime>
 							<node>ColouredMushroom10Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -830,21 +830,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>3947</endingPosition>
+				<endingPosition>4408</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,0.049999952,0.0)</startingPosition>
 							<endingPosition>(0.6499999,0.14999995,0.0)</endingPosition>
-							<duration>1079</duration>
-							<startingTime>376</startingTime>
+							<duration>803</duration>
+							<startingTime>66</startingTime>
 							<node>ColouredMushroom11Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,0.14999995,0.0)</startingPosition>
 							<endingPosition>(0.6499999,0.049999952,0.0)</endingPosition>
-							<duration>2185</duration>
-							<startingTime>1649</startingTime>
+							<duration>2739</duration>
+							<startingTime>1286</startingTime>
 							<node>ColouredMushroom11Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -852,21 +852,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>3266</endingPosition>
+				<endingPosition>5585</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,0.49999988,0.0)</startingPosition>
 							<endingPosition>(-0.7,0.5999999,0.0)</endingPosition>
-							<duration>1287</duration>
-							<startingTime>440</startingTime>
+							<duration>1887</duration>
+							<startingTime>395</startingTime>
 							<node>ColouredMushroom12Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.7,0.5999999,0.0)</startingPosition>
 							<endingPosition>(-0.7,0.49999988,0.0)</endingPosition>
-							<duration>1246</duration>
-							<startingTime>1958</startingTime>
+							<duration>2505</duration>
+							<startingTime>2613</startingTime>
 							<node>ColouredMushroom12Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -874,21 +874,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>3626</endingPosition>
+				<endingPosition>3399</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,0.49999988,0.0)</startingPosition>
 							<endingPosition>(-0.25,0.5999999,0.0)</endingPosition>
-							<duration>1743</duration>
-							<startingTime>424</startingTime>
+							<duration>1357</duration>
+							<startingTime>190</startingTime>
 							<node>ColouredMushroom13Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(-0.25,0.5999999,0.0)</startingPosition>
 							<endingPosition>(-0.25,0.49999988,0.0)</endingPosition>
-							<duration>1318</duration>
-							<startingTime>2301</startingTime>
+							<duration>1569</duration>
+							<startingTime>1582</startingTime>
 							<node>ColouredMushroom13Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -896,21 +896,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>5147</endingPosition>
+				<endingPosition>2918</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,0.49999988,0.0)</startingPosition>
 							<endingPosition>(0.19999999,0.5999999,0.0)</endingPosition>
-							<duration>1863</duration>
-							<startingTime>44</startingTime>
+							<duration>901</duration>
+							<startingTime>305</startingTime>
 							<node>ColouredMushroom14Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.19999999,0.5999999,0.0)</startingPosition>
 							<endingPosition>(0.19999999,0.49999988,0.0)</endingPosition>
-							<duration>2452</duration>
-							<startingTime>2344</startingTime>
+							<duration>969</duration>
+							<startingTime>1572</startingTime>
 							<node>ColouredMushroom14Place</node>
 						</SFMoveAnimationData>
 					</animations>
@@ -918,21 +918,21 @@
 			</SFPeriodicAnimationData>
 			<SFPeriodicAnimationData name="">
 				<startingPosition>0</startingPosition>
-				<endingPosition>2850</endingPosition>
+				<endingPosition>3776</endingPosition>
 				<SFCompositeAnimationData name="animation">
 					<animations>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,0.49999988,0.0)</startingPosition>
 							<endingPosition>(0.6499999,0.5999999,0.0)</endingPosition>
-							<duration>1201</duration>
-							<startingTime>292</startingTime>
+							<duration>1086</duration>
+							<startingTime>455</startingTime>
 							<node>ColouredMushroom15Place</node>
 						</SFMoveAnimationData>
 						<SFMoveAnimationData name="">
 							<startingPosition>(0.6499999,0.5999999,0.0)</startingPosition>
 							<endingPosition>(0.6499999,0.49999988,0.0)</endingPosition>
-							<duration>1079</duration>
-							<startingTime>1543</startingTime>
+							<duration>1802</duration>
+							<startingTime>1931</startingTime>
 							<node>ColouredMushroom15Place</node>
 						</SFMoveAnimationData>
 					</animations>

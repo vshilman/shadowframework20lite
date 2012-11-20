@@ -39,9 +39,11 @@ public class SFGL20ImageProgram  extends SFGL20AbstractProgram {
 
 	public String loadVertexShaderText() {
 		String vShader="varying vec2 texCoord0;\n" +
+				"varying vec3 normal;\n" +
 				"void main(void){\n" +
 				"\t gl_Position=gl_Vertex;\n" +
 				"\t texCoord0=vec2(0.5,0.5)+gl_Vertex.xy*vec2(0.5,0.5);\n" +
+				"\t normal=vec3(0,0,-1);\n" +
 				"}\n";
 		return vShader;
 	}

@@ -28,8 +28,7 @@ public class Test0601_SLTown_AvatarCenterShop01 extends SFAbstractTest{
 		//viewNode("Test_Frame");
 		//viewNode("ACS01_Walls");
 		//viewNode("ACS01RedTextureTile4x05");
-		//viewTextureSet("ACLittleTilesRedTexture", 0);
-		
+		//viewTextureSet("ACLittleTilesRedTexture", 0);		
 	}
 	
 	@Override

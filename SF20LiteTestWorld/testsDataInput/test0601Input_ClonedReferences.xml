@@ -465,7 +465,6 @@
 		<textures>
 			<textures_element>128:128:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
 			<textures_element>128:128:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
-			<textures_element>128:128:GRAY8:LINEAR:REPEAT:REPEAT:</textures_element>
 		</textures>
 		<node>ACS01RedTextureTile4x05</node>
 		<SFRendererData name="renderer">
@@ -499,7 +498,6 @@
 		<textures>
 			<textures_element>512:512:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
 			<textures_element>512:512:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
-			<textures_element>512:512:GRAY8:LINEAR:REPEAT:REPEAT:</textures_element>
 		</textures>
 		<node>ACS01RedTextureTile4x05bis</node>
 		<SFRendererData name="renderer">

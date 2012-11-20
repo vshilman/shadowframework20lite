@@ -24,7 +24,6 @@ public class SFFunctionOperator extends SFExpressionOperator{
 			this.setType(list.get(0).getType());
 		else
 			this.setType(SFParameteri.GLOBAL_FLOAT);
-		
 	}
 	
 	protected SFExpressionOperator cloneOperator() {

@@ -1,5 +1,7 @@
 package shadow.geometry.geometries;
 
+import java.util.Arrays;
+
 import shadow.geometry.SFSurfaceFunction;
 import shadow.math.SFValuenf;
 import shadow.operational.grid.SFGridEngine;
@@ -45,7 +47,7 @@ public class SFParametrizedGeometry extends SFMeshGeometry{
 		//so, i think i should have all...
 		
 		SFArray<SFValuenf> parameters=parametersGeometry.getArray().getPrimitiveData(0);
-		parametersGeometry.getMesh().evaluateRanges();
+		//parametersGeometry.getMesh().evaluateRanges();
 		SFIndexRange range=parametersGeometry.getMesh().getPrimitiveDataRanges()[0];
 		
 		int[] deltaPosition=new int[getPrimitive().getGridsCount()];
@@ -71,7 +73,7 @@ public class SFParametrizedGeometry extends SFMeshGeometry{
 					indices.getPrimitiveIndices()[gridIndex*paramIndicesVec.length+j]=paramIndicesVec[j]+deltaPosition[gridIndex];	
 				}
 			}
-			
+			System.err.println(Arrays.toString(indices.getPrimitiveIndices()));
 			getArray().setElement(i+elementsPosition, indices);
 		}
 		

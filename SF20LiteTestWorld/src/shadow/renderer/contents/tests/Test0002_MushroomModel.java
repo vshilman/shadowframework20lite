@@ -76,8 +76,9 @@ public class Test0002_MushroomModel extends SFAbstractTest{
 				//Note: material Data and material program are different, because the same material data can be used with different programs
 			int colorIndex=2;
 			objectModel.getTransformComponent().setProgram("BasicPNTransform");
-			objectModel.getMaterialComponent().setProgram("BasicMat");
-			objectModel.getMaterialComponent().addStructure("BasicMatColours", colorIndex);
+			objectModel.getMaterialComponent().setProgram("RedMat");
+			//objectModel.getMaterialComponent().setProgram("BasicMat");
+			//objectModel.getMaterialComponent().addStructure("BasicMatColours", colorIndex);
 			//we insert the material in the library
 			library.put("RedMushroom", objectModel);
 			

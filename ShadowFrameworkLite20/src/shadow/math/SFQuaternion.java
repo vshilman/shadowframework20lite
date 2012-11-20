@@ -82,8 +82,10 @@ public class SFQuaternion extends SFVertex4f{
 		m.setF(- 2*v[1]*v[2]-2*v[0]*v[3]);
 
 		m.setG(2*v[0]*v[2]-2*v[3]*v[1]);
-		m.setH(2*v[1]*v[1]-2*v[3]*v[0]);
+		m.setH(2*v[1]*v[2]-2*v[3]*v[0]);
 		m.setI(1 - 2*(v[0]*v[0] + v[1]*v[1]));
+		
+		System.out.println("m "+m+" "+m.getH());
 		
 		return m;
 	}

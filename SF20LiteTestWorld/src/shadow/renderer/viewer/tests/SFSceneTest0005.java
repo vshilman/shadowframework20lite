@@ -33,7 +33,6 @@ public class SFSceneTest0005 {
 		
 		
 		//Create scenegraph root
-		
 		SFReferenceNode rootSceneNode=new SFReferenceNode();
 
 			rootSceneNode.addNode(placeModel("SLAvatarCenterShop01", 0.0f, 0.0f, -0.0f, 1,0,0,0));

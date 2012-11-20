@@ -3,7 +3,7 @@ package shadow.pipeline;
 
 public abstract class SFPipelineElement {
 
-	String name;
+	private String name;
 
 	public SFPipelineElement() {
 		super();

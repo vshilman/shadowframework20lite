@@ -25,7 +25,9 @@ public class SFDataUtility {
 	public static void saveDataset(String root,String name,SFDataset dataset){
 		//write it
 		try {
+			
 			FileOutputStream output=new FileOutputStream(root+"/"+name);
+			
 			SFOutputStreamJava outputStream=new SFOutputStreamJava(output, new DefaultExceptionKeeper());
 
 			//outputStream.writeString(dataset.getCode());

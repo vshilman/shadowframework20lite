@@ -63,7 +63,7 @@ public class SFGL20PipelineGraphics implements SFPipelineGraphics, SFInitiable {
 	}
 	
 	@Override
-	public float[] getpProjection() {
+	public float[] getProjection() {
 		return SFGL20PipelineGraphics.projection;
 	}
 	

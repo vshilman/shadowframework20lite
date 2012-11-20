@@ -55,8 +55,8 @@ public class SFPipelineRenderingState {
 		this.depthPass=depthPass;
 	}
 	
-	public void disableStencilTest(boolean stencilTest) {
-		this.stencilTest = true;
+	public void disableStencilTest() {
+		this.stencilTest = false;
 	}
 	
 	public void enableDepthTest() {
