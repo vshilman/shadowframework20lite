@@ -1,22 +1,20 @@
 package shadow.animation;
 
-import shadow.renderer.SFTransformNode;
+import shadow.renderer.SFTransformKeeper;
 
 public abstract class SFTransformNodeAnimation implements SFAnimation{
 
 	public SFTweener tweener;
-	private SFTransformNode transformNode;
+	private SFTransformKeeper transformNode;
 	private long duration;
 	private long startingTime;
 	
-	public SFTransformNodeAnimation(SFTransformNode transformNode) {
+	public SFTransformNodeAnimation(SFTransformKeeper transformNode) {
 		super();
 		this.transformNode=transformNode;
 	}
-	
-	
 
-	public SFTransformNodeAnimation(SFTransformNode transformNode, long duration, long startingTime,SFTweener tweener) {
+	public SFTransformNodeAnimation(SFTransformKeeper transformNode, long duration, long startingTime,SFTweener tweener) {
 		super();
 		this.tweener = tweener;
 		this.transformNode = transformNode;
@@ -24,9 +22,7 @@ public abstract class SFTransformNodeAnimation implements SFAnimation{
 		this.startingTime = startingTime;
 	}
 
-
-
-	public SFTransformNodeAnimation(SFTransformNode transformNode,
+	public SFTransformNodeAnimation(SFTransformKeeper transformNode,
 			long duration, long startingTime) {
 		super();
 		this.transformNode = transformNode;
@@ -36,11 +32,11 @@ public abstract class SFTransformNodeAnimation implements SFAnimation{
 
 
 
-	public SFTransformNode getTransformNode() {
+	public SFTransformKeeper getTransformNode() {
 		return transformNode;
 	}
 
-	public void setTransformNode(SFTransformNode transformNode) {
+	public void setTransformNode(SFTransformKeeper transformNode) {
 		this.transformNode = transformNode;
 	}
 

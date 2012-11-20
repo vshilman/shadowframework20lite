@@ -23,11 +23,11 @@ public class SFEulerAngles3f extends SFVertex3f{
 		super();
 	}
 
-	public SFEulerAngles3f(double z, double x, double y) {
+	public SFEulerAngles3f(double x, double y, double z) {
 		super(x, y, z);
 	}
 
-	public SFEulerAngles3f(float z, float x, float y) {
+	public SFEulerAngles3f(float x, float y, float z) {
 		super(x, y, z);
 	}
 

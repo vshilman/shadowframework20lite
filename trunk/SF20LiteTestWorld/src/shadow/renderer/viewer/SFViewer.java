@@ -215,7 +215,7 @@ public class SFViewer implements SFDrawable{
 		return materialData;
 	}
 	
-	private static SFStructureReference generateStructureDataReference(SFStructureArray lightData,SFVertex3f[] data){
+	public static SFStructureReference generateStructureDataReference(SFStructureArray lightData,SFVertex3f[] data){
 		SFStructureReference materialReference=new SFStructureReference(lightData,lightData.generateElement()); 
 		SFStructureData mat=new SFStructureData(materialReference.getStructure());
 		for (int i = 0; i < data.length; i++) {
@@ -230,7 +230,6 @@ public class SFViewer implements SFDrawable{
 	}
 	
 
-	
 	private static String[] stepNames={
 		"Lambert Light (More Light)",
 		"Lambert Light",
@@ -382,7 +381,19 @@ public class SFViewer implements SFDrawable{
 	}
 
 	public void setNode(SFNode node) {
-		this.node = node;
+		SFViewer.node = node;
+	}
+
+
+	public void updateCamera() {
+		float leftL=getFrame().getGLCanvas().getWidth()*0.00002f;
+		float upL=getFrame().getGLCanvas().getHeight()*0.00002f;
+		getCamera().setupDimensions(leftL, upL);
+	}
+
+
+	public void setFrame(SFDrawableFrame frame) {
+		this.frame = frame;
 	}
 	
 	

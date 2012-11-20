@@ -17,9 +17,11 @@ public class SFCenterPieceCurvesMeshMacroGrid implements SFMacroGrid{
 
 	public SFCenterPieceCurvesMeshMacroGrid(SFPrimitiveArray array,int edges, SFLinearGrid<Integer>[][] edgeGrids) {
 		super();
+		
 		this.array = array;
 		
 		int totalEdges=0;
+		
 		int firstGridSize=array.getPrimitive().getGrid(0).getN();
 		for (int i = 0; i < edgeGrids.length; i++) {
 			int count = (edgeGrids[i][0].getN()-1)/(firstGridSize-1);
@@ -61,7 +63,6 @@ public class SFCenterPieceCurvesMeshMacroGrid implements SFMacroGrid{
 			SFTriangularGrid<Integer>[] triangles=generateTriangularGrids(circles[gridIndex]);
 
 			SFGridEngine.loadPrimitiveIndices(array, primitivePositions, gridIndex, triangles);
-			
 		}
 	}
 	

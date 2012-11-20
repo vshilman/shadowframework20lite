@@ -1,6 +1,5 @@
 package shadow.pipeline;
 
-import shadow.system.SFException;
 
 public class SFIndexRange {
 

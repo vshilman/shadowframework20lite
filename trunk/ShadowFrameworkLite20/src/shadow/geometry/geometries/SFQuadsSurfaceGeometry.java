@@ -7,7 +7,6 @@ import shadow.operational.grid.SFGridEngine;
 import shadow.operational.grid.SFQuadrilateralGrid;
 import shadow.operational.grid.SFRectangularGrid;
 import shadow.operational.grid.SFTriangularGrid;
-import shadow.pipeline.SFIndexRange;
 import shadow.pipeline.SFPipelineGrid;
 import shadow.system.SFArray;
 

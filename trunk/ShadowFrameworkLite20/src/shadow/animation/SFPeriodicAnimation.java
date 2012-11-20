@@ -56,13 +56,5 @@ public class SFPeriodicAnimation implements SFAnimation{
 		//nothing to do
 	}
 
-	protected SFTweener getTweener() {
-		return null;
-	}
 
-	protected void setTweener(SFTweener tweener) {
-	}
-
-	protected void applyTransform(double T) {
-	}
 }

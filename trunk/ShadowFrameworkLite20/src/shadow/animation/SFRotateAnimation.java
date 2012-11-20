@@ -2,7 +2,7 @@ package shadow.animation;
 
 import shadow.math.SFQuaternion;
 import shadow.math.SFVertex3f;
-import shadow.renderer.SFTransformNode;
+import shadow.renderer.SFTransformKeeper;
 
 public class SFRotateAnimation extends SFTransformNodeAnimation implements SFAnimation{
 
@@ -11,7 +11,7 @@ public class SFRotateAnimation extends SFTransformNodeAnimation implements SFAni
 	private float lastAngle;
 	
 	public SFRotateAnimation(SFVertex3f direction, float firstAngle, float lastAngle, long duration,
-			long startingTime, SFTransformNode transformNode) {
+			long startingTime, SFTransformKeeper transformNode) {
 		super(transformNode,duration,startingTime);
 		this.direction = direction;
 		this.firstAngle = firstAngle;
@@ -19,7 +19,7 @@ public class SFRotateAnimation extends SFTransformNodeAnimation implements SFAni
 	}
 
 	public SFRotateAnimation(SFVertex3f direction, float firstAngle, float lastAngle, long duration,
-			long startingTime, SFTransformNode transformNode, SFTweener tweener) {
+			long startingTime, SFTransformKeeper transformNode, SFTweener tweener) {
 		super(transformNode,duration,startingTime,tweener);
 		this.direction = direction;
 		this.firstAngle = firstAngle;

@@ -58,7 +58,6 @@ public class SFQuadsSurfaceGeometryData extends SFDataAsset<SFGeometry>{
 		gridGeometry.getQuadsGrid().setNv( NuNv.getByte(1));
 		
 		surfaceGeometry=new SFParametrizedGeometry(gridGeometry);
-		
 		SFPrimitive primitive=SFPipeline.getPrimitive(this.primitive.getString());
 		surfaceGeometry.setPrimitive(primitive);
 		gridGeometry.setPrimitive(primitive.getConstructionPrimitive());

@@ -40,6 +40,7 @@ public abstract class SFExpressionElement {
 		list.add(element);
 	}
 	
+	//Unused!
 	public void removeElement(SFExpressionElement element){
 		if(element==null)
 			throw new NullPointerException();

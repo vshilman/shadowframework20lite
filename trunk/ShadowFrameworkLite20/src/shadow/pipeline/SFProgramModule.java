@@ -22,7 +22,7 @@ public class SFProgramModule extends SFPipelineElement{
 	
 	@Override
 	public SFProgramModule clone() {
-		SFProgramModule module=new SFProgramModule(name);
+		SFProgramModule module=new SFProgramModule(getName());
 		module.components=components;
 		return module;
 	}

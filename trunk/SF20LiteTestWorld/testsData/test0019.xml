@@ -363,7 +363,6 @@
 		<textures>
 			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
 			<textures_element>200:200:RGB8:LINEAR:REPEAT:REPEAT:</textures_element>
-			<textures_element>400:400:GRAY8:LINEAR:REPEAT:REPEAT:</textures_element>
 		</textures>
 		<node>PebblesTextureModel</node>
 		<SFRendererData name="renderer">

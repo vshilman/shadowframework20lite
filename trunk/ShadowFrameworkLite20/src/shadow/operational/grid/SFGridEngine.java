@@ -240,6 +240,15 @@ public class SFGridEngine {
 		return (SFTriangularGrid<S>[])newGrids;
 	}
 
+
+	public static <S> void printLinearGrid(SFLinearGrid<S> indices){
+		System.out.println("[");
+		for (int i = 0; i < indices.getN(); i++) {
+			System.out.print(" \t"+indices.getValue(i));
+		}
+		System.out.println("]");
+	}
+	
 	public static <S> void printTriangularGrid(SFTriangularGrid<S> indices){
 		System.out.println("[");
 		for (int i = 0; i < indices.getN(); i++) {

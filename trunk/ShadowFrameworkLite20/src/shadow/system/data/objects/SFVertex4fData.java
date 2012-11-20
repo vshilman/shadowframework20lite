@@ -7,7 +7,7 @@ public class SFVertex4fData extends SFVectorData{
 	private SFVertex4f vertex;
 	
 	public SFVertex4fData() {
-		super(3);
+		super(4);
 		vertex=new SFVertex4f();
 		vertex.setArray(getFloatValues());
 	}

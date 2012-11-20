@@ -8,6 +8,7 @@ public class SFMeshData {
 	private SFPrimitiveArray array;
 	private int firstElement;
 	private int lastElement;
+	//NOTE : to be removed from here; not to be used on viewer; see references to 'this.indices'
 	private short[] indices;
 	private int gridIndex;
 	
@@ -24,7 +25,8 @@ public class SFMeshData {
 		this.lastElement = lastElement;
 		this.gridIndex = dataIndex;
 	}
-	
+
+	//NOTE : to be removed from here; not to be used on viewer; see references to 'this.indices'
 	public SFMeshData(SFPrimitiveArray array, short[] indices, int gridIndex) {
 		super();
 		this.array = array;
@@ -44,18 +46,18 @@ public class SFMeshData {
 		return array.getPrimitiveData(gridIndex).generateSample();
 	}
 	
-	
+	//NOTE : to be removed from here; not to be used on viewer; see references to 'this.indices' 
 	public int getIndex(int index){
 		if(indices==null)
 			return index+firstElement;
 		else
 			return indices[index];
 	}
-	
+	//NOTE : to be removed from here; not to be used on viewer; see references to 'this.indices'
 	public void setElement(int index,SFValuenf value){
 		array.getPrimitiveData(gridIndex).setElement(getIndex(index), value);
 	}
-	
+	//NOTE : to be removed from here; not to be used on viewer; see references to 'this.indices'
 	public void getElement(int index,SFValuenf value){
 		array.getPrimitiveData(gridIndex).getElement(getIndex(index), value);
 	}
@@ -89,10 +91,6 @@ public class SFMeshData {
 
 	public void setGridIndex(int gridIndex) {
 		this.gridIndex = gridIndex;
-	}
-
-	public void setIndices(short[] indices) {
-		this.indices = indices;
 	}
 
 	public int getSize(){

@@ -14,6 +14,7 @@ public class SFStringTokenizerInputStream implements SFInputStream{
 	}
 	
 	@Override
+	
 	public String readName() {
 		return readString();
 	}

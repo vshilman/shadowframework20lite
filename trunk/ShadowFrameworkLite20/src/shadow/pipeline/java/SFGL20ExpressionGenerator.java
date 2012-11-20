@@ -43,6 +43,7 @@ public class SFGL20ExpressionGenerator implements SFExpressionElementInterpreter
 	}
 	
 	private String getTypeWrapOpenString(short wrappedType,short wrappingType){
+		
 		//No wrap needed!
 		if(SFParameteri.getExpressionDimension(wrappedType)==SFParameteri.getExpressionDimension(wrappingType))
 			return "";

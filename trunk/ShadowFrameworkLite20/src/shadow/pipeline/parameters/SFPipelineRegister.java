@@ -84,6 +84,14 @@ public class SFPipelineRegister extends SFParameter{
 		predefinedGlobalV.put("color7",new SFPipelineRegister(GLOBAL_FLOAT4, "color7",WROTE_BY_MATERIAL));
 		predefinedGlobalV.put("color8",new SFPipelineRegister(GLOBAL_FLOAT4, "color8",WROTE_BY_MATERIAL));	
 		predefinedGlobalV.put("matnormal",new SFPipelineRegister(GLOBAL_FLOAT3, "matnormal",WROTE_BY_MATERIAL));	
+		predefinedGlobalV.put("matproperty1",new SFPipelineRegister(GLOBAL_FLOAT, "matproperty1",WROTE_BY_MATERIAL));	
+		predefinedGlobalV.put("matproperty2",new SFPipelineRegister(GLOBAL_FLOAT, "matproperty2",WROTE_BY_MATERIAL));	
+		predefinedGlobalV.put("matproperty3",new SFPipelineRegister(GLOBAL_FLOAT, "matproperty3",WROTE_BY_MATERIAL));	
+		predefinedGlobalV.put("matproperty4",new SFPipelineRegister(GLOBAL_FLOAT, "matproperty4",WROTE_BY_MATERIAL));	
+		predefinedGlobalV.put("matproperty5",new SFPipelineRegister(GLOBAL_FLOAT, "matproperty5",WROTE_BY_MATERIAL));	
+		predefinedGlobalV.put("matproperty6",new SFPipelineRegister(GLOBAL_FLOAT, "matproperty6",WROTE_BY_MATERIAL));	
+		predefinedGlobalV.put("matproperty7",new SFPipelineRegister(GLOBAL_FLOAT, "matproperty7",WROTE_BY_MATERIAL));	
+		predefinedGlobalV.put("matproperty8",new SFPipelineRegister(GLOBAL_FLOAT, "matproperty8",WROTE_BY_MATERIAL));	
 		predefinedGlobalV.put("uvP",new SFPipelineRegister(GLOBAL_FLOAT2, "uvP",WROTE_BY_TRANSFORM));
 		predefinedGlobalV.put("uvw",new SFPipelineRegister(GLOBAL_FLOAT3, "uvw",WROTE_BY_TESSELLATION));
 		predefinedGlobalV.put("uv",new SFPipelineRegister(GLOBAL_FLOAT2, "uv",WROTE_BY_TESSELLATION));

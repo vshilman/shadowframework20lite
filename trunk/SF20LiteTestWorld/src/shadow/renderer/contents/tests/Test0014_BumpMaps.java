@@ -82,7 +82,6 @@ public class Test0014_BumpMaps extends SFAbstractTest{
 		drawnTexture.setNode("PebblesTextureModel");
 		drawnTexture.addOutputTexture(200, 200, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT);
 		drawnTexture.addOutputTexture(200, 200, SFImageFormat.RGB8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT);
-		drawnTexture.addOutputTexture(400, 400,SFImageFormat.GRAY8, Filter.LINEAR, WrapMode.REPEAT, WrapMode.REPEAT);
 		library.put("PebblesTextures", drawnTexture);
 			
 		store(library);

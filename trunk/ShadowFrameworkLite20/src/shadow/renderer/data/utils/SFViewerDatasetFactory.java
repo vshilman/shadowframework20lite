@@ -84,6 +84,8 @@ public class SFViewerDatasetFactory extends SFGenericDatasetFactory{
 		addSFDataset(new SFRigidTransformData());
 		addSFDataset(new SFTranslationData());
 		addSFDataset(new SFTranslateAndScaleData());
+		addSFDataset(new SFPrimitiveArrayData());
+		addSFDataset(new SFMeshGeometryData());
 		
 		addSFDataset(new SFBitmapPerlinNoiseData());
 		addSFDataset(new SFBitmapTextureData());
@@ -106,8 +108,7 @@ public class SFViewerDatasetFactory extends SFGenericDatasetFactory{
 		addSFDataset(new SFPeriodicAnimationData());
 		addSFDataset(new SFInstancedReferenceNodeData());
 		addSFDataset(new SFRotateAnimationData());
-		addSFDataset(new SFPrimitiveArrayData());
-		addSFDataset(new SFMeshGeometryData());
+		
 		addSFDataset(new SFDerivedTextCoordData());
 		addSFDataset(new SFCompositeMeshGeometryData());
 		addSFDataset(new SFSimpleObjPlaneTexCoordGeometryData());

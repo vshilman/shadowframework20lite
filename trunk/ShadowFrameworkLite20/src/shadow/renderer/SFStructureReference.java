@@ -21,11 +21,6 @@ public class SFStructureReference {
 		
 	}
 	
-	public SFStructureReference(int index) {
-		super();//remember: super() will call generateData(); that's way class attribute are initialized there, or things are not going to work.
-		this.refIndex=index;
-		//SFDataCenter.getDataCenter().makeDatasetAvailable(tableDataName, this);
-	}
 	
 	public SFStructureReference(SFStructureArray table,int index) {
 		super();//remember: super() will call generateData(); that's way class attribute are initialized there, or things are not going to work.

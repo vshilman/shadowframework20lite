@@ -10,20 +10,6 @@ public class SFStructureData {
 	private SFPipelineStructure structure;
 	private SFValuenf values[];
 
-	public SFStructureData(SFPipelineStructure structure,SFParameteri genericsParameters) {
-		super();
-		this.structure=structure;
-		values=new SFValuenf[structure.size()];
-		for (int index = 0; index < structure.getAllParameters().size();index++) {
-			SFParameteri sfParameteri=structure.getAllParameters().get(index);	
-			values[index]=SFParameteri.generateValue(sfParameteri);
-			
-			if(values[index]==null){
-				values[index]=SFParameteri.generateValue(genericsParameters);
-			}
-		}
-	}
-	
 	public SFStructureData(SFPipelineStructure structure) {
 		super();
 		this.structure=structure;

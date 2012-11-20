@@ -28,7 +28,7 @@ import shadow.system.SFUpdatable;
 
 public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 	
-	private static final boolean REPORT_SHADERS=false;
+	private static final boolean REPORT_SHADERS=true;
 	
 	private int frShader,vxShader,program;
 	private boolean initialized=false;

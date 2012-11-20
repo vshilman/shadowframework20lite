@@ -122,7 +122,8 @@ public class SFPipelineBuilder implements SFIPipelineBuilder {
 		
 		SFExpressionBuilder builder=new SFExpressionBuilder();
 		SFExpressionParser.getParser().parseString(function, cmp.getParameterArray(),builder);
-		SFFunction functionCode = new SFFunction(global,builder.getBuiltExpression());
+		SFFunction functionCode;
+		functionCode = new SFFunction(global,builder.getBuiltExpression());
 		cmp.addCodeFunction(functionCode);
 	}
 	

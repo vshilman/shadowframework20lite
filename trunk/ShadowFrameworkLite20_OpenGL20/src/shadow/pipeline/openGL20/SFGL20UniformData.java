@@ -236,7 +236,6 @@ public class SFGL20UniformData implements SFProgramDataModel {
 			int size=sizes[i];
 			SFGL20ValuenfArray data=datas[i];
 			
-			
 			Integer[] uniform=gridUniforms.get(uniformIndex);
 			short type=primitive.getType(i);
 			switch (type) {
