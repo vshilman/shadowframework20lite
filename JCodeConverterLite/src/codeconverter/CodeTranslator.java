@@ -12,4 +12,5 @@ public interface CodeTranslator {
 	 * @return 
 	 */
 	public String translateCode(Block mainBlock,HashMap<CodeModule, CodePattern> relatedPatterns);
+	//
 }
