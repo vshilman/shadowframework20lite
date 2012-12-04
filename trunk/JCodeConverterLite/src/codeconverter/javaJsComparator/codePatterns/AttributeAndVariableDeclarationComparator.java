@@ -27,7 +27,7 @@ public class AttributeAndVariableDeclarationComparator implements CodePatternCom
 		CodePattern javaPattern = javaCodePatterns.get(javaIndex);
 		CodePattern jsPattern = jsCodePatterns.get(jsIndex);
 
-		ICodePiece javaPiece = javaPattern.getPieces().get(2).getPieces().get(0).getPieces().get(0);
+		ICodePiece javaPiece = javaPattern.getPieces().get(2).getPieces().get(0).getPieces().get(0); //TODO Dovrebe prendere il JavaNamePart
 		javaPiece.setPieceType(PieceType.NAME);
 
 		if (!new NameComparator().compare(javaPiece, jsPattern.getPieceByType(PieceType.VARIABLE)

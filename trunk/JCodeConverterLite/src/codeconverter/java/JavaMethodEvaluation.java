@@ -43,10 +43,10 @@ public class JavaMethodEvaluation extends CompositeCodePiece{
 				new OptionalCode(//variable or class Name
 						new CompositeCodePiece(
 								new BestAlternativeCode(true,
-								new JavaName(PieceType.VALUE,algebraicExpression,bitwiseExpression),
-								new JavaNewStatement(algebraicExpression,
-										new JavaName(PieceType.TYPE, algebraicExpression, bitwiseExpression))),
-								new UniqueKeyword(methodsSyntax)
+										new JavaName(PieceType.VALUE,algebraicExpression,bitwiseExpression),
+										new JavaNewStatement(algebraicExpression,
+												new JavaName(PieceType.TYPE, algebraicExpression, bitwiseExpression))),
+										new UniqueKeyword(methodsSyntax)
 						)),
 				new CodeSequence(true,new CompositeCodePiece(
 					new JavaName(algebraicExpression,bitwiseExpression),new UniqueKeyword("("),
