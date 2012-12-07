@@ -16,16 +16,14 @@ import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveArray;
+import shadow.pipeline.SFPrimitiveBlock;
 import shadow.pipeline.SFPrimitiveIndices;
 import shadow.pipeline.SFProgramComponent;
-import shadow.pipeline.SFPrimitive.PrimitiveBlock;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
-import shadow.pipeline.parameters.SFPipelineRegister;
 import shadow.system.SFArray;
 import shadow.system.SFArrayElementException;
 import shadow.system.SFException;
-import shadow.system.data.SFDataset;
 
 /**
  * A utility class which can load Objs as ShadowFramorkData
@@ -41,10 +39,16 @@ public class ShadowObjLoader {
 			SFProgramComponentLoader.loadComponents(new File("objLoaderPipeline/objLoaderPipeline.txt"),new SFPipelineBuilder());
 
 			try {
-				primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
-				primitive.addPrimitiveElement(PrimitiveBlock.NORMAL, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
-				primitive.addPrimitiveElement(PrimitiveBlock.TXO, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
-				primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("OBJBasicTess")));
+				//primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
+				//primitive.addPrimitiveElement(PrimitiveBlock.NORMAL, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
+				//primitive.addPrimitiveElement(PrimitiveBlock.TXO, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
+				//primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("OBJBasicTess")));
+			
+				SFPrimitiveBlock[] blocks={SFPrimitiveBlock.POSITION,SFPrimitiveBlock.NORMAL,SFPrimitiveBlock.TXO}; //crea
+				SFProgramComponent[] components={(SFProgramComponent)(SFPipeline.getModule("OBJTriangle")),
+						(SFProgramComponent)(SFPipeline.getModule("OBJTriangle")),
+						(SFProgramComponent)(SFPipeline.getModule("OBJTriangle"))}; //riempie
+				primitive.setPrimitiveElements(blocks,components); //utilizza
 			} catch (SFException e) {
 				e.printStackTrace();
 			}
