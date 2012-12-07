@@ -35,7 +35,7 @@ public class AlternativeCode extends ICodePiece{
 		if(mandatory){
 			return new ICodePieceMatch(-1,null);
 		}else{
-			return new ICodePieceMatch(matchPosition,new Word(PieceType.IGNORED,"",null));
+			return new ICodePieceMatch(matchPosition,new Word(PieceType.IGNORED,""));
 		}
 	}	
 }

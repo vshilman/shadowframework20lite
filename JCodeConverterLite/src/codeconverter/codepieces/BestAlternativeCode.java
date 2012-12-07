@@ -35,7 +35,7 @@ public class BestAlternativeCode extends ICodePiece {
 			}
 		}
 		if (bestMatch.getMatchPosition() == -1 && !mandatory) {
-			return new ICodePieceMatch(matchPosition, new Word(PieceType.IGNORED, "", null));
+			return new ICodePieceMatch(matchPosition, new Word(PieceType.IGNORED, ""));
 		}
 
 		return bestMatch;
