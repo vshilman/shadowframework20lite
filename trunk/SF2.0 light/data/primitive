@@ -14,6 +14,9 @@
 @begin Tessellator BasicTess
 @end
 
+@begin Tessellator OBJBasicTess
+@end
+
 @begin Primitive Triangle2
 @grid A,B,C,D,E,F as Bezier2Grid:<>
 @use uvw
