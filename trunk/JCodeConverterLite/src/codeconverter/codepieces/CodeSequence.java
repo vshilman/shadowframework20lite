@@ -61,7 +61,7 @@ public class CodeSequence extends ICodePiece {
 			}
 			if (nextIndex != -1) {
 				if(position!=matchPosition)
-					cloneSequence.pieces.add(new Word(PieceType.KEYWORD,div,null));
+					cloneSequence.pieces.add(new Word(PieceType.KEYWORD,div));
 				cloneSequence.pieces.add((ICodePiece) match.getDataPiece());
 				position=nextIndex;
 			}

@@ -26,7 +26,7 @@ public abstract class Keyword extends ICodePiece{
 	public ICodePieceMatch elementMatch(String data, int matchPosition) {
 		ArrayList<String> alternatives=getAlternatives();
 		int line=checkAlternatives(data,matchPosition,alternatives);
-		return new ICodePieceMatch(line,new Word(PieceType.KEYWORD,alternatives.get(keywordIndex),null));
+		return new ICodePieceMatch(line,new Word(PieceType.KEYWORD,alternatives.get(keywordIndex)));
 	}
 
 	private int checkAlternatives(String data, int matchPosition,

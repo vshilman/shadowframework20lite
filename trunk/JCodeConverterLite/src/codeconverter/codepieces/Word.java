@@ -11,20 +11,15 @@ import codeconverter.PieceType;
 public class Word extends ICodePiece{
 
 	private String word;
-	private ICodePiece wordBuilder=null; 
 	
-	public Word(PieceType pieceType, String word, ICodePiece wordBuilder) {
+	public Word(PieceType pieceType, String word) {
 		super();
 		this.pieceType=pieceType;
 		this.word=word;
-		this.wordBuilder=wordBuilder;
 	}
 
 	@Override
 	public ICodePieceMatch elementMatch(String data, int matchPosition) {
-		if(wordBuilder!=null){
-			return wordBuilder.elementMatch(data,matchPosition);
-		}
 		return new ICodePieceMatch(-1,null);
 	}
 	

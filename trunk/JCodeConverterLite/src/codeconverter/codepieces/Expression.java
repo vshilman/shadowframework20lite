@@ -31,7 +31,7 @@ public abstract class Expression extends ICodePiece{
 			String alternative=alternatives[i];
 			if(data.length()>=matchPosition+alternative.length()){
 				if(data.substring(matchPosition, matchPosition+alternative.length()).equals(alternative)){
-					clone.pieces.add(new Word(PieceType.OPERATOR,alternative,null));
+					clone.pieces.add(new Word(PieceType.OPERATOR,alternative));
 					return alternative.length()+matchPosition;
 				}	
 			}

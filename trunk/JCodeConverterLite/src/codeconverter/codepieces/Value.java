@@ -19,6 +19,9 @@ public abstract class Value extends ICodePiece{
 			this.minChar=minChar;
 			this.maxChar=maxChar;
 		}
+		protected boolean stays(char eval) {
+			return (minChar<=eval && eval <=maxChar);
+		}
 	}
 	
 	public abstract List<CharInterval> getAvailableIntervals(int position);
@@ -28,7 +31,7 @@ public abstract class Value extends ICodePiece{
 
 	private boolean isCharacterContained(char c,List<CharInterval> intervals){
 		for (CharInterval charInterval : intervals) {
-			if(stays(c,charInterval))
+			if(charInterval.stays(c))
 				return true;
 		}
 		return false;
@@ -48,7 +51,7 @@ public abstract class Value extends ICodePiece{
 					availableIntervals=getAvailableIntervals(matchPosition-startingPosition);
 				}
 				String word=data.substring(startingPosition,matchPosition);
-				return new ICodePieceMatch(matchPosition,new Word(getPieceType(),word,null));
+				return new ICodePieceMatch(matchPosition,new Word(getPieceType(),word));
 			}	
 		}
 		
@@ -59,9 +62,7 @@ public abstract class Value extends ICodePiece{
 		super();
 	}
 
-	protected boolean stays(char eval, CharInterval interval) {
-		return (interval.minChar<=eval && eval <=interval.maxChar);
-	}
+	
 	
 
 }

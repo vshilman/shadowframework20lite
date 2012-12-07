@@ -21,7 +21,7 @@ public class OptionalCode  extends ICodePiece {
 		
 		ICodePieceMatch match=optionaElement.elementMatch(data,matchPosition);
 		if(match.getMatchPosition()==-1){
-			return new ICodePieceMatch(matchPosition,new Word(PieceType.IGNORED,"",null));
+			return new ICodePieceMatch(matchPosition,new Word(PieceType.IGNORED,""));
 		}
 		return match;
 	}	
