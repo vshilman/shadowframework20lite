@@ -1,6 +1,8 @@
 package shadow.objloader.example;
 
-
+/*
+ * programma che carica vagoncino
+ */
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -11,21 +13,26 @@ import shadow.geometry.SFGeometry;
 import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
 import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPipelineGraphics.Module;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 import shadow.renderer.SFStructureReference;
+import shadow.utils.SFTutorial;
+import shadow.utils.SFTutorialsUtilities;
 
 public class ShadowObjLoaderExample extends SFTutorial{
 
 	private static ArrayList<SFGeometry> geometries;
 	private static SFProgram program;
+	
+	private float[] projection={1,0,0,0,  
+			0,1,0,0,	
+			0,0,1,0,
+			0,0,0,1};
 	
 	private static SFStructureArray materialData;
 	private static SFStructureReference materialReference;
@@ -37,7 +44,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		SFGL20Pipeline.setup();
 
 		ShadowObjLoaderExample tut03Bitmap=new ShadowObjLoaderExample();
-		String[] materials={"BasicMat"};
+		//String[] materials={"BasicMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -49,7 +56,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 
-			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "BasicLSPN");
+			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"OBJBasicTess", "BasicMat", "BasicLSPN");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SFPipelineModuleWrongException e) {
@@ -77,17 +84,17 @@ public class ShadowObjLoaderExample extends SFTutorial{
 	@Override
 	public void render() {
 		
-		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
+		SFPipeline.getSfPipelineGraphics().setupProjection(projection);
 
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		
 		//load material data
 		if(materialData!=null)
-			SFPipeline.getSfPipelineGraphics().loadStructureData(materialData, materialReference.getMaterialIndex());
+			SFPipeline.getSfPipelineGraphics().loadStructureData(Module.MATERIAL, materialData,0, materialReference.getIndex());
 		
 		//load light data
 		if(lightData!=null)
-			SFPipeline.getSfPipelineGraphics().loadStructureData(lightData, lightReference.getMaterialIndex());
+			SFPipeline.getSfPipelineGraphics().loadStructureData(Module.LIGHT, lightData,0, lightReference.getIndex());
 		
 		for (int i = 0; i < geometries.size(); i++) {
 			geometries.get(i).drawGeometry(0);//Lod value is actually ignored.
