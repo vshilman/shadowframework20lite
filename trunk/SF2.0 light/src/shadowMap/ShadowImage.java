@@ -32,8 +32,8 @@ import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 import shadow.renderer.SFStructureReference;
+import shadow.utils.SFTutorial;
 
 public class ShadowImage extends SFTutorial {
 	
@@ -58,8 +58,8 @@ public class ShadowImage extends SFTutorial {
 		SFGL20Pipeline.setup();
 
 		ShadowImage test=new ShadowImage();
-		String[] materials={"Position"};
-		String[] materials2={"TexturedMat"};
+		//String[] materials={"Position"};
+		//String[] materials2={"TexturedMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -72,9 +72,9 @@ public class ShadowImage extends SFTutorial {
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 			
-			ShadowImage.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "NoLights");
+			ShadowImage.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), "BasicTess", "Position", "NoLights");
 			//da modificare, solo per verificare correttezza primo passo che salvo immagine
-			ShadowImage.finalprogram=SFPipeline.getStaticImageProgram(materials2, "BasicColor");
+			ShadowImage.finalprogram=SFPipeline.getStaticImageProgram("TexturedMat", "BasicColor");
 			
 			
 /*			//Material pass: salvataggio delle componenti di colore

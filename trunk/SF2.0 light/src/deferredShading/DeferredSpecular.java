@@ -11,6 +11,7 @@ import shadow.geometry.SFGeometry;
 import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
 import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPipelineGraphics.Module;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFPipelineStructureInstance;
@@ -20,18 +21,23 @@ import shadow.pipeline.SFStructureData;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.renderer.SFStructureReference;
 import shadow.system.SFArrayElementException;
+import shadow.utils.SFBasicTutorial;
+import shadow.utils.SFTutorial;
+import shadow.utils.SFTutorialsUtilities;
 
 public class DeferredSpecular extends SFTutorial {
 	
 	private static ArrayList<SFGeometry> geometries;
 	private static SFProgram program;
+	
+	private float[] projection={1,0,0,0,  
+			0,1,0,0,	
+			0,0,1,0,
+			0,0,0,1};
 	
 	private static SFStructureArray materialArray;
 	private static SFStructureReference materialReference;
@@ -43,7 +49,7 @@ public class DeferredSpecular extends SFTutorial {
 		SFGL20Pipeline.setup();
 
 		DeferredSpecular test=new DeferredSpecular();
-		String[] materials={"ColorsMat"};
+		//String[] materials={"ColorsMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -56,7 +62,7 @@ public class DeferredSpecular extends SFTutorial {
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 			//'Deferred'=shader che unisce i tre pasi dell'algoritmo e calcola il valore del colore finale
-			DeferredSpecular.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "Specular");
+			DeferredSpecular.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), "BasicTess", "ColorsMat", "Specular");
 		
 			//Material pass: salvataggio delle componenti di colore
 			SFPipelineStructure materialStructure=SFPipeline.getStructure("Mat02");
@@ -98,13 +104,13 @@ public class DeferredSpecular extends SFTutorial {
 	@Override
 	public void render() {
 		
-		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
+		SFPipeline.getSfPipelineGraphics().setupProjection(projection);
 
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		
-		SFPipeline.getSfPipelineGraphics().loadStructureData(materialArray, materialReference.getMaterialIndex());
+		SFPipeline.getSfPipelineGraphics().loadStructureData(Module.MATERIAL, materialArray, 0, materialReference.getIndex());
 		
-		SFPipeline.getSfPipelineGraphics().loadStructureData(lightArray, lightReference.getMaterialIndex());
+		SFPipeline.getSfPipelineGraphics().loadStructureData(Module.LIGHT, lightArray,0, lightReference.getIndex());
 		
 		for (int i = 0; i < geometries.size(); i++) {
 			geometries.get(i).drawGeometry(0);

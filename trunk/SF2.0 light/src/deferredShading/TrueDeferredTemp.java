@@ -16,6 +16,7 @@ import shadow.image.SFRenderedTexture;
 import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
 import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPipelineGraphics.Module;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFPipelineStructureInstance;
@@ -25,12 +26,12 @@ import shadow.pipeline.SFStructureData;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.renderer.SFStructureReference;
 import shadow.system.SFArrayElementException;
+import shadow.utils.SFBasicTutorial;
+import shadow.utils.SFTutorial;
 
 public class TrueDeferredTemp extends SFTutorial {
 	
@@ -44,6 +45,11 @@ public class TrueDeferredTemp extends SFTutorial {
 	private static SFProgram program;
 	private static SFProgram programShow;
 	
+	private float[] projection={1,0,0,0,  
+			0,1,0,0,	
+			0,0,1,0,
+			0,0,0,1};
+	
 	private static SFStructureArray materialArray;
 	private static SFStructureReference materialReference;
 	private static SFStructureArray lightArray;
@@ -54,8 +60,8 @@ public class TrueDeferredTemp extends SFTutorial {
 		SFGL20Pipeline.setup();
 
 		TrueDeferredTemp test=new TrueDeferredTemp();
-		String[] materials={"ColorDFMat"};
-		String[] materials2={"MoreTexturedMat"};
+		//String[] materials={"ColorDFMat"};
+		//String[] materials2={"MoreTexturedMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -68,8 +74,8 @@ public class TrueDeferredTemp extends SFTutorial {
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 			
-			TrueDeferredTemp.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "FirstStepDF");
-			TrueDeferredTemp.programShow=SFPipeline.getStaticImageProgram(materials2, "BasicColor");
+			TrueDeferredTemp.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), "BasicTess", "ColorDFMat", "FirstStepDF");
+			TrueDeferredTemp.programShow=SFPipeline.getStaticImageProgram("MoreTexturedMat", "BasicColor");
 			
 			//Material pass: salvataggio delle componenti di colore
 			SFPipelineStructure materialStructure=SFPipeline.getStructure("Mat02");
@@ -126,7 +132,7 @@ public class TrueDeferredTemp extends SFTutorial {
 		SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);			
 		
 			SFPipeline.getSfProgramBuilder().loadProgram(program);
-			SFPipeline.getSfPipelineGraphics().loadStructureData(materialArray, materialReference.getMaterialIndex());
+			SFPipeline.getSfPipelineGraphics().loadStructureData(Module.MATERIAL, materialArray,0, materialReference.getIndex());
 			
 			for (int i = 0; i < geometries.size(); i++) {
 				geometries.get(i).drawGeometry(0);
@@ -139,7 +145,7 @@ public class TrueDeferredTemp extends SFTutorial {
 	@Override
 	public void render() {
 		
-		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
+		SFPipeline.getSfPipelineGraphics().setupProjection(projection);
 		
 		if(shownTexture==0)
 			texture0.apply(0);

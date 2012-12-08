@@ -10,21 +10,27 @@ import shadow.geometry.SFGeometry;
 import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
 import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPipelineGraphics.Module;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFProgram;
 import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 import shadow.renderer.SFStructureReference;
+import shadow.utils.SFBasicTutorial;
+import shadow.utils.SFTutorial;
+import shadow.utils.SFTutorialsUtilities;
 
 public class DeferredDiffColor extends SFTutorial {
 	
 	private static ArrayList<SFGeometry> geometries;
 	private static SFProgram program;
+	
+	private float[] projection={1,0,0,0,  
+			0,1,0,0,	
+			0,0,1,0,
+			0,0,0,1};
 	
 	private static SFStructureArray materialArray;
 	private static SFStructureReference materialReference;
@@ -34,7 +40,7 @@ public class DeferredDiffColor extends SFTutorial {
 		SFGL20Pipeline.setup();
 
 		DeferredDiffColor test=new DeferredDiffColor();
-		String[] materials={"BasicMat"};
+		//String[] materials={"BasicMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -46,7 +52,7 @@ public class DeferredDiffColor extends SFTutorial {
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 
-			DeferredDiffColor.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "NoLights");
+			DeferredDiffColor.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), "BasicTess", "BasicMat", "NoLights");
 		
 		//material pass: color diff e color amb
 		test.materialArray=SFTutorialsUtilities.generateMaterialData(test.program, 0, 0);
@@ -70,11 +76,11 @@ public class DeferredDiffColor extends SFTutorial {
 	@Override
 	public void render() {
 		
-		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
+		SFPipeline.getSfPipelineGraphics().setupProjection(projection);
 
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		
-		SFPipeline.getSfPipelineGraphics().loadStructureData(materialArray, materialReference.getMaterialIndex());
+		SFPipeline.getSfPipelineGraphics().loadStructureData(Module.MATERIAL, materialArray, 0,  materialReference.getIndex());
 		
 		for (int i = 0; i < geometries.size(); i++) {
 			geometries.get(i).drawGeometry(0);
