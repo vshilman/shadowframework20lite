@@ -14,20 +14,24 @@ import shadow.pipeline.SFProgram;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
+import shadow.utils.SFTutorial;
 
 public class DeferredNormal extends SFTutorial {
 	
 	private static ArrayList<SFGeometry> geometries;
 	private static SFProgram program;
 	
+	private float[] projection={1,0,0,0,  
+			0,1,0,0,	
+			0,0,1,0,
+			0,0,0,1};
+	
 	public static void main(String[] args) {
 
 		SFGL20Pipeline.setup();
 
 		DeferredNormal test=new DeferredNormal();
-		String[] materials={"NormalMat"};
+		//String[] materials={"NormalMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -39,7 +43,7 @@ public class DeferredNormal extends SFTutorial {
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 
-			DeferredNormal.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "NoLights");
+			DeferredNormal.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),  "BasicTess", "NormalMat", "NoLights");
 		
 	
 		} catch (IOException e) {
@@ -58,7 +62,7 @@ public class DeferredNormal extends SFTutorial {
 	@Override
 	public void render() {
 		
-		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
+		SFPipeline.getSfPipelineGraphics().setupProjection(projection);
 
 		SFPipeline.getSfProgramBuilder().loadProgram(program);
 		

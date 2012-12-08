@@ -32,8 +32,8 @@ import shadow.pipeline.SFStructureArray;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
 import shadow.renderer.SFStructureReference;
+import shadow.utils.SFTutorial;
 
 public class ShadowImageStep1 extends SFTutorial {
 	
@@ -46,10 +46,11 @@ public class ShadowImageStep1 extends SFTutorial {
 								0,1,0,0,
 								0,0,1,0,	
 								0,0,0,1};
+	//non c'è più il comando rotatemodel, devo usare trasform e projection
 	//1.6f == 90'
-	float rotX=0;
-	float rotY=-1.6f;
-	float rotZ=0;
+	//float rotX=0;
+	//float rotY=-1.6f;
+	//float rotZ=0;
 	//con projection girata di 90'su y e -90'su sul modello ho luce da sx
 	private SFPipelineTexture texture0;
 	
@@ -67,8 +68,8 @@ public class ShadowImageStep1 extends SFTutorial {
 		SFGL20Pipeline.setup();
 
 		ShadowImageStep1 test=new ShadowImageStep1();
-		String[] materials={"Position"};
-		String[] materials2={"TexturedMat"};
+		//String[] materials={"Position"};
+		//String[] materials2={"TexturedMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -81,9 +82,9 @@ public class ShadowImageStep1 extends SFTutorial {
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 			
-			ShadowImageStep1.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "NoLights");
+			ShadowImageStep1.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), "BasicTess", "Position", "NoLights");
 			//da modificare, solo per verificare correttezza primo passo che salvo immagine
-			ShadowImageStep1.shadowprogram=SFPipeline.getStaticImageProgram(materials2, "BasicColor");
+			ShadowImageStep1.shadowprogram=SFPipeline.getStaticImageProgram("TexturedMat", "BasicColor");
 			
 			
 			//Material pass: salvataggio delle componenti di colore
@@ -137,7 +138,7 @@ public class ShadowImageStep1 extends SFTutorial {
 		SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);			
 		
 			SFPipeline.getSfPipelineGraphics().setupProjection(projection);
-			SFPipeline.getSfPipelineGraphics().rotateModel(rotX,rotY,rotZ);
+			//SFPipeline.getSfPipelineGraphics().rotateModel(rotX,rotY,rotZ);
 			SFPipeline.getSfProgramBuilder().loadProgram(program);
 			
 			for (int i = 0; i < geometries.size(); i++) {

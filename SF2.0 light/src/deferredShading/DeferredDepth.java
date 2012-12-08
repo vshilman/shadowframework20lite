@@ -14,7 +14,7 @@ import shadow.pipeline.SFProgram;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
+import shadow.utils.SFTutorial;
 
 public class DeferredDepth extends SFTutorial {
 	
@@ -26,7 +26,7 @@ public class DeferredDepth extends SFTutorial {
 		SFGL20Pipeline.setup();
 
 		DeferredDepth test=new DeferredDepth();
-		String[] materials={"BlackMat"};
+		//String[] materials={"BlackMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -38,7 +38,7 @@ public class DeferredDepth extends SFTutorial {
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 
-			DeferredDepth.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "DepthStep");
+			DeferredDepth.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), "BasicTess", "BlackMat", "DepthStep");
 		
 	
 		} catch (IOException e) {

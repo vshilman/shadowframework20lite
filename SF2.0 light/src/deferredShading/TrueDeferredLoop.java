@@ -23,6 +23,7 @@ import shadow.image.SFRenderedTexture;
 import shadow.math.SFVertex3f;
 import shadow.objloader.ShadowObjLoader;
 import shadow.pipeline.SFPipeline;
+import shadow.pipeline.SFPipelineGraphics.Module;
 import shadow.pipeline.SFPipelineModuleWrongException;
 import shadow.pipeline.SFPipelineStructure;
 import shadow.pipeline.SFPipelineStructureInstance;
@@ -32,13 +33,13 @@ import shadow.pipeline.SFStructureData;
 import shadow.pipeline.builder.SFPipelineBuilder;
 import shadow.pipeline.loader.SFProgramComponentLoader;
 import shadow.pipeline.openGL20.SFGL20Pipeline;
-import shadow.pipeline.openGL20.tutorials.utils.SFBasicTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorial;
-import shadow.pipeline.openGL20.tutorials.utils.SFTutorialsUtilities;
 import shadow.pipeline.parameters.SFParameter;
 import shadow.pipeline.parameters.SFParameteri;
 import shadow.renderer.SFStructureReference;
 import shadow.system.SFArrayElementException;
+import shadow.utils.SFBasicTutorial;
+import shadow.utils.SFTutorial;
+import shadow.utils.SFTutorialsUtilities;
 
 public class TrueDeferredLoop extends SFTutorial {
 	
@@ -52,6 +53,11 @@ public class TrueDeferredLoop extends SFTutorial {
 	private static SFProgram program;
 	private static SFProgram finalprogram;
 	
+	private float[] projection={1,0,0,0,  
+			0,1,0,0,	
+			0,0,1,0,
+			0,0,0,1};
+	
 	private static SFStructureArray materialArray;
 	private static SFStructureReference materialReference;
 	private static SFStructureArray lightArray;
@@ -62,8 +68,8 @@ public class TrueDeferredLoop extends SFTutorial {
 		SFGL20Pipeline.setup();
 
 		TrueDeferredLoop test=new TrueDeferredLoop();
-		String[] materials={"ColorDFMat"};
-		String[] materials2={"MoreTexturedMat"};
+		//String[] materials={"ColorDFMat"};
+		//String[] materials2={"MoreTexturedMat"};
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
@@ -76,8 +82,8 @@ public class TrueDeferredLoop extends SFTutorial {
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 			
-			TrueDeferredLoop.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), materials, "FirstStepDF");
-			TrueDeferredLoop.finalprogram=SFPipeline.getStaticImageProgram(materials2, "SecondStepDF");
+			TrueDeferredLoop.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(), "BasicTess", "ColorDFMat", "FirstStepDF");
+			TrueDeferredLoop.finalprogram=SFPipeline.getStaticImageProgram("MoreTexturedMat", "SecondStepDF");
 			
 			
 			//Material pass: salvataggio delle componenti di colore
@@ -123,7 +129,7 @@ public class TrueDeferredLoop extends SFTutorial {
 	@Override
 	public void render() {
 		
-		SFPipeline.getSfPipelineGraphics().setupProjection(SFBasicTutorial.projection);
+		SFPipeline.getSfPipelineGraphics().setupProjection(projection);
 		
 //primo passo del deferred: passaggio da 3D a 2D
 		
@@ -145,7 +151,7 @@ public class TrueDeferredLoop extends SFTutorial {
 		SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);			
 		
 			SFPipeline.getSfProgramBuilder().loadProgram(program);
-			SFPipeline.getSfPipelineGraphics().loadStructureData(materialArray, materialReference.getMaterialIndex());
+			SFPipeline.getSfPipelineGraphics().loadStructureData(Module.MATERIAL, materialArray,0, materialReference.getIndex());
 			
 			for (int i = 0; i < geometries.size(); i++) {
 				geometries.get(i).drawGeometry(0);
@@ -162,7 +168,7 @@ public class TrueDeferredLoop extends SFTutorial {
 		
 		SFPipeline.getSfProgramBuilder().loadProgram(finalprogram);
 		
-		SFPipeline.getSfPipelineGraphics().loadStructureData(lightArray, lightReference.getMaterialIndex());
+		SFPipeline.getSfPipelineGraphics().loadStructureData(Module.LIGHT, lightArray, 0, lightReference.getIndex());
 		
 		SFPipeline.getSfPipelineGraphics().drawBaseQuad();
 		
