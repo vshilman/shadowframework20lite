@@ -4,7 +4,7 @@ import codeconverter.CodePattern;
 import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.java.JavaBooleanExpression;
 
-public class TestCodePatter001 {
+public class TestCodePattern001 {
 
 	public static void main(String[] args) {
 	

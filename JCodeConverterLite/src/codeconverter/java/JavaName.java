@@ -75,7 +75,7 @@ public class JavaName extends CompositeCodePiece{
 			allIntervals.add(new CharInterval('a','z'));
 			allIntervals.add(new CharInterval('A','Z'));
 			allIntervals.add(new CharInterval('0','9'));
-			allIntervals.add(new CharInterval('.','.'));
+			//allIntervals.add(new CharInterval('.','.'));  //TODO verify
 			allIntervals.add(new CharInterval('_','_'));
 			//allIntervals.add(new CharInterval('[',']'));
 			allIntervals.add(new CharInterval('"','"'));

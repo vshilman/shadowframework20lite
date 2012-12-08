@@ -41,7 +41,7 @@ public class BlocksTest002 {
 			if(pattern!=null)
 				System.out.println("["+codeModule+"]:"+pattern);
 			else
-				System.err.println("["+codeModule+"]: unidentified");
+				System.out.println("["+codeModule+"]: unidentified");
 		}
 	}
 }
