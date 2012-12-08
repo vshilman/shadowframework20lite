@@ -36,7 +36,7 @@ public class TestCodePiece011JUnit {
 		match=piece.elementMatch(data,0);
 		s+=writeCodePieceMatch(match);
 		
-		//TODO Matching problems?
+		assertEquals("Matching Piece 18 [  attribute.method   (  )]\nMatching Piece -1 [null]\nMatching Piece 28 [  attribute.attribute.method   (  )]\nMatching Piece 27 [  attribute.method   (  ).method   (  )]\nMatching Piece 19 [attribute.attribute  ]\n", s);
 		
 	}
 
