@@ -74,6 +74,13 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 		public SFLibraryRecord clone() {
 			return new SFLibraryRecord(name.getString(), object.getDataset());
 		}
+		
+		@Override
+		public boolean equals(Object object) {
+			if (object instanceof SFLibraryRecord)
+				return this.compareTo((SFLibraryRecord)object)==0;
+			return false;
+		}
 	} 
 	
 	private class SFLibraryIterator implements Iterator<RecordData>{
@@ -129,14 +136,21 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 	public void put(String name,SFDataset dataset) throws NullPointerException{
 		if(dataset==null)
 			throw new NullPointerException("Dataset cannot be null");
+		
 		SFLibraryRecord record=new SFLibraryRecord(name, dataset);
+		if(records.getDataObject().contains(record)){
+			int indexof=records.getDataObject().indexOf(record);
+			records.getDataObject().remove(indexof);
+		}
+		
+		
 		records.getDataObject().add(record);
 		Collections.sort(records.getDataObject());
 	}
 	
 	/**
-	 * Look for the {@link Dataset} registered with the given name
-	 * @param name the name of the {@link Dataset}
+	 * Look for the {@link SFDataset} registered with the given name
+	 * @param name the name of the {@link SFDataset}
 	 * @return
 	 */
 	public synchronized SFDataset retrieveDataset(String name){
