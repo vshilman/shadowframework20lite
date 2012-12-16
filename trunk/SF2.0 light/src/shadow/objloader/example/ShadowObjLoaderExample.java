@@ -54,19 +54,21 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		System.err.println("Number of geometries is "+geometries.size());
 		
 		try {
-			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
+			SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());
 
-			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"OBJBasicTess", "BasicMat", "BasicLSPN");
+			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"BasicPNTransform", "Basic", "Basic");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SFPipelineModuleWrongException e) {
 			e.printStackTrace();
 		}
 		
-		ShadowObjLoaderExample.materialData=SFTutorialsUtilities.generateMaterialData(program, 0, 0);
-		SFVertex3f[] materialData={new SFVertex3f(1,1,0),new SFVertex3f(0.1f,0.1f,0.1f)};
-		materialReference=SFTutorialsUtilities.generateStructureDataReference(program, ShadowObjLoaderExample.materialData, materialData);
-
+		
+		//material
+		ShadowObjLoaderExample.materialData=SFTutorialsUtilities.generateMaterialData("BasicMat",0/*program, 0,0*/);
+		SFVertex3f[] materialData1={new SFVertex3f(1,1,0)/*, new SFVertex3f(0.1f,0.1f,0.1f)*/}; //questa riga è sbagliata, non è la struttura che si aspetta
+		materialReference=SFTutorialsUtilities.generateStructureDataReference(program, ShadowObjLoaderExample.materialData, materialData1);
+		
 		//Light
 		ShadowObjLoaderExample.lightData=SFTutorialsUtilities.generateLightData(program, 0);
 		SFVertex3f[] lightData={new SFVertex3f(2, 1, 1),new SFVertex3f(1, 1, -1)};
