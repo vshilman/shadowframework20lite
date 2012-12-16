@@ -357,8 +357,8 @@
 //     material
 // %%%%%%%%%%%%%%%%%%%
 
-@begin Material Red
-@component  RedMat
+@begin Material Basic
+@component  BasicMat
 @end
 
 @begin Material Modulated

@@ -36,7 +36,7 @@ public class ShadowObjLoader {
 
 	static{
 		try {
-			SFProgramComponentLoader.loadComponents(new File("objLoaderPipeline/objLoaderPipeline.txt"),new SFPipelineBuilder());
+			SFProgramComponentLoader.loadComponents(new File("data/primitive"),new SFPipelineBuilder());
 
 			try {
 				//primitive.addPrimitiveElement(PrimitiveBlock.POSITION, (SFProgramComponent)(SFPipeline.getModule("OBJTriangle")));
@@ -45,9 +45,9 @@ public class ShadowObjLoader {
 				//primitive.setAdaptingTessellator((SFProgramComponent)(SFPipeline.getModule("OBJBasicTess")));
 			
 				SFPrimitiveBlock[] blocks={SFPrimitiveBlock.POSITION,SFPrimitiveBlock.NORMAL,SFPrimitiveBlock.TXO}; //crea
-				SFProgramComponent[] components={(SFProgramComponent)(SFPipeline.getModule("OBJTriangle")),
-						(SFProgramComponent)(SFPipeline.getModule("OBJTriangle")),
-						(SFProgramComponent)(SFPipeline.getModule("OBJTriangle"))}; //riempie
+				SFProgramComponent[] components={(SFProgramComponent)(SFPipeline.getModule("Triangle"/*"OBJTriangle"*/)),
+						(SFProgramComponent)(SFPipeline.getModule("Triangle")),
+						(SFProgramComponent)(SFPipeline.getModule("Triangle"))}; //riempie
 				primitive.setPrimitiveElements(blocks,components); //utilizza
 			} catch (SFException e) {
 				e.printStackTrace();
