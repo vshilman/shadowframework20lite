@@ -56,7 +56,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());
 
-			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"BasicPNTransform", "Basic", "Basic");
+			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"BasicPNTransform", "BasicMat", "BasicLSPN");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SFPipelineModuleWrongException e) {
