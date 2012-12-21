@@ -126,7 +126,7 @@ public class SFViewer implements SFDrawable{
 		
 		float[] matrix=renderer.getCamera().extractTransform();
 		
-		if(!renderer.getCamera().isPerspective()){	
+		//if(!renderer.getCamera().isPerspective()){	
 			float[] viewport=new float[4];
 			gl.glGetFloatv(GL2.GL_VIEWPORT, viewport, 0);
 			float width=viewport[2];
@@ -135,7 +135,7 @@ public class SFViewer implements SFDrawable{
 				matrix[i]*=unitVolumeSize/width;
 				matrix[i+4]*=unitVolumeSize/height;
 			}
-		}
+		//}
 		
 		gl.glClearColor(0.4f,0.4f,0.4f,1);
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);

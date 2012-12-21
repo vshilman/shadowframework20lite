@@ -347,7 +347,7 @@ public abstract class SFGL20AbstractProgram extends SFGLSLSet implements SFGL20G
 		}
 		
 		if(vertex){
-			writer.write("\n\tgl_Position=vec4(position,1);");//this is a big trouble i think
+			writer.write("\n\tgl_Position=vec4(position);");//this is a big trouble i think
 		}
 		
 		for (SFPrimitiveProgramAssociation prAssoc : list) {
