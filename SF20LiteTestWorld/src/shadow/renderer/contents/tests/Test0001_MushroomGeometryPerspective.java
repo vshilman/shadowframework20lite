@@ -1,5 +1,8 @@
 package shadow.renderer.contents.tests;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import shadow.geometry.SFSurfaceFunction;
 import shadow.geometry.curves.data.SFBasisSplineData;
 import shadow.geometry.functions.data.SFCurvedTubeFunctionData;
@@ -7,6 +10,7 @@ import shadow.geometry.geometries.SFParametrizedGeometry;
 import shadow.geometry.geometries.SFQuadsGridGeometry;
 import shadow.geometry.vertices.SFVertexListDataUnit8;
 import shadow.math.SFVertex2f;
+import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPrimitive;
 import shadow.pipeline.SFPrimitiveBlock;
@@ -14,6 +18,7 @@ import shadow.pipeline.SFStructureArray;
 import shadow.renderer.SFObjectModel;
 import shadow.renderer.SFStructureReference;
 import shadow.renderer.contents.tests.common.CommonMaterial;
+import shadow.renderer.viewer.SFDrawableFrame;
 import shadow.renderer.viewer.SFViewer;
 
 /**
@@ -34,12 +39,12 @@ import shadow.renderer.viewer.SFViewer;
  * 
  * @author Alessandro Martinelli
  */
-public class Test0001_MushroomGeometry extends SFAbstractTest{
+public class Test0001_MushroomGeometryPerspective extends SFAbstractTest {
 
 	private static final String FILENAME="test0001";
 	
 	public static void main(String[] args) {
-		execute(new Test0001_MushroomGeometry());
+		execute(new Test0001_MushroomGeometryPerspective());
 	}
 	
 	@Override
@@ -64,7 +69,7 @@ public class Test0001_MushroomGeometry extends SFAbstractTest{
 		geometry.setFunction(SFPrimitiveBlock.POSITION, resource);
 		geometry.init();
 		
-		SFObjectModel node=new SFObjectModel();
+		final SFObjectModel node=new SFObjectModel();
 		
 		node.getModel().setRootGeometry(geometry);
 
@@ -82,7 +87,66 @@ public class Test0001_MushroomGeometry extends SFAbstractTest{
 			
 		//4) Show the Surface Function on an SFViewer	
 			
-		SFViewer.generateFrame(node);
+		SFViewer viewer=SFViewer.generateFrame(node);
+		viewer.getCamera().setF(new SFVertex3f(0,0, -10.0f));             // -> al posto dell'asterisco inserisco in tre esecuzioni diverse -1, -2 e -3
+        viewer.getCamera().setDir(new SFVertex3f(0,0,1));
+        viewer.getCamera().setUp(new SFVertex3f(0,1,0));
+        viewer.getCamera().setLeft(new SFVertex3f(1,0,0));
+        viewer.getCamera().setPerspective(true);
+        viewer.getCamera().setUpL(0.05f);
+        viewer.getCamera().setLeftL(0.05f);
+        viewer.getCamera().setDistance(20f);
+        viewer.getCamera().setDelta(0.05f);
+        viewer.getCamera().update();
+        
+        SFDrawableFrame frame=viewer.getFrame();
+        
+        frame.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_PLUS){
+					SFVertex3f vertex=new SFVertex3f();
+					node.getTransform().getPosition(vertex);
+					vertex.setZ(vertex.getZ()+0.1f);
+					node.getTransform().setPosition(vertex);
+				}
+				if(e.getKeyCode()==KeyEvent.VK_MINUS){
+					SFVertex3f vertex=new SFVertex3f();
+					node.getTransform().getPosition(vertex);
+					vertex.setZ(vertex.getZ()-0.1f);
+					node.getTransform().setPosition(vertex);
+				}
+			}
+		});
+        
+        //Z=-0.5f
+        /*Projection 
+         * [0.99999994, -0.0, 0.0, 0.0, 
+         * -0.0, 0.99999994, -0.0, -0.0, 
+         * 0.0, -0.0, 0.050250627, 0.05, 
+         * -0.0, -0.0, -0.07512531, 0.025]*/
+        //Z=-1.0f
+        /*Projection 
+         * [0.99999994, -0.0, 0.0, 0.0, 
+         * -0.0, 0.99999994, -0.0, -0.0, 
+         * 0.0, -0.0, 0.050250627, 0.05, 
+         * -0.0, -0.0, -0.049999997, 0.05]*/
+        
+//        [0.99999994, -0.0, 0.0, 0.0, 
+//         -0.0, 0.99999994, -0.0, -0.0,
+//         0.0, -0.0, 0.050502516, 0.05, 
+//         -0.0, -0.0, 0.9095478, 1.0]
 	}
 
 	@Override
