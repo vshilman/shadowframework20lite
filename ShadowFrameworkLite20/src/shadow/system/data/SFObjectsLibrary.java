@@ -162,7 +162,9 @@ public class SFObjectsLibrary implements SFDataset, Iterable<SFObjectsLibrary.Re
 	}
 	
 	public void addLibrary(SFObjectsLibrary library){
-		this.records.addAll(library.records);
+		for (RecordData recordData : library) {
+			put(recordData);
+		}
 	}
 	
 	/**
