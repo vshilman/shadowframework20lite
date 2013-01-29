@@ -1,5 +1,7 @@
 package shadow.renderer.data;
 
+import java.util.HashMap;
+
 import shadow.math.SFMatrix3f;
 import shadow.math.SFTransform3f;
 import shadow.math.SFVertex3f;
@@ -54,9 +56,25 @@ public abstract class SfAbstractReferenceNodeData extends SFDataAsset<SFNode> {
 		
 		for (int i = 0; i < nodes.size(); i++) {
 			nodes.get(i).retrieveDataset(new SFDataCenterListener<SFDataAsset<SFNode>>() {
+				
+				private HashMap<String,SFDataAsset<SFNode>> registeredDatasets=new HashMap<String,SFDataAsset<SFNode>>();
+				private HashMap<String,SFNode> registeredNodes=new HashMap<String,SFNode>();
+				
 				@Override
 				public void onDatasetAvailable(String name, SFDataAsset<SFNode> dataset) {
-					reference.addNode(dataset.getResource().copyNode());
+					SFDataAsset<SFNode> registeredDataset=registeredDatasets.get(name);
+					if(registeredDataset!=null){//second time we get name, dataset may be changed.
+						SFNode node=registeredNodes.get(name);
+						//REMOVE ALL
+						reference.removeNode(node);//node removed from renference
+						registeredNodes.remove(name);//node removed from registeredNodes
+						registeredDatasets.remove(name);//node removed from registeredDatasets
+					}
+					//create new node from the new dataset,
+					SFNode node=dataset.getResource().copyNode();
+					reference.addNode(node);
+					registeredNodes.put(name, node);
+					registeredDatasets.put(name, dataset);
 				}
 			});
 		}
