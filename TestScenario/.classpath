@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="libraries"/>
+	<classpathentry kind="src" path="data"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ShadowFramework2.0"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ShadowFramework2.0_OpenGL20"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/gluegen.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/gluegen-rt.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/gluegen-rt-natives-windows-i586.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/jogl.all.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/jogl.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/jogl-all-natives-windows-i586.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/ShadowFramework2.0_OpenGL20/Libraries_java_jogl/nativewindow.all.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/TestScenario/libraries_websocket/jWebSocketClientAPI-1.0.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/TestScenario/libraries_websocket/jWebSocketCommon-1.0.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/TestScenario/libraries_websocket/jWebSocketJavaSEClient-1.0.jar"/>
-	<classpathentry kind="lib" path="F:/Documents and Settings/Utente/Desktop/eclipse/workspace/TestScenario/libraries_websocket/weberknecht-0.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/utente/workspace/TestScenario/java-libraries/java_websocket.jar"/>
+	<classpathentry kind="lib" path="/home/utente/workspace/TestScenario/java-libraries/jogl-all.jar"/>
+	<classpathentry kind="lib" path="/home/utente/workspace/TestScenario/java-libraries/jogl-all-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="/home/utente/workspace/TestScenario/java-libraries/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="/home/utente/workspace/TestScenario/java-libraries/gluegen-rt-natives-linux-i586.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
