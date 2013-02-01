@@ -1,0 +1,27 @@
+
+
+Installare node.js ->  nodejs.org
+ ""        npmjs   ->  npmjs.org
+
+
+Start server:
+
+ScenarioJS/WebContent$ node index.js
+
+
+
+
+* Se non trova le librerie, cancellare la dir node_modules e installare websocket.io e mime:
+
+	ScenarioJS/WebContent$ npm install websocket.io
+	ScenarioJS/WebContent$ npm install mime
+
+
+
+Browser:
+
+http://127.0.0.1:3000/index.html
+
+
+
+
