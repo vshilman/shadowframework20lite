@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Scenario JS</title>
+
+<script type="text/javascript">
+	var sfLocation = "./src/";
+</script>
+<script type="text/javascript" src="./src/ShadowFrameworkInclude.js"></script>
+<script type="text/javascript" src="SFViewer.js"></script>
+<script type="text/javascript" src="InputHandler.js"></script>
+<script type="text/javascript" src="CameraController.js"></script>
+<script type="text/javascript" src="ClientComm.js"></script>
+<script type="text/javascript" src="MyCharModel.js"></script>
+<script type="text/javascript" src="MessageWSParser.js"></script>
+<script type="text/javascript" src="CharHandler.js"></script>
+<script type="text/javascript" src="Character.js"></script>
+
+<script type="text/javascript" src="NodeGenerator.js"></script>
+
+
+<script type="text/javascript">
+
+	
+	var viewer = 0;
+	var library = 0;
+
+	function timer() {
+		requestAnimFrame(timer);
+		SFGL2_setGl(gl);
+		
+		viewer.draw();
+	}
+
+	function setupCanvas(canvasName) {
+		var canvas = document.getElementById(canvasName);
+		initGL(canvas);
+		SFGL2_setGl(gl);
+		viewer.init();
+		timer();
+	}
+
+	function setupAmbient() {
+		//Pipeline Preparation
+		var file = loadLibrary("test0020.sf");
+		var builder2 = new SFDataPipelineBuilder();
+		var inputStream = new SFInputStreamBinary(file);
+		builder2.readFromStream(inputStream);
+		SFGL20Pipeline_setup();
+		builder2.apply(new SFPipelineBuilder());
+
+		SFDataCenter_setDatasetFactory(new SFViewerDatasetFactory());
+		var objectsLibrary = new SFViewerObjectsLibrary();
+		SFDataCenter_setDataCenterImplementation(objectsLibrary);
+		library = objectsLibrary.getLibrary();
+
+	}
+
+	function loadData(contents) {
+
+		var inputStream = new SFInputStreamBinary(contents);
+		var dataset = SFDataCenter_getDataCenter().readDataset(inputStream);
+		dataset.getSFDataObject().readFromStream(inputStream);
+
+		SFDataCenter_setDataCenterImplementation(new SFViewerObjectsLibrary(
+				dataset));
+	}
+
+	
+	
+	
+	function Test_LoadedDataCallBack(contents) {
+
+		loadData(contents);
+    	viewer = new SFViewer();
+		var camera = this.viewer.renderer.getCamera();
+		var cameracontr = new CameraController(camera);
+		
+		var clientcomm = new ClientComm(viewer);
+		clientcomm.connect(cameracontr);
+		
+		var inputhandler = new InputHandler();
+		inputhandler.addObserver(cameracontr);
+		inputhandler.addObserver(clientcomm);
+		inputhandler.keyListen();
+	    setupCanvas("canvas3d");
+	}
+
+	
+	function loadLibrary(file){
+
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", file, false);
+		xhr.overrideMimeType("text/plain; charset=x-user-defined");
+		xhr.send(null);
+		return xhr.responseText;
+
+		}
+
+	
+	
+	function Main() {
+
+		setupAmbient();
+		
+		content = loadLibrary("library0001.sf");
+        Test_LoadedDataCallBack(content);
+
+	}
+</script>
+</head>
+<body onload="Main();">
+
+
+
+	<canvas id="canvas3d" style="border: none; position: fixed; top: 50%; left: 50%; margin-top: -300px; margin-left: -300px;" width="600" height="600">
+	
+	</canvas>
+<button id="bottone" disabled="disabled"> Java Version</button>
+</body>
+</html>
