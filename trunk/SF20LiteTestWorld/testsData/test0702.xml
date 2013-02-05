@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFVertexListData16 name="CubeNormals">
+		<vertices>
+			<vertices_element>(0.0,0.0,-1.0)</vertices_element>
+			<vertices_element>(0.0,0.0,1.0)</vertices_element>
+			<vertices_element>(0.0,1.0,0.0)</vertices_element>
+			<vertices_element>(0.0,-1.0,0.0)</vertices_element>
+			<vertices_element>(1.0,0.0,0.0)</vertices_element>
+			<vertices_element>(-1.0,0.0,0.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFVertexListData16 name="CubeTexCoord">
+		<vertices>
+			<vertices_element>(0.0,0.0)</vertices_element>
+			<vertices_element>(1.0,0.0)</vertices_element>
+			<vertices_element>(1.0,1.0)</vertices_element>
+			<vertices_element>(0.0,1.0)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFMeshGeometryData name="CubeTx">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>QuadPNTxO</primitive>
+			<references id="primitiveData">
+				<reference>CubeVertexes</reference>
+				<reference>CubeNormals</reference>
+				<reference>CubeTexCoord</reference>
+			</references>
+			<primitives>
+				<primitives_element>(0,1,2,3,0,0,0,0,0,1,2,3)</primitives_element>
+				<primitives_element>(4,5,6,7,1,1,1,1,0,1,2,3)</primitives_element>
+				<primitives_element>(3,2,6,7,2,2,2,2,0,1,2,3)</primitives_element>
+				<primitives_element>(0,1,5,4,3,3,3,3,0,1,2,3)</primitives_element>
+				<primitives_element>(1,5,6,2,4,4,4,4,0,1,2,3)</primitives_element>
+				<primitives_element>(0,4,7,3,5,5,5,5,0,1,2,3)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>6</lastElement>
+	</SFMeshGeometryData>
+	<SFVertexListData16 name="CubeVertexes">
+		<vertices>
+			<vertices_element>(-0.5,-0.5,-0.5)</vertices_element>
+			<vertices_element>(0.5,-0.5,-0.5)</vertices_element>
+			<vertices_element>(0.5,0.5,-0.5)</vertices_element>
+			<vertices_element>(-0.5,0.5,-0.5)</vertices_element>
+			<vertices_element>(-0.5,-0.5,0.5)</vertices_element>
+			<vertices_element>(0.5,-0.5,0.5)</vertices_element>
+			<vertices_element>(0.5,0.5,0.5)</vertices_element>
+			<vertices_element>(-0.5,0.5,0.5)</vertices_element>
+		</vertices>
+	</SFVertexListData16>
+	<SFObjectModelData name="PerlinMushroom">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>-0.5</y>
+			<z>0.0</z>
+			<scale>2.5</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>TexturedMushroom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>PerlinTexture:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFBitmapTextureData name="PerlinTexture">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,0.2,0.2,0.2,0.2,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+			<SFBitmapArrayData name="bitmap">
+				<width>4</width>
+				<height>4</height>
+				<bitmap>(0,255,100,0,0,100,255,0,255,0,100,0,0,100,0,255)</bitmap>
+			</SFBitmapArrayData>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="Texture">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<weights>(0.0,0.2,0.2,0.2,0.2,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+			<SFBitmapArrayData name="bitmap">
+				<width>4</width>
+				<height>4</height>
+				<bitmap>(0,255,100,0,0,100,255,0,255,0,100,0,0,100,0,255)</bitmap>
+			</SFBitmapArrayData>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	<SFObjectModelData name="TexturedCube">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>1.0</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>CubeTx</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>Texture:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	<SFQuadsSurfaceGeometryData name="TexturedMushroom">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1)</vertices_element>
+						<vertices_element>(0.024,0.2)</vertices_element>
+						<vertices_element>(0.0,0.3)</vertices_element>
+						<vertices_element>(0.0,0.4)</vertices_element>
+						<vertices_element>(0.0,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1)</vertices_element>
+						<vertices_element>(0.2,0.2)</vertices_element>
+						<vertices_element>(0.048,0.3)</vertices_element>
+						<vertices_element>(0.048,0.4)</vertices_element>
+						<vertices_element>(0.448,0.5)</vertices_element>
+						<vertices_element>(0.048,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>1.0</du>
+			<dv>1.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+		<primitive>Triangle2PNTxO</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="TexturedObject">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<x>0.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+			<scale>1.0</scale>
+		</SFTranslateAndScaleFixed16Data>
+		<geometry>CubeTx</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>TexturedMat</program>
+			<structures>
+			</structures>
+			<textures>
+				<textures_element>PerlinTexture:</textures_element>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>
