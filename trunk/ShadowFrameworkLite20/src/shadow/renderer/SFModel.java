@@ -25,14 +25,32 @@ public class SFModel  {
 	}
 
 	public void setMaterialComponent(SFProgramModuleStructures material) {
+
+		destroyPrograms();
+		
 		this.material = material;
 	}
 	
 	public void setRootGeometry(SFGeometry rootGeometry) {
+		
+		destroyPrograms();
+		
 		this.rootGeometry = rootGeometry;
+	}
+
+	private void destroyPrograms() {
+		for (String lightName : programs.keySet()) {
+			SFProgram program=programs.get(lightName);
+			program.delete();
+		}
+		
+		programs.clear();
 	}
 	
 	public void setTransformComponent(SFProgramModuleStructures transformComponent) {
+		
+		destroyPrograms();
+		
 		this.transform = transformComponent;
 	}
 
