@@ -191,10 +191,10 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 	public void init() {
 		GL2 gl=SFGL2.getGL();
 		if(!initialized){
-			initialized=true;
 			initVertexShader(gl);
 			initFragmentShader(gl);
 			initProgram(gl);
+			initialized=true;
 		}
 	}
 
