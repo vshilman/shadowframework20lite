@@ -33,4 +33,6 @@ public interface SFProgram{
 	public void setLightStep(SFProgramModule lightStep);
 	
 	public void load();
+
+	public void delete();
 }
