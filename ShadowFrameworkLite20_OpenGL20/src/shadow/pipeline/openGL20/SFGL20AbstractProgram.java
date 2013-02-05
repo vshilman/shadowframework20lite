@@ -50,12 +50,6 @@ public abstract class SFGL20AbstractProgram extends SFGLSLSet implements SFGL20G
 		return getShaderText(fragmentShader,false);
 	}
 	
-	
-	@Override
-	public void delete() {
-		destroy();
-	}
-	
 
 	public void write() {
 		System.err.println("Fragment Program");

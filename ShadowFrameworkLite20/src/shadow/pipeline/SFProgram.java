@@ -19,8 +19,10 @@
 */
 package shadow.pipeline;
 
+import shadow.system.SFInitiable;
 
-public interface SFProgram{
+
+public interface SFProgram extends SFInitiable{
 	
 	public void setPrimitive(SFPrimitive primitive);
 	
@@ -33,6 +35,4 @@ public interface SFProgram{
 	public void setLightStep(SFProgramModule lightStep);
 	
 	public void load();
-
-	public void delete();
 }

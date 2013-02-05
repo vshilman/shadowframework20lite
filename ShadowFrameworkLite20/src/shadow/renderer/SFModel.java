@@ -5,6 +5,8 @@ import java.util.HashMap;
 import shadow.geometry.SFGeometry;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgram;
+import shadow.system.SFInitiable;
+import shadow.system.SFInitiator;
 
 public class SFModel  {
 
@@ -41,7 +43,7 @@ public class SFModel  {
 	private void destroyPrograms() {
 		for (String lightName : programs.keySet()) {
 			SFProgram program=programs.get(lightName);
-			program.delete();
+			SFInitiator.addDestroyable(program);
 		}
 		
 		programs.clear();
