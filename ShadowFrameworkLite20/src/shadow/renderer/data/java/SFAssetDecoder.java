@@ -101,9 +101,7 @@ public class SFAssetDecoder implements SFDataInterpreter{
 					//TODO : still not implemented the case in which the reference is kept by name
 					throw new SFException("Not yet implemented");
 				}
-			}
-			
-			if(relatedObject instanceof SFDataAsset<?>){
+			}else if(relatedObject instanceof SFDataAsset<?>){
 				SFDataObject object=((SFDataAsset<?>) relatedObject).getSFDataObject().getObject(name);
 				elements.add(new Element(type, name, object));
 				//System.out.println("\t\t\t Found object "+name+": "+object);
@@ -141,6 +139,16 @@ public class SFAssetDecoder implements SFDataInterpreter{
 				SFDataAsset<SFInitiable> asset=(SFDataAsset<SFInitiable>)generateAsset(type);
 				elements.add(new Element(type, name, asset));
 				dataAssetList.add(asset);
+			}else if(relatedObject instanceof SFLibraryReferenceList<?>){
+				
+				SFLibraryReferenceList<SFInitiable> dataAssetList=(SFLibraryReferenceList<SFInitiable>)relatedObject;
+				SFDataAsset<SFInitiable> asset=(SFDataAsset<SFInitiable>)generateAsset(type);
+				elements.add(new Element(type, name, asset));
+
+				SFLibraryReference<SFInitiable> reference=new SFLibraryReference<SFInitiable>(asset);
+				dataAssetList.add(reference);
+				//System.out.println("\t doing something else "+relatedObject.getClass());
+				
 			}
 		}
 	}
