@@ -1,12 +1,12 @@
 package shadow.renderer;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import shadow.geometry.SFGeometry;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFProgram;
-import shadow.system.SFInitiable;
-import shadow.system.SFInitiator;
 
 public class SFModel  {
 
@@ -14,7 +14,7 @@ public class SFModel  {
 
 	private SFProgramModuleStructures material=new SFProgramModuleStructures();
 	
-	private HashMap<String, SFProgram> programs = new HashMap<String, SFProgram>();
+	private Map<String, SFProgram> programs = Collections.synchronizedMap(new HashMap<String, SFProgram>());
 	
 	private SFGeometry rootGeometry=null;
 	
@@ -26,30 +26,31 @@ public class SFModel  {
 		return material;
 	}
 
-	public void setMaterialComponent(SFProgramModuleStructures material) {
+	public synchronized void setMaterialComponent(SFProgramModuleStructures material) {
 
 		destroyPrograms();
 		
 		this.material = material;
 	}
 	
-	public void setRootGeometry(SFGeometry rootGeometry) {
+	public synchronized void setRootGeometry(SFGeometry rootGeometry) {
 		
 		destroyPrograms();
 		
 		this.rootGeometry = rootGeometry;
 	}
 
-	private void destroyPrograms() {
+	private synchronized void destroyPrograms() {
 		for (String lightName : programs.keySet()) {
 			SFProgram program=programs.get(lightName);
-			SFInitiator.addDestroyable(program);
+			//SFInitiator.addDestroyable(program);
+			//program.destroy();
 		}
 		
 		programs.clear();
 	}
 	
-	public void setTransformComponent(SFProgramModuleStructures transformComponent) {
+	public synchronized void setTransformComponent(SFProgramModuleStructures transformComponent) {
 		
 		destroyPrograms();
 		
@@ -60,7 +61,8 @@ public class SFModel  {
 		return transform;
 	}
 
-	public SFProgram evaluateProgram(SFProgramModuleStructures light){
+	public synchronized SFProgram evaluateProgram(SFProgramModuleStructures light){
+		System.err.println("evalateProgram()"+ getRootGeometry().getPrimitive().getName());
 		SFProgram program=SFPipeline.getStaticProgram(getRootGeometry().getPrimitive(),
 				transform.getProgram(),material.getProgram(),light.getProgram());
 		programs.put(light.getProgram(),program);
@@ -68,11 +70,11 @@ public class SFModel  {
 		return program;
 	}
 
-	public void cleanPrograms() {
+	public synchronized void cleanPrograms() {
 		programs.clear();
 	}
 
-	public SFProgram getProgram(SFProgramModuleStructures light){
+	public synchronized SFProgram getProgram(SFProgramModuleStructures light){
 		SFProgram program=programs.get(light.getProgram());
 		if(program!=null){
 			return program;
