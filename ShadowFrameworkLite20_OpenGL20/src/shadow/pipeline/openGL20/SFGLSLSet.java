@@ -30,7 +30,7 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 	
 	private static final boolean REPORT_SHADERS=true;
 	
-	private int frShader,vxShader,program;
+	private int frShader,vxShader,program = -1;
 	private boolean initialized=false;
 	
 	public int getProgram() {
@@ -204,9 +204,11 @@ public abstract class SFGLSLSet implements SFInitiable,SFUpdatable{
 
 		//TODO: SFGLSLSet destroy function should be deeply tested
 		GL2 gl=SFGL2.getGL();
-		gl.glDeleteProgram(this.program);
-		gl.glDeleteShader(this.frShader);
-		gl.glDeleteShader(this.vxShader);
+		if (this.program!=-1) {
+			gl.glDeleteProgram(this.program);
+			gl.glDeleteShader(this.frShader);
+			gl.glDeleteShader(this.vxShader);
+		}
 		
 	}
 	
