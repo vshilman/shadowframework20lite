@@ -46,7 +46,7 @@ public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiabl
 	}
 	
 	@Override
-	public void addNode(SFNode node) {
+	public synchronized void addNode(SFNode node) {
 		try {
 			nodes.add(node);
 		} catch (ClassCastException e) {
@@ -104,7 +104,7 @@ public class SFObjectModel extends SFTransformNode implements SFNode, SFInitiabl
 	 * @see shadow.renderer.SFNode#iterator()
 	 */
 	@Override
-	public Iterator<SFNode> iterator() {
+	public synchronized Iterator<SFNode> iterator() {
 		return new SFNodeIterator();
 	}
 
