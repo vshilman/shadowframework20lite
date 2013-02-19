@@ -62,7 +62,7 @@ public class SFModel  {
 	}
 
 	public synchronized SFProgram evaluateProgram(SFProgramModuleStructures light){
-		System.err.println("evalateProgram()"+ getRootGeometry().getPrimitive().getName());
+		System.err.println("Time:" + System.currentTimeMillis() + " evaluateProgram()"+ getRootGeometry().getPrimitive().getName());
 		SFProgram program=SFPipeline.getStaticProgram(getRootGeometry().getPrimitive(),
 				transform.getProgram(),material.getProgram(),light.getProgram());
 		programs.put(light.getProgram(),program);

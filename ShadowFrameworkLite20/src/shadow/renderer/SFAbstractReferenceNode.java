@@ -12,12 +12,12 @@ public abstract class SFAbstractReferenceNode extends SFTransformNode {
 	}
 
 	@Override
-	public void addNode(SFNode node) {
+	public synchronized void addNode(SFNode node) {
 		nodes.add(node);
 		node.getTransform().attachOn(this.getTransform());
 	}
 
-	public void removeNode(SFNode node) {
+	public synchronized void removeNode(SFNode node) {
 		nodes.remove(node);
 	}
 	
@@ -42,7 +42,7 @@ public abstract class SFAbstractReferenceNode extends SFTransformNode {
 	}
 
 	@Override
-	public Iterator<SFNode> iterator() {
+	public synchronized Iterator<SFNode> iterator() {
 		return nodes.iterator();
 		
 	}
