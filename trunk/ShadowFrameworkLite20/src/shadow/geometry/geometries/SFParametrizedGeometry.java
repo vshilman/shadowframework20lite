@@ -73,7 +73,7 @@ public class SFParametrizedGeometry extends SFMeshGeometry{
 					indices.getPrimitiveIndices()[gridIndex*paramIndicesVec.length+j]=paramIndicesVec[j]+deltaPosition[gridIndex];	
 				}
 			}
-			System.err.println(Arrays.toString(indices.getPrimitiveIndices()));
+			//System.err.println(Arrays.toString(indices.getPrimitiveIndices()));
 			getArray().setElement(i+elementsPosition, indices);
 		}
 		

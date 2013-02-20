@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(0.0,1.0,0.0)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+			<values_element>(0.5,0.5,0.0)</values_element>
+			<values_element>(0.5,0.0,0.5)</values_element>
+			<values_element>(0.0,0.5,0.5)</values_element>
+			<values_element>(0.5,0.0,0.0)</values_element>
+			<values_element>(0.0,0.5,0.0)</values_element>
+			<values_element>(0.0,0.0,0.5)</values_element>
+			<values_element>(1.0,1.0,0.0)</values_element>
+			<values_element>(1.0,0.0,1.0)</values_element>
+			<values_element>(0.0,1.0,1.0)</values_element>
+			<values_element>(0.1,0.1,0.5)</values_element>
+			<values_element>(0.1,0.5,1.0)</values_element>
+			<values_element>(1.0,1.0,1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	
+	<SFMeshGeometryData name="Cube">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>QuadPN</primitive>
+			<references id="primitiveData">
+				<SFVertexListData16 name="reference">
+					<vertices>
+						<!-- front face -->
+						<vertices_element>(-0.5,-0.5,-0.5)</vertices_element>
+						<vertices_element>(0.5,-0.5,-0.5)</vertices_element>
+						<vertices_element>(0.5,0.5,-0.5)</vertices_element>
+						<vertices_element>(-0.5,0.5,-0.5)</vertices_element>
+						<!-- back face -->
+						<vertices_element>(-0.5,-0.5,0.5)</vertices_element>
+						<vertices_element>(0.5,-0.5,0.5)</vertices_element>
+						<vertices_element>(0.5,0.5,0.5)</vertices_element>
+						<vertices_element>(-0.5,0.5,0.5)</vertices_element>
+					</vertices>
+				</SFVertexListData16>
+				<SFVertexListData16 name="reference">
+					<vertices>
+						<!-- front face normal-->
+						<vertices_element>(0.0,0.0,-1.0)</vertices_element>
+						<!-- back face normal-->
+						<vertices_element>(0.0,0.0,1.0)</vertices_element>
+						<!-- up face normal-->
+						<vertices_element>(0.0,1.0,0.0)</vertices_element>
+						<!-- down face normal-->
+						<vertices_element>(0.0,-1.0,0.0)</vertices_element>
+						<!-- right face normal-->
+						<vertices_element>(1.0,0.0,0.0)</vertices_element>
+						<!-- left face normal-->
+						<vertices_element>(-1.0,0.0,0.0)</vertices_element>
+					</vertices>
+				</SFVertexListData16>
+			</references>
+			<primitives>
+				<!-- front face -->
+				<primitives_element>(0,1,2,3,0,0,0,0)</primitives_element>
+				<!-- back face -->
+				<primitives_element>(4,5,6,7,1,1,1,1)</primitives_element>
+				<!-- up face -->
+				<primitives_element>(3,2,6,7,2,2,2,2)</primitives_element>
+				<!-- down face -->
+				<primitives_element>(0,1,5,4,3,3,3,3)</primitives_element>
+				<!-- right face -->
+				<primitives_element>(1,5,6,2,4,4,4,4)</primitives_element>
+				<!-- left face -->
+				<primitives_element>(0,4,7,3,5,5,5,5)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>6</lastElement>
+	</SFMeshGeometryData>
+	
+	<SFObjectModelData name="RedCube">
+		<geometry>Cube</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>RedMat</program>
+			<structures>
+			</structures>
+			<textures>
+			</textures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+</library>

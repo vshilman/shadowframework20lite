@@ -22,7 +22,7 @@ public class SFQuadsCurvesMeshMacroGrid implements SFMacroGrid{
 
 		super();
 		
-		System.err.println("edges "+edges);
+		//System.err.println("edges "+edges);
 		int firstGridSize=array.getPrimitive().getGrid(0).getN();
 		int widthElements = (edgeGrids[0][0].getN()-1)/(firstGridSize-1);
 		int heghtElements = (edgeGrids[1][0].getN()-1)/(firstGridSize-1);
