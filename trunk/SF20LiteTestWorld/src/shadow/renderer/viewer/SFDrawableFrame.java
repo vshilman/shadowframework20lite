@@ -88,9 +88,9 @@ public class SFDrawableFrame extends JFrame{
 		@Override
 		public void display(GLAutoDrawable arg0) {
 			SFGL2.setGl((GL2)(arg0.getGL()));
-			
-			SFInitiator.solveInitiables();
+
 			SFUpdater.refresh();
+			SFInitiator.solveInitiables();
 			
 			/*long time1=System.nanoTime();
 			float time=(time1-timeOld)*0.001f*0.001f;
@@ -107,9 +107,9 @@ public class SFDrawableFrame extends JFrame{
 		@Override
 		public void init(GLAutoDrawable arg0) {
 			SFGL2.setGl((GL2)(arg0.getGL()));
-			
-			SFInitiator.solveInitiables();
+
 			SFUpdater.refresh();
+			SFInitiator.solveInitiables();
 			
 			drawable.init();
 		}
