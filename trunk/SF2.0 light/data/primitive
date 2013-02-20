@@ -93,6 +93,31 @@
 //     material
 // %%%%%%%%%%%%%%%%%%%
 
+@begin MaterialComponent Position
+@use position
+@write color position
+@end
+
+@begin MaterialComponent Normal
+@use normal
+@write color normal
+@end
+
+@begin MaterialComponent DiffColor
+@param diffColor as Mat01
+@write color diffColor
+@end
+
+@begin MaterialComponent ColorDFMat
+@param diffColor,ambColor,specColor as Mat02
+@use position
+@use normal
+@write color (diffColor+ambColor)/2
+@write color1 specColor
+@write color2 position
+@write color3 normal
+@end
+
 @begin MaterialComponent BasicMat
 @use normal
 @param diffColor as Mat01
@@ -106,6 +131,24 @@
 @use texCoord0
 @write color sample(texture0,texCoord0)
 @write matnormal normal
+@end
+
+@begin MaterialComponent MoreTexturedMat
+@param texture0 as Texture
+@param texture1 as Texture
+@param texture2 as Texture
+@param texture3 as Texture
+@use texCoord0
+@write color4 sample(texture0,texCoord0)
+@write color5 sample(texture1,texCoord0)
+@write color6 sample(texture2,texCoord0)
+@write color7 sample(texture3,texCoord0)
+@end
+
+@begin MaterialComponent MoreTexturedTest
+@param texture0 as Texture
+@use texCoord0
+@write color4 sample(texture0,texCoord0)
 @end
 
 @begin MaterialComponent BasicTexturedMat
@@ -199,6 +242,39 @@
 // %%%%%%%%%%%%%%%%%%%
 //     lightstep
 // %%%%%%%%%%%%%%%%%%%
+
+@begin LightStepComponent FirstStepTest
+@use color
+@write fColor0 color
+@end
+
+@begin LightStepComponent FirstStepDF
+@use color
+@use color1
+@use color2
+@use color3
+@write fColor0 color
+@write fColor1 color1
+@write fColor2 color2
+@write fColor3 color3
+@end
+
+@begin LightStepComponent SecondStepDF
+@param intensity,lPosition as PLight01
+@use color4 //diff
+@use color5 //spec
+@use color6 //Position
+@use color7 //normal
+@define tmp1:3 normalize(lPosition-color6)
+@define tmp3:3 dot(normalize(color7),tmp1)
+@write fColor (color4*intensity*tmp3+color5)/2
+@end
+
+@begin LightStepComponent SecondStepTestNoLights
+@param intensity,lPosition as PLight01
+@use color4
+@write fColor color4
+@end
 
 @begin LightStepComponent DrawTexture
 @param texture0 as Texture

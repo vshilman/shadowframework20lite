@@ -3,6 +3,12 @@
 
 @begin Structure Mat01
 @float3 diffColor
+@end Structure
+
+@begin Structure Mat02
+@float3 diffColor
+@float3 ambColor
+@float3 specColor
 @end Structure 
 
 @begin Structure PLight01
