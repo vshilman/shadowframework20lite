@@ -93,9 +93,15 @@
 //     material
 // %%%%%%%%%%%%%%%%%%%
 
+@begin MaterialComponent TwoPosition
+@use position
+@write color position.y
+@write color1 position.x
+@end
+
 @begin MaterialComponent ZPosition
 @use position
-@write color position.z
+@write color position.x
 @end
 
 @begin MaterialComponent Position
@@ -148,6 +154,14 @@
 @write color5 sample(texture1,texCoord0)
 @write color6 sample(texture2,texCoord0)
 @write color7 sample(texture3,texCoord0)
+@end
+
+@begin MaterialComponent MoreTexturedTwo
+@param texture0 as Texture
+@param texture1 as Texture
+@use texCoord0
+@write color4 sample(texture0,texCoord0)
+@write color5 sample(texture1,texCoord0)
 @end
 
 @begin MaterialComponent MoreTexturedTest
@@ -253,6 +267,13 @@
 @write fColor0 color
 @end
 
+@begin LightStepComponent FirstStepTwo
+@use color
+@use color1
+@write fColor0 color
+@write fColor1 color1
+@end
+
 @begin LightStepComponent FirstStepDF
 @use color
 @use color1
@@ -279,6 +300,13 @@
 @param intensity,lPosition as PLight01
 @use color4
 @write fColor color4
+@end
+
+@begin LightStepComponent SecondStepTwo
+@param intensity,lPosition as PLight01
+@use color4 
+@use color5 
+@write fColor color4+color5
 @end
 
 @begin LightStepComponent DrawTexture
