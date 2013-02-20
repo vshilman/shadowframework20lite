@@ -93,6 +93,11 @@
 //     material
 // %%%%%%%%%%%%%%%%%%%
 
+@begin MaterialComponent ZPosition
+@use position
+@write color position.z
+@end
+
 @begin MaterialComponent Position
 @use position
 @write color position
