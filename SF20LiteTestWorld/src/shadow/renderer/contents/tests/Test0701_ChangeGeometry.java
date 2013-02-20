@@ -3,7 +3,6 @@ package shadow.renderer.contents.tests;
 import shadow.geometry.SFGeometry;
 import shadow.geometry.functions.data.SFCurvedTubeFunctionData;
 import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
-import shadow.renderer.SFModel;
 import shadow.renderer.SFObjectModel;
 import shadow.renderer.contents.tests.common.CommonMaterial;
 import shadow.renderer.data.SFObjectModelData;

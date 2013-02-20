@@ -44,7 +44,7 @@ public class SFCompositeMeshGeometry extends SFMeshGeometry{
 				if(writingBlock.contains(block))
 					throw new SFException("SFCompositeMesh Trying to write "+block+" Two Times");
 			}
-			System.err.println(geometries.get(i).getFirstElement()+" "+geometries.get(i).getLastElement());
+			//System.err.println(geometries.get(i).getFirstElement()+" "+geometries.get(i).getLastElement());
 			if(firstElement!=geometries.get(i).getFirstElement() || lastElement!=geometries.get(i).getLastElement() )
 				throw new SFException("SfCompositeMesh applied to geometries with a different number of elements");
 		}
