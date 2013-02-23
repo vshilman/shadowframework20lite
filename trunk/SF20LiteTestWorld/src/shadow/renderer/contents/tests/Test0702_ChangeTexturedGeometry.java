@@ -1,26 +1,11 @@
 package shadow.renderer.contents.tests;
 
 import shadow.geometry.SFGeometry;
-import shadow.geometry.functions.data.SFCurvedTubeFunctionData;
-import shadow.geometry.functions.data.SFSimpleTexCoordGeometryuvData;
-import shadow.geometry.geometries.data.SFMeshGeometryData;
-import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
-import shadow.math.SFValuenf;
-import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.SFPrimitiveArray;
-import shadow.pipeline.SFPrimitiveIndices;
-import shadow.renderer.SFModel;
 import shadow.renderer.SFObjectModel;
 import shadow.renderer.contents.tests.common.CommonMaterial;
-import shadow.renderer.data.SFObjectModelData;
-import shadow.renderer.data.SFPrimitiveArrayData;
-import shadow.renderer.data.SFStructureArrayDataUnit8;
-import shadow.renderer.data.transforms.SFTranslateAndScaleFixed16Data;
 import shadow.renderer.data.utils.SFDataUtility;
 import shadow.renderer.viewer.SFFrameController;
 import shadow.renderer.viewer.SFViewer;
-import shadow.system.SFArray;
-import shadow.system.SFArrayElementException;
 
 /**
  * If you need to align this test Data, run the {@link SFGenerateAllTestData} utility once.

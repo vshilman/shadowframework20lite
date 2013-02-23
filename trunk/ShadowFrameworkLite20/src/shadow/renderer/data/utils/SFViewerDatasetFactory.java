@@ -24,11 +24,13 @@ import shadow.geometry.geometries.data.SFCompositeMeshGeometryData;
 import shadow.geometry.geometries.data.SFDerivedTextCoordData;
 import shadow.geometry.geometries.data.SFGroupMeshGeometryData;
 import shadow.geometry.geometries.data.SFMeshGeometryData;
+import shadow.geometry.geometries.data.SFParametricGeometryInstance;
 import shadow.geometry.geometries.data.SFParametrizedSurfaceGeometryData;
 import shadow.geometry.geometries.data.SFPointsCloudData;
 import shadow.geometry.geometries.data.SFQuadsGridGeometryData;
 import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
 import shadow.geometry.geometries.data.SFTiledTexCoordData;
+import shadow.geometry.vertices.SFParametricValuesList;
 import shadow.geometry.vertices.SFRandomizedValueListData2D;
 import shadow.geometry.vertices.SFRandomizedValueListData3D;
 import shadow.geometry.vertices.SFTextureRepeaterValueList;
@@ -47,6 +49,7 @@ import shadow.image.data.SFFilteredRenderedTextureData;
 import shadow.renderer.data.SF2DCameraData;
 import shadow.renderer.data.SFInstancedReferenceNodeData;
 import shadow.renderer.data.SFObjectModelData;
+import shadow.renderer.data.SFObjectsArrayData;
 import shadow.renderer.data.SFPrimitiveArrayData;
 import shadow.renderer.data.SFProgramAssetData;
 import shadow.renderer.data.SFReferenceNodeData;
@@ -61,6 +64,7 @@ import shadow.renderer.data.transforms.SFTranslateAndScaleData;
 import shadow.renderer.data.transforms.SFTranslateAndScaleFixed16Data;
 import shadow.renderer.data.transforms.SFTranslateFixed16Data;
 import shadow.renderer.data.transforms.SFTranslationData;
+import shadow.renderer.data.transforms.SFUnit8Transform2DData;
 import shadow.system.data.SFGenericDatasetFactory;
 import shadow.system.data.SFObjectsLibrary;
 
@@ -122,9 +126,7 @@ public class SFViewerDatasetFactory extends SFGenericDatasetFactory{
 		addSFDataset(new SFQuadsGridGeometryData());
 		addSFDataset(new SFRandomizedValueListData2D());
 		addSFDataset(new SFVoronoiBitmapFunctionData());
-		addSFDataset(new SFTextureRepeaterValueList());
-		addSFDataset(new SFTilesSpaceData());
-		addSFDataset(new SFTiledTexCoordData());
+		
 		addSFDataset(new SFPolygonalSplineData());
 		addSFDataset(new SFTransformedCurveData());
 		addSFDataset(new SFContinuosBezier3Data());
@@ -132,6 +134,15 @@ public class SFViewerDatasetFactory extends SFGenericDatasetFactory{
 		addSFDataset(new SFTensorProductSurfaceData());
 		addSFDataset(new SFBezier3Data());
 		addSFDataset(new SFRandomizedValueListData3D());
+
+		addSFDataset(new SFParametricValuesList());
+		addSFDataset(new SFParametricGeometryInstance());
+		addSFDataset(new SFObjectsArrayData());
+		addSFDataset(new SFUnit8Transform2DData());
+		
 		addSFDataset(new SFPointsCloudData());
+		addSFDataset(new SFTextureRepeaterValueList());
+		addSFDataset(new SFTilesSpaceData());
+		addSFDataset(new SFTiledTexCoordData());
 	}
 }
