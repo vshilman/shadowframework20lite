@@ -7,7 +7,6 @@ function SFUniformCurvesSpline(){
 
 inherit (SFUniformCurvesSpline,SFUnOptimizedCurve);
 
-
 SFUniformCurvesSpline.prototype["addCurve"]=function(curve){
 	this.curves.push(curve);
 };
@@ -25,7 +24,9 @@ SFUniformCurvesSpline.prototype["addControlPoint"]=function(vertex){
 };	
 	
 SFUniformCurvesSpline.prototype["getDev2Dt"]=function(T,read){
-	var t=T*this.curves.size();
+	if(T<0)
+		T=0;
+	var t=T*this.curves.length;
 		var index=Math.floor(t);
 		if(index==this.curves.length)
 			index=this.curves.length-1;
@@ -33,11 +34,13 @@ SFUniformCurvesSpline.prototype["getDev2Dt"]=function(T,read){
 };	
 	
 SFUniformCurvesSpline.prototype["getDevDt"]=function(T,read){
-	var t=T*this.curves.size();
+	if(T<0)
+		T=0;
+	var t=T*this.curves.length;
 		var index=Math.floor(t);
 		if(index==this.curves.length)
 			index=this.curves.length-1;
-	curves.get(index).getDevDt(t-index,read);
+	this.curves[index].getDevDt(t-index,read);
 };	
 	
 	
@@ -54,11 +57,13 @@ SFUniformCurvesSpline.prototype["getTMin"]=function(){
 };	
 	
 SFUniformCurvesSpline.prototype["getVertex"]=function(T,read){
-	var t=T*this.curves.size();
+	if(T<0)
+		T=0;
+	var t=T*this.curves.length;
 		var index=Math.floor(t);
 		if(index==this.curves.length)
 			index=this.curves.length-1;
-	this.curves.get(index).getVertex(t-index,read);
+	this.curves[index].getVertex(t-index,read);
 };	
 
 

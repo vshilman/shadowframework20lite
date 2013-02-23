@@ -1,7 +1,7 @@
 
 
 function SFSplineCurvedTubeFunction(){
-	this.curves=new Arrayy();
+	this.curves=new Array();
 	this.tempVertex=new SFVertex3f();	
 }
 
@@ -18,7 +18,7 @@ SFSplineCurvedTubeFunction.prototype["destroy"]=function(){
 
 SFSplineCurvedTubeFunction.prototype["evaluateCurve"]=function(index,v){
 	var tmpVertex=new SFVertex3f();
-	curves[index].getVertex(v, tmpVertex);
+	this.curves[index].getVertex(v, tmpVertex);
 	return tmpVertex;
 };
 
@@ -28,10 +28,10 @@ SFSplineCurvedTubeFunction.prototype["getCurves"]=function(){
 
 SFSplineCurvedTubeFunction.prototype["getX"]=function(T,v){
 	var v_index=Math.floor(T*this.curves.length);
-		if(v_index==curves.length)
+		if(v_index==this.curves.length)
 			v_index--;
 		
-		var t=(T*curves.size())-v_index;
+		var t=(T*this.curves.length)-v_index;
 		
 		if(v_index==0){
 			var A=this.evaluateCurve(0,v);
@@ -39,8 +39,8 @@ SFSplineCurvedTubeFunction.prototype["getX"]=function(T,v){
 			this.tempVertex.set(A);
 			this.tempVertex.mult(1-t);
 			this.tempVertex.addMult(t, B);
-		}else if(v_index==curves.size()-1){
-			var A=SFValuenf_middle(evaluateCurve(v_index-1,v),evaluateCurve(v_index,v));
+		}else if(v_index==this.curves.length-1){
+			var A=SFValuenf_middle(this.evaluateCurve(v_index-1,v),this.evaluateCurve(v_index,v));
 			var B=this.evaluateCurve(v_index,v);
 			this.tempVertex.set(A);
 			this.tempVertex.mult(1-t);
@@ -49,7 +49,6 @@ SFSplineCurvedTubeFunction.prototype["getX"]=function(T,v){
 			var A=SFValuenf_middle(this.evaluateCurve(v_index-1,v), this.evaluateCurve(v_index,v));
 			var B=this.evaluateCurve(v_index,v);
 			var C=SFValuenf_middle(this.evaluateCurve(v_index,v), this.evaluateCurve(v_index+1,v));
-			
 			this.tempVertex.set(A);
 			this.tempVertex.mult((1-t)*(1-t));
 			this.tempVertex.addMult(2*t*(1-t), B);

@@ -10,4 +10,5 @@ SFBinaryValue.prototype["getValue"]=function(object){
 		
 SFBinaryValue.prototype["setValue"]=function(value){
 			this.value = value;
-		};
+			//alert("setValue END "+this.value+" ");
+	};

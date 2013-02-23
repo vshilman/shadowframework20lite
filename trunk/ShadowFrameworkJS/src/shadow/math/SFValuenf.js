@@ -63,7 +63,7 @@ SFValuenf.prototype["dot"]=function(value){
 
 SFValuenf.prototype["subtract"]=function(value){
 			for(var i=0;i<this.v.length;i++){
-				this.v[i]-=value[i];
+				this.v[i]-=value.v[i];
 			}
 		};
 		
@@ -75,16 +75,16 @@ SFValuenf.prototype["mult"]=function(m){
 
 SFValuenf.prototype["add"]=function(value){
 			for(var i=0;i<this.v.length;i++){
-				this.v[i]+=value[i];
+				this.v[i]+=value.v[i];
 			}
 		};
 		
 SFValuenf.prototype["addMult"]=function(m, value){
 			for(var i=0;i<this.v.length;i++){
-				this.v[i]+=m*value[i];
+				this.v[i]+=m*value.v[i];
 			}
 		};
 		
 SFValuenf.prototype["setByIndex"]=function(index,value){
-			this.v[index]=value[index];
+			this.v[index]=value.v[index];
 		};

@@ -8,43 +8,43 @@ inherit(SFTensorProductSurface,SFUnoptimizedSurfaceFunction);
 
 
 
-SFSplineCurvedTubeFunction.prototype["init"]=function(){
+SFTensorProductSurface.prototype["init"]=function(){
 	//do nothing
 };
 
-SFSplineCurvedTubeFunction.prototype["destroy"]=function(){
+SFTensorProductSurface.prototype["destroy"]=function(){
 	//do nothing
 };
 
 
-SFSplineCurvedTubeFunction.prototype["getX"]=function(T,v){
+SFTensorProductSurface.prototype["getX"]=function(T,v){
 	this.evaluateLastVertex(u,v);
 	return this.lastVertex.get()[1];
 };
 
 
-SFSplineCurvedTubeFunction.prototype["getY"]=function(T,v){
+SFTensorProductSurface.prototype["getY"]=function(T,v){
 	return this.lastVertex.get()[1];
 };
 
-SFSplineCurvedTubeFunction.prototype["getZ"]=function(T,v){
+SFTensorProductSurface.prototype["getZ"]=function(T,v){
 	return this.lastVertex.get()[2];
 };	
 
 
 
-SFSplineCurvedTubeFunction.prototype["setGuideLines"]=function(guideLines){
+SFTensorProductSurface.prototype["setGuideLines"]=function(guideLines){
 	this.guideLines = guideLines;
 };	
 
 
-SFSplineCurvedTubeFunction.prototype["setProductCurve"]=function(productCurve){
+SFTensorProductSurface.prototype["setProductCurve"]=function(productCurve){
 	this.productCurve = productCurve;
 	this.lastVertex=productCurve.generateValue();
 };	
 	
 
-SFSplineCurvedTubeFunction.prototype["evaluateLastVertex"]=function(u,v){
+SFTensorProductSurface.prototype["evaluateLastVertex"]=function(u,v){
 	for (var i = 0; i < this.guideLines.length; i++) {
 		var vertex=productCurve.getControlPoint(i);
 		this.guideLines[i].getVertex(u, vertex);

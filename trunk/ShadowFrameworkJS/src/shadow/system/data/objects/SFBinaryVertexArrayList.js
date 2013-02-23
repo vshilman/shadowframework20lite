@@ -70,6 +70,7 @@ SFBinaryVertexArrayList.prototype["readFromStream"]=function(stream){
 			}
 			// int bitSize=stream.readInt();
 			var data = stream.readBinaryData(n, this.bitSize);
+			
 			for (var i = 0; i < n; i++) {
 				this.dataObject.push(this.type.clone());
 				this.dataObject[i].setValue(data[i]);

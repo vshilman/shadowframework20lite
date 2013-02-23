@@ -87,6 +87,14 @@ function SFGL20PrimitiveArray_mixArrays(arrays,mixPrimitive){
 }
 
 	
+
+SFGL20PrimitiveArray.prototype["getView"]=function(primitive){
+	var primitiveArray=new SFGL20PrimitiveArray();
+	primitiveArray.primitive=primitive;
+	primitiveArray.primitiveData=this.primitiveData;
+	return primitiveArray;
+};
+	
 SFGL20PrimitiveArray.prototype["assignValues"]=function(writing,reading){
 	writing.set(reading);
 };

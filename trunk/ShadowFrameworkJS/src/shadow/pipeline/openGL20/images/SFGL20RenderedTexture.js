@@ -18,8 +18,6 @@ SFGL20RenderedTexture.prototype["initShadowTexture"]=function(data){
 		this.fbo.width=data.getColorsData()[0].getWidth();
 		this.fbo.height=data.getColorsData()[0].getHeight();
 		
-		alert("fbo sizes "+this.fbo.width+" "+this.fbo.height);
-		
 		for(var i=0;i<1;i++){
 			var colorBuffer = data.getColorsData()[i];
 			colorBuffer.build();
@@ -44,7 +42,6 @@ SFGL20RenderedTexture.prototype["initShadowTexture"]=function(data){
 			//colorBuffer.build();
 			index++;
 		}*/		
-		
 	
 		        gl.bindTexture(gl.TEXTURE_2D, null);
 		        gl.bindRenderbuffer(gl.RENDERBUFFER, null);

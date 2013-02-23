@@ -248,15 +248,20 @@ function SFGL20AbstractProgram_getShaderText(program,list,vertex){
 				var register=SFGL20AbstractProgram_getRegister(list,i);
 				
 				var global=sfFunction.getParameter();
+				
 				if(global.getName()==="<>")
 					global=register;
 				var func=sfFunction.getFunction();
+				
 				if (func.getType() != SFParameteri_GLOBAL_GENERIC) {
 					var declaration="";
 					var name=global.getName();
-					if(register!=undefined && global!=undefined){
+					if(register!=null && register!=undefined && global!=register){
 						name=register.getName()+name;
 					}
+				
+					//alert(global.getName()+" "+func.getType()+" "+name);
+				
 					if (SFGL20GlobalV_declaredOnWrite(global)) {
 						if(!contains(alreadyDeclaredElements,name)){
 							var def=SFGlobalVSetGL20Implementor_getDeclarationString(global.getType());
@@ -288,6 +293,7 @@ function SFGL20AbstractProgram_getShaderText(program,list,vertex){
 					}
 				} else {
 
+
 					var type="vec3";
 					if (register.getType() == SFParameteri_GLOBAL_FLOAT2) {
 						type="vec2";
@@ -296,6 +302,7 @@ function SFGL20AbstractProgram_getShaderText(program,list,vertex){
 					if(sfFunction.getParameter().getType()!=SFParameteri_GLOBAL_GENERIC){
 						global=sfFunction.getParameter();
 					}
+					
 
 					writer+=("\t"
 							+ type

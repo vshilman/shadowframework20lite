@@ -2,21 +2,23 @@
 function SFGL20RigidTransform(){
 	this.transform=new SFTransform3f();
 	this.effectiveTransform=new SFTransform3f();
+	this.father=null;
 	this.sons=new Array();
 };
 
 SFGL20RigidTransform.prototype["update"]=function(){
-	if(this.father === undefined){
-		this.effectiveTransform.setValue(this.transform);
+	if(this.father === undefined || this.father == null){
+		this.effectiveTransform.set(this.transform);
+		this.sonsUpdate();
 	}else{
-		sonUpdate();
+		this.sonUpdate();
 	}
 };
 
 SFGL20RigidTransform.prototype["sonUpdate"]=function(){
 	this.effectiveTransform.setValue(this.father.effectiveTransform);
 	this.effectiveTransform.mult(this.transform);
-	sonsUpdate();
+	this.sonsUpdate();
 };
 
 SFGL20RigidTransform.prototype["sonsUpdate"]=function(){
@@ -26,12 +28,12 @@ SFGL20RigidTransform.prototype["sonsUpdate"]=function(){
 };
 
 SFGL20RigidTransform.prototype["attach"]=function(father){
-	if (this.father != null) {		
+	if (this.father != null && this.father != undefined ) {		
 		this.father.sons.remove(this);
 	}
 	this.father = father;
 	this.father.sons.push(this);
-	update();
+	this.update();
 };
 
 

@@ -44,12 +44,16 @@ SFGL20PipelineGraphics.prototype["drawPrimitives"]=function(primitives,first,cou
 	var primitive=primitives.getPrimitive();
 	
 	var list=SFGL20PipelineGraphics_baseTriangleList[0];
+	var size=SFGL20PipelineGraphics_baseTriangleList[1];
 	
-	//TODO
-	/*if(primitive.isQuad())
-		list=SFGL20PipelineGraphics_baseQuadList;
-	else if(primitive.isLine())
-		list=SFGL20PipelineGraphics_baseLineList;*/
+	
+	if(primitive.isQuad()){
+		list=SFGL20PipelineGraphics_baseQuadsList[0];
+		size=SFGL20PipelineGraphics_baseQuadsList[1];
+	} else if(primitive.isLine()){
+		//TODO
+		//list=SFGL20PipelineGraphics_baseLineList;
+	}
 
 	for (var i=first; i < count + first; i++) {
 
@@ -64,9 +68,10 @@ SFGL20PipelineGraphics.prototype["drawPrimitives"]=function(primitives,first,cou
 		gl.vertexAttribPointer(SFGL20PipelineGraphics_program.parametersAttrib, 3, 
 				gl.FLOAT, false, 0, 0);
 		
-		gl.drawArrays(gl.TRIANGLES, 0, SFGL20PipelineGraphics_baseTriangleList[1]);
+		gl.drawArrays(gl.TRIANGLES, 0, size);
 	
 	}
+	
 };
 
 
@@ -181,6 +186,79 @@ SFGL20PipelineGraphics.prototype["init"]=function() {
 			SFGL20PipelineGraphics_baseTriangleList[1]=verticesIndex/3;
 
 			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);	
+			
+			
+			
+			
+			
+			
+			SFGL20PipelineGraphics_baseQuadsList=new Array();
+			SFGL20PipelineGraphics_baseQuadsList[0]=gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, SFGL20PipelineGraphics_baseQuadsList[0]);
+			/*baseQuadsList=gl.glGenLists(1);
+			baseQuadList=gl.glGenLists(1);
+			baseLineList=gl.glGenLists(1);*/
+			
+			var N=SFGL20PipelineGraphics_N;
+			var step=1.0 / N;
+			
+			//var vertices = [ 0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0 ];
+			var vertices = new Array();
+			
+			//gl.glNewList(baseTriangleList, GL2.GL_COMPILE);
+				var verticesIndex=0;
+				for (var k=0; k < N; k++) {
+					var v1=k * step;
+					var v2=v1 + step;
+					//gl.glBegin(GL.GL_TRIANGLE_STRIP);
+						for (var j=0; j < N ; j++) {
+							var u=j * step;
+							var u2= u + step;
+
+							vertices[verticesIndex]=u;
+							vertices[verticesIndex+1]=v1;
+							vertices[verticesIndex+2]=0;
+							verticesIndex+=3;
+							
+							vertices[verticesIndex]=u;
+							vertices[verticesIndex+1]=v2;
+							vertices[verticesIndex+2]=0;
+							verticesIndex+=3;
+							
+							vertices[verticesIndex]=u2;
+							vertices[verticesIndex+1]=v1;
+							vertices[verticesIndex+2]=0;
+							verticesIndex+=3;
+							
+							vertices[verticesIndex]=u;
+							vertices[verticesIndex+1]=v2;
+							vertices[verticesIndex+2]=0;
+							verticesIndex+=3;
+							
+							vertices[verticesIndex]=u2;
+							vertices[verticesIndex+1]=v1;
+							vertices[verticesIndex+2]=0;
+							verticesIndex+=3;
+							
+							vertices[verticesIndex]=u2;
+							vertices[verticesIndex+1]=v2;
+							vertices[verticesIndex+2]=0;
+							
+							verticesIndex+=3;
+						}
+						
+					//gl.glEnd();
+				}
+			//gl.glEndList();
+			
+			
+			SFGL20PipelineGraphics_baseQuadsList[1]=verticesIndex/3;
+
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);	
+			
+			
+			
+			
 			
 			/*gl.glNewList(baseQuadsList, GL2.GL_COMPILE);
 				for (var k=0; k < N; k++) {

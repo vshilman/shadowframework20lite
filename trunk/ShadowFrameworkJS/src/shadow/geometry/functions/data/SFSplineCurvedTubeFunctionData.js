@@ -12,11 +12,11 @@ inherit(SFSplineCurvedTubeFunctionData,SFDataAsset);
 
 SFSplineCurvedTubeFunctionData.prototype["buildResource"]=function(){
 
-	func = new SFSplineCurvedTubeFunction();
+	var func = new SFSplineCurvedTubeFunction();
 	
 	for (var i = 0; i < this.curvesData.size(); i++) {
-		var dataset=curvesData.get(i).retrieveDataset();
-		func.getCurves().add(dataset.getResource());
+		var dataset=this.curvesData.get(i).retrieveDataset();
+		func.getCurves().push(dataset.getResource());
 	}
 
 	return func;

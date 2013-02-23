@@ -23,7 +23,6 @@ function SFBitmap_generateRGBImage(width, height, format){
 
 
 SFBitmap.prototype["getGray"]=function(x,y){
-	//alert("index is "+(this.getSize()*(x+this.width*y)));
 	var b=this.data[(x+this.width*y)];
 	return (b>=0?b:b+256);
 };

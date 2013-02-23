@@ -15,7 +15,7 @@ inherit(SFBasicBitmapFunctionsData,SFDataAsset);
 
 
 SFBasicBitmapFunctionsData.prototype["buildResource"]=function(){
-	return funct.getElement();
+	return this.func.getElement();
 };
 
 

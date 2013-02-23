@@ -9,10 +9,9 @@ inherit(SFGenericFixedFloat,SFBinaryValue);
 
 
 SFGenericFixedFloat.prototype["getFloat"]=function(){
-			var size=this.getBitSize();
 			var COUNT=(1<<size);
 			var MAX_POSITIVE=(1<<(size-1))-1;
-			var value=this.value>MAX_POSITIVE?(this.value-COUNT):this.value;
+			var value=this.value>=32768?(this.value-65536):this.value;
 			return value*this.multiplier;
 		};
 

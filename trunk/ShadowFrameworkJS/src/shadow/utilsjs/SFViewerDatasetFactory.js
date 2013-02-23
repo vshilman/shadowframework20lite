@@ -67,6 +67,12 @@ function SFViewerDatasetFactory(){
 	this.addSFDataset(new SFTensorProductSurfaceData());
 	this.addSFDataset(new SFBezier3Data());
 	this.addSFDataset(new SFRandomizedValueListData3D());
+
+	this.addSFDataset(new SFParametricValuesList());
+	this.addSFDataset(new SFParametricGeometryInstance());
+	this.addSFDataset(new SFObjectsArrayData());
+	this.addSFDataset(new SFUnit8Transform2DData());
+	
 	
 	//this.addSFDataset(new SFPointsCloudData());
 	//this.addSFDataset(new SFTextureRepeaterValueList());
