@@ -336,6 +336,19 @@
 @write fColor color*intensity*tmp3
 @end
 
+@begin LightStepComponent SpecularColor
+@param intensity,lPosition as PLight01
+@use matnormal 
+@use position
+@use color
+@define tmp1:3 normalize(lPosition-position)
+@define tmp3:3 dot(normalize(matnormal),tmp1) 
+@define hv:3 normalize(tmp3+(0,0,1))
+@define tmp6:3 dot(normalize(matnormal),hv)
+@define tmp7:3 tmp6*tmp6*tmp6  //coeff di riflessione
+@write fColor color*intensity*tmp3+color*intensity*tmp6
+@end
+
 @begin LightStepComponent DrawNormals
 @use matnormal 
 @write fColor matnormal
