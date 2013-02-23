@@ -40,15 +40,21 @@ SFBezier3.prototype["getDevDt"]=function(t,read){
 	
 SFBezier3.prototype["getVertex"]=function(t,read){
 		var tm = 1-t;
+		
 		read.set(this.vertices[0]);
+		
 		read.mult(tm*tm*tm);
+		
 		read.addMult(3*t*tm*tm,this.vertices[1]);
+		
 		read.addMult(3*t*t*tm,this.vertices[2]);
+		
 		read.addMult(t*t*t,this.vertices[3]);
+		
 };
 	
 
-SFBezier2.prototype["clone"]=function(){
+SFBezier3.prototype["clone"]=function(){
 		return new SFBezier3<T>(this.vertices[0], this.vertices[1], this.vertices[2], this.vertices[3]);
 };	
 

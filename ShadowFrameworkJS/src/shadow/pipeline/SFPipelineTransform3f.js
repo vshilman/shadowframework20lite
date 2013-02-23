@@ -27,4 +27,3 @@ SFPipelineTransform3f.prototype["getOrientation"]=function(matrix){
 SFPipelineTransform3f.prototype["apply"]=function(){
 	this.array.apply(this.index);
 };	
-	

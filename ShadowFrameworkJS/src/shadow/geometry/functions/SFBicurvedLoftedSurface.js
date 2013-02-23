@@ -1,72 +1,72 @@
 
 
 function SFBicurvedLoftedSurface(a,b){
+	this.tmp=new SFVertex3f();
 	if(a===undefined || b===undefined)
 		return;
 	this.A=a;
 	this.B=b;
-	this.maxTA.A.getTMax();
-	this.maxTB.B.getTMax();
-	this.tmp=new SFVertex3f();
+	this.maxTA=A.getTMax();
+	this.maxTB=B.getTMax();
 }
 
 inherit(SFBicurvedLoftedSurface,SFUnoptimizedSurfaceFunction);
 
-SFUnoptimizedSurfaceFunction.prototype["getX"]=function(u,v){
-	this.A.getVertex(u*maxTA, tmp);
+SFBicurvedLoftedSurface.prototype["getX"]=function(u,v){	
+	this.A.getVertex(u*this.A.getTMax(), this.tmp);
 	var tmp2=new SFVertex3f();
-	this.B.getVertex(u*this.maxTB, tmp2);
+	this.B.getVertex(u*this.B.getTMax(), tmp2);
 	this.tmp.mult(1-v);
 	this.tmp.addMult(v, tmp2);
 	return this.tmp.getX();
 };
 
-SFUnoptimizedSurfaceFunction.prototype["getY"]=function(u,v){
+SFBicurvedLoftedSurface.prototype["getY"]=function(u,v){
 	return this.tmp.getY();
 };
 
-SFUnoptimizedSurfaceFunction.prototype["getZ"]=function(u,v){
+SFBicurvedLoftedSurface.prototype["getZ"]=function(u,v){
 	return this.tmp.getZ();
 };	
 
-SFUnoptimizedSurfaceFunction.prototype["init"]=function(){
+SFBicurvedLoftedSurface.prototype["init"]=function(){
 	
 };	
 	
-SFUnoptimizedSurfaceFunction.prototype["destroy"]=function(){
+SFBicurvedLoftedSurface.prototype["destroy"]=function(){
 	
 };	
 	
-SFUnoptimizedSurfaceFunction.prototype["getA"]=function(){
+SFBicurvedLoftedSurface.prototype["getA"]=function(){
 	return this.A;
 };	
 
-SFUnoptimizedSurfaceFunction.prototype["getB"]=function(){
+SFBicurvedLoftedSurface.prototype["getB"]=function(){
 	return this.B;
 };	
 
-SFUnoptimizedSurfaceFunction.prototype["setA"]=function(a){
+SFBicurvedLoftedSurface.prototype["setA"]=function(a){
 	this.A=a;
 };
 	
-SFUnoptimizedSurfaceFunction.prototype["setB"]=function(b){
+SFBicurvedLoftedSurface.prototype["setB"]=function(b){
 	this.B=b;
 };
 
-SFUnoptimizedSurfaceFunction.prototype["getMaxTA"]=function(){
+SFBicurvedLoftedSurface.prototype["getMaxTA"]=function(){
 	return this.maxTA;
 };	
 
 
-SFUnoptimizedSurfaceFunction.prototype["getMaxTB"]=function(){
+SFBicurvedLoftedSurface.prototype["getMaxTB"]=function(){
 	return this.maxTB;
 };	
 
 
-SFUnoptimizedSurfaceFunction.prototype["setMaxTA"]=function(maxTa){
+SFBicurvedLoftedSurface.prototype["setMaxTA"]=function(maxTa){
 	this.maxTA=maxTa;
 };
 
-SFUnoptimizedSurfaceFunction.prototype["setMaxTB"]=function(maxTb){
+SFBicurvedLoftedSurface.prototype["setMaxTB"]=function(maxTb){
 	this.maxTB=maxTb;
 };	

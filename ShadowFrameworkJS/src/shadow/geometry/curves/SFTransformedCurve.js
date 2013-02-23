@@ -10,8 +10,8 @@ SFTransformedCurve.prototype["setCurve"]=function(curve){
 		this.curve = curve;
 };
 
-SFTransformedCurve.prototype["setTransform"]=function(curve){
-		this.transfom = transfom;
+SFTransformedCurve.prototype["setTransform"]=function(transform){
+		this.transform = transform;
 };
 
 SFTransformedCurve.prototype["destroy"]=function(){
@@ -19,7 +19,7 @@ SFTransformedCurve.prototype["destroy"]=function(){
 };
 
 SFTransformedCurve.prototype["generateValue"]=function(){
-	return curve.generateValue();
+	return this.curve.generateValue();
 };  
 	
 SFTransformedCurve.prototype["get"]=function(ts,vertices,derivatives){
@@ -73,11 +73,11 @@ SFTransformedCurve.prototype["getDevDtV"]=function(ts,read){
 };  		
 	
 SFTransformedCurve.prototype["getTMax"]=function(){
-	return curve.getTMax();
+	return this.curve.getTMax();
 };  
 	
 SFTransformedCurve.prototype["getTMin"]=function(){
-	return curve.getTMin();
+	return this.curve.getTMin();
 };  
 	
 SFTransformedCurve.prototype["getVertex"]=function(t,read){

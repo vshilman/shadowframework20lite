@@ -3,8 +3,8 @@
 
 function SFBicurvedLoftedSurfaceData(){
 	
-	var centralCurve=new SFLibraryReference();
-	var rayCurve=new SFLibraryReference();
+	this.centralCurve=new SFLibraryReference();
+	this.rayCurve=new SFLibraryReference();
 	var parameters=new SFNamedParametersObject();
 	parameters.addObject(this.centralCurve);
 	parameters.addObject(this.rayCurve);
@@ -14,7 +14,7 @@ function SFBicurvedLoftedSurfaceData(){
 inherit(SFBicurvedLoftedSurfaceData,SFDataAsset);
 
 SFBicurvedLoftedSurfaceData.prototype["buildResource"]=function(){
-	loftCurve=new SFBicurvedLoftedSurface();
+	var loftCurve=new SFBicurvedLoftedSurface();
 	var firstDataset=this.centralCurve.retrieveDataset();
 	var secondDataset=this.rayCurve.retrieveDataset();
 		

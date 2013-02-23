@@ -14,6 +14,11 @@ function SFFixedFloat16(f){
 inherit(SFFixedFloat16,SFGenericFixedFloat);
 
 
+SFFixedFloat16.prototype["getFloat"]=function(){
+			var value=this.value>=32768?(this.value-65536):this.value;
+			return value*this.multiplier;
+		};
+
 SFFixedFloat16.prototype["clone"]=function(){
 	return new SFFixedFloat16();
 };

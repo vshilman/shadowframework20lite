@@ -55,7 +55,9 @@ SFExpressionBuilder.prototype["generateValue"]=function(element,set){
 
 					for(var index in set){
 						var sfParameteri=set[index];
-						if (sfParameteri.getName()===(element)) {
+						if(sfParameteri===undefined)
+							alert("sfParameteri in undefined on element ("+element+") "+index+" "+set);
+						else if (sfParameteri.getName()===(element)) {
 							parameter = sfParameteri;
 						}
 					}

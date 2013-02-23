@@ -193,6 +193,7 @@ document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometr
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/geometries/SFCompositeMeshGeometry.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/geometries/SFQuadsGridGeometry.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/geometries/SFParametrizedGeometry.js"></script>');
+document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/geometries/SFGroupMeshGeometry.js"></script>');
 
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/animation/SFAnimator.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/animation/SFCompositeAnimation.js"></script>');
@@ -245,6 +246,7 @@ document.write('<script type="text/javascript" src="'+sfLocation+'shadow/rendere
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/transforms/SFRigidTransformData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/transforms/SFTranslationData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/transforms/SFTranslateAndScaleData.js"></script>');
+document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/transforms/SFUnit8Transform2DData.js"></script>');
 
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/functions/data/SFTwoCurvesFunctionData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/functions/data/SFBicurvedLoftedSurfaceData.js"></script>');
@@ -269,14 +271,19 @@ document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometr
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/geometries/data/SFDerivedTextCoordData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/geometries/data/SFParametrizedSurfaceGeometryData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/geometries/data/SFQuadsGridGeometryData.js"></script>');
+document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/geometries/data/SFParametricGeometryInstance.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/SFObjectModelData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/SFAbstractReferenceNodeData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/SFReferenceNodeData.js"></script>');
+document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/SFObjectsArrayData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/SFInstancedReferenceNodeData.js"></script>');
+document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/SFDataParametersSet.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/system/data/SFObjectsLibrary.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/renderer/data/SFPrimitiveArrayData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/vertices/SFRandomizedValueListData2D.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/vertices/SFRandomizedValueListData3D.js"></script>');
+document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/vertices/SFVerticesParameters.js"></script>');
+document.write('<script type="text/javascript" src="'+sfLocation+'shadow/geometry/vertices/SFParametricValuesList.js"></script>');
 
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/animation/data/SFCompositeAnimationData.js"></script>');
 document.write('<script type="text/javascript" src="'+sfLocation+'shadow/animation/data/SFPeriodicAnimationData.js"></script>');

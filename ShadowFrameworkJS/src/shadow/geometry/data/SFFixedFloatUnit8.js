@@ -14,6 +14,9 @@ function SFFixedFloatUnit8(f){
 inherit(SFFixedFloatUnit8,SFGenericFixedFloat);
 
 
+SFFixedFloatUnit8.prototype["getFloat"]=function(){
+			return this.value*this.multiplier;
+		};
 
 SFFixedFloatUnit8.prototype["clone"]=function(){
 	return new SFFixedFloatUnit8();

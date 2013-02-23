@@ -25,18 +25,20 @@ SFBinaryDataList.prototype["getType"]=function(){
 SFBinaryDataList.prototype["readFromStream"]=function(stream){
 
 			var n = stream.readInt();
-			var bitSize = stream.readInt();
-			var data = stream.readBinaryData(n, bitSize);
+			//var bitSize = stream.readInt();
+			//alert("Data are n="+n+" bitsize="+bitSize);
+			var data = stream.readBinaryData(n, this.bitSize);
 			
 			for (var i = 0; i < n; i++) {
-				dataObject[i]=type.clone();
-				dataObject[i].setValue(data[i]);
+				this.dataObject[i]=this.type.clone();
+				this.dataObject[i].setValue(data[i]);
 			}
+			
 		};
 		
 SFBinaryDataList.prototype["writeOnStream"]=function(stream){
 			stream.writeInt(this.dataObject.length);
-			stream.writeInt(this.getBitSize());
+			//stream.writeInt(this.getBitSize());
 			var data=new Array();
 			for (var i = 0; i < this.dataObject.length; i++) {
 				data[i]=this.dataObject[i].getValue();
