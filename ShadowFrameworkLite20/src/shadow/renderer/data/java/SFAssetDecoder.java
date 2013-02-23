@@ -130,6 +130,7 @@ public class SFAssetDecoder implements SFDataInterpreter{
 						elements.getLast().relatedObject=asset;
 					} catch (SFException e) {
 						//TODO : still not implemented the case in which the reference is kept by name
+						//SURE it is not?? 
 						throw new SFException("Not yet implemented");
 					}
 				}

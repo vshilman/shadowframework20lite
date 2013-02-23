@@ -19,7 +19,7 @@ import shadow.system.SFDrawable;
 import shadow.system.SFInitiator;
 import shadow.system.SFUpdater;
 
-import com.sun.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.FPSAnimator;
 
 public class SFDrawableFrame extends JFrame{
 	

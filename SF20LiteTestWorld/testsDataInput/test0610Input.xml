@@ -1,97 +1,1842 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-	<SFStructureArrayDataUnit8 name="BasicMatColours">
-		<structure>Mat01</structure>
+
+	<!-- MATERIALS -->
+
+	<SFBitmapTextureData name="PerlinTexture">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>256</width>
+			<height>256</height>
+			<weights>(0.6,0.3,0.3,0.1,0.2,0.1,0.1,0.1,0.1,0.1,0.1)</weights>
+			<interpolant>Cubic</interpolant>
+			<SFBitmapArrayData name="bitmap">
+				<width>4</width>
+				<height>4</height>
+				<bitmap>(100,255,100,100,100,100,255,100,255,100,100,100,100,100,100,255)</bitmap>
+			</SFBitmapArrayData>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+	
+	<SFFunction2DBitmapData name="CircularBitmap10">
+		<width>4</width>
+		<height>4</height>
+		<SFBasicBitmapFunctionsData name="function">
+			<function>Circle</function>
+		</SFBasicBitmapFunctionsData>
+	</SFFunction2DBitmapData>
+
+	<SFBitmapTextureData name="PerlinTexture04">
+		<SFBitmapPerlinNoiseData name="bitmap">
+			<width>200</width>
+			<height>200</height>
+			<bitmap>CircularBitmap10</bitmap>
+			<weights>(0.5,0.05,0.05,0.1,0.3)</weights>
+			<interpolant>Cubic</interpolant>
+		</SFBitmapPerlinNoiseData>
+	</SFBitmapTextureData>
+
+	<SFStructureArrayDataUnit8 name="RainbowQuarterMats">
+		<structure>RainbowQuarterMatStructure</structure>
 		<values>
-			<values_element>(1.0,0.0,0.0)</values_element>
-			<values_element>(0.0,1.0,0.0)</values_element>
-			<values_element>(0.0,0.0,1.0)</values_element>
-			<values_element>(0.5,0.5,0.0)</values_element>
-			<values_element>(0.5,0.0,0.5)</values_element>
-			<values_element>(0.0,0.5,0.5)</values_element>
-			<values_element>(0.5,0.0,0.0)</values_element>
-			<values_element>(0.0,0.5,0.0)</values_element>
-			<values_element>(0.0,0.0,0.5)</values_element>
-			<values_element>(1.0,1.0,0.0)</values_element>
-			<values_element>(1.0,0.0,1.0)</values_element>
-			<values_element>(0.0,1.0,1.0)</values_element>
-			<values_element>(0.1,0.1,0.5)</values_element>
-			<values_element>(0.1,0.5,1.0)</values_element>
-			<values_element>(1.0,1.0,1.0)</values_element>
-			<values_element>(0.6,0.6,0.6)</values_element>
-			<values_element>(0.0,0.0,1.0)</values_element>
+			<values_element>(1.0,0.0,0.0)(0.09)(0.09)(0.4)</values_element>
+			<values_element>(0.0,1.0,0.0)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.0,0.0,1.0)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.5,0.5,0.0)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.5,0.0,0.5)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.0,0.5,0.5)(0.09)(0.09)(0.4)</values_element>
+			<values_element>(0.5,0.0,0.0)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.0,0.5,0.0)(0.09)(0.09)(0.4)</values_element>
+			<values_element>(0.0,0.0,0.5)(0.09)(0.09)(0.4)</values_element>
+			<values_element>(1.0,1.0,0.0)(0.09)(0.09)(0.4)</values_element>
+			<values_element>(1.0,0.0,1.0)(0.09)(0.09)(0.4)</values_element>
+			<values_element>(0.0,1.0,1.0)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.1,0.1,0.5)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.1,0.5,1.0)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(1.0,1.0,1.0)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(0.0,0.0,1.0)(0.05)(0.02)(1.0)</values_element>
+			<values_element>(1.0,1.0,1.0)(0.05)(0.01)(1.0)</values_element>
+			<values_element>(1.0,0.8,0.5)(0.05)(0.01)(0.8)</values_element>
+			<values_element>(1.0,0.9,0.7)(0.05)(0.01)(0.7)</values_element>
+			<values_element>(1.0,0.7,0.4)(0.09)(0.09)(0.4)</values_element>
 		</values>
 	</SFStructureArrayDataUnit8>
 	
-	<SFMeshGeometryData name="Cube">
+	
+	<!--  Geometries  -->
+	
+	<SFMeshGeometryData name="Parallelepiped">
 		<SFPrimitiveArrayData name="linesData">
-			<primitive>QuadPN</primitive>
+			<primitive>QuadPNTxO</primitive>
 			<references id="primitiveData">
+				<SFParametricValuesList name="reference">
+					<vertices>
+						<vertices_element>(0,0,0)</vertices_element>
+						<vertices_element>(0,h,0)</vertices_element>
+						
+						<vertices_element>(l,0,0)</vertices_element>
+						<vertices_element>(l,h,0)</vertices_element>
+						
+						<vertices_element>(l,0,d)</vertices_element>
+						<vertices_element>(l,h,d)</vertices_element>
+						
+						<vertices_element>(0,0,d)</vertices_element>
+						<vertices_element>(0,h,d)</vertices_element>
+					</vertices>
+				</SFParametricValuesList>
 				<SFVertexListData16 name="reference">
 					<vertices>
-						<!-- front face -->
-						<vertices_element>(-0.5,-0.5,-0.5)</vertices_element>
-						<vertices_element>(0.5,-0.5,-0.5)</vertices_element>
-						<vertices_element>(0.5,0.5,-0.5)</vertices_element>
-						<vertices_element>(-0.5,0.5,-0.5)</vertices_element>
-						<!-- back face -->
-						<vertices_element>(-0.5,-0.5,0.5)</vertices_element>
-						<vertices_element>(0.5,-0.5,0.5)</vertices_element>
-						<vertices_element>(0.5,0.5,0.5)</vertices_element>
-						<vertices_element>(-0.5,0.5,0.5)</vertices_element>
+						<vertices_element>(0.0,0.0,-1.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,0.0,1.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,-1.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,1.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(-1.0,0.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(1.0,0.0,0.0)</vertices_element> <!-- Front Face Normal -->						
 					</vertices>
 				</SFVertexListData16>
-				<SFVertexListData16 name="reference">
+				<SFParametricValuesList name="reference">
 					<vertices>
-						<!-- front face normal-->
-						<vertices_element>(0.0,0.0,-1.0)</vertices_element>
-						<!-- back face normal-->
-						<vertices_element>(0.0,0.0,1.0)</vertices_element>
-						<!-- up face normal-->
-						<vertices_element>(0.0,1.0,0.0)</vertices_element>
-						<!-- down face normal-->
-						<vertices_element>(0.0,-1.0,0.0)</vertices_element>
-						<!-- right face normal-->
-						<vertices_element>(1.0,0.0,0.0)</vertices_element>
-						<!-- left face normal-->
-						<vertices_element>(-1.0,0.0,0.0)</vertices_element>
+						<vertices_element>(0,0)</vertices_element>
+						
+						<vertices_element>(0,h)</vertices_element>
+						<vertices_element>(l,0)</vertices_element>
+						<vertices_element>(l,h)</vertices_element>
+						
+						<vertices_element>(d,0)</vertices_element>
+						<vertices_element>(d,h)</vertices_element>
+						
+						<vertices_element>(l,0)</vertices_element>
+						<vertices_element>(0,d)</vertices_element>
+						<vertices_element>(l,d)</vertices_element>
+						
 					</vertices>
-				</SFVertexListData16>
+				</SFParametricValuesList>
 			</references>
 			<primitives>
-				<!-- front face -->
-				<primitives_element>(0,1,2,3,0,0,0,0)</primitives_element>
-				<!-- back face -->
-				<primitives_element>(4,5,6,7,1,1,1,1)</primitives_element>
-				<!-- up face -->
-				<primitives_element>(3,2,6,7,2,2,2,2)</primitives_element>
-				<!-- down face -->
-				<primitives_element>(0,1,5,4,3,3,3,3)</primitives_element>
-				<!-- right face -->
-				<primitives_element>(1,5,6,2,4,4,4,4)</primitives_element>
-				<!-- left face -->
-				<primitives_element>(0,4,7,3,5,5,5,5)</primitives_element>
+				<primitives_element>(0,1,3,2, 0,0,0,0, 0,1,3,2)</primitives_element> <!-- -->
+				<primitives_element>(4,5,7,6, 1,1,1,1, 0,1,3,2)</primitives_element> <!-- -->
+				
+				<primitives_element>(2,3,5,4, 5,5,5,5, 0,1,5,4)</primitives_element> <!-- -->
+				<primitives_element>(6,7,1,0, 4,4,4,4, 0,1,5,4)</primitives_element> <!-- -->
+				
+				<primitives_element>(0,2,4,6, 2,2,2,2, 0,6,8,7)</primitives_element> <!-- -->
+				<primitives_element>(1,3,5,7, 3,3,3,3, 0,6,8,7)</primitives_element> <!-- -->
+				
 			</primitives>
 		</SFPrimitiveArrayData>
 		<firstElement>0</firstElement>
 		<lastElement>6</lastElement>
 	</SFMeshGeometryData>
 	
-	<SFObjectModelData name="RedCube">
-		<geometry>Cube</geometry>
+	
+	
+	<SFMeshGeometryData name="TexturedRoofModel">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Quad2PNTxO</primitive>
+			<references id="primitiveData">
+				<SFParametricValuesList name="reference">
+					<vertices>
+						<vertices_element>($l1,$h1,$z1)</vertices_element>
+						<vertices_element>($l1,$h2,$z1)</vertices_element>
+						<vertices_element>(0.0,$h5,$z1)</vertices_element>
+						
+						<vertices_element>($l2,$h1,$z1)</vertices_element>
+						<vertices_element>($l2,$h2,$z1)</vertices_element>
+						<vertices_element>(0.0,$h4,$z1)</vertices_element>
+						
+						<vertices_element>($l3,$h1,$z1)</vertices_element>
+						<vertices_element>($l3,$h2,$z1)</vertices_element>
+						<vertices_element>(0.0,$h3,$z1)</vertices_element>
+						
+						<vertices_element>($l6,$h1,$z1)</vertices_element>
+						<vertices_element>($l6,$h2,$z1)</vertices_element>
+						
+						<vertices_element>($l5,$h1,$z1)</vertices_element>
+						<vertices_element>($l5,$h2,$z1)</vertices_element>
+						
+						<vertices_element>($l4,$h1,$z1)</vertices_element>
+						<vertices_element>($l4,$h2,$z1)</vertices_element>
+						
+						<!-- Back -->
+						<vertices_element>($l1,$h1,$z3)</vertices_element>
+						<vertices_element>($l1,$h2,$z3)</vertices_element>
+						<vertices_element>(0.0,$h5,$z3)</vertices_element>
+						
+						<vertices_element>($l2,$h1,$z3)</vertices_element>
+						<vertices_element>($l2,$h2,$z3)</vertices_element>
+						<vertices_element>(0.0,$h4,$z3)</vertices_element>
+						
+						<vertices_element>($l3,$h1,$z3)</vertices_element>
+						<vertices_element>($l3,$h2,$z3)</vertices_element>
+						<vertices_element>(0.0,$h3,$z3)</vertices_element>
+						
+						<vertices_element>($l6,$h1,$z3)</vertices_element>
+						<vertices_element>($l6,$h2,$z3)</vertices_element>
+						
+						<vertices_element>($l5,$h1,$z3)</vertices_element>
+						<vertices_element>($l5,$h2,$z3)</vertices_element>
+						
+						<vertices_element>($l4,$h1,$z3)</vertices_element>
+						<vertices_element>($l4,$h2,$z3)</vertices_element>
+						
+						
+						<!-- Sides -->
+						
+						<vertices_element>($l1,$h1,$z2)</vertices_element>
+						<vertices_element>($l1,$h2,$z2)</vertices_element>
+						<vertices_element>(0.0,$h5,$z2)</vertices_element>
+						
+						<vertices_element>($l2,$h1,$z2)</vertices_element>
+						<!--<vertices_element>(-1.45,3.0,1.0)</vertices_element>-->
+						<!--<vertices_element>(0.0,3.95,1.0)</vertices_element>-->
+						
+						<vertices_element>($l3,$h1,$z2)</vertices_element>
+						<vertices_element>($l3,$h2,$z2)</vertices_element>
+						<vertices_element>(0.0,$h4,$z2)</vertices_element>
+						
+						<vertices_element>($l6,$h1,$z2)</vertices_element>
+						<vertices_element>($l6,$h2,$z2)</vertices_element>
+						
+						<vertices_element>($l5,$h1,$z2)</vertices_element>
+						<!--<vertices_element>(1.45,3.0,1.0)</vertices_element>-->
+						
+						<vertices_element>($l4,$h1,$z2)</vertices_element>
+						<vertices_element>($l4,$h2,$z2)</vertices_element>
+						
+					</vertices>
+				</SFParametricValuesList>
+				<SFVertexListData16 name="reference">
+					<vertices>
+						<vertices_element>(0.0,0.0,-1.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,0.0,1.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,-1.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(-1.0,0.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(1.0,0.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						
+						<vertices_element>(-0.707,0.707,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.707,0.707,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(-0.707,-0.707,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.707,-0.707,0.0)</vertices_element> <!-- Front Face Normal -->
+						
+						<vertices_element>(-0.9,0.3,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.9,0.3,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(-0.9,-0.3,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.9,-0.3,0.0)</vertices_element> <!-- Front Face Normal -->
+						
+					</vertices>
+				</SFVertexListData16>
+				<SFParametricValuesList name="reference">
+					<vertices>
+						<vertices_element>($l1,$h1)</vertices_element><!-- 0 -->
+						<vertices_element>($l1,$h2)</vertices_element>
+						<vertices_element>(0.0,$h5)</vertices_element>
+						
+						<vertices_element>($l2,$h1)</vertices_element><!-- 3 -->
+						<vertices_element>($l2,$h2)</vertices_element>
+						<vertices_element>(0.0,$h3)</vertices_element>
+						
+						<vertices_element>($l3,$h1)</vertices_element><!-- 6 -->
+						<vertices_element>($l3,$h2)</vertices_element>
+						<vertices_element>(0.0,$h3)</vertices_element>
+						
+						<vertices_element>($l6,$h1)</vertices_element><!-- 9 -->
+						<vertices_element>($l6,$h2)</vertices_element>
+						
+						<vertices_element>($l5,$h1)</vertices_element><!-- 11 -->
+						<vertices_element>($l5,$h2)</vertices_element>
+						
+						<vertices_element>($l4,$h1)</vertices_element><!-- 13 -->
+						<vertices_element>($l4,$h2)</vertices_element>
+						
+						<!-- Sides -->
+						<vertices_element>($z1,$h1)</vertices_element><!-- 15 -->
+						<vertices_element>($z1,$h2)</vertices_element>
+						<vertices_element>($z1,$h5)</vertices_element>
+						
+						<vertices_element>($z2,$h1)</vertices_element><!-- 18 -->
+						<vertices_element>($z2,$h2)</vertices_element>
+						<vertices_element>($z2,$h5)</vertices_element>
+						
+						<vertices_element>($z3,$h1)</vertices_element><!-- 21 -->
+						<vertices_element>($z3,$h2)</vertices_element>
+						<vertices_element>($z3,$h5)</vertices_element>
+						
+						<vertices_element>($z1,$h3)</vertices_element><!-- 24 -->
+						<vertices_element>($z2,$h3)</vertices_element>
+						<vertices_element>($z3,$h3)</vertices_element>
+						
+						<!-- Bottom Part -->
+						<vertices_element>($z1,$l1)</vertices_element><!-- 27 -->
+						<vertices_element>($z1,$l2)</vertices_element>
+						<vertices_element>($z1,$l3)</vertices_element>
+						
+						<vertices_element>($z2,$l1)</vertices_element><!-- 30 -->
+						<vertices_element>($z2,$l2)</vertices_element>
+						<vertices_element>($z2,$l3)</vertices_element>
+						
+						<vertices_element>($z3,$l1)</vertices_element><!-- 33 -->
+						<vertices_element>($z3,$l2)</vertices_element>
+						<vertices_element>($z3,$l3)</vertices_element>
+						
+					</vertices>
+				</SFParametricValuesList>
+			</references>
+			<primitives>
+				<primitives_element>(0,2,8,6,1,5,7,3,4,0,0,0,0,0,0,0,0,0,0,2,8,6,1,5,7,3,4)</primitives_element> <!-- -->
+				<primitives_element>(9,2,8,13,10,5,14,11,12,0,0,0,0,0,0,0,0,0,9,2,8,13,10,5,14,11,12)</primitives_element>  <!-- -->
+				
+				<primitives_element>(15,17,23,21,16,20,22,18,19,1,1,1,1,1,1,1,1,1,0,2,8,6,1,5,7,3,4)</primitives_element> <!-- -->
+				<primitives_element>(24,17,23,28,25,20,29,26,27,1,1,1,1,1,1,1,1,1,9,2,8,13,10,5,14,11,12)</primitives_element>  <!-- -->
+				
+				<primitives_element>(0,15,17,2,30,16,32,1,31,3,3,5,5,3,9,5,9,9,15,21,23,17,18,22,20,16,19)</primitives_element> <!-- -->
+				<primitives_element>(9,24,17,2,37,25,32,10,38,4,4,6,6,4,10,6,10,10,15,21,23,17,18,22,20,16,19)</primitives_element> <!-- -->
+				
+				<primitives_element>(6,21,23,8,34,22,36,7,35,4,4,8,8,4,11,8,11,11,15,21,26,24,18,22,25,16,19)</primitives_element> <!-- -->
+				<primitives_element>(13,28,23,8,40,29,36,14,41,3,3,7,7,3,12,7,12,12,15,21,26,24,18,22,25,16,19)</primitives_element> <!-- -->
+				
+				<primitives_element>(0,15,21,6,30,18,34,3,33,2,2,2,2,2,2,2,2,2,27,33,35,29,30,34,32,28,31)</primitives_element> <!-- -->
+				<primitives_element>(13,28,24,9,40,26,37,11,39,2,2,2,2,2,2,2,2,2,27,33,35,29,30,34,32,28,31)</primitives_element> <!-- -->
+				
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>10</lastElement>
+	</SFMeshGeometryData>
+	
+	
+	
+	
+	
+	<SFMeshGeometryData name="TexturedDoorModel">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Quad2PNTxO</primitive>
+			<references id="primitiveData">
+				<SFParametricValuesList name="reference">
+					<vertices>
+						<vertices_element>($l1,$h1,$z1)</vertices_element><!-- 0-->
+						<vertices_element>($l1,$h2,$z1)</vertices_element>
+						<vertices_element>(0.0,$h5,$z1)</vertices_element>
+						
+						<vertices_element>($l2,$h1,$z1)</vertices_element><!-- 3-->
+						<vertices_element>($l2,$h2,$z1)</vertices_element>
+						<vertices_element>(0.0,$h3,$z1)</vertices_element>
+						
+						<vertices_element>($l3,$h1,$z1)</vertices_element><!-- 6-->
+						<vertices_element>($l3,$h2,$z1)</vertices_element>
+						<vertices_element>(0.0,$h3,$z1)</vertices_element>
+						
+						<vertices_element>($l6,$h1,$z1)</vertices_element><!-- 9-->
+						<vertices_element>($l6,$h2,$z1)</vertices_element>
+						
+						<vertices_element>($l5,$h1,$z1)</vertices_element><!-- 11-->
+						<vertices_element>($l5,$h2,$z1)</vertices_element>
+						
+						<vertices_element>($l4,$h1,$z1)</vertices_element><!-- 13-->
+						<vertices_element>($l4,$h2,$z1)</vertices_element>
+						
+						<!-- Back -->
+						<vertices_element>($l1,$h1,$z3)</vertices_element><!-- 15-->
+						<vertices_element>($l1,$h2,$z3)</vertices_element>
+						<vertices_element>(0.0,$h5,$z3)</vertices_element>
+						
+						<vertices_element>($l2,$h1,$z3)</vertices_element><!-- 18-->
+						<vertices_element>($l2,$h2,$z3)</vertices_element>
+						<vertices_element>(0.0,$h4,$z3)</vertices_element>
+						
+						<vertices_element>($l3,$h1,$z3)</vertices_element><!-- 21-->
+						<vertices_element>($l3,$h2,$z3)</vertices_element>
+						<vertices_element>(0.0,$h3,$z3)</vertices_element>
+						
+						<vertices_element>($l6,$h1,$z3)</vertices_element><!-- 24-->
+						<vertices_element>($l6,$h2,$z3)</vertices_element>
+						
+						<vertices_element>($l5,$h1,$z3)</vertices_element><!-- 26-->
+						<vertices_element>($l5,$h2,$z3)</vertices_element>
+						
+						<vertices_element>($l4,$h1,$z3)</vertices_element><!-- 28-->
+						<vertices_element>($l4,$h2,$z3)</vertices_element>
+						
+						
+						<!-- Sides -->
+						
+						<vertices_element>($l1,$h1,$z2)</vertices_element><!-- 30-->
+						<vertices_element>($l1,$h2,$z2)</vertices_element>
+						<vertices_element>(0.0,$h5,$z2)</vertices_element>
+						
+						<vertices_element>($l2,$h1,$z2)</vertices_element><!-- 33-->
+						<!--<vertices_element>(-1.45,3.0,1.0)</vertices_element>-->
+						<!--<vertices_element>(0.0,3.95,1.0)</vertices_element>-->
+						
+						<vertices_element>($l3,$h1,$z2)</vertices_element><!-- 34-->
+						<vertices_element>($l3,$h2,$z2)</vertices_element>
+						<vertices_element>(0.0,$h4,$z2)</vertices_element>
+						
+						<vertices_element>($l6,$h1,$z2)</vertices_element><!-- 37-->
+						<vertices_element>($l6,$h2,$z2)</vertices_element>
+						
+						<vertices_element>($l5,$h1,$z2)</vertices_element>
+						<!--<vertices_element>(1.45,3.0,1.0)</vertices_element>-->
+						
+						<vertices_element>($l4,$h1,$z2)</vertices_element><!-- 40-->
+						<vertices_element>($l4,$h2,$z2)</vertices_element>
+						
+						<!-- Back Addictional -->
+						
+						<vertices_element>(0,$h1,$z3)</vertices_element><!-- 42-->
+						<vertices_element>(0,$h2,$z3)</vertices_element>
+					</vertices>
+				</SFParametricValuesList>
+				<SFVertexListData16 name="reference">
+					<vertices>
+						<vertices_element>(0.0,0.0,-1.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,0.0,1.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,-1.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(-1.0,0.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(1.0,0.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						
+						<vertices_element>(-0.707,0.707,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.707,0.707,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(-0.707,-0.707,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.707,-0.707,0.0)</vertices_element> <!-- Front Face Normal -->
+						
+						<vertices_element>(-0.9,0.3,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.9,0.3,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(-0.9,-0.3,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.9,-0.3,0.0)</vertices_element> <!-- Front Face Normal -->
+						
+					</vertices>
+				</SFVertexListData16>
+				<SFParametricValuesList name="reference">
+					<vertices>
+						<vertices_element>($l1,$h1)</vertices_element><!-- 0 -->
+						<vertices_element>($l1,$h2)</vertices_element>
+						<vertices_element>(0.0,$h5)</vertices_element>
+						
+						<vertices_element>($l2,$h1)</vertices_element><!-- 3 -->
+						<vertices_element>($l2,$h2)</vertices_element>
+						<vertices_element>(0.0,$h3)</vertices_element>
+						
+						<vertices_element>($l3,$h1)</vertices_element><!-- 6 -->
+						<vertices_element>($l3,$h2)</vertices_element>
+						<vertices_element>(0.0,$h3)</vertices_element>
+						
+						<vertices_element>($l6,$h1)</vertices_element><!-- 9 -->
+						<vertices_element>($l6,$h2)</vertices_element>
+						
+						<vertices_element>($l5,$h1)</vertices_element><!-- 11 -->
+						<vertices_element>($l5,$h2)</vertices_element>
+						
+						<vertices_element>($l4,$h1)</vertices_element><!-- 13 -->
+						<vertices_element>($l4,$h2)</vertices_element>
+						
+						<!-- Sides -->
+						<vertices_element>($z1,$h1)</vertices_element><!-- 15 -->
+						<vertices_element>($z1,$h2)</vertices_element>
+						<vertices_element>($z1,$h5)</vertices_element>
+						
+						<vertices_element>($z2,$h1)</vertices_element><!-- 18 -->
+						<vertices_element>($z2,$h2)</vertices_element>
+						<vertices_element>($z2,$h5)</vertices_element>
+						
+						<vertices_element>($z3,$h1)</vertices_element><!-- 21 -->
+						<vertices_element>($z3,$h2)</vertices_element>
+						<vertices_element>($z3,$h5)</vertices_element>
+						
+						<vertices_element>($z1,$h3)</vertices_element><!-- 24 -->
+						<vertices_element>($z2,$h3)</vertices_element>
+						<vertices_element>($z3,$h3)</vertices_element>
+						
+						<!-- Bottom Part -->
+						<vertices_element>($z1,$l1)</vertices_element><!-- 27 -->
+						<vertices_element>($z1,$l2)</vertices_element>
+						<vertices_element>($z1,$l3)</vertices_element>
+						
+						<vertices_element>($z2,$l1)</vertices_element><!-- 30 -->
+						<vertices_element>($z2,$l2)</vertices_element>
+						<vertices_element>($z2,$l3)</vertices_element>
+						
+						<vertices_element>($z3,$l1)</vertices_element><!-- 33 -->
+						<vertices_element>($z3,$l2)</vertices_element>
+						<vertices_element>($z3,$l3)</vertices_element>
+						
+						<!-- Back Addictional -->
+						
+						<vertices_element>(0,$h1)</vertices_element><!-- 36-->
+						<vertices_element>(0,$h2)</vertices_element>
+						
+					</vertices>
+				</SFParametricValuesList>
+			</references>
+			<primitives>
+				<primitives_element>(0,2,8,6,1,5,7,3,4,0,0,0,0,0,0,0,0,0,0,2,8,6,1,5,7,3,4)</primitives_element> <!-- -->
+				<primitives_element>(9,2,8,13,10,5,14,11,12,0,0,0,0,0,0,0,0,0,9,2,8,13,10,5,14,11,12)</primitives_element>  <!-- -->
+				
+				<primitives_element>(21,23,23,42,22,23,43,42,43,0,0,0,0,0,0,0,0,0,6,8,8,36,7,8,37,36,37)</primitives_element> <!-- -->
+				<primitives_element>(42,23,23,28,43,23,29,42,43,0,0,0,0,0,0,0,0,0,36,8,8,13,37,8,14,36,37)</primitives_element>  
+				
+				<!--<primitives_element>(15,17,23,21,16,20,22,18,19,1,1,1,1,1,1,1,1,1)</primitives_element>  -->
+				<!--<primitives_element>(24,17,23,28,25,20,29,26,27,1,1,1,1,1,1,1,1,1)</primitives_element>  -->
+				
+				<primitives_element>(0,15,17,2,30,16,32,1,31,3,3,5,5,3,9,5,9,9,15,21,23,17,18,22,20,16,19)</primitives_element> <!-- -->
+				<primitives_element>(9,24,17,2,37,25,32,10,38,4,4,6,6,4,10,6,10,10,15,21,23,17,18,22,20,16,19)</primitives_element> <!-- -->
+				
+				<primitives_element>(6,21,23,8,34,22,36,7,35,4,4,8,8,4,11,8,11,11,15,21,26,24,18,22,25,16,19)</primitives_element> <!-- -->
+				<primitives_element>(13,28,23,8,40,29,36,14,41,3,3,7,7,3,12,7,12,12,15,21,26,24,18,22,25,16,19)</primitives_element> <!-- -->
+				
+				<primitives_element>(0,15,21,6,30,18,34,3,33,2,2,2,2,2,2,2,2,2,27,33,35,29,30,34,32,28,31)</primitives_element> <!-- -->
+				<primitives_element>(13,28,24,9,40,26,37,11,39,2,2,2,2,2,2,2,2,2,27,33,35,29,30,34,32,28,31)</primitives_element> <!-- -->
+				
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>10</lastElement>
+	</SFMeshGeometryData>
+	
+	
+	
+	
+	<SFMeshGeometryData name="TexturedHouseModel">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Quad2PNTxO</primitive>
+			<references id="primitiveData">
+				<SFParametricValuesList name="reference">
+					<vertices>
+						<vertices_element>($l1,0.0,$z1)</vertices_element>
+						<vertices_element>($l1,$h1m,$z1)</vertices_element>
+						<vertices_element>($l1,$h1,$z1)</vertices_element>
+						
+						<vertices_element>($l1m,0.0,$z1)</vertices_element>
+						<vertices_element>($l1m,$h2m,$z1)</vertices_element>
+						<vertices_element>($l1,$h2,$z1)</vertices_element>
+						
+						<vertices_element>(0.0,0.0,$z1)</vertices_element>
+						<vertices_element>(0.0,$h3m,$z1)</vertices_element>
+						<vertices_element>(0.0,$h3,$z1)</vertices_element>
+						
+						<vertices_element>($l2m,0.0,$z1)</vertices_element>
+						<vertices_element>($l2m,$h2m,$z1)</vertices_element>
+						<vertices_element>($l2,$h2,$z1)</vertices_element>
+						
+						<vertices_element>($l2,0.0,$z1)</vertices_element>
+						<vertices_element>($l2,$h1m,$z1)</vertices_element>
+						<vertices_element>($l2,$h1,$z1)</vertices_element>
+						
+						<vertices_element>($l2,0.0,$z2)</vertices_element>
+						<vertices_element>($l2,$h1m,$z2)</vertices_element>
+						<vertices_element>($l2,$h1,$z2)</vertices_element>
+						
+						<vertices_element>($l2,0.0,$z3)</vertices_element>
+						<vertices_element>($l2,$h1m,$z3)</vertices_element>
+						<vertices_element>($l2,$h1,$z3)</vertices_element>
+						
+						<vertices_element>($l2m,0.0,$z3)</vertices_element>
+						<vertices_element>($l2m,$h2m,$z3)</vertices_element>
+						<vertices_element>($l2,$h2,$z3)</vertices_element>
+						
+						<vertices_element>(0.0,0.0,$z3)</vertices_element>
+						<vertices_element>(0.0,$h3m,$z3)</vertices_element>
+						<vertices_element>(0.0,$h3,$z3)</vertices_element>
+						
+						<vertices_element>($l1m,0.0,$z3)</vertices_element>
+						<vertices_element>($l1m,$h2m,$z3)</vertices_element>
+						<vertices_element>($l1,$h2,$z3)</vertices_element>
+						
+						<vertices_element>($l1,0.0,$z3)</vertices_element>
+						<vertices_element>($l1,$h1m,$z3)</vertices_element>
+						<vertices_element>($l1,$h1,$z3)</vertices_element>
+						
+						<vertices_element>($l1,0.0,$z2)</vertices_element>
+						<vertices_element>($l1,$h1m,$z2)</vertices_element>
+						<vertices_element>($l1,$h1,$z2)</vertices_element>
+						
+					</vertices>
+				</SFParametricValuesList>
+				<SFVertexListData16 name="reference">
+					<vertices>
+						<vertices_element>(1.0,0.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(-1.0,0.0,0.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,0.0,1.0)</vertices_element> <!-- Front Face Normal -->
+						<vertices_element>(0.0,0.0,-1.0)</vertices_element> <!-- Front Face Normal -->
+					</vertices>
+				</SFVertexListData16>
+				<SFParametricValuesList name="reference">
+					<vertices>
+						<vertices_element>($l1,0.0)</vertices_element>
+						<vertices_element>($l1,$h1m)</vertices_element>
+						<vertices_element>($l1,$h1)</vertices_element>
+						
+						<vertices_element>($l1m,0.0)</vertices_element>
+						<vertices_element>($l1m,$h2m)</vertices_element>
+						<vertices_element>($l1,$h2)</vertices_element>
+						
+						<vertices_element>(0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,$h3m)</vertices_element>
+						<vertices_element>(0.0,$h3)</vertices_element>
+						
+						<vertices_element>($z1,0.0)</vertices_element>
+						<vertices_element>($z1,$h1m)</vertices_element>
+						<vertices_element>($z1,$h1)</vertices_element>
+						
+						<vertices_element>($z2,0.0)</vertices_element>
+						<vertices_element>($z2,$h1m)</vertices_element>
+						<vertices_element>($z2,$h1)</vertices_element>
+						
+						<vertices_element>($z3,0.0)</vertices_element>
+						<vertices_element>($z3,$h1m)</vertices_element>
+						<vertices_element>($z3,$h1)</vertices_element>
+						
+					</vertices>
+				</SFParametricValuesList>
+			</references>
+			<primitives>
+				
+				<primitives_element>(0,2,8,6,1,5,7,3,4, 3,3,3,3,3,3,3,3,3, 0,2,8,6,1,5,7,3,4)</primitives_element> <!-- -->
+				<primitives_element>(6,8,14,12,7,11,13,9,10,3,3,3,3,3,3,3,3,3, 6,8,2,0,7,5,1,3,4)</primitives_element> <!-- -->
+				
+				<primitives_element>(18,20,26,24,19,23,25,21,22,2,2,2,2,2,2,2,2,2,0,2,8,6,1,5,7,3,4)</primitives_element> <!-- -->
+				<primitives_element>(24,26,32,30,25,29,31,27,28,2,2,2,2,2,2,2,2,2,6,8,2,0,7,5,1,3,4)</primitives_element> <!-- -->
+				
+				<primitives_element>(12,14,20,18,13,17,19,15,16,0,0,0,0,0,0,0,0,0, 9,11,17,15,10,14,16,12,13)</primitives_element> <!-- -->
+				<primitives_element>(30,32,2,0,31,35,1,33,34,1,1,1,1,1,1,1,1,1, 9,11,17,15,10,14,16,12,13)</primitives_element> <!-- -->
+				
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>6</lastElement>
+	</SFMeshGeometryData>
+	
+	
+	
+	
+	<!-- Houses  -->
+	
+	
+	
+	
+	<SFReferenceNodeData name="House01">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-1.5</parameters_element>
+						<parameters_element>$l2=-1.45</parameters_element>
+						<parameters_element>$l3=-1.4</parameters_element>
+						<parameters_element>$l4=1.4</parameters_element>
+						<parameters_element>$l5=1.45</parameters_element>
+						<parameters_element>$l6=1.5</parameters_element>
+						<parameters_element>$h1=1.0</parameters_element>
+						<parameters_element>$h2=2.1</parameters_element>
+						<parameters_element>$h3=2.5</parameters_element>
+						<parameters_element>$h4=2.6</parameters_element>
+						<parameters_element>$h5=2.8</parameters_element>
+						<parameters_element>$z1=-0.2</parameters_element>
+						<parameters_element>$z2=1.1</parameters_element>
+						<parameters_element>$z3=2.2</parameters_element>
+				    </parameters>
+					<geometry>TexturedRoofModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:9</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture04:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$h1=1.0</parameters_element>
+						<parameters_element>$h1m=0.5</parameters_element>
+						<parameters_element>$h2=2.1</parameters_element>
+						<parameters_element>$h2m=0.7</parameters_element>
+						<parameters_element>$h3=2.5</parameters_element>
+						<parameters_element>$h3m=1.2</parameters_element>
+						<parameters_element>$l1=-1.4</parameters_element>
+						<parameters_element>$l1m=-0.7</parameters_element>
+						<parameters_element>$l2=1.4</parameters_element>
+						<parameters_element>$l2m=0.7</parameters_element>
+						<parameters_element>$z1=0.1</parameters_element>
+						<parameters_element>$z2=1.0</parameters_element>
+						<parameters_element>$z3=1.9</parameters_element>
+				    </parameters>
+					<geometry>TexturedHouseModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:19</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.4</parameters_element>
+						<parameters_element>$l2=-0.35</parameters_element>
+						<parameters_element>$l3=-0.3</parameters_element>
+						<parameters_element>$l4=0.3</parameters_element>
+						<parameters_element>$l5=0.35</parameters_element>
+						<parameters_element>$l6=0.4</parameters_element>
+						<parameters_element>$h1=0.0</parameters_element>
+						<parameters_element>$h2=0.8</parameters_element>
+						<parameters_element>$h3=0.8</parameters_element>
+						<parameters_element>$h4=0.9</parameters_element>
+						<parameters_element>$h5=0.95</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:9</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="House02">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-1.5</parameters_element>
+						<parameters_element>$l2=-1.45</parameters_element>
+						<parameters_element>$l3=-1.4</parameters_element>
+						<parameters_element>$l4=0.5</parameters_element>
+						<parameters_element>$l5=0.6</parameters_element>
+						<parameters_element>$l6=0.7</parameters_element>
+						<parameters_element>$h1=1.0</parameters_element>
+						<parameters_element>$h2=2.1</parameters_element>
+						<parameters_element>$h3=2.5</parameters_element>
+						<parameters_element>$h4=2.6</parameters_element>
+						<parameters_element>$h5=2.8</parameters_element>
+						<parameters_element>$z1=-0.2</parameters_element>
+						<parameters_element>$z2=1.1</parameters_element>
+						<parameters_element>$z3=2.2</parameters_element>
+				    </parameters>
+					<geometry>TexturedRoofModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:10</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture04:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$h1=1.0</parameters_element>
+						<parameters_element>$h1m=0.5</parameters_element>
+						<parameters_element>$h2=2.1</parameters_element>
+						<parameters_element>$h2m=0.7</parameters_element>
+						<parameters_element>$h3=2.5</parameters_element>
+						<parameters_element>$h3m=1.2</parameters_element>
+						<parameters_element>$l1=-1.4</parameters_element>
+						<parameters_element>$l1m=-0.7</parameters_element>
+						<parameters_element>$l2=0.5</parameters_element>
+						<parameters_element>$l2m=0.25</parameters_element>
+						<parameters_element>$z1=0.1</parameters_element>
+						<parameters_element>$z2=1.0</parameters_element>
+						<parameters_element>$z3=1.9</parameters_element>
+				    </parameters>
+					<geometry>TexturedHouseModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:17</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.4</parameters_element>
+						<parameters_element>$l2=-0.35</parameters_element>
+						<parameters_element>$l3=-0.3</parameters_element>
+						<parameters_element>$l4=0.1</parameters_element>
+						<parameters_element>$l5=0.15</parameters_element>
+						<parameters_element>$l6=0.20</parameters_element>
+						<parameters_element>$h1=0.0</parameters_element>
+						<parameters_element>$h2=0.8</parameters_element>
+						<parameters_element>$h3=0.8</parameters_element>
+						<parameters_element>$h4=0.9</parameters_element>
+						<parameters_element>$h5=0.95</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:0</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="House03">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.7</parameters_element>
+						<parameters_element>$l2=-0.6</parameters_element>
+						<parameters_element>$l3=-0.5</parameters_element>
+						<parameters_element>$l4=0.5</parameters_element>
+						<parameters_element>$l5=0.6</parameters_element>
+						<parameters_element>$l6=0.7</parameters_element>
+						<parameters_element>$h1=2.0</parameters_element>
+						<parameters_element>$h2=3.1</parameters_element>
+						<parameters_element>$h3=4.5</parameters_element>
+						<parameters_element>$h4=4.6</parameters_element>
+						<parameters_element>$h5=4.8</parameters_element>
+						<parameters_element>$z1=-0.2</parameters_element>
+						<parameters_element>$z2=1.1</parameters_element>
+						<parameters_element>$z3=2.2</parameters_element>
+				    </parameters>
+					<geometry>TexturedRoofModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:11</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture04:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$h1=2.0</parameters_element>
+						<parameters_element>$h1m=1.0</parameters_element>
+						<parameters_element>$h2=3.1</parameters_element>
+						<parameters_element>$h2m=1.6</parameters_element>
+						<parameters_element>$h3=4.5</parameters_element>
+						<parameters_element>$h3m=2.25</parameters_element>
+						<parameters_element>$l1=-0.7</parameters_element>
+						<parameters_element>$l1m=-0.35</parameters_element>
+						<parameters_element>$l2=0.7</parameters_element>
+						<parameters_element>$l2m=0.35</parameters_element>
+						<parameters_element>$z1=0.1</parameters_element>
+						<parameters_element>$z2=1.0</parameters_element>
+						<parameters_element>$z3=1.9</parameters_element>
+				    </parameters>
+					<geometry>TexturedHouseModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:17</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.4</parameters_element>
+						<parameters_element>$l2=-0.35</parameters_element>
+						<parameters_element>$l3=-0.3</parameters_element>
+						<parameters_element>$l4=0.1</parameters_element>
+						<parameters_element>$l5=0.15</parameters_element>
+						<parameters_element>$l6=0.20</parameters_element>
+						<parameters_element>$h1=0.0</parameters_element>
+						<parameters_element>$h2=0.8</parameters_element>
+						<parameters_element>$h3=0.8</parameters_element>
+						<parameters_element>$h4=0.9</parameters_element>
+						<parameters_element>$h5=0.95</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:12</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	
+	<SFReferenceNodeData name="House04House">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+		
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.75</parameters_element>
+						<parameters_element>$l2=-0.7</parameters_element>
+						<parameters_element>$l3=-0.6</parameters_element>
+						<parameters_element>$l4=0.6</parameters_element>
+						<parameters_element>$l5=0.7</parameters_element>
+						<parameters_element>$l6=0.75</parameters_element>
+						<parameters_element>$h1=2.0</parameters_element>
+						<parameters_element>$h2=3.1</parameters_element>
+						<parameters_element>$h3=4.5</parameters_element>
+						<parameters_element>$h4=4.6</parameters_element>
+						<parameters_element>$h5=4.8</parameters_element>
+						<parameters_element>$z1=-0.2</parameters_element>
+						<parameters_element>$z2=1.1</parameters_element>
+						<parameters_element>$z3=2.2</parameters_element>
+				    </parameters>
+					<geometry>TexturedRoofModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:12</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture04:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$h1=2.0</parameters_element>
+						<parameters_element>$h1m=1.0</parameters_element>
+						<parameters_element>$h2=3.1</parameters_element>
+						<parameters_element>$h2m=1.6</parameters_element>
+						<parameters_element>$h3=4.5</parameters_element>
+						<parameters_element>$h3m=2.25</parameters_element>
+						<parameters_element>$l1=-0.7</parameters_element>
+						<parameters_element>$l1m=-0.35</parameters_element>
+						<parameters_element>$l2=0.7</parameters_element>
+						<parameters_element>$l2m=0.35</parameters_element>
+						<parameters_element>$z1=0.1</parameters_element>
+						<parameters_element>$z2=1.0</parameters_element>
+						<parameters_element>$z3=1.9</parameters_element>
+				    </parameters>
+					<geometry>TexturedHouseModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:17</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.3</parameters_element>
+						<parameters_element>$l2=-0.25</parameters_element>
+						<parameters_element>$l3=-0.2</parameters_element>
+						<parameters_element>$l4=0.2</parameters_element>
+						<parameters_element>$l5=0.25</parameters_element>
+						<parameters_element>$l6=0.30</parameters_element>
+						<parameters_element>$h1=1.5</parameters_element>
+						<parameters_element>$h2=2.8</parameters_element>
+						<parameters_element>$h3=2.3</parameters_element>
+						<parameters_element>$h4=2.4</parameters_element>
+						<parameters_element>$h5=2.75</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:18</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="TexturedStair">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<SFObjectsArrayData name="reference">
+				<SFTranslateFixed16Data name="startTransform">
+					<z>-1.35</z>
+					<y>0.0</y>
+					<x>-0.3</x>
+				</SFTranslateFixed16Data>
+				<SFTranslateFixed16Data name="incremental">
+					<z>0.15</z>
+					<y>0.15</y>
+					<x>0.0</x>
+				</SFTranslateFixed16Data>
+				<arraySize>10</arraySize>
+				<SFObjectModelData name="objectNode">
+					<SFParametricGeometryInstance name="geometry">
+					    <parameters>
+							<parameters_element>l=0.6</parameters_element>
+							<parameters_element>h=0.15</parameters_element>
+							<parameters_element>d=0.15</parameters_element>
+					    </parameters>
+						<geometry>Parallelepiped</geometry>
+					</SFParametricGeometryInstance>
+					<SFProgramAssetData name="transformComponent">
+						<program>BasicPNTx0Transform</program>
+					</SFProgramAssetData>
+					<SFProgramAssetData name="materialComponent">
+						<program>TexturedRainbowQuarterMaterial</program>
+						<structures>
+							<structures_element>RainbowQuarterMats:15</structures_element>
+						</structures>
+						<textures>
+							<textures_element>PerlinTexture:0</textures_element>
+						</textures>
+					</SFProgramAssetData>
+				</SFObjectModelData>
+				
+			</SFObjectsArrayData>
+			
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="House04">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>House04House</reference>
+			<reference>TexturedStair</reference>
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="House05House">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+		
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-1.75</parameters_element>
+						<parameters_element>$l2=-1.7</parameters_element>
+						<parameters_element>$l3=-1.6</parameters_element>
+						<parameters_element>$l4=0.6</parameters_element>
+						<parameters_element>$l5=0.7</parameters_element>
+						<parameters_element>$l6=0.75</parameters_element>
+						<parameters_element>$h1=2.0</parameters_element>
+						<parameters_element>$h2=3.1</parameters_element>
+						<parameters_element>$h3=4.5</parameters_element>
+						<parameters_element>$h4=4.6</parameters_element>
+						<parameters_element>$h5=4.8</parameters_element>
+						<parameters_element>$z1=-0.2</parameters_element>
+						<parameters_element>$z2=1.1</parameters_element>
+						<parameters_element>$z3=2.2</parameters_element>
+				    </parameters>
+					<geometry>TexturedRoofModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:0</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture04:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$h1=2.0</parameters_element>
+						<parameters_element>$h1m=1.0</parameters_element>
+						<parameters_element>$h2=3.1</parameters_element>
+						<parameters_element>$h2m=1.6</parameters_element>
+						<parameters_element>$h3=4.5</parameters_element>
+						<parameters_element>$h3m=2.25</parameters_element>
+						<parameters_element>$l1=-1.7</parameters_element>
+						<parameters_element>$l1m=-0.85</parameters_element>
+						<parameters_element>$l2=0.7</parameters_element>
+						<parameters_element>$l2m=0.35</parameters_element>
+						<parameters_element>$z1=0.1</parameters_element>
+						<parameters_element>$z2=1.0</parameters_element>
+						<parameters_element>$z3=1.9</parameters_element>
+				    </parameters>
+					<geometry>TexturedHouseModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:17</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.3</parameters_element>
+						<parameters_element>$l2=-0.25</parameters_element>
+						<parameters_element>$l3=-0.2</parameters_element>
+						<parameters_element>$l4=0.2</parameters_element>
+						<parameters_element>$l5=0.25</parameters_element>
+						<parameters_element>$l6=0.30</parameters_element>
+						<parameters_element>$h1=1.5</parameters_element>
+						<parameters_element>$h2=2.8</parameters_element>
+						<parameters_element>$h3=2.3</parameters_element>
+						<parameters_element>$h4=2.4</parameters_element>
+						<parameters_element>$h5=2.75</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:19</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			
+			<SFObjectModelData name="reference">
+				<SFTranslateFixed16Data name="transform">
+					<z>0.0</z>
+					<y>0.0</y>
+					<x>-0.7</x>
+				</SFTranslateFixed16Data>
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.3</parameters_element>
+						<parameters_element>$l2=-0.25</parameters_element>
+						<parameters_element>$l3=-0.2</parameters_element>
+						<parameters_element>$l4=0.2</parameters_element>
+						<parameters_element>$l5=0.25</parameters_element>
+						<parameters_element>$l6=0.30</parameters_element>
+						<parameters_element>$h1=0.0</parameters_element>
+						<parameters_element>$h2=0.8</parameters_element>
+						<parameters_element>$h3=0.8</parameters_element>
+						<parameters_element>$h4=0.9</parameters_element>
+						<parameters_element>$h5=0.95</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:6</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="TexturedStair05">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<SFObjectsArrayData name="reference">
+				<SFTranslateFixed16Data name="startTransform">
+					<z>-1.35</z>
+					<y>0.0</y>
+					<x>-0.3</x>
+				</SFTranslateFixed16Data>
+				<SFTranslateFixed16Data name="incremental">
+					<z>0.15</z>
+					<y>0.15</y>
+					<x>0.0</x>
+				</SFTranslateFixed16Data>
+				<arraySize>10</arraySize>
+				<SFObjectModelData name="objectNode">
+					<SFParametricGeometryInstance name="geometry">
+					    <parameters>
+							<parameters_element>l=0.6</parameters_element>
+							<parameters_element>h=0.15</parameters_element>
+							<parameters_element>d=0.15</parameters_element>
+					    </parameters>
+						<geometry>Parallelepiped</geometry>
+					</SFParametricGeometryInstance>
+					<SFProgramAssetData name="transformComponent">
+						<program>BasicPNTx0Transform</program>
+					</SFProgramAssetData>
+					<SFProgramAssetData name="materialComponent">
+						<program>TexturedRainbowQuarterMaterial</program>
+						<structures>
+							<structures_element>RainbowQuarterMats:6</structures_element>
+						</structures>
+						<textures>
+							<textures_element>PerlinTexture:0</textures_element>
+						</textures>
+					</SFProgramAssetData>
+				</SFObjectModelData>
+				
+			</SFObjectsArrayData>
+			
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="House05">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>House05House</reference>
+			<reference>TexturedStair05</reference>
+		</references>
+	</SFReferenceNodeData>	
+	
+	<SFReferenceNodeData name="House06House">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+		
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-1.75</parameters_element>
+						<parameters_element>$l2=-1.7</parameters_element>
+						<parameters_element>$l3=-1.6</parameters_element>
+						<parameters_element>$l4=1.3</parameters_element>
+						<parameters_element>$l5=1.4</parameters_element>
+						<parameters_element>$l6=1.45</parameters_element>
+						<parameters_element>$h1=2.0</parameters_element>
+						<parameters_element>$h2=3.1</parameters_element>
+						<parameters_element>$h3=4.5</parameters_element>
+						<parameters_element>$h4=4.6</parameters_element>
+						<parameters_element>$h5=4.8</parameters_element>
+						<parameters_element>$z1=-0.2</parameters_element>
+						<parameters_element>$z2=1.1</parameters_element>
+						<parameters_element>$z3=2.2</parameters_element>
+				    </parameters>
+					<geometry>TexturedRoofModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:7</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture04:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$h1=2.0</parameters_element>
+						<parameters_element>$h1m=1.0</parameters_element>
+						<parameters_element>$h2=3.1</parameters_element>
+						<parameters_element>$h2m=1.6</parameters_element>
+						<parameters_element>$h3=4.5</parameters_element>
+						<parameters_element>$h3m=2.25</parameters_element>
+						<parameters_element>$l1=-1.7</parameters_element>
+						<parameters_element>$l1m=-0.85</parameters_element>
+						<parameters_element>$l2=1.3</parameters_element>
+						<parameters_element>$l2m=0.65</parameters_element>
+						<parameters_element>$z1=0.1</parameters_element>
+						<parameters_element>$z2=1.0</parameters_element>
+						<parameters_element>$z3=1.9</parameters_element>
+				    </parameters>
+					<geometry>TexturedHouseModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:19</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFTranslateFixed16Data name="transform">
+					<z>0.0</z>
+					<y>0.0</y>
+					<x>0.0</x>
+				</SFTranslateFixed16Data>
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.3</parameters_element>
+						<parameters_element>$l2=-0.25</parameters_element>
+						<parameters_element>$l3=-0.2</parameters_element>
+						<parameters_element>$l4=0.2</parameters_element>
+						<parameters_element>$l5=0.25</parameters_element>
+						<parameters_element>$l6=0.30</parameters_element>
+						<parameters_element>$h1=1.5</parameters_element>
+						<parameters_element>$h2=2.8</parameters_element>
+						<parameters_element>$h3=2.3</parameters_element>
+						<parameters_element>$h4=2.4</parameters_element>
+						<parameters_element>$h5=2.75</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:1</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			
+			<SFObjectModelData name="reference">
+				<SFTranslateFixed16Data name="transform">
+					<z>0.0</z>
+					<y>0.0</y>
+					<x>0.4</x>
+				</SFTranslateFixed16Data>
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.3</parameters_element>
+						<parameters_element>$l2=-0.25</parameters_element>
+						<parameters_element>$l3=-0.2</parameters_element>
+						<parameters_element>$l4=0.2</parameters_element>
+						<parameters_element>$l5=0.25</parameters_element>
+						<parameters_element>$l6=0.30</parameters_element>
+						<parameters_element>$h1=0.0</parameters_element>
+						<parameters_element>$h2=0.8</parameters_element>
+						<parameters_element>$h3=0.8</parameters_element>
+						<parameters_element>$h4=0.9</parameters_element>
+						<parameters_element>$h5=0.95</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:1</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			
+			
+			<SFObjectModelData name="reference">
+				<SFTranslateFixed16Data name="transform">
+					<z>-0.6</z>
+					<y>1.5</y>
+					<x>-0.40</x>
+				</SFTranslateFixed16Data>
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>l=0.7</parameters_element>
+						<parameters_element>h=0.15</parameters_element>
+						<parameters_element>d=0.7</parameters_element>
+				    </parameters>
+					<geometry>Parallelepiped</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:18</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="TexturedStair06">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<SFObjectsArrayData name="reference">
+				<SFTranslateFixed16Data name="startTransform">
+					<z>-0.6</z>
+					<y>0.0</y>
+					<x>-1.90</x>
+				</SFTranslateFixed16Data>
+				<SFTranslateFixed16Data name="incremental">
+					<x>0.15</x>
+					<y>0.15</y>
+					<z>0.0</z>
+				</SFTranslateFixed16Data>
+				<arraySize>10</arraySize>
+				<SFObjectModelData name="objectNode">
+					<SFParametricGeometryInstance name="geometry">
+					    <parameters>
+							<parameters_element>l=0.16</parameters_element>
+							<parameters_element>h=0.15</parameters_element>
+							<parameters_element>d=0.6</parameters_element>
+					    </parameters>
+						<geometry>Parallelepiped</geometry>
+					</SFParametricGeometryInstance>
+					<SFProgramAssetData name="transformComponent">
+						<program>BasicPNTx0Transform</program>
+					</SFProgramAssetData>
+					<SFProgramAssetData name="materialComponent">
+						<program>TexturedRainbowQuarterMaterial</program>
+						<structures>
+							<structures_element>RainbowQuarterMats:18</structures_element>
+						</structures>
+						<textures>
+							<textures_element>PerlinTexture:0</textures_element>
+						</textures>
+					</SFProgramAssetData>
+				</SFObjectModelData>
+				
+			</SFObjectsArrayData>
+			
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	<SFReferenceNodeData name="House06">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<reference>House06House</reference>
+			<reference>TexturedStair06</reference>
+		</references>
+	</SFReferenceNodeData>	
+	
+	
+	
+	
+	<SFReferenceNodeData name="House07">
+		<SFNoTransformData name="transform">
+		</SFNoTransformData>
+		<references id="nodes">
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-1.5</parameters_element>
+						<parameters_element>$l2=-1.45</parameters_element>
+						<parameters_element>$l3=-1.4</parameters_element>
+						<parameters_element>$l4=1.4</parameters_element>
+						<parameters_element>$l5=1.45</parameters_element>
+						<parameters_element>$l6=1.5</parameters_element>
+						<parameters_element>$h1=1.0</parameters_element>
+						<parameters_element>$h2=2.1</parameters_element>
+						<parameters_element>$h3=2.5</parameters_element>
+						<parameters_element>$h4=2.6</parameters_element>
+						<parameters_element>$h5=2.8</parameters_element>
+						<parameters_element>$z1=-0.2</parameters_element>
+						<parameters_element>$z2=1.1</parameters_element>
+						<parameters_element>$z3=2.2</parameters_element>
+				    </parameters>
+					<geometry>TexturedRoofModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:20</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture04:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$h1=1.0</parameters_element>
+						<parameters_element>$h1m=0.5</parameters_element>
+						<parameters_element>$h2=2.1</parameters_element>
+						<parameters_element>$h2m=0.7</parameters_element>
+						<parameters_element>$h3=2.5</parameters_element>
+						<parameters_element>$h3m=1.2</parameters_element>
+						<parameters_element>$l1=-1.4</parameters_element>
+						<parameters_element>$l1m=-0.7</parameters_element>
+						<parameters_element>$l2=1.4</parameters_element>
+						<parameters_element>$l2m=0.7</parameters_element>
+						<parameters_element>$z1=0.1</parameters_element>
+						<parameters_element>$z2=1.0</parameters_element>
+						<parameters_element>$z3=1.9</parameters_element>
+				    </parameters>
+					<geometry>TexturedHouseModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:19</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+			<SFObjectModelData name="reference">
+				<SFParametricGeometryInstance name="geometry">
+				    <parameters>
+						<parameters_element>$l1=-0.4</parameters_element>
+						<parameters_element>$l2=-0.35</parameters_element>
+						<parameters_element>$l3=-0.3</parameters_element>
+						<parameters_element>$l4=0.3</parameters_element>
+						<parameters_element>$l5=0.35</parameters_element>
+						<parameters_element>$l6=0.4</parameters_element>
+						<parameters_element>$h1=0.0</parameters_element>
+						<parameters_element>$h2=0.8</parameters_element>
+						<parameters_element>$h3=0.8</parameters_element>
+						<parameters_element>$h4=0.9</parameters_element>
+						<parameters_element>$h5=0.95</parameters_element>
+						<parameters_element>$z1=0.0</parameters_element>
+						<parameters_element>$z2=0.05</parameters_element>
+						<parameters_element>$z3=0.09</parameters_element>
+				    </parameters>
+					<geometry>TexturedDoorModel</geometry>
+				</SFParametricGeometryInstance>
+				<SFProgramAssetData name="transformComponent">
+					<program>BasicPNTx0Transform</program>
+				</SFProgramAssetData>
+				<SFProgramAssetData name="materialComponent">
+					<program>TexturedRainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:20</structures_element>
+					</structures>
+					<textures>
+						<textures_element>PerlinTexture:0</textures_element>
+					</textures>
+				</SFProgramAssetData>
+			</SFObjectModelData>
+		</references>
+	</SFReferenceNodeData>
+	
+	
+	
+	
+	
+	
+	
+	<SFMeshGeometryData name="Dummygeom">
+		<SFPrimitiveArrayData name="linesData">
+			<primitive>Microtube2</primitive>
+			<references id="primitiveData">
+				<SFVertexListData16 name="reference">
+					<vertices>
+							<vertices_element>(0.0,0.7,0.0)</vertices_element><!-- 0 -->
+							<vertices_element>(-0.3,0.7,0.0)</vertices_element><!-- 1 -->
+							<vertices_element>(-0.3,0.9,0.0)</vertices_element><!-- 2 -->
+							<vertices_element>(-0.3,1.15,0.0)</vertices_element><!-- 3 -->
+							<vertices_element>(-0.3,1.4,0.0)</vertices_element><!-- 4 -->
+							<vertices_element>(-0.3,1.6,0.0)</vertices_element><!-- 5 -->
+							<vertices_element>(-0.15,1.6,0.0)</vertices_element><!-- 6 -->
+							<vertices_element>(-0.05,1.6,0.0)</vertices_element><!-- 7 -->
+							<vertices_element>(-0.05,1.8,0.0)</vertices_element><!-- 8 -->
+							<vertices_element>(-0.05,1.85,0.0)</vertices_element><!-- 9 -->
+							<vertices_element>(-0.1,1.9,0.0)</vertices_element><!-- 10 -->
+							<vertices_element>(-0.15,1.95,0.0)</vertices_element><!-- 11 -->
+							<vertices_element>(-0.15,2.0,0.0)</vertices_element><!-- 12 -->
+							<vertices_element>(-0.15,2.2,0.0)</vertices_element><!-- 13 -->
+							<vertices_element>(0.00,2.2,0.0)</vertices_element><!-- 14 -->
+							<vertices_element>(0.15,2.2,0.0)</vertices_element><!-- 15 -->
+							<vertices_element>(0.15,2.0,0.0)</vertices_element><!-- 16 -->
+							<vertices_element>(0.15,1.95,0.0)</vertices_element><!-- 17 -->
+							<vertices_element>(0.1,1.9,0.0)</vertices_element><!-- 18 -->
+							<vertices_element>(0.05,1.85,0.0)</vertices_element><!-- 19 -->
+							<vertices_element>(0.05,1.8,0.0)</vertices_element><!-- 20 -->
+							<vertices_element>(0.05,1.6,0.0)</vertices_element><!-- 21 -->
+							<vertices_element>(0.15,1.6,0.0)</vertices_element><!-- 22 -->
+							<vertices_element>(0.3,1.6,0.0)</vertices_element><!-- 23 -->
+							<vertices_element>(0.3,1.4,0.0)</vertices_element><!-- 24 -->
+							<vertices_element>(0.3,1.15,0.0)</vertices_element><!-- 25 -->
+							<vertices_element>(0.3,0.9,0.0)</vertices_element><!-- 26 -->
+							<vertices_element>(0.3,0.7,0.0)</vertices_element><!-- 27 -->
+							<vertices_element>(0.15,0.7,0.0)</vertices_element><!-- 28 -->
+							<vertices_element>(0.0,0.7,0.0)</vertices_element><!-- 29 -->
+							<vertices_element>(0.0,0.4,0.0)</vertices_element><!-- 30 -->
+							<vertices_element>(0.0,0.01,0.0)</vertices_element><!-- 31 -->
+							<vertices_element>(0.2,0.01,0.0)</vertices_element><!-- 32 -->
+							<vertices_element>(0.4,0.01,0.0)</vertices_element><!-- 33 -->
+							<vertices_element>(0.4,0.01,-0.15)</vertices_element><!-- 34 -->
+							<vertices_element>(0.4,0.01,-0.30)</vertices_element><!-- 35 -->
+							<vertices_element>(0.2,0.01,-0.30)</vertices_element><!-- 36 -->
+							<vertices_element>(-0.4,0.01,-0.30)</vertices_element><!-- 37 -->
+							<vertices_element>(-0.4,0.01,0.0)</vertices_element><!-- 38 -->
+							<vertices_element>(-0.4,0.01,0.2)</vertices_element><!-- 39 -->
+							<vertices_element>(0.0,0.01,0.2)</vertices_element><!-- 40 -->
+							<vertices_element>(0.2,0.01,0.2)</vertices_element><!-- 41 -->
+							<vertices_element>(0.4,0.01,0.2)</vertices_element><!-- 42 -->
+					</vertices>
+				</SFVertexListData16>
+				<SFVertexListData16 name="reference">
+					<vertices>
+							<vertices_element>(0.03)</vertices_element>
+					</vertices>
+				</SFVertexListData16>
+			</references>	
+			<primitives>
+				<primitives_element>(0,2,1,0,0,0)</primitives_element>
+				<primitives_element>(2,4,3,0,0,0)</primitives_element>
+				<primitives_element>(4,6,5,0,0,0)</primitives_element>
+				<primitives_element>(6,8,7,0,0,0)</primitives_element>
+				<primitives_element>(8,10,9,0,0,0)</primitives_element>
+				<primitives_element>(10,12,11,0,0,0)</primitives_element>
+				<primitives_element>(12,14,13,0,0,0)</primitives_element>
+				<primitives_element>(14,16,15,0,0,0)</primitives_element>
+				<primitives_element>(16,18,17,0,0,0)</primitives_element>
+				<primitives_element>(18,20,19,0,0,0)</primitives_element>
+				<primitives_element>(20,22,21,0,0,0)</primitives_element>
+				<primitives_element>(22,24,23,0,0,0)</primitives_element>
+				<primitives_element>(24,26,25,0,0,0)</primitives_element>
+				<primitives_element>(26,28,27,0,0,0)</primitives_element>
+				<primitives_element>(28,30,29,0,0,0)</primitives_element>
+				<primitives_element>(30,32,31,0,0,0)</primitives_element>
+				<primitives_element>(32,34,33,0,0,0)</primitives_element>
+				<primitives_element>(34,36,35,0,0,0)</primitives_element>
+				<primitives_element>(36,38,37,0,0,0)</primitives_element>
+				<primitives_element>(38,40,39,0,0,0)</primitives_element>
+				<primitives_element>(40,42,41,0,0,0)</primitives_element>
+			</primitives>
+		</SFPrimitiveArrayData>
+		<firstElement>0</firstElement>
+		<lastElement>21</lastElement>
+	</SFMeshGeometryData>
+	
+	
+	<SFObjectModelData name="Dummy01">
+		<NoTransformData name="transform">
+		</NoTransformData>
+		<geometry>Dummygeom</geometry>
 		<SFProgramAssetData name="transformComponent">
 			<program>BasicPNTransform</program>
-			<structures>
-			</structures>
-			<textures>
-			</textures>
 		</SFProgramAssetData>
 		<SFProgramAssetData name="materialComponent">
-			<program>RedMat</program>
-			<structures>
-			</structures>
-			<textures>
-			</textures>
+			<program>RainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:1</structures_element>
+					</structures>
 		</SFProgramAssetData>
 	</SFObjectModelData>
+	
+	
+	<SFObjectModelData name="Dummy02">
+		<NoTransformData name="transform">
+		</NoTransformData>
+		<geometry>Dummygeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>RainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:0</structures_element>
+					</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	
+	<SFObjectModelData name="Dummy03">
+		<NoTransformData name="transform">
+		</NoTransformData>
+		<geometry>Dummygeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>RainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:2</structures_element>
+					</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	
+	<SFObjectModelData name="Dummy04">
+		<NoTransformData name="transform">
+		</NoTransformData>
+		<geometry>Dummygeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>RainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:3</structures_element>
+					</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	
+	<SFObjectModelData name="Dummy05">
+		<NoTransformData name="transform">
+		</NoTransformData>
+		<geometry>Dummygeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>RainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:4</structures_element>
+					</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	<SFObjectModelData name="Dummy06">
+		<NoTransformData name="transform">
+		</NoTransformData>
+		<geometry>Dummygeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>RainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:5</structures_element>
+					</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
+	
+	<SFObjectModelData name="Dummy07">
+		<NoTransformData name="transform">
+		</NoTransformData>
+		<geometry>Dummygeom</geometry>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<program>RainbowQuarterMaterial</program>
+					<structures>
+						<structures_element>RainbowQuarterMats:6</structures_element>
+					</structures>
+		</SFProgramAssetData>
+	</SFObjectModelData>
+	
 </library>

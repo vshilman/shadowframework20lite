@@ -292,3 +292,70 @@
 @write fColor0 red1+color
 @write fColor1 color2
 @end
+
+
+
+
+
+
+
+@begin Structure RainbowQuarterMatStructure
+@float3 diffColor
+@float Rf
+@float m
+@float b
+@end Structure 
+
+@begin MaterialComponent RainbowQuarterMaterial
+@use normal
+@param diffColor,rfo,m,b as RainbowQuarterMatStructure
+@write color diffColor
+@write matnormal normalize(normal)
+@write matproperty1 rfo
+@write matproperty2 m*480
+@write matproperty3 b
+@end
+
+@begin MaterialComponent TexturedRainbowQuarterMaterial
+@use normal
+@param diffColor,rfo,m,b as RainbowQuarterMatStructure
+@param texture0 as Texture
+@use texCoord0
+@write color sample(texture0,texCoord0)*diffColor
+@write matnormal normalize(normal)
+@write matproperty1 rfo
+@write matproperty2 m*480
+@write matproperty3 b
+@end
+
+@begin LightStepComponent RainbowQuarterSunLight
+@param sunIntensity,sunDirection as PLight01
+@param backLightIntensity,backLightDirection as PLight01
+@use matnormal
+@use position
+@use color
+@use matproperty1 //reflection Rf(0)
+@use matproperty2 //reflection m 
+@use matproperty3 //b (blur) factor
+@define v:3 0,0,1
+
+@define light1:3 sunDirection
+@define ill1temp:1 0.637*(1-matproperty3)+(matproperty3*dot(matnormal,light1))
+@define ill1:1 clamp(ill1temp,0,1)
+@define h1:3 normalize(light1-v)
+@define cah1:1 1-dot(light1,h1)
+@define RF1:1 matproperty1+(1-matproperty1)*(cah1*cah1*cah1*cah1*cah1)
+@define term:1 RF1*0.318*(matproperty2+8)*pow(clamp(dot(normalize(matnormal),h1),0,1),matproperty2)
+@define lightEffect1:3 0.1*color+(0.318*color+term)*ill1*sunIntensity
+
+@define light2:3 backLightDirection
+@define ill2temp:1 0.637*(1-matproperty3)+(matproperty3*dot(matnormal,light2))
+@define ill2:1 clamp(ill2temp,0,1)
+@define h2:3 normalize(light2-v)
+@define cah2:1 1-dot(light2,h2)
+@define RF2:1 matproperty1+(1-matproperty1)*(cah2*cah2*cah2*cah2*cah2)
+@define term:1 RF2*0.318*(matproperty2+8)*pow(clamp(dot(normalize(matnormal),h2),0,1),matproperty2)
+@define lightEffect2:3 0.1*color+(0.318*color+term)*ill2*backLightIntensity
+
+@write fColor lightEffect1+lightEffect2
+@end
