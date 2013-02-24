@@ -157,10 +157,9 @@
 @end
 
 @begin MaterialComponent MoreTexturedTwo
-@param texture0 as Texture
-@param texture1 as Texture
+@param texture0,texture1 as TextureTwo
 @use texCoord0
-@write color4 sample(texture0,texCoord0)
+@write color4 sample(texture1,texCoord0)
 @write color5 sample(texture1,texCoord0)
 @end
 
@@ -269,9 +268,9 @@
 
 @begin LightStepComponent FirstStepTwo
 @use color
-@use color1
+@use matnormal
 @write fColor0 color
-@write fColor1 color1
+@write fColor1 matnormal
 @end
 
 @begin LightStepComponent FirstStepDF
@@ -293,7 +292,10 @@
 @use color7 //normal
 @define tmp1:3 normalize(lPosition-color6)
 @define tmp3:3 dot(normalize(color7),tmp1)
-@write fColor (color4*intensity*tmp3+color5)/2
+@define hv:3 normalize(tmp3+(0,0,1))
+@define tmp6:3 dot(normalize(color7),hv)
+@define tmp7:3 tmp6*tmp6*tmp6
+@write fColor color4*intensity*tmp3+color5*intensity*tmp7
 @end
 
 @begin LightStepComponent SecondStepTestNoLights
@@ -306,7 +308,7 @@
 @param intensity,lPosition as PLight01
 @use color4 
 @use color5 
-@write fColor color4+color5
+@write fColor color4
 @end
 
 @begin LightStepComponent DrawTexture

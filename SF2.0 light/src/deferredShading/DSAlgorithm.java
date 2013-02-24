@@ -13,12 +13,16 @@ package deferredShading;
  * 2. utilizzo texture per computo illumminazione
  * (nel render c'è il secondo passo, leggo le texture e le informazioni della luce)
  * 
- * todo:
+ * problemi:
+ * 1. la projection non funziona
+ * 2. viene salvata solo la texture con apply(0)
  */
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import oldversion.ShadowImage;
 
 import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
@@ -40,7 +44,6 @@ import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.renderer.SFStructureReference;
 import shadow.utils.SFTutorial;
 import shadow.utils.SFTutorialsUtilities;
-import shadowMap.ShadowImage;
 
 public class DSAlgorithm extends SFTutorial{
 
@@ -48,15 +51,35 @@ public class DSAlgorithm extends SFTutorial{
 	private static SFProgram program;
 	private static SFProgram finalprogram;
 	
-	private float[] projection={0.6f,0,0,0,  
-			0,0.6f,0,0,	
-			0,0,0.6f,0,
+	private static float value=89;
+	private static float  angle=(value*(float)(Math.PI))/180; //in radianti
+	float cos=(float)(Math.cos(angle));
+	float sin=(float)(Math.sin(angle));
+	
+	private float[]  projectionZ={cos,sin,0,0,  //rotazione lungo Z
+			-sin,cos,0,0,	
+			0,0,1,0,
 			0,0,0,1};
 	
-	private float[] transform={1,0,0,0,  
+	private float[]  projectionY={cos,0,sin,0,  //rotazione lungo Y
+			0,1,0,0,	
+			-sin,0,cos,0,
+			0,0,0,1};
+	
+	private float[]  projectionX={1,0,0,0,  //rotazione lungo X
+			0,cos,-sin,0,	
+			0,sin,cos,0,
+			0,0,0,1};
+	
+	private float[] projection={1,0,0,0,  
 			0,1,0,0,	
 			0,0,1,0,
 			0,0,0,1};
+	
+	private float[]   transform={1,0,0,0,  
+			0,1,0,0,	
+			0,0,0,-1,
+			0,0,1,0};
 	
 	private SFPipelineTexture texture0;
 	private SFPipelineTexture texture1;
@@ -96,7 +119,7 @@ public class DSAlgorithm extends SFTutorial{
 		
 		//material
 		DSAlgorithm.materialData=SFTutorialsUtilities.generateMaterialData("ColorDFMat",0/*program, 0,0*/);
-		SFVertex3f[] materialData1={new SFVertex3f(1,0,0), new SFVertex3f(1,0,0), new SFVertex3f(1,1,1)};
+		SFVertex3f[] materialData1={new SFVertex3f(1,0,0), new SFVertex3f(1,0,0), new SFVertex3f(1,1,0)};
 		materialReference=SFTutorialsUtilities.generateStructureDataReference(program, DSAlgorithm.materialData, materialData1);
 		
 		//Light
@@ -149,11 +172,11 @@ public class DSAlgorithm extends SFTutorial{
 	public void render() {
 		
 		
+		texture0.apply(0); //diff & amb color
+		texture1.apply(1); //spec color
+		texture2.apply(2); //position
+		texture3.apply(3); //normal
 		
-		texture0.apply(0);
-		texture1.apply(1);
-		texture2.apply(2);
-		texture3.apply(3);
 		
 		SFPipeline.getSfProgramBuilder().loadProgram(finalprogram);
 		
