@@ -27,6 +27,11 @@
 
 @begin Structure Texture
 @texture texture
+@end Structure
+
+@begin Structure TextureTwo
+@texture texture
+@texture texture2
 @end Structure 
 
 @begin Structure Texture2
