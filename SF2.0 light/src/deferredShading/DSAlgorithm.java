@@ -51,35 +51,20 @@ public class DSAlgorithm extends SFTutorial{
 	private static SFProgram program;
 	private static SFProgram finalprogram;
 	
-	private static float value=89;
+	private static float value=0;
 	private static float  angle=(value*(float)(Math.PI))/180; //in radianti
 	float cos=(float)(Math.cos(angle));
 	float sin=(float)(Math.sin(angle));
 	
-	private float[]  projectionZ={cos,sin,0,0,  //rotazione lungo Z
+	private float[]  projection={cos,sin,0,0,  //rotazione lungo Z
 			-sin,cos,0,0,	
 			0,0,1,0,
 			0,0,0,1};
 	
-	private float[]  projectionY={cos,0,sin,0,  //rotazione lungo Y
-			0,1,0,0,	
-			-sin,0,cos,0,
-			0,0,0,1};
-	
-	private float[]  projectionX={1,0,0,0,  //rotazione lungo X
-			0,cos,-sin,0,	
-			0,sin,cos,0,
-			0,0,0,1};
-	
-	private float[] projection={1,0,0,0,  
-			0,1,0,0,	
-			0,0,1,0,
-			0,0,0,1};
-	
-	private float[]   transform={1,0,0,0,  
-			0,1,0,0,	
-			0,0,0,-1,
-			0,0,1,0};
+	private float[]   transform={1,0,0,  
+			0,1,0,	
+			0,0,1,
+			0,0,0};
 	
 	private SFPipelineTexture texture0;
 	private SFPipelineTexture texture1;
@@ -172,13 +157,15 @@ public class DSAlgorithm extends SFTutorial{
 	public void render() {
 		
 		
+		
+		
+		
+		SFPipeline.getSfProgramBuilder().loadProgram(finalprogram);
+		
 		texture0.apply(0); //diff & amb color
 		texture1.apply(1); //spec color
 		texture2.apply(2); //position
 		texture3.apply(3); //normal
-		
-		
-		SFPipeline.getSfProgramBuilder().loadProgram(finalprogram);
 		
 		//load light data
 		if(lightData!=null)
