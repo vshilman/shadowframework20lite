@@ -22,7 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import oldversion.ShadowImage;
+import CoordinatesTrasformations.ProjectionMatrix;
+import CoordinatesTrasformations.TransformMatrix;
 
 import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
@@ -44,139 +45,53 @@ import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.renderer.SFStructureReference;
 import shadow.utils.SFTutorial;
 import shadow.utils.SFTutorialsUtilities;
+import deferredShading.DeferredShading;
 
 public class DSAlgorithm extends SFTutorial{
 
 	private static ArrayList<SFGeometry> geometries;
-	private static SFProgram program;
-	private static SFProgram finalprogram;
+    private static SFProgram program;
 	
-	private static float value=0;
-	private static float  angle=(value*(float)(Math.PI))/180; //in radianti
-	float cos=(float)(Math.cos(angle));
-	float sin=(float)(Math.sin(angle));
-	
-	private float[]  projection={cos,sin,0,0,  //rotazione lungo Z
-			-sin,cos,0,0,	
-			0,0,1,0,
-			0,0,0,1};
-	
-	private float[]   transform={1,0,0,  
-			0,1,0,	
-			0,0,1,
-			0,0,0};
-	
-	private SFPipelineTexture texture0;
-	private SFPipelineTexture texture1;
-	private SFPipelineTexture texture2;
-	private SFPipelineTexture texture3;
-	
-	private static SFStructureArray materialData;
-	private static SFStructureReference materialReference;
-	private static SFStructureArray lightData;
-	private static SFStructureReference lightReference;
+	private  SFPipelineTexture texture0; 
+	private  SFPipelineTexture texture1;
+	private  SFPipelineTexture texture2;
+	private  SFPipelineTexture texture3;
 	
 	public static void main(String[] args) {
 
 		SFGL20Pipeline.setup();
 
-		DSAlgorithm tut03Bitmap=new DSAlgorithm();
-		//String[] materials={"BasicMat"};
+		DSAlgorithm example=new DSAlgorithm();
 		
 		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
 		
 		ShadowObjLoader shadowObjLoader=new ShadowObjLoader();
 		geometries=shadowObjLoader.extractGeometries(file);
-		
 		System.err.println("Number of geometries is "+geometries.size());
 		
-		try {
-			SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());
-
-			DSAlgorithm.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"BasicPNTransform", "ColorDFMat", "FirstStepDF");
-			DSAlgorithm.finalprogram=SFPipeline.getStaticImageProgram("MoreTexturedMat", "SecondStepDF");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SFPipelineModuleWrongException e) {
-			e.printStackTrace();
-		}
+		DSAlgorithm.program= DeferredShading.First(shadowObjLoader.getPrimitive());
 		
-		
-		//material
-		DSAlgorithm.materialData=SFTutorialsUtilities.generateMaterialData("ColorDFMat",0/*program, 0,0*/);
-		SFVertex3f[] materialData1={new SFVertex3f(1,0,0), new SFVertex3f(1,0,0), new SFVertex3f(1,1,0)};
-		materialReference=SFTutorialsUtilities.generateStructureDataReference(program, DSAlgorithm.materialData, materialData1);
-		
-		//Light
-		DSAlgorithm.lightData=SFTutorialsUtilities.generateLightData(finalprogram, 0);
-		SFVertex3f[] lightData={new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)};
-		lightReference=SFTutorialsUtilities.generateStructureDataReference(finalprogram, DSAlgorithm.lightData, lightData);
-		
-		tut03Bitmap.prepareFrame("Rendered Texture", 600, 600);
+		example.prepareFrame("Deferred Shading", 600, 600);
 	}
 	
 	@Override
 	public void init() {
 		
-		texture0 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
-				WrapMode.REPEAT, WrapMode.REPEAT);
-		texture1 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
-				WrapMode.REPEAT, WrapMode.REPEAT);
-		texture2 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
-				WrapMode.REPEAT, WrapMode.REPEAT);
-		texture3 = SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
-				WrapMode.REPEAT, WrapMode.REPEAT);
+		texture0 = DeferredShading.textureSetUp();
+		texture1 = DeferredShading.textureSetUp();
+		texture2 = DeferredShading.textureSetUp();
+		texture3 = DeferredShading.textureSetUp();
 		
-		SFRenderedTexture renderedTexture=new SFRenderedTexture();
-		renderedTexture.addColorData(texture0); //diffColor e ambColor
-		renderedTexture.addColorData(texture1); //specColor
-		renderedTexture.addColorData(texture2); //position
-		renderedTexture.addColorData(texture3); //normal
 		
-		SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);			
+		DeferredShading.firstPass(program,geometries,texture0,texture1,texture2,texture3);
 		
-			SFPipeline.getSfPipelineGraphics().setupProjection(projection);
-			SFPipeline.getSfPipelineGraphics().setupTransform(transform);
-			SFPipeline.getSfProgramBuilder().loadProgram(program);
-			
-			//load material data
-			if(materialData!=null)
-				SFPipeline.getSfPipelineGraphics().loadStructureData(Module.MATERIAL, materialData,0, materialReference.getIndex());
-			
-		
-			
-			for (int i = 0; i < geometries.size(); i++) {
-				geometries.get(i).drawGeometry(0);
-			}
-			
-		SFPipeline.getSfTexturePipeline().endRenderedTexture(renderedTexture);
 	}
 	
 	
 	@Override
 	public void render() {
 		
+		DeferredShading.secondPass(texture0,texture1,texture2,texture3);
 		
-		
-		
-		
-		SFPipeline.getSfProgramBuilder().loadProgram(finalprogram);
-		
-		texture0.apply(0); //diff & amb color
-		texture1.apply(1); //spec color
-		texture2.apply(2); //position
-		texture3.apply(3); //normal
-		
-		//load light data
-		if(lightData!=null)
-			SFPipeline.getSfPipelineGraphics().loadStructureData(Module.LIGHT, lightData,0, lightReference.getIndex());
-		
-		SFPipeline.getSfPipelineGraphics().drawBaseQuad();
-		
-	}
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
-		super.keyPressed(e);
 	}
 }
