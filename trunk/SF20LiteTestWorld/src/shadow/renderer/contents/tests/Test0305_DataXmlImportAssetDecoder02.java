@@ -35,7 +35,7 @@ public class Test0305_DataXmlImportAssetDecoder02 {
 		SFXMLDataInterpreter interpreter=new SFXMLDataInterpreter(decoder);
 		interpreter.generateInterpretation("testsDataInput/test0003Asset.xml");
 		
-		SFDataAsset<?> asset=decoder.getDecodedAsset();
+		SFDataAsset<?> asset=(SFDataAsset<?>)decoder.getDecodedAsset();
 		
 		SFBitmapTexture resource=(SFBitmapTexture)asset.getResource();
 		

@@ -30,7 +30,7 @@ public class Test0303_DataXmlImportAssetDecoder {
 		SFXMLDataInterpreter interpreter=new SFXMLDataInterpreter(decoder);
 		interpreter.generateInterpretation("testsData/test0001.xml");
 		
-		SFDataAsset<?> asset=decoder.getDecodedAsset();
+		SFDataAsset<?> asset=(SFDataAsset<?>)decoder.getDecodedAsset();
 		
 		SFSurfaceFunction resource=(SFSurfaceFunction)asset.getResource();
 
