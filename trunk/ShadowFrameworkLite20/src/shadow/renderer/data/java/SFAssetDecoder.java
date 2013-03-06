@@ -2,6 +2,7 @@ package shadow.renderer.data.java;
 
 import java.util.LinkedList;
 
+import shadow.renderer.data.SFAssetModule;
 import shadow.renderer.data.SFDataAsset;
 import shadow.renderer.data.SFDataAssetList;
 import shadow.renderer.data.SFDataAssetObject;
@@ -34,7 +35,7 @@ public class SFAssetDecoder implements SFDataInterpreter{
 		}
 	}
 	
-	private SFDataAsset<?> decodedAsset;
+	private SFAssetModule decodedAsset;
 	
 	private LinkedList<Element> elements=new LinkedList<SFAssetDecoder.Element>();
 	
@@ -44,8 +45,8 @@ public class SFAssetDecoder implements SFDataInterpreter{
 		//System.out.println("inserting data "+name+" "+info);
 		Object relatedObject=elements.getLast().relatedObject;
 		
-		if(relatedObject instanceof SFDataAsset<?>){
-			relatedObject=((SFDataAsset<?>)relatedObject).getSFDataObject().getObject(name);
+		if(relatedObject instanceof SFAssetModule){
+			relatedObject=((SFAssetModule)relatedObject).getSFDataObject().getObject(name);
 		}
 		
 		if(relatedObject instanceof SFCharsetObjectList){
@@ -101,8 +102,8 @@ public class SFAssetDecoder implements SFDataInterpreter{
 					//TODO : still not implemented the case in which the reference is kept by name
 					throw new SFException("Not yet implemented");
 				}
-			}else if(relatedObject instanceof SFDataAsset<?>){
-				SFDataObject object=((SFDataAsset<?>) relatedObject).getSFDataObject().getObject(name);
+			}else if(relatedObject instanceof SFAssetModule){
+				SFDataObject object=((SFAssetModule) relatedObject).getSFDataObject().getObject(name);
 				elements.add(new Element(type, name, object));
 				//System.out.println("\t\t\t Found object "+name+": "+object);
 				
@@ -154,14 +155,14 @@ public class SFAssetDecoder implements SFDataInterpreter{
 		}
 	}
 
-	public SFDataAsset<?> generateAsset(String type) throws SFException{
+	public SFAssetModule generateAsset(String type) throws SFException{
 		SFDataset dataset=SFDataCenter.getDataCenter().createDataset(type);
-		if(!(dataset instanceof SFDataAsset<?>))
+		if(!(dataset instanceof SFAssetModule))
 			throw new SFException("SFAssetDecoder : available Dataset Factory could not create an Asset of type "+type);
-		return (SFDataAsset<?>)dataset;
+		return (SFAssetModule)dataset;
 	}
 
-	public SFDataAsset<?> getDecodedAsset() {
+	public SFAssetModule getDecodedAsset() {
 		return decodedAsset;
 	}
 	
