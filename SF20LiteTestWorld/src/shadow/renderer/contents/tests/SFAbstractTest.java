@@ -66,7 +66,7 @@ public abstract class SFAbstractTest {
 	 * Affects the loadLibraryAsDataCenter() method; the library
 	 * will be loaded from the xml file. Setting this to 'true'
 	 * and 'storeData' to false will allow you to edit xml
-	 * files in order to see tha changes.
+	 * files in order to see the changes.
 	 * 
 	 * Works only on test using loadLibraryAsDataCenter(), that is
 	 * the ones which build, store and load a complete library
