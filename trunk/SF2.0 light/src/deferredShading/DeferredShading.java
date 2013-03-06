@@ -32,32 +32,28 @@ import shadow.utils.SFTutorialsUtilities;
 
 
 public class DeferredShading {
-
-	public static SFProgram First(SFPrimitive primitive){
-		try {SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());} 
-		catch (IOException e) {e.printStackTrace();} 
-		catch (SFPipelineModuleWrongException e) {e.printStackTrace();}
-		
-		SFProgram program=SFPipeline.getStaticProgram(primitive,"BasicPNTransform", "ColorDFMat", "FirstStepDF");
-		return program;
-	}
 	
-	public static SFProgram Second(){
-		try {SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());} 
-		catch (IOException e) {e.printStackTrace();} 
-		catch (SFPipelineModuleWrongException e) {e.printStackTrace();}
+	public static void firstPass(/*SFProgram program, ArrayList<SFGeometry> geometries,*/ SFPipelineTexture texture0,SFPipelineTexture texture1,SFPipelineTexture texture2,SFPipelineTexture texture3){
 		
-		SFProgram program=SFPipeline.getStaticImageProgram("MoreTexturedMat", "SecondStepDF");
-		return program;
-	}
-	
-	public static void firstPass(SFProgram program, ArrayList<SFGeometry> geometries, SFPipelineTexture texture0,SFPipelineTexture texture1,SFPipelineTexture texture2,SFPipelineTexture texture3){
-		
+		ArrayList<SFGeometry> geometries;
+	    
 		float[] projection= ProjectionMatrix.getRotationX(0);
 		float[] transform= TransformMatrix.getRotationX(0);
 		
 		SFStructureArray materialData;
 		SFStructureReference materialReference;
+		
+		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
+		
+		ShadowObjLoader shadowObjLoader=new ShadowObjLoader();
+		geometries=shadowObjLoader.extractGeometries(file);
+		System.err.println("Number of geometries is "+geometries.size());
+		
+		try {SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());} 
+		catch (IOException e) {e.printStackTrace();} 
+		catch (SFPipelineModuleWrongException e) {e.printStackTrace();}
+		
+		SFProgram program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"BasicPNTransform", "ColorDFMat", "FirstStepDF");
 		
 		
 		materialData=SFTutorialsUtilities.generateMaterialData("ColorDFMat",0);
@@ -92,7 +88,12 @@ public class DeferredShading {
 	public static void secondPass(SFPipelineTexture texture0,SFPipelineTexture texture1,SFPipelineTexture texture2,SFPipelineTexture texture3){
 		SFStructureArray lightData;
 		SFStructureReference lightReference;
-		SFProgram finalprogram= Second();
+		
+		try {SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());} 
+		catch (IOException e) {e.printStackTrace();} 
+		catch (SFPipelineModuleWrongException e) {e.printStackTrace();}
+		
+		SFProgram finalprogram=SFPipeline.getStaticImageProgram("MoreTexturedMat", "SecondStepDF");
 		
 		lightData=SFTutorialsUtilities.generateLightData(finalprogram, 0);
 		SFVertex3f[] lightData1={new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)};

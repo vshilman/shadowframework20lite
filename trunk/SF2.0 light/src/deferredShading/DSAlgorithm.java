@@ -1,21 +1,7 @@
 package deferredShading;
 
 /*
- * Deferred Shading: algoritmo a 2 passi
- * 
- * 1. salvataggio texture
- * (nell'init carico programma con materiali e mondo 3d e salvo in texture)
- * 1a. diffcolor
- * 1b. speccolor
- * 1c. position
- * 1d. normal
- * 
- * 2. utilizzo texture per computo illumminazione
- * (nel render c'è il secondo passo, leggo le texture e le informazioni della luce)
- * 
- * problemi:
- * 1. la projection non funziona
- * 2. viene salvata solo la texture con apply(0)
+ * todo. possibilità di scelta di modello geometrico, colori materiali, luci
  */
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -48,9 +34,6 @@ import shadow.utils.SFTutorialsUtilities;
 import deferredShading.DeferredShading;
 
 public class DSAlgorithm extends SFTutorial{
-
-	private static ArrayList<SFGeometry> geometries;
-    private static SFProgram program;
 	
 	private  SFPipelineTexture texture0; 
 	private  SFPipelineTexture texture1;
@@ -60,17 +43,7 @@ public class DSAlgorithm extends SFTutorial{
 	public static void main(String[] args) {
 
 		SFGL20Pipeline.setup();
-
 		DSAlgorithm example=new DSAlgorithm();
-		
-		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
-		
-		ShadowObjLoader shadowObjLoader=new ShadowObjLoader();
-		geometries=shadowObjLoader.extractGeometries(file);
-		System.err.println("Number of geometries is "+geometries.size());
-		
-		DSAlgorithm.program= DeferredShading.First(shadowObjLoader.getPrimitive());
-		
 		example.prepareFrame("Deferred Shading", 600, 600);
 	}
 	
@@ -83,7 +56,7 @@ public class DSAlgorithm extends SFTutorial{
 		texture3 = DeferredShading.textureSetUp();
 		
 		
-		DeferredShading.firstPass(program,geometries,texture0,texture1,texture2,texture3);
+		DeferredShading.firstPass(texture0,texture1,texture2,texture3);
 		
 	}
 	
