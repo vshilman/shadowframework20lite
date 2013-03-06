@@ -1,5 +1,6 @@
 package shadow.renderer.data.java;
 
+import shadow.renderer.data.SFAssetModule;
 import shadow.renderer.data.SFDataAsset;
 import shadow.renderer.data.SFDataAssetList;
 import shadow.renderer.data.SFDataAssetObject;
@@ -38,7 +39,7 @@ public class SFJavaDataExporter {
 		dataExporter.endListEvaluation(name);
 	}
 
-	public void manageAsset(String name, SFDataAsset<?> asset) {
+	public void manageAsset(String name, SFAssetModule asset) {
 		String type=asset.getType();
 		dataExporter.startAssetEvaluation(type,name);
 		manageDataObject(asset.getSFDataObject());
@@ -49,13 +50,13 @@ public class SFJavaDataExporter {
 		this.dataExporter.startListEvaluation(LIBRARY);
 		for (RecordData recordData : library) {
 			String name=recordData.getName();
-			SFDataAsset<?> asset=(SFDataAsset<?>)(recordData.getDataset());
+			SFAssetModule asset=(SFAssetModule)(recordData.getDataset());
 			manageAsset(name, asset);
 		}
 		this.dataExporter.endListEvaluation(LIBRARY);
 	}
 	
-	public void writeAsset(SFDataAsset<?> asset){
+	public void writeAsset(SFAssetModule asset){
 		manageAsset(NOSTRING, asset);
 	}
 
