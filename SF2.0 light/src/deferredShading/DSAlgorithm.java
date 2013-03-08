@@ -33,33 +33,37 @@ import shadow.utils.SFTutorialsUtilities;
 
 public class DSAlgorithm {
 	
-	public static void firstPass(SFPipelineTexture texture0,SFPipelineTexture texture1,SFPipelineTexture texture2,SFPipelineTexture texture3){
+	public static void firstPass(String obj,SFVertex3f diffColor,SFVertex3f ambColor,SFVertex3f specColor,SFPipelineTexture texture0,SFPipelineTexture texture1,SFPipelineTexture texture2,SFPipelineTexture texture3){
 		
 		ArrayList<SFGeometry> geometries;
 	    
+		//matrici per la trasformazione di coordinate
 		float[] projection= ProjectionMatrix.getRotationX(0);
 		float[] transform= TransformMatrix.getRotationX(0);
 		
 		SFStructureArray materialData;
 		SFStructureReference materialReference;
 		
-		SimpleObjFile file=SimpleObjFile.getFromFile("models/vagone.obj");
+		//carico l'oggetto
+		SimpleObjFile file=SimpleObjFile.getFromFile(obj);
 		
 		ShadowObjLoader shadowObjLoader=new ShadowObjLoader();
 		geometries=shadowObjLoader.extractGeometries(file);
 		System.err.println("Number of geometries is "+geometries.size());
 		
+		//scelgo i programmi da caricare nella pipeline
 		try {SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());} 
 		catch (IOException e) {e.printStackTrace();} 
 		catch (SFPipelineModuleWrongException e) {e.printStackTrace();}
 		
 		SFProgram program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"BasicPNTransform", "ColorDFMat", "FirstStepDF");
 		
-		
+		//creo la struttura dati relativa alle componenti del colore
 		materialData=SFTutorialsUtilities.generateMaterialData("ColorDFMat",0);
-		SFVertex3f[] materialData1={new SFVertex3f(1,0,0), new SFVertex3f(1,0,0), new SFVertex3f(1,1,0)};
+		SFVertex3f[] materialData1={diffColor,ambColor,specColor};
 		materialReference=SFTutorialsUtilities.generateStructureDataReference(program, materialData, materialData1);
 		
+		//creo le texture in cui salverò successivamente i dati
 		SFRenderedTexture renderedTexture=new SFRenderedTexture();
 		renderedTexture.addColorData(texture0); //diffColor e ambColor
 		renderedTexture.addColorData(texture1); //specColor
@@ -68,6 +72,7 @@ public class DSAlgorithm {
 		
 		SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);			
 		
+			//carico i programmi nella pipeline di rendering
 			SFPipeline.getSfPipelineGraphics().setupProjection(projection);
 			SFPipeline.getSfPipelineGraphics().setupTransform(transform);
 			SFPipeline.getSfProgramBuilder().loadProgram(program);
@@ -76,8 +81,7 @@ public class DSAlgorithm {
 			if(materialData!=null)
 				SFPipeline.getSfPipelineGraphics().loadStructureData(Module.MATERIAL, materialData,0, materialReference.getIndex());
 			
-		
-			
+			//disegno il mondo 3D
 			for (int i = 0; i < geometries.size(); i++) {
 				geometries.get(i).drawGeometry(0);
 			}
@@ -85,21 +89,24 @@ public class DSAlgorithm {
 		SFPipeline.getSfTexturePipeline().endRenderedTexture(renderedTexture);
 	}
 	
-	public static void secondPass(SFPipelineTexture texture0,SFPipelineTexture texture1,SFPipelineTexture texture2,SFPipelineTexture texture3){
+	public static void secondPass(SFVertex3f intensity, SFVertex3f lPosition,SFPipelineTexture texture0,SFPipelineTexture texture1,SFPipelineTexture texture2,SFPipelineTexture texture3){
+		
 		SFStructureArray lightData;
 		SFStructureReference lightReference;
 		
+		//scelgo i nuovi programmi da caricare nella pipeline per il secondo passo
 		try {SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());} 
 		catch (IOException e) {e.printStackTrace();} 
 		catch (SFPipelineModuleWrongException e) {e.printStackTrace();}
 		
 		SFProgram finalprogram=SFPipeline.getStaticImageProgram("MoreTexturedMat", "SecondStepDF");
 		
+		//creo la struttura dati per le informazioni della luce
 		lightData=SFTutorialsUtilities.generateLightData(finalprogram, 0);
-		SFVertex3f[] lightData1={new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)};
+		SFVertex3f[] lightData1={intensity,lPosition /*new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)*/};
 		lightReference=SFTutorialsUtilities.generateStructureDataReference(finalprogram,lightData, lightData1);
 		
-		
+		//carico il programma nella pipeline e recupero i dati dalle texture
 		SFPipeline.getSfProgramBuilder().loadProgram(finalprogram);
 		
 		SFPipeline.getSfPipelineGraphics().loadTexture(Module.MATERIAL, texture0, 0);
@@ -111,9 +118,11 @@ public class DSAlgorithm {
 		if(lightData!=null)
 			SFPipeline.getSfPipelineGraphics().loadStructureData(Module.LIGHT, lightData,0, lightReference.getIndex());
 		
+		//disegno la scena finale
 		SFPipeline.getSfPipelineGraphics().drawBaseQuad();
 	}
 	
+	//setting delle texture
 	public static SFPipelineTexture textureSetUp(){
 		SFPipelineTexture texture=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
 				WrapMode.REPEAT, WrapMode.REPEAT); 
