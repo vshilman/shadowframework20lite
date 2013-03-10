@@ -2,7 +2,6 @@ package shadow.pipeline.openGL20.images;
 
 import java.util.Iterator;
 
-import javax.media.opengl.DebugGL2;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
@@ -62,7 +61,7 @@ public class SFGL20RenderedTexture{
 			gl.glFramebufferTexture2D(GL.GL_FRAMEBUFFER,
 					GL2.GL_COLOR_ATTACHMENT0+index,
 					GL2.GL_TEXTURE_2D,texture_object,0);
-			((SFGL20ImageObject)colorBuffer).build();
+			//((SFGL20ImageObject)colorBuffer).build();
 			index++;
 		}
 
@@ -83,12 +82,15 @@ public class SFGL20RenderedTexture{
 //			gl.glBindFramebuffer(GL.GL_FRAMEBUFFER,fbo);
 //			gl.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL2.GL_DEPTH_ATTACHMENT,
 //                   GL. GL_RENDERBUFFER, textureObject);
-		}
-
-		if(stencilData!=null){
 			int textureObject=((SFGL20RenderBuffer)stencilData).renderBuffer;
 			gl.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL.GL_STENCIL_ATTACHMENT,
                    GL. GL_RENDERBUFFER, textureObject);
+		}
+
+		if(stencilData!=null){
+//			int textureObject=((SFGL20RenderBuffer)stencilData).renderBuffer;
+//			gl.glFramebufferRenderbuffer(GL.GL_FRAMEBUFFER, GL.GL_STENCIL_ATTACHMENT,
+//                   GL. GL_RENDERBUFFER, textureObject);
 		}
 		
 		gl.glDisable(GL.GL_TEXTURE_2D);

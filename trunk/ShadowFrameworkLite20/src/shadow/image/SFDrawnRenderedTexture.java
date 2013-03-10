@@ -35,7 +35,7 @@ public class SFDrawnRenderedTexture implements SFRenderedTexturesSet{
 			return;
 		
 		if(!initialized){
-			
+
 			for (int i = 0; i < textures.length; i++) {
 				if(i!=depthBuffer && i!=stencilBuffer){
 					SFPipelineTexture data=textures[i];
@@ -68,44 +68,51 @@ public class SFDrawnRenderedTexture implements SFRenderedTexturesSet{
 					generatePlainBuffer(data.getWidth(), data.getHeight());
 				renderedTexture.setStencilBuffer(bufferData);
 			}
+			initialized=true;
 			
-			SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);
-
-				float[] matrix=renderer.getCamera().extractTransform();
-				SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
-				renderer.render(node);
-			
-				renderer.getCamera().getF().set3f(-2.0f, 0, 0);
-				matrix=renderer.getCamera().extractTransform();
-				SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
-				renderer.render(node);
-			
-				renderer.getCamera().getF().set3f(+2.0f, 0, 0);
-				matrix=renderer.getCamera().extractTransform();
-				SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
-				renderer.render(node);
-			
-				renderer.getCamera().getF().set3f(0, +2.0f, 0);
-				matrix=renderer.getCamera().extractTransform();
-				SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
-				renderer.render(node);
-			
-				renderer.getCamera().getF().set3f(0, -2.0f, 0);
-				matrix=renderer.getCamera().extractTransform();
-				SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
-				renderer.render(node);
-				
-			SFPipeline.getSfTexturePipeline().endRenderedTexture(renderedTexture);
-			
-			SFPipeline.getSfTexturePipeline().destroyRenderedTexture(renderedTexture);
+			update();
 		}
-		initialized=true;
 	}
 	
 	@Override
 	public void update() {
-		
-		
+		if(initialized){
+			try {
+				SFPipeline.getSfTexturePipeline().beginNewRenderedTexture(renderedTexture);
+
+					renderer.getCamera().getF().set3f(0.0f, 0, 0);
+					float[] matrix=renderer.getCamera().extractTransform();
+					SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
+					renderer.render(node);
+				
+					renderer.getCamera().getF().set3f(-2.0f, 0, 0);
+					matrix=renderer.getCamera().extractTransform();
+					SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
+					renderer.render(node);
+				
+					renderer.getCamera().getF().set3f(+2.0f, 0, 0);
+					matrix=renderer.getCamera().extractTransform();
+					SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
+					renderer.render(node);
+				
+					renderer.getCamera().getF().set3f(0, +2.0f, 0);
+					matrix=renderer.getCamera().extractTransform();
+					SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
+					renderer.render(node);
+				
+					renderer.getCamera().getF().set3f(0, -2.0f, 0);
+					matrix=renderer.getCamera().extractTransform();
+					SFPipeline.getSfPipelineGraphics().setupProjection(matrix);
+					renderer.render(node);
+					
+				SFPipeline.getSfTexturePipeline().endRenderedTexture(renderedTexture);
+				
+				SFPipeline.getSfTexturePipeline().destroyRenderedTexture(renderedTexture);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	@Override
