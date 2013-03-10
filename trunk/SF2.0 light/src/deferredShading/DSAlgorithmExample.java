@@ -21,7 +21,7 @@ public class DSAlgorithmExample extends SFTutorial{
 	SFVertex3f specColor= new SFVertex3f(1,1,0);
 	
 	SFVertex3f intensity = new SFVertex3f(1, 1, 1);
-	SFVertex3f lPosition = new SFVertex3f(1, 1, -1);
+	SFVertex3f lPosition = new SFVertex3f(1, -1, -1);
 	
 	private  SFPipelineTexture texture0; 
 	private  SFPipelineTexture texture1;

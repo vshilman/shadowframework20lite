@@ -34,6 +34,13 @@
 @texture texture2
 @end Structure 
 
+@begin Structure TextureFour
+@texture texture0
+@texture texture1
+@texture texture2
+@texture texture3
+@end Structure
+
 @begin Structure Texture2
 @texture texture
 @texture bumpmap
