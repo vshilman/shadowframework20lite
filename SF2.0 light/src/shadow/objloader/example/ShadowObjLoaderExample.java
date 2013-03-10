@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import CoordinatesTrasformations.ProjectionMatrix;
+import CoordinatesTrasformations.TransformMatrix;
+
 import objLoader.SimpleObjFile;
 import shadow.geometry.SFGeometry;
 import shadow.math.SFVertex3f;
@@ -31,65 +34,12 @@ public class ShadowObjLoaderExample extends SFTutorial{
 	private static ArrayList<SFGeometry> geometries;
 	private static SFProgram program;
 	
-	static float xL= -1;
-	static float yL= 1;
+	static float xL= 1;
+	static float yL= -1;
 	static float zL= -1;
 	
-	/*
-	 * calcolo matrice di proiezione per vedere mondo da punto di vista della luce
-	 * 1. calcolo di 3 matrici differenti
-	 * 		a.rescale: per posizionarmi alla stassa distanza che ha la luce
-	 * 		b.firstRotation: ruoto intorno a Y per posizionarmi in asse con luce
-	 * 		c.secondRotation: ruoto intorno al nuovo asseX, che è il vettore D=(cosA,sinA,0)
-	 * 							per questa operazione ho bisogno di una matrice ausiliaria chiamata C
-	 * 
-	 * 2. calcolo della projection della luce come prodotto delle tre matrici precedenti
-	 */
-	static float scale = (float)(Math.sqrt(xL*xL+yL*yL+zL*zL));
-	private float[] rescale ={scale,0,0,0,  //rotazione lungo Y
-							0,scale,0,0,	
-							0,0,scale,0,
-							0,0,0,1};
-	
-	static double alpha= Math.atan(zL/xL); // ègià in radianti
-	float cosA=(float)(Math.cos(alpha));
-	float sinA=(float)(Math.sin(alpha));
-	
-	private float[] firstRotation ={cosA,0,sinA,0,  //rotazione lungo Y
-									0,1,0,0,	
-									-sinA,0,cosA,0,
-									0,0,0,1};
-	
-	static double beta= Math.atan(yL/xL);
-	float cosB=(float)(Math.cos(beta));
-	float sinB=(float)(Math.sin(beta));
-	
-	private float[] C={0,0,sinA,
-					0,0,-sinA,
-					-sinA,cosA,0};
-	private float[] I={1,0,0,
-					0,1,0,
-					0,0,1};
-	
-	private float[] temp= I; //+ sinB*C + (1-cosB)C^2; da usare shadow.math.SFmatrix3F
-	
-	private float[] secondRotation= {temp[0], temp[1], temp[2], 0, //tranformata in una 4x4
-									temp[3], temp[4], temp[5], 0,
-									temp[6], temp[7], temp[8], 0,
-									0,0,0,1				};
-	
-	
-	//private float[] projectionL --> rotazione du D * rotazione su Y * scaling
-	
-	private float[]   transform={0.6f,0,0,0,  
-			0,0.6f,0,0,	
-			0,0,0,-1,
-			0,0,1,0};
-		
-	private float[] projection={1,0,0,0,  //ruoto tutto il mondo
-			0,1,0,0,	
-			0,0,1,0,
-			0,0,0,1};
+	private float[] projection= ProjectionMatrix.identity();// gira la camera
+	private float[] transform= TransformMatrix.identity(); //gira l'oggetto e basta
 	
 	private static SFStructureArray materialData;
 	private static SFStructureReference materialReference;
@@ -113,7 +63,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		try {
 			SFProgramComponentLoader.loadComponents(new File("data/pipeline"),new SFPipelineBuilder());
 
-			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"BasicPNTransform", "BasicMat",/*"BasicLSPN"*/"SpecularColor");
+			ShadowObjLoaderExample.program=SFPipeline.getStaticProgram(shadowObjLoader.getPrimitive(),"BasicPNTransform", "BasicMat","BasicLSPN"/*"SpecularColor"*/);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SFPipelineModuleWrongException e) {
@@ -132,7 +82,7 @@ public class ShadowObjLoaderExample extends SFTutorial{
 		
 		
 		
-		tut03Bitmap.prepareFrame("Rendered Texture", 600, 600);
+		tut03Bitmap.prepareFrame("Riferimento", 600, 600);
 	}
 	
 	@Override

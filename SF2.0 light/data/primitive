@@ -99,11 +99,6 @@
 @write color1 position.x
 @end
 
-@begin MaterialComponent ZPosition
-@use position
-@write color position.x
-@end
-
 @begin MaterialComponent Position
 @use position
 @write color position
@@ -119,16 +114,6 @@
 @write color diffColor
 @end
 
-@begin MaterialComponent ColorDFMat
-@param diffColor,ambColor,specColor as Mat02
-@use position
-@use normal
-@write color (diffColor+ambColor)/2
-@write color1 specColor
-@write color2 position
-@write color3 normal
-@end
-
 @begin MaterialComponent BasicMat
 @use normal
 @param diffColor as Mat01
@@ -142,18 +127,6 @@
 @use texCoord0
 @write color sample(texture0,texCoord0)
 @write matnormal normal
-@end
-
-@begin MaterialComponent MoreTexturedMat
-@param texture0 as Texture
-@param texture1 as Texture
-@param texture2 as Texture
-@param texture3 as Texture
-@use texCoord0
-@write color4 sample(texture0,texCoord0)
-@write color5 sample(texture1,texCoord0)
-@write color6 sample(texture2,texCoord0)
-@write color7 sample(texture3,texCoord0)
 @end
 
 @begin MaterialComponent MoreTexturedTwo
@@ -273,31 +246,6 @@
 @write fColor1 matnormal
 @end
 
-@begin LightStepComponent FirstStepDF
-@use color
-@use color1
-@use color2
-@use color3
-@write fColor0 color
-@write fColor1 color1
-@write fColor2 color2
-@write fColor3 color3
-@end
-
-@begin LightStepComponent SecondStepDF
-@param intensity,lPosition as PLight01
-@use color4 //diff
-@use color5 //spec
-@use color6 //Position
-@use color7 //normal
-@define tmp1:3 normalize(lPosition-color6)
-@define tmp3:3 dot(normalize(color7),tmp1)
-@define hv:3 normalize(tmp3+(0,0,1))
-@define tmp6:3 dot(normalize(color7),hv)
-@define tmp7:3 tmp6*tmp6*tmp6
-@write fColor color4*intensity*tmp3+color5*intensity*tmp7
-@end
-
 @begin LightStepComponent SecondStepTestNoLights
 @param intensity,lPosition as PLight01
 @use color4
@@ -335,7 +283,7 @@
 @use color
 @define tmp1:3 normalize(lPosition-position)
 @define tmp3:3 dot(normalize(matnormal),tmp1) 
-@write fColor color*intensity*tmp3
+@write fColor tmp1 // color*intensity*tmp3
 @end
 
 @begin LightStepComponent SpecularColor
@@ -450,5 +398,89 @@
 
 @begin LightStepComponent DrawData
 @use color 
+@write fColor color
+@end
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// deferred shading
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@begin MaterialComponent ColorDFMat
+@param diffColor,ambColor,specColor as Mat02
+@use position
+@use normal
+@write color (diffColor+ambColor)/2
+@write color1 specColor
+@write color2 position
+@write color3 normal
+@end
+
+@begin LightStepComponent FirstStepDF
+@use color
+@use color1
+@use color2
+@use color3
+@write fColor0 color
+@write fColor1 color1
+@write fColor2 color2
+@write fColor3 color3
+@end
+
+@begin MaterialComponent MoreTexturedMat
+@param texture0,texture1,texture2,texture3 as TextureFour
+@use texCoord0
+@write color sample(texture0,texCoord0)
+@write color1 sample(texture1,texCoord0)
+@write color2 sample(texture2,texCoord0)
+@write color3 sample(texture3,texCoord0)
+@end
+
+@begin LightStepComponent SecondStepDF
+@param intensity,lPosition as PLight01
+@use color //4diff
+@use color1 //spec
+@use color2 //Position
+@use color3 //7normal
+@define tmp1:3 normalize(lPosition-color2)
+@define tmp3:3 (dot(normalize(color3),tmp1))
+@define hv:3 normalize(tmp3+(0,0,1))
+@define tmp5:3 dot(normalize(color3),hv)
+@define tmp6:3 tmp5/hv
+@define tmp7:3 tmp6*tmp6*tmp6
+@write fColor  tmp1
+@end
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%
+// shadow map
+// %%%%%%%%%%%%%%%%%%%%%%%%%
+
+@begin MaterialComponent ZPosition
+@use position
+@write color position.x
+@end
+
+@begin LightStepComponent Lightmap
+@use color
+@write fColor0 color
+@end
+
+@begin MaterialComponent InfoMat
+@param texture0 as Texture
+//@param diffColor as Mat01
+@use texCoord0
+@use normal
+@write matnormal normal
+//@write color diffColor
+@write color sample(texture0,texCoord0)
+@end
+
+@begin LightStepComponent ShadowWorld
+@param intensity,lPosition as PLight01
+//@use matnormal 
+//@use position
+@use color
+//@use color1
+//@define tmp1:3 normalize(lPosition-position)
+//@define tmp3:3 dot(normalize(matnormal),tmp1) 
 @write fColor color
 @end
