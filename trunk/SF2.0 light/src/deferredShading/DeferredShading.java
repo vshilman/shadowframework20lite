@@ -26,34 +26,21 @@ import shadow.pipeline.openGL20.SFGL20Pipeline;
 import shadow.renderer.SFStructureReference;
 import shadow.utils.SFTutorial;
 import shadow.utils.SFTutorialsUtilities;
-import deferredShading.DSAlgorithm;
 
 public class DeferredShading extends SFTutorial{
+
 	
-	/*
-	 * setup:
-	 * carica oggetto da visualizzare, le componenti del colore, le caratteristiche della luce
-	 * crea le texture necessarie all'algoritmo 
-	 */
-	
-	public DeferredShading(String obj,SFVertex3f diffcolor,SFVertex3f ambcolor,SFVertex3f speccolor,SFVertex3f intensity,SFVertex3f lPosition){
+	public DeferredShading(String obj,SFVertex3f[] colors,SFVertex3f[] light){
 	this.obj=obj;
-	this.diffColor=diffcolor;
-	this.ambColor=ambcolor;
-	this.specColor=speccolor;
-	this.intensity=intensity;
-	this.lPosition=lPosition;
+	this.colors=colors;
+	this.light=light;
 	
 	}
 	
-	private static String obj;// = "models/vagone.obj";
+	private static String obj;
 	
-	private static SFVertex3f diffColor;// = new SFVertex3f(1,0,0);
-	private static SFVertex3f ambColor;// = new SFVertex3f(1,0,0);
-	private static SFVertex3f specColor;//= new SFVertex3f(1,1,0);
-	
-	private static SFVertex3f intensity ;//= new SFVertex3f(1, 1, 1);
-	private static SFVertex3f lPosition ;//= new SFVertex3f(1, -1, -1);
+	private static SFVertex3f[] colors;
+	private static SFVertex3f[] light;
 	
 	private  SFPipelineTexture texture0; 
 	private  SFPipelineTexture texture1;
@@ -124,7 +111,7 @@ public class DeferredShading extends SFTutorial{
 		
 		//creo la struttura dati relativa alle componenti del colore
 		materialData=SFTutorialsUtilities.generateMaterialData("ColorDFMat",0);
-		SFVertex3f[] materialData1={diffColor,ambColor,specColor};
+		SFVertex3f[] materialData1={colors[0],colors[1],colors[2]};
 		materialReference=SFTutorialsUtilities.generateStructureDataReference(program, materialData, materialData1);
 		
 		//creo le texture in cui salverò successivamente i dati
@@ -167,7 +154,7 @@ public class DeferredShading extends SFTutorial{
 		
 		//creo la struttura dati per le informazioni della luce
 		lightData=SFTutorialsUtilities.generateLightData(finalprogram, 0);
-		SFVertex3f[] lightData1={intensity,lPosition /*new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)*/};
+		SFVertex3f[] lightData1={light[0],light[1] /*new SFVertex3f(1, 1, 1),new SFVertex3f(1, 1, -1)*/};
 		lightReference=SFTutorialsUtilities.generateStructureDataReference(finalprogram,lightData, lightData1);
 		
 		//carico il programma nella pipeline e recupero i dati dalle texture
@@ -187,9 +174,30 @@ public class DeferredShading extends SFTutorial{
 	}
 	
 	//setting delle texture
-		public static SFPipelineTexture textureSetUp(){
-			SFPipelineTexture texture=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
-					WrapMode.REPEAT, WrapMode.REPEAT); 
-			return texture;
-		}
+	public static SFPipelineTexture textureSetUp(){
+		SFPipelineTexture texture=SFPipeline.getSfTexturePipeline().getRenderedTextureFactory().generateTextureBuffer(600, 600, SFImageFormat.RGB8,  Filter.LINEAR,
+				WrapMode.REPEAT, WrapMode.REPEAT); 
+		return texture;
+	}
+		
+	//carico informazioni sulle componenti di colore	
+	public static SFVertex3f[] setupColor(int cdR,int cdG,int cdB,int caR,int caG,int caB,int csR,int csG,int csB){
+			SFVertex3f diffColor = new SFVertex3f(cdR,cdG,cdB);
+			SFVertex3f ambColor = new SFVertex3f(caR,caG,caB);
+			SFVertex3f specColor= new SFVertex3f(csR,csG,csB);
+			
+			SFVertex3f[] colors={diffColor,ambColor,specColor};
+			return colors;
+
+	}
+	
+	//carico informazioni sulla luce
+	public static SFVertex3f[] setupLight(int iR,int iG,int iB,int xL,int yL,int zL){
+			SFVertex3f intensity = new SFVertex3f(iR, iG, iB);
+			SFVertex3f lPosition = new SFVertex3f(xL, yL, zL);
+			
+			SFVertex3f[] light={intensity,lPosition};
+			return light;
+
+	}
 }
