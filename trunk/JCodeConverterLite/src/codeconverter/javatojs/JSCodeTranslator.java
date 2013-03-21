@@ -204,6 +204,8 @@ public class JSCodeTranslator implements CodeTranslator{
 		if(module instanceof CodeLine){
 			CodePattern piece=relatedPatterns.get(module);
 			if(piece!=null){
+
+
 				if(piece.getPatternType().contains(PatternType.SUPER))
 					return;
 				writer.write("\t\t"+piece+";\n");	

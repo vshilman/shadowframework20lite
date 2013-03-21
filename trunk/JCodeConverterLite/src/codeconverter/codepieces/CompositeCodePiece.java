@@ -43,19 +43,8 @@ public class CompositeCodePiece extends ICodePiece{
 	}
 	
 	@Override
-	protected String writeSonsPieces() {
-		/*FIXME: this code should be merged some-how with the almost identical
-		 * code from ICodePiece; i see the only difference is a " " added in the for 
-		 * cycle
-		 */
-		String data = "";
-		if (pieces.size() > 0) {
-			data += pieces.get(0).toString();
-			for (int i = 1; i < pieces.size(); i++) {
-				data += " " + pieces.get(i).toString();
-			}
-		}
-		return data;
+	protected String writeSonsPieces(String div) {
+		return super.writeSonsPieces(" ");
 	}
 	
 }

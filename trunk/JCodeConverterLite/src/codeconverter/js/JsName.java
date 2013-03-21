@@ -1,14 +1,11 @@
 package codeconverter.js;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import codeconverter.PieceType;
 import codeconverter.codepieces.BestAlternativeCode;
 import codeconverter.codepieces.CompositeCodePiece;
+import codeconverter.codepieces.ConcreteValue;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
-import codeconverter.codepieces.Value;
 import codeconverter.js.webgl.WebGlMethodEvaluation;
 
 public class JsName extends CompositeCodePiece{
@@ -62,13 +59,29 @@ public class JsName extends CompositeCodePiece{
 	}
 
 	
-	private static class JsNamePart extends Value{
+	private static class JsNamePart extends ConcreteValue{
 	
-		private static ArrayList<CharInterval> startingIntervals=new ArrayList<Value.CharInterval>();
-		private static ArrayList<CharInterval> allIntervals=new ArrayList<Value.CharInterval>();
-		private static ArrayList<CharInterval> endingIntervals=new ArrayList<Value.CharInterval>();
 		
 		static{
+			
+		}
+	
+		public JsNamePart(PieceType piecetype) {
+			super();
+			setIntervals();
+			setPieceType(piecetype);
+		}
+		
+		public JsNamePart() {
+			super();
+			setIntervals();
+			setPieceType(PieceType.NAME);
+		}
+
+		@Override
+		public void setIntervals() {
+			startingIntervals.clear();
+			allIntervals.clear();
 			startingIntervals.add(new CharInterval('a','z'));
 			startingIntervals.add(new CharInterval('A','Z'));
 			startingIntervals.add(new CharInterval('"','"'));
@@ -81,28 +94,7 @@ public class JsName extends CompositeCodePiece{
 			//allIntervals.add(new CharInterval('[',']'));
 			allIntervals.add(new CharInterval('"','"'));
 			allIntervals.add(new CharInterval('\'','\''));
-		}
-	
-		public JsNamePart(PieceType piecetype) {
-			super();
-			setPieceType(piecetype);
-		}
-		
-		public JsNamePart() {
-			super();
-			setPieceType(PieceType.NAME);
-		}
-	
-		@Override
-		public List<CharInterval> getAvailableIntervals(int position) {
-			if(position==0)
-				return startingIntervals;
-			return allIntervals;
-		}
-		
-		@Override
-		public List<CharInterval> getEndCharacter() {
-			return endingIntervals;
+			
 		}
 
 	}

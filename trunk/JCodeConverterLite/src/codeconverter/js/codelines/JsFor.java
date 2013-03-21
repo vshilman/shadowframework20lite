@@ -16,7 +16,6 @@ import codeconverter.js.JsVariable;
 public class JsFor  extends CodePattern{
 
 	public JsFor() {
-		
 		CompositeCodePiece initialization=new CompositeCodePiece(
 				new AlternativeCode(true,new JsVariable(), new JsName(PieceType.NAME)),
 				new UniqueKeyword("="),new JsAlgebraicExpression());

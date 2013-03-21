@@ -7,6 +7,7 @@ import codeconverter.codepieces.KeywordSet;
 import codeconverter.codepieces.Number;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
+import codeconverter.java.JavaVariable;
 import junit.framework.TestCase;
 
 public class TestCodePiece001JUnit extends TestCase {

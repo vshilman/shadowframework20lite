@@ -2,9 +2,6 @@ package tests_junit.java;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import org.junit.Test;
 
@@ -18,12 +15,15 @@ public class Debug002JUnit {
 		JavaFor attributePattern=new JavaFor();		
 		String codeLine="for (i = 0;i < data.length;i++)";		
 		CodePattern pattern=attributePattern.match(codeLine);
+		
 		String s="";
 		if(pattern==null)
 			s+="Failed";
 		else
 			s+="Success";
 		
+		
+		assertEquals("Success", s);
 		
 		//TODO non esiste il pattern per "for (String c: ciao)"
 		

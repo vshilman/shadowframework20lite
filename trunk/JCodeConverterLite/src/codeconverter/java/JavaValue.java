@@ -1,18 +1,25 @@
 package codeconverter.java;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import codeconverter.PieceType;
-import codeconverter.codepieces.Value;
+import codeconverter.codepieces.ConcreteValue;
 
-public class JavaValue extends Value{
+public class JavaValue extends ConcreteValue{
 
-	private static ArrayList<CharInterval> startingIntervals=new ArrayList<Value.CharInterval>();
-	private static ArrayList<CharInterval> allIntervals=new ArrayList<Value.CharInterval>();
-	private static ArrayList<CharInterval> endingIntervals=new ArrayList<Value.CharInterval>();
+	public JavaValue(PieceType piecetype) {
+		super();
+		setIntervals();
+		setPieceType(piecetype);
+	}
 	
-	static{
+	public JavaValue() {
+		super();
+		setIntervals();
+	}
+
+	@Override
+	public void setIntervals() {
+		startingIntervals.clear();
+		allIntervals.clear();
 		startingIntervals.add(new CharInterval('a','z'));
 		startingIntervals.add(new CharInterval('A','Z'));
 		startingIntervals.add(new CharInterval('"','"'));
@@ -25,28 +32,10 @@ public class JavaValue extends Value{
 		allIntervals.add(new CharInterval('[',']'));
 		allIntervals.add(new CharInterval('"','"'));
 		allIntervals.add(new CharInterval('\'','\''));
+		
 	}
 
-	public JavaValue(PieceType piecetype) {
-		super();
-		setPieceType(piecetype);
-	}
 	
-	public JavaValue() {
-		super();
-	}
-
-	@Override
-	public List<CharInterval> getAvailableIntervals(int position) {
-		if(position==0)
-			return startingIntervals;
-		return allIntervals;
-	}
-	
-	@Override
-	public List<CharInterval> getEndCharacter() {
-		return endingIntervals;
-	}
 
 
 }
