@@ -1,16 +1,13 @@
 package codeconverter.java;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import codeconverter.PieceType;
 import codeconverter.codepieces.BestAlternativeCode;
 import codeconverter.codepieces.CodeSequence;
 import codeconverter.codepieces.CompositeCodePiece;
+import codeconverter.codepieces.ConcreteValue;
 import codeconverter.codepieces.Name;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
-import codeconverter.codepieces.Value;
 import codeconverter.java.jogl.JoglMethodEvaluation;
 
 public class JavaName extends CompositeCodePiece{
@@ -61,13 +58,24 @@ public class JavaName extends CompositeCodePiece{
 	}
 
 	
-	private static class JavaNamePart extends Value{
+	private static class JavaNamePart extends ConcreteValue{
 	
-		private static ArrayList<CharInterval> startingIntervals=new ArrayList<Value.CharInterval>();
-		private static ArrayList<CharInterval> allIntervals=new ArrayList<Value.CharInterval>();
-		private static ArrayList<CharInterval> endingIntervals=new ArrayList<Value.CharInterval>();
+		public JavaNamePart(PieceType piecetype) {
+			super();
+			setIntervals();
+			setPieceType(piecetype);
+		}
 		
-		static{
+		public JavaNamePart() {
+			super();
+			setIntervals();
+			setPieceType(PieceType.NAME);
+		}
+
+		@Override
+		public void setIntervals() {
+			startingIntervals.clear();
+			allIntervals.clear();
 			startingIntervals.add(new CharInterval('a','z'));
 			startingIntervals.add(new CharInterval('A','Z'));
 			startingIntervals.add(new CharInterval('"','"'));
@@ -79,30 +87,8 @@ public class JavaName extends CompositeCodePiece{
 			allIntervals.add(new CharInterval('_','_'));
 			//allIntervals.add(new CharInterval('[',']'));
 			allIntervals.add(new CharInterval('"','"'));
-			allIntervals.add(new CharInterval('\'','\''));
+			allIntervals.add(new CharInterval('\'','\''));	
 		}
 	
-		public JavaNamePart(PieceType piecetype) {
-			super();
-			setPieceType(piecetype);
-		}
-		
-		public JavaNamePart() {
-			super();
-			setPieceType(PieceType.NAME);
-		}
-	
-		@Override
-		public List<CharInterval> getAvailableIntervals(int position) {
-			if(position==0)
-				return startingIntervals;
-			return allIntervals;
-		}
-		
-		@Override
-		public List<CharInterval> getEndCharacter() {
-			return endingIntervals;
-		}
-
 	}
 }

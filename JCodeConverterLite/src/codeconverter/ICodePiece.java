@@ -60,12 +60,13 @@ public abstract class ICodePiece{
 		return pieces;
 	}
 	
-	protected String writeSonsPieces(){
+	
+	protected String writeSonsPieces(String div){
 		String data="";
 		if(pieces.size()>0) {
 			data+=pieces.get(0).toString();
 			for (int i=1; i < pieces.size(); i++) {
-				data+=pieces.get(i).toString();
+				data+=div+pieces.get(i).toString();
 			}
 		}
 		return data;
@@ -106,7 +107,7 @@ public abstract class ICodePiece{
 
 	@Override
 	public String toString() {
-		return writeSonsPieces();
+		return writeSonsPieces("");
 	}
 
 	/**

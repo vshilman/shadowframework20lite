@@ -1,5 +1,6 @@
 package codeconverter.java;
 
+import java.util.Date;
 import java.util.List;
 
 import codeconverter.BlockDataInterpreter;
@@ -16,11 +17,13 @@ public abstract class GenericCodePatternInterpreter implements BlockDataInterpre
 	@Override
 	public CodePattern getBlockDeclarationPattern(String blockDeclaration) {
 	
+		
 		for (int i=0; i < getPatterns().size(); i++) {
 			CodePattern pattern=getPatterns().get(i);
 			CodePattern matched=pattern.match(blockDeclaration);
 			if(matched!=null){
-				return matched;
+				return matched;	
+				
 			}
 		}
 		//only when a null has been returned from each pattern
