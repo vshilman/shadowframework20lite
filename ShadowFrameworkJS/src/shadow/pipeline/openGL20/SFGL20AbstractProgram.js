@@ -319,7 +319,7 @@ function SFGL20AbstractProgram_getShaderText(program,list,vertex){
 		
 
 		if(vertex){
-			writer+=("\n\tgl_Position=vec4(position,1);");
+			writer+=("\n\tgl_Position=vec4(position);");
 		}
 		
 		for (var prAssocIndex in list) {
