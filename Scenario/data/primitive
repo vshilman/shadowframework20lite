@@ -1,0 +1,315 @@
+
+//SF Pipeline components command lines:
+//define : used to define a new user defined temporary variable. Its scope is its own shader component. Its name 
+//		must not conflict with other parameters and registers in component scope. May be written. May be used
+//		in output (write) formulas 
+//use : indicates the name of an input register used by this component. It is used in output (write) formulas
+//write : indicates the name of an output register or of a temporary defined variable which is written by a 
+//		component and its formula. 
+//param : a user defined parameters which is used in output (write) formulas. 
+//include : a user defined parameters which is used in output (write) formulas. 
+
+@include structure
+
+@begin PrimitiveComponent Triangle2
+@grid A,B,C,D,E,F as Triangle:2:<>
+@rewrite D 2*D-0.5*A-0.5*B
+@rewrite E 2*E-0.5*B-0.5*C
+@rewrite F 2*F-0.5*C-0.5*A
+@use uvw
+@write <> A*w*w+B*u*u+C*v*v+D*2*u*w+E*2*u*v+F*2*v*w
+@end
+
+@begin PrimitiveComponent Quad2
+@grid A,B,C,D,AB,BC,CD,DA,ABCD as Quad:2:<>
+@rewrite AB 2*AB-0.5*A-0.5*B
+@rewrite BC 2*BC-0.5*B-0.5*C
+@rewrite CD 2*CD-0.5*C-0.5*D
+@rewrite DA 2*DA-0.5*D-0.5*A
+@rewrite ABCD 4*ABCD-0.125*(AB+BC+CD+DA)-0.0625*(A+B+C+D)
+@use uv
+@define um:1 1-u
+@define vm:1 1-v
+@write <> vm*vm*um*um*A+2*vm*vm*um*u*AB+vm*vm*u*u*B+2*v*vm*um*um*DA+4*v*vm*um*u*ABCD+2*v*vm*u*u*BC+v*v*um*um*D+2*v*v*um*u*CD+v*v*u*u*C
+@end
+
+
+@begin PrimitiveComponent Triangle
+@grid A,B,C as Triangle:1:<>
+@use uvw
+@write <> A*w+B*u+C*v 
+@end
+
+
+@begin PrimitiveComponent Quad
+@grid A,B,C,D as Quad:1:<>
+@use uv
+@define um:1 1-u
+@define vm:1 1-v
+@write <> vm*um*A+vm*u*B+v*um*D+u*v*C
+@end
+
+@begin PrimitiveComponent Constant
+@grid A as Triangle:0:<>
+@use uvw
+@write <> A
+@end
+
+@begin TransformsComponent BasicP
+@use modelview
+@use projection
+@use P
+@write position projection*modelview*P
+@end
+
+@begin TransformsComponent BasicN
+@use vectorsModelview
+@use N
+@write normal vectorsModelview*N  
+@end
+
+@begin TransformsComponent BasicDuDv
+@use vectorsModelview
+@use du
+@use dv
+@write duVector vectorsModelview*du 
+@write dvVector vectorsModelview*dv
+@end
+
+@begin TransformsComponent BasicTx0
+@use Tx0
+@write texCoord0 Tx0
+@end
+
+@begin MaterialComponent BasicMat
+@use normal
+@param diffColor as Mat01
+@write color diffColor
+@write matnormal normal
+@end
+
+@begin MaterialComponent TexturedMat
+@use normal
+@param texture0 as Texture
+@use texCoord0
+@write color sample(texture0,texCoord0)
+@write matnormal normal
+@end
+
+@begin MaterialComponent BasicTexturedMat
+@use normal
+@param diffColor as Mat01
+@param texture0 as Texture
+@use texCoord0
+@write color sample(texture0,texCoord0)*diffColor
+@write matnormal normal
+@end
+
+@begin MaterialComponent TextCoord
+@param texture0 as Texture
+@use texCoord0
+@write color texCoord0
+@end
+
+@begin LightStepComponent DrawTexture
+@param texture0 as Texture
+@use texCoord0
+@write fColor sample(texture0,texCoord0)
+@end
+
+@begin LightStepComponent DrawTexture2
+@use texture1
+@use texCoord0
+@write fColor sample(texture1,texCoord0)
+@end
+
+@begin LightStepComponent DrawTextCoord
+@use texCoord0
+@write fColor texCoord0
+@end
+
+@begin MaterialComponent WhiteMat
+@use normal
+@write color 1,1,1,1
+@write matnormal normal
+@end
+
+@begin MaterialComponent RedMat
+@use normal
+@write color 1,0,0,1
+@write matnormal normal
+@end
+
+@begin MaterialComponent BlackMat
+@use normal
+@write color 0,0,0,1
+@write matnormal normal
+@end
+
+@begin LightStepComponent BasicLSPN
+@param intensity,lPosition as PLight01
+@use matnormal 
+@use position
+@use color
+@define tmp1:3 normalize(lPosition-position)
+@define tmp3:3 dot(normalize(matnormal),tmp1) 
+@write fColor color*intensity*tmp3
+@end
+
+@begin LightStepComponent DrawNormals
+@use matnormal 
+@write fColor matnormal
+@end
+
+@begin LightStepComponent DrawDus
+@use duVector  
+@write fColor duVector
+@end
+
+@begin LightStepComponent DrawDvs
+@use dvVector  
+@write fColor dvVector
+@end
+
+@begin LightStepComponent VectorsLight
+@use normal 
+@use duVector 
+@use dvVector
+@define tmp1:3 (0,1,1)
+@write fColor dot(duVector,tmp1),dot(dvVector,tmp1),dot(normal,tmp1),1
+@end
+
+@begin LightStepComponent BasicColor
+@use color 
+@write fColor color
+@end
+
+@begin LightStepComponent BasicTest
+@use color 
+@write fColor color
+@end
+
+@begin LightStepComponent BasicYellowColor
+@use color 
+@define yellow:3 (1,1,0)
+@write fColor color*yellow
+@end
+
+@begin LightStepComponent BasicGrayAndBright
+@use color 
+@define bright:3 0.4,0.4,0.4
+@define grayscale:4 0.3,0.5,0.2,0
+@define gray:1 dot(color,grayscale)
+@define gray3:3 gray
+@write fColor0 gray3
+@write fColor1 color+bright
+@end
+
+
+@begin LightStepComponent ReddishGrayAndBright
+@use color 
+@define bright:3 0.4,0.4,0.4
+@define grayscale:4 0.3,0.5,0.2,0
+@define gray:1 dot(color,grayscale)
+@define gray3:3 gray
+@define red1:4 1,0.2,0.2,1
+@write fColor0 red1+color
+@write fColor1 color*red1
+@end
+
+@begin LightStepComponent NormalAndPosition
+@use position
+@use matnormal 
+@write fColor0 matnormal
+@write fColor1 position
+@end
+
+@begin LightStepComponent NormalAndColor
+@use color
+@use matnormal 
+@write fColor0 matnormal
+@write fColor1 color
+@end
+
+@begin LightStepComponent BumpMaps
+@use color
+@use matnormal 
+@use position 
+@define halfValue:3 0.5,0.5,1
+@define sum:3 0.5,0.5,0
+@write fColor0 matnormal*halfValue+sum
+@write fColor1 color
+@write fColor2 (1+position.z)*0.5
+@end
+
+@begin MaterialComponent BumpMappedMat
+@use normal
+@use duVector
+@use dvVector
+@param texture0,texture1 as Texture2
+@use texCoord0
+@define bumpMap:3 sample(texture1,texCoord0) 
+@write color sample(texture0,texCoord0)
+@write matnormal ((1-2*bumpMap.x)*duVector)+((1-2*bumpMap.y)*dvVector)+(bumpMap.z*normal)
+@end
+
+@begin LightStepComponent BasicLSPN2
+@param intensity,lPosition as PLight01
+@use matnormal 
+@use position
+@use color
+@define tmp1:3 normalize(lPosition-position)
+@define tmp3:3 0.4+0.6*(dot(normalize(matnormal),tmp1)) 
+@write fColor color*intensity*tmp3
+//@write fColor color
+@end
+
+@begin MaterialComponent ImprovedBumpMappedMat
+@param intensity,lPosition as PLight01
+@use position
+@use normal
+@use duVector
+@use dvVector
+@param texture0,texture1 as Texture2
+@use texCoord0
+@define lightDistance:3 lPosition-position
+@define improveFactorCosine:1 (dot(normal,lightDistance)/(sqrt(dot(lightDistance,lightDistance))*sqrt(dot(normal,normal))))
+@define improveFactor:1 1.1-(improveFactorCosine*0.5+0.5)
+@define improveFactor:1 1-improveFactor*improveFactor
+@define bumpMap:3 sample(texture1,texCoord0)
+@define bumpMapImproved:3 (improveFactor-2*improveFactor*bumpMap.x),(improveFactor-2*improveFactor*bumpMap.y),(bumpMap.z*improveFactor+1-improveFactor)
+@write color sample(texture0,texCoord0)
+@write matnormal (bumpMapImproved.x*duVector)+(bumpMapImproved.y*dvVector)+(bumpMapImproved.z*normal)
+@end
+
+
+@begin MaterialComponent ParallaxMappedMat
+@use normal
+@use duVector
+@use dvVector
+@param texture0,texture1,texture2 as Texture3
+@use texCoord0
+@define tmp2DU:1 sqrt(dot(duVector,duVector))
+@define tmp2DV:1 sqrt(dot(dvVector,dvVector)) 
+@define xdu:1 duVector.x/tmp2DU
+@define xdv:1 dvVector.x/tmp2DV
+@define ydu:1 duVector.y/tmp2DU
+@define ydv:1 dvVector.y/tmp2DV
+@define delta:1 xdu*ydv-xdv*ydu
+@define deltaRec:1 (delta*delta)
+@define delta2:1 delta/deltaRec
+@define kValue:3  sample(texture2,texCoord0)*normal*(-1)
+@define kValueX:1  0.02*kValue.x
+@define kValueY:1  0.02*kValue.y
+@define DeltaU:1  delta2*(kValueX*ydu-kValueY*xdv)
+@define DeltaV:1  delta2*(kValueY*ydv-kValueX*ydu)
+@define texC:2  texCoord0-(DeltaU,DeltaV)
+@define bumpMap:3 sample(texture1,texC)
+@write color sample(texture0,texC)
+@write matnormal ((1-2*bumpMap.x)*duVector)+((1-2*bumpMap.y)*dvVector)+(bumpMap.z*normal)
+@end
+
+@begin LightStepComponent DrawData
+@use color 
+@write fColor color
+@end

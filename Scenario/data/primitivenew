@@ -1,0 +1,361 @@
+
+
+@begin PrimitiveComponent RationalTriangle2
+@grid A,B,C,D,E,F as Triangle:2:<>
+@grid Aw,Bw,Cw,Dw,Ew,Fw as Triangle:2:float
+//rewrite rules of RationaTriangle2 need to be verified...
+@rewrite D 2*D-0.5*A-0.5*B
+@rewrite E 2*E-0.5*B-0.5*C
+@rewrite F 2*F-0.5*C-0.5*A
+@rewrite Dw 2*Dw-0.5*Aw-0.5*Bw
+@rewrite Ew 2*Ew-0.5*Bw-0.5*Cw
+@rewrite Fw 2*Fw-0.5*Cw-0.5*Aw
+@use uvw
+@define WW:1 (Aw*w*w+Bw*u*u+Cw*v*v+Dw*2*u*w+Ew*2*u*v+Fw*2*v*w)
+@define W:1 1/WW
+@write <> A*w*w*Aw*W+B*u*u*Bw*W+C*v*v*Cw*W+D*2*u*w*Dw*W+E*2*u*v*Ew*W+F*2*v*w*Fw*W
+@end
+
+
+@begin PrimitiveComponent DuDvDerivedNormal
+@write N cross(du,dv)
+@end
+
+@begin PrimitiveComponent FirstDuDvDerivedTexCoord
+@write Tx0 (dot(P,normalize(duA)),dot(P,normalize(dvA)))
+@end
+
+
+
+@begin PrimitiveComponent Line2
+@grid A,B,AB as Line:2:<>
+@rewrite AB 2*AB-0.5*A-0.5*B
+@use uv
+@define um:1 1-u
+@write <> A*um*um+AB*u*um*2+B*u*u
+@end
+
+@begin PrimitiveComponent Line3
+@grid A,B,AB,BA as Line:3:<>
+@rewrite AB 3*AB-1.5*BA-0.8333*A+0.3333*B
+@rewrite BA 3*BA-1.5*AB-0.8333*B+0.3333*A
+@use uv
+@define um:1 1-u
+@write <> A*um*um*um+AB*3*u*um*um+BA*3*u*u*um+B*u*u*u
+@end
+
+
+@begin PrimitiveComponent Triangle3
+@grid A,B,C,AB,BA,BC,CB,CA,AC,ACB as Triangle:3:<>
+@rewrite AB 3*AB-1.5*BA-0.8333*A+0.3333*B
+@rewrite BA 3*BA-1.5*AB-0.8333*B+0.3333*A
+@rewrite BC 3*BC-1.5*CB-0.8333*B+0.3333*C
+@rewrite CB 3*CB-1.5*BC-0.8333*C+0.3333*B
+@rewrite CA 3*CA-1.5*AC-0.8333*C+0.3333*A
+@rewrite AC 3*AC-1.5*CA-0.8333*A+0.3333*C
+@rewrite ACB 4.5*ACB-0.5*(AB+BA+BC+CB+CA+AC)-0.1667*(A+B+C)
+@use uvw
+@write <> A*w*w*w+B*u*u*u+C*v*v*v+AB*3*w*w*u+BA*3*w*u*u+AC*3*w*w*v+CA*3*w*v*v+BC*3*u*u*v+CB*3*u*v*v+6*ACB*u*v*w
+@end
+
+
+
+@begin PrimitiveComponent MicroTube2
+@grid A,B,AB as Line:2:float3
+@grid Al,Bl,ABl as Line:2:float
+@rewrite AB 2*AB-0.5*A-0.5*B
+@rewrite ABl 2*ABl-0.5*Al-0.5*Bl
+@use uv
+@define um:1 1-u
+@define vm:1 1-v
+@define Pc:3 A*um*um+AB*2*u*um+B*u*u
+@define size:1 Al*um*um+ABl*2*u*um+Bl*u*u
+@define DPc:3 2*um*(AB-A)+2*u*(B-AB)
+@define ViewDirectionTemp:3 (0,0,1)
+@define ViewDirection:3 ViewDirectionTemp*modelview
+@define Dv1:3 normalize(cross(ViewDirection,DPc))
+@define Dv2:3 normalize(cross(Dv1,DPc))
+@define Displacement:3 normalize(vm*vm*Dv1+2*vm*v*Dv2-(v*v)*Dv1)
+@write P Pc+size*Displacement
+@end
+
+@begin PrimitiveComponent MicroTube2TexCoord
+@write Tx0 (Pum,Pvm)
+@end
+
+@begin PrimitiveComponent MicroTube2Normal
+@write N PDisplacement
+@end
+
+@begin PrimitiveComponent MicroTube2Du
+@write du PDv1
+@end
+
+@begin PrimitiveComponent MicroTube2Dv
+@write dv PDv2
+@end
+
+@begin PrimitiveComponent FunctionalTube
+@use uvP
+@define u:1 uvP.x
+@define v:1 uvP.y
+@write P (cos(u*6.2)*sin(v*3.1)),(cos(u*6.2)*cos(v*3.1)),(sin(u*6.2))
+@end
+
+@begin PrimitiveComponent FunctionalTubeN
+@use uvP
+@write N P
+@end
+
+
+@begin MaterialComponent NormalFromHeightField
+@param delta,magnitude as TextureFilterData
+@param texture0 as Texture
+@use texCoord0
+@define deltam:1 delta*(0-1)
+@define coord_11:2 texCoord0
+@define coord_10:2 texCoord0+(0,deltam)
+@define coord_12:2 texCoord0+(0,delta)
+@define coord_01:2 texCoord0+(deltam,0)
+@define coord_00:2 texCoord0+(deltam,deltam)
+@define coord_02:2 texCoord0+(deltam,delta)
+@define coord_21:2 texCoord0+(delta,0)
+@define coord_20:2 texCoord0+(delta,deltam)
+@define coord_22:2 texCoord0+(delta,delta)
+@define b_00:1 sample(texture0,coord_00)
+@define b_01:1 sample(texture0,coord_01)
+@define b_02:1 sample(texture0,coord_02)
+@define b_10:1 sample(texture0,coord_10)
+@define b_11:1 sample(texture0,coord_11)
+@define b_12:1 sample(texture0,coord_12)
+@define b_20:1 sample(texture0,coord_20)
+@define b_21:1 sample(texture0,coord_21)
+@define b_22:1 sample(texture0,coord_22)
+@define nx:1 magnitude*(b_20+b_22-b_00-b_02+b_21-b_01)
+@define ny:1 magnitude*(b_02+b_22-b_00-b_20+b_12-b_10)
+@define nz:1 1.0
+@define evaluatedNormal:3 ((ny*0.5+0.5),(nx*0.5+0.5),nz)
+@write matnormal normalize(evaluatedNormal)
+@end
+
+
+
+@begin MaterialComponent ModulateColor
+@param diffColor as Mat01
+@write color diffColor*color
+@end
+
+
+@begin LightStepComponent InterpolatedTexturedColorSum
+@use color
+@param color1 as Mat01
+@param color2 as Mat01
+@define color14:3 color1
+@define color24:3 color2
+@write fColor color*color14+color24
+@end
+
+
+@begin LightStepComponent InterpolatedTexturedColor
+@use color
+@param color1 as Mat01
+@param color2 as Mat01
+@define color14:3 color1
+@define color24:3 color2
+@define colorl:3 1-color
+@write fColor color*color14+color24*colorl
+@end
+
+
+@begin LightStepComponent TextureMultiplier
+@param texture0,texture1 as Texture2
+@use texCoord0
+@define color14:4 sample(texture0,texCoord0)
+@define color24:4 sample(texture1,texCoord0)
+@write color color14*color24
+@end
+
+
+@begin LightStepComponent TextureSummer
+@param texture0,texture1 as Texture2
+@use texCoord0
+@define color14:4 sample(texture0,texCoord0)
+@define color24:4 sample(texture1,texCoord0)
+@write color color14+color24
+@end
+
+@begin LightStepComponent ColouredTextureSummer
+@param texture0 as Texture
+@param texture1 as Texture
+@param color1 as Mat01
+@param color2 as Mat01
+@use texCoord0
+@define color13:3 color1
+@define color23:3 color2
+@define color14:4 sample(texture0,texCoord0)*color13
+@define color24:4 sample(texture1,texCoord0)*color23
+@write color color14+color24
+@end
+
+@begin LightStepComponent ColouredTextureSummerMaterial
+@param color1 as Mat01
+@param color2 as Mat01
+@param texture0 as Texture
+@param texture1 as Texture
+@use texCoord0
+@use normal
+@define color13:3 color1
+@define color23:3 color2
+@define color14:4 sample(texture0,texCoord0)*color13
+@define color24:4 sample(texture1,texCoord0)*color23
+@write color color14+color24
+@write matnormal normal
+@end
+
+@begin MaterialComponent BasicTexturedTransparencyMat
+@use normal
+@param diffColor as Mat01
+@param texture0 as Texture
+@use texCoord0
+@define alpha:1 sample(texture0,texCoord0)
+@define transparency:4 (1,1,1,alpha)
+@write color transparency*diffColor
+@write matnormal normal
+@end
+
+
+@begin PrimitiveComponent InterpolatingTriangle2
+@grid A,B,C,D,E,F as Triangle:2:<>
+@use uvw
+@write <> A*w*(2*w-1)+B*u*(2*u-1)+C*v*(2*v-1)+D*4*u*w+E*4*u*v+F*4*v*w
+@end
+
+@begin TransformsComponent SpriteTransform
+@param width,height as Dim2D
+@use modelview
+@use projection
+@use uv
+@use P
+@define distance:3 (u,v,0)
+@define distance2:3 (width,width,0)
+@define pos:3 projection*modelview*P
+@write position pos+distance*distance2
+@write normal (0,0,-1)
+@write texCoord0 (u,v)
+@end
+
+
+@begin TransformsComponent SpriteTransformDuDv
+@param width,height as Dim2D
+@use modelview
+@use projection
+@use uv
+@use P
+@define distance:3 (u,v,0)
+@define distance2:3 (width,width,0)
+@define pos:3 projection*modelview*P
+@write position pos+distance*distance2
+@write normal (0,0,1)
+@write duVector (1,0,0)
+@write dvVector (0,1,0)
+@write texCoord0 (u,v)
+@end
+
+
+
+@begin MaterialComponent Position
+@use position
+@use normal
+@write color position
+@write matnormal normal
+@end
+
+@begin TransformsComponent PN
+@use P
+@use N
+@write position P
+@write normal N
+@end
+
+
+@begin LightStepComponent ReddishBrightAndNormal
+@use color 
+@use normal
+@define bright:3 0.4,0.4,0.4
+@define grayscale:4 0.3,0.5,0.2,0
+@define gray:1 dot(color,grayscale)
+@define gray3:3 gray
+@define red1:4 1,0.2,0.2,1
+@define zed:1 color.x
+@define zedl:1 1-zed
+@define color2:4 zed,zed,zedl,1
+@write fColor0 red1+color
+@write fColor1 color2
+@end
+
+
+
+
+
+
+
+@begin Structure RainbowQuarterMatStructure
+@float3 diffColor
+@float Rf
+@float m
+@float b
+@end Structure 
+
+@begin MaterialComponent RainbowQuarterMaterial
+@use normal
+@param diffColor,rfo,m,b as RainbowQuarterMatStructure
+@write color diffColor
+@write matnormal normalize(normal)
+@write matproperty1 rfo
+@write matproperty2 m*480
+@write matproperty3 b
+@end
+
+@begin MaterialComponent TexturedRainbowQuarterMaterial
+@use normal
+@param diffColor,rfo,m,b as RainbowQuarterMatStructure
+@param texture0 as Texture
+@use texCoord0
+@write color sample(texture0,texCoord0)*diffColor
+@write matnormal normalize(normal)
+@write matproperty1 rfo
+@write matproperty2 m*480
+@write matproperty3 b
+@end
+
+@begin LightStepComponent RainbowQuarterSunLight
+@param sunIntensity,sunDirection as PLight01
+@param backLightIntensity,backLightDirection as PLight01
+@use matnormal
+@use position
+@use color
+@use matproperty1 //reflection Rf(0)
+@use matproperty2 //reflection m 
+@use matproperty3 //b (blur) factor
+@define v:3 0,0,1
+
+@define light1:3 sunDirection
+@define ill1temp:1 0.637*(1-matproperty3)+(matproperty3*dot(matnormal,light1))
+@define ill1:1 clamp(ill1temp,0,1)
+@define h1:3 normalize(light1-v)
+@define cah1:1 1-dot(light1,h1)
+@define RF1:1 matproperty1+(1-matproperty1)*(cah1*cah1*cah1*cah1*cah1)
+@define term:1 RF1*0.318*(matproperty2+8)*pow(clamp(dot(normalize(matnormal),h1),0,1),matproperty2)
+@define lightEffect1:3 0.1*color+(0.318*color+term)*ill1*sunIntensity
+
+@define light2:3 backLightDirection
+@define ill2temp:1 0.637*(1-matproperty3)+(matproperty3*dot(matnormal,light2))
+@define ill2:1 clamp(ill2temp,0,1)
+@define h2:3 normalize(light2-v)
+@define cah2:1 1-dot(light2,h2)
+@define RF2:1 matproperty1+(1-matproperty1)*(cah2*cah2*cah2*cah2*cah2)
+@define term:1 RF2*0.318*(matproperty2+8)*pow(clamp(dot(normalize(matnormal),h2),0,1),matproperty2)
+@define lightEffect2:3 0.1*color+(0.318*color+term)*ill2*backLightIntensity
+
+@write fColor lightEffect1+lightEffect2
+@end
