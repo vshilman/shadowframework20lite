@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFQuadsSurfaceGeometryData name="Glass">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1,0.0)</vertices_element>
+						<vertices_element>(0.024,0.2,0.0)</vertices_element>
+						<vertices_element>(0.0,0.3,0.0)</vertices_element>
+						<vertices_element>(0.0,0.4,0.0)</vertices_element>
+						<vertices_element>(0.0,0.5,0.0)</vertices_element>
+						<vertices_element>(0.0,0.6,0.0)</vertices_element>
+						<vertices_element>(0.0,0.70000005,0.0)</vertices_element>
+						<vertices_element>(0.0,0.8,0.0)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.2,0.0)</vertices_element>
+						<vertices_element>(0.048,0.4,0.0)</vertices_element>
+						<vertices_element>(0.048,0.4,0.0)</vertices_element>
+						<vertices_element>(0.2,0.5,0.0)</vertices_element>
+						<vertices_element>(0.2,0.6,0.0)</vertices_element>
+						<vertices_element>(0.5,0.70000005,0.0)</vertices_element>
+						<vertices_element>(0.4,0.8,0.0)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFStructureArrayDataUnit8 name="Materials">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(0.0,0.5,0.0)</values_element>
+			<values_element>(0.5,0.5,0.0)</values_element>
+			<values_element>(0.5,0.0,0.5)</values_element>
+			<values_element>(0.0,0.0,0.5)</values_element>
+			<values_element>(0.5,0.0,1.0)</values_element>
+			<values_element>(0.5,1.0,0.0)</values_element>
+			<values_element>(0.6,1.0,0.4)</values_element>
+			<values_element>(0.0,1.0,1.0)</values_element>
+			<values_element>(1.0,0.6,0.0)</values_element>
+			<values_element>(1.0,0.84800005,0.0)</values_element>
+			<values_element>(0.0,0.6,0.2)</values_element>
+			<values_element>(0.1,0.0,0.3)</values_element>
+			<values_element>(1.0,1.0,1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFQuadsSurfaceGeometryData name="Mushroom">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1,0.0)</vertices_element>
+						<vertices_element>(0.024,0.2,0.0)</vertices_element>
+						<vertices_element>(0.0,0.3,0.0)</vertices_element>
+						<vertices_element>(0.0,0.4,0.0)</vertices_element>
+						<vertices_element>(0.0,0.5,0.0)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1,0.0)</vertices_element>
+						<vertices_element>(0.2,0.2,0.0)</vertices_element>
+						<vertices_element>(0.048,0.3,0.0)</vertices_element>
+						<vertices_element>(0.048,0.4,0.0)</vertices_element>
+						<vertices_element>(0.448,0.5,0.0)</vertices_element>
+						<vertices_element>(0.048,0.5,0.0)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFQuadsSurfaceGeometryData name="Tube">
+		<NuNv>(8,8)</NuNv>
+		<SFCurvedTubeFunctionData name="surfaceFunction">
+			<SFBasisSplineData name="firstCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.0,0.0,0.0)</vertices_element>
+						<vertices_element>(0.0,0.1,0.0)</vertices_element>
+						<vertices_element>(0.0,0.2,0.0)</vertices_element>
+						<vertices_element>(0.0,0.3,0.0)</vertices_element>
+						<vertices_element>(0.0,0.4,0.0)</vertices_element>
+						<vertices_element>(0.0,0.5,0.0)</vertices_element>
+						<vertices_element>(0.1,0.5,0.0)</vertices_element>
+						<vertices_element>(0.2,0.5,0.0)</vertices_element>
+						<vertices_element>(0.3,0.5,0.0)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+			<SFBasisSplineData name="secondCurve">
+				<SFVertexListDataUnit8 name="vertices">
+					<vertices>
+						<vertices_element>(0.1,0.0,0.0)</vertices_element>
+						<vertices_element>(0.2,0.1,0.0)</vertices_element>
+						<vertices_element>(0.1,0.2,0.0)</vertices_element>
+						<vertices_element>(0.1,0.3,0.0)</vertices_element>
+						<vertices_element>(0.1,0.4,0.0)</vertices_element>
+						<vertices_element>(0.1,0.4,0.0)</vertices_element>
+						<vertices_element>(0.1,0.4,0.0)</vertices_element>
+						<vertices_element>(0.2,0.4,0.0)</vertices_element>
+						<vertices_element>(0.2,0.4,0.0)</vertices_element>
+					</vertices>
+				</SFVertexListDataUnit8>
+				<closed>0</closed>
+			</SFBasisSplineData>
+		</SFCurvedTubeFunctionData>
+		<texCoordFunction>0</texCoordFunction>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+</library>

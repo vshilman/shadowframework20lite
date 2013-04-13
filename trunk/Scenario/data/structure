@@ -1,0 +1,40 @@
+//NOTE: grid does not requires domains. They are only not of points used to build geometries
+
+
+@begin Structure Mat01
+@float3 diffColor
+@end Structure 
+
+@begin Structure PLight01
+@float3 intensity
+@float3 position
+@end Structure 
+
+@begin Structure Size
+@float size
+@end Structure 
+
+@begin Structure TextureFilterData
+@float deltaTexCoord
+@float magnitude
+@end Structure 
+
+@begin Structure Texture
+@texture texture
+@end Structure 
+
+@begin Structure Texture2
+@texture texture
+@texture bumpmap
+@end Structure 
+
+@begin Structure Texture3
+@texture texture
+@texture bumpmap
+@texture depth
+@end Structure 
+
+@begin Structure Dim2D
+@float width
+@float height
+@end Structure 
