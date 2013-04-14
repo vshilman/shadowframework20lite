@@ -13,14 +13,10 @@
 <script type="text/javascript" src="InputHandler.js"></script>
 <script type="text/javascript" src="CameraController.js"></script>
 <script type="text/javascript" src="ClientComm.js"></script>
-<script type="text/javascript" src="MyCharModel.js"></script>
-<script type="text/javascript" src="MessageWSParser.js"></script>
-<script type="text/javascript" src="CharHandler.js"></script>
-<script type="text/javascript" src="Character.js"></script>
-
+<script type="text/javascript" src="MyAvatarHandler.js"></script>
+<script type="text/javascript" src="AvatarsHandler.js"></script>
+<script type="text/javascript" src="CharacterDef.js"></script>
 <script type="text/javascript" src="NodeGenerator.js"></script>
-
-
 <script type="text/javascript">
 
 	
@@ -50,7 +46,6 @@
 		builder2.readFromStream(inputStream);
 		SFGL20Pipeline_setup();
 		builder2.apply(new SFPipelineBuilder());
-
 		SFDataCenter_setDatasetFactory(new SFViewerDatasetFactory());
 		var objectsLibrary = new SFViewerObjectsLibrary();
 		SFDataCenter_setDataCenterImplementation(objectsLibrary);
@@ -77,15 +72,14 @@
     	viewer = new SFViewer();
 		var camera = this.viewer.renderer.getCamera();
 		var cameracontr = new CameraController(camera);
-		
 		var clientcomm = new ClientComm(viewer);
 		clientcomm.connect(cameracontr);
-		
 		var inputhandler = new InputHandler();
 		inputhandler.addObserver(cameracontr);
 		inputhandler.addObserver(clientcomm);
 		inputhandler.keyListen();
 	    setupCanvas("canvas3d");
+	
 	}
 
 	
@@ -97,7 +91,7 @@
 		xhr.send(null);
 		return xhr.responseText;
 
-		}
+	}
 
 	
 	
@@ -105,8 +99,12 @@
 
 		setupAmbient();
 		
-		content = loadLibrary("library0001.sf");
-        Test_LoadedDataCallBack(content);
+		content = loadLibrary("test0610.sf");
+    	//var content = loadLibrary("test0014.sf");
+    	loadData(content);
+    	
+	
+	Test_LoadedDataCallBack(content);
 
 	}
 </script>

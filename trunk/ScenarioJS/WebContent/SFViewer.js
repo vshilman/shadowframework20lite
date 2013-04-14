@@ -4,7 +4,7 @@ function SFViewer() {
        var camera = new SFCamera(new SFVertex3f(0, 0, 0), new SFVertex3f(0, 0,
 				1), new SFVertex3f(1, 0, 0), new SFVertex3f(0, 1, 0), 1, 1, 20);
 		
-		camera.setF(new SFVertex3f(0, 0, -1));
+		camera.setF(new SFVertex3f(0, 0, -3));
 		camera.setDir(new SFVertex3f(0, 0, 1));
 		camera.setLeft(new SFVertex3f(1, 0, 0));
 		camera.setUp(new SFVertex3f(0, 1, 0));
@@ -38,7 +38,38 @@ function SFViewer() {
 		programAsset.getData().push(lightReference);
 
 		this.renderer.setLight(programAsset);
+		
+	    this.rootSceneNode = new SFReferenceNode();
+		housenames = [ "House01",
+					 "House02",
+					 "House03",
+					 "House04",
+					 "House05",
+					 "House06",
+					 "House07"
+					 ];
+		
+		for (var i = 0; i < 10; i++){
+			var index = Math.floor(Math.random() * housenames.length); 
+			var nome = housenames[index];
+			node = (getAlreadyAvailableDataset(nome)).getResource();
+			   node.getTransform().setPosition(new SFVertex3f(-2 + i*3 ,0,2));
+				this.rootSceneNode.addNode(node.copyNode());
 
+			   
+		}
+		for (var i = 0; i < 10; i++){
+			var index = Math.floor(Math.random() * housenames.length); 
+			var nome = housenames[index];
+			node = (getAlreadyAvailableDataset(nome)).getResource();
+			   node.getTransform().setPosition(new SFVertex3f(-2 + i*3 ,0,-10));
+				this.rootSceneNode.addNode(node.copyNode());
+
+			   
+		}
+		
+
+		
 	}
 
 	SFViewer.prototype["init"] = function() {
@@ -75,16 +106,21 @@ function SFViewer() {
 
 		SFPipeline_getSfPipelineGraphics().setupProjection(matrix);
 		SFPipeline_getSfPipelineGraphics().setupTransform(matrix);
-		var rootSceneNode = new SFReferenceNode();
 
-		var charhandler = new CharHandler();
-		for(var i = 0; i < charhandler.charList.length; i++){
+		var avatarsHandler = new AvatarsHandler();
+		for(var i = 0; i < avatarsHandler.charList.length; i++){
 		
-			rootSceneNode.addNode(charhandler.charList[i].node);
+			this.rootSceneNode.addNode(avatarsHandler.charList[i].node);
 		
 		}
 		
-		var copynode = rootSceneNode.copyNode();
+		
+	
+		
+
+	   //	node.getTransform().setOrientation()
+		var copynode = this.rootSceneNode.copyNode();
+
 		this.renderer.render(copynode);
 		
 	};

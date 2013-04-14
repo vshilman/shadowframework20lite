@@ -1,14 +1,14 @@
 function CameraController(camera){
 	
 	this.camera = camera;
-	this.mycharmodel = new MyCharModel();
+	this.myAvatar = new MyAvatarHandler();
 	
 	
 }
 
 CameraController.prototype.Update = function(event){
 	
-	var mycharmodel = new MyCharModel();
+	var myAvatar = new MyAvatarHandler();
 	
 	
 	switch(event.keyCode){
@@ -18,10 +18,11 @@ CameraController.prototype.Update = function(event){
 		var position = new SFVertex3f();
 		this.camera.getF().addMult(0.1, this.camera.getDir());	
 		this.camera.update();
+		console.log(this.camera.extractTransform());
 		position.setX(this.camera.getF().getX());
 		position.setY(this.camera.getF().getY());
 		position.setZ(this.camera.getF().getZ());
-		mycharmodel.setMyPosition(position);
+		myAvatar.setMyPosition(position);
 		
 	break;
 	
@@ -32,13 +33,14 @@ CameraController.prototype.Update = function(event){
 		position.setX(this.camera.getF().getX());
 		position.setY(this.camera.getF().getY());
 		position.setZ(this.camera.getF().getZ());
-		mycharmodel.setMyPosition(position);
+		myAvatar.setMyPosition(position);
 	     break;
 	
 	case 39:
 		
 		var matrix = new SFMatrix3f;
 		matrix = matrix.getRotationY(Math.PI*0.01);
+		myAvatar.setMyDirection(matrix);
 	    this.camera.setDir( matrix.Mult(this.camera.getDir()) ); 
 		this.camera.setLeft(matrix.Mult(this.camera.getLeft()));
 	    this.camera.update();
@@ -48,6 +50,8 @@ CameraController.prototype.Update = function(event){
 		
 		var matrix = new SFMatrix3f;
 		matrix = matrix.getRotationY(-Math.PI*0.01);
+		myAvatar.setMyDirection(matrix);
+
 	    this.camera.setDir( matrix.Mult(this.camera.getDir()) ); 
 		this.camera.setLeft(matrix.Mult(this.camera.getLeft()));
 	    this.camera.update();	
@@ -73,11 +77,11 @@ CameraController.prototype.initCamera = function(){
     this.camera.setLeftL(0.3);
 	this.camera.setUpL(0.3);
 	
-	var initPos = this.mycharmodel.getMyPosition();
+	var initPos = this.myAvatar.getMyPosition();
 	var x = initPos.getX();
 	var y = initPos.getY();
 	var z = initPos.getZ();
-	this.camera.setF(new SFVertex3f(x, y, z));
+	this.camera.setF(new SFVertex3f(x, 1, z));
 	this.camera.setDelta(1);
 	this.camera.setDistance(200);
     this.camera.update();
