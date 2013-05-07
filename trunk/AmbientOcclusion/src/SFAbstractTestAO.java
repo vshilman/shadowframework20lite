@@ -441,7 +441,7 @@ public abstract class SFAbstractTestAO {
 	
 		SFViewerObjectsLibrary objectsLibrary = CommonData.generateDataSettings();
 		library = objectsLibrary.getLibrary();
-		CommonPipeline.prepare();
+	    CommonPipeline.prepare();
 	}
 
 	
