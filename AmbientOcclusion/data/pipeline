@@ -1,0 +1,358 @@
+
+@include primitive
+@include primitivenew
+
+@begin Transform BasicPNTransform
+@component BasicP
+@component BasicN
+@end
+
+@begin Transform BasicPNTx0Transform
+@component BasicP
+@component BasicN
+@component BasicTx0
+@end
+
+
+@begin Transform BasicBumpMapTransform
+@component BasicP
+@component BasicN
+@component BasicDuDv
+@component BasicTx0
+@end
+
+@begin Primitive Triangle2PN
+@domain Triangle
+@block POSITION InterpolatingTriangle2
+@block NORMAL InterpolatingTriangle2
+@end
+
+@begin Primitive Triangle2Tx0
+@domain Triangle
+@block TXO Triangle2
+@end
+
+@begin Primitive Triangle2PNTxO
+@domain Triangle
+@block POSITION Triangle2
+@block NORMAL Triangle2
+@block TXO Triangle2
+@end
+
+@begin Primitive Triangle2Frame
+@domain Triangle
+@block POSITION Triangle2
+@block NORMAL Triangle2
+@block DU Triangle2
+@block DV Triangle2
+@end
+
+@begin Primitive Triangle2BumpMap
+@domain Triangle
+@block POSITION Triangle2
+@block NORMAL Triangle2
+@block DU Triangle2
+@block DV Triangle2
+@block TXO Triangle2
+@end
+
+
+@begin Primitive TriangleP2N1
+@domain Triangle
+@block POSITION Triangle2
+@block NORMAL Triangle
+@end
+
+@begin Primitive TriangleP3N2
+@domain Triangle
+@block POSITION Triangle3
+@block NORMAL Triangle2
+@end
+
+@begin Primitive TrianglePN
+@domain Triangle
+@block POSITION Triangle
+@block NORMAL Triangle
+@end
+
+@begin Primitive TriangleTx0
+@domain Triangle
+@block TXO Triangle
+@end
+
+@begin Primitive TrianglePNTxO
+@domain Triangle
+@block POSITION Triangle
+@block NORMAL Triangle
+@block TXO Triangle
+@end
+
+@begin Primitive TriangleFrame
+@domain Triangle
+@block POSITION Triangle
+@block NORMAL Triangle
+@block DU Triangle
+@block DV Triangle
+@end
+
+@begin Primitive TriangleBumpMap
+@domain Triangle
+@block POSITION Triangle
+@block NORMAL Triangle
+@block DU Triangle
+@block DV Triangle
+@block TXO Triangle
+@end
+
+@begin Primitive TriangleUV
+@domain Triangle
+@block UV Triangle
+@end
+
+
+@begin Primitive QuadP2N1
+@domain Quad
+@block POSITION Quad2
+@block NORMAL Quad
+@end
+
+
+@begin Primitive QuadPN
+@domain Quad
+@block POSITION Quad
+@block NORMAL Quad
+@end
+
+@begin Primitive QuadTx0
+@domain Quad
+@block TXO Quad
+@end
+
+@begin Primitive QuadPNTxO
+@domain Quad
+@block POSITION Quad
+@block NORMAL Quad
+@block TXO Quad
+@end
+
+
+@begin Primitive QuadPDuvDerivedNTxO
+@domain Quad
+@block POSITION Quad
+@block DU Quad
+@block DV Quad
+@block NORMAL DuDvDerivedNormal
+@block TXO FirstDuDvDerivedTexCoord
+@end
+
+@begin Primitive QuadFrame
+@domain Quad
+@block POSITION Quad
+@block NORMAL Quad
+@block DU Quad
+@block DV Quad
+@end
+
+@begin Primitive QuadBumpMap
+@domain Quad
+@block POSITION Quad
+@block NORMAL Quad
+@block DU Quad
+@block DV Quad
+@block TXO Quad
+@end
+
+
+
+
+@begin Primitive Quad2PN
+@domain Quad
+@block POSITION Quad2
+@block NORMAL Quad2
+@end
+
+@begin Primitive Quad2Tx0
+@domain Quad
+@block TXO Quad2
+@end
+
+@begin Primitive Quad2PNTxO
+@domain Quad
+@block POSITION Quad2
+@block NORMAL Quad2
+@block TXO Quad2
+@end
+
+@begin Primitive Quad2Frame
+@domain Quad
+@block POSITION Quad2
+@block NORMAL Quad2
+@block DU Quad2
+@block DV Quad2
+@end
+
+@begin Primitive Quad2BumpMap
+@domain Quad
+@block POSITION Quad2
+@block NORMAL Quad2
+@block DU Quad2
+@block DV Quad2
+@block TXO Quad2
+@end
+
+
+@begin Primitive Line2P
+@domain Line
+@block POSITION Line2
+@end
+
+@begin Primitive Line2PN
+@domain Line
+@block POSITION Line2
+@block NORMAL Line2
+@end
+
+@begin Primitive Line3PN
+@domain Line
+@block POSITION Line3
+@block NORMAL Line3
+@end
+
+
+@begin Primitive Line3Tx0
+@domain Line
+@block TXO Line3
+@end
+
+
+@begin Primitive Line3PNTxO
+@domain Line
+@block POSITION Line3
+@block NORMAL Line3
+@block TXO Line3
+@end
+
+@begin Primitive Line3BumpMap
+@domain Line
+@block POSITION Line3
+@block NORMAL Line3
+@block DU Line3
+@block DV Line3
+@block TXO Line3
+@end
+
+
+@begin Primitive Line3UV
+@domain Line
+@block UV Line3
+@end
+
+
+@begin Primitive Triangle3PN
+@domain Triangle
+@block POSITION Triangle3
+@block NORMAL Triangle3
+@end
+
+
+@begin Primitive Triangle3Tx0
+@domain Triangle
+@block TXO Triangle3
+@end
+
+
+@begin Primitive Triangle3PNTxO
+@domain Triangle
+@block POSITION Triangle3
+@block NORMAL Triangle3
+@block TXO Triangle3
+@end
+
+@begin Primitive Triangle3BumpMap
+@domain Triangle
+@block POSITION Triangle3
+@block NORMAL Triangle3
+@block DU Triangle3
+@block DV Triangle3
+@block TXO Triangle3
+@end
+
+
+@begin Primitive Triangle3UV
+@domain Triangle
+@block UV Triangle3
+@end
+
+
+@begin Primitive Microtube2
+@domain Quad
+@block POSITION MicroTube2
+@block NORMAL MicroTube2Normal
+@end
+
+
+@begin Primitive Microtube2TxO
+@domain Quad
+@block POSITION MicroTube2
+@block NORMAL MicroTube2Normal
+@block TXO MicroTube2TexCoord
+@end
+
+
+@begin Primitive Microtube2BumpMap
+@domain Quad
+@block POSITION MicroTube2
+@block NORMAL MicroTube2Normal
+@block TXO MicroTube2TexCoord
+@block DU MicroTube2Du
+@block DV MicroTube2Dv
+@end
+
+
+@begin Primitive Rational2DGeometry
+@domain Triangle
+@block NORMAL Constant
+@block POSITION RationalTriangle2
+@end
+
+
+@begin Primitive Rational2DGeometryTxO
+@domain Triangle
+@block NORMAL Constant
+@block POSITION RationalTriangle2
+@block TXO RationalTriangle2
+@end
+
+
+@begin Primitive Rational2DGeometryBumpMap
+@domain Triangle
+@block NORMAL Constant
+@block DU Constant
+@block DV Constant
+@block POSITION RationalTriangle2
+@block TXO RationalTriangle2
+@end
+
+	
+@begin Material ModulatedImprovedBumpMapped
+@component ImprovedBumpMappedMat
+@component ModulateColor
+@end
+		
+	
+@begin Primitive FunctionalTubePrimitive
+@domain Triangle
+@block UVP Triangle2
+@block POSITION FunctionalTube
+@block NORMAL FunctionalTubeN
+@end	
+
+
+@begin Primitive SpriteP
+@domain Quad
+@block POSITION Constant
+@end
+
+
+
+		
