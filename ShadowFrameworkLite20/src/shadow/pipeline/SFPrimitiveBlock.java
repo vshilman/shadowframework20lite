@@ -13,6 +13,13 @@ public enum SFPrimitiveBlock {
 	DU(SFPipelineRegister.getFromName("du")),
 	DV(SFPipelineRegister.getFromName("dv")),
 	TXO(SFPipelineRegister.getFromName("Tx0")),
+	TXO2(SFPipelineRegister.getFromName("Tx1")),
+	TXO3(SFPipelineRegister.getFromName("Tx2")),
+	TXO4(SFPipelineRegister.getFromName("Tx3")),
+	DATA1(SFPipelineRegister.getFromName("prData01")),
+	DATA2(SFPipelineRegister.getFromName("prData02")),
+	DATA3(SFPipelineRegister.getFromName("prData03")),
+	DATA4(SFPipelineRegister.getFromName("prData04")),
 	UV(SFPipelineRegister.getFromName("uv")),
 	UVP(SFPipelineRegister.getFromName("uvP"));
 	private SFPipelineRegister register;

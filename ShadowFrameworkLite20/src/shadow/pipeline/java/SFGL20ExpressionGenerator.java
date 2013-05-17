@@ -48,6 +48,11 @@ public class SFGL20ExpressionGenerator implements SFExpressionElementInterpreter
 		if(SFParameteri.getExpressionDimension(wrappedType)==SFParameteri.getExpressionDimension(wrappingType))
 			return "";
 		
+
+		if(wrappedType==SFParameteri.GLOBAL_FLOAT){
+			return "(";
+		}
+		
 		if(wrappingType==SFParameteri.GLOBAL_GENERIC){
 			return getTypeWrapOpenString(wrappedType,refParameter.getType());
 		}
@@ -77,6 +82,8 @@ public class SFGL20ExpressionGenerator implements SFExpressionElementInterpreter
 					throw new SFException("Bad Code");
 				return getTypeWrapCloseString(wrappedType,refParameter.getType());
 			case SFParameteri.GLOBAL_FLOAT:
+				if(wrappedType==SFParameteri.GLOBAL_GENERIC)
+					return "";
 				return ").x";
 			case SFParameteri.GLOBAL_FLOAT2:
 				if(wrappedType<SFParameteri.GLOBAL_MATRIX4){

@@ -74,6 +74,10 @@ public class SFPipelineRegister extends SFParameter{
 		predefinedGlobalV.put("duVector",new SFPipelineRegister(GLOBAL_FLOAT3, "duVector",WROTE_BY_TRANSFORM));
 		predefinedGlobalV.put("dvVector",new SFPipelineRegister(GLOBAL_FLOAT3, "dvVector",WROTE_BY_TRANSFORM));
 		predefinedGlobalV.put("texCoord0",new SFPipelineRegister(GLOBAL_FLOAT2, "texCoord0",WROTE_BY_TRANSFORM));
+		predefinedGlobalV.put("data1",new SFPipelineRegister(GLOBAL_FLOAT, "data1",WROTE_BY_TRANSFORM));
+		predefinedGlobalV.put("data2",new SFPipelineRegister(GLOBAL_FLOAT, "data2",WROTE_BY_TRANSFORM));
+		predefinedGlobalV.put("data3",new SFPipelineRegister(GLOBAL_FLOAT, "data3",WROTE_BY_TRANSFORM));
+		predefinedGlobalV.put("data4",new SFPipelineRegister(GLOBAL_FLOAT, "data4",WROTE_BY_TRANSFORM));
 		predefinedGlobalV.put("color",new SFPipelineRegister(GLOBAL_FLOAT4, "color",WROTE_BY_MATERIAL));
 		predefinedGlobalV.put("color1",new SFPipelineRegister(GLOBAL_FLOAT4, "color1",WROTE_BY_MATERIAL));
 		predefinedGlobalV.put("color2",new SFPipelineRegister(GLOBAL_FLOAT4, "color2",WROTE_BY_MATERIAL));
@@ -100,6 +104,13 @@ public class SFPipelineRegister extends SFParameter{
 		predefinedGlobalV.put("du",new SFPipelineRegister(GLOBAL_FLOAT3, "du",WROTE_BY_PRIMITIVE));
 		predefinedGlobalV.put("dv",new SFPipelineRegister(GLOBAL_FLOAT3, "dv",WROTE_BY_PRIMITIVE));
 		predefinedGlobalV.put("Tx0",new SFPipelineRegister(GLOBAL_FLOAT2, "Tx0",WROTE_BY_PRIMITIVE));
+		predefinedGlobalV.put("Tx1",new SFPipelineRegister(GLOBAL_FLOAT2, "Tx1",WROTE_BY_PRIMITIVE));
+		predefinedGlobalV.put("Tx2",new SFPipelineRegister(GLOBAL_FLOAT2, "Tx2",WROTE_BY_PRIMITIVE));
+		predefinedGlobalV.put("Tx3",new SFPipelineRegister(GLOBAL_FLOAT2, "Tx3",WROTE_BY_PRIMITIVE));
+		predefinedGlobalV.put("prData01",new SFPipelineRegister(GLOBAL_FLOAT, "prData01",WROTE_BY_PRIMITIVE));
+		predefinedGlobalV.put("prData02",new SFPipelineRegister(GLOBAL_FLOAT, "prData02",WROTE_BY_PRIMITIVE));
+		predefinedGlobalV.put("prData03",new SFPipelineRegister(GLOBAL_FLOAT, "prData03",WROTE_BY_PRIMITIVE));
+		predefinedGlobalV.put("prData04",new SFPipelineRegister(GLOBAL_FLOAT, "prData04",WROTE_BY_PRIMITIVE));
 		predefinedGlobalV.put("fColor",new SFPipelineRegister(GLOBAL_FLOAT4, "fColor",WROTE_BY_TESSELLATION));
 		predefinedGlobalV.put("fColor0",new SFPipelineRegister(GLOBAL_FLOAT4, "fColor0",WROTE_BY_TESSELLATION));
 		predefinedGlobalV.put("fColor1",new SFPipelineRegister(GLOBAL_FLOAT4, "fColor1",WROTE_BY_TESSELLATION));

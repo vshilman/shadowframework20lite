@@ -328,6 +328,9 @@ public abstract class SFGL20AbstractProgram extends SFGLSLSet implements SFGL20G
 					if (register.getType() == SFParameteri.GLOBAL_FLOAT2) {
 						type="vec2";
 					}
+					if (register.getType() == SFParameteri.GLOBAL_FLOAT) {
+						type="float";
+					}
 					
 					if(sfFunction.getParameter().getType()!=SFParameteri.GLOBAL_GENERIC){
 						global=sfFunction.getParameter();
