@@ -1,0 +1,36 @@
+
+@begin PrimitiveComponent Triangle
+@grid A,B,C as Triangle:1:<>
+@use uvw
+@write <> A*w+B*u+C*v 
+@end
+
+@begin Primitive TrianglePND1
+@domain Triangle
+@block POSITION Triangle
+@block NORMAL Triangle
+@block DATA1 Triangle
+@end
+
+@begin TransformsComponent BasicPND1
+@use modelview
+@use projection
+@use vectorsModelview
+@use P
+@use N
+@use prData01
+@write position projection*modelview*P
+@write normal vectorsModelview*N  
+@write data1 prData01
+@end
+
+@begin MaterialComponent Data1OccMat
+@use data1
+@define temp:3 data1
+@write color temp
+@end
+
+@begin LightStepComponent BasicColor
+@use color 
+@write fColor color
+@end

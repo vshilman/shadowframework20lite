@@ -61,6 +61,18 @@ public class SFViewer implements SFDrawable{
 	}
 	
 
+
+	public SFViewer(SFProgramModuleStructures light){
+		renderer=new SFRenderer();
+		//reference=getSceneLight();
+		SFCamera camera=new SFCamera(new SFVertex3f(0,0,0), new SFVertex3f(0,0,1), 
+				new SFVertex3f(1,0,0), new SFVertex3f(0,1,0), 1, 1, 20);
+		
+		camera.extractTransform();
+		renderer.setCamera(camera);
+		renderer.setLight(light);
+	}
+	
 	public SFViewer(){
 		renderer=new SFRenderer();
 		//reference=getSceneLight();
@@ -74,6 +86,13 @@ public class SFViewer implements SFDrawable{
 		renderer.setLight(programAssets[0]);
 	}
 	
+	public static SFViewer generateFrame(SFNode node,SFProgramModuleStructures light,SFFrameController... controllers){
+		SFViewer viewer=new SFViewer(light);
+		viewer.setNode(node);
+		viewer.frame=new SFDrawableFrame("Scene Viewer", 600, 600, viewer, controllers);
+		viewer.frame.setVisible(true);
+		return viewer;
+	}
 	
 	public static SFViewer generateFrame(SFNode node,SFFrameController... controllers){
 		SFViewer viewer=new SFViewer();
