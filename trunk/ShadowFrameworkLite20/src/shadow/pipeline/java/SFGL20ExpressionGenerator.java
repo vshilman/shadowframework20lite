@@ -49,7 +49,12 @@ public class SFGL20ExpressionGenerator implements SFExpressionElementInterpreter
 			return "";
 		
 
-		if(wrappedType==SFParameteri.GLOBAL_FLOAT){
+		if(wrappedType==SFParameteri.GLOBAL_FLOAT && wrappingType!=SFParameteri.GLOBAL_GENERIC){
+			if(wrappedType<wrappingType)
+				return "vec"+SFParameteri.getExpressionDimension(wrappingType)+"(";
+			else if(wrappedType!=SFParameteri.GLOBAL_GENERIC)
+				return "(";
+		}else if(wrappedType==SFParameteri.GLOBAL_FLOAT){
 			return "(";
 		}
 		
