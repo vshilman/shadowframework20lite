@@ -39,109 +39,106 @@ public abstract class SFAbstractTestAO {
 	protected SFObjectsLibrary library;
 	
 	
-	
 	//AO
 	
-	
-		public ArrayList<Triangle> convertMeshGeometryInTriangles(SFMeshGeometry meshGeometry) {
+	public ArrayList<Triangle> convertMeshGeometryInTriangles(SFMeshGeometry meshGeometry) {
 			
-			ArrayList <Triangle> triangleMesh = new ArrayList<Triangle>();
-			ArrayList <SFVertex3f> values = new ArrayList<SFVertex3f>();
-			SFArray <SFValuenf> sfArray;
+		ArrayList <Triangle> triangleMesh = new ArrayList<Triangle>();
+		ArrayList <SFVertex3f> values = new ArrayList<SFVertex3f>();
+		SFArray <SFValuenf> sfArray;
 			
-			SFPrimitiveArray array = meshGeometry.getArray(); 
-			SFPrimitiveIndices primitiveIndices = array.generateSample();
+		SFPrimitiveArray array = meshGeometry.getArray(); 
+		SFPrimitiveIndices primitiveIndices = array.generateSample();
 			
-			for (int index=0; index<array.getElementsCount(); index++){ 
+		for (int index=0; index<array.getElementsCount(); index++){ 
 				
-				array.getElement(index, primitiveIndices);
+			array.getElement(index, primitiveIndices);
 				
-				SFPrimitive primitive = meshGeometry.getPrimitive();
-				int [] indicesSizes = primitive.getIndicesSizes();
-				int [] indices = primitiveIndices.getPrimitiveIndices(); 
+			SFPrimitive primitive = meshGeometry.getPrimitive();
+			int [] indicesSizes = primitive.getIndicesSizes();
+			int [] indices = primitiveIndices.getPrimitiveIndices(); 
 			
-				for (int i=0; i<indices.length; i++){
+			for (int i=0; i<indices.length; i++){
 					
-					if (i < indicesSizes[0]){
+				if (i < indicesSizes[0]){
 						
-						sfArray = array.getPrimitiveData(0);
-						SFValuenf value = sfArray.generateSample();
-						sfArray.getElement(indices[i], value);
-						float [] v = value.get();
-						SFVertex3f vertex = new SFVertex3f(v[0], v[1], v[2]);
-						values.add(i, vertex);
+					sfArray = array.getPrimitiveData(0);
+					SFValuenf value = sfArray.generateSample();
+					sfArray.getElement(indices[i], value);
+					float [] v = value.get();
+					SFVertex3f vertex = new SFVertex3f(v[0], v[1], v[2]);
+					values.add(i, vertex);
 						
-					} else {
+				} else {
 						
-						sfArray = array.getPrimitiveData(1);
-						SFValuenf value = sfArray.generateSample();
-						sfArray.getElement(indices[i], value);
-						float [] n = value.get();
-						SFVertex3f normal = new SFVertex3f(n[0], n[1], n[2]);
-						values.add(i, normal);
+					sfArray = array.getPrimitiveData(1);
+					SFValuenf value = sfArray.generateSample();
+					sfArray.getElement(indices[i], value);
+					float [] n = value.get();
+					SFVertex3f normal = new SFVertex3f(n[0], n[1], n[2]);
+					values.add(i, normal);
 						
-					}
+				}
 					
-				}
-				
-				if (primitive.getName().equals("Triangle2PN")){
-					//0,3,5 + 6,9,11
-					Triangle triangle1 = new Triangle(values.get(0), values.get(3), values.get(5), values.get(6), values.get(9), values.get(11));
-					triangleMesh.add(triangle1);
-					//1,4,3 + 7,10,9
-					Triangle triangle2 = new Triangle(values.get(1), values.get(4), values.get(3), values.get(7), values.get(10), values.get(9));
-					triangleMesh.add(triangle2);
-					//2,5,4 + 8,11,10
-					Triangle triangle3 = new Triangle(values.get(2), values.get(5), values.get(4), values.get(8), values.get(11), values.get(10));
-					triangleMesh.add(triangle3);
-					//3,5,4 + 9,11,10
-					Triangle triangle4 = new Triangle(values.get(3), values.get(5), values.get(4), values.get(9), values.get(11), values.get(10));
-					triangleMesh.add(triangle4);
-
-				}
-				
-				if (primitive.getName().equals("Triangle3PN")){
-					//2 7 6
-					Triangle triangle1 = new Triangle(values.get(2), values.get(7), values.get(6), values.get(12), values.get(17), values.get(16));
-					triangleMesh.add(triangle1);
-					//6 9 5
-					Triangle triangle2 = new Triangle(values.get(6), values.get(9), values.get(5), values.get(16), values.get(19), values.get(15));
-					triangleMesh.add(triangle2);
-					//5 4 1
-					Triangle triangle3 = new Triangle(values.get(5), values.get(4), values.get(1), values.get(15), values.get(14), values.get(11));
-					triangleMesh.add(triangle3);
-					//5 4 9
-					Triangle triangle4 = new Triangle(values.get(5), values.get(4), values.get(9), values.get(15), values.get(14), values.get(19));
-					triangleMesh.add(triangle4);
-					//6 9 7
-					Triangle triangle5 = new Triangle(values.get(6), values.get(9), values.get(7), values.get(16), values.get(19), values.get(17));
-					triangleMesh.add(triangle5);
-					//7 8 9
-					Triangle triangle6 = new Triangle(values.get(7), values.get(8), values.get(9), values.get(17), values.get(18), values.get(19));
-					triangleMesh.add(triangle6);
-					//9 4 3
-					Triangle triangle7 = new Triangle(values.get(9), values.get(4), values.get(3), values.get(19), values.get(14), values.get(13));
-					triangleMesh.add(triangle7);
-					//9 3 8
-					Triangle triangle8 = new Triangle(values.get(9), values.get(3), values.get(8), values.get(19), values.get(13), values.get(18));
-					triangleMesh.add(triangle8);
-					//8 0 3
-					Triangle triangle9 = new Triangle(values.get(8), values.get(0), values.get(3), values.get(18), values.get(10), values.get(13));
-					triangleMesh.add(triangle9);
-					
-				}
-				
 			}
+				
+			if (primitive.getName().equals("Triangle2PN")){
+					//0,3,5 + 6,9,11
+				Triangle triangle1 = new Triangle(values.get(0), values.get(3), values.get(5), values.get(6), values.get(9), values.get(11));
+				triangleMesh.add(triangle1);
+					//1,4,3 + 7,10,9
+				Triangle triangle2 = new Triangle(values.get(1), values.get(4), values.get(3), values.get(7), values.get(10), values.get(9));
+				triangleMesh.add(triangle2);
+					//2,5,4 + 8,11,10
+				Triangle triangle3 = new Triangle(values.get(2), values.get(5), values.get(4), values.get(8), values.get(11), values.get(10));
+				triangleMesh.add(triangle3);
+					//3,5,4 + 9,11,10
+				Triangle triangle4 = new Triangle(values.get(3), values.get(5), values.get(4), values.get(9), values.get(11), values.get(10));
+				triangleMesh.add(triangle4);
 
-			return triangleMesh;
-
+			}
+				
+			if (primitive.getName().equals("Triangle3PN")){
+					//2 7 6
+				Triangle triangle1 = new Triangle(values.get(2), values.get(7), values.get(6), values.get(12), values.get(17), values.get(16));
+				triangleMesh.add(triangle1);
+					//6 9 5
+				Triangle triangle2 = new Triangle(values.get(6), values.get(9), values.get(5), values.get(16), values.get(19), values.get(15));
+				triangleMesh.add(triangle2);
+					//5 4 1
+				Triangle triangle3 = new Triangle(values.get(5), values.get(4), values.get(1), values.get(15), values.get(14), values.get(11));
+				triangleMesh.add(triangle3);
+					//5 4 9
+				Triangle triangle4 = new Triangle(values.get(5), values.get(4), values.get(9), values.get(15), values.get(14), values.get(19));
+				triangleMesh.add(triangle4);
+					//6 9 7
+				Triangle triangle5 = new Triangle(values.get(6), values.get(9), values.get(7), values.get(16), values.get(19), values.get(17));
+				triangleMesh.add(triangle5);
+					//7 8 9
+				Triangle triangle6 = new Triangle(values.get(7), values.get(8), values.get(9), values.get(17), values.get(18), values.get(19));
+				triangleMesh.add(triangle6);
+					//9 4 3
+				Triangle triangle7 = new Triangle(values.get(9), values.get(4), values.get(3), values.get(19), values.get(14), values.get(13));
+				triangleMesh.add(triangle7);
+					//9 3 8
+				Triangle triangle8 = new Triangle(values.get(9), values.get(3), values.get(8), values.get(19), values.get(13), values.get(18));
+				triangleMesh.add(triangle8);
+					//8 0 3
+				Triangle triangle9 = new Triangle(values.get(8), values.get(0), values.get(3), values.get(18), values.get(10), values.get(13));
+				triangleMesh.add(triangle9);
+					
+			}
+				
 		}
+
+		return triangleMesh;
+
+	}
 		
 		
-		public float calculateAOValue(SFVertex3f vertex, SFVertex3f normal, ArrayList <Triangle> triangleArray){
-			
-			
-			float totalRays = 100; 
+	public float calculateAOValue(SFVertex3f vertex, SFVertex3f normal, ArrayList <Triangle> triangleArray){
+				
+			float totalRays = 1000; 
 			float numOccluded = 0;
 			float aoValue = 0;
 			boolean intersection;
@@ -345,43 +342,71 @@ public abstract class SFAbstractTestAO {
 	}
 		
 		
-		public float getPositionX (float u, float v, float w, Triangle t){
-			float p = t.getVertex1().getX()*u + t.getVertex2().getX()*v + t.getVertex3().getX()*w;
-			return p;
-		}
+public float getPositionX (float u, float v, float w, Triangle t){
+	float p = t.getVertex1().getX()*u + t.getVertex2().getX()*v + t.getVertex3().getX()*w;
+	return p;
+}
 		
-		public float getPositionY (float u, float v, float w, Triangle t){
-			float p= t.getVertex1().getY()*u + t.getVertex2().getY()*v + t.getVertex3().getY()*w;
-			return p;
-		}
+public float getPositionY (float u, float v, float w, Triangle t){
+	float p= t.getVertex1().getY()*u + t.getVertex2().getY()*v + t.getVertex3().getY()*w;
+	return p;
+}
 		
-		public float getPositionZ (float u, float v, float w, Triangle t){
-			float p = t.getVertex1().getZ()*u + t.getVertex2().getZ()*v + t.getVertex3().getZ()*w;
-			return p;
-		}
+public float getPositionZ (float u, float v, float w, Triangle t){
+	float p = t.getVertex1().getZ()*u + t.getVertex2().getZ()*v + t.getVertex3().getZ()*w;
+	return p;
+}
 		
-		public float getNormalX (float u, float v, float w, Triangle t){
-			float n = t.getNormal1().getX()*u + t.getNormal2().getX()*v + t.getNormal3().getX()*w;
-			return n;
-		}
+public float getNormalX (float u, float v, float w, Triangle t){
+	float n = t.getNormal1().getX()*u + t.getNormal2().getX()*v + t.getNormal3().getX()*w;
+	return n;
+}
 		
-		public float getNormalY (float u, float v, float w, Triangle t){
-			float n = t.getNormal1().getY()*u + t.getNormal2().getY()*v + t.getNormal3().getY()*w;
-			return n;
-		}
+public float getNormalY (float u, float v, float w, Triangle t){
+	float n = t.getNormal1().getY()*u + t.getNormal2().getY()*v + t.getNormal3().getY()*w;
+	return n;
+}
 		
-		public float getNormalZ (float u, float v, float w, Triangle t){
-			float n = t.getNormal1().getZ()*u + t.getNormal2().getZ()*v + t.getNormal3().getZ()*w;
-			return n;
-		}
+public float getNormalZ (float u, float v, float w, Triangle t){
+	float n = t.getNormal1().getZ()*u + t.getNormal2().getZ()*v + t.getNormal3().getZ()*w;
+	return n;
+}
 		
 		
 		
-		public void storeXML(SFDataAsset<?> asset) {
+public void storeXML(SFDataAsset<?> asset) {
 
-			SFDataUtility.saveXMLFile(root, getFilename(), asset);
+	SFDataUtility.saveXMLFile(root, getFilename(), asset);
 
-		}
+}
+		
+		
+public ArrayList<Triangle> calculateAOValues(ArrayList<Triangle> triangleArray){
+			
+	ArrayList<Triangle> triangleCurrent = new ArrayList<Triangle>(); 
+			
+	for (int k=0; k<triangleArray.size(); k++){
+				
+		triangleCurrent = (ArrayList<Triangle>)triangleArray.clone();
+		triangleCurrent.remove(k);
+		triangleArray.get(k).setAO1(calculateAOValue(triangleArray.get(k).getVertex1(), triangleArray.get(k).getNormal1(), triangleCurrent));
+		triangleArray.get(k).setAO2(calculateAOValue(triangleArray.get(k).getVertex2(), triangleArray.get(k).getNormal2(), triangleCurrent));
+		triangleArray.get(k).setAO3(calculateAOValue(triangleArray.get(k).getVertex3(), triangleArray.get(k).getNormal3(), triangleCurrent));
+					
+	}
+		
+	return triangleArray;
+			
+}
+
+
+public void printAOValues(ArrayList<Triangle> triangleArray){
+	
+	for (int k=0; k<triangleArray.size(); k++){
+		 System.out.println("triangolo: " + k);
+		 System.out.println(triangleArray.get(k).getAO1() + " " + triangleArray.get(k).getAO2() + " " + triangleArray.get(k).getAO3());
+	}
+}
 		
 		
 // end AO		

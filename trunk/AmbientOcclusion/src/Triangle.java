@@ -79,6 +79,30 @@ public class Triangle {
 		this.ao3=f;
 	}
 	
+	
+	public SFVertex3f[] getVertices(){
+		SFVertex3f[] vertices = new SFVertex3f[3];
+		vertices[0] = this.vertex1;
+		vertices[1] = this.vertex2;
+		vertices[2] = this.vertex3;
+		return vertices;
+	}
+	
+	public SFVertex3f[] getNormals(){
+		SFVertex3f[] normals = new SFVertex3f[3];
+		normals[0] = this.normal1;
+		normals[1] = this.normal2;
+		normals[2] = this.normal3;
+		return normals;
+	}
+	
+	public float[] getAOValues(){
+		float[] ao = new float[3];
+		ao[0] = this.ao1;
+		ao[1] = this.ao2;
+		ao[2] = this.ao3;
+		return ao;
+	}
 
 }
 

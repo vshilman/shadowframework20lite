@@ -1,6 +1,7 @@
 
 @include primitive
 @include primitivenew
+@include occlusionpipeline
 
 @begin Transform BasicPNTransform
 @component BasicP
