@@ -39,15 +39,17 @@ public class Test0252b_LateralTubeAO extends SFAbstractTestAO{
 				
 				SFMeshGeometry meshGeometry=(SFMeshGeometry)dataset.getResource();
 				
-				storeXML(dataset);
+				//storeXML(dataset);
 				
 				triangleMesh = convertMeshGeometryInTriangles(meshGeometry);
 				
-				//triangleMesh = tessellation(triangleMesh);
+				//triangleMesh = tessellation(triangleMesh, 2);
 				
-				triangleMesh = calculateAOValues(triangleMesh);
+				calculateAOValues(triangleMesh, 1000);
 				
 				//printAOValues(triangleMesh);
+				
+				//printTriangleInfo(triangleMesh);
 			
 			}
 		});
