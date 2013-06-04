@@ -83,16 +83,16 @@ public abstract class SFAbstractTestAO {
 			}
 				
 			if (primitive.getName().equals("Triangle2PN")){
-					//0,3,5 + 6,9,11
+					//0 3 5 
 				Triangle triangle1 = new Triangle(values.get(0), values.get(3), values.get(5), values.get(6), values.get(9), values.get(11));
 				triangleMesh.add(triangle1);
-					//1,4,3 + 7,10,9
+					//1 4 3  
 				Triangle triangle2 = new Triangle(values.get(1), values.get(4), values.get(3), values.get(7), values.get(10), values.get(9));
 				triangleMesh.add(triangle2);
-					//2,5,4 + 8,11,10
+					//2 5 4 
 				Triangle triangle3 = new Triangle(values.get(2), values.get(5), values.get(4), values.get(8), values.get(11), values.get(10));
 				triangleMesh.add(triangle3);
-					//3,5,4 + 9,11,10
+					//3 5 4 
 				Triangle triangle4 = new Triangle(values.get(3), values.get(5), values.get(4), values.get(9), values.get(11), values.get(10));
 				triangleMesh.add(triangle4);
 
@@ -134,39 +134,54 @@ public abstract class SFAbstractTestAO {
 		return triangleMesh;
 
 	}
+	
+	
+	
+	
+	public void calculateAOValues(ArrayList<Triangle> triangleArray, float totalRays){
 		
-		
-	public float calculateAOValue(SFVertex3f vertex, SFVertex3f normal, ArrayList <Triangle> triangleArray){
+		ArrayList<Triangle> triangleCurrent = new ArrayList<Triangle>(); 
 				
-			float totalRays = 1000; 
+				for (int k=0; k<triangleArray.size(); k++){
+					
+					triangleCurrent = (ArrayList<Triangle>)triangleArray.clone();
+					triangleCurrent.remove(k);
+					triangleArray.get(k).setAO1(calculateAO(triangleArray.get(k).getVertex1(), triangleArray.get(k).getNormal1(), triangleCurrent, totalRays));
+					triangleArray.get(k).setAO2(calculateAO(triangleArray.get(k).getVertex2(), triangleArray.get(k).getNormal2(), triangleCurrent, totalRays));
+					triangleArray.get(k).setAO3(calculateAO(triangleArray.get(k).getVertex3(), triangleArray.get(k).getNormal3(), triangleCurrent, totalRays));
+								
+				}
+				
+	}
+	
+	
+		
+		
+	public float calculateAO(SFVertex3f vertex, SFVertex3f normal, ArrayList <Triangle> triangleArray, float totalRays){
+				
 			float numOccluded = 0;
 			float aoValue = 0;
 			boolean intersection;
-			
-			
+
 	    	for (int r=0; r<totalRays; r++){
 	    		   		
 	    		  double a = Math.random()*(Math.PI);
 	    		  double b = Math.random()*(2*Math.PI);
 	    		  
-	    		  SFVertex3f randomDirection = new SFVertex3f((float)(Math.cos(b)*Math.sin(a)), (float)(Math.sin(b)*Math.sin(a)), (float)(Math.cos(a)));
+	    		  SFVertex3f rayDirection = new SFVertex3f((float)(Math.cos(b)*Math.sin(a)), (float)(Math.sin(b)*Math.sin(a)), (float)(Math.cos(a)));
 	    		  
-	    		  randomDirection.subtract3f(vertex);
-	    		  
-	    		  SFVertex3f rayDirection = randomDirection;
-	    				  
 	    		  if (normal.dot3f(rayDirection) < 0){
-	    		   			
+	    		 
 	    		   	r--;
 	    		   			
 	    		  } else {
-	    			  
-	    			  rayDirection.normalize3f();
+	    			 
 	    			  intersection = intersectionTest(vertex, rayDirection, triangleArray);
 	        		   		
 	        		  if (intersection == true){
-	        			  
+	   
 	        		   		numOccluded ++;
+	        		   		
 	        		   }
 	    		   			
 	    		 }
@@ -184,7 +199,7 @@ public abstract class SFAbstractTestAO {
 		
 	public boolean intersectionTest(SFVertex3f p, SFVertex3f d, ArrayList<Triangle> triangleArray) {
 
-
+		float epsilon = 0.00001f;
 		boolean intersection = false;
 		boolean isFinish = false;
 	    
@@ -196,25 +211,26 @@ public abstract class SFAbstractTestAO {
 					
 					intersection = true;
 					
+					// vertici del triangolo da testare
 					SFVertex3f v0 = triangleArray.get(k).getVertex1();
 					SFVertex3f v1 = triangleArray.get(k).getVertex2();
 					SFVertex3f v2 = triangleArray.get(k).getVertex3();
 				
 					//e1 = v1-v0
-					//e2 = v2-v0
 					SFVertex3f clonev1 = v1.cloneV();
-					SFVertex3f clonev2 = v2.cloneV();
 					clonev1.subtract3f(v0);
-					clonev2.subtract3f(v0);
 					SFVertex3f e1 = clonev1;
+					
+					//e2 = v2-v0
+					SFVertex3f clonev2 = v2.cloneV();
+					clonev2.subtract3f(v0);
 					SFVertex3f e2 = clonev2;
 					
 					SFVertex3f h = d.cross(e2);
-
+						
 					float a = e1.dot3f(h);
 					
-					if (a>-0.00001 && a<0.00001)
-						
+					if (a > -epsilon && a < epsilon)
 						intersection = false;
 						
 					if(intersection == true){
@@ -228,8 +244,7 @@ public abstract class SFAbstractTestAO {
 						
 						float u = f*(s.dot3f(h));
 							
-						if(u<0.0 || u >1.0)
-							
+						if(u < 0.0f || u > 1.0f)
 							intersection = false;
 							
 						if(intersection == true){
@@ -237,25 +252,23 @@ public abstract class SFAbstractTestAO {
 							SFVertex3f q = s.cross(e1);
 							float v = f*(d.dot3f(q));
 								
-							if(v<0.0 || u+v>1.0)
-								
+							if(v < 0.0f || (u+v) > 1.0f)
 								intersection = false;
 								
 							if(intersection == true){
 									
 								float t = f*(e2.dot3f(q));
 								
-								if(t<0.00001)
-									
+								if(t <= epsilon)
 									intersection = false;
 								
 								if(intersection == true){
-									
+									//controllo che il punto di intersezione non è l'origine del raggio
 									SFVertex3f intersectionPoint = new SFVertex3f(p.getX()+t*d.getX(), p.getY()+t*d.getY(), p.getZ()+t*d.getZ());
 									
-									if(intersectionPoint == v0 || intersectionPoint == v1 || intersectionPoint == v2 )
-										
+									if(intersectionPoint.getX() == p.getX() && intersectionPoint.getY() == p.getY() && intersectionPoint.getZ() == p.getZ())
 										intersection = false;
+	
 								}
 							}
 						}
@@ -271,75 +284,76 @@ public abstract class SFAbstractTestAO {
 
 	}
 
+
 		
 		
 		
-	public ArrayList<Triangle> tessellation (ArrayList<Triangle> triangleArray){
-		
+	public ArrayList<Triangle> tessellation (ArrayList<Triangle> triangleArray, int n){
 		
 		ArrayList <Triangle> tessellationArray = new ArrayList <Triangle>(); 
-		int n=2;
+
 		float step=1.0f/n;
-		
 		
 		for (int k=0; k<triangleArray.size(); k++){
 			
+			// divisione in strisce
 			for (int i=0; i<n; i++){
 				
 				float v1 = i*step;
 				float v2 = v1+step;
 				
-				int total=2*(n-i-1)+1;
+				int total=2*(n-i-1)+1; // numero di triangoli totali per striscia
 				
-				SFVertex3f [] vertices = new SFVertex3f [total+2];
-				SFVertex3f [] normals = new SFVertex3f [total+2];
+				ArrayList <SFVertex3f> vertices = new ArrayList <SFVertex3f>();
+				ArrayList <SFVertex3f> normals = new ArrayList <SFVertex3f>();
 				
-				int index = 0;
+				SFVertex3f newVertex;
+				SFVertex3f newNormal;
 				
-				// disegno della striscia 
+				// disegno della striscia
 				for (int j=0; j<(n-i); j++){
 					
 					float u = j*step;
 					float w = 1-v1-u;
 					
-					SFVertex3f newVertex1 = new SFVertex3f (getPositionX(u,v1,w,triangleArray.get(k)), getPositionY(u,v1,w,triangleArray.get(k)), getPositionZ(u,v1,w,triangleArray.get(k)));
-					SFVertex3f newNormal1 = new SFVertex3f (getNormalX(u,v1,w,triangleArray.get(k)), getNormalY(u,v1,w,triangleArray.get(k)), getNormalZ(u,v1,w,triangleArray.get(k)));
-					newNormal1.normalize3f();
-					vertices[index]= newVertex1;
-					normals[index]= newNormal1;
-					index ++;
+					newVertex = new SFVertex3f (getPositionX(u,v1,w,triangleArray.get(k)), getPositionY(u,v1,w,triangleArray.get(k)), getPositionZ(u,v1,w,triangleArray.get(k)));
+					newNormal = new SFVertex3f (getNormalX(u,v1,w,triangleArray.get(k)), getNormalY(u,v1,w,triangleArray.get(k)), getNormalZ(u,v1,w,triangleArray.get(k)));
+					newNormal.normalize3f();
+					vertices.add(newVertex);
+					normals.add(newNormal);
 					
 					w = 1-v2-u;
 					
-					SFVertex3f newVertex2 = new SFVertex3f (getPositionX(u,v2,w,triangleArray.get(k)), getPositionY(u,v2,w,triangleArray.get(k)), getPositionZ(u,v2,w,triangleArray.get(k)));	
-					SFVertex3f newNormal2 = new SFVertex3f (getNormalX(u,v2,w,triangleArray.get(k)), getNormalY(u,v2,w,triangleArray.get(k)), getNormalZ(u,v2,w,triangleArray.get(k))); 
-					newNormal2.normalize3f();
-					vertices[index]= newVertex2;
-					normals[index]= newNormal2;
-					index ++;
+					newVertex = new SFVertex3f (getPositionX(u,v2,w,triangleArray.get(k)), getPositionY(u,v2,w,triangleArray.get(k)), getPositionZ(u,v2,w,triangleArray.get(k)));	
+					newNormal = new SFVertex3f (getNormalX(u,v2,w,triangleArray.get(k)), getNormalY(u,v2,w,triangleArray.get(k)), getNormalZ(u,v2,w,triangleArray.get(k))); 
+					newNormal.normalize3f();
+					vertices.add(newVertex);
+					normals.add(newNormal);
 					
 				}
 				
-				SFVertex3f newVertex3 = new SFVertex3f (getPositionX(1-v1,v1,0,triangleArray.get(k)), getPositionY(1-v1,v1,0,triangleArray.get(k)), getPositionZ(1-v1,v1,0,triangleArray.get(k)));	
-				SFVertex3f newNormal3 = new SFVertex3f (getNormalX(1-v1,v1,0,triangleArray.get(k)), getNormalY(1-v1,v1,0,triangleArray.get(k)), getNormalZ(1-v1,v1,0,triangleArray.get(k))); 
-				newNormal3.normalize3f();
-				vertices[index]= newVertex3;
-				normals[index]= newNormal3;
+				newVertex = new SFVertex3f (getPositionX((1-v1),v1,0,triangleArray.get(k)), getPositionY((1-v1),v1,0,triangleArray.get(k)), getPositionZ((1-v1),v1,0,triangleArray.get(k)));	
+				newNormal = new SFVertex3f (getNormalX((1-v1),v1,0,triangleArray.get(k)), getNormalY((1-v1),v1,0,triangleArray.get(k)), getNormalZ((1-v1),v1,0,triangleArray.get(k))); 
+				newNormal.normalize3f();
+				vertices.add(newVertex);
+				normals.add(newNormal);
 				
-				// creo i triangoli
-				
+				// creazione triangoli di una striscia
 				for (int z=0; z<total; z++){
-					Triangle t = new Triangle(vertices[z], vertices[z+1], vertices[z+2], normals[z], normals[z+1], normals[z+2]);
-					tessellationArray.add(t);
+				
+                    Triangle t = new Triangle(vertices.get(z), vertices.get(z+1), vertices.get(z+2), normals.get(z), normals.get(z+1), normals.get(z+2));
+                    tessellationArray.add(t);
+                    
 				}
 				
 			}
 			
 		}
-		
+			
 		return tessellationArray;
 		
 	}
+	
 		
 		
 public float getPositionX (float u, float v, float w, Triangle t){
@@ -372,7 +386,8 @@ public float getNormalZ (float u, float v, float w, Triangle t){
 	return n;
 }
 		
-		
+	
+	
 		
 public void storeXML(SFDataAsset<?> asset) {
 
@@ -380,24 +395,6 @@ public void storeXML(SFDataAsset<?> asset) {
 
 }
 		
-		
-public ArrayList<Triangle> calculateAOValues(ArrayList<Triangle> triangleArray){
-			
-	ArrayList<Triangle> triangleCurrent = new ArrayList<Triangle>(); 
-			
-	for (int k=0; k<triangleArray.size(); k++){
-				
-		triangleCurrent = (ArrayList<Triangle>)triangleArray.clone();
-		triangleCurrent.remove(k);
-		triangleArray.get(k).setAO1(calculateAOValue(triangleArray.get(k).getVertex1(), triangleArray.get(k).getNormal1(), triangleCurrent));
-		triangleArray.get(k).setAO2(calculateAOValue(triangleArray.get(k).getVertex2(), triangleArray.get(k).getNormal2(), triangleCurrent));
-		triangleArray.get(k).setAO3(calculateAOValue(triangleArray.get(k).getVertex3(), triangleArray.get(k).getNormal3(), triangleCurrent));
-					
-	}
-		
-	return triangleArray;
-			
-}
 
 
 public void printAOValues(ArrayList<Triangle> triangleArray){
@@ -405,6 +402,17 @@ public void printAOValues(ArrayList<Triangle> triangleArray){
 	for (int k=0; k<triangleArray.size(); k++){
 		 System.out.println("triangolo: " + k);
 		 System.out.println(triangleArray.get(k).getAO1() + " " + triangleArray.get(k).getAO2() + " " + triangleArray.get(k).getAO3());
+	}
+}
+
+
+
+public void printTriangleInfo(ArrayList<Triangle> triangleArray){
+	
+	for (int k=0; k<triangleArray.size(); k++){
+		 System.out.println("triangolo: " + k);
+		 System.out.println("vertici: " + triangleArray.get(k).getVertex1() + "  " + triangleArray.get(k).getVertex2() + "  " + triangleArray.get(k).getVertex3());
+		 System.out.println("normali: " + triangleArray.get(k).getNormal1() + "  " + triangleArray.get(k).getNormal2() + "  " + triangleArray.get(k).getNormal3());
 	}
 }
 		

@@ -39,15 +39,17 @@ public class Test0002b_MushroomAO extends SFAbstractTestAO{
 				
 				SFMeshGeometry meshGeometry=(SFMeshGeometry)dataset.getResource();
 				
-				storeXML(dataset);
+				//storeXML(dataset);
 				
 				triangleMesh = convertMeshGeometryInTriangles(meshGeometry);
-	
-				//triangleMesh = tessellation(triangleMesh);
 				
-				triangleMesh = calculateAOValues(triangleMesh);
+				//triangleMesh = tessellation(triangleMesh, 2);
+				
+				calculateAOValues(triangleMesh, 1000);
 				
 				//printAOValues(triangleMesh);
+				
+				//printTriangleInfo(triangleMesh);
 				
 			}
 			
@@ -80,7 +82,7 @@ public class Test0002b_MushroomAO extends SFAbstractTestAO{
 					getArray().getPrimitiveData(2).setElement(datas+j, new SFValue1f(occlusionArray[j]));
 					
 				}
-				
+					
 				int primitiveIndex = getArray().generateElement();
 				int[] indices = { positions,positions+1,positions+2   ,  normals,normals+1,normals+2   ,    datas,datas+1,datas+2 };
 				SFPrimitiveIndices prIndices=new SFPrimitiveIndices();
