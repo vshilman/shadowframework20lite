@@ -1,5 +1,6 @@
 package tests.javaJsComparator;
 
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,10 +52,10 @@ public class TestFileComparator {
 			System.out.print(name);
 			logWriter.write(name + "\n");
 
-			ArrayList<CodePattern> javaPatterns = new ArrayList<CodePattern>(getCodePatterns(
-					javaTests.get(i), new JavaCodePatternInterpreter()));
+			ArrayList<CodePattern> javaPatterns = new ArrayList<CodePattern>(getCodePatterns(FileStringUtility.getStream(javaTests.get(i))
+					, new JavaCodePatternInterpreter()));
 
-			ArrayList<CodePattern> jsPatterns = new ArrayList<CodePattern>(getCodePatterns(jsTests.get(i),
+			ArrayList<CodePattern> jsPatterns = new ArrayList<CodePattern>(getCodePatterns(FileStringUtility.getStream(jsTests.get(i)),
 					new JsCodePatternInterpreter()));
 
 			boolean[] javaConfirmations = new boolean[javaPatterns.size()];
@@ -161,9 +162,9 @@ public class TestFileComparator {
 		return codePattern.getPieceByType(PieceType.METHOD_VARIABLES).getPieces().size() == 0;
 	}
 
-	private static Collection<CodePattern> getCodePatterns(String file, BlockDataInterpreter blockInterpreter) {
+	private static Collection<CodePattern> getCodePatterns(InputStream stream, BlockDataInterpreter blockInterpreter) {
 
-		char[] totalStringChars = TestingUtilities.generateFileString(file).toCharArray();
+		char[] totalStringChars = TestingUtilities.generateFileString(stream).toCharArray();
 
 		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
 

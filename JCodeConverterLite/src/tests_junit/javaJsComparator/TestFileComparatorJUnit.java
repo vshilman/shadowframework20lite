@@ -37,7 +37,7 @@ public class TestFileComparatorJUnit {
 	private static final String JAVA_DIRECTORY = "../OpenGL OfA/src/test/jogl/";
 	private static final String JS_DIRECTORY = "../OpenGL OfA/src/test/WebGL/";
 	private static StringWriter logWriter = new StringWriter();
-	
+
 	@Test
 	public void test() {
 		ArrayList<String> javaTests = new ArrayList<String>();
@@ -157,27 +157,27 @@ public class TestFileComparatorJUnit {
 
 		FileStringUtility.writeTextFile("./src/tests_junit/javaJsComparator/ComparatorLog.txt",
 				logWriter.toString());
-		
-		
+
+
 		assertEquals("\nTest_sv1Drawer.java VS test_sv1Drawer.js: test is OK!!\n\nTest_sv2Drawer.java VS test_sv2Drawer.js: test is OK!!\n\nTest_sv3Drawer.java VS test_sv3Drawer.js: test is OK!!\n\nTest_sv4Drawer.java VS test_sv4Drawer.js: test is OK!!\n\nTest_sv5Drawer.java VS test_sv5Drawer.js: test is OK!!\n\nTest_sv6Drawer.java VS test_sv6Drawer.js: test is OK!!\n\nTest_sv7Drawer.java VS test_sv7Drawer.js: test is OK!!\n\nTest_sv8Drawer.java VS test_sv8Drawer.js: test is OK!!\n\nTest_sv9Drawer.java VS test_sv9Drawer.js: test is OK!!\n\nTest_va1Drawer.java VS test_va1Drawer.js: test is OK!!\n\nTest_va2Drawer.java VS test_va2Drawer.js: test is OK!!\n", s);
-		
+
 		File expected=new File("./src/tests/javaJsComparator/ComparatorLog.txt");
 		File current=new File("./src/tests_junit/javaJsComparator/ComparatorLog.txt");
-		
+
 		try {
 			BufferedReader re=new BufferedReader(new FileReader(expected));
 			BufferedReader rc=new BufferedReader(new FileReader(current));
-			
+
 			String se=re.readLine();
 			String sc=rc.readLine();
-			
-			
+
+
 			while (se!=null || sc!=null) {
 				assertEquals(se, sc);
 				se=re.readLine();
 				sc=rc.readLine();
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,16 +185,16 @@ public class TestFileComparatorJUnit {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
 	}
-	
+
 	private static boolean alreadyConfirmed(int[][] result, boolean[] javaConfirmations,
 			boolean[] jsConfirmations) {
 		for (int l = 0; l < result[0].length; l++) {
@@ -207,15 +207,15 @@ public class TestFileComparatorJUnit {
 		}
 		return false;
 	}
-	
+
 	private static boolean isDefaultConstructor(CodePattern codePattern) {
 		return codePattern.getPieceByType(PieceType.METHOD_VARIABLES).getPieces().size() == 0;
 	}
-	
-	
+
+
 	private static Collection<CodePattern> getCodePatterns(String file, BlockDataInterpreter blockInterpreter) {
 
-		char[] totalStringChars = TestingUtilities.generateFileString(file).toCharArray();
+		char[] totalStringChars = TestingUtilities.generateFileString(FileStringUtility.getStream(file)).toCharArray();
 
 		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
 

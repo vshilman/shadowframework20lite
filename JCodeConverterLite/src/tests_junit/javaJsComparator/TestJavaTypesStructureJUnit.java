@@ -28,12 +28,12 @@ import codeconverter.utility.FileStringUtility;
 public class TestJavaTypesStructureJUnit {
 
 	private static final String DIRECTORY = "../OpenGL OfA/src/test/jogl/";
-	
+
 	@Test
 	public void test() {
-		
-		
-		
+
+
+
 		ArrayList<String> tests = new ArrayList<String>();
 
 		for (int i = 1; i <= 9; i++) {
@@ -50,7 +50,7 @@ public class TestJavaTypesStructureJUnit {
 			//System.out.println(name);
 			logWriter.write(name + "\n");
 
-			String totalString = TestingUtilities.generateFileString(file);
+			String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
 			char[] totalStringChars = totalString.toCharArray();
 
 			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
@@ -77,28 +77,28 @@ public class TestJavaTypesStructureJUnit {
 				}
 			}
 		}
-		
+
 		FileStringUtility.writeTextFile("./src/tests_junit/javaJsComparator/JavaLog.txt", logWriter.toString());
-		
+
 
 		File expected=new File("./src/tests/javaJsComparator/JavaLog.txt");
 		File current=new File("./src/tests_junit/javaJsComparator/JavaLog.txt");
-		
+
 		try {
 			BufferedReader re=new BufferedReader(new FileReader(expected));
 			BufferedReader rc=new BufferedReader(new FileReader(current));
-			
+
 			String se=re.readLine();
 			String sc=rc.readLine();
-			
-			
+
+
 			while (se!=null || sc!=null) {
 				assertEquals(se, sc);
 				se=re.readLine();
 				sc=rc.readLine();
 			}
 			re.close();
-			rc.close();	
+			rc.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,11 +106,11 @@ public class TestJavaTypesStructureJUnit {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
+
+
 	}
-	
+
 	private static String patternType(CodePattern pattern) {
 		List<PatternType> types = pattern.getPatternType();
 		String s = "";
@@ -123,6 +123,6 @@ public class TestJavaTypesStructureJUnit {
 		}
 		return !s.equals("") ? s : "noType";
 	}
-	
+
 
 }

@@ -2,35 +2,37 @@ package codeconverter.utility;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * A Common Use class to access files
- * 
+ *
  * @author Alessandro Martinelli
  */
 public class FileStringUtility {
 
 	/**
-	 * Load a file and extract all its lines as a List of Strings
-	 * 
-	 * @param filename the file name
-	 * @return a list of {@link String} representing the file content 
+	 * Load a textual input stream and extract all of his lines
+	 *
+	 * @param stream: the stream
+	 * @return a list of {@link String} representing the file content
 	 */
-	public static List<String> loadTextFile(String filename) {
+	public static List<String> loadTextfromStream(InputStream stream) {
 
 		List<String> list=new LinkedList<String>();
 
 		try {
-			BufferedReader reader=new BufferedReader(new FileReader(new File(
-					filename)));
+			BufferedReader reader=new BufferedReader(new InputStreamReader(stream));
 			String line=reader.readLine();
 			while (line != null) {
 				list.add(line);
@@ -47,6 +49,26 @@ public class FileStringUtility {
 
 		return list;
 	}
+
+	public static InputStream getStream (String file){
+		File f=new File(file);
+		String total="";
+		try {
+			BufferedReader r=new BufferedReader(new FileReader(f));
+			String s=r.readLine();
+			while(s!=null){
+				total+=s+"\n";
+				s=r.readLine();
+			}
+			r.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ByteArrayInputStream(total.getBytes());
+
+	}
+
 
 	/**
 	 * Write an array of strings into a file
@@ -71,10 +93,10 @@ public class FileStringUtility {
 		}
 
 	}
-	
+
 	/**
-	 * Write a string into a file 
-	 * 
+	 * Write a string into a file
+	 *
 	 * @param filename the file name
 	 * @param output the output string
 	 */
@@ -94,11 +116,11 @@ public class FileStringUtility {
 		}
 
 	}
-	
+
 	/**
 	 * An easy tool to read a file and put all its content into a String.
-	 * '\n' are removed from the text Removed. 
-	 * 
+	 * '\n' are removed from the text Removed.
+	 *
 	 * @param filename
 	 * @return
 	 */

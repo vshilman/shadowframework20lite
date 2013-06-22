@@ -37,7 +37,7 @@ public class TestFileInterpretation {
 			System.out.println(name);
 			logWriter.write(name + "\n");
 
-			String totalString = TestingUtilities.generateFileString(file);
+			String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
 			char[] totalStringChars = totalString.toCharArray();
 
 			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
@@ -62,7 +62,7 @@ public class TestFileInterpretation {
 				}
 			}
 		}
-		
+
 		FileStringUtility.writeTextFile("./src/tests/jogl/log.txt", logWriter.toString());
 
 	}

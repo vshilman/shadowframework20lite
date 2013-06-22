@@ -4,13 +4,13 @@ public class DeclaredBlock implements CodeModule{
 
 	private CodeLine blockDeclaration;
 	private Block relatedBlock;
-	
+
 	public DeclaredBlock(CodeLine blockDeclaration, Block relatedBlock) {
 		super();
 		this.blockDeclaration=blockDeclaration;
 		this.relatedBlock=relatedBlock;
 	}
-	
+
 	@Override
 	public int getSize() {
 		return 2;
@@ -30,14 +30,22 @@ public class DeclaredBlock implements CodeModule{
 	public Block getRelatedBlock() {
 		return relatedBlock;
 	}
-	
+
+
 	@Override
 	public String print() {
-		return "DBLOCK "+blockDeclaration.getCodeLine()+"\n"+relatedBlock.print();
+		return "DBLOCK "+blockDeclaration.getCode()+"\n"+relatedBlock.print();
 	}
-	
+
 	@Override
 	public String toString() {
-		return "BLOCK ["+blockDeclaration.getCodeLine()+"]";
+		return "BLOCK ["+blockDeclaration.getCode()+"]";
+	}
+
+	@Override
+	public String getCode() {
+		String ret="";
+		ret=blockDeclaration.getCode()+" "+relatedBlock.getCode();
+		return null;
 	}
 }
