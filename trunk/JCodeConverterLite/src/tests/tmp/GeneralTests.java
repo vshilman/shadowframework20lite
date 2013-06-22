@@ -1,5 +1,6 @@
 package tests.tmp;
 
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -25,31 +26,31 @@ import codeconverter.js.JsCodePatternInterpreter;
 
 /**
  * A useful class with general purpose functionalities for Java To JS comparisons
- * 
+ *
  * @author Alessandro Martinelli
  */
 public class GeneralTests {
 
 	private static int notGeneratedInterpretationJava=0;
-	
+
 	private static int notGeneratedInterpretationJs=0;
-	
+
 	private static int totalJavaLineOfCode=0;
-	
+
 	private static int totalJsLineOfCode=0;
 
 	private static int totalJavaFiles=0;
-	
+
 	private static int totalJsFiles=0;
-	
+
 	private static int totalModulesWhichCouldntBeAnalized =0;
-	
+
 	private static int totalIgnoredJavaLines =0;
-	
+
 	private static int totalUnmatchedJavaLines =0;
 
 	private static int totalUnmatchedJsLines =0;
-	
+
 	public static int getTotalJavaLineOfCode() {
 		return totalJavaLineOfCode;
 	}
@@ -63,8 +64,8 @@ public class GeneralTests {
 		GeneralTests.totalJsFiles = 0;
 		GeneralTests.totalModulesWhichCouldntBeAnalized = 0;
 	}
-	
-	
+
+
 
 	public static int getTotalUnmatchedJsLines() {
 		return totalUnmatchedJsLines;
@@ -86,7 +87,7 @@ public class GeneralTests {
 	public static int getNotGeneratedInterpretationJs() {
 		return notGeneratedInterpretationJs;
 	}
-	
+
 	public static int getNotGeneratedInterpretationJava() {
 		return notGeneratedInterpretationJava;
 	}
@@ -104,17 +105,17 @@ public class GeneralTests {
 		return totalJsFiles;
 	}
 
-	public static void matchBlocksTest(String fileName, PrintStream stream,BlockDataInterpreter dataInterpreter) {
-		HashMap<CodeModule, CodePattern> interpretation = generateInterpretation(dataInterpreter,getBlocks(fileName));
-		
+	public static void matchBlocksTest(String fileName,InputStream str, PrintStream stream,BlockDataInterpreter dataInterpreter) {
+		HashMap<CodeModule, CodePattern> interpretation = generateInterpretation(dataInterpreter,getBlocks(str));
+
 		stream.println("\n\nInterpreted Modules from "+fileName+"\n\n");
-		
+
 		Set<CodeModule> interpretedModules=interpretation.keySet();
 		for (Iterator<CodeModule> iterator = interpretedModules.iterator(); iterator.hasNext();) {
 			CodeModule codeModule = iterator.next();
-			
+
 			CodePattern pattern=interpretation.get(codeModule);
-			
+
 			stream.println("[\t"+codeModule.toString()+"\t\t\t\t  has been interpreted as \t[\t"+pattern.getPatternType()+",\t"+pattern.toString()+"\t]");
 		}
 		stream.println("\n\n");
@@ -122,18 +123,25 @@ public class GeneralTests {
 
 	public static HashMap<CodeModule, CodePattern> generateInterpretation(
 			BlockDataInterpreter dataInterpreter,Block fileBlock) {
-	
+
 		BlockInterpreter interpreter=new BlockInterpreter(dataInterpreter);
 		HashMap<CodeModule, CodePattern> interpretation=interpreter.getInterpretation(fileBlock);
 		return interpretation;
 	}
 
-	public static Block getBlocks(String fileName) {
-		String totalString=TestingUtilities.generateFileString(fileName);
-		
+
+
+
+	public static Block getBlocks(InputStream stream) {
+		String totalString=TestingUtilities.generateFileString(stream);
+
 		Block fileBlock=BlockUtilities.generateBlocks(totalString.toCharArray());
 		return fileBlock;
 	}
+
+
+
+
 
 	public static HashMap<CodeModule, CodeModule> findComparableLinesOfCode(List<CodePatternComparator> comparators,
 			HashMap<CodeModule, CodePattern> javaPatternsMap,
@@ -143,9 +151,9 @@ public class GeneralTests {
 
 		ArrayList<CodePattern> javaPatterns = new ArrayList<CodePattern>(javaPatternsMap.values());
 		ArrayList<CodePattern> jsPatterns = new ArrayList<CodePattern>(jsPatternsMap.values());
-		
+
 		HashMap<CodeModule, CodeModule> matchedPatterns=new HashMap<CodeModule, CodeModule>();
-	
+
 		Iterator<CodeModule> j=javaModules.iterator();
 		while (j.hasNext()) {
 			CodeModule javaModule=j.next();
@@ -157,11 +165,11 @@ public class GeneralTests {
 							//Actually, not the best code all around...
 							int javaPatternsIndex=javaPatterns.indexOf(javaPatternsMap.get(javaModule));
 							int jsPatternsIndex=jsPatterns.indexOf(jsPatternsMap.get(jsModule));
-							
+
 						int[][] result = codePatternComparator
 								.compare(javaPatterns, javaPatternsIndex, jsPatterns, jsPatternsIndex);
 						if (result != null) {
-							
+
 							matchedPatterns.put(javaModule, jsModule);
 							j.remove();
 							k.remove();
@@ -171,40 +179,51 @@ public class GeneralTests {
 					}
 			}
 		}
-		
+
 		return matchedPatterns;
 	}
 
-	public static String compareFiles(String jsTest, String javaTest, StringWriter logWriter) {
+
+	//id leftToRight==true js is on the left and java on the right (temporarily inserted waiting for an abstract comparison)
+
+	public static DifferentiationResult compareFiles(String jsTest, String javaTest,InputStream jsStream, InputStream javaStream, StringWriter logWriter,boolean leftToRight) {
+
+
 		try {
 			List<CodePatternComparator> comparators = JavaJsCodePatternComparators.getComparators();
 			comparators.add(new PrototypedMethodDeclarationComparator());
-			
+
 			JsCodePatternInterpreter jsCodePatterInterpreter=new JsCodePatternInterpreter();
 			jsCodePatterInterpreter.getPatterns().add(0,new JsPrototypedMethodDeclaration());
 
-			Block javaRootBlock=getBlocks(javaTest);
+			Block javaRootBlock=getBlocks(javaStream);
 			HashMap<CodeModule, CodePattern> javaPatternsMap=generateInterpretation(new JavaCodePatternInterpreter(),javaRootBlock);
-			HashMap<CodeModule, CodePattern> jsPatternsMap=generateInterpretation(jsCodePatterInterpreter,getBlocks(jsTest));
-			
+			HashMap<CodeModule, CodePattern> jsPatternsMap=generateInterpretation(jsCodePatterInterpreter,getBlocks(jsStream));
+
 			totalJavaFiles++;
 			totalJsFiles++;
 			totalJavaLineOfCode+=javaPatternsMap.size();
 			totalJsLineOfCode+=jsPatternsMap.size();
-			
+
+			List<CodeModule> javaNotInterpreted=new ArrayList<CodeModule>();
+
 			logWriter.write("\n\n\tSome Java Code lines could not be interpreted\n");
 			for (CodeModule codeModule : new ArrayList<CodeModule>(javaPatternsMap.keySet())) {
 				if(javaPatternsMap.get(codeModule)==null){
 					logWriter.write("\tCannot generate An interpretation for "+codeModule+"\n");
+					javaNotInterpreted.add(codeModule);
 					javaPatternsMap.remove(codeModule);
 					notGeneratedInterpretationJava++;
 				}
 			}
 
+			List<CodeModule> jsNotInterpreted=new ArrayList<CodeModule>();
+
 			logWriter.write("\n\n\tSome JS Code lines could not be interpreted\n");
 			for (CodeModule codeModule : new ArrayList<CodeModule>(jsPatternsMap.keySet())) {
 				if(jsPatternsMap.get(codeModule)==null){
 					logWriter.write("\t\tCannot generate An interpretation for "+codeModule+"\n");
+					jsNotInterpreted.add(codeModule);
 					jsPatternsMap.remove(codeModule);
 					notGeneratedInterpretationJs++;
 				}
@@ -217,10 +236,10 @@ public class GeneralTests {
 				CodeModule jscodeModule=matchedModules.get(javacodeModule);
 				logWriter.write("\t\t"+javacodeModule.toString()+" \n\t\t\t  was matched to  \n\t\t\t\t"+jscodeModule.toString()+" \n");
 			}
-			
+
 			Set<CodeModule> javaModules=javaPatternsMap.keySet();
 			Set<CodeModule> jsModules=jsPatternsMap.keySet();
-			
+
 			logWriter.write("\n\n\tIgnored javaPatterns:\n");
 			List<CodeModule> ignoredModules=new ArrayList<CodeModule>();
 			for (CodeModule codeModule : javaModules) {
@@ -245,9 +264,14 @@ public class GeneralTests {
 				logWriter.write("\t\t" + codeModule + "\n");
 				totalUnmatchedJsLines++;
 			}
-			
-			return translate(javaRootBlock, javaPatternsMap);
-			
+
+			//return translate(javaRootBlock, javaPatternsMap);
+			if(leftToRight){
+				return new DifferentiationResult(jsNotInterpreted, javaNotInterpreted, jsModules, jsModules);
+			} else {
+				return new DifferentiationResult(javaNotInterpreted, jsNotInterpreted, javaModules, jsModules);
+			}
+
 		} catch (ClassCastException e) {
 			String errorMessage="Comparison between \n "+javaTest+" and \n"+jsTest+"\n could not end correctly because the following exception was thrown: ";
 			logWriter.write(errorMessage+e.getMessage());
@@ -261,8 +285,8 @@ public class GeneralTests {
 			e.printStackTrace();
 			GeneralTests.totalModulesWhichCouldntBeAnalized ++;
 		}
-		
-		return "";
+
+		return null;
 	}
 
 	public static String translate(Block javaRootBlock,
@@ -275,19 +299,19 @@ public class GeneralTests {
 			if(pattern!=null && (pattern instanceof JavaConstructorDeclaration))
 				System.err.println("["+codeModule+"]:"+pattern);
 		}
-		
+
 		return translator.translateCode(javaRootBlock, javaPatternsMap);
 	}
 
 
-	public static String newFile(String javaTest, StringWriter logWriter) {
+	public static String newFile(String javaTest,InputStream javaStream, StringWriter logWriter) {
 		try {
 			List<CodePatternComparator> comparators = JavaJsCodePatternComparators.getComparators();
 			comparators.add(new PrototypedMethodDeclarationComparator());
 
-			Block javaRootBlock=getBlocks(javaTest);
+			Block javaRootBlock=getBlocks(javaStream);
 			HashMap<CodeModule, CodePattern> javaPatternsMap=generateInterpretation(new JavaCodePatternInterpreter(),javaRootBlock);
-			
+
 			totalJavaFiles++;
 			totalJavaLineOfCode+=javaPatternsMap.size();
 
@@ -299,7 +323,7 @@ public class GeneralTests {
 					notGeneratedInterpretationJava++;
 				}
 			}
-			
+
 			Set<CodeModule> javaModules=javaPatternsMap.keySet();
 
 			logWriter.write("\n\n\tIgnored javaPatterns:\n");
@@ -319,7 +343,7 @@ public class GeneralTests {
 				logWriter.write("\t\t +"+codeModule + "\n");
 				totalUnmatchedJavaLines++;
 			}
-			
+
 			return translate(javaRootBlock, javaPatternsMap);
 
 		} catch (ClassCastException e) {
@@ -336,7 +360,7 @@ public class GeneralTests {
 			e.printStackTrace();
 			GeneralTests.totalModulesWhichCouldntBeAnalized ++;
 		}
-		
+
 		return "";
 	}
 }

@@ -37,7 +37,7 @@ public class TestFileInterpretation {
 			System.out.println(name);
 			logWriter.write(name + "\n");
 
-			String totalString = TestingUtilities.generateFileString(file);
+			String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
 			char[] totalStringChars = totalString.toCharArray();
 			//System.out.println(totalString);
 
@@ -63,7 +63,7 @@ public class TestFileInterpretation {
 				}
 			}
 		}
-		
+
 		FileStringUtility.writeTextFile("./src/tests/js/log.txt", logWriter.toString());
 
 	}

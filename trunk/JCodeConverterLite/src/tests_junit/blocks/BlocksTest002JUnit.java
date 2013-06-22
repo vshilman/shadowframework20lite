@@ -23,7 +23,7 @@ public class BlocksTest002JUnit {
 	@Test
 	public void test() {
 		List<String> list = FileStringUtility
-				.loadTextFile("src/testPackage/House.java");
+				.loadTextfromStream(FileStringUtility.getStream("src/testPackage/House.java"));
 		StringWriter writer = new StringWriter();
 		for (String string : list) {
 			writer.write(string);

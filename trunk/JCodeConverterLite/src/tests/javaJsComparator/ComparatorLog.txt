@@ -132,6 +132,9 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 	float[] colors2   = new  float  [ 16 ] 
 		var colors2  = new  Array  (  )
 
+	for ( int i   = 0 ; i   < 4 ; i   ++  )
+		for ( var i  = 0 ; i  < 4 ; i  ++  )
+
 	colors2  [  c   ]  = 1
 		colors2 [ c  ]  = 1
 
@@ -217,10 +220,8 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, squareVertexPositionBuffer [ 2 ] )
 
 	unmatched javaPatterns:
-		for ( int i   = 0 ; i   < 4 ; i   ++  )
 
 	unmatched jsPatterns:
-		for ( var i  = 0 ; i  < 6 ; i  ++  )
 
 
 Test_sv2Drawer.java VS test_sv2Drawer.js

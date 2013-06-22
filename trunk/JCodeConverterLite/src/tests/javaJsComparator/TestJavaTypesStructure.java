@@ -38,7 +38,7 @@ public class TestJavaTypesStructure {
 			System.out.println(name);
 			logWriter.write(name + "\n");
 
-			String totalString = TestingUtilities.generateFileString(file);
+			String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
 			char[] totalStringChars = totalString.toCharArray();
 
 			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
@@ -65,7 +65,7 @@ public class TestJavaTypesStructure {
 				}
 			}
 		}
-		
+
 		FileStringUtility.writeTextFile("./src/tests/javaJsComparator/JavaLog.txt", logWriter.toString());
 
 	}
