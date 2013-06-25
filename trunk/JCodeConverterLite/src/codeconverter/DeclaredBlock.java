@@ -44,8 +44,6 @@ public class DeclaredBlock implements CodeModule{
 
 	@Override
 	public String getCode() {
-		String ret="";
-		ret=blockDeclaration.getCode()+" "+relatedBlock.getCode();
-		return null;
+		return blockDeclaration.getCode()+" "+relatedBlock.getCode();
 	}
 }

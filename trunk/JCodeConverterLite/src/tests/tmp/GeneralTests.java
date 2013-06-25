@@ -16,6 +16,7 @@ import codeconverter.BlockDataInterpreter;
 import codeconverter.BlockInterpreter;
 import codeconverter.CodeModule;
 import codeconverter.CodePattern;
+import codeconverter.DifferentiationResult;
 import codeconverter.java.JavaCodePatternInterpreter;
 import codeconverter.java.JavaConstructorDeclaration;
 import codeconverter.javaJsComparator.CodePatternComparator;
@@ -267,7 +268,7 @@ public class GeneralTests {
 
 			//return translate(javaRootBlock, javaPatternsMap);
 			if(leftToRight){
-				return new DifferentiationResult(jsNotInterpreted, javaNotInterpreted, jsModules, jsModules);
+				return new DifferentiationResult(jsNotInterpreted, javaNotInterpreted, jsModules, javaModules);
 			} else {
 				return new DifferentiationResult(javaNotInterpreted, jsNotInterpreted, javaModules, jsModules);
 			}

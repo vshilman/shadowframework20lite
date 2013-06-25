@@ -1,10 +1,10 @@
-package tests.tmp;
+package codeconverter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
-import codeconverter.CodeModule;
 
 public class DifferentiationResult {
 
@@ -12,6 +12,11 @@ public class DifferentiationResult {
 	private List<CodeModule> uninterpretatesRight=new ArrayList<CodeModule>();
 	private Set<CodeModule> differentLeft;
 	private Set<CodeModule> differentRight;
+
+
+	public DifferentiationResult() {
+		super();
+	}
 
 
 	public DifferentiationResult(List<CodeModule> uninterpretatesLeft,

@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import tests.tmp.GeneralTests;
+import codeconverter.CodeModule;
+import codeconverter.DifferentiationResult;
 import codeconverter.utility.FileStringUtility;
 
 public class TestFileComparatorUsingUtils {
@@ -23,7 +26,7 @@ public class TestFileComparatorUsingUtils {
 		ArrayList<String> javaTests = new ArrayList<String>();
 		ArrayList<String> jsTests = new ArrayList<String>();
 
-		for (int i = 1; i <= 1; i++) {
+		for (int i = 2; i <= 2; i++) {
 			javaTests.add(JAVA_DIRECTORY + "Test_sv" + i + "Drawer.java");
 			jsTests.add(JS_DIRECTORY + "test_sv" + i + "Drawer.js");
 		}
@@ -46,8 +49,40 @@ public class TestFileComparatorUsingUtils {
 
 			logWriter.write(name + "\n");
 
-			GeneralTests.compareFiles(jsFileName, javaFileName,FileStringUtility.getStream(jsFileName), FileStringUtility.getStream (javaFileName), logWriter,true);
+			DifferentiationResult res=GeneralTests.compareFiles(jsFileName, javaFileName,FileStringUtility.getStream(jsFileName), FileStringUtility.getStream (javaFileName), logWriter,true);
 
+			String infos="Non interpretate sinistra:\n";
+
+			for (int j = 0; i < res.getUninterpretatesLeft().size(); j++) {
+				infos+=res.getUninterpretatesLeft().get(j).getCode()+"\n";
+			}
+
+			infos+="Non interpretate destra:\n";
+
+			for (int j = 0; i < res.getUninterpretatesRight().size(); j++) {
+				infos+=res.getUninterpretatesRight().get(i).getCode()+"\n";
+			}
+
+
+			infos+="Differenti sinistra:\n";
+
+			if(res.getDifferentLeft()!=null){
+				for (Iterator<CodeModule> iterator = res.getDifferentLeft().iterator(); iterator.hasNext();) {
+					String s=iterator.next().getCode();
+					//String s=iterator.next().print();
+					infos+=s+"\n";
+				}
+			}
+			infos+="Differenti destra:\n";
+
+			if(res.getDifferentRight()!=null){
+				for (Iterator<CodeModule> iterator = res.getDifferentRight().iterator(); iterator.hasNext();) {
+					String s=iterator.next().getCode();
+					infos+=s+"\n";
+
+				}
+			}
+			System.out.println(infos);
 
 
 		}
