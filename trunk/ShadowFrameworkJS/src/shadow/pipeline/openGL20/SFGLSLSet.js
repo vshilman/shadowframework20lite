@@ -7,7 +7,7 @@ function SFGLSLSet(){
 	this.initialized=false;
 }
 
-var SFGLSLSet_REPORT_SHADERS=true;
+var SFGLSLSet_REPORT_SHADERS=false;
 	
 	
 SFGLSLSet.prototype["getProgram"]=function(){
