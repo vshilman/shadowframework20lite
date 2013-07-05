@@ -267,6 +267,7 @@ public class GeneralTests {
 			}
 
 			//return translate(javaRootBlock, javaPatternsMap);
+
 			if(leftToRight){
 				return new DifferentiationResult(jsNotInterpreted, javaNotInterpreted, jsModules, javaModules);
 			} else {
