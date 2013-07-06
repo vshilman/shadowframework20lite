@@ -2,21 +2,39 @@ package codeconverter.cpp;
 
 import java.util.List;
 
+import codeconverter.PieceType;
+import codeconverter.codepieces.ConcreteValue;
 import codeconverter.codepieces.Value;
 
-public class CppPreprocessorDirective extends Value{
+public class CppPreprocessorDirective extends ConcreteValue{
 
-	@Override
-	public List<CharInterval> getAvailableIntervals(int position) {
-		// TODO Auto-generated method stub
-		return null;
+	public CppPreprocessorDirective(PieceType type) {
+		super();
+		setIntervals();
+		setPieceType(type);
 	}
 
-	@Override
-	public List<CharInterval> getEndCharacter() {
-		// TODO Auto-generated method stub
-		return null;
+	public CppPreprocessorDirective() {
+		super();
+		setIntervals();
 	}
+
+
+
+
+	@Override
+	public void setIntervals() {
+		startingIntervals.clear();
+		allIntervals.clear();
+		startingIntervals.add(new CharInterval('#', '#'));
+		allIntervals.add(new CharInterval('a', 'z'));
+		allIntervals.add(new CharInterval('A', 'Z'));
+	}
+
+
+
+
+
 
 
 

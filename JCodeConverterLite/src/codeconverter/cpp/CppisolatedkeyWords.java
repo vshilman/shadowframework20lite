@@ -6,7 +6,7 @@ import codeconverter.codepieces.KeywordSet;
 
 public class CppisolatedkeyWords extends CodePattern{
 
-	private String[] isolatedKeywords={"try"}; //public: ?? namespace??
+	private String[] isolatedKeywords={"try"}; //public: ??
 
 	public CppisolatedkeyWords(){
 		addCodePiece(new KeywordSet(isolatedKeywords));

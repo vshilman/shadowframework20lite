@@ -16,15 +16,15 @@ public class CppBooleanExpression extends Expression{
 
 	public CppBooleanExpression() {
 		super();
-		generate(new CppName(),new CppName(),new CppMethodEvaluation());
+		generate(new CppName(),new CppName(),new CppMethodEvaluation("->"));
 	}
 
 	public CppBooleanExpression(CppAlgebraicExpression algebraicExpression) {
 		super();
 		CppBitwiseExpression bitwiseExpression=new CppBitwiseExpression(true);
-		CppMethodEvaluation methodEvaluation=new CppMethodEvaluation();
-		bitwiseExpression.generate(methodEvaluation, new CppName(), new CppNewStatement());
-		generate(new CppName(), new CppName(), new CppMethodEvaluation());
+		CppMethodEvaluation methodEvaluation=new CppMethodEvaluation("->",algebraicExpression,bitwiseExpression);
+		bitwiseExpression.generate(methodEvaluation, new CppName(algebraicExpression,bitwiseExpression), new CppNewStatement(algebraicExpression, new CppName(algebraicExpression,bitwiseExpression)));
+		generate(new CppName(algebraicExpression,bitwiseExpression), new CppName(algebraicExpression,bitwiseExpression), new CppMethodEvaluation("->",algebraicExpression,bitwiseExpression));
 	}
 
 

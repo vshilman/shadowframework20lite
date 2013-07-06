@@ -1,8 +1,8 @@
 package codeconverter;
 
 /**
- * An attribute which can be assigned to a CodePattern 
- * 
+ * An attribute which can be assigned to a CodePattern
+ *
  * @author Alessandro Martinelli
  */
 public enum PatternType {
@@ -35,8 +35,12 @@ public enum PatternType {
 	SUPER("super"),
 	UNIDENTIFIED_CODE("unidentified"),
 	LIBRARY_DECLARATION("folder"),
-	LINE_OF_CODE("codeline");
-	
+	LINE_OF_CODE("codeline"),
+	DEALLOCATION("delete"),
+	FRIENDSHIP("friend"),
+	NAMESPACE_DECLARATION("namespace"),
+	NAMESPACE_USAGE("using_namespace");
+
 	private String name;
 
 	private PatternType(String name) {

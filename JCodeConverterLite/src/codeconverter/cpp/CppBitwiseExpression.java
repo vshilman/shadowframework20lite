@@ -19,14 +19,21 @@ public class CppBitwiseExpression extends Expression{
 	public CppBitwiseExpression() {
 		super();
 		CppAlgebraicExpression algebraicExpression=new CppAlgebraicExpression(true);
-		CppMethodEvaluation cppMethodEvaluation=new CppMethodEvaluation();
-		CppName name=new CppName();
-		CppNewStatement newStatement=new CppNewStatement();
+		CppMethodEvaluation cppMethodEvaluation=new CppMethodEvaluation("->",algebraicExpression,this);
+		CppName name=new CppName(algebraicExpression,this);
+		CppNewStatement newStatement=new CppNewStatement(algebraicExpression,name);
+		generate(cppMethodEvaluation,name,newStatement);
+		algebraicExpression.generate(cppMethodEvaluation, name, new CppTernaryOperator(algebraicExpression), newStatement);
 
 	}
 
 	public CppBitwiseExpression(boolean notGenerate) {
 		super();
+	}
+
+	public CppBitwiseExpression(CppMethodEvaluation cppMethod, CppName name, CppNewStatement newStatement) {
+		super();
+		generate(cppMethod, name, newStatement);
 	}
 
 
@@ -37,7 +44,7 @@ public class CppBitwiseExpression extends Expression{
 												new UniqueKeyword(")"));
 
 		Collections.addAll(this.pieces, new CompositeCodePiece(new OptionalCode(new CompositeCodePiece(new UniqueKeyword("("),
-																										new CppType(),
+																										new CppCompositeType(),
 																										new UniqueKeyword(")"))),
 										new BestAlternativeCode(true,name, piece)),
 										new Number(),

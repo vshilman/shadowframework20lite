@@ -6,19 +6,18 @@ import codeconverter.PieceType;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
 
-public class CppConstrutorDeclaration extends CodePattern{
+public class CppMethodDeclaration extends CodePattern{
 
-	public CppConstrutorDeclaration() {
-		CppName name=new CppName(PieceType.NAME);
-		addCodePiece(name,
+	public CppMethodDeclaration() {
+		addCodePiece(new CppCompositeType(),
+					 new CppName(),
 					 new UniqueKeyword("::"),
-					 name,
+					 new CppName(PieceType.NAME),
 					 new UniqueKeyword("("),
 					 new CppMethodVariables(),
 					 new UniqueKeyword(")"),
 					 new OptionalCode(new CppThrowsDeclaration()));
-		addPatternType(PatternType.CONSTRUCTOR_DECLARATION);
-
+		addPatternType(PatternType.METHOD_DECLARATION);
 	}
 
 }
