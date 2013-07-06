@@ -2,20 +2,22 @@ package codeconverter.cpp;
 
 import java.util.List;
 
+import codeconverter.codepieces.KeywordSet;
 import codeconverter.codepieces.Value;
 
-public class CppSpecifier extends Value{
+public class CppSpecifier extends KeywordSet{
 
-	@Override
-	public List<CharInterval> getAvailableIntervals(int position) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public static String specifiers[]={
+			"public",
+			"private",
+			"protected",
+			"static",
+			"virtual",
+			"friend"
+	};
 
-	@Override
-	public List<CharInterval> getEndCharacter() {
-		// TODO Auto-generated method stub
-		return null;
+	public CppSpecifier() {
+		super(specifiers);
 	}
 
 }

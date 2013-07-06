@@ -17,7 +17,7 @@ public class CppAlgebraicExpression extends Expression{
 
 	public CppAlgebraicExpression() {
 		super();
-		generate2(new CppTernaryOperator());
+		generate2(new CppTernaryOperator(this));
 	}
 
 	public CppAlgebraicExpression(CppTernaryOperator ternaryOperator) {
@@ -41,7 +41,7 @@ public class CppAlgebraicExpression extends Expression{
 												this,
 												new UniqueKeyword(")"));
 		Collections.addAll(this.pieces, new CompositeCodePiece(new OptionalCode(/*casting*/new CompositeCodePiece(new UniqueKeyword("("),
-																												  new CppType(),
+																												  new CppCompositeType(),
 																												   new UniqueKeyword(")"))),
 																new BestAlternativeCode(true, name,piece)),
 										new Number(),
@@ -51,10 +51,10 @@ public class CppAlgebraicExpression extends Expression{
 	}
 
 	public void generate2 (CppTernaryOperator ternaryOperator){
-		CppBitwiseExpression cppBitwiseExpression=new CppBitwiseExpression();
-		CppMethodEvaluation cppMethodEvaluation=new CppMethodEvaluation();
-		CppName name=new CppName();
-		CppNewStatement newStatement=new CppNewStatement();
+		CppBitwiseExpression cppBitwiseExpression=new CppBitwiseExpression(true);
+		CppMethodEvaluation cppMethodEvaluation=new CppMethodEvaluation("->",this,cppBitwiseExpression);
+		CppName name=new CppName(this,cppBitwiseExpression);
+		CppNewStatement newStatement=new CppNewStatement(this, name);
 		generate(cppMethodEvaluation,name,ternaryOperator,newStatement);
 		cppBitwiseExpression.generate(cppMethodEvaluation,name,newStatement);
 	}
