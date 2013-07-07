@@ -38,10 +38,11 @@ public class TestJavaTypesStructure {
 			System.out.println(name);
 			logWriter.write(name + "\n");
 
-			String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
-			char[] totalStringChars = totalString.toCharArray();
-
-			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+//			String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
+//			char[] totalStringChars = totalString.toCharArray();
+//
+//			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+			Block fileBlock=BlockUtilities.generateBlocksFromFile(file);
 
 			// System.out.println(fileBlock.print());
 

@@ -1,7 +1,5 @@
 package tests.tmp;
 
-import java.util.List;
-
 import codeconverter.CodePattern;
 import codeconverter.ICodePiece;
 import codeconverter.PatternType;
@@ -11,17 +9,17 @@ import codeconverter.javaJsComparator.codePieces.MethodVariablesComparator;
 
 public class PrototypedMethodDeclarationComparator implements CodePatternComparator {
 
-	@Override
-	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
-			List<CodePattern> jsCodePatterns, int jsIndex) {
-		CodePattern javaCodePattern=javaCodePatterns.get(javaIndex);
-		CodePattern jsCodePattern=jsCodePatterns.get(jsIndex);
-		
-		if(compare(javaCodePattern, jsCodePattern)){
-			return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
-		}
-		return null;
-	}
+//	@Override
+//	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
+//			List<CodePattern> jsCodePatterns, int jsIndex) {
+//		CodePattern javaCodePattern=javaCodePatterns.get(javaIndex);
+//		CodePattern jsCodePattern=jsCodePatterns.get(jsIndex);
+//		
+//		if(compare(javaCodePattern, jsCodePattern)){
+//			return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+//		}
+//		return null;
+//	}
 
 	public boolean compare(CodePattern javaPattern, CodePattern jsPattern) {
 		if (javaPattern.getPatternType().get(0) != PatternType.METHOD_DECLARATION) {

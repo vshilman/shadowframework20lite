@@ -1,65 +1,19 @@
 package tests;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintStream;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import codeconverter.Block;
 import codeconverter.CodeModule;
 import codeconverter.CodePattern;
-import codeconverter.utility.FileStringUtility;
 
 public class TestingUtilities {
 
-	/**
-	 * Generate a String from a Stream Content.
-	 *
-	 * Comments lines should get removed (but cross your finger :) )
-	 *
-	 * @param filename
-	 * @return
-	 */
-	public static String generateFileString(InputStream stream) {
-		List<String> list=FileStringUtility.loadTextfromStream(stream);
-
-		StringWriter writer=new StringWriter();
-		String adding="";
-		for (String string : list) {
-			int position=string.indexOf("//");
-			if(position>=0)
-				string=string.substring(0,position).trim();
-			if(string.length()!=0){
-				if(string.trim().startsWith("if") || string.trim().startsWith("else")
-						|| string.trim().startsWith("for")){
-					writer.write(string+"{");
-					adding="}";
-				}else{
-					writer.write(string+adding);
-					adding="";
-				}
-			}
-		}
-
-		String totalString=writer.toString();
-		int beginof=totalString.indexOf("/*");
-		int endof=totalString.indexOf("*/");
-		while(beginof!=-1 && endof!=-1){
-			String tmp=totalString.substring(0,beginof);
-			tmp+=totalString.substring(endof+2);
-			totalString=tmp;
-			beginof=totalString.indexOf("/*");
-			endof=totalString.indexOf("*/");
-		}
-		return totalString;
-	}
-
-
-
+	//public static String generateFileString(InputStream stream) 
+	//HAS BEEN MOVE TO BlockUtilities, because it was used only there 
 
 
 	public static void writeString(PrintStream stream,String data){

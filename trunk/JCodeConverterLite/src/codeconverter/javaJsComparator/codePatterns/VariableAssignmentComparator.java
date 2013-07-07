@@ -19,30 +19,29 @@ import codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator;
 public class VariableAssignmentComparator implements CodePatternComparator {
 
 	@Override
-	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
-			List<CodePattern> jsCodePatterns, int jsIndex) {
-		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.VARIABLE_ASSIGNMENT) {
-			return null;
+	public boolean compare(CodePattern javaPattern, CodePattern jsPattern) {
+//	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex,
+//			List<CodePattern> jsCodePatterns, int jsIndex) {
+		if (javaPattern.getPatternType().get(0) != PatternType.VARIABLE_ASSIGNMENT) {
+			return false;
 		}
-		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != jsCodePatterns.get(jsIndex)
+		if (javaPattern.getPatternType().get(0) != jsPattern
 				.getPatternType().get(0)) {
-			return null;
+			return false;
 		}
-		CodePattern javaPattern = javaCodePatterns.get(javaIndex);
-		CodePattern jsPattern = jsCodePatterns.get(jsIndex);
 
 		if (!new NameComparator().compare(javaPattern.getPieceByType(PieceType.NAME),
 				jsPattern.getPieceByType(PieceType.NAME))) {
-			return null;
+			return false;
 		}
 
 		if (javaPattern.getPieces().get(1).getPieceType() != jsPattern.getPieces().get(1).getPieceType()) {
-			return null;
+			return false;
 		}
 
 		if (javaPattern.getPieces().get(1).getPieceType() == PieceType.KEYWORD) {
 			if (!javaPattern.getPieces().get(1).toString().equals(jsPattern.getPieces().get(1).toString())) {
-				return null;
+				return false;
 			}
 		}
 
@@ -61,7 +60,7 @@ public class VariableAssignmentComparator implements CodePatternComparator {
 								.getPieceByType(PieceType.SEQUENCE).getPieceByType(PieceType.EXPRESSION),
 						jsPattern.getPieceByType(PieceType.NEW_STATEMENT).getPieceByType(PieceType.COMPOSITE)
 								.getPieceByType(PieceType.SEQUENCE).getPieceByType(PieceType.EXPRESSION))) {
-					return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+					return true;
 				}
 			}
 		}
@@ -77,14 +76,14 @@ public class VariableAssignmentComparator implements CodePatternComparator {
 
 		if (javaPattern.getPieces().get(3).getPieces().get(0).getPieceType() == PieceType.CALL
 				&& jsPattern.getPieces().get(3).getPieceType() == PieceType.ARRAY_DECLARATION) {
-			ICodePiece call = javaPattern.getPieceByType(PieceType.CALL);
-			String vectorName = call.getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.NAME).toString();
-
-			int[][] result = ComparatorUtilities.findArrayDecalation(javaCodePatterns, javaIndex, jsIndex,
-					jsPattern, call, vectorName);
-			if (result != null) {
-				return result;
-			}
+			//This is no more necessary, the problem was solved outside
+//			ICodePiece call = javaPattern.getPieceByType(PieceType.CALL);
+//			String vectorName = call.getPieceByType(PieceType.VARIABLE).getPieceByType(PieceType.NAME).toString();
+//			int[][] result = ComparatorUtilities.findArrayDecalation(javaCodePatterns, javaIndex, jsIndex,
+//					jsPattern, call, vectorName);
+//			if (result != null) {
+//				return false;
+//			}
 		}
 
 		if (javaPattern.getPieces().get(3).getPieces().get(0).getPieceType() == PieceType.CALL
@@ -93,39 +92,39 @@ public class VariableAssignmentComparator implements CodePatternComparator {
 					.getPieceByType(PieceType.SEQUENCE).getPieceByType(PieceType.COMPOSITE);
 			String vectorName = call.getPieceByType(PieceType.SEQUENCE).toString().trim();
 			if (vectorName.equals(jsPattern.getPieces().get(3).toString().trim())) {
-				return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+				return true;
 			}
 		}
 
 		if (javaPattern.getPieces().get(3).getPieceType() != jsPattern.getPieces().get(3).getPieceType()) {
-			return null;
+			return false;
 		}
 
 		if (javaPattern.getPieces().get(3).getPieceType() == PieceType.EXPRESSION) {
 			if (!new ExpressionComparator().compare(javaPattern.getPieceByType(PieceType.EXPRESSION),
 					jsPattern.getPieceByType(PieceType.EXPRESSION))) {
-				return null;
+				return false;
 			}
 		}
 
 		if (javaPattern.getPieces().get(3).getPieceType() == PieceType.CALL) {
 			if (!new MethodComparator().compare(javaPattern.getPieceByType(PieceType.CALL),
 					jsPattern.getPieceByType(PieceType.CALL))) {
-				return null;
+				return false;
 			}
 		}
 
 		if (javaPattern.getPieces().get(3).getPieceType() == PieceType.OPENGL_CALL) {
 			if (!new OpenGlMethodComparator().compare(javaPattern.getPieceByType(PieceType.OPENGL_CALL),
 					jsPattern.getPieceByType(PieceType.OPENGL_CALL))) {
-				return null;
+				return false;
 			}
 		}
 
 		if (javaPattern.getPieces().get(3).getPieceType() == PieceType.ARRAY_CONTENT) {
 			if (!new ArrayContentComparator().compare(javaPattern.getPieceByType(PieceType.ARRAY_CONTENT),
 					jsPattern.getPieceByType(PieceType.ARRAY_CONTENT))) {
-				return null;
+				return false;
 			}
 		}
 
@@ -133,18 +132,18 @@ public class VariableAssignmentComparator implements CodePatternComparator {
 			if (!new ArrayDeclarationComparator().compare(
 					javaPattern.getPieceByType(PieceType.ARRAY_DECLARATION),
 					jsPattern.getPieceByType(PieceType.ARRAY_DECLARATION))) {
-				return null;
+				return false;
 			}
 		}
 
 		if (javaPattern.getPieces().get(3).getPieceType() == PieceType.NEW_STATEMENT) {
 			if (!new NewStatementComparator().compare(javaPattern.getPieceByType(PieceType.NEW_STATEMENT),
 					jsPattern.getPieceByType(PieceType.NEW_STATEMENT))) {
-				return null;
+				return false;
 			}
 		}
 
-		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+		return true;
 	}
 
 }

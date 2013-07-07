@@ -1,8 +1,6 @@
 package codeconverter;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * A Block of CodeModules.
@@ -17,7 +15,19 @@ public class Block  implements CodeModule{
 	public ArrayList<CodeModule> modules=new ArrayList<CodeModule>();
 
 
+	private int firstLine;
+	private int lastLine;
 
+
+	@Override
+	public int getLastLine() {
+		return lastLine;
+	}
+	
+	@Override
+	public int getFirstLine() {
+		return firstLine;
+	}
 
 	@Override
 	public int getSize() {

@@ -14,64 +14,64 @@ import codeconverter.javaJsComparator.codePieces.VariableComparator;
 public class ForComparator implements CodePatternComparator {
 
 	@Override
-	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
-			int jsIndex) {
+	public boolean compare(CodePattern javaPattern, CodePattern jsPattern) {
+//	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
+//			int jsIndex) {
 		//System.out.println("Computo");
-		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.FOR) {
+		if (javaPattern.getPatternType().get(0) != PatternType.FOR) {
 			//System.out.println("fallito1");
-			return null;
+			return false;
 		}
-		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != jsCodePatterns.get(jsIndex)
+		if (javaPattern.getPatternType().get(0) != jsPattern
 				.getPatternType().get(0)) {
 			//System.out.println("fallito2");
-			return null;
+			return false;
 		}
-		CodePattern javaPattern = javaCodePatterns.get(javaIndex);
-		CodePattern jsPattern = jsCodePatterns.get(jsIndex);
-
+		
+		
 		ICodePiece javaPiece = javaPattern.getPieces().get(2);
 		ICodePiece jsPiece = jsPattern.getPieces().get(2);
 
 		if (javaPiece.getPieces().get(0).getPieceType() != jsPiece.getPieces().get(0).getPieceType()) {
 			//System.out.println("fallito3");
-			return null;
+			return false;
 		}
 
 		if (javaPiece.getPieces().get(0).getPieceType() == PieceType.VARIABLE) {
 			if (!new VariableComparator().compare(javaPiece.getPieceByType(PieceType.VARIABLE),
 					jsPiece.getPieceByType(PieceType.VARIABLE))) {
 				//System.out.println("fallito4");
-				return null;
+				return false;
 			}
 		} else {
 			if (!new NameComparator().compare(javaPiece.getPieceByType(PieceType.NAME),
 					jsPiece.getPieceByType(PieceType.NAME))) {
 				//System.out.println("fallito5");
-				return null;
+				return false;
 			}
 		}
 
 		if (!new ExpressionComparator().compare(javaPiece.getPieceByType(PieceType.EXPRESSION),
 				jsPiece.getPieceByType(PieceType.EXPRESSION))) {
 			//System.out.println("fallito6");
-			return null;
+			return false;
 		}
 
 		if (!new NameComparator().compare(javaPattern.getPieceByType(PieceType.VALUE),
 				jsPattern.getPieceByType(PieceType.VALUE))) {
 			//System.out.println("fallito7");
-			return null;
+			return false;
 		}
 
 		if (!javaPattern.getPieces().get(5).toString().equals(jsPattern.getPieces().get(5).toString())) {
 			//System.out.println("fallito8");
-			return null;
+			return false;
 		}
 
 		if (!new ExpressionComparator().compare(javaPattern.getPieceByType(PieceType.EXPRESSION),
 				jsPattern.getPieceByType(PieceType.EXPRESSION))) {
 			//System.out.println("fallito9");
-			return null;
+			return false;
 		}
 
 		List<ICodePiece> javaCompList = javaPattern.getPieces().get(8).getPieces();
@@ -79,7 +79,7 @@ public class ForComparator implements CodePatternComparator {
 
 		if (javaCompList.size() != jsCompList.size()) {
 			//System.out.println("fallito10");
-			return null;
+			return false;
 		}
 
 		for (int i = 0; i < javaCompList.size(); i++) {
@@ -87,31 +87,31 @@ public class ForComparator implements CodePatternComparator {
 				if (!new NameComparator().compare(javaCompList.get(i).getPieceByType(PieceType.VARIABLE),
 						jsCompList.get(i).getPieceByType(PieceType.VARIABLE))) {
 					//System.out.println("fallito11");
-					return null;
+					return false;
 				}
 				if (!javaCompList.get(i).getPieceByType(PieceType.KEYWORD).toString()
 						.equals(jsCompList.get(i).getPieceByType(PieceType.KEYWORD).toString())) {
 					//System.out.println("fallito12");
-					return null;
+					return false;
 				}
 				ICodePiece a = javaCompList.get(i).getPieceByType(PieceType.EXPRESSION);
 				ICodePiece b = jsCompList.get(i).getPieceByType(PieceType.EXPRESSION);
 				if (a == null && b != null || a != null && b == null) {
 					//System.out.println("fallito13");
-					return null;
+					return false;
 				}
 				if (a != null && b != null) {
 					if (!new ExpressionComparator().compare(
 							javaCompList.get(i).getPieceByType(PieceType.EXPRESSION), jsCompList.get(i)
 									.getPieceByType(PieceType.EXPRESSION))) {
 						//System.out.println("fallito14");
-						return null;
+						return false;
 					}
 				}
 			}
 		}
 
-		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+		return true;
 	}
 
 }

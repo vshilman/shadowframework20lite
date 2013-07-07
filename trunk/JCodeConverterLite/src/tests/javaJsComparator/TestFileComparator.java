@@ -1,6 +1,5 @@
 package tests.javaJsComparator;
 
-import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import tests.TestingUtilities;
 import tests.blocks.BlockUtilities;
 import codeconverter.Block;
 import codeconverter.BlockDataInterpreter;
@@ -52,10 +50,10 @@ public class TestFileComparator {
 			System.out.print(name);
 			logWriter.write(name + "\n");
 
-			ArrayList<CodePattern> javaPatterns = new ArrayList<CodePattern>(getCodePatterns(FileStringUtility.getStream(javaTests.get(i))
+			ArrayList<CodePattern> javaPatterns = new ArrayList<CodePattern>(getCodePatterns(javaTests.get(i)
 					, new JavaCodePatternInterpreter()));
 
-			ArrayList<CodePattern> jsPatterns = new ArrayList<CodePattern>(getCodePatterns(FileStringUtility.getStream(jsTests.get(i)),
+			ArrayList<CodePattern> jsPatterns = new ArrayList<CodePattern>(getCodePatterns(jsTests.get(i),
 					new JsCodePatternInterpreter()));
 
 			boolean[] javaConfirmations = new boolean[javaPatterns.size()];
@@ -80,20 +78,20 @@ public class TestFileComparator {
 								break;
 							if (!jsConfirmations[k]) {
 								for (CodePatternComparator codePatternComparator : comparators) {
-									int[][] result = codePatternComparator.compare(javaPatterns, j,
-											jsPatterns, k);
-									if (result != null) {
-										if (!alreadyConfirmed(result, javaConfirmations, jsConfirmations)) {
-											for (int l = 0; l < result[0].length; l++) {
+									boolean result = codePatternComparator.compare(javaPatterns.get(j),
+											jsPatterns.get(k));
+									if (result ) {
+										if (!alreadyConfirmed(result, j,k, javaConfirmations, jsConfirmations)) {
+											//for (int l = 0; l < result[0].length; l++) {
 												logWriter.write("\t"
-														+ javaPatterns.get(result[0][l]).toString() + "\n");
-												javaConfirmations[result[0][l]] = true;
-											}
-											for (int l = 0; l < result[1].length; l++) {
+														+ javaPatterns.get(j).toString() + "\n");
+												javaConfirmations[j] = true;
+											//}
+											//for (int l = 0; l < result[1].length; l++) {
 												logWriter.write("\t\t"
-														+ jsPatterns.get(result[1][l]).toString() + "\n");
-												jsConfirmations[result[1][l]] = true;
-											}
+														+ jsPatterns.get(k).toString() + "\n");
+												jsConfirmations[k] = true;
+											//}
 											logWriter.write("\n");
 											found = true;
 											break;
@@ -144,29 +142,40 @@ public class TestFileComparator {
 				logWriter.toString());
 
 	}
+	
 
-	private static boolean alreadyConfirmed(int[][] result, boolean[] javaConfirmations,
+	private static boolean alreadyConfirmed(boolean result, int j, int k,boolean[] javaConfirmations,
 			boolean[] jsConfirmations) {
-		for (int l = 0; l < result[0].length; l++) {
-			if (javaConfirmations[result[0][l]])
+		if (javaConfirmations[j])
 				return true;
-		}
-		for (int l = 0; l < result[1].length; l++) {
-			if (jsConfirmations[result[1][l]])
+		if (jsConfirmations[k])
 				return true;
-		}
 		return false;
 	}
+
+//	private static boolean alreadyConfirmed(int[][] result, boolean[] javaConfirmations,
+//			boolean[] jsConfirmations) {
+//		for (int l = 0; l < result[0].length; l++) {
+//			if (javaConfirmations[result[0][l]])
+//				return true;
+//		}
+//		for (int l = 0; l < result[1].length; l++) {
+//			if (jsConfirmations[result[1][l]])
+//				return true;
+//		}
+//		return false;
+//	}
 
 	private static boolean isDefaultConstructor(CodePattern codePattern) {
 		return codePattern.getPieceByType(PieceType.METHOD_VARIABLES).getPieces().size() == 0;
 	}
 
-	private static Collection<CodePattern> getCodePatterns(InputStream stream, BlockDataInterpreter blockInterpreter) {
+	private static Collection<CodePattern> getCodePatterns(String filename, BlockDataInterpreter blockInterpreter) {
 
-		char[] totalStringChars = TestingUtilities.generateFileString(stream).toCharArray();
-
-		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+//		char[] totalStringChars = TestingUtilities.generateFileString(stream).toCharArray();
+//
+//		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+		Block fileBlock=BlockUtilities.generateBlocksFromFile(filename);
 
 		// System.out.println(fileBlock.print());
 

@@ -106,7 +106,7 @@ public class GeneralTests {
 		return totalJsFiles;
 	}
 
-	public static void matchBlocksTest(String fileName,InputStream str, PrintStream stream,BlockDataInterpreter dataInterpreter) {
+	public static void matchBlocksTest(String fileName,String str, PrintStream stream,BlockDataInterpreter dataInterpreter) {
 		HashMap<CodeModule, CodePattern> interpretation = generateInterpretation(dataInterpreter,getBlocks(str));
 
 		stream.println("\n\nInterpreted Modules from "+fileName+"\n\n");
@@ -133,11 +133,8 @@ public class GeneralTests {
 
 
 
-	public static Block getBlocks(InputStream stream) {
-		String totalString=TestingUtilities.generateFileString(stream);
-
-		Block fileBlock=BlockUtilities.generateBlocks(totalString.toCharArray());
-		return fileBlock;
+	public static Block getBlocks(String file) {
+		return BlockUtilities.generateBlocksFromFile(file);
 	}
 
 
@@ -167,9 +164,9 @@ public class GeneralTests {
 							int javaPatternsIndex=javaPatterns.indexOf(javaPatternsMap.get(javaModule));
 							int jsPatternsIndex=jsPatterns.indexOf(jsPatternsMap.get(jsModule));
 
-						int[][] result = codePatternComparator
-								.compare(javaPatterns, javaPatternsIndex, jsPatterns, jsPatternsIndex);
-						if (result != null) {
+						boolean result = codePatternComparator
+								.compare(javaPatterns.get(javaPatternsIndex) , jsPatterns.get(jsPatternsIndex));
+						if (result) {
 
 							matchedPatterns.put(javaModule, jsModule);
 							j.remove();
@@ -187,7 +184,7 @@ public class GeneralTests {
 
 	//id leftToRight==true js is on the left and java on the right (temporarily inserted waiting for an abstract comparison)
 
-	public static DifferentiationResult compareFiles(String jsTest, String javaTest,InputStream jsStream, InputStream javaStream, StringWriter logWriter,boolean leftToRight) {
+	public static DifferentiationResult compareFiles(String jsTest, String javaTest,String jsStream, String javaStream, StringWriter logWriter,boolean leftToRight) {
 
 
 		try {
@@ -306,7 +303,7 @@ public class GeneralTests {
 	}
 
 
-	public static String newFile(String javaTest,InputStream javaStream, StringWriter logWriter) {
+	public static String newFile(String javaTest,String javaStream, StringWriter logWriter) {
 		try {
 			List<CodePatternComparator> comparators = JavaJsCodePatternComparators.getComparators();
 			comparators.add(new PrototypedMethodDeclarationComparator());

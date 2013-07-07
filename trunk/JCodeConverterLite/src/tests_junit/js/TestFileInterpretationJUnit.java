@@ -47,11 +47,11 @@ public class TestFileInterpretationJUnit {
 			//System.out.println(name);
 			logWriter.write(name + "\n");
 
-			String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
-			char[] totalStringChars = totalString.toCharArray();
+			//String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
+			//char[] totalStringChars = totalString.toCharArray();
 			//System.out.println(totalString);
-
-			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+			//Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+			Block fileBlock = BlockUtilities.generateBlocksFromFile(file);
 
 			//System.out.println(fileBlock.print());
 

@@ -1,7 +1,5 @@
 package codeconverter.javaJsComparator.codePatterns;
 
-import java.util.List;
-
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
 import codeconverter.PieceType;
@@ -11,24 +9,23 @@ import codeconverter.javaJsComparator.codePieces.MethodComparator;
 public class MethodAccessComparator implements CodePatternComparator {
 
 	@Override
-	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
-			int jsIndex) {
-		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != PatternType.CALL) {
-			return null;
+	public boolean compare(CodePattern javaPattern, CodePattern jsPattern) {
+//	public int[][] compare(List<CodePattern> javaCodePatterns, int javaIndex, List<CodePattern> jsCodePatterns,
+//			int jsIndex) {
+		if (javaPattern.getPatternType().get(0) != PatternType.CALL) {
+			return false;
 		}
-		if (javaCodePatterns.get(javaIndex).getPatternType().get(0) != jsCodePatterns.get(jsIndex)
+		if (javaPattern.getPatternType().get(0) != jsPattern
 				.getPatternType().get(0)) {
-			return null;
+			return false;
 		}
-		CodePattern javaPattern = javaCodePatterns.get(javaIndex);
-		CodePattern jsPattern = jsCodePatterns.get(jsIndex);
 
 		if (!new MethodComparator().compare(javaPattern.getPieceByType(PieceType.CALL),
 				jsPattern.getPieceByType(PieceType.CALL))) {
-			return null;
+			return false;
 		}
 
-		return new int[][] { new int[] { javaIndex }, new int[] { jsIndex } };
+		return true;
 	}
 
 }

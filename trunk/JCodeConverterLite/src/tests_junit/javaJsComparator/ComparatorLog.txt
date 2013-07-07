@@ -171,14 +171,6 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 	 gl . gl Clear ( GL2 .GL_ COLOR_BUFFER_BIT|GL2 .GL_ DEPTH_BUFFER_BIT )
 		gl. clear ( gl. COLOR_BUFFER_BIT|gl. DEPTH_BUFFER_BIT )
 
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 }
-		pMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 ] )
-
-	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
-	float[] mvMatrixv   = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,-1.5f,0,0,1 }
-		mvMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,-1.5,0,0,1 ] )
-
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  triangleVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, triangleVertexPositionBuffer [ 0 ] )
 
@@ -196,10 +188,6 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 
 	 gl . gl DrawArrays ( GL2 .GL_ TRIANGLES, 0,  triangleVertexPositionBuffer  [ 2 ] )
 		gl. drawArrays ( gl. TRIANGLES, 0, triangleVertexPositionBuffer [ 2 ] )
-
-	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
-	mvMatrixv    = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,1.5f,0,0,1 }
-		mvMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,1.5,0,0,1 ] )
 
 	 gl . gl BindBuffer ( GL2 .GL_ ARRAY_BUFFER,  squareVertexPositionBuffer  [ 0 ] )
 		gl. bindBuffer ( gl. ARRAY_BUFFER, squareVertexPositionBuffer [ 0 ] )
@@ -220,8 +208,17 @@ Test_sv1Drawer.java VS test_sv1Drawer.js
 		gl. drawArrays ( gl. TRIANGLE_STRIP, 0, squareVertexPositionBuffer [ 2 ] )
 
 	unmatched javaPatterns:
+		float[] pMatrixv   = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+		float[] mvMatrixv   = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,-1.5f,0,0,1 }
+		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
+		mvMatrixv    = new  float  [  ]  { 1,0,0,0,0,1,0,0,0,0,1,0,1.5f,0,0,1 }
+		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
+		pMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,4 ] )
+		mvMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,-1.5,0,0,1 ] )
+		mvMatrix   = new Float32Array  ( [ 1,0,0,0,0,1,0,0,0,0,1,0,1.5,0,0,1 ] )
 
 
 Test_sv2Drawer.java VS test_sv2Drawer.js
@@ -399,14 +396,6 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 	float sx   = ( float )  Math.sin   (  rAngle   )
 		var sx  =  Math.sin  ( rAngle  )
 
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-
-	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
-	float[] mvMatrixv   = new  float  [  ]  {  cx  , sx  * sx  ,-cx* sx  ,0,0, cx  , sx  ,0, sx  ,-cx* sx  , cx  * cx  ,0,0,0,-8,1 }
-		mvMatrix   = new Float32Array  ( [ cx ,sx *sx ,-cx*sx ,0,0,cx ,sx ,0,sx ,-cx*sx ,cx *cx ,0,0,0,-8,1 ] )
-
 	 gl . gl FrontFace ( GL2 .GL_ CCW )
 		gl. frontFace ( gl. CCW )
 
@@ -468,8 +457,14 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 		lastTime   = timeNow 
 
 	unmatched javaPatterns:
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+		float[] mvMatrixv   = new  float  [  ]  {  cx  , sx  * sx  ,-cx* sx  ,0,0, cx  , sx  ,0, sx  ,-cx* sx  , cx  * cx  ,0,0,0,-8,1 }
+		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+		mvMatrix   = new Float32Array  ( [ cx ,sx *sx ,-cx*sx ,0,0,cx ,sx ,0,sx ,-cx*sx ,cx *cx ,0,0,0,-8,1 ] )
 
 
 Test_sv3Drawer.java VS test_sv3Drawer.js
@@ -614,11 +609,6 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 	 gl . gl GenTextures ( 1,  texture1  , 0 )
 		texture1 [ 0 ]  = gl. createTexture (  )
 
-	TextureData tex   =   TextureIO.newTextureData   ( new  File   (  "images  / crate.gif"   ),  false  ,  null   )
-		var tex  = new  Image  (  )
-		tex.onload   =  function  (  )
-		tex.src   = "images /crate.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  texture1  [ 0 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, texture1 [ 0 ] )
 
@@ -660,14 +650,6 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 
 	float sx   = ( float )  Math.sin   (  rAngle   )
 		var sx  =  Math.sin  ( rAngle  )
-
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-
-	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
-	float[] mvMatrixv   = new  float  [  ]  {  cx  * cx  , cx  * (  sx  * sx  + sx   ), sx  * sx  - cx  * cx  * sx  ,0,-cx* sx  , cx  * cx  - sx  * sx  * sx  , cx  * (  sx  * sx  + sx   ),0, sx  ,-cx* sx  , cx  * cx  ,0,0,0,-8,1 }
-		mvMatrix   = new Float32Array  ( [ cx *cx ,cx *( sx *sx +sx  ),sx *sx -cx *cx *sx ,0,-cx*sx ,cx *cx -sx *sx *sx ,cx *( sx *sx +sx  ),0,sx ,-cx*sx ,cx *cx ,0,0,0,-8,1 ] )
 
 	 gl . gl FrontFace ( GL2 .GL_ CCW )
 		gl. frontFace ( gl. CCW )
@@ -721,8 +703,18 @@ Test_sv3Drawer.java VS test_sv3Drawer.js
 		lastTime   = timeNow 
 
 	unmatched javaPatterns:
+		TextureData tex   =   TextureIO.newTextureData   ( new  File   (  "images  / crate.gif"   ),  false  ,  null   )
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+		float[] mvMatrixv   = new  float  [  ]  {  cx  * cx  , cx  * (  sx  * sx  + sx   ), sx  * sx  - cx  * cx  * sx  ,0,-cx* sx  , cx  * cx  - sx  * sx  * sx  , cx  * (  sx  * sx  + sx   ),0, sx  ,-cx* sx  , cx  * cx  ,0,0,0,-8,1 }
+		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
+		var tex  = new  Image  (  )
+		tex.onload   =  function  (  )
+		tex.src   = "images /crate.gif" 
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+		mvMatrix   = new Float32Array  ( [ cx *cx ,cx *( sx *sx +sx  ),sx *sx -cx *cx *sx ,0,-cx*sx ,cx *cx -sx *sx *sx ,cx *( sx *sx +sx  ),0,sx ,-cx*sx ,cx *cx ,0,0,0,-8,1 ] )
 
 
 Test_sv4Drawer.java VS test_sv4Drawer.js
@@ -885,15 +877,6 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 	 public void initTexture   ( GL2 gl   ) throws IOException  
 		, initTexture : function ( gl  )
 
-	 gl . gl GenTextures ( 3,  textures  , 0 )
-		textures [ i  ]  = gl. createTexture (  )
-		for ( var i  = 0 ; i  < 3 ; i  ++  )
-
-	TextureData tex   =   TextureIO.newTextureData   ( new  File   (  "images  / crate.gif"   ),  false  ,  null   )
-		var tex  = new  Image  (  )
-		tex.onload   =  function  (  )
-		tex.src   = "images /crate.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
 
@@ -971,14 +954,6 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
-
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-
-	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
-	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
-		mvMatrix   = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 	 gl . gl FrontFace ( GL2 .GL_ CCW )
 		gl. frontFace ( gl. CCW )
@@ -1140,8 +1115,21 @@ Test_sv4Drawer.java VS test_sv4Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
+		 gl . gl GenTextures ( 3,  textures  , 0 )
+		TextureData tex   =   TextureIO.newTextureData   ( new  File   (  "images  / crate.gif"   ),  false  ,  null   )
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+		float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
+		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
+		for ( var i  = 0 ; i  < 3 ; i  ++  )
+		textures [ i  ]  = gl. createTexture (  )
+		var tex  = new  Image  (  )
+		tex.onload   =  function  (  )
+		tex.src   = "images /crate.gif" 
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+		mvMatrix   = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 
 Test_sv5Drawer.java VS test_sv5Drawer.js
@@ -1304,15 +1292,6 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 	 public void initTexture   ( GL2 gl   ) throws IOException  
 		, initTexture : function ( gl  )
 
-	 gl . gl GenTextures ( 3,  textures  , 0 )
-		textures [ i  ]  = gl. createTexture (  )
-		for ( var i  = 0 ; i  < 3 ; i  ++  )
-
-	TextureData tex   =   TextureIO.newTextureData   ( new  File   (  "images  / roof.gif"   ),  false  ,  null   )
-		var tex  = new  Image  (  )
-		tex.onload   =  function  (  )
-		tex.src   = "images /roof.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
 
@@ -1414,14 +1393,6 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
-
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-
-	mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
-	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
-		mvMatrix   = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 	 gl . gl FrontFace ( GL2 .GL_ CCW )
 		gl. frontFace ( gl. CCW )
@@ -1583,8 +1554,21 @@ Test_sv5Drawer.java VS test_sv5Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
+		 gl . gl GenTextures ( 3,  textures  , 0 )
+		TextureData tex   =   TextureIO.newTextureData   ( new  File   (  "images  / roof.gif"   ),  false  ,  null   )
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
+		float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
+		mvMatrix    =   BufferUtil.newFloatBuffer   (  mvMatrixv   )
 
 	unmatched jsPatterns:
+		for ( var i  = 0 ; i  < 3 ; i  ++  )
+		textures [ i  ]  = gl. createTexture (  )
+		var tex  = new  Image  (  )
+		tex.onload   =  function  (  )
+		tex.src   = "images /roof.gif" 
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
+		mvMatrix   = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
 
 Test_sv6Drawer.java VS test_sv6Drawer.js
@@ -1729,10 +1713,6 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 	 gl . gl Uniform3f (  ambientColorUniform  , 0.1f, 0.1f, 0.1f )
 		gl. uniform3f ( ambientColorUniform , 0.1, 0.1, 0.1 )
 
-	FloatBuffer lightingDirection   =   BufferUtil.newFloatBuffer   (  lightingDirectionv   )
-	float[] lightingDirectionv   = new  float  [  ]  { 0.57735026918962576450914878050196f,0.57735026918962576450914878050196f,0.57735026918962576450914878050196f }
-		var lightingDirection  = new Float32Array  ( [ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ] )
-
 	 gl . gl Uniform3fv (  lightingDirectionUniform  ,  lightingDirectionv.length  ,  lightingDirection   )
 		gl. uniform3fv ( lightingDirectionUniform , lightingDirection  )
 
@@ -1820,11 +1800,6 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 	 gl . gl GenTextures ( 1,  textures  , 0 )
 		textures [ 0 ]  = gl. createTexture (  )
 
-	TextureData tex   =   TextureIO.newTextureData   ( new  File   (  "images  / muro.gif"   ),  false  ,  null   )
-		var tex  = new  Image  (  )
-		tex.onload   =  function  (  )
-		tex.src   = "images /muro.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
 
@@ -1884,10 +1859,6 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
-
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
 
 	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
 		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
@@ -2061,8 +2032,18 @@ Test_sv6Drawer.java VS test_sv6Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
+		float[] lightingDirectionv   = new  float  [  ]  { 0.57735026918962576450914878050196f,0.57735026918962576450914878050196f,0.57735026918962576450914878050196f }
+		FloatBuffer lightingDirection   =   BufferUtil.newFloatBuffer   (  lightingDirectionv   )
+		TextureData tex   =   TextureIO.newTextureData   ( new  File   (  "images  / muro.gif"   ),  false  ,  null   )
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
+		var lightingDirection  = new Float32Array  ( [ 0.57735026918962576450914878050196,0.57735026918962576450914878050196,0.57735026918962576450914878050196 ] )
+		var tex  = new  Image  (  )
+		tex.onload   =  function  (  )
+		tex.src   = "images /muro.gif" 
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
 
 
 Test_sv7Drawer.java VS test_sv7Drawer.js
@@ -2357,10 +2338,6 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
 
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-
 	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
 		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
@@ -2524,8 +2501,11 @@ Test_sv7Drawer.java VS test_sv7Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
 
 
 Test_sv8Drawer.java VS test_sv8Drawer.js
@@ -2760,10 +2740,6 @@ Test_sv8Drawer.java VS test_sv8Drawer.js
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
 
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
-
 	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,0, zoom  ,1 }
 		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,0,zoom ,1 ] )
 
@@ -2921,8 +2897,11 @@ Test_sv8Drawer.java VS test_sv8Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
 
 
 Test_sv9Drawer.java VS test_sv9Drawer.js
@@ -3307,15 +3286,6 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 	 public void initTexture   ( GL2 gl   ) throws IOException  
 		, initTexture : function ( gl  )
 
-	 gl . gl GenTextures ( 2,  textures  , 0 )
-		textures [ i  ]  = gl. createTexture (  )
-		for ( var i  = 0 ; i  < 2 ; i  ++  )
-
-	TextureData tex1   =   TextureIO.newTextureData   ( new  File   (  "images  / bubble.gif"   ),  false  ,  null   )
-		var tex1  = new  Image  (  )
-		tex1.onload   =  function  (  )
-		tex1.src   = "images /bubble.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
 
@@ -3336,11 +3306,6 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
-
-	TextureData tex2   =   TextureIO.newTextureData   ( new  File   (  "images  / grass.gif"   ),  false  ,  null   )
-		var tex2  = new  Image  (  )
-		tex2.onload   =  function  (  )
-		tex2.src   = "images /grass.gif" 
 
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 1 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 1 ] )
@@ -3386,10 +3351,6 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 
 	 gl . gl Clear ( GL2 .GL_ COLOR_BUFFER_BIT|GL2 .GL_ DEPTH_BUFFER_BIT )
 		gl. clear ( gl. COLOR_BUFFER_BIT|gl. DEPTH_BUFFER_BIT )
-
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
 
 	float[] mvMatrixv   = new  float  [  ]  { 10,0,0,0,0,10,0,0,0,0,10,0,0,0, zoom  ,1 }
 		var mvMatrixv  = new Float32Array  ( [ 10,0,0,0,0,10,0,0,0,0,10,0,0,0,zoom ,1 ] )
@@ -3593,8 +3554,22 @@ Test_sv9Drawer.java VS test_sv9Drawer.js
 		lastMouseY   = e.clientY 
 
 	unmatched javaPatterns:
+		 gl . gl GenTextures ( 2,  textures  , 0 )
+		TextureData tex1   =   TextureIO.newTextureData   ( new  File   (  "images  / bubble.gif"   ),  false  ,  null   )
+		TextureData tex2   =   TextureIO.newTextureData   ( new  File   (  "images  / grass.gif"   ),  false  ,  null   )
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
+		for ( var i  = 0 ; i  < 2 ; i  ++  )
+		textures [ i  ]  = gl. createTexture (  )
+		var tex1  = new  Image  (  )
+		tex1.onload   =  function  (  )
+		tex1.src   = "images /bubble.gif" 
+		var tex2  = new  Image  (  )
+		tex2.onload   =  function  (  )
+		tex2.src   = "images /grass.gif" 
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
 
 
 Test_va1Drawer.java VS test_va1Drawer.js
@@ -3880,15 +3855,6 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	 public void initTexture   ( GL2 gl   ) throws IOException  
 		, initTexture : function ( gl  )
 
-	 gl . gl GenTextures ( 4,  textures  , 0 )
-		textures [ i  ]  = gl. createTexture (  )
-		for ( var i  = 0 ; i  < 4 ; i  ++  )
-
-	TextureData tex1   =   TextureIO.newTextureData   ( new  File   (  "images  / muro.gif"   ),  false  ,  null   )
-		var tex1  = new  Image  (  )
-		tex1.onload   =  function  (  )
-		tex1.src   = "images /muro.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
 
@@ -3909,11 +3875,6 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
-
-	TextureData tex2   =   TextureIO.newTextureData   ( new  File   (  "images  / roof.gif"   ),  false  ,  null   )
-		var tex2  = new  Image  (  )
-		tex2.onload   =  function  (  )
-		tex2.src   = "images /roof.gif" 
 
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 1 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 1 ] )
@@ -3936,11 +3897,6 @@ Test_va1Drawer.java VS test_va1Drawer.js
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
 
-	TextureData tex3   =   TextureIO.newTextureData   ( new  File   (  "images  / grass.gif"   ),  false  ,  null   )
-		var tex3  = new  Image  (  )
-		tex3.onload   =  function  (  )
-		tex3.src   = "images /grass.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 2 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 2 ] )
 
@@ -3961,11 +3917,6 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
-
-	TextureData tex4   =   TextureIO.newTextureData   ( new  File   (  "images  / door.gif"   ),  false  ,  null   )
-		var tex4  = new  Image  (  )
-		tex4.onload   =  function  (  )
-		tex4.src   = "images /door.gif" 
 
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 3 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 3 ] )
@@ -4020,10 +3971,6 @@ Test_va1Drawer.java VS test_va1Drawer.js
 
 	float sy   = ( float )  Math.sin   (  rAngley   )
 		var sy  =  Math.sin  ( rAngley  )
-
-	pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
-	float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
-		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
 
 	float[] mvMatrixv   = new  float  [  ]  {  cy  , sx  * sy  ,-cx* sy  ,0,0, cx  , sx  ,0, sy  ,-cy* sx  , cx  * cy  ,0,0,-cx, zoom  - sx  ,1 }
 		var mvMatrixv  = new Float32Array  ( [ cy ,sx *sy ,-cx*sy ,0,0,cx ,sx ,0,sy ,-cy*sx ,cx *cy ,0,0,-cx,zoom -sx ,1 ] )
@@ -4299,8 +4246,30 @@ Test_va1Drawer.java VS test_va1Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
+		 gl . gl GenTextures ( 4,  textures  , 0 )
+		TextureData tex1   =   TextureIO.newTextureData   ( new  File   (  "images  / muro.gif"   ),  false  ,  null   )
+		TextureData tex2   =   TextureIO.newTextureData   ( new  File   (  "images  / roof.gif"   ),  false  ,  null   )
+		TextureData tex3   =   TextureIO.newTextureData   ( new  File   (  "images  / grass.gif"   ),  false  ,  null   )
+		TextureData tex4   =   TextureIO.newTextureData   ( new  File   (  "images  / door.gif"   ),  false  ,  null   )
+		float[] pMatrixv   = new  float  [  ]  { 2.4142136573791504f,0,0,0,0,2.4142136573791504f,0,0,0,0,-1.0020020008087158f,-1,0,0,-0.20020020008087158f,0 }
+		pMatrix    =   BufferUtil.newFloatBuffer   (  pMatrixv   )
 
 	unmatched jsPatterns:
+		for ( var i  = 0 ; i  < 4 ; i  ++  )
+		textures [ i  ]  = gl. createTexture (  )
+		var tex1  = new  Image  (  )
+		tex1.onload   =  function  (  )
+		tex1.src   = "images /muro.gif" 
+		var tex2  = new  Image  (  )
+		tex2.onload   =  function  (  )
+		tex2.src   = "images /roof.gif" 
+		var tex3  = new  Image  (  )
+		tex3.onload   =  function  (  )
+		tex3.src   = "images /grass.gif" 
+		var tex4  = new  Image  (  )
+		tex4.onload   =  function  (  )
+		tex4.src   = "images /door.gif" 
+		pMatrix   = new Float32Array  ( [ 2.4142136573791504,0,0,0,0,2.4142136573791504,0,0,0,0,-1.0020020008087158,-1,0,0,-0.20020020008087158,0 ] )
 
 
 Test_va2Drawer.java VS test_va2Drawer.js
@@ -4919,15 +4888,6 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 public void initTexture   ( GL2 gl   ) throws IOException  
 		, initTexture : function ( gl  )
 
-	 gl . gl GenTextures ( 6,  textures  , 0 )
-		textures [ i  ]  = gl. createTexture (  )
-		for ( var i  = 0 ; i  < 6 ; i  ++  )
-
-	TextureData tex1   =   TextureIO.newTextureData   ( new  File   (  "images  / muro.gif"   ),  false  ,  null   )
-		var tex1  = new  Image  (  )
-		tex1.onload   =  function  (  )
-		tex1.src   = "images /muro.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 0 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 0 ] )
 
@@ -4948,11 +4908,6 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
-
-	TextureData tex2   =   TextureIO.newTextureData   ( new  File   (  "images  / roof.gif"   ),  false  ,  null   )
-		var tex2  = new  Image  (  )
-		tex2.onload   =  function  (  )
-		tex2.src   = "images /roof.gif" 
 
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 1 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 1 ] )
@@ -4975,11 +4930,6 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
 
-	TextureData tex3   =   TextureIO.newTextureData   ( new  File   (  "images  / grass.gif"   ),  false  ,  null   )
-		var tex3  = new  Image  (  )
-		tex3.onload   =  function  (  )
-		tex3.src   = "images /grass.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 2 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 2 ] )
 
@@ -5001,11 +4951,6 @@ Test_va2Drawer.java VS test_va2Drawer.js
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
 
-	TextureData tex4   =   TextureIO.newTextureData   ( new  File   (  "images  / door.gif"   ),  false  ,  null   )
-		var tex4  = new  Image  (  )
-		tex4.onload   =  function  (  )
-		tex4.src   = "images /door.gif" 
-
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 3 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 3 ] )
 
@@ -5020,11 +4965,6 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
-
-	TextureData tex5   =   TextureIO.newTextureData   ( new  File   (  "images  / tractor.gif"   ),  false  ,  null   )
-		var tex5  = new  Image  (  )
-		tex5.onload   =  function  (  )
-		tex5.src   = "images /tractor.gif" 
 
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 4 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 4 ] )
@@ -5046,11 +4986,6 @@ Test_va2Drawer.java VS test_va2Drawer.js
 
 	 gl . gl GenerateMipmap ( GL2 .GL_ TEXTURE_2D )
 		gl. generateMipmap ( gl. TEXTURE_2D )
-
-	TextureData tex6   =   TextureIO.newTextureData   ( new  File   (  "images  / seagul.gif"   ),  false  ,  null   )
-		var tex6  = new  Image  (  )
-		tex6.onload   =  function  (  )
-		tex6.src   = "images /seagul.gif" 
 
 	 gl . gl BindTexture ( GL2 .GL_ TEXTURE_2D,  textures  [ 5 ] )
 		gl. bindTexture ( gl. TEXTURE_2D, textures [ 5 ] )
@@ -5719,6 +5654,33 @@ Test_va2Drawer.java VS test_va2Drawer.js
 		 this.setCommands  ( e , false  )
 
 	unmatched javaPatterns:
+		 gl . gl GenTextures ( 6,  textures  , 0 )
+		TextureData tex1   =   TextureIO.newTextureData   ( new  File   (  "images  / muro.gif"   ),  false  ,  null   )
+		TextureData tex2   =   TextureIO.newTextureData   ( new  File   (  "images  / roof.gif"   ),  false  ,  null   )
+		TextureData tex3   =   TextureIO.newTextureData   ( new  File   (  "images  / grass.gif"   ),  false  ,  null   )
+		TextureData tex4   =   TextureIO.newTextureData   ( new  File   (  "images  / door.gif"   ),  false  ,  null   )
+		TextureData tex5   =   TextureIO.newTextureData   ( new  File   (  "images  / tractor.gif"   ),  false  ,  null   )
+		TextureData tex6   =   TextureIO.newTextureData   ( new  File   (  "images  / seagul.gif"   ),  false  ,  null   )
 
 	unmatched jsPatterns:
+		for ( var i  = 0 ; i  < 6 ; i  ++  )
+		textures [ i  ]  = gl. createTexture (  )
+		var tex1  = new  Image  (  )
+		tex1.onload   =  function  (  )
+		tex1.src   = "images /muro.gif" 
+		var tex2  = new  Image  (  )
+		tex2.onload   =  function  (  )
+		tex2.src   = "images /roof.gif" 
+		var tex3  = new  Image  (  )
+		tex3.onload   =  function  (  )
+		tex3.src   = "images /grass.gif" 
+		var tex4  = new  Image  (  )
+		tex4.onload   =  function  (  )
+		tex4.src   = "images /door.gif" 
+		var tex5  = new  Image  (  )
+		tex5.onload   =  function  (  )
+		tex5.src   = "images /tractor.gif" 
+		var tex6  = new  Image  (  )
+		tex6.onload   =  function  (  )
+		tex6.src   = "images /seagul.gif" 
 
