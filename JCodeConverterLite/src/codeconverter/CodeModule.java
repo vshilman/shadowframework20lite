@@ -30,5 +30,16 @@ public interface CodeModule {
 
 	public String getCode();
 
+	/**
+	 * First line in the original file where the CodeModule was found
+	 * @return
+	 */
+	public int getFirstLine();
+	
+	/**
+	 * Last line in the original file where the CodeModule was found
+	 * @return
+	 */
+	public int getLastLine();
 
 }

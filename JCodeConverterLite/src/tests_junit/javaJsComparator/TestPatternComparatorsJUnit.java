@@ -141,12 +141,13 @@ public class TestPatternComparatorsJUnit {
 		if (javaMatch.get(0) != null && jsMatch.get(0) != null) {
 			// System.out.println(javaMatch.get(0).printTypes());
 			// System.out.println(jsMatch.get(0).printTypes());
-			int[][] result = comparator.compare(javaMatch, 0, jsMatch, 0);
-			if (result != null) {
-				s+="true";
-			} else {
-				s+="false";
-			}
+			boolean result = comparator.compare(javaMatch.get(0), jsMatch.get(0));
+			//if (result != null) {
+			//	s+="true";
+			//} else {
+			//	s+="false";
+			//}
+			s+=result;
 			s+=" --> {" + javaLine + "} , {" + jsLine + "}";
 		} else {
 			s+="didn't match";

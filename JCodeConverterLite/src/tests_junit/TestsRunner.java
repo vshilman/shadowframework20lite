@@ -1,7 +1,6 @@
 package tests_junit;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import tests_junit.blocks.BlocksTest002JUnit;
 import tests_junit.blocks.BlocksTest003JUnit;

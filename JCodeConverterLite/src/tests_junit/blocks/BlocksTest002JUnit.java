@@ -22,18 +22,19 @@ public class BlocksTest002JUnit {
 
 	@Test
 	public void test() {
-		List<String> list = FileStringUtility
-				.loadTextfromStream(FileStringUtility.getStream("src/testPackage/House.java"));
-		StringWriter writer = new StringWriter();
-		for (String string : list) {
-			writer.write(string);
-		}
-
-		String totalString = writer.toString();
-		System.out.println(totalString);
-		char[] totalStringChars = totalString.toCharArray();
-
-		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+//		List<String> list = FileStringUtility
+//				.loadTextfromStream(FileStringUtility.getStream("src/testPackage/House.java"));
+//		StringWriter writer = new StringWriter();
+//		for (String string : list) {
+//			writer.write(string);
+//		}
+//
+//		String totalString = writer.toString();
+//		System.out.println(totalString);
+//		char[] totalStringChars = totalString.toCharArray();
+//
+//		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
+		Block fileBlock = BlockUtilities.generateBlocksFromFile("src/testPackage/House.java");
 
 		String s = fileBlock.toString() + "\n";
 

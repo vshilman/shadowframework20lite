@@ -34,7 +34,7 @@ public class DeclaredBlock implements CodeModule{
 
 	@Override
 	public String print() {
-		return "DBLOCK "+blockDeclaration.getCode()+"\n"+relatedBlock.print();
+		return "DBLOCK "+blockDeclaration.getCode()+"\n"+relatedBlock.print()+"["+getFirstLine()+","+getLastLine()+"]";
 	}
 
 	@Override
@@ -45,5 +45,15 @@ public class DeclaredBlock implements CodeModule{
 	@Override
 	public String getCode() {
 		return blockDeclaration.getCode()+" "+relatedBlock.getCode();
+	}
+	
+	@Override
+	public int getFirstLine() {
+		return blockDeclaration.getFirstLine();
+	}
+	
+	@Override
+	public int getLastLine() {
+		return blockDeclaration.getLastLine();
 	}
 }

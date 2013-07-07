@@ -11,6 +11,8 @@ public class CodeLine implements CodeModule{
 
 	private String codeLine;
 	private boolean isBlockDeclaration;
+	private int firstLine;
+	private int lastLine;
 
 
 	public CodeLine(String codeLine, boolean isBlockDeclaration) {
@@ -27,7 +29,7 @@ public class CodeLine implements CodeModule{
 	}
 	@Override
 	public String print() {
-		return (isBlockDeclaration()?"blockDeclaration:":"sentence:")+getCode();
+		return (isBlockDeclaration()?"blockDeclaration:":"sentence:")+getCode()+"["+firstLine+","+lastLine+"]";
 	}
 
 	@Override
@@ -55,4 +57,22 @@ public class CodeLine implements CodeModule{
 	public boolean isBlockDeclaration() {
 		return isBlockDeclaration;
 	}
+
+	@Override
+	public int getLastLine() {
+		return lastLine;
+	}
+	
+	@Override
+	public int getFirstLine() {
+		return firstLine;
+	}
+	public void setFirstLine(int firstLine) {
+		this.firstLine = firstLine;
+	}
+	public void setLastLine(int lastLine) {
+		this.lastLine = lastLine;
+	}
+	
+	
 }
