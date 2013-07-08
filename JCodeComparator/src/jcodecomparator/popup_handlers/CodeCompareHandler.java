@@ -69,13 +69,13 @@ public class CodeCompareHandler extends AbstractHandler{
         		}
 
                 IAccettableLeftRight lr=(IAccettableLeftRight) part;
-               /* if(left){
+                if(left){
                     lr.acceptLeft(new CompareEditorInput(ci));
                     left=false;
                 } else {
                     lr.acceptRight(new CompareEditorInput(ci));
                     left=true;
-                }*/
+                }
 
 
             } catch (PartInitException e) {
