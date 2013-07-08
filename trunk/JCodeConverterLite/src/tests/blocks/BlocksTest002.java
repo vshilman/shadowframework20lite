@@ -29,7 +29,7 @@ public class BlocksTest002 {
 //        char[] totalStringChars=totalString.toCharArray();
 //
 //        Block fileBlock=BlockUtilities.generateBlocks(totalStringChars);
-		Block fileBlock=BlockUtilities.generateBlocksFromFile("src/testPackage/House.java");
+		Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream("src/testPackage/House.java"));
 
         System.out.println(fileBlock);
 

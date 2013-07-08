@@ -212,7 +212,7 @@ public class TestFileComparatorJUnit {
 //		char[] totalStringChars = TestingUtilities.generateFileString(FileStringUtility.getStream(file)).toCharArray();
 //
 //		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-		Block fileBlock = BlockUtilities.generateBlocksFromFile(file);
+		Block fileBlock = BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(file));
 
 		// System.out.println(fileBlock.print());
 

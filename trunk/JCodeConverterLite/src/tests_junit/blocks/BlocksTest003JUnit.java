@@ -41,7 +41,7 @@ public class BlocksTest003JUnit extends TestCase {
 
 		//char[] totalStringChars=totalString.toCharArray();
 		//Block fileBlock=BlockUtilities.generateBlocks(totalStringChars);
-		Block fileBlock = BlockUtilities.generateBlocksFromFile("src/testPackage/House.java");
+		Block fileBlock = BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream("src/testPackage/House.java"));
 
 		BlockInterpreter interpreter=new BlockInterpreter(new JavaCodePatternInterpreter());
 		HashMap<CodeModule, CodePattern> interpretation=interpreter.getInterpretation(fileBlock);

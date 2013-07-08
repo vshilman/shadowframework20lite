@@ -1,5 +1,6 @@
 #include "house.h"
 
+
 House::House(int roofHeight, int baseWidth, int baseHeight) {
         super();
         this.roofHeight = roofHeight;

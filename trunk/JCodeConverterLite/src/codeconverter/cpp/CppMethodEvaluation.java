@@ -1,6 +1,5 @@
 package codeconverter.cpp;
 
-import java.util.BitSet;
 
 import codeconverter.PieceType;
 import codeconverter.codepieces.BestAlternativeCode;
@@ -17,7 +16,7 @@ public class CppMethodEvaluation extends CompositeCodePiece{
 		CppName name=new CppName(true);
 		CppTernaryOperator ternaryOperator=new CppTernaryOperator(true);
 		CppAlgebraicExpression algebraicExpression=new CppAlgebraicExpression(true);
-		CppNewStatement newStatement=new CppNewStatement(algebraicExpression,name);
+		CppNewStatement newStatement=new CppNewStatement(algebraicExpression,new CppCompositeType());
 		algebraicExpression.generate(this,name, ternaryOperator, newStatement);
 		CppBitwiseExpression bitwiseExpression=new CppBitwiseExpression(this,name,newStatement);
 		generate(methodsSyntax, algebraicExpression, bitwiseExpression);
@@ -42,7 +41,7 @@ public class CppMethodEvaluation extends CompositeCodePiece{
 														new CppCompositeType(),
 														new UniqueKeyword(")"))),
 								new OptionalCode( new CompositeCodePiece (new BestAlternativeCode(true, new CppName(PieceType.VALUE,algebraicExpression,bitwiseExpression),
-																			   					  new CppNewStatement(algebraicExpression, new CppName(PieceType.TYPE,algebraicExpression,bitwiseExpression))),
+																			   					  new CppNewStatement(algebraicExpression, new CppCompositeType())),
 																					              new UniqueKeyword(methodsSintax))),
 				new CodeSequence(true,new CompositeCodePiece(new CppName(algebraicExpression,bitwiseExpression),
 				                                             new UniqueKeyword("("),

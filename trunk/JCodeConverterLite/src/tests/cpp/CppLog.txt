@@ -1,0 +1,338 @@
+
+house.cpp
+[LIBRARY_DECLARATION] -------> #include  "house.h"  
+null:#include
+SEQUENCE: "house.h"  
+		EXPRESSION: "house.h"  
+				COMPOSITE: "house.h"  
+						IGNORED:
+						VARIABLE:"house.h"  
+								NAME:"house.h"
+								IGNORED:
+								IGNORED:
+
+
+[CONSTRUCTOR_DECLARATION] -------> House   :: House   (  int roofHeight  ,  int baseWidth  ,  int baseHeight   )
+NAME:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: int roofHeight  ,  int baseWidth  ,  int baseHeight  
+		VARIABLE: int roofHeight  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:roofHeight  
+						NAME:roofHeight
+						IGNORED:
+						IGNORED:
+		KEYWORD:, 
+		VARIABLE: int baseWidth  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:baseWidth  
+						NAME:baseWidth
+						IGNORED:
+						IGNORED:
+		KEYWORD:, 
+		VARIABLE: int baseHeight  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:baseHeight  
+						NAME:baseHeight
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
+[SUPER, LINE_OF_CODE] -------> super (  )
+KEYWORD:super
+KEYWORD:(
+SEQUENCE:
+KEYWORD:)
+
+
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . roofHeight   =  roofHeight  
+KEYWORD:this
+KEYWORD:.
+NAME:roofHeight  
+		NAME:roofHeight
+		IGNORED:
+		IGNORED:
+COMPOSITE:=  roofHeight  
+		KEYWORD:=
+		EXPRESSION: roofHeight  
+				COMPOSITE: roofHeight  
+						IGNORED:
+						VARIABLE:roofHeight  
+								NAME:roofHeight
+								IGNORED:
+								IGNORED:
+
+
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . baseWidth   =  baseWidth  
+KEYWORD:this
+KEYWORD:.
+NAME:baseWidth  
+		NAME:baseWidth
+		IGNORED:
+		IGNORED:
+COMPOSITE:=  baseWidth  
+		KEYWORD:=
+		EXPRESSION: baseWidth  
+				COMPOSITE: baseWidth  
+						IGNORED:
+						VARIABLE:baseWidth  
+								NAME:baseWidth
+								IGNORED:
+								IGNORED:
+
+
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . baseHeight   =  baseHeight  
+KEYWORD:this
+KEYWORD:.
+NAME:baseHeight  
+		NAME:baseHeight
+		IGNORED:
+		IGNORED:
+COMPOSITE:=  baseHeight  
+		KEYWORD:=
+		EXPRESSION: baseHeight  
+				COMPOSITE: baseHeight  
+						IGNORED:
+						VARIABLE:baseHeight  
+								NAME:baseHeight
+								IGNORED:
+								IGNORED:
+
+
+[METHOD_DECLARATION] ------->  int House   :: getRoofHeight   (  )
+COMPOSITE: int
+		IGNORED:
+		TYPE:int
+VARIABLE:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:getRoofHeight  
+		NAME:getRoofHeight
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES:
+KEYWORD:)
+
+
+[RETURN, LINE_OF_CODE] -------> return   roofHeight  
+KEYWORD:return
+IGNORED:
+EXPRESSION: roofHeight  
+		COMPOSITE: roofHeight  
+				IGNORED:
+				VARIABLE:roofHeight  
+						NAME:roofHeight
+						IGNORED:
+						IGNORED:
+
+
+[METHOD_DECLARATION] ------->  void House   :: setRoofHeight   (  int roofHeight   )
+COMPOSITE: void
+		IGNORED:
+		TYPE:void
+VARIABLE:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:setRoofHeight  
+		NAME:setRoofHeight
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: int roofHeight  
+		VARIABLE: int roofHeight  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:roofHeight  
+						NAME:roofHeight
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . roofHeight   =  roofHeight  
+KEYWORD:this
+KEYWORD:.
+NAME:roofHeight  
+		NAME:roofHeight
+		IGNORED:
+		IGNORED:
+COMPOSITE:=  roofHeight  
+		KEYWORD:=
+		EXPRESSION: roofHeight  
+				COMPOSITE: roofHeight  
+						IGNORED:
+						VARIABLE:roofHeight  
+								NAME:roofHeight
+								IGNORED:
+								IGNORED:
+
+
+[METHOD_DECLARATION] ------->  int House   :: getBaseWidth   (  )
+COMPOSITE: int
+		IGNORED:
+		TYPE:int
+VARIABLE:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:getBaseWidth  
+		NAME:getBaseWidth
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES:
+KEYWORD:)
+
+
+[RETURN, LINE_OF_CODE] -------> return   baseWidth  
+KEYWORD:return
+IGNORED:
+EXPRESSION: baseWidth  
+		COMPOSITE: baseWidth  
+				IGNORED:
+				VARIABLE:baseWidth  
+						NAME:baseWidth
+						IGNORED:
+						IGNORED:
+
+
+[METHOD_DECLARATION] ------->  void House   :: setBaseWidth   (  int baseWidth   )
+COMPOSITE: void
+		IGNORED:
+		TYPE:void
+VARIABLE:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:setBaseWidth  
+		NAME:setBaseWidth
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: int baseWidth  
+		VARIABLE: int baseWidth  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:baseWidth  
+						NAME:baseWidth
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . baseWidth   =  baseWidth  
+KEYWORD:this
+KEYWORD:.
+NAME:baseWidth  
+		NAME:baseWidth
+		IGNORED:
+		IGNORED:
+COMPOSITE:=  baseWidth  
+		KEYWORD:=
+		EXPRESSION: baseWidth  
+				COMPOSITE: baseWidth  
+						IGNORED:
+						VARIABLE:baseWidth  
+								NAME:baseWidth
+								IGNORED:
+								IGNORED:
+
+
+[METHOD_DECLARATION] ------->  int House   :: getBaseHeight   (  )
+COMPOSITE: int
+		IGNORED:
+		TYPE:int
+VARIABLE:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:getBaseHeight  
+		NAME:getBaseHeight
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES:
+KEYWORD:)
+
+
+[RETURN, LINE_OF_CODE] -------> return   baseHeight  
+KEYWORD:return
+IGNORED:
+EXPRESSION: baseHeight  
+		COMPOSITE: baseHeight  
+				IGNORED:
+				VARIABLE:baseHeight  
+						NAME:baseHeight
+						IGNORED:
+						IGNORED:
+
+
+[METHOD_DECLARATION] ------->  void House   :: setBaseHeight   (  int baseHeight   )
+COMPOSITE: void
+		IGNORED:
+		TYPE:void
+VARIABLE:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:setBaseHeight  
+		NAME:setBaseHeight
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: int baseHeight  
+		VARIABLE: int baseHeight  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:baseHeight  
+						NAME:baseHeight
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . baseHeight   =  baseHeight  
+KEYWORD:this
+KEYWORD:.
+NAME:baseHeight  
+		NAME:baseHeight
+		IGNORED:
+		IGNORED:
+COMPOSITE:=  baseHeight  
+		KEYWORD:=
+		EXPRESSION: baseHeight  
+				COMPOSITE: baseHeight  
+						IGNORED:
+						VARIABLE:baseHeight  
+								NAME:baseHeight
+								IGNORED:
+								IGNORED:
+
+

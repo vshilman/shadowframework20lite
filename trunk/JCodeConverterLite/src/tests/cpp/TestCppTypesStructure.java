@@ -1,4 +1,4 @@
-package tests.js;
+package tests.cpp;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -13,23 +13,20 @@ import codeconverter.BlockInterpreter;
 import codeconverter.CodeModule;
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
-import codeconverter.js.JsCodePatternInterpreter;
+import codeconverter.cpp.CppCodePatternInterpreter;
+import codeconverter.cpp.codelines.CppHeaderCodePatternInterpreter;
+import codeconverter.java.JavaCodePatternInterpreter;
 import codeconverter.utility.FileStringUtility;
 
-public class TestFileInterpretation {
+public class TestCppTypesStructure {
 
-	private static final String DIRECTORY = "../OpenGL OfA/src/test/WebGL/";
+	private static final String DIRECTORY = "./cppTestCode/";
 
 	public static void main(String[] args) {
+
 		ArrayList<String> tests = new ArrayList<String>();
 
-		for (int i = 4; i <= 4; i++) {
-			tests.add(DIRECTORY + "test_sv" + i + "Drawer.js");
-		}
-
-		for (int i = 1; i <= 0; i++) {
-			tests.add(DIRECTORY + "test_va" + i + "Drawer.js");
-		}
+		tests.add(DIRECTORY+"house.cpp");
 
 		StringWriter logWriter = new StringWriter();
 		for (String file : tests) {
@@ -39,14 +36,13 @@ public class TestFileInterpretation {
 
 //			String totalString = TestingUtilities.generateFileString(FileStringUtility.getStream(file));
 //			char[] totalStringChars = totalString.toCharArray();
-//			//System.out.println(totalString);
 //
 //			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
 			Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(file));
 
-			//System.out.println(fileBlock.print());
+			// System.out.println(fileBlock.print());
 
-			BlockInterpreter interpreter = new BlockInterpreter(new JsCodePatternInterpreter());
+			BlockInterpreter interpreter = new BlockInterpreter(new CppCodePatternInterpreter());
 			HashMap<CodeModule, CodePattern> interpretation = interpreter.getInterpretation(fileBlock);
 
 			Set<CodeModule> keys = interpretation.keySet();
@@ -54,18 +50,20 @@ public class TestFileInterpretation {
 				CodePattern pattern = interpretation.get(codeModule);
 				String result;
 				if (pattern == null) {
-					result="[unidentified] -------> " + codeModule;
+					result = "[unidentified] -------> " + codeModule;
 					System.out.println(result);
 					logWriter.write(result+"\n");
 				} else {
-					result="[" + patternType(pattern) + "] -------> " + pattern;
+					result = "[" + patternType(pattern) + "] -------> " + pattern;
 					//System.out.println(result);
+					//System.out.println(pattern.printTypes() + "\n");
 					logWriter.write(result+"\n");
+					logWriter.write(pattern.printTypes()+"\n\n");
 				}
 			}
 		}
 
-		FileStringUtility.writeTextFile("./src/tests/js/log.txt", logWriter.toString());
+		FileStringUtility.writeTextFile("./src/tests/cpp/CppLog.txt", logWriter.toString());
 
 	}
 

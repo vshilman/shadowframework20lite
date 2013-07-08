@@ -42,7 +42,7 @@ public class TestJsTypesStructure {
 //			char[] totalStringChars = totalString.toCharArray();
 //
 //			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-			Block fileBlock=BlockUtilities.generateBlocksFromFile(file);
+			Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(file));
 
 			// System.out.println(fileBlock.print());
 

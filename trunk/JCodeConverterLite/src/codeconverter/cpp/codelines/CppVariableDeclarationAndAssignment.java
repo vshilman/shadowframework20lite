@@ -20,15 +20,14 @@ public class CppVariableDeclarationAndAssignment extends CodePattern{
 	public CppVariableDeclarationAndAssignment() {
 
 		addCodePiece(new CppVariable(),
-					new OptionalCode(new UniqueKeyword("=")),
-					new BestAlternativeCode(true, new CppMethodEvaluation("->"),
-						                       new CppMethodEvaluation("."),
-						                       new CppAlgebraicExpression(),
-						                       new CppBitwiseExpression(),
-						                       new CppNewStatement(),
-						                       new CppArrayContent(),
-						                       new CppArrayDeclaration(),
-						                       new CompositeCodePiece(new UniqueKeyword("("),
+					new BestAlternativeCode(true,new CompositeCodePiece(new UniqueKeyword("="), new CppMethodEvaluation("->")),
+												 new CompositeCodePiece(new UniqueKeyword("="), new CppMethodEvaluation(".")),
+												 new CompositeCodePiece(new UniqueKeyword("="),new CppAlgebraicExpression()),
+												 new CompositeCodePiece(new UniqueKeyword("="),new CppBitwiseExpression()),
+												 new CompositeCodePiece(new UniqueKeyword("="),new CppNewStatement()),
+												 new CompositeCodePiece(new UniqueKeyword("="),new CppArrayContent()),
+												 new CompositeCodePiece(new UniqueKeyword("="),new CppArrayDeclaration()),
+						                         new CompositeCodePiece(new UniqueKeyword("("),
 												                      new CodeSequence(new OptionalCode(new CppAlgebraicExpression()), ","),
 												                      new UniqueKeyword(")"))));
 

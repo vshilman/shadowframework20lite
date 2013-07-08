@@ -9,7 +9,9 @@ import codeconverter.java.GenericCodePatternInterpreter;
 public class CppCodePatternInterpreter extends GenericCodePatternInterpreter implements BlockDataInterpreter{
 
 
-	private List<CodePattern> patterns=CppHeaderCodePatterns.getPatterns();
+
+
+	private List<CodePattern> patterns=CppCodePattern.getPatterns();
 
 	@Override
 	public List<CodePattern> getPatterns() {

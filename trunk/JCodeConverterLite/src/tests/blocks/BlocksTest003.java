@@ -43,7 +43,7 @@ public class BlocksTest003 {
 //		char[] totalStringChars=totalString.toCharArray();
 //
 //		Block fileBlock=BlockUtilities.generateBlocks(totalStringChars);
-		Block fileBlock=BlockUtilities.generateBlocksFromFile("src/testPackage/Expressions.java");
+		Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream("src/testPackage/Expressions.java"));
 
 		//System.out.println(fileBlock);
 

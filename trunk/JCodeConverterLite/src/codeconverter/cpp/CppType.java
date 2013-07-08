@@ -29,7 +29,7 @@ public class CppType extends ConcreteValue{
 		allIntervals.add(new CharInterval('<', '>'));
 		allIntervals.add(new CharInterval('[', ']'));
 		allIntervals.add(new CharInterval(',', ','));
-		endingIntervals.add(new CharInterval('*', '*')); // int* x
+		allIntervals.add(new CharInterval('*', '*')); // int* x
 
 	}
 

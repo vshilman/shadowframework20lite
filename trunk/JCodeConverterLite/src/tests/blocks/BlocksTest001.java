@@ -1,6 +1,7 @@
 package tests.blocks;
 
 import codeconverter.Block;
+import codeconverter.utility.FileStringUtility;
 
 /**
  * A simple test about the use of Blocks.
@@ -22,7 +23,7 @@ public class BlocksTest001 {
 //		String totalString=writer.toString();
 //		char[] totalStringChars=totalString.toCharArray();
 
-		Block fileBlock=BlockUtilities.generateBlocksFromFile("../ShadowFramework2.0/src/shadow/system/data/SFOutputStream.java");
+		Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream("../ShadowFramework2.0/src/shadow/system/data/SFOutputStream.java"));
 
 		System.out.println(fileBlock.print());
 

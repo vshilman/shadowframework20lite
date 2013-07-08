@@ -49,7 +49,7 @@ public class TestFileComparatorUsingUtils {
 
 			logWriter.write(name + "\n");
 
-			DifferentiationResult res=GeneralTests.compareFiles(jsFileName, javaFileName,jsFileName, javaFileName, logWriter,true);
+			DifferentiationResult res=GeneralTests.compareFiles(jsFileName, javaFileName,FileStringUtility.getStream(jsFileName),FileStringUtility.getStream(javaFileName) , logWriter,true);
 
 			String infos="Non interpretate sinistra:\n";
 

@@ -10,7 +10,7 @@ import codeconverter.CodeLine;
 import codeconverter.utility.FileStringUtility;
 
 public class BlockUtilities {
-	
+
 	/* Structure used by generateBlocksFromFile
 	 */
 	private static class FileCodeLinePosition implements Comparable<FileCodeLinePosition>{
@@ -60,16 +60,16 @@ public class BlockUtilities {
 //		return positions;
 //	}
 
-	
+
 		static void addCodeLinesToBlock(Block block,List<FileCodeLine> codeLines, FileCodeLinePosition startingPosition,FileCodeLinePosition endingPosition){
 			if(endingPosition.compareTo(startingPosition)>0){
-	
+
 				List<FileCodeLine> temp=buildSubLines(codeLines, startingPosition, endingPosition);
 //				char[] temp=buildSubString(totalChar,startingPosition,
 //						endingPosition);
-	
+
 				ArrayList<FileCodeLinePosition> semicolons=findPositions(temp,';');
-	
+
 				if(semicolons.size()>0){
 					insertNewCodeLine(block,temp,false,new FileCodeLinePosition(startingPosition.fileLine, 0, ' '),semicolons.get(0));
 					for (int i=1; i < semicolons.size(); i++) {
@@ -85,9 +85,9 @@ public class BlockUtilities {
 					insertNewCodeLine(block,temp,true,startingPosition,endingPosition);
 				}
 			}
-	
+
 		}
-	
+
 	public static List<FileCodeLine> buildSubLines(List<FileCodeLine> codeLines, FileCodeLinePosition startingPosition,
 			FileCodeLinePosition endingPosition) {
 		ArrayList<FileCodeLine> newLines=new ArrayList<BlockUtilities.FileCodeLine>();
@@ -137,7 +137,7 @@ public class BlockUtilities {
 				string+=temp.get(i).code;
 			}
 		}
-		
+
 		if(string.trim().length()!=0){
 			CodeLine codeLine=new CodeLine(string.trim(),isDeclaration);
 			codeLine.setFirstLine(firstLine);
@@ -160,7 +160,7 @@ public class BlockUtilities {
 		return positions;
 	}
 
-	
+
 	/**
 	 * Generate a List<FileCodeLine> from a Stream Content.
 	 *
@@ -170,13 +170,13 @@ public class BlockUtilities {
 	 * @return
 	 */
 	public static List<FileCodeLine> generateFileCodeLines(InputStream stream) {
-		
+
 		List<String> list=FileStringUtility.loadTextfromStream(stream);
 
 		List<FileCodeLine> codeLines=new ArrayList<BlockUtilities.FileCodeLine>();
-		
+
 		//Removing comments starting with //
-		
+
 		//StringWriter writer=new StringWriter();
 		String adding="";
 		for (int lineIndex=0;lineIndex<list.size();lineIndex++) {
@@ -210,9 +210,9 @@ public class BlockUtilities {
 //			endof=totalString.indexOf("*/");
 //		}
 //		return totalString;
-		
+
 		//Removing comments between /* and */
-		
+
 		boolean onComment=false;
 		for (int i = 0; i < codeLines.size(); i++) {
 			String codeLine=codeLines.get(i).code;
@@ -241,20 +241,20 @@ public class BlockUtilities {
 				i--;
 			}
 		}
-		
+
 		return codeLines;
 
 	}
 
-	
-	
-	public static Block generateBlocksFromFile(String filename) {
-		
-		//char[] totalStringChars = TestingUtilities.generateFileString(FileStringUtility.getStream(filename)).toCharArray();
-		
-		List<FileCodeLine> files=generateFileCodeLines(FileStringUtility.getStream(filename));
 
-		
+
+	public static Block generateBlocksFromStream(InputStream stream) {
+
+		//char[] totalStringChars = TestingUtilities.generateFileString(FileStringUtility.getStream(filename)).toCharArray();
+
+		List<FileCodeLine> files=generateFileCodeLines(stream);
+
+
 		ArrayList<FileCodeLinePosition> findBlockOpen=findPositions(files,'{');
 		ArrayList<FileCodeLinePosition> findBlockClose=findPositions(files,'}');
 
@@ -278,7 +278,7 @@ public class BlockUtilities {
 				Block block=new Block();
 				actualBlock.modules.add(block);
 				block.fatherBlock=actualBlock;
-				
+
 				actualBlock=block;
 			}else if(indexSeparation.value=='}'){
 			//}else if(totalStringChars[indexSeparation]=='}'){
@@ -295,11 +295,11 @@ public class BlockUtilities {
 
 		return fileBlock;
 		//Block fileBlock=BlockUtilities.generateBlocksFromFile(filename);
-		
+
 	}
 
-	
-	
+
+
 	/**
 	 * @deprecated NO more used!!!
 	 * @param totalStringChars
@@ -341,7 +341,7 @@ public class BlockUtilities {
 //		fileBlock.correctBlock();
 //
 //		return fileBlock;
-		
+
 		return null;
 	}
 

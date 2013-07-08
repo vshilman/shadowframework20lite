@@ -1,0 +1,184 @@
+
+house.h
+[LIBRARY_DECLARATION] -------> #ifndef  HOUSE_H   #define  HOUSE_Hclass    House  
+null:#ifndef
+SEQUENCE: HOUSE_H   #define  HOUSE_Hclass    House  
+		EXPRESSION: HOUSE_H  
+				COMPOSITE: HOUSE_H  
+						IGNORED:
+						VARIABLE:HOUSE_H  
+								NAME:HOUSE_H
+								IGNORED:
+								IGNORED:
+		KEYWORD: 
+		EXPRESSION:#define
+				VALUE:#define
+		KEYWORD: 
+		EXPRESSION: HOUSE_Hclass  
+				COMPOSITE: HOUSE_Hclass  
+						IGNORED:
+						VARIABLE:HOUSE_Hclass  
+								NAME:HOUSE_Hclass
+								IGNORED:
+								IGNORED:
+		KEYWORD: 
+		EXPRESSION: House  
+				COMPOSITE: House  
+						IGNORED:
+						VARIABLE:House  
+								NAME:House
+								IGNORED:
+								IGNORED:
+
+
+[ATTRIBUTE_DECLARATION] ------->  int roofHeight  
+COMPOSITE: int
+		IGNORED:
+		TYPE:int
+SEQUENCE:roofHeight  
+		COMPOSITE:roofHeight  
+				VARIABLE:roofHeight  
+						NAME:roofHeight
+						IGNORED:
+						IGNORED:
+
+
+[ATTRIBUTE_DECLARATION] ------->  int baseWidth  
+COMPOSITE: int
+		IGNORED:
+		TYPE:int
+SEQUENCE:baseWidth  
+		COMPOSITE:baseWidth  
+				VARIABLE:baseWidth  
+						NAME:baseWidth
+						IGNORED:
+						IGNORED:
+
+
+[ATTRIBUTE_DECLARATION] ------->  int baseHeight  
+COMPOSITE: int
+		IGNORED:
+		TYPE:int
+SEQUENCE:baseHeight  
+		COMPOSITE:baseHeight  
+				VARIABLE:baseHeight  
+						NAME:baseHeight
+						IGNORED:
+						IGNORED:
+
+
+[unidentified] -------> sentence:public:        House(int roofHeight, int baseWidth, int baseHeight)
+[METHOD_DECLARATION] ------->   int getRoofHeight   (  )
+IGNORED:
+VARIABLE: int getRoofHeight  
+		COMPOSITE: int
+				IGNORED:
+				TYPE:int
+		NAME:getRoofHeight  
+				NAME:getRoofHeight
+				IGNORED:
+				IGNORED:
+KEYWORD:(
+METHOD_VARIABLES:
+KEYWORD:)
+
+
+[METHOD_DECLARATION] ------->   void setRoofHeight   (  int roofHeight   )
+IGNORED:
+VARIABLE: void setRoofHeight  
+		COMPOSITE: void
+				IGNORED:
+				TYPE:void
+		NAME:setRoofHeight  
+				NAME:setRoofHeight
+				IGNORED:
+				IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: int roofHeight  
+		VARIABLE: int roofHeight  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:roofHeight  
+						NAME:roofHeight
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
+[METHOD_DECLARATION] ------->   int getBaseWidth   (  )
+IGNORED:
+VARIABLE: int getBaseWidth  
+		COMPOSITE: int
+				IGNORED:
+				TYPE:int
+		NAME:getBaseWidth  
+				NAME:getBaseWidth
+				IGNORED:
+				IGNORED:
+KEYWORD:(
+METHOD_VARIABLES:
+KEYWORD:)
+
+
+[METHOD_DECLARATION] ------->   void setBaseWidth   (  int baseWidth   )
+IGNORED:
+VARIABLE: void setBaseWidth  
+		COMPOSITE: void
+				IGNORED:
+				TYPE:void
+		NAME:setBaseWidth  
+				NAME:setBaseWidth
+				IGNORED:
+				IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: int baseWidth  
+		VARIABLE: int baseWidth  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:baseWidth  
+						NAME:baseWidth
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
+[METHOD_DECLARATION] ------->   int getBaseHeight   (  )
+IGNORED:
+VARIABLE: int getBaseHeight  
+		COMPOSITE: int
+				IGNORED:
+				TYPE:int
+		NAME:getBaseHeight  
+				NAME:getBaseHeight
+				IGNORED:
+				IGNORED:
+KEYWORD:(
+METHOD_VARIABLES:
+KEYWORD:)
+
+
+[METHOD_DECLARATION] ------->   void setBaseHeight   (  int baseHeight   )
+IGNORED:
+VARIABLE: void setBaseHeight  
+		COMPOSITE: void
+				IGNORED:
+				TYPE:void
+		NAME:setBaseHeight  
+				NAME:setBaseHeight
+				IGNORED:
+				IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: int baseHeight  
+		VARIABLE: int baseHeight  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:baseHeight  
+						NAME:baseHeight
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
