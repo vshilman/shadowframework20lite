@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Sample Category"
+            id="JCodeComparator">
+      </category>
+      <view
+            category="JCodeComparator"
+            class="jcodecomparator.views.SampleView"
+            icon="icons/sample.gif"
+            id="jcodecomparator.views.SampleView"
+            name="Select Language View">
+      </view>
+      <view
+            category="JCodeComparator"
+            class="jcodecomparator.views.VersionsView"
+            icon="icons/sample.gif"
+            id="jcodecomparator.views.VersionsView"
+            name="Versions View">
+      </view>
+      <view
+            category="JCodeComparator"
+            class="jcodecomparator.views.EditorView"
+            icon="icons/sample.gif"
+            id="jcodecomparator.views.EditorView"
+            name="Editor View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="jcodecomparator.perspectives.JCodeComparatorPerspective">
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="JCodeComparator.actionSet"
+            label="Sample Action Set"
+            visible="true">
+         <menu
+               id="sampleMenu"
+               label="Code Compare">
+            <separator
+                  name="sampleGroup">
+            </separator>
+         </menu>
+         <action
+               class="jcodecomparator.actions.SampleAction"
+               icon="icons/sample.gif"
+               id="jcodecomparator.actions.SampleAction"
+               label="&amp;Sample Action"
+               menubarPath="sampleMenu/sampleGroup"
+               toolbarPath="sampleGroup"
+               tooltip="Hello, Eclipse world">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="jcodecomparator.perspectives.JCodeComparatorPerspective"
+            icon="icons/releng_gears.gif"
+            id="jcodecomparator.perspectives.JCodeComparatorPerspective"
+            name="JCodeComparator Perspective">
+      </perspective>
+   </extension>
+
+
+   <extension
+         point="org.eclipse.ui.menus">
+    <!--     <menuContribution
+               locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">  -->
+
+         <menuContribution
+            	locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+           <command
+               commandId="JCodeComparator.compareWith.codecompare"
+               icon="/icons/releng_gears.gif"
+               label="CodeCompare"
+               mnemonic="M1+P"
+               tooltip="Do something with this project">
+         </command>
+         </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="JCodeComparator.commands.codecompare"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="cmd+alt+5">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="JCodeComparator.commands.category"
+            name="CodeCompare category">
+      </category>
+      <command
+            categoryId="JCodeComparator.commands.category"
+            id="JCodeComparator.compareWith.codecompare"
+            defaultHandler="jcodecomparator.popup_handlers.CodeCompareHandler"
+            name="CodeCompareCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+
+
+         <handler
+         	class="jcodecomparator.popup_handlers.CodeCompareHandler"
+			commandId="JCodeComparator.compareWith.codecompare">
+			<enabledWhen>
+				<with
+					variable="selection">
+					<count
+						value="1">
+					</count>
+				</with>
+			</enabledWhen>
+		 </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="jcodecomparator.editors.EditorForComparison"
+            extensions="*"
+            icon="icons/sample.gif"
+            id="jcodecomparator.editors.CodeCompareEditor"
+            name="Compare Editor">
+      </editor>
+   </extension>
+
+   <extension point = "org.eclipse.compare.contentMergeViewers">
+     <viewer
+         id="jcodecomparator.editors.CompareEditor"
+         class="jcodecomparator.editors.CompareEditorViewer"
+         extensions="*"
+         label="Text Compare"
+    />
+</extension>
+
+</plugin>
