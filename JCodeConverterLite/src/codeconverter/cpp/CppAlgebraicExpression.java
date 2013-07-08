@@ -54,7 +54,7 @@ public class CppAlgebraicExpression extends Expression{
 		CppBitwiseExpression cppBitwiseExpression=new CppBitwiseExpression(true);
 		CppMethodEvaluation cppMethodEvaluation=new CppMethodEvaluation("->",this,cppBitwiseExpression);
 		CppName name=new CppName(this,cppBitwiseExpression);
-		CppNewStatement newStatement=new CppNewStatement(this, name);
+		CppNewStatement newStatement=new CppNewStatement(this, new CppCompositeType());
 		generate(cppMethodEvaluation,name,ternaryOperator,newStatement);
 		cppBitwiseExpression.generate(cppMethodEvaluation,name,newStatement);
 	}

@@ -106,7 +106,7 @@ public class GeneralTests {
 		return totalJsFiles;
 	}
 
-	public static void matchBlocksTest(String fileName,String str, PrintStream stream,BlockDataInterpreter dataInterpreter) {
+	public static void matchBlocksTest(String fileName,InputStream str, PrintStream stream,BlockDataInterpreter dataInterpreter) {
 		HashMap<CodeModule, CodePattern> interpretation = generateInterpretation(dataInterpreter,getBlocks(str));
 
 		stream.println("\n\nInterpreted Modules from "+fileName+"\n\n");
@@ -133,8 +133,8 @@ public class GeneralTests {
 
 
 
-	public static Block getBlocks(String file) {
-		return BlockUtilities.generateBlocksFromFile(file);
+	public static Block getBlocks(InputStream stream) {
+		return BlockUtilities.generateBlocksFromStream(stream);
 	}
 
 
@@ -184,7 +184,7 @@ public class GeneralTests {
 
 	//id leftToRight==true js is on the left and java on the right (temporarily inserted waiting for an abstract comparison)
 
-	public static DifferentiationResult compareFiles(String jsTest, String javaTest,String jsStream, String javaStream, StringWriter logWriter,boolean leftToRight) {
+	public static DifferentiationResult compareFiles(String jsTest, String javaTest,InputStream jsStream, InputStream javaStream, StringWriter logWriter,boolean leftToRight) {
 
 
 		try {
@@ -303,7 +303,7 @@ public class GeneralTests {
 	}
 
 
-	public static String newFile(String javaTest,String javaStream, StringWriter logWriter) {
+	public static String newFile(String javaTest,InputStream javaStream, StringWriter logWriter) {
 		try {
 			List<CodePatternComparator> comparators = JavaJsCodePatternComparators.getComparators();
 			comparators.add(new PrototypedMethodDeclarationComparator());

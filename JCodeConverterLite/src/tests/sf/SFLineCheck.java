@@ -98,7 +98,7 @@ public class SFLineCheck {
 //		//TestingUtilities.writeString(out,totalString);
 //
 //		Block fileBlock=BlockUtilities.generateBlocks(totalString.toCharArray());
-		Block fileBlock=BlockUtilities.generateBlocksFromFile(inputFilename);
+		Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(inputFilename));
 		//TestingUtilities.printBlock(out,fileBlock);
 
 		BlockInterpreter interpreter=new BlockInterpreter(new JavaCodePatternInterpreter());

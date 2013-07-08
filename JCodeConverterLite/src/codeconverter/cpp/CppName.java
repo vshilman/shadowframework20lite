@@ -44,7 +44,7 @@ public class CppName extends CompositeCodePiece{
 			part=new CppNamePart();
 		}
 		add(part,/*Cpp has template classes*/new OptionalCode(new CompositeCodePiece(new UniqueKeyword("<"),
-														      new CodeSequence(new Name(PieceType.NAME), ", "),
+														      new CodeSequence(new Name(PieceType.NAME), ","),
 														      new UniqueKeyword(">"))),
 			     new OptionalCode(new CompositeCodePiece(new UniqueKeyword("["),
 			    		 								  new OptionalCode(new BestAlternativeCode(true, algebraicExpression,bitwiseExpression)),
@@ -57,7 +57,7 @@ public class CppName extends CompositeCodePiece{
 		CppBitwiseExpression bitwiseExpression=new CppBitwiseExpression(true);
 		CppMethodEvaluation cppMethodEvaluation=new CppMethodEvaluation("->",algebraicExpression,bitwiseExpression); /*-> most common used */
 		generate(part,algebraicExpression,bitwiseExpression);
-		CppNewStatement newStatement=new CppNewStatement(algebraicExpression,this);
+		CppNewStatement newStatement=new CppNewStatement(algebraicExpression,new CppCompositeType());
 		algebraicExpression.generate(cppMethodEvaluation, this, new CppTernaryOperator(algebraicExpression), newStatement);
 		bitwiseExpression.generate(cppMethodEvaluation, this, newStatement);
 	}

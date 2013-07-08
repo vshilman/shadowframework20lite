@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import codeconverter.CodePattern;
+import codeconverter.javaJsComparator.codePatterns.IsolatedKeywordsComparator;
 
 public class CppHeaderCodePatterns {
 
@@ -13,6 +14,7 @@ public class CppHeaderCodePatterns {
 
 		patterns.add(new CppAttributeDeclaration());
 		patterns.add(new CppClassDeclaration());
+		patterns.add(new CppisolatedkeyWords());
 		patterns.add(new CppConstructorHeaderDeclaration());
 		patterns.add(new CppDestructorHeaderDeclaration());
 		patterns.add(new CppFriendClassDeclaration());

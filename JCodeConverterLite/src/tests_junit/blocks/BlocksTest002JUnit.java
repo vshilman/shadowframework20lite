@@ -34,7 +34,7 @@ public class BlocksTest002JUnit {
 //		char[] totalStringChars = totalString.toCharArray();
 //
 //		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-		Block fileBlock = BlockUtilities.generateBlocksFromFile("src/testPackage/House.java");
+		Block fileBlock = BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream("src/testPackage/House.java"));
 
 		String s = fileBlock.toString() + "\n";
 

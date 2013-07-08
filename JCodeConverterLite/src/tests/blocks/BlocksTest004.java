@@ -10,6 +10,7 @@ import codeconverter.CodePattern;
 import codeconverter.java.JavaCodePatternInterpreter;
 import codeconverter.java.JavaConstructorDeclaration;
 import codeconverter.javatojs.JSCodeTranslator;
+import codeconverter.utility.FileStringUtility;
 
 public class BlocksTest004 {
 
@@ -40,7 +41,7 @@ public class BlocksTest004 {
 //		char[] totalStringChars=totalString.toCharArray();
 //
 //		Block fileBlock=BlockUtilities.generateBlocks(totalStringChars);
-		Block fileBlock=BlockUtilities.generateBlocksFromFile("src/testPackage/Expressions.java");
+		Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream("src/testPackage/Expressions.java"));
 
 		System.out.println(fileBlock);
 

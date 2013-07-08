@@ -20,17 +20,16 @@ public class CppAttributeAssignmentPattern extends CodePattern{
 
 	public CppAttributeAssignmentPattern() {
 		addCodePiece(new UniqueKeyword("this"),
-				     new BestAlternativeCode(true, new UniqueKeyword("->"),new UniqueKeyword(".")),
+				     new AlternativeCode(true, new UniqueKeyword("->"),new UniqueKeyword(".")),
 					 new CppName(PieceType.NAME),
-					 new OptionalCode(new UniqueKeyword("=")),
-					 new AlternativeCode(true,new CppAlgebraicExpression(),
-							 				  new CppBitwiseExpression(),
-							 				  new CppNewStatement(),
-							 				  new CppArrayContent()),
-							 				  new CppArrayDeclaration(),
+					 new AlternativeCode(true,new CompositeCodePiece(new UniqueKeyword("="),new CppAlgebraicExpression()),
+							 				  new CompositeCodePiece(new UniqueKeyword("="),new CppBitwiseExpression()),
+							 				  new CompositeCodePiece(new UniqueKeyword("="), new CppNewStatement()),
+							 				  new CompositeCodePiece(new UniqueKeyword("="), new CppArrayContent()),
+							 				  new CompositeCodePiece(new UniqueKeyword("="),new CppArrayDeclaration()),
 							 				  new CompositeCodePiece(new UniqueKeyword("("),
 								                      new CodeSequence(new OptionalCode(new CppAlgebraicExpression()), ","),
-								                      new UniqueKeyword(")")));
+								                      new UniqueKeyword(")"))));
 
 		addPatternType(PatternType.ATTRIBUTE_ASSIGNMENT,PatternType.ASSIGNMENT,PatternType.LINE_OF_CODE);
 	}

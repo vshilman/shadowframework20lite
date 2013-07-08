@@ -51,7 +51,7 @@ public class TestFileInterpretationJUnit {
 			//char[] totalStringChars = totalString.toCharArray();
 			//System.out.println(totalString);
 			//Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-			Block fileBlock = BlockUtilities.generateBlocksFromFile(file);
+			Block fileBlock = BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(file));
 
 			//System.out.println(fileBlock.print());
 

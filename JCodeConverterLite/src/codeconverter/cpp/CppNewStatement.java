@@ -9,14 +9,14 @@ import codeconverter.codepieces.UniqueKeyword;
 public class CppNewStatement extends CompositeCodePiece{
 
 	public CppNewStatement() {
-		generate(new CppAlgebraicExpression(), new CppName(PieceType.TYPE));
+		generate(new CppAlgebraicExpression(), new CppCompositeType());
 	}
 
-	public CppNewStatement(CppAlgebraicExpression algebraicExpression, CppName name) {
+	public CppNewStatement(CppAlgebraicExpression algebraicExpression, CppCompositeType name) {
 		generate(algebraicExpression, name);
 	}
 
-	public void generate(CppAlgebraicExpression algebraicExpression, CppName name){
+	public void generate(CppAlgebraicExpression algebraicExpression, CppCompositeType name){
 		setPieceType(PieceType.NEW_STATEMENT);
 		add(new UniqueKeyword("new "));
 		add(name);

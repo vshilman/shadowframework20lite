@@ -24,11 +24,11 @@ public class TestJavaTypesStructure {
 
 		ArrayList<String> tests = new ArrayList<String>();
 
-		for (int i = 1; i <= 9; i++) {
+		for (int i = 1; i <= 1; i++) {
 			tests.add(DIRECTORY + "Test_sv" + i + "Drawer.java");
 		}
 
-		for (int i = 1; i <= 2; i++) {
+		for (int i = 1; i <= 1; i++) {
 			tests.add(DIRECTORY + "Test_va" + i + "Drawer.java");
 		}
 
@@ -42,7 +42,7 @@ public class TestJavaTypesStructure {
 //			char[] totalStringChars = totalString.toCharArray();
 //
 //			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-			Block fileBlock=BlockUtilities.generateBlocksFromFile(file);
+			Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(file));
 
 			// System.out.println(fileBlock.print());
 

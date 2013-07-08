@@ -21,7 +21,7 @@ public class CppBitwiseExpression extends Expression{
 		CppAlgebraicExpression algebraicExpression=new CppAlgebraicExpression(true);
 		CppMethodEvaluation cppMethodEvaluation=new CppMethodEvaluation("->",algebraicExpression,this);
 		CppName name=new CppName(algebraicExpression,this);
-		CppNewStatement newStatement=new CppNewStatement(algebraicExpression,name);
+		CppNewStatement newStatement=new CppNewStatement(algebraicExpression,new CppCompositeType());
 		generate(cppMethodEvaluation,name,newStatement);
 		algebraicExpression.generate(cppMethodEvaluation, name, new CppTernaryOperator(algebraicExpression), newStatement);
 

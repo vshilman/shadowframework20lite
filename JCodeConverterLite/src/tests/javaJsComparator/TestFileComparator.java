@@ -142,7 +142,7 @@ public class TestFileComparator {
 				logWriter.toString());
 
 	}
-	
+
 
 	private static boolean alreadyConfirmed(boolean result, int j, int k,boolean[] javaConfirmations,
 			boolean[] jsConfirmations) {
@@ -175,7 +175,7 @@ public class TestFileComparator {
 //		char[] totalStringChars = TestingUtilities.generateFileString(stream).toCharArray();
 //
 //		Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-		Block fileBlock=BlockUtilities.generateBlocksFromFile(filename);
+		Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(filename));
 
 		// System.out.println(fileBlock.print());
 
