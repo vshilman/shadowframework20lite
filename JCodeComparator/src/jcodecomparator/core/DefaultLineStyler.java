@@ -50,7 +50,13 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		 */
 		@Override
 		public void cleanToConsider(){
-			  toConsider.clear();
+			 toConsider.clear();
+
+			 MessageConsole myConsole = findConsole("Console");
+			 MessageConsoleStream out=myConsole.newMessageStream();
+
+			 out.println("-----> "+toConsider.size()+"");
+
 		  }
 
 		 private void internalSetBackground (Point pos,Color color){
@@ -58,7 +64,7 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 			 MessageConsole myConsole = findConsole("Console");
 			 MessageConsoleStream out=myConsole.newMessageStream();
 
-			 out.println("E il momento di "+pos.x+" "+pos.y);
+			 //out.println("E il momento di "+pos.x+" "+pos.y);
 
 			 for (int j = pos.x; j < pos.y; j++) {
 				//out.println("Comincio ad indagare per "+j);
@@ -98,7 +104,10 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		 */
 		@Override
 		public void setBackground (Point pos,Color color){
+			MessageConsole myConsole = findConsole("Console");
+			 MessageConsoleStream out=myConsole.newMessageStream();
 				toConsider.put(pos, color);
+				out.println("-----> "+toConsider.size()+"");
 		  }
 
 
@@ -234,11 +243,12 @@ private boolean containsRange(int start, int lenght){
 	          token = scanner.nextToken();
 	        }
 
-	 //   MessageConsole myConsole = findConsole("Console");
-	//	 MessageConsoleStream out=myConsole.newMessageStream();
+	    MessageConsole myConsole = findConsole("Console");
+		 MessageConsoleStream out=myConsole.newMessageStream();
 
 	    	Set<Point> keys=toConsider.keySet();
-	    //	out.println("-> "+keys.size());
+	    	//out.println("-> "+keys.size());
+
 	    	for (Iterator<Point> iterator = keys.iterator(); iterator.hasNext();) {
 				Point point = iterator.next();
 				internalSetBackground(point, toConsider.get(point));

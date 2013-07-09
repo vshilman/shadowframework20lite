@@ -96,6 +96,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
             leftInput= (CompareEditorInput) left;
             setLineStyler(true);
             setInput(fLeft, left);
+            dLeft.cleanToConsider();
             if(right!=null){
                 dRight.cleanToConsider();
             }
@@ -104,6 +105,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
             rightInput= (CompareEditorInput) right;
             setLineStyler(false);
             setInput(fRight, right);
+            dRight.cleanToConsider();
             if(dLeft!=null){
                 dLeft.cleanToConsider();
             }
@@ -244,7 +246,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
         for (int i = 0; i < res.getUninterpretatesLeft().size(); i++) {
             String s=res.getUninterpretatesLeft().get(i).getCode();
-            Point pos=getPos(s, true);
+            Point pos=getPos(s, true,res.getUninterpretatesLeft().get(i).getFirstLine(),res.getUninterpretatesLeft().get(i).getLastLine());
             //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), true);
             dLeft.setBackground(pos, new Color(display, new RGB(128, 128, 128)));
             out.println("posUs:  "+pos);
@@ -255,7 +257,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
         for (int i = 0; i < res.getUninterpretatesRight().size(); i++) {
             String s=res.getUninterpretatesRight().get(i).getCode();
-            Point pos=getPos(s, false);
+            Point pos=getPos(s, false,res.getUninterpretatesRight().get(i).getFirstLine(),res.getUninterpretatesLeft().get(i).getLastLine());
             //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), false);
             dRight.setBackground(pos, new Color(display, new RGB(128, 128, 128)));
             out.println("posUd:  "+pos);
@@ -265,13 +267,15 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
         infos+="Differenti sinistra:\n";
 
+
         if(res.getDifferentLeft()!=null){
             for (Iterator<CodeModule> iterator = res.getDifferentLeft().iterator(); iterator.hasNext();) {
-                String s=iterator.next().getCode();
-                Point pos=getPos(s, true);
+                CodeModule cm=iterator.next();
+                String s=cm.getCode();
+                Point pos=getPos(s, true,cm.getFirstLine(),cm.getLastLine());
                 //setBackGround(pos, new Color(display, new RGB(128, 128, 255)), true);
                 dLeft.setBackground(pos, new Color(display, new RGB(145, 210, 242)));
-                out.println("posS:  "+pos);
+                out.println("posS:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]");
                 infos+=s+"\n";
             }
         }
@@ -279,10 +283,11 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
         if(res.getDifferentRight()!=null){
             for (Iterator<CodeModule> iterator = res.getDifferentRight().iterator(); iterator.hasNext();) {
-                String s=iterator.next().getCode();
-                Point pos=getPos(s, false);
+                CodeModule cm=iterator.next();
+                String s=cm.getCode();
+                Point pos=getPos(s, false,cm.getFirstLine(),cm.getLastLine());
                 dRight.setBackground(pos, new Color(display, new RGB(145, 210, 242)));
-                out.println("posD:  "+pos);
+                out.println("posD:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]");
                 infos+=s+"\n";
 
             }
@@ -297,10 +302,13 @@ public class CompareEditorViewer extends ContentMergeViewer{
     }
 
 
-    public Point getPos(String s, boolean left){
+    public Point getPos(String s, boolean left,int firstLine,int lastLine){
 
         MessageConsole myConsole = findConsole("Console");
          MessageConsoleStream out=myConsole.newMessageStream();
+
+
+
 
         String text="";
         if(left){
@@ -309,8 +317,15 @@ public class CompareEditorViewer extends ContentMergeViewer{
             text=fRight.getText();
         }
 
-        if(text.indexOf(s)>=0){
-            return new Point(text.indexOf(s),text.indexOf(s)+s.length());
+
+
+        int f=getFirstIndexAtLine(text, firstLine);
+        int l=getLastIndexAtLine(text, lastLine);
+
+        out.println("Devo ricercare da "+f+" a "+l);
+
+        if(text.indexOf(s,f)>=0 && text.indexOf(s,f)<=l){
+            return new Point(text.indexOf(s,f),text.indexOf(s,f)+s.length());
         }
 
         if(text.replaceAll(" ","").indexOf(s.replaceAll(" ", ""))>=0){
@@ -322,14 +337,16 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
                 fin.add(sc[i]);
                 String actual=convertToString(fin);
-            //	out.println(actual);
+
                 int x=0;
-                while(text.indexOf(actual)<0 && x<10){
+                while((text.indexOf(actual,f)<0 || text.indexOf(actual,f)>l) && x<10){
                     fin.add(fin.size()-1, ' ');
                     actual=convertToString(fin);
                     x++;
                 }
-                pos=text.indexOf(actual);
+
+                pos=text.indexOf(actual,f);
+
                 if(pos==-1){
                     break;
                 }
@@ -343,6 +360,36 @@ public class CompareEditorViewer extends ContentMergeViewer{
         }
 
 
+    }
+
+
+
+    private int getFirstIndexAtLine(String text,int line){
+
+        int x=0;
+        int position=0;
+        int buf=position;
+        while(x<line){
+            position=text.indexOf("\n",buf);
+            buf=position+1;
+            x++;
+        }
+        return position+1;
+    }
+
+
+    private int getLastIndexAtLine(String text, int line){
+
+        int x=0;
+        int position=0;
+        int buf=position;
+        while(x<(line+1)){
+            position=text.indexOf("\n",buf);
+            buf=position+1;
+            x++;
+        }
+
+        return position-1;
     }
 
 
