@@ -252,14 +252,14 @@ public class GeneralTests {
 
 			logWriter.write("\n\n\tunmatched javaPatterns:\n");
 			for (CodeModule codeModule : javaModules) {
-				logWriter.write("\t\t +"+codeModule + "\n");
+				logWriter.write("\t\t +"+codeModule + "  "+codeModule.getFirstLine()+"\n");
 				totalUnmatchedJavaLines++;
 			}
 
 			logWriter.write("\n\n\tunmatched jsPatterns:\n");
 
 			for (CodeModule codeModule : jsModules) {
-				logWriter.write("\t\t" + codeModule + "\n");
+				logWriter.write("\t\t" + codeModule+ "  "+codeModule.getFirstLine() + "\n");
 				totalUnmatchedJsLines++;
 			}
 
