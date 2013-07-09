@@ -23,7 +23,7 @@ public class Block  implements CodeModule{
 	public int getLastLine() {
 		return lastLine;
 	}
-	
+
 	@Override
 	public int getFirstLine() {
 		return firstLine;
@@ -81,7 +81,10 @@ public class Block  implements CodeModule{
 					modules.remove(i);
 					modules.remove(i);
 					modules.remove(i);
-					modules.add(i,new CodeLine(data+";"+data2+";"+data3,true));
+					CodeLine line=new CodeLine(data+";"+data2+";"+data3,true);
+					line.setFirstLine(modules.get(i).getFirstLine());
+					line.setLastLine(modules.get(i+2).getLastLine());
+					modules.add(i,line);
 				}
 				//merges Sub Block with their declaration line into DeclaredBlocks
 				if(((CodeLine)modules.get(i)).isBlockDeclaration() && i<modules.size()-1){
@@ -98,6 +101,8 @@ public class Block  implements CodeModule{
 								isDeclaredBlock=false;//because it is an array declaration!!
 								CodeLine codeLine = new CodeLine(blockDeclarationLine.getCode()+
 										"{"+firstRelatedBlockLine.getCode()+"}", false);
+								codeLine.setFirstLine(blockDeclarationLine.getFirstLine());
+								codeLine.setLastLine(firstRelatedBlockLine.getLastLine());
 								modules.remove(i);
 								modules.remove(i);
 								modules.add(i,codeLine);

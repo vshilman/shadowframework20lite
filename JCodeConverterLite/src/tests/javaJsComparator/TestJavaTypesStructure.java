@@ -29,7 +29,7 @@ public class TestJavaTypesStructure {
 		}
 
 		for (int i = 1; i <= 1; i++) {
-			tests.add(DIRECTORY + "Test_va" + i + "Drawer.java");
+			//tests.add(DIRECTORY + "Test_va" + i + "Drawer.java");
 		}
 
 		StringWriter logWriter = new StringWriter();
