@@ -11,6 +11,9 @@
     <script type="text/javascript" src="SFViewer.js"></script>
     <script type="text/javascript" src="SFExamples.js"></script>
     <script type="text/javascript" >
+    
+    	var nodeViewer;
+    	var countTexture=0;
 	
 		function initTexture(gl,filename,sfPipelineTexture) {
 			var texture = gl.createTexture();
@@ -27,6 +30,10 @@
 				
 				//here you assign the texture Object
 				sfPipelineTexture.textureObject = texture;
+				
+				countTexture++;
+				if(countTexture==2)
+					nodeViewer.startDrawing();
 			}
 	
 			tex.src = filename;
@@ -76,9 +83,9 @@
 		
 			setupAmbient();	
 			
-			var v=new SFViewer(buildNodeCallBack);
+			nodeViewer=new SFViewer(buildNodeCallBack);
 		
-			setupCanvas(v,"canvas3d");
+			setupCanvas(nodeViewer,"canvas3d");
 	
 		}
 		
