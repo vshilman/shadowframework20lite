@@ -147,4 +147,14 @@ public class FileStringUtility {
 
 		return writer.toString();
 	}
+
+
+	public static String getFileExtension(String name){
+
+		String ext="";
+		if(name.contains(".")){
+			ext=name.substring(name.lastIndexOf(".")+1);
+		}
+		return  ext;
+	}
 }

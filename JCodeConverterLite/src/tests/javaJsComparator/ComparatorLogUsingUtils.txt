@@ -9,240 +9,240 @@ Test_sv2Drawer.java VS test_sv2Drawer.js
 
 
 	List of all matched lines of code
-		sentence:float[] colors2 ={0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f}[66,66] 
-			  was matched to  
-				sentence:var colors2 = [ 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0 ][60,60] 
-		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexColorBuffer[0])[105,105] 
-			  was matched to  
-				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexColorBuffer[0])[96,96] 
-		sentence:private long lastTime = 0[22,22] 
-			  was matched to  
-				sentence:var lastTime = 0[11,11] 
-		sentence:private FloatBuffer pMatrix[19,19] 
-			  was matched to  
-				sentence:var pMatrix[8,8] 
-		sentence:gl.glGenBuffers(1, pyramidVertexColorBuffer, 0)[50,50] 
-			  was matched to  
-				sentence:pyramidVertexColorBuffer[0] = gl.createBuffer()[44,44] 
-		sentence:gl.glUniformMatrix4fv(pMatrixUniform, 16, false, pMatrix)[38,38] 
-			  was matched to  
-				sentence:gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)[32,32] 
-		sentence:setMatrixUniforms(gl)[98,98] 
-			  was matched to  
-				sentence:this.setMatrixUniforms(gl)[89,89] 
-		sentence:gl.glEnableVertexAttribArray(vertexPositionAttribute)[28,28] 
-			  was matched to  
-				sentence:gl.enableVertexAttribArray(vertexPositionAttribute)[22,22] 
-		sentence:long timeNow = System.currentTimeMillis()[115,115] 
-			  was matched to  
-				sentence:var timeNow = new Date().getTime()[106,106] 
-		BLOCK [if (lastTime != 0)] 
-			  was matched to  
-				BLOCK [if (lastTime != 0)] 
-		sentence:private int[] pyramidVertexPositionBuffer = new int[3][15,15] 
-			  was matched to  
-				sentence:var pyramidVertexPositionBuffer = new Array()[4,4] 
-		sentence:private int pMatrixUniform[13,13] 
-			  was matched to  
-				sentence:var pMatrixUniform[2,2] 
-		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexPositionBuffer[0])[102,102] 
-			  was matched to  
-				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexPositionBuffer[0])[93,93] 
-		sentence:gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT)[80,80] 
-			  was matched to  
-				sentence:gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)[73,73] 
-		sentence:gl.glEnable(GL2.GL_DEPTH_TEST)[75,75] 
-			  was matched to  
-				sentence:gl.enable(gl.DEPTH_TEST)[68,68] 
-		sentence:pyramidVertexColorBuffer[2] = 6[55,55] 
-			  was matched to  
-				sentence:pyramidVertexColorBuffer[2] = 6[49,49] 
-		sentence:gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)[74,74] 
-			  was matched to  
-				sentence:gl.clearColor(0.0, 0.0, 0.0, 1.0)[67,67] 
-		sentence:gl.glUniformMatrix4fv(mvMatrixUniform, 16, false, mvMatrix)[39,39] 
-			  was matched to  
-				sentence:gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)[33,33] 
-		sentence:baseVertexPositionBuffer[2] = 4[62,62] 
-			  was matched to  
-				sentence:baseVertexPositionBuffer[2] = 4[56,56] 
-		sentence:gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertices2.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(vertices2), GL2.GL_STATIC_DRAW)[60,60] 
-			  was matched to  
-				sentence:gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW)[54,54] 
-		sentence:private int[] baseVertexPositionBuffer = new int[3][17,17] 
-			  was matched to  
-				sentence:var baseVertexPositionBuffer = new Array()[6,6] 
-		sentence:gl.glFrontFace(GL2.GL_CW)[101,101] 
-			  was matched to  
-				sentence:gl.frontFace(gl.CW)[92,92] 
-		sentence:gl.glDrawArrays(GL2.GL_TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2])[99,99] 
-			  was matched to  
-				sentence:gl.drawArrays(gl.TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2])[90,90] 
-		sentence:float sx = (float) Math.sin(rAngle)[83,83] 
-			  was matched to  
-				sentence:var sx = Math.sin(rAngle)[76,76] 
-		sentence:private int mvMatrixUniform[14,14] 
-			  was matched to  
-				sentence:var mvMatrixUniform[3,3] 
-		sentence:gl.glViewport(0, 0, 500, 500)[79,79] 
-			  was matched to  
-				sentence:gl.viewport(0, 0, 500, 500)[72,72] 
-		sentence:gl.glBufferData(GL2.GL_ARRAY_BUFFER, colors.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(colors), GL2.GL_STATIC_DRAW)[53,53] 
-			  was matched to  
-				sentence:gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)[47,47] 
-		sentence:float cx = (float) Math.cos(rAngle)[82,82] 
-			  was matched to  
-				sentence:var cx = Math.cos(rAngle)[75,75] 
-		sentence:gl.glGenBuffers(1, pyramidVertexPositionBuffer, 0)[43,43] 
-			  was matched to  
-				sentence:pyramidVertexPositionBuffer[0] = gl.createBuffer()[37,37] 
-		sentence:gl.glDrawArrays(GL2.GL_TRIANGLE_STRIP, 0, baseVertexPositionBuffer[2])[109,109] 
-			  was matched to  
-				sentence:gl.drawArrays(gl.TRIANGLE_STRIP, 0, baseVertexPositionBuffer[2])[100,100] 
-		sentence:setMatrixUniforms(gl)[108,108] 
-			  was matched to  
-				sentence:this.setMatrixUniforms(gl)[99,99] 
-		sentence:private FloatBuffer mvMatrix[20,20] 
-			  was matched to  
-				sentence:var mvMatrix[9,9] 
-		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexPositionBuffer[0])[92,92] 
-			  was matched to  
-				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])[83,83] 
-		sentence:gl.glEnable(GL2.GL_CULL_FACE)[77,77] 
-			  was matched to  
-				sentence:gl.enable(gl.CULL_FACE)[70,70] 
-		BLOCK [private void animate()] 
-			  was matched to  
-				BLOCK [,	animate : function()] 
-		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexColorBuffer[0])[51,51] 
-			  was matched to  
-				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexColorBuffer[0])[45,45] 
-		sentence:private double rAngle = 0[21,21] 
-			  was matched to  
-				sentence:var rAngle = 0[10,10] 
-		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexColorBuffer[0])[65,65] 
-			  was matched to  
-				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexColorBuffer[0])[59,59] 
-		sentence:lastTime = timeNow[120,120] 
-			  was matched to  
-				sentence:lastTime = timeNow[111,111] 
-		sentence:private int[] pyramidVertexColorBuffer = new int[3][16,16] 
-			  was matched to  
-				sentence:var pyramidVertexColorBuffer = new Array()[5,5] 
-		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexPositionBuffer[0])[58,58] 
-			  was matched to  
-				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexPositionBuffer[0])[52,52] 
-		sentence:gl.glCullFace(GL2.GL_BACK)[76,76] 
-			  was matched to  
-				sentence:gl.cullFace(gl.BACK)[69,69] 
-		sentence:mvMatrixUniform = gl.glGetUniformLocation(shaderProgram, "uMVMatrix")[34,34] 
-			  was matched to  
-				sentence:mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix")[28,28] 
-		sentence:gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertices.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(vertices), GL2.GL_STATIC_DRAW)[46,46] 
-			  was matched to  
-				sentence:gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)[40,40] 
-		sentence:int shaderProgram = Util.getShaderProgram(gl, "shaders/shader1.fs", "shaders/shader1.vs")[25,25] 
-			  was matched to  
-				sentence:var shaderProgram = getShaderProgram(gl, "shaders/shader1.fs", "shaders/shader1.vs")[19,19] 
-		sentence:private int vertexPositionAttribute[11,11] 
-			  was matched to  
-				sentence:var vertexPositionAttribute[0,0] 
-		sentence:rAngle += 1.57 * elapsed * 0.001[118,118] 
-			  was matched to  
-				sentence:rAngle += 1.57 * elapsed * 0.001[109,109] 
-		BLOCK [public void initBuffers(GL2 gl)] 
-			  was matched to  
-				BLOCK [,	initBuffers : function(gl)] 
-		sentence:baseVertexColorBuffer[2] = 4[69,69] 
-			  was matched to  
-				sentence:baseVertexColorBuffer[2] = 4[63,63] 
-		sentence:animate()[111,111] 
-			  was matched to  
-				sentence:this.animate()[102,102] 
-		sentence:pMatrixUniform = gl.glGetUniformLocation(shaderProgram, "uPMatrix")[33,33] 
-			  was matched to  
-				sentence:pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix")[27,27] 
-		sentence:pyramidVertexColorBuffer[1] = 4[54,54] 
-			  was matched to  
-				sentence:pyramidVertexColorBuffer[1] = 4[48,48] 
-		sentence:gl.glGenBuffers(1, baseVertexPositionBuffer, 0)[57,57] 
-			  was matched to  
-				sentence:baseVertexPositionBuffer[0] = gl.createBuffer()[51,51] 
-		BLOCK [public void initShaders(GL2 gl)] 
-			  was matched to  
-				BLOCK [initShaders : function(gl)] 
-		sentence:float[] vertices2 ={-1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f}[59,59] 
-			  was matched to  
-				sentence:var vertices2 = [ -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0 ][53,53] 
-		BLOCK [public void setMatrixUniforms(GL2 gl)] 
-			  was matched to  
-				BLOCK [,	setMatrixUniforms : function(gl)] 
-		sentence:gl.glVertexAttribPointer(vertexColorAttribute, baseVertexColorBuffer[1], GL2.GL_FLOAT, false, 0, 0)[106,106] 
-			  was matched to  
-				sentence:gl.vertexAttribPointer(vertexColorAttribute, baseVertexColorBuffer[1], gl.FLOAT, false, 0, 0)[97,97] 
-		sentence:vertexPositionAttribute = gl.glGetAttribLocation(shaderProgram, "aVertexPosition")[27,27] 
-			  was matched to  
-				sentence:vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition")[21,21] 
-		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexPositionBuffer[0])[44,44] 
-			  was matched to  
-				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])[38,38] 
-		sentence:private int[] baseVertexColorBuffer = new int[3][18,18] 
-			  was matched to  
-				sentence:var baseVertexColorBuffer = new Array()[7,7] 
 		sentence:baseVertexColorBuffer[1] = 4[68,68] 
 			  was matched to  
 				sentence:baseVertexColorBuffer[1] = 4[62,62] 
-		sentence:pyramidVertexPositionBuffer[2] = 6[48,48] 
+		sentence:lastTime = timeNow[120,120] 
 			  was matched to  
-				sentence:pyramidVertexPositionBuffer[2] = 6[42,42] 
-		sentence:gl.glFrontFace(GL2.GL_CCW)[91,91] 
+				sentence:lastTime = timeNow[111,111] 
+		sentence:private int vertexPositionAttribute[11,11] 
 			  was matched to  
-				sentence:gl.frontFace(gl.CCW)[82,82] 
-		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexColorBuffer[0])[95,95] 
+				sentence:var vertexPositionAttribute[0,0] 
+		sentence:float[] vertices2 ={-1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f}[59,59] 
 			  was matched to  
-				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexColorBuffer[0])[86,86] 
-		BLOCK [public void drawScene(GL2 gl)] 
+				sentence:var vertices2 = [ -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0 ][53,53] 
+		sentence:private int[] pyramidVertexColorBuffer = new int[3][16,16] 
 			  was matched to  
-				BLOCK [,	drawScene : function(gl)] 
-		BLOCK [public class Test_sv2Drawer] 
-			  was matched to  
-				BLOCK [Test_sv2Drawer.prototype =] 
-		sentence:gl.glBufferData(GL2.GL_ARRAY_BUFFER, colors2.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(colors2), GL2.GL_STATIC_DRAW)[67,67] 
-			  was matched to  
-				sentence:gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors2), gl.STATIC_DRAW)[61,61] 
-		sentence:gl.glVertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0)[93,93] 
-			  was matched to  
-				sentence:gl.vertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)[84,84] 
-		sentence:pyramidVertexPositionBuffer[1] = 3[47,47] 
-			  was matched to  
-				sentence:pyramidVertexPositionBuffer[1] = 3[41,41] 
-		sentence:float[] colors ={1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f}[52,52] 
-			  was matched to  
-				sentence:var colors = [ 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0 ][46,46] 
-		sentence:gl.glVertexAttribPointer(vertexColorAttribute, pyramidVertexColorBuffer[1], GL2.GL_FLOAT, false, 0, 0)[96,96] 
-			  was matched to  
-				sentence:gl.vertexAttribPointer(vertexColorAttribute, pyramidVertexColorBuffer[1], gl.FLOAT, false, 0, 0)[87,87] 
-		sentence:private int vertexColorAttribute[12,12] 
-			  was matched to  
-				sentence:var vertexColorAttribute[1,1] 
-		sentence:baseVertexPositionBuffer[1] = 3[61,61] 
-			  was matched to  
-				sentence:baseVertexPositionBuffer[1] = 3[55,55] 
-		sentence:float[] vertices ={0.0f, 1.0f, 0.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f}[45,45] 
-			  was matched to  
-				sentence:var vertices = [ 0.0, 1.0, 0.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, -1.0 ][39,39] 
-		sentence:gl.glGenBuffers(1, baseVertexColorBuffer, 0)[64,64] 
-			  was matched to  
-				sentence:baseVertexColorBuffer[0] = gl.createBuffer()[58,58] 
-		sentence:gl.glVertexAttribPointer(vertexPositionAttribute, baseVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0)[103,103] 
-			  was matched to  
-				sentence:gl.vertexAttribPointer(vertexPositionAttribute, baseVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)[94,94] 
-		sentence:gl.glEnableVertexAttribArray(vertexColorAttribute)[31,31] 
-			  was matched to  
-				sentence:gl.enableVertexAttribArray(vertexColorAttribute)[25,25] 
+				sentence:var pyramidVertexColorBuffer = new Array()[5,5] 
 		sentence:vertexColorAttribute = gl.glGetAttribLocation(shaderProgram, "aVertexColor")[30,30] 
 			  was matched to  
 				sentence:vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor")[24,24] 
+		sentence:gl.glEnableVertexAttribArray(vertexPositionAttribute)[28,28] 
+			  was matched to  
+				sentence:gl.enableVertexAttribArray(vertexPositionAttribute)[22,22] 
+		sentence:private int pMatrixUniform[13,13] 
+			  was matched to  
+				sentence:var pMatrixUniform[2,2] 
+		sentence:baseVertexColorBuffer[2] = 4[69,69] 
+			  was matched to  
+				sentence:baseVertexColorBuffer[2] = 4[63,63] 
+		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexPositionBuffer[0])[92,92] 
+			  was matched to  
+				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])[83,83] 
+		sentence:gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertices2.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(vertices2), GL2.GL_STATIC_DRAW)[60,60] 
+			  was matched to  
+				sentence:gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices2), gl.STATIC_DRAW)[54,54] 
+		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexColorBuffer[0])[65,65] 
+			  was matched to  
+				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexColorBuffer[0])[59,59] 
+		sentence:baseVertexPositionBuffer[1] = 3[61,61] 
+			  was matched to  
+				sentence:baseVertexPositionBuffer[1] = 3[55,55] 
+		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexColorBuffer[0])[95,95] 
+			  was matched to  
+				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexColorBuffer[0])[86,86] 
+		sentence:gl.glVertexAttribPointer(vertexPositionAttribute, baseVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0)[103,103] 
+			  was matched to  
+				sentence:gl.vertexAttribPointer(vertexPositionAttribute, baseVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)[94,94] 
+		sentence:gl.glViewport(0, 0, 500, 500)[79,79] 
+			  was matched to  
+				sentence:gl.viewport(0, 0, 500, 500)[72,72] 
+		sentence:gl.glVertexAttribPointer(vertexColorAttribute, baseVertexColorBuffer[1], GL2.GL_FLOAT, false, 0, 0)[106,106] 
+			  was matched to  
+				sentence:gl.vertexAttribPointer(vertexColorAttribute, baseVertexColorBuffer[1], gl.FLOAT, false, 0, 0)[97,97] 
+		sentence:private FloatBuffer mvMatrix[20,20] 
+			  was matched to  
+				sentence:var mvMatrix[9,9] 
+		sentence:gl.glVertexAttribPointer(vertexColorAttribute, pyramidVertexColorBuffer[1], GL2.GL_FLOAT, false, 0, 0)[96,96] 
+			  was matched to  
+				sentence:gl.vertexAttribPointer(vertexColorAttribute, pyramidVertexColorBuffer[1], gl.FLOAT, false, 0, 0)[87,87] 
+		sentence:gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f)[74,74] 
+			  was matched to  
+				sentence:gl.clearColor(0.0, 0.0, 0.0, 1.0)[67,67] 
+		sentence:gl.glGenBuffers(1, baseVertexPositionBuffer, 0)[57,57] 
+			  was matched to  
+				sentence:baseVertexPositionBuffer[0] = gl.createBuffer()[51,51] 
+		sentence:setMatrixUniforms(gl)[98,98] 
+			  was matched to  
+				sentence:this.setMatrixUniforms(gl)[89,89] 
+		BLOCK [if (lastTime != 0)] 
+			  was matched to  
+				BLOCK [if (lastTime != 0)] 
+		sentence:gl.glFrontFace(GL2.GL_CW)[101,101] 
+			  was matched to  
+				sentence:gl.frontFace(gl.CW)[92,92] 
+		BLOCK [public class Test_sv2Drawer] 
+			  was matched to  
+				BLOCK [Test_sv2Drawer.prototype =] 
+		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexPositionBuffer[0])[58,58] 
+			  was matched to  
+				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexPositionBuffer[0])[52,52] 
+		sentence:pyramidVertexPositionBuffer[1] = 3[47,47] 
+			  was matched to  
+				sentence:pyramidVertexPositionBuffer[1] = 3[41,41] 
+		sentence:gl.glUniformMatrix4fv(pMatrixUniform, 16, false, pMatrix)[38,38] 
+			  was matched to  
+				sentence:gl.uniformMatrix4fv(pMatrixUniform, false, pMatrix)[32,32] 
+		sentence:gl.glBufferData(GL2.GL_ARRAY_BUFFER, colors2.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(colors2), GL2.GL_STATIC_DRAW)[67,67] 
+			  was matched to  
+				sentence:gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors2), gl.STATIC_DRAW)[61,61] 
+		sentence:int shaderProgram = Util.getShaderProgram(gl, "shaders/shader1.fs", "shaders/shader1.vs")[25,25] 
+			  was matched to  
+				sentence:var shaderProgram = getShaderProgram(gl, "shaders/shader1.fs", "shaders/shader1.vs")[19,19] 
+		sentence:gl.glUniformMatrix4fv(mvMatrixUniform, 16, false, mvMatrix)[39,39] 
+			  was matched to  
+				sentence:gl.uniformMatrix4fv(mvMatrixUniform, false, mvMatrix)[33,33] 
+		sentence:float[] vertices ={0.0f, 1.0f, 0.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f}[45,45] 
+			  was matched to  
+				sentence:var vertices = [ 0.0, 1.0, 0.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, -1.0, -1.0 ][39,39] 
+		sentence:gl.glGenBuffers(1, pyramidVertexPositionBuffer, 0)[43,43] 
+			  was matched to  
+				sentence:pyramidVertexPositionBuffer[0] = gl.createBuffer()[37,37] 
+		sentence:long timeNow = System.currentTimeMillis()[115,115] 
+			  was matched to  
+				sentence:var timeNow = new Date().getTime()[106,106] 
+		BLOCK [public void initBuffers(GL2 gl)] 
+			  was matched to  
+				BLOCK [,	initBuffers : function(gl)] 
+		sentence:gl.glGenBuffers(1, baseVertexColorBuffer, 0)[64,64] 
+			  was matched to  
+				sentence:baseVertexColorBuffer[0] = gl.createBuffer()[58,58] 
+		sentence:private int mvMatrixUniform[14,14] 
+			  was matched to  
+				sentence:var mvMatrixUniform[3,3] 
+		sentence:float cx = (float) Math.cos(rAngle)[82,82] 
+			  was matched to  
+				sentence:var cx = Math.cos(rAngle)[75,75] 
+		sentence:private int[] baseVertexColorBuffer = new int[3][18,18] 
+			  was matched to  
+				sentence:var baseVertexColorBuffer = new Array()[7,7] 
+		sentence:gl.glGenBuffers(1, pyramidVertexColorBuffer, 0)[50,50] 
+			  was matched to  
+				sentence:pyramidVertexColorBuffer[0] = gl.createBuffer()[44,44] 
+		sentence:private int[] pyramidVertexPositionBuffer = new int[3][15,15] 
+			  was matched to  
+				sentence:var pyramidVertexPositionBuffer = new Array()[4,4] 
+		sentence:rAngle += 1.57 * elapsed * 0.001[118,118] 
+			  was matched to  
+				sentence:rAngle += 1.57 * elapsed * 0.001[109,109] 
+		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexColorBuffer[0])[51,51] 
+			  was matched to  
+				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexColorBuffer[0])[45,45] 
+		sentence:setMatrixUniforms(gl)[108,108] 
+			  was matched to  
+				sentence:this.setMatrixUniforms(gl)[99,99] 
+		sentence:float sx = (float) Math.sin(rAngle)[83,83] 
+			  was matched to  
+				sentence:var sx = Math.sin(rAngle)[76,76] 
+		sentence:gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT)[80,80] 
+			  was matched to  
+				sentence:gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)[73,73] 
+		sentence:gl.glDrawArrays(GL2.GL_TRIANGLE_STRIP, 0, baseVertexPositionBuffer[2])[109,109] 
+			  was matched to  
+				sentence:gl.drawArrays(gl.TRIANGLE_STRIP, 0, baseVertexPositionBuffer[2])[100,100] 
+		sentence:gl.glVertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], GL2.GL_FLOAT, false, 0, 0)[93,93] 
+			  was matched to  
+				sentence:gl.vertexAttribPointer(vertexPositionAttribute, pyramidVertexPositionBuffer[1], gl.FLOAT, false, 0, 0)[84,84] 
+		sentence:gl.glFrontFace(GL2.GL_CCW)[91,91] 
+			  was matched to  
+				sentence:gl.frontFace(gl.CCW)[82,82] 
+		sentence:gl.glEnable(GL2.GL_DEPTH_TEST)[75,75] 
+			  was matched to  
+				sentence:gl.enable(gl.DEPTH_TEST)[68,68] 
+		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexColorBuffer[0])[105,105] 
+			  was matched to  
+				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexColorBuffer[0])[96,96] 
+		sentence:private FloatBuffer pMatrix[19,19] 
+			  was matched to  
+				sentence:var pMatrix[8,8] 
+		sentence:private int[] baseVertexPositionBuffer = new int[3][17,17] 
+			  was matched to  
+				sentence:var baseVertexPositionBuffer = new Array()[6,6] 
+		sentence:pyramidVertexColorBuffer[1] = 4[54,54] 
+			  was matched to  
+				sentence:pyramidVertexColorBuffer[1] = 4[48,48] 
+		sentence:gl.glDrawArrays(GL2.GL_TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2])[99,99] 
+			  was matched to  
+				sentence:gl.drawArrays(gl.TRIANGLE_FAN, 0, pyramidVertexPositionBuffer[2])[90,90] 
+		sentence:gl.glEnableVertexAttribArray(vertexColorAttribute)[31,31] 
+			  was matched to  
+				sentence:gl.enableVertexAttribArray(vertexColorAttribute)[25,25] 
+		sentence:pyramidVertexColorBuffer[2] = 6[55,55] 
+			  was matched to  
+				sentence:pyramidVertexColorBuffer[2] = 6[49,49] 
+		sentence:baseVertexPositionBuffer[2] = 4[62,62] 
+			  was matched to  
+				sentence:baseVertexPositionBuffer[2] = 4[56,56] 
+		BLOCK [public void initShaders(GL2 gl)] 
+			  was matched to  
+				BLOCK [initShaders : function(gl)] 
+		sentence:private int vertexColorAttribute[12,12] 
+			  was matched to  
+				sentence:var vertexColorAttribute[1,1] 
+		sentence:pyramidVertexPositionBuffer[2] = 6[48,48] 
+			  was matched to  
+				sentence:pyramidVertexPositionBuffer[2] = 6[42,42] 
+		BLOCK [public void drawScene(GL2 gl)] 
+			  was matched to  
+				BLOCK [,	drawScene : function(gl)] 
+		sentence:pMatrixUniform = gl.glGetUniformLocation(shaderProgram, "uPMatrix")[33,33] 
+			  was matched to  
+				sentence:pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix")[27,27] 
+		sentence:gl.glBufferData(GL2.GL_ARRAY_BUFFER, colors.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(colors), GL2.GL_STATIC_DRAW)[53,53] 
+			  was matched to  
+				sentence:gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)[47,47] 
+		sentence:gl.glEnable(GL2.GL_CULL_FACE)[77,77] 
+			  was matched to  
+				sentence:gl.enable(gl.CULL_FACE)[70,70] 
+		sentence:gl.glCullFace(GL2.GL_BACK)[76,76] 
+			  was matched to  
+				sentence:gl.cullFace(gl.BACK)[69,69] 
+		BLOCK [private void animate()] 
+			  was matched to  
+				BLOCK [,	animate : function()] 
+		sentence:private long lastTime = 0[22,22] 
+			  was matched to  
+				sentence:var lastTime = 0[11,11] 
+		sentence:vertexPositionAttribute = gl.glGetAttribLocation(shaderProgram, "aVertexPosition")[27,27] 
+			  was matched to  
+				sentence:vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition")[21,21] 
+		sentence:gl.glBufferData(GL2.GL_ARRAY_BUFFER, vertices.length * BufferUtil.SIZEOF_FLOAT, BufferUtil.newFloatBuffer(vertices), GL2.GL_STATIC_DRAW)[46,46] 
+			  was matched to  
+				sentence:gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)[40,40] 
+		sentence:float[] colors2 ={0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f}[66,66] 
+			  was matched to  
+				sentence:var colors2 = [ 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0 ][60,60] 
+		sentence:animate()[111,111] 
+			  was matched to  
+				sentence:this.animate()[102,102] 
+		sentence:mvMatrixUniform = gl.glGetUniformLocation(shaderProgram, "uMVMatrix")[34,34] 
+			  was matched to  
+				sentence:mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix")[28,28] 
+		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, pyramidVertexPositionBuffer[0])[44,44] 
+			  was matched to  
+				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer[0])[38,38] 
+		sentence:float[] colors ={1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f}[52,52] 
+			  was matched to  
+				sentence:var colors = [ 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0 ][46,46] 
+		sentence:gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, baseVertexPositionBuffer[0])[102,102] 
+			  was matched to  
+				sentence:gl.bindBuffer(gl.ARRAY_BUFFER, baseVertexPositionBuffer[0])[93,93] 
+		BLOCK [public void setMatrixUniforms(GL2 gl)] 
+			  was matched to  
+				BLOCK [,	setMatrixUniforms : function(gl)] 
+		sentence:private double rAngle = 0[21,21] 
+			  was matched to  
+				sentence:var rAngle = 0[10,10] 
 
 
 	Ignored javaPatterns:

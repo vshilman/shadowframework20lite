@@ -38,7 +38,7 @@ public class TestCppTypesStructure {
 //			char[] totalStringChars = totalString.toCharArray();
 //
 //			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-			Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(file));
+			Block fileBlock=BlockUtilities.generateBlocksFromStreamWithExtension("cpp",FileStringUtility.getStream(file));
 
 			// System.out.println(fileBlock.print());
 

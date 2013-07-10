@@ -7,6 +7,10 @@ import java.util.List;
 
 import codeconverter.Block;
 import codeconverter.CodeLine;
+import codeconverter.filecodelinesgenerators.CodeLineGenaratorFactory;
+import codeconverter.filecodelinesgenerators.CodeLineGenerator;
+import codeconverter.filecodelinesgenerators.FileCodeLine;
+import codeconverter.filecodelinesgenerators.test.TestCodeLineGeneratorFactory;
 import codeconverter.utility.FileStringUtility;
 
 public class BlockUtilities {
@@ -41,7 +45,7 @@ public class BlockUtilities {
 	}
 	/* Structure used by generateBlocksFromFile
 	 */
-	private static class FileCodeLine{
+/*	private static class FileCodeLine{
 		String code;//A line of Code
 		int line;//its position within a file
 		public FileCodeLine(String code, int line) {
@@ -50,7 +54,7 @@ public class BlockUtilities {
 			this.line = line;
 		}
 	}
-
+*/
 //	public static ArrayList<Integer> findPosition(char[] characters,char c){
 //		ArrayList<Integer> positions=new ArrayList<Integer>();
 //		for (int i=0; i < characters.length; i++) {
@@ -90,10 +94,10 @@ public class BlockUtilities {
 
 	public static List<FileCodeLine> buildSubLines(List<FileCodeLine> codeLines, FileCodeLinePosition startingPosition,
 			FileCodeLinePosition endingPosition) {
-		ArrayList<FileCodeLine> newLines=new ArrayList<BlockUtilities.FileCodeLine>();
+		ArrayList<FileCodeLine> newLines=new ArrayList<FileCodeLine>();
 		for (int i = 0; i < codeLines.size(); i++) {
-			int lineIndex=codeLines.get(i).line;
-			String codeLine=codeLines.get(i).code;
+			int lineIndex=codeLines.get(i).getLine();
+			String codeLine=codeLines.get(i).getCode();
 			if(lineIndex==startingPosition.fileLine && lineIndex==endingPosition.fileLine){
 				codeLine=codeLine.substring(startingPosition.position,endingPosition.position);
 			}else if(lineIndex==startingPosition.fileLine){
@@ -116,16 +120,16 @@ public class BlockUtilities {
 		int firstLine=end.fileLine;
 		int lastLine=startingPos.fileLine;
 		for (int i = 0; i < temp.size(); i++) {
-			int line=temp.get(i).line;
+			int line=temp.get(i).getLine();
 			if(line==startingPos.fileLine && line==end.fileLine ){//same line
-				string+=temp.get(i).code.substring(startingPos.position,end.position);
+				string+=temp.get(i).getCode().substring(startingPos.position,end.position);
 			}else if(line==startingPos.fileLine){//first line
-				String adding=temp.get(i).code.substring(startingPos.position);
+				String adding=temp.get(i).getCode().substring(startingPos.position);
 				if(adding.trim().length()>0)
 					firstLine=startingPos.fileLine;
 				string+=adding;
 			}else if(line==end.fileLine){//last line
-				String adding=temp.get(i).code.substring(0,end.position);
+				String adding=temp.get(i).getCode().substring(0,end.position);
 				if(adding.trim().length()>0)
 					lastLine=end.fileLine;
 				string+=adding;
@@ -134,7 +138,7 @@ public class BlockUtilities {
 					firstLine=line;
 				}
 				lastLine=line;
-				string+=temp.get(i).code;
+				string+=temp.get(i).getCode();
 			}
 		}
 
@@ -149,8 +153,8 @@ public class BlockUtilities {
 	public static ArrayList<FileCodeLinePosition> findPositions(List<FileCodeLine> codeLines,char c){
 		ArrayList<FileCodeLinePosition> positions=new ArrayList<FileCodeLinePosition>();
 			for(int j=0; j < codeLines.size(); j++){
-				char[] characters=codeLines.get(j).code.toCharArray();
-				int lineIndex=codeLines.get(j).line;
+				char[] characters=codeLines.get(j).getCode().toCharArray();
+				int lineIndex=codeLines.get(j).getLine();
 				for (int i=0; i < characters.length; i++) {
 					if(characters[i]==c){
 						positions.add(new FileCodeLinePosition(lineIndex, i, c));
@@ -169,92 +173,101 @@ public class BlockUtilities {
 	 * @param filename
 	 * @return
 	 */
-	public static List<FileCodeLine> generateFileCodeLines(InputStream stream) {
-
-		List<String> list=FileStringUtility.loadTextfromStream(stream);
-
-		List<FileCodeLine> codeLines=new ArrayList<BlockUtilities.FileCodeLine>();
-
-		//Removing comments starting with //
-
-		//StringWriter writer=new StringWriter();
-		String adding="";
-		for (int lineIndex=0;lineIndex<list.size();lineIndex++) {
-			String string=list.get(lineIndex);
-		//for (String string : list) {
-			int position=string.indexOf("//");
-			if(position>=0)
-				string=string.substring(0,position).trim();
-			if(string.length()!=0){
-				if(string.trim().startsWith("if") || string.trim().startsWith("else")
-						|| string.trim().startsWith("for")){
-					codeLines.add(new FileCodeLine(string+"{", lineIndex));
-					//writer.write(string+"{");
-					adding="}";
-				}else{
-					//writer.write(string+adding);
-					codeLines.add(new FileCodeLine(string+adding, lineIndex));
-					adding="";
-				}
-			}
-		}
-
-//		String totalString=writer.toString();
-//		int beginof=totalString.indexOf("/*");
-//		int endof=totalString.indexOf("*/");
-//		while(beginof!=-1 && endof!=-1){
-//			String tmp=totalString.substring(0,beginof);
-//			tmp+=totalString.substring(endof+2);
-//			totalString=tmp;
-//			beginof=totalString.indexOf("/*");
-//			endof=totalString.indexOf("*/");
+//	public static List<FileCodeLine> generateFileCodeLines(InputStream stream) {
+//
+//		List<String> list=FileStringUtility.loadTextfromStream(stream);
+//
+//		List<FileCodeLine> codeLines=new ArrayList<BlockUtilities.FileCodeLine>();
+//
+//		//Removing comments starting with //
+//
+//		//StringWriter writer=new StringWriter();
+//		String adding="";
+//		for (int lineIndex=0;lineIndex<list.size();lineIndex++) {
+//			String string=list.get(lineIndex);
+//		//for (String string : list) {
+//			int position=string.indexOf("//");
+//			if(position>=0)
+//				string=string.substring(0,position).trim();
+//			if(string.length()!=0){
+//				if(string.trim().startsWith("if") || string.trim().startsWith("else")
+//						|| string.trim().startsWith("for")){
+//					codeLines.add(new FileCodeLine(string+"{", lineIndex));
+//					//writer.write(string+"{");
+//					adding="}";
+//				}else{
+//					//writer.write(string+adding);
+//					codeLines.add(new FileCodeLine(string+adding, lineIndex));
+//					adding="";
+//				}
+//			}
 //		}
-//		return totalString;
+//
+////		String totalString=writer.toString();
+////		int beginof=totalString.indexOf("/*");
+////		int endof=totalString.indexOf("*/");
+////		while(beginof!=-1 && endof!=-1){
+////			String tmp=totalString.substring(0,beginof);
+////			tmp+=totalString.substring(endof+2);
+////			totalString=tmp;
+////			beginof=totalString.indexOf("/*");
+////			endof=totalString.indexOf("*/");
+////		}
+////		return totalString;
+//
+//		//Removing comments between /* and */
+//
+//		boolean onComment=false;
+//		for (int i = 0; i < codeLines.size(); i++) {
+//			String codeLine=codeLines.get(i).code;
+//			int beginof=codeLine.indexOf("/*");
+//			int endof=codeLine.indexOf("*/");
+//			if(beginof==-1 && endof==-1){
+//				if(onComment){
+//					codeLines.remove(i);
+//					i--;
+//				}
+//			}else if(beginof!=-1){
+//				String line=codeLine.substring(0,beginof);
+//				if(endof!=-1){
+//					line=line+codeLine.substring(endof+2);
+//				}else{
+//					onComment=true;
+//				}
+//				codeLines.get(i).code=line;
+//			}else{
+//				String line=codeLine.substring(endof+2);
+//				onComment=false;
+//				codeLines.get(i).code=line;
+//			}
+//			if(codeLine.trim().length()==0){
+//				codeLines.remove(i);
+//				i--;
+//			}
+//		}
+//
+//		return codeLines;
+//
+//	}
 
-		//Removing comments between /* and */
 
-		boolean onComment=false;
-		for (int i = 0; i < codeLines.size(); i++) {
-			String codeLine=codeLines.get(i).code;
-			int beginof=codeLine.indexOf("/*");
-			int endof=codeLine.indexOf("*/");
-			if(beginof==-1 && endof==-1){
-				if(onComment){
-					codeLines.remove(i);
-					i--;
-				}
-			}else if(beginof!=-1){
-				String line=codeLine.substring(0,beginof);
-				if(endof!=-1){
-					line=line+codeLine.substring(endof+2);
-				}else{
-					onComment=true;
-				}
-				codeLines.get(i).code=line;
-			}else{
-				String line=codeLine.substring(endof+2);
-				onComment=false;
-				codeLines.get(i).code=line;
-			}
-			if(codeLine.trim().length()==0){
-				codeLines.remove(i);
-				i--;
-			}
-		}
+	public static Block generateBlocksFromStreamWithExtension(String ext,InputStream stream) {
 
-		return codeLines;
+		//List<FileCodeLine> files=generateFileCodeLines(stream);
+
+		CodeLineGenaratorFactory cgd=new TestCodeLineGeneratorFactory();
+		List<FileCodeLine> files=cgd.getCodeLineGenerator(ext).generateFileCodeLines(stream);
+
+		return generalGenerateBlockFromStream(files);
 
 	}
 
 
+	public static Block generateBlocksFromStream(InputStream stream){
+		return generateBlocksFromStreamWithExtension("default", stream);
+	}
 
-	public static Block generateBlocksFromStream(InputStream stream) {
-
-		//char[] totalStringChars = TestingUtilities.generateFileString(FileStringUtility.getStream(filename)).toCharArray();
-
-		List<FileCodeLine> files=generateFileCodeLines(stream);
-
-
+	private static Block generalGenerateBlockFromStream(List<FileCodeLine> files) {
 		ArrayList<FileCodeLinePosition> findBlockOpen=findPositions(files,'{');
 		ArrayList<FileCodeLinePosition> findBlockClose=findPositions(files,'}');
 
@@ -295,7 +308,6 @@ public class BlockUtilities {
 
 		return fileBlock;
 		//Block fileBlock=BlockUtilities.generateBlocksFromFile(filename);
-
 	}
 
 
