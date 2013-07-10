@@ -23,6 +23,11 @@ public class CppCodePattern {
 
 	public static List<CodePattern> getPatterns(){
 
+		patterns.add(new CppMethodDeclaration());
+		patterns.add(new CppElse());
+		patterns.add(new CppFor());
+		patterns.add(new CppIf());
+		patterns.add(new CppAttributeAssignmentPattern());
 		patterns.add(new CppConstrutorDeclaration());
 		patterns.add(new CppSuperPattern());
 		patterns.add(new CppDeleteOperation());
@@ -30,13 +35,8 @@ public class CppCodePattern {
 		patterns.add(new CppGenericDirectiveLine());
 		patterns.add(new CppIncludeDirectiveLine());
 		patterns.add(new CppisolatedkeyWords());
-		patterns.add(new CppMethodDeclaration());
 		patterns.add(new CppNameSpaceUsing());
 		patterns.add(new CppNamespaceDeclaration());
-		patterns.add(new CppAttributeAssignmentPattern());
-		patterns.add(new CppElse());
-		patterns.add(new CppFor());
-		patterns.add(new CppIf());
 		patterns.add(new CppMethodAccess());
 		patterns.add(new CppReturnPattern());
 		patterns.add(new CppVariableAssignment());

@@ -23,6 +23,7 @@ import codeconverter.javaJsComparator.CodePatternComparator;
 import codeconverter.javaJsComparator.JavaJsCodePatternComparators;
 import codeconverter.javatojs.JSCodeTranslator;
 import codeconverter.js.JsCodePatternInterpreter;
+import codeconverter.utility.FileStringUtility;
 
 
 /**
@@ -133,11 +134,15 @@ public class GeneralTests {
 
 
 
-	public static Block getBlocks(InputStream stream) {
-		return BlockUtilities.generateBlocksFromStream(stream);
+	public static Block getBlocks(InputStream stream,String ext) {
+		return BlockUtilities.generateBlocksFromStreamWithExtension(ext,stream);
 	}
 
 
+
+	public static Block getBlocks(InputStream stream) {
+		return BlockUtilities.generateBlocksFromStream(stream);
+	}
 
 
 
@@ -194,9 +199,9 @@ public class GeneralTests {
 			JsCodePatternInterpreter jsCodePatterInterpreter=new JsCodePatternInterpreter();
 			jsCodePatterInterpreter.getPatterns().add(0,new JsPrototypedMethodDeclaration());
 
-			Block javaRootBlock=getBlocks(javaStream);
+			Block javaRootBlock=getBlocks(javaStream,FileStringUtility.getFileExtension(javaTest));
 			HashMap<CodeModule, CodePattern> javaPatternsMap=generateInterpretation(new JavaCodePatternInterpreter(),javaRootBlock);
-			HashMap<CodeModule, CodePattern> jsPatternsMap=generateInterpretation(jsCodePatterInterpreter,getBlocks(jsStream));
+			HashMap<CodeModule, CodePattern> jsPatternsMap=generateInterpretation(jsCodePatterInterpreter,getBlocks(jsStream,FileStringUtility.getFileExtension(jsTest)));
 
 			totalJavaFiles++;
 			totalJsFiles++;
@@ -287,6 +292,9 @@ public class GeneralTests {
 
 		return null;
 	}
+
+
+
 
 	public static String translate(Block javaRootBlock,
 			HashMap<CodeModule, CodePattern> javaPatternsMap) {

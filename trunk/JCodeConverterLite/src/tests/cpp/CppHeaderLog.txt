@@ -1,8 +1,8 @@
 
 house.h
-[LIBRARY_DECLARATION] -------> #ifndef  HOUSE_H   #define  HOUSE_Hclass    House  
+[LIBRARY_DECLARATION] -------> #ifndef  HOUSE_H  
 null:#ifndef
-SEQUENCE: HOUSE_H   #define  HOUSE_Hclass    House  
+SEQUENCE: HOUSE_H  
 		EXPRESSION: HOUSE_H  
 				COMPOSITE: HOUSE_H  
 						IGNORED:
@@ -10,25 +10,23 @@ SEQUENCE: HOUSE_H   #define  HOUSE_Hclass    House
 								NAME:HOUSE_H
 								IGNORED:
 								IGNORED:
-		KEYWORD: 
-		EXPRESSION:#define
-				VALUE:#define
-		KEYWORD: 
-		EXPRESSION: HOUSE_Hclass  
-				COMPOSITE: HOUSE_Hclass  
+
+
+[LIBRARY_DECLARATION] -------> #define  HOUSE_H  
+null:#define
+SEQUENCE: HOUSE_H  
+		EXPRESSION: HOUSE_H  
+				COMPOSITE: HOUSE_H  
 						IGNORED:
-						VARIABLE:HOUSE_Hclass  
-								NAME:HOUSE_Hclass
+						VARIABLE:HOUSE_H  
+								NAME:HOUSE_H
 								IGNORED:
 								IGNORED:
-		KEYWORD: 
-		EXPRESSION: House  
-				COMPOSITE: House  
-						IGNORED:
-						VARIABLE:House  
-								NAME:House
-								IGNORED:
-								IGNORED:
+
+
+[CLASS_DECLARATION] -------> class House
+KEYWORD:class
+NAME:House
 
 
 [ATTRIBUTE_DECLARATION] ------->  int roofHeight  
@@ -67,7 +65,42 @@ SEQUENCE:baseHeight
 						IGNORED:
 
 
-[unidentified] -------> sentence:public:        House(int roofHeight, int baseWidth, int baseHeight)
+[CONSTRUCTOR_DECLARATION] -------> House   (  int roofHeight  ,  int baseWidth  ,  int baseHeight   )
+NAME:House  
+		NAME:House
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: int roofHeight  ,  int baseWidth  ,  int baseHeight  
+		VARIABLE: int roofHeight  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:roofHeight  
+						NAME:roofHeight
+						IGNORED:
+						IGNORED:
+		KEYWORD:, 
+		VARIABLE: int baseWidth  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:baseWidth  
+						NAME:baseWidth
+						IGNORED:
+						IGNORED:
+		KEYWORD:, 
+		VARIABLE: int baseHeight  
+				COMPOSITE: int
+						IGNORED:
+						TYPE:int
+				NAME:baseHeight  
+						NAME:baseHeight
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
 [METHOD_DECLARATION] ------->   int getRoofHeight   (  )
 IGNORED:
 VARIABLE: int getRoofHeight  

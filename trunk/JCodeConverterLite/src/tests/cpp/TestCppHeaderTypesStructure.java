@@ -35,7 +35,7 @@ public class TestCppHeaderTypesStructure {
 //			char[] totalStringChars = totalString.toCharArray();
 //
 //			Block fileBlock = BlockUtilities.generateBlocks(totalStringChars);
-			Block fileBlock=BlockUtilities.generateBlocksFromStream(FileStringUtility.getStream(file));
+			Block fileBlock=BlockUtilities.generateBlocksFromStreamWithExtension("h",FileStringUtility.getStream(file));
 
 			// System.out.println(fileBlock.print());
 
