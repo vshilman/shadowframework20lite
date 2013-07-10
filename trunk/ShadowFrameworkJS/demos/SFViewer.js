@@ -34,10 +34,15 @@ function SFViewer(buildNodeCallBack){
 			
 	this.renderer.setLight(programAsset);
 	
+	this.drawing=false;
 }
 
 SFViewer.prototype["init"]=function(){
 	SFPipeline_getSfPipelineGraphics().init();
+};
+
+SFViewer.prototype["startDrawing"]=function(){
+	this.drawing=true;
 };
 
 SFViewer.prototype["getNode"]=function(){
@@ -50,20 +55,21 @@ SFViewer.prototype["draw"]=function(){
 		this.node=this.buildNodeCallBack();
 	}
 
-	SFInitiator_solveInitiables();
-	SFUpdater_refresh();
-
-	gl.clearColor(0.8,0.8,1,1);
-	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-	var matrix=this.renderer.getCamera().extractTransform();
+	if(this.drawing){
+		SFInitiator_solveInitiables();
+		SFUpdater_refresh();
 	
-	gl.enable(gl.DEPTH_TEST);
+		gl.clearColor(0.8,0.8,1,1);
+		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	
-	SFPipeline_getSfPipelineGraphics().setupProjection(matrix);
-	SFPipeline_getSfPipelineGraphics().setupTransform(matrix);
-	this.renderer.render(this.node);
-	
+		var matrix=this.renderer.getCamera().extractTransform();
+		
+		gl.enable(gl.DEPTH_TEST);
+		
+		SFPipeline_getSfPipelineGraphics().setupProjection(matrix);
+		SFPipeline_getSfPipelineGraphics().setupTransform(matrix);
+		this.renderer.render(this.node);
+	}
 };
 
 var viewer=0;
