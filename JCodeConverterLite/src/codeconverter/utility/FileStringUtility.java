@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -21,6 +22,20 @@ import java.util.List;
  */
 public class FileStringUtility {
 
+	/**
+	 * Load a file and extract all its lines as a List of Strings
+	 * 
+	 * @param filename the file name
+	 * @return a list of {@link String} representing the file content 
+	 */
+	public static List<String> loadTextFile(String filename) {
+		try {
+			return loadTextfromStream(new FileInputStream(new File(filename)));
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
 	/**
 	 * Load a textual input stream and extract all of his lines
 	 *
