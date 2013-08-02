@@ -10,4 +10,6 @@ public interface LineBackgroundStylerListener extends LineStyleListener {
 
 	public void setBackground(Point pos, Color color);
 
+	public LineBackgroundStylerListener clone();
+
 }

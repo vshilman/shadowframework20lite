@@ -31,7 +31,6 @@ public class MyTitleAreaDialog extends TitleAreaDialog{
 
 	public MyTitleAreaDialog(Shell parentShell, String title, String message, String imagePath) {
 		super(parentShell);
-		//image=new Image(Display.getDefault(), "icons/gear_sad.png");
 		this.title=title;
 		this.message=message;
 		image=AbstractUIPlugin.imageDescriptorFromPlugin("JCodeComparator", imagePath).createImage();

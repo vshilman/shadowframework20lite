@@ -4,20 +4,23 @@ import jcodecomparator.compare.CompareDelegate;
 import jcodecomparator.core.CompareEditorInput;
 import jcodecomparator.core.IAccettableLeftRight;
 import jcodecomparator.test.TestLineStyleFactory;
+import jcodecomparator.views.MainView;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.part.ViewPart;
 
 public class EditorForComparison extends EditorPart implements IAccettableLeftRight{
 
-	private CompareEditorViewer viewer;
-
+	//private CompareEditorViewer viewer;
+	private MainView view;
 
 	@Override
 	public void dispose() {
@@ -59,9 +62,12 @@ public class EditorForComparison extends EditorPart implements IAccettableLeftRi
 
 	@Override
 	public void createPartControl(Composite arg0) {
-		int style=SWT.MULTI;
-		  viewer=new CompareEditorViewer(arg0, style, new CompareConfiguration(),new CompareDelegate(),new TestLineStyleFactory());
+		//int style=SWT.MULTI;
+		  //viewer=new CompareEditorViewer(arg0, style, new CompareConfiguration(),new CompareDelegate(),new TestLineStyleFactory());
+		view=new MainView();
+		view.createPartControl(arg0);
 	}
+
 
 	@Override
 	public void setFocus() {
@@ -70,12 +76,14 @@ public class EditorForComparison extends EditorPart implements IAccettableLeftRi
 
 	@Override
 	public void acceptRight(CompareEditorInput cei) {
-		viewer.setRightInput(cei);
+		//viewer.setRightInput(cei);
+		view.acceptRight(cei);
 	}
 
 	@Override
 	public void acceptLeft(CompareEditorInput cei) {
-		viewer.setLeftInput(cei);
+		//viewer.setLeftInput(cei);
+		view.acceptLeft(cei);
 	}
 
 

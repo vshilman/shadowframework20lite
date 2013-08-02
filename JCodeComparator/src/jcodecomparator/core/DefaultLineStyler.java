@@ -40,6 +40,9 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		  private HashMap<Point, Color> toConsider=new HashMap<>();
 
 
+
+
+
 		  public DefaultLineStyler(DefaultScanner scanner) {
 		    initializeColors();
 		    this.scanner=scanner;
@@ -50,13 +53,7 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		 */
 		@Override
 		public void cleanToConsider(){
-			 toConsider.clear();
-
-			 MessageConsole myConsole = findConsole("Console");
-			 MessageConsoleStream out=myConsole.newMessageStream();
-
-			 out.println("-----> "+toConsider.size()+"");
-
+			toConsider.clear();
 		  }
 
 		 private void internalSetBackground (Point pos,Color color){
@@ -64,18 +61,13 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 			 MessageConsole myConsole = findConsole("Console");
 			 MessageConsoleStream out=myConsole.newMessageStream();
 
-			 //out.println("E il momento di "+pos.x+" "+pos.y);
 
 			 for (int j = pos.x; j < pos.y; j++) {
-				//out.println("Comincio ad indagare per "+j);
 				 List<Integer> l=new ArrayList<>();
-				// out.println(styles.size()+"");
 				 for (int i = 0; i < styles.size(); i++) {
 						 StyleRange r=(StyleRange) ((StyleRange)styles.get(i)).clone();
-						// out.println("------>Vado bene? "+r.start+" "+(r.start+r.length));
 						 boolean cont=false;
 						 if(r.start <= j && (r.start+r.length) > j){
-						//	 out.print("SI!");
 							 styles.remove(i);
 							 cont=true;
 						 }
@@ -87,7 +79,6 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 							 }
 						 }
 					}
-				 	//out.println(l.size()+"");
 					  int x=0;
 					  while(x<l.size() && l.get(x)==-1){
 						  x++;
@@ -104,10 +95,7 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		 */
 		@Override
 		public void setBackground (Point pos,Color color){
-			MessageConsole myConsole = findConsole("Console");
-			 MessageConsoleStream out=myConsole.newMessageStream();
 				toConsider.put(pos, color);
-				out.println("-----> "+toConsider.size()+"");
 		  }
 
 
@@ -164,98 +152,103 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 			  }
 
 
-private boolean containsRange(int start, int lenght){
+			private boolean containsRange(int start, int lenght){
 
-		for (int i = 0; i < styles.size(); i++) {
-			if(styles.get(i).start==start && styles.get(i).length==lenght){
-				return true;
+					for (int i = 0; i < styles.size(); i++) {
+						if(styles.get(i).start==start && styles.get(i).length==lenght){
+							return true;
+						}
+					}
+
+				return false;
 			}
-		}
-
-	return false;
-}
 
 
 
 
- public void lineGetStyle(LineStyleEvent event) {
+			 public void lineGetStyle(LineStyleEvent event) {
 
 
-	 	styles.clear();
-	    int token;
-	    StyleRange lastStyle;
+				 	styles.clear();
 
-	    if (inBlockComment(event.lineOffset, event.lineOffset
-	        + event.lineText.length())) {
+				 	 MessageConsole myConsole = findConsole("Console");
+					 MessageConsoleStream out=myConsole.newMessageStream();
 
-	    	if(!containsRange(event.lineOffset,  event.lineText
-	          .length()))	{
-			      styles.addElement(new StyleRange(event.lineOffset, event.lineText
-			          .length(), getColor(Keywords.COMMENT.id), null));
+				    int token;
+				    StyleRange lastStyle;
 
-			      event.styles = new StyleRange[styles.size()];
-			      styles.copyInto(event.styles);
-	    	}
-	      return;
-	    }
 
-	    Color defaultFgColor = ((Control) event.widget).getForeground();
-	    scanner.setRange(event.lineText);
-	    token = scanner.nextToken();
-	    while (token != Keywords.EOF.id) {
-	      if (token == Keywords.OTHER.id) {
-	    	  //Do nothing
-	      } else if (token != Keywords.WHITE.id) {
-	        Color color = getColor(token);
+				    if (inBlockComment(event.lineOffset, event.lineOffset
+				        + event.lineText.length())) {
 
-	        if ((!color.equals(defaultFgColor)) || (token == Keywords.KEY.id)) {
+				    	if(!containsRange(event.lineOffset,  event.lineText
+				          .length()))	{
+						      styles.addElement(new StyleRange(event.lineOffset, event.lineText
+						          .length(), getColor(Keywords.COMMENT.id), null));
 
-	        	StyleRange style = new StyleRange(scanner.getStartOffset()
-	              + event.lineOffset, scanner.getLength(), color,
-	              null);
-	          if (token == Keywords.KEY.id) {
-	            style.fontStyle = SWT.BOLD;
-	          }
-	          if (styles.isEmpty()) {
-	        	  if(!containsRange(style.start, style.length)){
-	        		  styles.addElement(style);
-	        	  }
-	          } else {
-	            lastStyle = (StyleRange) styles.lastElement();
-	            if (lastStyle.similarTo(style)
-	                && (lastStyle.start + lastStyle.length == style.start)) {
-	              lastStyle.length += style.length;
-	            } else {
-	              if(!containsRange(style.start, style.length)){
-	            	  styles.addElement(style);
-	              }
-	            }
-	          }
-	        }
-	      } else if ((!styles.isEmpty())
-	              && ((lastStyle = (StyleRange) styles.lastElement()).fontStyle == SWT.BOLD)) {
-	            int start = scanner.getStartOffset() + event.lineOffset;
-	            lastStyle = (StyleRange) styles.lastElement();
-	            if (lastStyle.start + lastStyle.length == start) {
-	              lastStyle.length += scanner.getLength();
-	            }
-	          }
-	          token = scanner.nextToken();
-	        }
+						      event.styles = new StyleRange[styles.size()];
+						      styles.copyInto(event.styles);
+				    	}
+				      return;
+				    }
 
-	    MessageConsole myConsole = findConsole("Console");
-		 MessageConsoleStream out=myConsole.newMessageStream();
+				    Color defaultFgColor = ((Control) event.widget).getForeground();
+				    scanner.setRange(event.lineText);
+				    token = scanner.nextToken();
+				    while (token != Keywords.EOF.id) {
+				      if (token == Keywords.OTHER.id) {
+				    	  //Do nothing
+				      } else if (token != Keywords.WHITE.id) {
+				        Color color = getColor(token);
 
-	    	Set<Point> keys=toConsider.keySet();
-	    	//out.println("-> "+keys.size());
+				        if ((!color.equals(defaultFgColor)) || (token == Keywords.KEY.id)) {
 
-	    	for (Iterator<Point> iterator = keys.iterator(); iterator.hasNext();) {
-				Point point = iterator.next();
-				internalSetBackground(point, toConsider.get(point));
-			}
-	        event.styles = new StyleRange[styles.size()];
-	        styles.copyInto(event.styles);
-	      }
+				        	StyleRange style = new StyleRange(scanner.getStartOffset()
+				              + event.lineOffset, scanner.getLength(), color,
+				              null);
+				          if (token == Keywords.KEY.id) {
+				            style.fontStyle = SWT.BOLD;
+				          }
+				          if (styles.isEmpty()) {
+				        	  if(!containsRange(style.start, style.length)){
+				        		  styles.addElement(style);
+				        	  }
+				          } else {
+				            lastStyle = (StyleRange) styles.lastElement();
+				            if (lastStyle.similarTo(style)
+				                && (lastStyle.start + lastStyle.length == style.start)) {
+				              lastStyle.length += style.length;
+				            } else {
+				              if(!containsRange(style.start, style.length)){
+				            	  styles.addElement(style);
+				              }
+				            }
+				          }
+				        }
+				      } else if ((!styles.isEmpty())
+				              && ((lastStyle = (StyleRange) styles.lastElement()).fontStyle == SWT.BOLD)) {
+				            int start = scanner.getStartOffset() + event.lineOffset;
+				            lastStyle = (StyleRange) styles.lastElement();
+				            if (lastStyle.start + lastStyle.length == start) {
+				              lastStyle.length += scanner.getLength();
+				            }
+				          }
+				          token = scanner.nextToken();
+				        }
+
+
+
+				    	Set<Point> keys=toConsider.keySet();
+				    	//out.println("-> "+keys.size());
+
+				    //	 out.println("-----> while searching "+toConsider.size()+"");
+				    	for (Iterator<Point> iterator = keys.iterator(); iterator.hasNext();) {
+							Point point = iterator.next();
+							internalSetBackground(point, toConsider.get(point));
+						}
+				        event.styles = new StyleRange[styles.size()];
+				        styles.copyInto(event.styles);
+				      }
 
 
 
@@ -338,5 +331,9 @@ private boolean containsRange(int start, int lenght){
 					        conMan.addConsoles(new IConsole[]{myConsole});
 					        return myConsole;
 					    }
+
+				     public LineBackgroundStylerListener clone(){
+				    	 return new DefaultLineStyler(scanner);
+				     }
 
 }
