@@ -1,5 +1,12 @@
 package jcodecomparator.popup_handlers;
 
+
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
+import jcodecomparator.compare.BlankCompareItem;
 import jcodecomparator.compare.SelectedTextCompareItem;
 import jcodecomparator.core.AdmittedTypesKeeper;
 import jcodecomparator.core.CompareEditorInput;
@@ -20,11 +27,28 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveRegistry;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.part.ViewPart;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
+import org.osgi.framework.launch.Framework;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
 
 
 public class CodeCompareHandler extends AbstractHandler{
@@ -33,15 +57,54 @@ public class CodeCompareHandler extends AbstractHandler{
     private ISelection currentSelection;
     private boolean left=true;
     private IEditorPart part;
-    private  ICompareItem special;
+    public static final ICompareItem DEF_ITEM=new BlankCompareItem();
+
+
+    private String languageRight=SampleView.DEF;
+    private String languageLeft=SampleView.DEF;
 
     public CodeCompareHandler() {
         super();
-        special=new SelectedTextCompareItem(new ConcreteImageByTypeKeeper());
-       ((SelectedTextCompareItem) special).setInformations("Default input, from Nicola Pellicano","blank");
+        MessageConsole myconsole = findConsole("console");
+        final MessageConsoleStream out = myconsole.newMessageStream();
+
+        BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
+
+        EventHandler handler=new EventHandler() {
+
+			@Override
+			public void handleEvent(Event event) {
+				if(event.getProperty("COMBO_0")!=null){
+					languageLeft=(String) event.getProperty("COMBO_0");
+					out.println(languageLeft);
+
+				}
+				if(event.getProperty("COMBO_1")!=null){
+					languageRight=(String) event.getProperty("COMBO_1");
+					out.println(languageRight);
+				}
+
+			}
+		};
+		Dictionary<String, String> properties=new Hashtable<>();
+		properties.put(EventConstants.EVENT_TOPIC, "viewcommunication/*");
+		ctx.registerService(EventHandler.class, handler, properties);
+
+		ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
+		EventAdmin eventAdmin =ctx.getService(ref);
+        Map<String,Object> propert=new HashMap<>();
+		propert.put("Request", "");
+        Event event=new Event("viewcommunication/init",propert);
+		eventAdmin.sendEvent(event);
     }
+
+
+
     @Override
     public Object execute(final ExecutionEvent arg0) throws ExecutionException {
+
+    	 MessageConsole myconsole = findConsole("console");
+         final MessageConsoleStream out = myconsole.newMessageStream();
 
         shell = HandlerUtil.getActiveWorkbenchWindow(arg0).getShell();
         currentSelection = HandlerUtil.getCurrentSelection(arg0);
@@ -56,7 +119,7 @@ public class CodeCompareHandler extends AbstractHandler{
             IWorkbenchPage p=w.getActivePage();
             try {
                 if(part==null || p.findEditor(part.getEditorInput())==null ){
-                    part=p.openEditor(new CompareEditorInput(special), "jcodecomparator.editors.CodeCompareEditor");
+                    part=p.openEditor(new CompareEditorInput(DEF_ITEM), "jcodecomparator.editors.CodeCompareEditor");
                 }
 
                IPerspectiveRegistry reg=PlatformUI.getWorkbench().getPerspectiveRegistry();
@@ -65,20 +128,79 @@ public class CodeCompareHandler extends AbstractHandler{
         		if(pd!=null){
         			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().setPerspective(pd);
         		} else {
-        			MessageDialog.openError(null, "Error", "Error trying to open the perspective");
+        			MessageDialog.openError(shell, "Error", "Error trying to open the perspective");
         		}
 
                 IAccettableLeftRight lr=(IAccettableLeftRight) part;
-                if(left){
-                    lr.acceptLeft(new CompareEditorInput(ci));
-                    left=false;
-                } else {
-                    lr.acceptRight(new CompareEditorInput(ci));
-                    left=true;
+
+                //out.println(languageRight+" "+languageLeft+" "+ci.getType());
+
+                boolean notblock=true;
+                boolean blockRight=false;
+
+
+                if(languageRight.equals(ci.getType())){
+                	  //out.print("1");
+                	  lr.acceptRight(new CompareEditorInput(ci));
+                	  notblock=false;
+                	  blockRight=true;
+                } else
+	                if(languageLeft.equals(ci.getType())){
+	                	//out.print("3");
+	                  lr.acceptLeft(new CompareEditorInput(ci));
+	                  notblock=false;
+	                }
+                 else
+                	 if(languageLeft.equals(SampleView.DEF)){
+                		 	//out.print("5");
+                			lr.acceptLeft(new CompareEditorInput(ci));
+
+                	        BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
+                			ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
+                			EventAdmin eventAdmin =ctx.getService(ref);
+                	        Map<String,Object> propert=new HashMap<>();
+                			propert.put("Set_Left", ci.getType());
+                	        Event event=new Event("viewcommunication/init",propert);
+                			eventAdmin.sendEvent(event);
+
+                			languageLeft=ci.getType();
+
+                			notblock=false;
+                	 }
+                	 else
+                		 if(languageRight.equals(SampleView.DEF)){
+                			// out.print("7");
+                			 lr.acceptRight(new CompareEditorInput(ci));
+
+                 	        BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
+                 			ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
+                 			EventAdmin eventAdmin =ctx.getService(ref);
+                 	        Map<String,Object> propert=new HashMap<>();
+                 			propert.put("Set_Right", ci.getType());
+                 	        Event event=new Event("viewcommunication/init",propert);
+                 			eventAdmin.sendEvent(event);
+                 			languageRight=ci.getType();
+
+
+                 			notblock=false;
+                 			blockRight=true;
+
+                 	 } else
+                 		 MessageDialog.openInformation(shell, "Problem occured", "The file type that you want to compare isn't selected in the Selection Language View. ");
+
+
+
+                if(!notblock){
+                	BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
+                	ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
+            		EventAdmin eventAdmin =ctx.getService(ref);
+                    Map<String,Object> propert=new HashMap<>();
+            		propert.put("Block",blockRight? "right":"left" );
+                    Event event=new Event("viewcommunication/init",propert);
+            		eventAdmin.sendEvent(event);
                 }
 
-
-            } catch (PartInitException e) {
+                 }    catch (PartInitException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -87,5 +209,21 @@ public class CodeCompareHandler extends AbstractHandler{
 
         return null;
     }
-   // fLeftContributor.setDocument(fLeft, cc.isLeftEditable() && cp.isLeftEditable(input));
+
+
+	 private MessageConsole findConsole(String name) {
+	        ConsolePlugin plugin = ConsolePlugin.getDefault();
+	        IConsoleManager conMan = plugin.getConsoleManager();
+	        IConsole[] existing = conMan.getConsoles();
+	        for (int i = 0; i < existing.length; i++) {
+	            if (name.equals(existing[i].getName())) {
+	                return (MessageConsole) existing[i];
+	            }
+	        }
+	        //no console found, so create a new one
+	        MessageConsole myConsole = new MessageConsole(name, null);
+	        conMan.addConsoles(new IConsole[]{myConsole});
+	        return myConsole;
+	    }
+
 }

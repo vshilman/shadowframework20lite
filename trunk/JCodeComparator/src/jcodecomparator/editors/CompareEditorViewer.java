@@ -1,5 +1,7 @@
 package jcodecomparator.editors;
 
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,11 +13,14 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+
+import jcodecomparator.compare.BlankCompareItem;
 import jcodecomparator.core.CompareEditorInput;
 import jcodecomparator.core.ComparisonExecutingDelegate;
 import jcodecomparator.core.DefaultLineStyler;
 import jcodecomparator.core.LineBackgroundStylerListener;
 import jcodecomparator.core.LineStylerFactory;
+import jcodecomparator.popup_handlers.CodeCompareHandler;
 
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareUI;
@@ -24,6 +29,12 @@ import org.eclipse.compare.contentmergeviewer.ContentMergeViewer;
 
 import org.eclipse.compare.internal.ICompareContextIds;
 import org.eclipse.compare.internal.Utilities;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.LineBackgroundEvent;
 import org.eclipse.swt.custom.LineStyleEvent;
@@ -34,14 +45,18 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
+import org.eclipse.ui.internal.ViewPluginAction;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import codeconverter.CodeModule;
 import codeconverter.DifferentiationResult;
@@ -69,6 +84,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
     private LineBackgroundStylerListener dLeft;
     private LineBackgroundStylerListener dRight;
+
 
 
     //private BufferedCanvas bcLeft;
@@ -111,8 +127,10 @@ public class CompareEditorViewer extends ContentMergeViewer{
             }
         }
 
-       fLeft.redraw();
-       fRight.redraw();
+       fLeft.redrawRange(0, fLeft.getText().length(), true);
+       fRight.redrawRange(0,fRight.getText().length(),true);
+
+
 
         if(fLeft.getText()!=null && fRight.getText()!=null && fLeft.getText().length()>0 && fRight.getText().length()>0){
             res=ced.executeComparison(leftInput.getDelegate(), rightInput.getDelegate());
@@ -137,10 +155,19 @@ public class CompareEditorViewer extends ContentMergeViewer{
         return null;
     }
 
+
+
     public void createControls(Composite composite) {
+
+    	Combo combo=new Combo(composite, SWT.NONE);
+
         fLeft=new StyledText(composite,SWT.BORDER| SWT.V_SCROLL | SWT.H_SCROLL);
         fRight=new StyledText(composite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+
+       // createToolBar();
     }
+
+
 
     private static void setInput( StyledText canvas , Object input) {
         if (canvas != null) {
@@ -218,19 +245,18 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
     public void setLineStyler(boolean left){
             if(left){
-                LineStyleListener ls1=lsf.getLineStyler(leftInput.getDelegate().getType());
-                dLeft=(DefaultLineStyler) ls1;
+                LineBackgroundStylerListener ls1=lsf.getLineStyler(leftInput.getDelegate().getType());
+                dLeft=ls1;
                 dLeft.cleanToConsider();
                 if(ls1!=null){
-                    //fLeft.addLineStyleListener(ls1);
                     fLeft.addLineStyleListener(dLeft);
+
                 }
             } else {
-                LineStyleListener ls2=lsf.getLineStyler(rightInput.getDelegate().getType());
-                dRight=(DefaultLineStyler) ls2;
+                LineBackgroundStylerListener ls2=lsf.getLineStyler(rightInput.getDelegate().getType());
+                dRight=ls2;
                 dRight.cleanToConsider();
                 if(ls2!=null){
-                    //fRight.addLineStyleListener(ls2);
                     fRight.addLineStyleListener(dRight);
 
                 }
@@ -249,7 +275,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
             Point pos=getPos(s, true,res.getUninterpretatesLeft().get(i).getFirstLine(),res.getUninterpretatesLeft().get(i).getLastLine());
             //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), true);
             dLeft.setBackground(pos, new Color(display, new RGB(128, 128, 128)));
-            out.println("posUs:  "+pos);
+           // out.println("posUs:  "+pos);
             infos+=s+"\n";
         }
 
@@ -260,7 +286,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
             Point pos=getPos(s, false,res.getUninterpretatesRight().get(i).getFirstLine(),res.getUninterpretatesLeft().get(i).getLastLine());
             //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), false);
             dRight.setBackground(pos, new Color(display, new RGB(128, 128, 128)));
-            out.println("posUd:  "+pos);
+         //   out.println("posUd:  "+pos);
             infos+=s+"\n";
         }
 
@@ -274,8 +300,8 @@ public class CompareEditorViewer extends ContentMergeViewer{
                 String s=cm.getCode();
                 Point pos=getPos(s, true,cm.getFirstLine(),cm.getLastLine());
                 //setBackGround(pos, new Color(display, new RGB(128, 128, 255)), true);
-                dLeft.setBackground(pos, new Color(display, new RGB(145, 210, 242)));
-                out.println("posS:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]");
+                dLeft.setBackground(pos, new Color(display, new RGB(180, 214, 252)));
+              //  out.println("posS:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]");
                 infos+=s+"\n";
             }
         }
@@ -286,18 +312,16 @@ public class CompareEditorViewer extends ContentMergeViewer{
                 CodeModule cm=iterator.next();
                 String s=cm.getCode();
                 Point pos=getPos(s, false,cm.getFirstLine(),cm.getLastLine());
-                dRight.setBackground(pos, new Color(display, new RGB(145, 210, 242)));
+                dRight.setBackground(pos, new Color(display, new RGB(180, 214, 252)));
                 out.println("posD:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]");
                 infos+=s+"\n";
 
             }
         }
 
+        fLeft.redrawRange(0, fLeft.getText().length(), true);
+        fRight.redrawRange(0,fRight.getText().length(),true);
 
-        fRight.redraw();
-        fLeft.redraw();
-
-        out.println(infos);
 
     }
 
@@ -322,7 +346,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
         int f=getFirstIndexAtLine(text, firstLine);
         int l=getLastIndexAtLine(text, lastLine);
 
-        out.println("Devo ricercare da "+f+" a "+l);
+     //   out.println("Devo ricercare da "+f+" a "+l);
 
         if(text.indexOf(s,f)>=0 && text.indexOf(s,f)<=l){
             return new Point(text.indexOf(s,f),text.indexOf(s,f)+s.length());
@@ -392,43 +416,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
         return position-1;
     }
 
-
-    public void setBackGround(Point pos, Color color, boolean left){
-
-        //Display display=Display.getDefault();
-        StyleRange style;
-
-        MessageConsole myConsole = findConsole("Console");
-         MessageConsoleStream out=myConsole.newMessageStream();
-
-        for (int i = pos.x; i < pos.y; i++) {
-            out.println(i+"");
-            StyleRange range;
-            if(left){
-                range=fLeft.getStyleRangeAtOffset(i);
-            } else {
-                range=fRight.getStyleRangeAtOffset(i);
-            }
-            if(range!=null){
-                style= (StyleRange) range.clone();
-                style.start=i;
-                style.length=1;
-                style.background=color;
-            } else {
-                style=new StyleRange(i,1,null,color,SWT.NORMAL);
-            }
-            if(left){
-                fLeft.setStyleRange(style);
-            } else {
-                fRight.setStyleRange(style);
-            }
-        }
-
-    }
-
-
-
-
     private String convertToString(List<Character> fin){
 
         String s="";
@@ -436,6 +423,16 @@ public class CompareEditorViewer extends ContentMergeViewer{
             s+=fin.get(i);
         }
         return s;
+    }
+
+
+    public void removeResource(boolean left){
+    		CompareEditorInput cei=new CompareEditorInput(new BlankCompareItem());
+    		if(left){
+    			updateContent(null, cei, null);
+    		} else {
+    			updateContent(null,null,cei);
+    		}
     }
 
 
