@@ -78,12 +78,16 @@
 				
 			return sceneRoot;
 		}
+		
+		function updateData(){
+			//TODO
+		}
 	
 		function Test(){
 		
 			setupAmbient();	
 			
-			nodeViewer=new SFViewer(buildNodeCallBack);
+			nodeViewer=new SFViewer(buildNodeCallBack,updateData);
 		
 			setupCanvas(nodeViewer,"canvas3d");
 	

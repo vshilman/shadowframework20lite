@@ -1,8 +1,9 @@
 
 
 
-function SFViewer(buildNodeCallBack){
+function SFViewer(buildNodeCallBack,updateData){
 	this.buildNodeCallBack=buildNodeCallBack;
+	this.updateData=updateData;
 	this.renderer=new SFRenderer();
 	
 	var camera=new SFCamera(new SFVertex3f(0,0,0), new SFVertex3f(0,0,1), 
@@ -54,6 +55,8 @@ SFViewer.prototype["draw"]=function(){
 	if(this.node===undefined){
 		this.node=this.buildNodeCallBack();
 	}
+	
+	this.updateData();
 
 	if(this.drawing){
 		SFInitiator_solveInitiables();
