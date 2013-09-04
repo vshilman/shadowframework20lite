@@ -15,18 +15,24 @@ public class Block  implements CodeModule{
 	public ArrayList<CodeModule> modules=new ArrayList<CodeModule>();
 
 
-	private int firstLine;
-	private int lastLine;
+	//private int firstLine;
+	//private int lastLine;
 
 
 	@Override
 	public int getLastLine() {
-		return lastLine;
+		if(modules.size()>0){
+			return modules.get(modules.size()-1).getLastLine();
+		}
+		return getFirstLine();
 	}
 
 	@Override
 	public int getFirstLine() {
-		return firstLine;
+		if(modules.size()>0){
+			return modules.get(0).getFirstLine();
+		}
+		return -1;
 	}
 
 	@Override
@@ -62,6 +68,16 @@ public class Block  implements CodeModule{
 		ret+="}\n";
 		return ret;
 
+	}
+
+	@Override
+	public String getExtendedCode() {
+		String ret="{\n";
+		for (int i = 0; i < modules.size(); i++) {
+			ret+=modules.get(i).getExtendedCode()+"\n";
+		}
+		ret+="}\n";
+		return ret;
 	}
 
 
@@ -125,4 +141,6 @@ public class Block  implements CodeModule{
 		}
 
 	}
+
+
 }

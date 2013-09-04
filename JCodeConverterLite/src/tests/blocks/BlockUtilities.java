@@ -7,10 +7,10 @@ import java.util.List;
 
 import codeconverter.Block;
 import codeconverter.CodeLine;
-import codeconverter.filecodelinesgenerators.CodeLineGenaratorFactory;
+import codeconverter.factories.LanguagesObjectsFactory;
+import codeconverter.factories.test.TestLanguagesObjectsFactory;
 import codeconverter.filecodelinesgenerators.CodeLineGenerator;
 import codeconverter.filecodelinesgenerators.FileCodeLine;
-import codeconverter.filecodelinesgenerators.test.TestCodeLineGeneratorFactory;
 import codeconverter.utility.FileStringUtility;
 
 public class BlockUtilities {
@@ -255,7 +255,7 @@ public class BlockUtilities {
 
 		//List<FileCodeLine> files=generateFileCodeLines(stream);
 
-		CodeLineGenaratorFactory cgd=new TestCodeLineGeneratorFactory();
+		LanguagesObjectsFactory cgd=new TestLanguagesObjectsFactory();
 		List<FileCodeLine> files=cgd.getCodeLineGenerator(ext).generateFileCodeLines(stream);
 
 		return generalGenerateBlockFromStream(files);

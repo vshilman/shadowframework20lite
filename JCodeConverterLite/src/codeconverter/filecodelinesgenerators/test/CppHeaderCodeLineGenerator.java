@@ -10,7 +10,7 @@ public class CppHeaderCodeLineGenerator extends CppCodeLineGenerator{
 
 	private String[] toIgnore=new String[]{"public:","protected:","private:"};
 
-	protected CppHeaderCodeLineGenerator(){
+	public CppHeaderCodeLineGenerator(){
 
 	}
 

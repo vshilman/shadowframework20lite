@@ -14,7 +14,7 @@ import codeconverter.utility.FileStringUtility;
 public  class DefaultCodeLineGenerator implements CodeLineGenerator {
 
 
-	protected DefaultCodeLineGenerator(){
+	public DefaultCodeLineGenerator(){
 
 	}
 

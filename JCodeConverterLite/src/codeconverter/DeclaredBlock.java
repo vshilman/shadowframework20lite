@@ -46,14 +46,23 @@ public class DeclaredBlock implements CodeModule{
 	public String getCode() {
 		return blockDeclaration.getCode()+" "+relatedBlock.getCode();
 	}
-	
+
+	@Override
+	public String getExtendedCode() {
+		return blockDeclaration.getCode()+" "+relatedBlock.getExtendedCode();
+	}
+
 	@Override
 	public int getFirstLine() {
 		return blockDeclaration.getFirstLine();
 	}
-	
+
 	@Override
 	public int getLastLine() {
+		int x=relatedBlock.getLastLine();
+		if(x>=0){
+			return x;
+		}
 		return blockDeclaration.getLastLine();
 	}
 }

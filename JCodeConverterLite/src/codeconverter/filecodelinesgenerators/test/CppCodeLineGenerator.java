@@ -11,7 +11,7 @@ import codeconverter.filecodelinesgenerators.FileCodeLine;
 public class CppCodeLineGenerator extends DefaultCodeLineGenerator{
 
 
-	protected CppCodeLineGenerator(){
+	public CppCodeLineGenerator(){
 
 	}
 
