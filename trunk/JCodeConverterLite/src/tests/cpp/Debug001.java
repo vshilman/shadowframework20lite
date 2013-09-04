@@ -2,6 +2,7 @@ package tests.cpp;
 
 import codeconverter.CodePattern;
 import codeconverter.cpp.CppAttributeDeclaration;
+import codeconverter.cpp.CppConstrutorDeclaration;
 
 public class Debug001 {
 
@@ -22,6 +23,16 @@ public class Debug001 {
 		} else {
 			System.out.println("Success");
 		}
+
+		CppConstrutorDeclaration dec=new CppConstrutorDeclaration();
+		String code3="SFValue1f::SFValue1f(int n,float data[]):SFValuenf(n,data)";
+		CodePattern pattern3=dec.match(code3);
+		if(pattern3==null){
+			System.out.println("Failed");
+		}else{
+			System.out.println("Success");
+		}
+
 
 	}
 }

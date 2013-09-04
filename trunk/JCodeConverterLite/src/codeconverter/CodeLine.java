@@ -47,6 +47,12 @@ public class CodeLine implements CodeModule{
 		return codeLine;
 	}
 
+	@Override
+	public String getExtendedCode() {
+		return codeLine+";";
+	}
+
+
 	public void setBlockDeclaration(boolean isBlockDeclaration) {
 		this.isBlockDeclaration = isBlockDeclaration;
 	}
@@ -62,7 +68,7 @@ public class CodeLine implements CodeModule{
 	public int getLastLine() {
 		return lastLine;
 	}
-	
+
 	@Override
 	public int getFirstLine() {
 		return firstLine;
@@ -73,6 +79,6 @@ public class CodeLine implements CodeModule{
 	public void setLastLine(int lastLine) {
 		this.lastLine = lastLine;
 	}
-	
-	
+
+
 }
