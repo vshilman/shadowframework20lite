@@ -1,0 +1,161 @@
+<!-------------------------
+	Esempio con RASTERIZEHTML che funziona con un ALERT
+	------------------------->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html>
+  <head>
+	
+	
+	
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" src="SFViewer.js"></script>
+    <script type="text/javascript" src="SFExamples.js"></script>
+    <script type="text/javascript" src="rasterizeHTML.allinone.js"></script>
+    <script type="text/javascript" >
+		
+		var nodeViewer;
+		var countTexture=0;
+		
+		function initTextureFromImage(gl,filename,sfPipelineTexture) {
+			console.log("enter initTextureFromImage");
+			var texture = gl.createTexture();
+			var tex = new Image();
+			tex.onload = function() {
+				console.log("image loaded");
+				
+				
+				
+				updateTexture(texture,tex,sfPipelineTexture);
+				
+				
+		}
+			tex.src = filename;
+			
+			console.log("filename assigned");
+		}
+		
+		
+		function initTextureFromCanvas(gl,c,sfPipelineTexture) {
+			console.log("enter initTextureFromCanvas");
+			var texture = gl.createTexture();
+			var tex = c;
+			
+			updateTexture(texture,tex,sfPipelineTexture);
+			
+		}
+	
+		function updateTexture(texture,tex,sfPipelineTexture){
+			console.log("enter updateTexture");
+			gl.bindTexture(gl.TEXTURE_2D, texture);
+			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+			gl.generateMipmap(gl.TEXTURE_2D);
+			
+			//here you assign the texture Object
+			sfPipelineTexture.textureObject = texture;
+			
+			countTexture++;
+			console.log(countTexture);
+				if(countTexture==2)
+					nodeViewer.startDrawing();
+		}
+	
+	
+		function buildNodeCallBack(){
+			
+			console.log("enter buildnodecallback");
+			
+		
+			//use a SFGL20Texture object to store texture Object
+			var sfPipelineTexture1 = new SFGL20Texture();
+			var sfPipelineTexture2 = new SFGL20Texture();
+		
+			//use SFGL2_getGL to get your gl object if you need it!!
+			var gl=SFGL2_getGL();
+			
+			var canv = document.getElementById("canv2");
+			initTextureFromCanvas(gl,canv,sfPipelineTexture1);
+			initTextureFromImage(gl,"images/crate.gif",sfPipelineTexture2);	
+			
+		
+			//'var sceneRoot' is the root of a scene tree. You will add other nodes to it 
+			var sceneRoot=new SFReferenceNode();
+			
+			
+			console.log("start drawing...");
+			
+				//You add objects-node to your scene node
+						//Parameters are (x,y,z,rotationY,r,g,b)
+						//(x,y,z): coordinates of the base Point of the geometry
+						//(rotationY): rotation around the Y-axis (in radians)
+						//(r,g,b): the colour of the baloon
+				sceneRoot.addNode(createBaloon(0,0,0, 0, 1,0.6,0 ));
+				sceneRoot.addNode(createBaloon(0.5,0,0, 1.8, 0,1,1 ));
+						//Parameters are (x,y,z,rotationY,sfPipelineTexture)
+						//(x,y,z): coordinates of the base Point of the geometry
+						//(rotationY): rotation around the Y-axis (in radians)
+						//(sfPipelineTexture): an sf texture you use to store the texture object
+				//sceneRoot.addNode(createTexturedBaloon(-0.5,-0.5,0,1.54,sfPipelineTexture1));
+				sceneRoot.addNode(createTexturedBaloon(-0.5,-0.5,0,0,sfPipelineTexture1));
+				sceneRoot.addNode(createTexturedBaloon(0.5,-0.5,0,3.54,sfPipelineTexture2));	
+						//Parameters are (x,y,z,rotationY,sfPipelineTexture)
+						//(x,y,z): coordinates of the base Point of the geometry
+						//(rotationY): rotation around the Y-axis (in radians)
+						//(sfPipelineTexture): an sf texture you use to store the texture object
+				sceneRoot.addNode(createTexturedRect(-0.2,-0.8,0,0,sfPipelineTexture2));
+			
+			
+			return sceneRoot;
+		}
+		
+		function updateData(){
+			//TODO 
+		}
+		
+	
+		function Test(){
+			
+			var canvas = document.getElementById("canv2");
+			
+			var ctx=canvas.getContext("2d");
+			ctx.fillStyle="#FFFFFF";
+			ctx.fillRect(0,0,256,256);
+    	    rasterizeHTML.drawHTML('<p style="font-size: 14px;">Some <span style="font-size: 28px; color: green">HTML</span> with an image </p>', canvas);
+ 			
+ 			console.log("rasterize");
+ 			
+ 			//ALERT CHE FA FUNZIONARE TUTTO
+ 			alert("rasterize");
+			
+					
+			setupAmbient();	
+			
+			nodeViewer=new SFViewer(buildNodeCallBack, updateData);
+			setupCanvas(nodeViewer,"canvas3d");
+		
+	
+		}
+		
+    </script>
+    
+    
+    
+  </head>
+  <body onload="Test();">
+  	
+  	<canvas id="canv2" style="border: 1px solid red;" width="256" height="256">Your browser doesn't support HTML5</canvas>
+  	<canvas id="canvas3d" style="border: none;" width="500" height="500">Your browser doesn't support HTML5</canvas>
+  	
+  
+	
+  </body>
+</html>
