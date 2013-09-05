@@ -52,7 +52,8 @@ public class TestFileComparatorJUnit {
 			jsTests.add(JS_DIRECTORY + "test_va" + i + "Drawer.js");
 		}
 
-		List<CodePatternComparator> comparators = JavaJsCodePatternComparators.getComparators();
+		JavaJsCodePatternComparators jjc=new JavaJsCodePatternComparators();
+		List<CodePatternComparator> comparators = jjc.getComparators();
 
 		for (int i = 0; i < javaTests.size(); i++) {
 

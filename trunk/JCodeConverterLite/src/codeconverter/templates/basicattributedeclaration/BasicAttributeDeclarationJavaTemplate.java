@@ -142,7 +142,7 @@ public class BasicAttributeDeclarationJavaTemplate extends BasicAttributeDeclara
 		if(defValues.containsKey(param.get("$TYPE$"))){
 			ass=defValues.get(param.get("$TYPE$"))[0];
 		}
-		String s=param.get("$MOD$")+" "+param.get("$TYPE$")+" "+param.get("$NAME$")+(Boolean.parseBoolean(param.get("$ASS$"))?"="+ass : "")+";";
+		String s=(param.get("$MOD$").equals("$MOD$")?"private":param.get("$MOD$"))+" "+param.get("$TYPE$")+" "+param.get("$NAME$")+(Boolean.parseBoolean(param.get("$ASS$"))?"="+ass : "")+";";
 		return s;
 	}
 

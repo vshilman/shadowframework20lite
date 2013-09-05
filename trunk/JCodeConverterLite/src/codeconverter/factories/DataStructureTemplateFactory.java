@@ -1,4 +1,6 @@
-package codeconverter.templates;
+package codeconverter.factories;
+
+import codeconverter.templates.Structure;
 
 public interface DataStructureTemplateFactory {
 

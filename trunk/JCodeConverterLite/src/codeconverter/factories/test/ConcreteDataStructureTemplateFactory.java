@@ -1,8 +1,8 @@
-package codeconverter.templates.test.data;
+package codeconverter.factories.test;
 
 import java.util.HashMap;
 
-import codeconverter.templates.DataStructureTemplateFactory;
+import codeconverter.factories.DataStructureTemplateFactory;
 import codeconverter.templates.Structure;
 
 public class ConcreteDataStructureTemplateFactory implements DataStructureTemplateFactory{

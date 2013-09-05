@@ -3,6 +3,7 @@ package codeconverter.javaJsComparator;
 import java.util.ArrayList;
 import java.util.List;
 
+import codeconverter.comparator.PatternComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationAndAssignmentComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAssignmentComparator;
@@ -22,11 +23,11 @@ import codeconverter.javaJsComparator.codePatterns.VariableAssignmentComparator;
 import codeconverter.javaJsComparator.codePatterns.VariableDeclarationAndAssignmentComparator;
 import codeconverter.javaJsComparator.codePatterns.VariableDeclarationComparator;
 
-public class JavaJsCodePatternComparators {
+public class JavaJsCodePatternComparators implements PatternComparator{
 
-	private static List<CodePatternComparator> comparators = new ArrayList<CodePatternComparator>();
+	private  List<CodePatternComparator> comparators = new ArrayList<CodePatternComparator>();
 
-	public static List<CodePatternComparator> getComparators() {
+	public  List<CodePatternComparator> getComparators() {
 
 		comparators.add(new AttributeAssignmentComparator());
 		comparators.add(new ClassDeclarationComparator());

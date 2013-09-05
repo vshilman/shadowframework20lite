@@ -18,6 +18,7 @@ import codeconverter.CodeLine;
 import codeconverter.CodeModule;
 import codeconverter.CodePattern;
 import codeconverter.DeclaredBlock;
+import codeconverter.factories.DataStructureTemplateFactory;
 import codeconverter.factories.LanguagesObjectsFactory;
 
 public class ConversionByTemplateDelegate {
@@ -54,6 +55,7 @@ public class ConversionByTemplateDelegate {
 		BlockDataInterpreter interpreter=lof.getBlockDataInterpreter(ext);
 		Structure struct=dtf.getDataStructure(ext);
 		if(interpreter==null || struct==null){
+			System.out.println("Aho sto a usci'");
 			return null;
 		}
 
@@ -67,14 +69,11 @@ public class ConversionByTemplateDelegate {
 		List<Template> outList=dtf.getDataStructure(langOut).getTemplates();
 
 		List<CodeModule> converted=new ArrayList<CodeModule>();
-		//List<String> convertions=new ArrayList<String>();
-		//LinkedHashMap<Template, Integer> convmap=new LinkedHashMap<Template, Integer>();
 		List<Template> convlist=new ArrayList<Template>();
 
 		for (Iterator<CodeModule> iterator = mod.iterator(); iterator.hasNext();) {
 			CodeModule cd =  iterator.next();
 			String code=cd.getExtendedCode();
-			//Necessary for class declaration recognizing
 			if(cd instanceof DeclaredBlock){
 				modOut.add(((DeclaredBlock) cd).getBlockDeclaration());
 			}
@@ -95,7 +94,7 @@ public class ConversionByTemplateDelegate {
 	//		System.out.println(convlist.get(i).constructCode()+"\n{"+converted.get(i).getFirstLine()+","+converted.get(i).getLastLine()+"}");
 	//	}
 
-		return dtf.getDataStructure(langOut).buildCode(convlist);
+		return dtf.getDataStructure(langOut).buildCode(name,convlist);
 	}
 
 
