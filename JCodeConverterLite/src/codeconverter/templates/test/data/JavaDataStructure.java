@@ -31,7 +31,7 @@ public class JavaDataStructure implements Structure{
 		return list;
 	}
 
-	public String buildCode(List<Template> convlist){
+	public String buildCode(String className,List<Template> convlist){
 
 		String fin="//Package and imports are not generated automatically\n\n\n";
 		if(GeneralPurposeTemplateUtilities.findTemplateByID(convlist, 0)!=null){
@@ -42,7 +42,7 @@ public class JavaDataStructure implements Structure{
 				String name=GeneralPurposeTemplateUtilities.findTemplateByID(convlist, 4).getProperties().get("$CLASS$");
 				fin+="public class "+name;
 			} else {
-				fin+="public class $CLASS_NAME$";
+				fin+="public class "+className;
 			}
 		}
 		fin+="{\n\n";

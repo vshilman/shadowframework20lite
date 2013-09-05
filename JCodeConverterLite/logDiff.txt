@@ -1,0 +1,8 @@
+Differences on the left:
+Differences on the right:
+sentence:protected short type=GLOBAL_GENERIC[9,9]
+DBLOCK @Override	public String toString()
+{
+sentence:return name+"("+type+")"[50,50]
+}
+[48,50]

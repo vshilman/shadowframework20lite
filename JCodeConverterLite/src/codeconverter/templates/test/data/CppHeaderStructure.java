@@ -30,7 +30,7 @@ public class CppHeaderStructure implements Structure{
 	}
 
 	@Override
-	public String buildCode(List<Template> convlist) {
+	public String buildCode(String className,List<Template> convlist) {
 
 		String fin="#include <string>\n"; //too much common
 
@@ -54,7 +54,7 @@ public class CppHeaderStructure implements Structure{
 				String name=GeneralPurposeTemplateUtilities.findTemplateByID(convlist, 4).getProperties().get("$CLASS$");
 				fin+="class "+name;
 			} else {
-				fin+="class $CLASS_NAME$";
+				fin+="class "+className;
 			}
 		}
 		fin+="{\n\n";

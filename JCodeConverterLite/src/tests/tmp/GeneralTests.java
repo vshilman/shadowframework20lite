@@ -193,7 +193,8 @@ public class GeneralTests {
 
 
 		try {
-			List<CodePatternComparator> comparators = JavaJsCodePatternComparators.getComparators();
+			JavaJsCodePatternComparators jjc=new JavaJsCodePatternComparators();
+			List<CodePatternComparator> comparators = jjc.getComparators();
 			comparators.add(new PrototypedMethodDeclarationComparator());
 
 			JsCodePatternInterpreter jsCodePatterInterpreter=new JsCodePatternInterpreter();
@@ -202,6 +203,7 @@ public class GeneralTests {
 			Block javaRootBlock=getBlocks(javaStream,FileStringUtility.getFileExtension(javaTest));
 			HashMap<CodeModule, CodePattern> javaPatternsMap=generateInterpretation(new JavaCodePatternInterpreter(),javaRootBlock);
 			HashMap<CodeModule, CodePattern> jsPatternsMap=generateInterpretation(jsCodePatterInterpreter,getBlocks(jsStream,FileStringUtility.getFileExtension(jsTest)));
+
 
 			totalJavaFiles++;
 			totalJsFiles++;
@@ -313,7 +315,8 @@ public class GeneralTests {
 
 	public static String newFile(String javaTest,InputStream javaStream, StringWriter logWriter) {
 		try {
-			List<CodePatternComparator> comparators = JavaJsCodePatternComparators.getComparators();
+			JavaJsCodePatternComparators jjc=new JavaJsCodePatternComparators();
+			List<CodePatternComparator> comparators = jjc.getComparators();
 			comparators.add(new PrototypedMethodDeclarationComparator());
 
 			Block javaRootBlock=getBlocks(javaStream);

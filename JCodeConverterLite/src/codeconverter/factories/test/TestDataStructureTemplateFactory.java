@@ -1,4 +1,9 @@
-package codeconverter.templates.test.data;
+package codeconverter.factories.test;
+
+import codeconverter.templates.test.data.CppDataStructure;
+import codeconverter.templates.test.data.CppHeaderStructure;
+import codeconverter.templates.test.data.JavaDataStructure;
+import codeconverter.templates.test.data.JsDataStructure;
 
 public class TestDataStructureTemplateFactory extends ConcreteDataStructureTemplateFactory{
 

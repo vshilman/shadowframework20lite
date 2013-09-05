@@ -37,11 +37,11 @@ public class CppDataStructure implements Structure{
 	}
 
 	@Override
-	public String buildCode(List<Template> convlist) {
+	public String buildCode(String className,List<Template> convlist) {
 		String fin="#include ";
 
 		int[] good={2,3,4};
-		String name="$CLASS_NAME$";
+		String name=className;
 		for (int i = 0; i < good.length; i++) {
 			if(GeneralPurposeTemplateUtilities.findTemplateByID(convlist, good[i])!=null){
 				name=GeneralPurposeTemplateUtilities.findTemplateByID(convlist, good[i]).getProperties().get("$CLASS$");
