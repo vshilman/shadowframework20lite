@@ -3,6 +3,8 @@ package codeconverter.js;
 import java.util.ArrayList;
 import java.util.List;
 
+import tests.tmp.JsPrototypedMethodDeclaration;
+
 import codeconverter.CodePattern;
 import codeconverter.js.codelines.JsAttributeAssignmentPattern;
 import codeconverter.js.codelines.JsElse;
@@ -18,8 +20,11 @@ import codeconverter.js.webgl.WebGlMethodAccess;
 public class JsCodePatterns {
 
 	private static List<CodePattern> patterns=new ArrayList<CodePattern>();
-	
+
 	public static List<CodePattern> getPatterns(){
+
+
+		patterns.add(new JsPrototypedMethodDeclaration());
 
 		patterns.add(new JsClassDeclaration());
 		patterns.add(new JsMethodDeclaration());
@@ -35,7 +40,9 @@ public class JsCodePatterns {
 		patterns.add(new JsIsolatedKeywords());
 		patterns.add(new WebGlMethodAccess());
 		patterns.add(new JsMethodAccess());
-		
+
+
+
 		return patterns;
 	}
 

@@ -1,5 +1,6 @@
 package codeconverter.factories.test;
 
+import tests.tmp.JavaIgnoredPatterns;
 import codeconverter.ComparatorsHolder;
 import codeconverter.javaJsComparator.JavaJsCodePatternComparators;
 

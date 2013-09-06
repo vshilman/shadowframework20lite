@@ -1,4 +1,4 @@
-package tests.tmp;
+ package tests.tmp;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -242,14 +242,16 @@ public class GeneralTests {
 				logWriter.write("\t\t"+javacodeModule.toString()+" \n\t\t\t  was matched to  \n\t\t\t\t"+jscodeModule.toString()+" \n");
 			}
 
+
 			Set<CodeModule> javaModules=javaPatternsMap.keySet();
 			Set<CodeModule> jsModules=jsPatternsMap.keySet();
 
 			logWriter.write("\n\n\tIgnored javaPatterns:\n");
 			List<CodeModule> ignoredModules=new ArrayList<CodeModule>();
+			JavaIgnoredPatterns jip=new JavaIgnoredPatterns();
 			for (CodeModule codeModule : javaModules) {
 				CodePattern pattern=javaPatternsMap.get(codeModule);
-				if(JavaToJsIgnoredPatterns.javaIgnoredContainsAny(pattern.getPatternType())){
+				if(jip.ignoredContainsAny(pattern.getPatternType())){
 					logWriter.write("\t\t"+pattern + "\n");
 					ignoredModules.add(codeModule);
 					totalIgnoredJavaLines++;
@@ -337,10 +339,12 @@ public class GeneralTests {
 			Set<CodeModule> javaModules=javaPatternsMap.keySet();
 
 			logWriter.write("\n\n\tIgnored javaPatterns:\n");
+
 			List<CodeModule> ignoredModules=new ArrayList<CodeModule>();
+			JavaIgnoredPatterns jip=new JavaIgnoredPatterns();
 			for (CodeModule codeModule : javaModules) {
 				CodePattern pattern=javaPatternsMap.get(codeModule);
-				if(JavaToJsIgnoredPatterns.javaIgnoredContainsAny(pattern.getPatternType())){
+				if(jip.ignoredContainsAny(pattern.getPatternType())){
 					logWriter.write("\t\t "+pattern + "\n");
 					ignoredModules.add(codeModule);
 					totalIgnoredJavaLines++;

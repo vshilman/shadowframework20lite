@@ -1,7 +1,9 @@
 package codeconverter.factories;
 
+import tests.tmp.IgnoredPatterns;
+import codeconverter.ComparatorsHolder;
 import codeconverter.comparator.PatternComparator;
 
 public interface ComparatorFactory {
-	public PatternComparator getComparators(String lang1,String lang2);
+	public ComparatorsHolder getComparators(String lang1,String lang2);
 }

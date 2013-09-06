@@ -3,6 +3,8 @@ package codeconverter.javaJsComparator;
 import java.util.ArrayList;
 import java.util.List;
 
+import tests.tmp.PrototypedMethodDeclarationComparator;
+
 import codeconverter.comparator.PatternComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationAndAssignmentComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationComparator;
@@ -47,6 +49,9 @@ public class JavaJsCodePatternComparators implements PatternComparator{
 		comparators.add(new AttributeAndVariableDeclarationAndAssignmentComparator());
 		comparators.add(new OpenGlGenBuffersMethodComparator());
 		comparators.add(new OpenGlGenTexturesMethodComparator());
+
+
+		comparators.add(new PrototypedMethodDeclarationComparator());
 
 		return comparators;
 	}
