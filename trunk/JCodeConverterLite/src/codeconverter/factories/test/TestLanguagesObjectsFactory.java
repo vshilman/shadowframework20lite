@@ -1,5 +1,7 @@
 package codeconverter.factories.test;
 
+import tests.tmp.JavaIgnoredPatterns;
+import tests.tmp.NothingToIgnorePatterns;
 import codeconverter.cpp.CppCodePatternInterpreter;
 import codeconverter.cpp.codelines.CppHeaderCodePatternInterpreter;
 import codeconverter.filecodelinesgenerators.test.CppCodeLineGenerator;
@@ -22,6 +24,10 @@ public class TestLanguagesObjectsFactory extends ConcreteLanguagesObjectsFactory
 		map2.put("js", new JsCodePatternInterpreter());
 		map2.put("cpp", new CppCodePatternInterpreter());
 		map2.put("h", new CppHeaderCodePatternInterpreter());
+
+
+		map3.put("java", new JavaIgnoredPatterns());
+		map3.put("js", new NothingToIgnorePatterns());
 
 	}
 
