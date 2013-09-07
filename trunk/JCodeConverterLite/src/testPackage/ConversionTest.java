@@ -27,7 +27,7 @@ public class ConversionTest {
 
 
 
-        String exOut="js";
+        String exOut="h";
         String ifile="SFParameter.java";
         String c=conv.convertCode(ifile,getStream(ifile),exOut);
 
@@ -40,6 +40,7 @@ public class ConversionTest {
 
         DifferentiationResult res=GeneralTests.compareFiles("logMio."+exOut, ifile, getStream("logMio."+exOut), getStream(ifile),new StringWriter(), true);
 
+   /*
         Set<CodeModule> s1=res.getDifferentLeft();
         Set<CodeModule> s2=res.getDifferentRight();
 
@@ -54,7 +55,7 @@ public class ConversionTest {
 			CodeModule codeModule =iterator.next();
 			w2.write(codeModule.print()+"\n");
 		}
-        w2.close();
+        w2.close();*/
 
     }
 
