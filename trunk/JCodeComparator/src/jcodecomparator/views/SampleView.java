@@ -103,6 +103,15 @@ public class SampleView extends ViewPart {
 					String c=combo1.getText();
 					combo1.setItems(currentLanguages);
 					combo1.setText(c);
+					BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
+					ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
+					EventAdmin eventAdmin =ctx.getService(ref);
+					Map<String,Object> properties=new HashMap<>();
+					properties.put("COMBO_0", combo0.getText());
+
+					Event event=new Event("viewcommunication/syncEvent",properties);
+					eventAdmin.sendEvent(event);
+
 
 				}
 
@@ -123,6 +132,14 @@ public class SampleView extends ViewPart {
 					String c=combo0.getText();
 					combo0.setItems(currentLanguages);
 					combo0.setText(c);
+					BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
+					ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
+					EventAdmin eventAdmin =ctx.getService(ref);
+					Map<String,Object> properties=new HashMap<>();
+					properties.put("COMBO_1", combo1.getText());
+
+					Event event=new Event("viewcommunication/syncEvent",properties);
+					eventAdmin.sendEvent(event);
 
 				}
 

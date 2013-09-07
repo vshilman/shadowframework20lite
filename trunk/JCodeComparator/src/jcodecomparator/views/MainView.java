@@ -1,15 +1,24 @@
 package jcodecomparator.views;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
+import java.util.StringTokenizer;
 
-import jcodecomparator.Activator;
 import jcodecomparator.compare.CompareDelegate;
+import jcodecomparator.compare.ExternalFileCompareItem;
+import jcodecomparator.compare.SelectedTextCompareItem;
 import jcodecomparator.core.ColumnLayout;
 import jcodecomparator.core.CompareEditorInput;
 import jcodecomparator.core.IAccettableLeftRight;
 import jcodecomparator.editors.CompareEditorViewer;
+import jcodecomparator.test.TestImageByTypeKeeper;
 import jcodecomparator.test.TestLineStyleFactory;
 
 import org.eclipse.compare.CompareConfiguration;
@@ -24,14 +33,8 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
@@ -45,6 +48,12 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
+
+import codeconverter.factories.test.TestDataStructureTemplateFactory;
+import codeconverter.factories.test.TestLanguagesObjectsFactory;
+import codeconverter.templates.ConversionByTemplateDelegate;
 
 public class MainView extends ViewPart implements IAccettableLeftRight{
 
@@ -53,15 +62,49 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 	private String titleLeft="";
 	private String titleRight="";
 
+	private String extSelectLeft="";
+	private String extSelectRigth="";
+
 	private Label l1;
 	private Label l2;
+
+	public MainView() {
+		 BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
+
+	        EventHandler handler=new EventHandler() {
+
+				@Override
+				public void handleEvent(Event event) {
+					if(event.getProperty("COMBO_0")!=null){
+						extSelectLeft=(String) event.getProperty("COMBO_0");
+						//out.println(languageLeft);
+
+					}
+					if(event.getProperty("COMBO_1")!=null){
+						extSelectRigth=(String) event.getProperty("COMBO_1");
+						//out.println(languageRight);
+					}
+
+				}
+			};
+			Dictionary<String, String> properties=new Hashtable<>();
+			properties.put(EventConstants.EVENT_TOPIC, "viewcommunication/*");
+			ctx.registerService(EventHandler.class, handler, properties);
+
+			ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
+			EventAdmin eventAdmin =ctx.getService(ref);
+	        Map<String,Object> propert=new HashMap<>();
+			propert.put("Request", "");
+	        Event event=new Event("viewcommunication/init",propert);
+			eventAdmin.sendEvent(event);
+	}
 
 
 	@Override
 	public void createPartControl(Composite arg0) {
 		int style=SWT.MULTI;
 
-		MessageConsole myConsole = findConsole("Console");
+		MessageConsole myConsole = findConsole("Templ");
         final MessageConsoleStream out=myConsole.newMessageStream();
 
 		ColumnLayout l=new ColumnLayout();
@@ -129,7 +172,6 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				super.widgetSelected(e);
-
 				viewer.removeResource(true);
 				titleLeft="";
 				l1.setText(titleLeft);
@@ -140,10 +182,44 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
      			propert.put("Unblock", "left");
      	        Event event=new Event("viewcommunication/init",propert);
      			eventAdmin.sendEvent(event);
-
+     			event=new Event("viewcommunication/asyncEvent", propert);
+     			eventAdmin.postEvent(event);
 
 			}
 		});
+
+		Button buta2=new Button(comp2a,SWT.PUSH);
+		buta2.setSize(new Point(40,30));
+		buta2.setLocation(43, -2);
+		buta2.setImage(AbstractUIPlugin.imageDescriptorFromPlugin("JCodeComparator", "icons/templtrasp.png").createImage());
+		buta2.setToolTipText("Generate conversion using Data Structure Templates");
+		buta2.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				out.println(extSelectLeft+" "+extSelectRigth);
+				if(!titleLeft.equals("")){
+							InputStream str=viewer.getLeftInput().getDelegate().getContents();
+							ConversionByTemplateDelegate conv=new ConversionByTemplateDelegate(new TestLanguagesObjectsFactory(), new TestDataStructureTemplateFactory());
+							if(!extSelectRigth.equals("") && !extSelectRigth.equals(SampleView.DEF)){
+								String c=conv.convertCode(titleLeft, str, extSelectRigth);
+								StringTokenizer tok=new StringTokenizer(titleLeft, ".");
+								String name=tok.nextToken();
+								//File f=new File(name+"."+extSelectRigth);
+								if(c!=null){
+										//PrintWriter pw=new PrintWriter(f);
+										//pw.write(c);
+										//pw.close();
+										//ExternalFileCompareItem efc=new ExternalFileCompareItem(new TestImageByTypeKeeper(),f);
+										SelectedTextCompareItem efc=new SelectedTextCompareItem(new TestImageByTypeKeeper());
+										efc.setInformations(c, name+"."+extSelectRigth);
+										viewer.setRightInput(new CompareEditorInput(efc));
+										titleRight=name+"."+extSelectRigth;
+								}
+							}
+						}
+			    }
+		});
+
 
 		comp2a.layout();
 
@@ -181,7 +257,7 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 
 				viewer.removeResource(false);
 				titleRight="";
-				l1.setText(titleRight);
+				l2.setText(titleRight);
 				BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
      			ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
      			EventAdmin eventAdmin =ctx.getService(ref);
@@ -189,9 +265,43 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
      			propert.put("Unblock", "right");
      	        Event event=new Event("viewcommunication/init",propert);
      			eventAdmin.sendEvent(event);
-
+     			event=new Event("viewcommunication/asyncEvent", propert);
+     			eventAdmin.postEvent(event);
 
 			}
+		});
+
+		Button butb2=new Button(comp2b,SWT.PUSH);
+		butb2.setSize(new Point(40,30));
+		butb2.setLocation(43, -2);
+		butb2.setImage(AbstractUIPlugin.imageDescriptorFromPlugin("JCodeComparator", "icons/templtrasp.png").createImage());
+		butb2.setToolTipText("Generate conversion using Data Structure Templates");
+		butb2.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				out.println(extSelectLeft+" "+extSelectRigth);
+				if(!titleRight.equals("")){
+						InputStream str=viewer.getRightInput().getDelegate().getContents();
+						ConversionByTemplateDelegate conv=new ConversionByTemplateDelegate(new TestLanguagesObjectsFactory(), new TestDataStructureTemplateFactory());
+						if(!extSelectLeft.equals("") && !extSelectLeft.equals(SampleView.DEF)){
+							String c=conv.convertCode(titleRight, str, extSelectLeft);
+							StringTokenizer tok=new StringTokenizer(titleRight, ".");
+							String name=tok.nextToken();
+							//File f=new File(name+"."+extSelectLeft);
+							if(c!=null){
+									//PrintWriter pw=new PrintWriter(f);
+									//pw.write(c);
+									//pw.close();
+									//ExternalFileCompareItem efc=new ExternalFileCompareItem(new TestImageByTypeKeeper(),f);
+									SelectedTextCompareItem efc=new SelectedTextCompareItem(new TestImageByTypeKeeper());
+									efc.setInformations(c, name+"."+extSelectLeft);
+									viewer.setLeftInput(new CompareEditorInput(efc));
+									titleLeft=name+"."+extSelectLeft;
+									l1.setText(titleLeft);
+							}
+						}
+					}
+				}
 		});
 
 		comp2b.layout();
