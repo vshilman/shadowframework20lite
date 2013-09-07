@@ -1,14 +1,14 @@
 
 
-var name;
+var name=0;
 
-/*package shadow.pipeline.parameters;*/
+//package shadow.pipeline.parameters;
 
 
 
-/*
-protected short type=GLOBAL_GENERIC;
-*/
+
+//protected short type=GLOBAL_GENERIC;
+
 
 function SFParameter( ) {
 }
@@ -34,8 +34,8 @@ SFParameter.prototype["setType"]=function(type){
 	this.type=type;
 }
 
-/*@Override	public String toString() {
-return name+"("+type+")";
-}
-*/
+//@Override	public String toString() {
+//return name+"("+type+")";
+//}
+
 

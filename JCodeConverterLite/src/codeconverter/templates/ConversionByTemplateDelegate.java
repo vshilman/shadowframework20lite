@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import tests.tmp.GeneralTests;
 
@@ -107,22 +108,32 @@ public class ConversionByTemplateDelegate {
 					if(i!=(converted.size()-1)){
 						if(cd.getLastLine()<converted.get(i+1).getFirstLine()){
 							converted.add(i+1,cd);
-							convlist.add(i+1,new CannotConvertTemplate("/*\n"+cd.getExtendedCode()+"\n*/"));
+							convlist.add(i+1,new CannotConvertTemplate(putInComments(cd.getExtendedCode())));
 							break;
 						}
 					} else {
 						converted.add(cd);
-						convlist.add(new CannotConvertTemplate("/*"+cd.getExtendedCode()+"*/"));
+						convlist.add(new CannotConvertTemplate(putInComments(cd.getExtendedCode())));
 						break;
 					}
 				}
 				if(cd.getLastLine()<converted.get(0).getFirstLine()){
 					converted.add(0,cd);
-					convlist.add(0,new CannotConvertTemplate("/*"+cd.getExtendedCode()+"*/"));
+					convlist.add(0,new CannotConvertTemplate(putInComments(cd.getExtendedCode())));
 				}
 			}
 		}
 
+	}
+
+	private String putInComments(String s){
+
+		StringTokenizer tok=new StringTokenizer(s,"\n");
+		String ret="";
+		while(tok.hasMoreTokens()){
+			ret+="//"+tok.nextToken()+"\n";
+		}
+		return ret;
 	}
 
 

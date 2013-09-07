@@ -136,7 +136,7 @@ public class BasicAtrributeDeclarationCppHeaderTemplate extends BasicAttributeDe
 		if(defValues.containsKey(param.get("$TYPE$"))){
 			ass=defValues.get(param.get("$TYPE$"))[0];
 		}
-		String s=param.get("$TYPE$")+" "+param.get("$NAME$")+(Boolean.parseBoolean(param.get("$ASS$"))?"="+ass : "")+";";
+		String s=param.get("$TYPE$")+" "+param.get("$NAME$")+((Boolean.parseBoolean(param.get("$ASS$"))==true && ass.equals("null")==false)?"="+ass : "")+";";
 
 		return s;
 	}

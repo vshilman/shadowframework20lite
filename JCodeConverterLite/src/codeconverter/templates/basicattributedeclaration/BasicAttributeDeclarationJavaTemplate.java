@@ -126,7 +126,8 @@ public class BasicAttributeDeclarationJavaTemplate extends BasicAttributeDeclara
 			}
 		}
 
-		param.put("$ASS$", assigned+"");
+		//param.put("$ASS$", assigned+"");
+		param.put("$ASS$", true+""); //a java attribute is always assigned by default
 		param.put("$MOD$", modc);
 		param.put("$TYPE$", modt);
 		param.put("$NAME$", name);
