@@ -76,12 +76,12 @@ public class CodeCompareHandler extends AbstractHandler{
 			public void handleEvent(Event event) {
 				if(event.getProperty("COMBO_0")!=null){
 					languageLeft=(String) event.getProperty("COMBO_0");
-					out.println(languageLeft);
+					//out.println(languageLeft);
 
 				}
 				if(event.getProperty("COMBO_1")!=null){
 					languageRight=(String) event.getProperty("COMBO_1");
-					out.println(languageRight);
+					//out.println(languageRight);
 				}
 
 			}
@@ -96,6 +96,8 @@ public class CodeCompareHandler extends AbstractHandler{
 		propert.put("Request", "");
         Event event=new Event("viewcommunication/init",propert);
 		eventAdmin.sendEvent(event);
+		//event=new Event("viewcommunication/asyncEvent", propert);
+		//eventAdmin.postEvent(event);
     }
 
 
@@ -106,15 +108,19 @@ public class CodeCompareHandler extends AbstractHandler{
     	 MessageConsole myconsole = findConsole("console");
          final MessageConsoleStream out = myconsole.newMessageStream();
 
+         out.println("premuto");
         shell = HandlerUtil.getActiveWorkbenchWindow(arg0).getShell();
         currentSelection = HandlerUtil.getCurrentSelection(arg0);
+        out.println("preso");
         TestCompareItemConstructorFactory tcicf=new TestCompareItemConstructorFactory(new TestCompareItemGenerator(new ConcreteImageByTypeKeeper()));
         ICompareItem ci=tcicf.generateCompareItemConstructor(currentSelection.getClass().getCanonicalName()).getCompareItem(currentSelection);
+        out.println("generato");
         AdmittedTypesKeeper atk=new ConcreteAdmittedTypesKeeper();
         if(ci==null || atk.getAmmittedTypes().contains(ci.getType())==false){
             CannotCompareHandler cch=new CannotCompareHandler();
             cch.execute(arg0);
         } else {
+        	out.println("elsato");
             IWorkbenchWindow w=HandlerUtil.getActiveWorkbenchWindow(arg0);
             IWorkbenchPage p=w.getActivePage();
             try {
@@ -133,6 +139,7 @@ public class CodeCompareHandler extends AbstractHandler{
 
                 IAccettableLeftRight lr=(IAccettableLeftRight) part;
 
+                out.println("accetablacostruito");
                 //out.println(languageRight+" "+languageLeft+" "+ci.getType());
 
                 boolean notblock=true;
@@ -140,19 +147,20 @@ public class CodeCompareHandler extends AbstractHandler{
 
 
                 if(languageRight.equals(ci.getType())){
-                	  //out.print("1");
+                	  out.print("1");
                 	  lr.acceptRight(new CompareEditorInput(ci));
                 	  notblock=false;
                 	  blockRight=true;
                 } else
 	                if(languageLeft.equals(ci.getType())){
-	                	//out.print("3");
+	                	out.print("3");
+	                	out.print(ci.getType());
 	                  lr.acceptLeft(new CompareEditorInput(ci));
 	                  notblock=false;
 	                }
                  else
                 	 if(languageLeft.equals(SampleView.DEF)){
-                		 	//out.print("5");
+                		 	out.print("5");
                 			lr.acceptLeft(new CompareEditorInput(ci));
 
                 	        BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
@@ -162,6 +170,8 @@ public class CodeCompareHandler extends AbstractHandler{
                 			propert.put("Set_Left", ci.getType());
                 	        Event event=new Event("viewcommunication/init",propert);
                 			eventAdmin.sendEvent(event);
+                		//	event=new Event("viewcommunication/asyncEvent", propert);
+        				//	eventAdmin.postEvent(event);
 
                 			languageLeft=ci.getType();
 
@@ -169,9 +179,8 @@ public class CodeCompareHandler extends AbstractHandler{
                 	 }
                 	 else
                 		 if(languageRight.equals(SampleView.DEF)){
-                			// out.print("7");
+                			 out.print(9+"");
                 			 lr.acceptRight(new CompareEditorInput(ci));
-
                  	        BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
                  			ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
                  			EventAdmin eventAdmin =ctx.getService(ref);
@@ -179,6 +188,8 @@ public class CodeCompareHandler extends AbstractHandler{
                  			propert.put("Set_Right", ci.getType());
                  	        Event event=new Event("viewcommunication/init",propert);
                  			eventAdmin.sendEvent(event);
+                 			//event=new Event("viewcommunication/asyncEvent", propert);
+        					//eventAdmin.postEvent(event);
                  			languageRight=ci.getType();
 
 
@@ -198,6 +209,8 @@ public class CodeCompareHandler extends AbstractHandler{
             		propert.put("Block",blockRight? "right":"left" );
                     Event event=new Event("viewcommunication/init",propert);
             		eventAdmin.sendEvent(event);
+            	//	event=new Event("viewcommunication/asyncEvent", propert);
+				//	eventAdmin.postEvent(event);
                 }
 
                  }    catch (PartInitException e) {

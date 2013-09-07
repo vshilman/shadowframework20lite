@@ -11,7 +11,10 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
+import codeconverter.ComparisonDelegate;
 import codeconverter.DifferentiationResult;
+import codeconverter.factories.test.TestComparatorFactory;
+import codeconverter.factories.test.TestLanguagesObjectsFactory;
 import codeconverter.utility.FileStringUtility;
 
 import tests.tmp.GeneralTests;
@@ -32,12 +35,16 @@ public class CompareDelegate implements ComparisonExecutingDelegate{
         InputStream is1=left.getContents();
         InputStream is2=right.getContents();
 
-        ws.write("Comparing "+left.getName()+ " vs "+right.getName());
+      //  ws.write("Comparing "+left.getName()+ " vs "+right.getName());
 
 
         DifferentiationResult res=new DifferentiationResult();
 
-        if(left.getType().equals("js") && right.getType().equals("java")){
+        ComparisonDelegate cd=new ComparisonDelegate(new TestComparatorFactory(), new TestLanguagesObjectsFactory());
+
+        res=cd.compareFiles(left.getName(), right.getName(), is1, is2);
+
+       /* if(left.getType().equals("js") && right.getType().equals("java")){
 
         	res=GeneralTests.compareFiles(left.getName(), right.getName(), is1, is2, ws, true);
         }
@@ -46,10 +53,13 @@ public class CompareDelegate implements ComparisonExecutingDelegate{
 
         	res=GeneralTests.compareFiles(right.getName(), left.getName(), is2, is1, ws, false);
         }
+*/
+      //  FileStringUtility.writeTextFile(logFileName, ws.toString());
 
-        FileStringUtility.writeTextFile(logFileName, ws.toString());
-
-        return res;
+        if(res!=null){
+        	return res;
+        }
+        return new DifferentiationResult();
     }
 
 

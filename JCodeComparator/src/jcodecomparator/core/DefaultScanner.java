@@ -22,6 +22,7 @@ public class DefaultScanner {
 
 
 
+
 	    public DefaultScanner() {
 	    	initialize();
 	    }
@@ -62,20 +63,42 @@ public class DefaultScanner {
 			case -1:
 		    return Keywords.EOF.id;
 
+		  case '*': // continuation of a special comment
+			  c=read();
+			  while (true) {
+			        c = read();
+			        if ((c == Keywords.EOF.id) || (c == Keywords.EOL.id)) {
+			          unread(c);
+			          return Keywords.COMMENT.id;
+			        }
+			        if(c=='*'){
+			        	c=read();
+			        	if(c=='/'){
+			        		return Keywords.COMMENT.id;
+			        	}
+			        }
+			  }
+
 		  case '/': // comment
 		    c = read();
-		    if (c == '/') {
+		    if (c == '/' || c== '*') {
 		      while (true) {
 		        c = read();
 		        if ((c == Keywords.EOF.id) || (c == Keywords.EOL.id)) {
 		          unread(c);
 		          return Keywords.COMMENT.id;
 		        }
+		        if(c=='*'){
+		        	c=read();
+		        	if(c=='/'){
+		        		return Keywords.COMMENT.id;
+		        	}
+		        }
 		      }
 		    } else {
-		      unread(c);
-		    }
-		    return Keywords.OTHER.id;
+		    		unread(c);
+		    	    return Keywords.OTHER.id;
+		    	 }
 
 		  case '\'': // char const
 		    character: for (;;) {

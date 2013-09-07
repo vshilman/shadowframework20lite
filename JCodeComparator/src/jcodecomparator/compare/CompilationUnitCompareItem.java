@@ -24,24 +24,6 @@ public class CompilationUnitCompareItem implements ICompareItem{
 		this.ibtk = ibtk;
 	}
 
-/*	private String extractInfo(){
-
-		String info="";
-		File file=cu.getJavaElement().getResource().getFullPath().toFile();
-		try {
-			BufferedReader r=new BufferedReader(new FileReader(file));
-			String s=r.readLine();
-			while(s!=null){
-				info+=s+"\n";
-				s=r.readLine();
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return info;
-	}
-*/
 
 	@Override
 	public Image getImage() {
@@ -64,6 +46,7 @@ public class CompilationUnitCompareItem implements ICompareItem{
 
 	}
 
+	@SuppressWarnings("restriction")
 	@Override
 	public InputStream getContents() {
 		try {

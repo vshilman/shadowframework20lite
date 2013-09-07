@@ -1,7 +1,5 @@
 package jcodecomparator.editors;
 
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,18 +8,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.StringTokenizer;
-import java.util.Vector;
-
-
 import jcodecomparator.compare.BlankCompareItem;
 import jcodecomparator.core.CompareEditorInput;
 import jcodecomparator.core.ComparisonExecutingDelegate;
-import jcodecomparator.core.DefaultLineStyler;
 import jcodecomparator.core.LineBackgroundStylerListener;
 import jcodecomparator.core.LineStylerFactory;
-import jcodecomparator.popup_handlers.CodeCompareHandler;
-
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareUI;
 import org.eclipse.compare.contentmergeviewer.ContentMergeViewer;
@@ -29,19 +20,8 @@ import org.eclipse.compare.contentmergeviewer.ContentMergeViewer;
 
 import org.eclipse.compare.internal.ICompareContextIds;
 import org.eclipse.compare.internal.Utilities;
-import org.eclipse.core.runtime.Plugin;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.LineBackgroundEvent;
-import org.eclipse.swt.custom.LineStyleEvent;
-import org.eclipse.swt.custom.LineStyleListener;
-import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
@@ -49,15 +29,11 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
-import org.eclipse.ui.internal.ViewPluginAction;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-
 import codeconverter.CodeModule;
 import codeconverter.DifferentiationResult;
 
@@ -66,7 +42,16 @@ import codeconverter.DifferentiationResult;
 public class CompareEditorViewer extends ContentMergeViewer{
 
 
-    public static final String BUNDLE_NAME= "org.eclipse.compare.internal.ImageMergeViewerResources"; //$NON-NLS-1$
+    public CompareEditorInput getRightInput() {
+		return rightInput;
+	}
+
+	public CompareEditorInput getLeftInput() {
+		return leftInput;
+	}
+
+
+	public static final String BUNDLE_NAME= "org.eclipse.compare.internal.ImageMergeViewerResources"; //$NON-NLS-1$
 
     private CompareEditorInput rightInput;
     private CompareEditorInput leftInput;
@@ -85,7 +70,8 @@ public class CompareEditorViewer extends ContentMergeViewer{
     private LineBackgroundStylerListener dLeft;
     private LineBackgroundStylerListener dRight;
 
-
+    private int count=0;
+    private  MessageConsoleStream out;
 
     //private BufferedCanvas bcLeft;
     //private BufferedCanvas bcRight;
@@ -100,20 +86,22 @@ public class CompareEditorViewer extends ContentMergeViewer{
         buildControl(parent);
         String title= Utilities.getString(getResourceBundle(), "title"); //$NON-NLS-1$
         getControl().setData(CompareUI.COMPARE_VIEWER_TITLE, title);
+        MessageConsole myConsole = findConsole("PositionFinding");
+        out=myConsole.newMessageStream();
 
     }
 
     protected void updateContent(Object ancestor, Object left, Object right) {
 
         MessageConsole myConsole = findConsole("Console");
-         MessageConsoleStream out=myConsole.newMessageStream();
+        MessageConsoleStream out=myConsole.newMessageStream();
 
         if(left!=null){
             leftInput= (CompareEditorInput) left;
             setLineStyler(true);
             setInput(fLeft, left);
             dLeft.cleanToConsider();
-            if(right!=null){
+            if(dRight!=null){
                 dRight.cleanToConsider();
             }
         }
@@ -127,8 +115,9 @@ public class CompareEditorViewer extends ContentMergeViewer{
             }
         }
 
-       fLeft.redrawRange(0, fLeft.getText().length(), true);
-       fRight.redrawRange(0,fRight.getText().length(),true);
+
+        fRight.redrawRange(0,fRight.getText().length(),true);
+        fLeft.redrawRange(0, fLeft.getText().length(), true);
 
 
 
@@ -159,7 +148,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
     public void createControls(Composite composite) {
 
-    	Combo combo=new Combo(composite, SWT.NONE);
+        Combo combo=new Combo(composite, SWT.NONE);
 
         fLeft=new StyledText(composite,SWT.BORDER| SWT.V_SCROLL | SWT.H_SCROLL);
         fRight=new StyledText(composite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
@@ -271,22 +260,22 @@ public class CompareEditorViewer extends ContentMergeViewer{
         Display display = Display.getDefault();
 
         for (int i = 0; i < res.getUninterpretatesLeft().size(); i++) {
-            String s=res.getUninterpretatesLeft().get(i).getCode();
+            String s=res.getUninterpretatesLeft().get(i).getExtendedCode();
             Point pos=getPos(s, true,res.getUninterpretatesLeft().get(i).getFirstLine(),res.getUninterpretatesLeft().get(i).getLastLine());
             //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), true);
-            dLeft.setBackground(pos, new Color(display, new RGB(128, 128, 128)));
-           // out.println("posUs:  "+pos);
+            dLeft.setBackground(pos, new Color(display, new RGB(229, 220, 209)));
+            out.println("posUs:  "+pos);
             infos+=s+"\n";
         }
 
         infos+="Non interpretate destra:\n";
 
         for (int i = 0; i < res.getUninterpretatesRight().size(); i++) {
-            String s=res.getUninterpretatesRight().get(i).getCode();
-            Point pos=getPos(s, false,res.getUninterpretatesRight().get(i).getFirstLine(),res.getUninterpretatesLeft().get(i).getLastLine());
+            String s=res.getUninterpretatesRight().get(i).getExtendedCode();
+            Point pos=getPos(s, false,res.getUninterpretatesRight().get(i).getFirstLine(),res.getUninterpretatesRight().get(i).getLastLine());
             //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), false);
-            dRight.setBackground(pos, new Color(display, new RGB(128, 128, 128)));
-         //   out.println("posUd:  "+pos);
+            dRight.setBackground(pos, new Color(display, new RGB(229, 220, 209)));
+           out.println("posUd:  "+pos);
             infos+=s+"\n";
         }
 
@@ -297,11 +286,11 @@ public class CompareEditorViewer extends ContentMergeViewer{
         if(res.getDifferentLeft()!=null){
             for (Iterator<CodeModule> iterator = res.getDifferentLeft().iterator(); iterator.hasNext();) {
                 CodeModule cm=iterator.next();
-                String s=cm.getCode();
+                String s=cm.getExtendedCode();
                 Point pos=getPos(s, true,cm.getFirstLine(),cm.getLastLine());
                 //setBackGround(pos, new Color(display, new RGB(128, 128, 255)), true);
                 dLeft.setBackground(pos, new Color(display, new RGB(180, 214, 252)));
-              //  out.println("posS:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]");
+              out.println("posS:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]"+s);
                 infos+=s+"\n";
             }
         }
@@ -310,10 +299,10 @@ public class CompareEditorViewer extends ContentMergeViewer{
         if(res.getDifferentRight()!=null){
             for (Iterator<CodeModule> iterator = res.getDifferentRight().iterator(); iterator.hasNext();) {
                 CodeModule cm=iterator.next();
-                String s=cm.getCode();
+                String s=cm.getExtendedCode();
                 Point pos=getPos(s, false,cm.getFirstLine(),cm.getLastLine());
                 dRight.setBackground(pos, new Color(display, new RGB(180, 214, 252)));
-                out.println("posD:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]");
+                out.println("posD:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]"+s);
                 infos+=s+"\n";
 
             }
@@ -328,11 +317,8 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
     public Point getPos(String s, boolean left,int firstLine,int lastLine){
 
-        MessageConsole myConsole = findConsole("Console");
-         MessageConsoleStream out=myConsole.newMessageStream();
 
-
-
+         out.println(s+" "+firstLine+" "+lastLine);
 
         String text="";
         if(left){
@@ -341,42 +327,54 @@ public class CompareEditorViewer extends ContentMergeViewer{
             text=fRight.getText();
         }
 
-
-
         int f=getFirstIndexAtLine(text, firstLine);
         int l=getLastIndexAtLine(text, lastLine);
 
-     //   out.println("Devo ricercare da "+f+" a "+l);
+        out.println("Devo ricercare da "+f+" a "+l);
 
         if(text.indexOf(s,f)>=0 && text.indexOf(s,f)<=l){
+        	out.println("Esco subito");
             return new Point(text.indexOf(s,f),text.indexOf(s,f)+s.length());
         }
 
-        if(text.replaceAll(" ","").indexOf(s.replaceAll(" ", ""))>=0){
-
+        if(replaceSpaces(text).indexOf(replaceSpaces(s))>=0){
+        	s=replaceN(s);
+        	text=replaceN(text);
+        	out.println("------>"+text+"<-----");
+        	out.println("<------"+s+"------->");
             char[] sc=s.toCharArray();
             int pos=0;
             List<Character> fin=new ArrayList<>();
+            int oldpos=pos;
             for (int i = 0; i < sc.length; i++) {
-
                 fin.add(sc[i]);
                 String actual=convertToString(fin);
-
+                out.println(actual+"//");
                 int x=0;
                 while((text.indexOf(actual,f)<0 || text.indexOf(actual,f)>l) && x<10){
                     fin.add(fin.size()-1, ' ');
                     actual=convertToString(fin);
                     x++;
                 }
-
                 pos=text.indexOf(actual,f);
 
                 if(pos==-1){
-                    break;
+                	//That's possible that text has less spaces than s
+                	if(sc[i]==' '){
+                		for (int j = 0; j <11; j++) {
+							fin.remove(fin.size()-1);
+						}
+                		pos=oldpos;
+                	} else {
+                		   break;
+                	}
                 }
+                oldpos=pos;
 
             }
-
+            if(pos==-1){
+            	return new Point(-1,0);
+            }
             return new Point(pos, pos+fin.size());
 
         } else {
@@ -386,6 +384,29 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
     }
 
+    private String replaceSpaces(String s){
+
+    	char[] sc=s.toCharArray();
+    	List<Character> list=new ArrayList<>();
+    	for (int i = 0; i < sc.length; i++) {
+			if(sc[i]!=' ' && sc[i]!='\n' && sc[i]!='\t'){
+				list.add(sc[i]);
+			}
+		}
+    	return convertToString(list);
+    }
+
+    private String replaceN(String s){
+    	char[] sc=s.toCharArray();
+    	List<Character> list=new ArrayList<>();
+    	for (int i = 0; i < sc.length; i++) {
+			if(sc[i]=='\n' || sc[i]=='\t'){
+				sc[i]=' ';
+			}
+			list.add(sc[i]);
+		}
+    	return convertToString(list);
+    }
 
 
     private int getFirstIndexAtLine(String text,int line){
@@ -427,12 +448,12 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
 
     public void removeResource(boolean left){
-    		CompareEditorInput cei=new CompareEditorInput(new BlankCompareItem());
-    		if(left){
-    			updateContent(null, cei, null);
-    		} else {
-    			updateContent(null,null,cei);
-    		}
+            CompareEditorInput cei=new CompareEditorInput(new BlankCompareItem());
+            if(left){
+                updateContent(null, cei, null);
+            } else {
+                updateContent(null,null,cei);
+            }
     }
 
 
