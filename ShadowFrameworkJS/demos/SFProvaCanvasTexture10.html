@@ -1,14 +1,13 @@
-!-- SVG + FOREIGNOBJECT -->
-
-
+<!-------------------------
+	Esempio con DRAWWINDOW
+	------------------------->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html>
   <head>
 	
-	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-	<meta content="utf-8" http-equiv="encoding">
+
 	
     <title>House Test</title>
 	<script type="text/javascript" >
@@ -17,43 +16,45 @@
     <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
     <script type="text/javascript" src="SFViewer.js"></script>
     <script type="text/javascript" src="SFExamples.js"></script>
-
+    <script type="text/javascript" src="drawWindow.js"></script>
+	<script type="text/javascript" src="jquery-1.6.1.js"></script>
     <script type="text/javascript" >
 		
 		var nodeViewer;
-		var countTexture=0;
-		var data=0;
+		var count=0;
+		var canv = document.getElementById("canv");
 		
+		var rendered_canvas = 0;
 		
 		function initTextureFromCanvas(gl,c,sfPipelineTexture) {
 			
 			var texture = gl.createTexture();
 			var tex = c;
+			console.log(c+" c");
 			
 		
 			gl.bindTexture(gl.TEXTURE_2D, texture);
 			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex);
 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-			gl.generateMipmap(gl.TEXTURE_2D);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+			//gl.generateMipmap(gl.TEXTURE_2D);
 			
 			//here you assign the texture Object
 			sfPipelineTexture.textureObject = texture;
 			
-			countTexture++;
-			console.log(countTexture);
-				if(countTexture==1) {
+			//chiama startDrawing solo quando count=2
+			//così sono sicura che quando count=1 il canvas è creato e
+			//quando count=2 posso chiamare startDrawing perchè è stato caricato come texture
+			count++;
+			console.log(count);
+				if(count==1) {
 					nodeViewer.startDrawing();
+					console.log("start drawing...");
 				}
-					
 			
 		}
-		
-		
-		
-		
 	
 	
 		function buildNodeCallBack(){
@@ -68,15 +69,15 @@
 			//use SFGL2_getGL to get your gl object if you need it!!
 			var gl=SFGL2_getGL();
 			
-			var canv = document.getElementById("canv2");
-			initTextureFromCanvas(gl,canv,sfPipelineTexture1);
+			//console.log(document.getElementById("canv")+" sono un canvas!");
+			//var canv = document.getElementById("canv");
+			
+			initTextureFromCanvas(gl,rendered_canvas,sfPipelineTexture1);
 			//initTextureFromImage(gl,"images/crate.gif",sfPipelineTexture2);	
 			
-		
 			//'var sceneRoot' is the root of a scene tree. You will add other nodes to it 
 			var sceneRoot=new SFReferenceNode();
-			
-			
+		
 			
 				//You add objects-node to your scene node
 						//Parameters are (x,y,z,rotationY,r,g,b)
@@ -108,34 +109,36 @@
 		
 	
 		function Test(){
-			//"data" è una stringa che contiene
-			//l'<svg>, il <foreignObject> e l'html dentro il foreignObject
-			//dopodichè creo l'immagine e la disegno su canv2
 			
-			var canvas = document.getElementById("canv2");
-			var ctx = canvas.getContext("2d");
-			var data = "data:image/svg+xml," +
-	           "<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512'>" +
-	             "<foreignObject width='100%' height='100%'>" +
-	               "<div xmlns='http://www.w3.org/1999/xhtml' style='font-size:40px'>" +
-	                 "<em>I</em> love <span style='color:white; text-shadow:0 0 2px blue;'>blue</span>" +
-	               "</div>" +
-	             "</foreignObject>" +
-	           "</svg>";
-			var img = new Image();
-			img.src = data;
-		
-			ctx.fillStyle="#FFFFFF";
-			ctx.fillRect(0,0,256,256);
-			ctx.drawImage(img, 0, 0);
-					
 			setupAmbient();	
 			
 			nodeViewer=new SFViewer(buildNodeCallBack, updateData);
 			setupCanvas(nodeViewer,"canvas3d");
 			
-			
 	
+		}
+		
+		//funzione che disegna l'html (qui tutto il body ma si può passare anche solo uno specifico elemento) in un canvas
+		function capture(){
+			window.drawWindow(document, function(canvas) {
+			        //window.open(canvas.toDataURL("image/png"));
+			        //document.body.appendChild(canvas);
+			        //canvas.id="canv";
+			        //console.log(canvas.id);
+			        //canvas.width=512;
+					//canvas.height=512;
+					rendered_canvas = canvas;
+					//rendered_canvas.width=128;
+					//rendered_canvas.height=128;
+        			//var ctx=rendered_canvas.getContext("2d");
+					//ctx.fillStyle="#FFFFFF";
+					//ctx.fillRect(0,0,2048,2048);
+			        document.getElementById("target").style.display = "none";
+			        Test();
+        
+    		});
+ 			
+			
 		}
 		
     </script>
@@ -143,12 +146,17 @@
     
     
   </head>
-  <body onload="Test();">
-  	
-  	<canvas id="canv2" style="border: 1px solid red;" width="256" height="256">Your browser doesn't support HTML5</canvas>
-  	<canvas id="canvas3d" style="border: none;" width="500" height="500">Your browser doesn't support HTML5</canvas>
-  	
+  <body onload="capture();">
   
+  	
+  	<div id="target" style="border: 1px solid red; width:512px; height: 512px;">
+    	<!--<p style="font-size: 14px;">Some <span style="font-size: 28px; color: white">HTML</span> <br> <span style="font-size: 28px; color: white">with an image </span><img src="images/boston.jpg" height="2000" width="2000"/></p>-->
+		<p style="font-size: 250px;">Some <span style="font-size: 500px; color: red">HTML</span> <br> <span style="font-size: 250px; color: white">without image </span></p>
+	
+	</div>
+	
+	<canvas id="canvas3d" style="border: none;" width="500px" height="500px">Your browser doesn't support HTML5</canvas>
+  	
 	
   </body>
 </html>
