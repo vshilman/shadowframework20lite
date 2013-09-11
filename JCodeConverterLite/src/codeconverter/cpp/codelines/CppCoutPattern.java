@@ -14,7 +14,7 @@ public class CppCoutPattern extends CodePattern{
 
 
 	public CppCoutPattern() {
-		addCodePiece(new OptionalCode(new UniqueKeyword("std::")), new UniqueKeyword("cout"), new UniqueKeyword("<<"), new CodeSequence(new AlternativeCode(true, new CppAlgebraicExpression(),new CppBitwiseExpression(),new CppBooleanExpression()),"<<"));
+		addCodePiece(new OptionalCode(new UniqueKeyword("std::")), new UniqueKeyword("cout"), new UniqueKeyword("<<"), new CodeSequence(new AlternativeCode(true, new CppAlgebraicExpression(),new CppBitwiseExpression(),new CppBooleanExpression()),"<<"),new UniqueKeyword("<<"),new UniqueKeyword("endl"));
 		addPatternType(PatternType.METHOD_DECLARATION);
 	}
 

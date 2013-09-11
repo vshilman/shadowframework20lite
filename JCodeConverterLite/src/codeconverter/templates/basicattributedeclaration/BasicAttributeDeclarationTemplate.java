@@ -1,13 +1,8 @@
 package codeconverter.templates.basicattributedeclaration;
 
 import java.util.HashMap;
-import java.util.StringTokenizer;
-
 import codeconverter.ICodePiece;
-import codeconverter.java.JavaName;
-import codeconverter.java.JavaType;
 import codeconverter.templates.Template;
-import codeconverter.templates.utilities.GeneralPurposeTemplateUtilities;
 
 public abstract class BasicAttributeDeclarationTemplate implements Template{
 

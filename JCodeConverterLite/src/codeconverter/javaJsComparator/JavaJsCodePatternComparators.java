@@ -5,6 +5,7 @@ import java.util.List;
 
 import tests.tmp.PrototypedMethodDeclarationComparator;
 
+import codeconverter.comparator.CodePatternComparator;
 import codeconverter.comparator.PatternComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationAndAssignmentComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationComparator;

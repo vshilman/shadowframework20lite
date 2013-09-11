@@ -4,17 +4,17 @@ import java.util.List;
 
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
-import codeconverter.javaJsComparator.CodePieceComparator;
+import codeconverter.comparator.CodePieceComparator;
 
 public class ArrayDeclarationComparator extends CodePieceComparator {
 
 	@Override
 	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
-		if (javaFather.getPieceByType(PieceType.TYPE).getPieceByType(PieceType.TYPE).toString()
+		if (lang1Father.getPieceByType(PieceType.TYPE).getPieceByType(PieceType.TYPE).toString()
 				.equals("float")
-				&& jsFather.getPieceByType(PieceType.NAME).toString().equals("Float32Array")) {
-			if (new ArrayContentComparator().compare(javaFather.getPieceByType(PieceType.ARRAY_CONTENT),
-					jsFather.getPieceByType(PieceType.ARRAY_CONTENT))) {
+				&& lang2Father.getPieceByType(PieceType.NAME).toString().equals("Float32Array")) {
+			if (new ArrayContentComparator().compare(lang1Father.getPieceByType(PieceType.ARRAY_CONTENT),
+					lang2Father.getPieceByType(PieceType.ARRAY_CONTENT))) {
 				return true;
 			}
 		}

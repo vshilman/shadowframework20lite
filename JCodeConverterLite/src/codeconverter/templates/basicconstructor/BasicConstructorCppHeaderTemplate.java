@@ -147,6 +147,7 @@ public class BasicConstructorCppHeaderTemplate implements Template{
 		}
 		map.put("$ARGS$", s);
 
+
 		return map;
 	}
 
@@ -166,6 +167,9 @@ public class BasicConstructorCppHeaderTemplate implements Template{
 				String type=tokx.nextToken();
 				if(type.equalsIgnoreCase("string")){
 					type="string";
+				}
+				if(type.equalsIgnoreCase("boolean")){
+					type="bool";
 				}
 				mapArgs.put(name,type);
 			}

@@ -1,4 +1,4 @@
-package codeconverter.javaJsComparator;
+package codeconverter.comparator;
 
 import java.util.List;
 

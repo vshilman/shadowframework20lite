@@ -159,6 +159,9 @@ public class BasicSetCppHeaderTemplate implements Template{
 			if(prop.equals("$TYPE$") && value.equalsIgnoreCase("string")){
 				value="string";
 			}
+			if(prop.equals("$TYPE$") && value.equalsIgnoreCase("boolean")){
+				value="bool";
+			}
 			param.put(prop, value);
 		}
 	}

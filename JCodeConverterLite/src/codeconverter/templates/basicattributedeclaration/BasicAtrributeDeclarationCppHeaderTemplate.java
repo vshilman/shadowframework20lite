@@ -51,6 +51,10 @@ public class BasicAtrributeDeclarationCppHeaderTemplate extends BasicAttributeDe
 			if(prop.equals("$TYPE$") && value.equalsIgnoreCase("string")){
 				value="string";
 			}
+			if(prop.equals("$TYPE$") && value.equalsIgnoreCase("boolean")){
+				value="bool";
+			}
+
 			param.put(prop, value);
 		}
 	}
@@ -76,39 +80,8 @@ public class BasicAtrributeDeclarationCppHeaderTemplate extends BasicAttributeDe
 		String code2=code.substring(modt.length(),code.length()).trim();
 
 		String name="";
-		if(code2.contains("=")){
-			StringTokenizer tok=new StringTokenizer(code2,"=");
-			String n=tok.nextToken();
-			name=n.trim();
-			if(!GeneralPurposeTemplateUtilities.isNameSupported(piecen, name)){
-				System.out.println("uns2");
-				return false;
-			}
-			String code3=code2.substring(n.length()+1,code2.length()).trim();
-			StringTokenizer tok2=new StringTokenizer(code3,";");
-			if(tok2.countTokens()!=1){
-				System.out.println("ext2");
-				return false;
-			}
-			String assignment=tok2.nextToken().trim();
-			String defAss="null";
-			if(defValues.containsKey(modt)){
-				String[] arr=defValues.get(modt);
-				if(!GeneralPurposeTemplateUtilities.isValueInArray(arr, assignment)){
-					System.out.println("extass");
-					return false;
-				}
-			} else {
-				if(!assignment.equals(defAss)){
-					System.out.println("extass2");
-					return false;
-				}
-			}
-			assigned=true;
-
-		} else {
-			StringTokenizer tokk=new StringTokenizer(code2,";");
-			String n=tokk.nextToken();
+		StringTokenizer tokk=new StringTokenizer(code2,";");
+		String n=tokk.nextToken();
 			name=n.trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(piecen, name)){
 				System.out.println("uns2");
@@ -118,10 +91,8 @@ public class BasicAtrributeDeclarationCppHeaderTemplate extends BasicAttributeDe
 			if(!code3.equals(";")){
 				System.out.println("ex6+"+code3);
 				return false;
-			}
 		}
 
-		param.put("$ASS$", assigned+"");
 		param.put("$TYPE$", modt);
 		param.put("$NAME$", name);
 
@@ -136,7 +107,7 @@ public class BasicAtrributeDeclarationCppHeaderTemplate extends BasicAttributeDe
 		if(defValues.containsKey(param.get("$TYPE$"))){
 			ass=defValues.get(param.get("$TYPE$"))[0];
 		}
-		String s=param.get("$TYPE$")+" "+param.get("$NAME$")+((Boolean.parseBoolean(param.get("$ASS$"))==true && ass.equals("null")==false)?"="+ass : "")+";";
+		String s=param.get("$TYPE$")+" "+param.get("$NAME$")+";";
 
 		return s;
 	}

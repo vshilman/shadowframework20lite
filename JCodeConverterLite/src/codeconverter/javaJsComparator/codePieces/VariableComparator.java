@@ -3,7 +3,7 @@ package codeconverter.javaJsComparator.codePieces;
 import java.util.List;
 
 import codeconverter.ICodePiece;
-import codeconverter.javaJsComparator.CodePieceComparator;
+import codeconverter.comparator.CodePieceComparator;
 
 public class VariableComparator extends CodePieceComparator {
 

@@ -29,6 +29,7 @@ public class BasicAttributeDeclarationJsTemplate implements Template{
 	private void init(){
 		param.put("$NAME$","$NAME$");
 		param.put("$ASS$","false");
+		param.put("$TYPE","var");
 	}
 
 
@@ -103,7 +104,10 @@ public class BasicAttributeDeclarationJsTemplate implements Template{
 
 
 	public Template clone(){
-		return new BasicAttributeDeclarationJsTemplate(param);
+
+		HashMap<String, String> a=new HashMap<String, String>();
+		a.putAll(param);
+		return new BasicAttributeDeclarationJsTemplate(a);
 	}
 
 	public int getId(){

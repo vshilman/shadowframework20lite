@@ -4,7 +4,7 @@ import java.util.List;
 
 import codeconverter.ICodePiece;
 import codeconverter.PieceType;
-import codeconverter.javaJsComparator.CodePieceComparator;
+import codeconverter.comparator.CodePieceComparator;
 
 public class NameComparator extends CodePieceComparator {
 

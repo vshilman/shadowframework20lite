@@ -207,7 +207,9 @@ public class BasicSetJavaTemplate implements Template{
 			if(prop.equals("$TYPE$") && value.equalsIgnoreCase("string")){
 				value="String";
 			}
-
+			if(prop.equals("$TYPE$") && value.equalsIgnoreCase("bool")){
+				value="boolean";
+			}
 			param.put(prop, value);
 		}
 	}
