@@ -3,15 +3,15 @@ package codeconverter.javaJsComparator.codePieces;
 import java.util.List;
 
 import codeconverter.ICodePiece;
-import codeconverter.javaJsComparator.CodePieceComparator;
+import codeconverter.comparator.CodePieceComparator;
 
 public class NumberComparator extends CodePieceComparator {
 
 	@Override
 	protected boolean internalCompare(List<ICodePiece> javaPieces, List<ICodePiece> jsPieces) {
 
-		String formattedJavaNumber = getFormattedNumber(javaFather.toString());
-		String formattedJsNumber = getFormattedNumber(jsFather.toString());
+		String formattedJavaNumber = getFormattedNumber(lang1Father.toString());
+		String formattedJsNumber = getFormattedNumber(lang2Father.toString());
 
 		if (!formattedJavaNumber.equals(formattedJsNumber)) {
 			return false;

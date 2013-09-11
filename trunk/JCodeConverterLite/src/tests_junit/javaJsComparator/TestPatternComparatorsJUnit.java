@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import codeconverter.CodePattern;
+import codeconverter.comparator.CodePatternComparator;
 import codeconverter.java.JavaAttributeDeclaration;
 import codeconverter.java.JavaAttributeDeclarationAndAssignemnt;
 import codeconverter.java.JavaClassDeclaration;
@@ -23,7 +24,6 @@ import codeconverter.java.codelines.JavaVariableAssignment;
 import codeconverter.java.codelines.JavaVariableDeclaration;
 import codeconverter.java.codelines.JavaVariableDeclarationAndAssignment;
 import codeconverter.java.jogl.JoglMethodAccess;
-import codeconverter.javaJsComparator.CodePatternComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationAndAssignmentComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAndVariableDeclarationComparator;
 import codeconverter.javaJsComparator.codePatterns.AttributeAssignmentComparator;

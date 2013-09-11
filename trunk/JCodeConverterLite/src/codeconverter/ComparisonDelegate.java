@@ -10,10 +10,10 @@ import java.util.Set;
 import tests.tmp.GeneralTests;
 import tests.tmp.IgnoredPatterns;
 
+import codeconverter.comparator.CodePatternComparator;
 import codeconverter.comparator.PatternComparator;
 import codeconverter.factories.ComparatorFactory;
 import codeconverter.factories.LanguagesObjectsFactory;
-import codeconverter.javaJsComparator.CodePatternComparator;
 import codeconverter.utility.FileStringUtility;
 
 public class ComparisonDelegate {

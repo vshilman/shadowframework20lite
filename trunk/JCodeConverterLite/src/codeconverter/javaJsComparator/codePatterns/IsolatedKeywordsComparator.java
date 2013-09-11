@@ -2,7 +2,7 @@ package codeconverter.javaJsComparator.codePatterns;
 
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
-import codeconverter.javaJsComparator.CodePatternComparator;
+import codeconverter.comparator.CodePatternComparator;
 
 public class IsolatedKeywordsComparator implements CodePatternComparator {
 

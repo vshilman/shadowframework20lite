@@ -27,6 +27,7 @@ public class BasicConstructorIntializationListCppTemplate implements Template{
 	private boolean isDerivate=false;
 	private List<String> superlist=new ArrayList<String>();
 	private List<String> assigned=new ArrayList<String>();
+	private HashMap<String, String> defInstance=new HashMap<String, String>();
 
 
 
@@ -287,7 +288,14 @@ public class BasicConstructorIntializationListCppTemplate implements Template{
 		if(s.endsWith(",")){
 			s=s.substring(0,s.length()-1);
 		}
-		s+=" {\n\n}";
+		s+=" {\n";
+
+		Set<String> set2=defInstance.keySet();
+		for (Iterator<String> iterator = set2.iterator(); iterator.hasNext();) {
+			String string =iterator.next();
+			s+="\tthis->"+string+"="+defInstance.get(string)+";\n";
+		}
+		s+="\n}";
 		return s;
 	}
 
@@ -358,6 +366,12 @@ public class BasicConstructorIntializationListCppTemplate implements Template{
 				StringTokenizer tokx=new StringTokenizer(x,"$");
 				String name=tokx.nextToken();
 				String type=tokx.nextToken();
+				if(type.equalsIgnoreCase("string")){
+					type="string";
+				}
+				if(type.equalsIgnoreCase("boolean")){
+					type="bool";
+				}
 				mapArgs.put(name,type);
 			}
 		}
@@ -373,6 +387,19 @@ public class BasicConstructorIntializationListCppTemplate implements Template{
 			assigned.clear();
 			while(tok.hasMoreTokens()){
 				assigned.add(tok.nextToken());
+			}
+		}
+		if(prop.equals("$DEF$")){
+			StringTokenizer tok=new StringTokenizer(value,"&");
+			defInstance.clear();
+			while (tok.hasMoreTokens()){
+				String x=tok.nextToken();
+				StringTokenizer tokx=new StringTokenizer(x,"$");
+				String name=tokx.nextToken();
+				String ass=tokx.nextToken();
+				if(!assigned.contains(name)){
+					defInstance.put(name,ass);
+				}
 			}
 		}
 

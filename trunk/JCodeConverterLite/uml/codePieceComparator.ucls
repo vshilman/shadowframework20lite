@@ -1,10 +1,10 @@
 <class-diagram version="1.0.1" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="false" dependencies="false" nesting-relationships="true">  
-  <class id="1" corner="BOTTOM_RIGHT" language="java" name="codeconverter.javaJsComparator.CodePieceComparator" 
-    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/javaJsComparator/CodePieceComparator.java" 
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="codeconverter.comparator.CodePieceComparator" 
+    project="JCodeConverterLite" file="/JCodeConverterLite/src/codeconverter/comparator/CodePieceComparator.java" 
     binary="false">    
-    <position x="451" y="212" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="451" y="212"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
@@ -13,8 +13,8 @@
     name="codeconverter.javaJsComparator.codePieces.BooleanExpressionComparator" project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/BooleanExpressionComparator.java" 
     binary="false">    
-    <position x="84" y="311" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="84" y="311"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -22,8 +22,8 @@
   <class id="3" corner="BOTTOM_RIGHT" language="java" 
     name="codeconverter.javaJsComparator.codePieces.ExpressionComparator" project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/ExpressionComparator.java" binary="false">    
-    <position x="310" y="352" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="310" y="352"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -32,8 +32,8 @@
     name="codeconverter.javaJsComparator.codePieces.MethodVariablesComparator" project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/MethodVariablesComparator.java" 
     binary="false">    
-    <position x="784" y="80" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="784" y="80"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -41,8 +41,8 @@
   <class id="7" corner="BOTTOM_RIGHT" language="java" 
     name="codeconverter.javaJsComparator.codePieces.NewStatementComparator" project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/NewStatementComparator.java" binary="false">    
-    <position x="558" y="53" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="558" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -50,8 +50,8 @@
   <class id="8" corner="BOTTOM_RIGHT" language="java" name="codeconverter.javaJsComparator.codePieces.NameComparator" 
     project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/NameComparator.java" binary="false">    
-    <position x="826" y="167" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="826" y="167"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -59,8 +59,8 @@
   <class id="9" corner="BOTTOM_RIGHT" language="java" name="codeconverter.javaJsComparator.codePieces.MethodComparator" 
     project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/MethodComparator.java" binary="false">    
-    <position x="549" y="354" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="549" y="354"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -68,8 +68,8 @@
   <class id="10" corner="BOTTOM_RIGHT" language="java" name="codeconverter.javaJsComparator.codePieces.NumberComparator" 
     project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/NumberComparator.java" binary="false">    
-    <position x="310" y="53" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="310" y="53"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -78,8 +78,8 @@
     name="codeconverter.javaJsComparator.codePieces.OpenGlConstantComparator" project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/OpenGlConstantComparator.java" 
     binary="false">    
-    <position x="86" y="126" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="86" y="126"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -87,8 +87,8 @@
   <class id="12" corner="BOTTOM_RIGHT" language="java" 
     name="codeconverter.javaJsComparator.codePieces.OpenGlMethodComparator" project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/OpenGlMethodComparator.java" binary="false">    
-    <position x="789" y="311" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="789" y="311"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -97,8 +97,8 @@
     name="codeconverter.javaJsComparator.codePieces.TernaryOperatorComparator" project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/TernaryOperatorComparator.java" 
     binary="false">    
-    <position x="825" y="237" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="825" y="237"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -106,8 +106,8 @@
   <class id="14" corner="BOTTOM_RIGHT" language="java" 
     name="codeconverter.javaJsComparator.codePieces.VariableComparator" project="JCodeConverterLite" 
     file="/JCodeConverterLite/src/codeconverter/javaJsComparator/codePieces/VariableComparator.java" binary="false">    
-    <position x="85" y="213" width="-1" height="-1"/>    
-    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+    <position height="-1" width="-1" x="85" y="213"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
@@ -156,7 +156,8 @@
     <end type="SOURCE" nodeId="9"/>    
     <end type="TARGET" nodeId="1"/>  
   </generalization>  
-  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
     <attributes public="false" package="false" protected="false" private="false"/>    
     <operations public="false" package="false" protected="false" private="false"/>  
   </classifier-display>  

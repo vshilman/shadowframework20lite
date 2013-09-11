@@ -3,7 +3,7 @@ package codeconverter.javaJsComparator.codePatterns;
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
 import codeconverter.PieceType;
-import codeconverter.javaJsComparator.CodePatternComparator;
+import codeconverter.comparator.CodePatternComparator;
 
 public class OpenGlGenTexturesMethodComparator implements CodePatternComparator {
 

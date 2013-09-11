@@ -126,8 +126,8 @@ public class BasicAttributeDeclarationJavaTemplate extends BasicAttributeDeclara
 			}
 		}
 
-		//param.put("$ASS$", assigned+"");
-		param.put("$ASS$", true+""); //a java attribute is always assigned by default
+		param.put("$ASS$", assigned+"");
+		//param.put("$ASS$", true+""); //a java attribute is always assigned by default
 		param.put("$MOD$", modc);
 		param.put("$TYPE$", modt);
 		param.put("$NAME$", name);
@@ -151,6 +151,9 @@ public class BasicAttributeDeclarationJavaTemplate extends BasicAttributeDeclara
 		if(param.containsKey(prop)){
 			if(prop.equals("$TYPE$") && value.equalsIgnoreCase("string")){
 				value="String";
+			}
+			if(prop.equals("$TYPE$") && value.equalsIgnoreCase("bool")){
+				value="boolean";
 			}
 			param.put(prop, value);
 		}

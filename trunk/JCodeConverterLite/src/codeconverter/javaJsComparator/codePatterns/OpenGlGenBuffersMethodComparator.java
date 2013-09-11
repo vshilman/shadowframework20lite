@@ -5,7 +5,7 @@ import java.util.List;
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
 import codeconverter.PieceType;
-import codeconverter.javaJsComparator.CodePatternComparator;
+import codeconverter.comparator.CodePatternComparator;
 
 public class OpenGlGenBuffersMethodComparator implements CodePatternComparator {
 

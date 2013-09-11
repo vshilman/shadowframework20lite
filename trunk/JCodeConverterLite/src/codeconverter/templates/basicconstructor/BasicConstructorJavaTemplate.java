@@ -266,6 +266,9 @@ public class BasicConstructorJavaTemplate implements Template{
 				if(type.equalsIgnoreCase("string")){
 					type="String";
 				}
+				if(type.equalsIgnoreCase("bool")){
+					type="boolean";
+				}
 				mapArgs.put(name,type);
 			}
 		}

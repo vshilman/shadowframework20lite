@@ -7,6 +7,8 @@ package shadow.pipeline.parameters;
 public class SFParameter extends SFParameteri {
 
 	protected String name;
+	protected int assignMe;
+	protected boolean ancheMe;
 	protected short type=GLOBAL_GENERIC;
 
 	public SFParameter() {

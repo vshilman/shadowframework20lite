@@ -1,25 +1,20 @@
 
 
-var name=0;
-
-//package shadow.pipeline.parameters;
+//#include "SFParameter.h";
 
 
+//SFParameter::SFParameter() {
+//this->type=GLOBAL_GENERIC;
+//}
 
 
-//protected short type=GLOBAL_GENERIC;
-
-
-function SFParameter( ) {
+function SFParameter( name) {
+	this.name = name;
 }
 
 function SFParameter( name,type) {
 	this.name = name;
 	this.type = type;
-}
-
-function SFParameter( name) {
-	this.name = name;
 }
 
 SFParameter.prototype["getName"]=function(){
@@ -33,9 +28,4 @@ SFParameter.prototype["getType"]=function(){
 SFParameter.prototype["setType"]=function(type){
 	this.type=type;
 }
-
-//@Override	public String toString() {
-//return name+"("+type+")";
-//}
-
 
