@@ -14,7 +14,7 @@ SFBasisSpline2.prototype["getControlPointSize"]=function(){
 
 
 SFBasisSpline2.prototype["getControlPoint"]=function(index){
-			return this.vertices[i];
+			return this.vertices[index];
 		};
 
 SFBasisSpline2.prototype["getVertices"]=function(){
@@ -49,8 +49,8 @@ SFBasisSpline2.prototype["getDev2Dt"]=function(T,write){
 				
 				write.setValue(A);
 				write.mult(2);
-				write.addMult3f(-4, B);
-				write.addMult3f(2, C);
+				write.addMult(-4, B);
+				write.addMult(2, C);
 			}else{
 				if(v_index==0){
 					write.mult(0);
@@ -62,8 +62,8 @@ SFBasisSpline2.prototype["getDev2Dt"]=function(T,write){
 					var C=SFValuenf_middle(vertices[v_index], vertices[v_index+1]);
 					write.setValue(A);
 					write.mult(2);
-					write.addMult3f(-4, B);
-					write.addMult3f(2, C);
+					write.addMult(-4, B);
+					write.addMult(2, C);
 				}
 			}
 		};
@@ -90,28 +90,28 @@ SFBasisSpline2.prototype["getDevDt"]=function(T,write){
 				
 				write.setValue(A);
 				write.mult(-2*(1-t));
-				write.addMult3f(2-4*t, B);
-				write.addMult3f(2*t, C);
+				write.addMult(2-4*t, B);
+				write.addMult(2*t, C);
 			}else{
 				if(v_index==0){
 					var A=vertices[0];
 					var B=SFValuenf_middle(vertices[0],vertices[1]);
 					write.setValue(B);
-					write.subtract3f(A);
+					write.subtract(A);
 					
 				}else if(v_index==vertices.length-1){
 					var A=SFValuenf_middle(vertices[v_index-1],vertices[v_index]);
 					var B=vertices[v_index];
 					write.setValue(B);
-					write.subtract3f(A);
+					write.subtract(A);
 				}else{
 					var A=SFValuenf_middle(vertices[v_index-1], vertices[v_index]);
 					var B=vertices[v_index];
 					var C=SFValuenf_middle(vertices[v_index], vertices[v_index+1]);
 					write.setValue(A);
 					write.mult(-2*(1-t));
-					write.addMult3f(2-4*t, B);
-					write.addMult3f(2*t, C);
+					write.addMult(2-4*t, B);
+					write.addMult(2*t, C);
 				}
 			}
 			
@@ -148,14 +148,14 @@ SFBasisSpline2.prototype["getVertex"]=function(T,write){
 					var B=SFValuenf_middle(vertices[0],vertices[1]);
 					write.setValue(A);
 					write.mult(1-t);
-					write.addMult3f(t, B);
+					write.addMult(t, B);
 				}else if(v_index==vertices.length-1){
 					
 					var A=SFValuenf_middle(vertices[v_index-1],vertices[v_index]);
 					var B=vertices[v_index];
 					write.setValue(A);
 					write.mult(1-t);
-					write.addMult3f(t, B);
+					write.addMult(t, B);
 				}else{
 			
 					var A=SFValuenf_middle(vertices[v_index-1], vertices[v_index]);
@@ -164,8 +164,8 @@ SFBasisSpline2.prototype["getVertex"]=function(T,write){
 					
 					write.setValue(A);
 					write.mult((1-t)*(1-t));
-					write.addMult3f(2*t*(1-t), B);
-					write.addMult3f(t*t, C);
+					write.addMult(2*t*(1-t), B);
+					write.addMult(t*t, C);
 				}
 			}
 			

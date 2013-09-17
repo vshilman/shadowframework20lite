@@ -17,17 +17,17 @@ SFTensorProductSurface.prototype["destroy"]=function(){
 };
 
 
-SFTensorProductSurface.prototype["getX"]=function(T,v){
+SFTensorProductSurface.prototype["getX"]=function(u,v){
 	this.evaluateLastVertex(u,v);
-	return this.lastVertex.get()[1];
+	return this.lastVertex.get()[0];
 };
 
 
-SFTensorProductSurface.prototype["getY"]=function(T,v){
+SFTensorProductSurface.prototype["getY"]=function(u,v){
 	return this.lastVertex.get()[1];
 };
 
-SFTensorProductSurface.prototype["getZ"]=function(T,v){
+SFTensorProductSurface.prototype["getZ"]=function(u,v){
 	return this.lastVertex.get()[2];
 };	
 
@@ -46,10 +46,10 @@ SFTensorProductSurface.prototype["setProductCurve"]=function(productCurve){
 
 SFTensorProductSurface.prototype["evaluateLastVertex"]=function(u,v){
 	for (var i = 0; i < this.guideLines.length; i++) {
-		var vertex=productCurve.getControlPoint(i);
+		var vertex=this.productCurve.getControlPoint(i);
 		this.guideLines[i].getVertex(u, vertex);
 	}
-	this.productCurve.getVertex(v, lastVertex);
+	this.productCurve.getVertex(v, this.lastVertex);
 };	
 	
 		

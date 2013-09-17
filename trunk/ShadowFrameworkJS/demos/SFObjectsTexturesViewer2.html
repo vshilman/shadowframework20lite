@@ -68,13 +68,14 @@
 						//(rotationY): rotation around the Y-axis (in radians)
 						//(sfPipelineTexture): an sf texture you use to store the texture object
 				sceneRoot.addNode(createTexturedBaloon(-0.5,-0.5,0,1.54,sfPipelineTexture1));
-				sceneRoot.addNode(createTexturedBaloon(0.5,-0.5,0,3.54,sfPipelineTexture2));	
+				//sceneRoot.addNode(createTexturedBaloon(0.5,-0.5,0,3.54,sfPipelineTexture2));	
 						//Parameters are (x,y,z,rotationY,sfPipelineTexture)
 						//(x,y,z): coordinates of the base Point of the geometry
 						//(rotationY): rotation around the Y-axis (in radians)
 						//(sfPipelineTexture): an sf texture you use to store the texture object
 				sceneRoot.addNode(createTexturedRect(-0.2,-0.8,0,0,sfPipelineTexture2));	
 		
+				sceneRoot.addNode(createTexturedCurtain(0.7,-0.1,0,2.6,sfPipelineTexture2));	
 				
 			return sceneRoot;
 		}
