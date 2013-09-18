@@ -1,0 +1,165 @@
+<!-- SVG + FOREIGNOBJECT funzionante -->
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html>
+  <head>
+	
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	
+    <title>House Test</title>
+	<script type="text/javascript" >
+		var sfLocation="../src/";
+	</script>
+    <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
+    <script type="text/javascript" src="SFViewer.js"></script>
+    <script type="text/javascript" src="SFExamples2.js"></script>
+
+    <script type="text/javascript" >
+		
+		var nodeViewer;
+		var countTexture=0;
+		var data=0;
+		var d1=0;
+		var d2=0;		
+		
+		function initTextureFromCanvas(gl,c,sfPipelineTexture) {
+			
+			var texture = gl.createTexture();
+			var tex = c;
+			
+		
+			gl.bindTexture(gl.TEXTURE_2D, texture);
+			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, tex);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+			gl.generateMipmap(gl.TEXTURE_2D);
+			
+			//here you assign the texture Object
+			sfPipelineTexture.textureObject = texture;
+			
+			countTexture++;
+			console.log(countTexture);
+				if(countTexture==1) {
+					var d2 = new Date().getTime();
+    				console.log("d2: "+d2+" d1: "+d1);
+    				var durata = d2-d1;
+    				console.log("durata: "+durata);
+					nodeViewer.startDrawing();
+					console.log("start drawing...");
+				}
+					
+			
+		}
+		
+		
+		
+		
+	
+	
+		function buildNodeCallBack(){
+			
+			console.log("enter buildnodecallback");
+			
+		
+			//use a SFGL20Texture object to store texture Object
+			var sfPipelineTexture1 = new SFGL20Texture();
+			//var sfPipelineTexture2 = new SFGL20Texture();
+		
+			//use SFGL2_getGL to get your gl object if you need it!!
+			var gl=SFGL2_getGL();
+			
+			var canv = document.getElementById("canv2");
+			initTextureFromCanvas(gl,canv,sfPipelineTexture1);
+			//initTextureFromImage(gl,"images/crate.gif",sfPipelineTexture2);	
+			
+		
+			//'var sceneRoot' is the root of a scene tree. You will add other nodes to it 
+			var sceneRoot=new SFReferenceNode();
+			
+			
+			
+				//You add objects-node to your scene node
+						//Parameters are (x,y,z,rotationY,r,g,b)
+						//(x,y,z): coordinates of the base Point of the geometry
+						//(rotationY): rotation around the Y-axis (in radians)
+						//(r,g,b): the colour of the baloon
+				sceneRoot.addNode(createBaloon(0,0,0, 0, 1,0.6,0 ));
+				sceneRoot.addNode(createBaloon(0.5,0,0, 1.8, 0,1,1 ));
+						//Parameters are (x,y,z,rotationY,sfPipelineTexture)
+						//(x,y,z): coordinates of the base Point of the geometry
+						//(rotationY): rotation around the Y-axis (in radians)
+						//(sfPipelineTexture): an sf texture you use to store the texture object
+				//sceneRoot.addNode(createTexturedBaloon(-0.5,-0.5,0,1.54,sfPipelineTexture1));
+				sceneRoot.addNode(createTexturedBaloon(-0.5,-0.5,0,-0.6,sfPipelineTexture1));
+				sceneRoot.addNode(createTexturedBaloon(0.5,-0.5,0,0,sfPipelineTexture1));	
+						//Parameters are (x,y,z,rotationY,sfPipelineTexture)
+						//(x,y,z): coordinates of the base Point of the geometry
+						//(rotationY): rotation around the Y-axis (in radians)
+						//(sfPipelineTexture): an sf texture you use to store the texture object
+				sceneRoot.addNode(createTexturedRect(-0.2,-0.8,0,0,sfPipelineTexture1));
+			
+			
+			return sceneRoot;
+		}
+		
+		function updateData(){
+			//TODO 
+		}
+		
+	
+		function Test(){
+			//"data" è una stringa che contiene
+			//l'<svg>, il <foreignObject> e l'html dentro il foreignObject
+			//dopodichè creo l'immagine e la disegno su canv2
+			
+			 d1 = new Date().getTime();
+    		console.log("d1: "+d1);
+			
+			var canvas = document.getElementById("canv2");
+			var ctx = canvas.getContext("2d");
+			var data = "data:image/svg+xml," +
+	           "<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512'>" +
+	             "<foreignObject width='100%' height='100%'>" +
+	               "<div xmlns='http://www.w3.org/1999/xhtml' style='font-size:40px'>" +
+	                 "<span style='font-size: 40px; color: white; text-shadow:0 0 5px white;'>Auguri dottore!</span>" +
+	               "</div>" +     
+	             "</foreignObject>" +
+	           "</svg>";
+			var img = new Image();
+			img.src = data;
+		
+			ctx.fillStyle="#FFFFFF";
+			ctx.fillRect(0,0,256,256);
+			ctx.drawImage(img, 0, 0);
+			
+			canvas.style.display = "none";
+					
+			setupAmbient();	
+			
+			nodeViewer=new SFViewer(buildNodeCallBack, updateData);
+			setupCanvas(nodeViewer,"canvas3d");
+			
+			
+	
+		}
+		
+    </script>
+    
+    
+    
+  </head>
+  <body onload="Test();">
+  	
+  	<canvas id="canv2" style="border: 1px solid red;" width="256" height="256">Your browser doesn't support HTML5</canvas>
+  	<canvas id="canvas3d" style="border: none;" width="1000" height="1000">Your browser doesn't support HTML5</canvas>
+  	
+  
+	
+  </body>
+</html>
