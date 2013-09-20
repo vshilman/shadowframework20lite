@@ -53,14 +53,14 @@ public class TestFileComparatorUsingUtils {
 
 			String infos="Non interpretate sinistra:\n";
 
-			for (int j = 0; i < res.getUninterpretatesLeft().size(); j++) {
+			for (int j = 0; j < res.getUninterpretatesLeft().size(); j++) {
 				infos+=res.getUninterpretatesLeft().get(j).getCode()+"\n";
 			}
 
 			infos+="Non interpretate destra:\n";
 
-			for (int j = 0; i < res.getUninterpretatesRight().size(); j++) {
-				infos+=res.getUninterpretatesRight().get(i).getCode()+"\n";
+			for (int j = 0; j < res.getUninterpretatesRight().size(); j++) {
+				infos+=res.getUninterpretatesRight().get(j).getCode()+"\n";
 			}
 
 

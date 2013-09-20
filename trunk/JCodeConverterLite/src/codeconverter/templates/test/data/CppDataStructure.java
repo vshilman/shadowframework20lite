@@ -41,6 +41,7 @@ public class CppDataStructure implements Structure{
 
 	@Override
 	public String buildCode(String className,List<Template> convlist) {
+
 		String fin="#include ";
 
 		int[] good={2,3,4};
@@ -51,8 +52,8 @@ public class CppDataStructure implements Structure{
 				break;
 			}
 		}
-		fin+=name+".h\n\n";
-/*
+		fin+=name+".h\n#include <iostream>\n\n";
+
 		HashMap<String, String> toInitialize=new HashMap<String, String>();
 
 		while(GeneralPurposeTemplateUtilities.findTemplateByID(convlist, 1)!=null){
@@ -69,12 +70,12 @@ public class CppDataStructure implements Structure{
 			String n =  iterator.next();
 			c+=n+"$"+toInitialize.get(n)+"&";
 		}
-*/
+
 		for (int i = 0; i < convlist.size(); i++) {
-/*
+
 			if(convlist.get(i).getId()==4){
 				convlist.get(i).setProperty("$DEF$", c);
-			}*/
+			}
 			fin+=convlist.get(i).constructCode()+"\n\n";
 		}
 

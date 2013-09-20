@@ -4,9 +4,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
-import tests.tmp.IgnoredPatterns;
 
 import codeconverter.BlockDataInterpreter;
+import codeconverter.comparator.ignored.IgnoredPatterns;
 import codeconverter.factories.LanguagesObjectsFactory;
 import codeconverter.filecodelinesgenerators.CodeLineGenerator;
 import codeconverter.filecodelinesgenerators.FileCodeLine;
@@ -15,7 +15,6 @@ public class ConcreteLanguagesObjectsFactory implements LanguagesObjectsFactory{
 
 	protected HashMap<String, CodeLineGenerator> map=new HashMap<String, CodeLineGenerator>();
 	protected HashMap<String, BlockDataInterpreter> map2=new HashMap<String, BlockDataInterpreter>();
-	protected HashMap<String, IgnoredPatterns> map3=new HashMap<String, IgnoredPatterns>();
 
 
 	@Override
@@ -35,12 +34,7 @@ public class ConcreteLanguagesObjectsFactory implements LanguagesObjectsFactory{
 		return null;
 	}
 
-	public IgnoredPatterns getIgnoredPatterns(String ext) {
-		if(map3.containsKey(ext)){
-			return map3.get(ext);
-		}
-		return null;
-	}
+
 
 
 

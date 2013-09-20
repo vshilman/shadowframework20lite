@@ -11,16 +11,16 @@ public class CppHeaderCodePatterns {
 
 	public static List<CodePattern> getPatterns(){
 
-		patterns.add(new CppClassDeclaration());
-		patterns.add(new CppMethodHeaderDeclaration());
-		patterns.add(new CppAttributeDeclaration());
-		patterns.add(new CppisolatedkeyWords());
-		patterns.add(new CppConstructorHeaderDeclaration());
-		patterns.add(new CppDestructorHeaderDeclaration());
-		patterns.add(new CppFriendClassDeclaration());
-		patterns.add(new CppGenericDirectiveLine());
-		patterns.add(new CppIncludeDirectiveLine());
-		patterns.add(new CppNamespaceDeclaration());
+		patterns.add(new CppClassDeclaration()); //ok
+		patterns.add(new CppMethodHeaderDeclaration()); //ok
+		patterns.add(new CppAttributeDeclaration()); //ok
+		patterns.add(new CppisolatedkeyWords()); //ok
+		patterns.add(new CppConstructorHeaderDeclaration()); //ok
+		patterns.add(new CppDestructorHeaderDeclaration()); //no need
+		patterns.add(new CppFriendClassDeclaration()); //no need
+		patterns.add(new CppGenericDirectiveLine()); //no need
+		patterns.add(new CppIncludeDirectiveLine()); //no need
+		patterns.add(new CppNamespaceDeclaration()); //no need
 		return patterns;
 	}
 

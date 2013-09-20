@@ -18,6 +18,7 @@ import codeconverter.CodeModule;
 import codeconverter.CodePattern;
 import codeconverter.DifferentiationResult;
 import codeconverter.comparator.CodePatternComparator;
+import codeconverter.comparator.ignored.JavaIgnoredPatterns;
 import codeconverter.java.JavaCodePatternInterpreter;
 import codeconverter.java.JavaConstructorDeclaration;
 import codeconverter.javaJsComparator.JavaJsCodePatternComparators;

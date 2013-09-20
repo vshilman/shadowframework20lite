@@ -1,130 +1,170 @@
 
-house.cpp
-[LIBRARY_DECLARATION] -------> #include  "house.h"  
+p
+[LIBRARY_DECLARATION] -------> #include  "SFParameter.h"  
 null:#include
-SEQUENCE: "house.h"  
-		EXPRESSION: "house.h"  
-				COMPOSITE: "house.h"  
+SEQUENCE: "SFParameter.h"  
+		EXPRESSION: "SFParameter.h"  
+				COMPOSITE: "SFParameter.h"  
 						IGNORED:
-						VARIABLE:"house.h"  
-								NAME:"house.h"
+						VARIABLE:"SFParameter.h"  
+								NAME:"SFParameter.h"
 								IGNORED:
 								IGNORED:
 
 
-[CONSTRUCTOR_DECLARATION] -------> House   :: House   (  int roofHeight  ,  int baseWidth  ,  int baseHeight   )
-NAME:House  
-		NAME:House
+[CONSTRUCTOR_DECLARATION] -------> SFParameter   :: SFParameter   (  )
+NAME:SFParameter  
+		NAME:SFParameter
 		IGNORED:
 		IGNORED:
 KEYWORD:::
-NAME:House  
-		NAME:House
+NAME:SFParameter  
+		NAME:SFParameter
 		IGNORED:
 		IGNORED:
 KEYWORD:(
-METHOD_VARIABLES: int roofHeight  ,  int baseWidth  ,  int baseHeight  
-		VARIABLE: int roofHeight  
-				COMPOSITE: int
+METHOD_VARIABLES:
+KEYWORD:)
+
+
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this -> type   =  GLOBAL_GENERIC  
+KEYWORD:this
+KEYWORD:->
+NAME:type  
+		NAME:type
+		IGNORED:
+		IGNORED:
+COMPOSITE:=  GLOBAL_GENERIC  
+		KEYWORD:=
+		EXPRESSION: GLOBAL_GENERIC  
+				COMPOSITE: GLOBAL_GENERIC  
 						IGNORED:
-						TYPE:int
-				NAME:roofHeight  
-						NAME:roofHeight
+						VARIABLE:GLOBAL_GENERIC  
+								NAME:GLOBAL_GENERIC
+								IGNORED:
+								IGNORED:
+
+
+[CONSTRUCTOR_DECLARATION] -------> SFParameter   :: SFParameter   (  string name   )
+NAME:SFParameter  
+		NAME:SFParameter
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:SFParameter  
+		NAME:SFParameter
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: string name  
+		VARIABLE: string name  
+				COMPOSITE: string
+						IGNORED:
+						TYPE:string
+				NAME:name  
+						NAME:name
+						IGNORED:
+						IGNORED:
+KEYWORD:)
+
+
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this -> name   =  name  
+KEYWORD:this
+KEYWORD:->
+NAME:name  
+		NAME:name
+		IGNORED:
+		IGNORED:
+COMPOSITE:=  name  
+		KEYWORD:=
+		EXPRESSION: name  
+				COMPOSITE: name  
+						IGNORED:
+						VARIABLE:name  
+								NAME:name
+								IGNORED:
+								IGNORED:
+
+
+[CONSTRUCTOR_DECLARATION] -------> SFParameter   :: SFParameter   (  string name  ,  short type   )
+NAME:SFParameter  
+		NAME:SFParameter
+		IGNORED:
+		IGNORED:
+KEYWORD:::
+NAME:SFParameter  
+		NAME:SFParameter
+		IGNORED:
+		IGNORED:
+KEYWORD:(
+METHOD_VARIABLES: string name  ,  short type  
+		VARIABLE: string name  
+				COMPOSITE: string
+						IGNORED:
+						TYPE:string
+				NAME:name  
+						NAME:name
 						IGNORED:
 						IGNORED:
 		KEYWORD:, 
-		VARIABLE: int baseWidth  
-				COMPOSITE: int
+		VARIABLE: short type  
+				COMPOSITE: short
 						IGNORED:
-						TYPE:int
-				NAME:baseWidth  
-						NAME:baseWidth
-						IGNORED:
-						IGNORED:
-		KEYWORD:, 
-		VARIABLE: int baseHeight  
-				COMPOSITE: int
-						IGNORED:
-						TYPE:int
-				NAME:baseHeight  
-						NAME:baseHeight
+						TYPE:short
+				NAME:type  
+						NAME:type
 						IGNORED:
 						IGNORED:
 KEYWORD:)
 
 
-[SUPER, LINE_OF_CODE] -------> super (  )
-KEYWORD:super
-KEYWORD:(
-SEQUENCE:
-KEYWORD:)
-
-
-[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . roofHeight   =  roofHeight  
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this -> name   =  name  
 KEYWORD:this
-KEYWORD:.
-NAME:roofHeight  
-		NAME:roofHeight
+KEYWORD:->
+NAME:name  
+		NAME:name
 		IGNORED:
 		IGNORED:
-COMPOSITE:=  roofHeight  
+COMPOSITE:=  name  
 		KEYWORD:=
-		EXPRESSION: roofHeight  
-				COMPOSITE: roofHeight  
+		EXPRESSION: name  
+				COMPOSITE: name  
 						IGNORED:
-						VARIABLE:roofHeight  
-								NAME:roofHeight
+						VARIABLE:name  
+								NAME:name
 								IGNORED:
 								IGNORED:
 
 
-[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . baseWidth   =  baseWidth  
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this -> type   =  type  
 KEYWORD:this
-KEYWORD:.
-NAME:baseWidth  
-		NAME:baseWidth
+KEYWORD:->
+NAME:type  
+		NAME:type
 		IGNORED:
 		IGNORED:
-COMPOSITE:=  baseWidth  
+COMPOSITE:=  type  
 		KEYWORD:=
-		EXPRESSION: baseWidth  
-				COMPOSITE: baseWidth  
+		EXPRESSION: type  
+				COMPOSITE: type  
 						IGNORED:
-						VARIABLE:baseWidth  
-								NAME:baseWidth
+						VARIABLE:type  
+								NAME:type
 								IGNORED:
 								IGNORED:
 
 
-[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . baseHeight   =  baseHeight  
-KEYWORD:this
-KEYWORD:.
-NAME:baseHeight  
-		NAME:baseHeight
+[METHOD_DECLARATION] ------->  string SFParameter   :: getName   (  )
+COMPOSITE: string
 		IGNORED:
-		IGNORED:
-COMPOSITE:=  baseHeight  
-		KEYWORD:=
-		EXPRESSION: baseHeight  
-				COMPOSITE: baseHeight  
-						IGNORED:
-						VARIABLE:baseHeight  
-								NAME:baseHeight
-								IGNORED:
-								IGNORED:
-
-
-[METHOD_DECLARATION] ------->  int House   :: getRoofHeight   (  )
-COMPOSITE: int
-		IGNORED:
-		TYPE:int
-VARIABLE:House  
-		NAME:House
+		TYPE:string
+VARIABLE:SFParameter  
+		NAME:SFParameter
 		IGNORED:
 		IGNORED:
 KEYWORD:::
-NAME:getRoofHeight  
-		NAME:getRoofHeight
+NAME:getName  
+		NAME:getName
 		IGNORED:
 		IGNORED:
 KEYWORD:(
@@ -132,73 +172,29 @@ METHOD_VARIABLES:
 KEYWORD:)
 
 
-[RETURN, LINE_OF_CODE] -------> return   roofHeight  
+[RETURN, LINE_OF_CODE] -------> return   name  
 KEYWORD:return
 IGNORED:
-EXPRESSION: roofHeight  
-		COMPOSITE: roofHeight  
+EXPRESSION: name  
+		COMPOSITE: name  
 				IGNORED:
-				VARIABLE:roofHeight  
-						NAME:roofHeight
+				VARIABLE:name  
+						NAME:name
 						IGNORED:
 						IGNORED:
 
 
-[METHOD_DECLARATION] ------->  void House   :: setRoofHeight   (  int roofHeight   )
-COMPOSITE: void
+[METHOD_DECLARATION] ------->  short SFParameter   :: getType   (  )
+COMPOSITE: short
 		IGNORED:
-		TYPE:void
-VARIABLE:House  
-		NAME:House
+		TYPE:short
+VARIABLE:SFParameter  
+		NAME:SFParameter
 		IGNORED:
 		IGNORED:
 KEYWORD:::
-NAME:setRoofHeight  
-		NAME:setRoofHeight
-		IGNORED:
-		IGNORED:
-KEYWORD:(
-METHOD_VARIABLES: int roofHeight  
-		VARIABLE: int roofHeight  
-				COMPOSITE: int
-						IGNORED:
-						TYPE:int
-				NAME:roofHeight  
-						NAME:roofHeight
-						IGNORED:
-						IGNORED:
-KEYWORD:)
-
-
-[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . roofHeight   =  roofHeight  
-KEYWORD:this
-KEYWORD:.
-NAME:roofHeight  
-		NAME:roofHeight
-		IGNORED:
-		IGNORED:
-COMPOSITE:=  roofHeight  
-		KEYWORD:=
-		EXPRESSION: roofHeight  
-				COMPOSITE: roofHeight  
-						IGNORED:
-						VARIABLE:roofHeight  
-								NAME:roofHeight
-								IGNORED:
-								IGNORED:
-
-
-[METHOD_DECLARATION] ------->  int House   :: getBaseWidth   (  )
-COMPOSITE: int
-		IGNORED:
-		TYPE:int
-VARIABLE:House  
-		NAME:House
-		IGNORED:
-		IGNORED:
-KEYWORD:::
-NAME:getBaseWidth  
-		NAME:getBaseWidth
+NAME:getType  
+		NAME:getType
 		IGNORED:
 		IGNORED:
 KEYWORD:(
@@ -206,132 +202,60 @@ METHOD_VARIABLES:
 KEYWORD:)
 
 
-[RETURN, LINE_OF_CODE] -------> return   baseWidth  
+[RETURN, LINE_OF_CODE] -------> return this ->  type  
 KEYWORD:return
-IGNORED:
-EXPRESSION: baseWidth  
-		COMPOSITE: baseWidth  
+COMPOSITE:this ->
+		KEYWORD:this
+		KEYWORD:->
+EXPRESSION: type  
+		COMPOSITE: type  
 				IGNORED:
-				VARIABLE:baseWidth  
-						NAME:baseWidth
+				VARIABLE:type  
+						NAME:type
 						IGNORED:
 						IGNORED:
 
 
-[METHOD_DECLARATION] ------->  void House   :: setBaseWidth   (  int baseWidth   )
+[METHOD_DECLARATION] ------->  void SFParameter   :: setType   (  short type   )
 COMPOSITE: void
 		IGNORED:
 		TYPE:void
-VARIABLE:House  
-		NAME:House
+VARIABLE:SFParameter  
+		NAME:SFParameter
 		IGNORED:
 		IGNORED:
 KEYWORD:::
-NAME:setBaseWidth  
-		NAME:setBaseWidth
+NAME:setType  
+		NAME:setType
 		IGNORED:
 		IGNORED:
 KEYWORD:(
-METHOD_VARIABLES: int baseWidth  
-		VARIABLE: int baseWidth  
-				COMPOSITE: int
+METHOD_VARIABLES: short type  
+		VARIABLE: short type  
+				COMPOSITE: short
 						IGNORED:
-						TYPE:int
-				NAME:baseWidth  
-						NAME:baseWidth
+						TYPE:short
+				NAME:type  
+						NAME:type
 						IGNORED:
 						IGNORED:
 KEYWORD:)
 
 
-[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . baseWidth   =  baseWidth  
+[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this -> type   =  type  
 KEYWORD:this
-KEYWORD:.
-NAME:baseWidth  
-		NAME:baseWidth
+KEYWORD:->
+NAME:type  
+		NAME:type
 		IGNORED:
 		IGNORED:
-COMPOSITE:=  baseWidth  
+COMPOSITE:=  type  
 		KEYWORD:=
-		EXPRESSION: baseWidth  
-				COMPOSITE: baseWidth  
+		EXPRESSION: type  
+				COMPOSITE: type  
 						IGNORED:
-						VARIABLE:baseWidth  
-								NAME:baseWidth
-								IGNORED:
-								IGNORED:
-
-
-[METHOD_DECLARATION] ------->  int House   :: getBaseHeight   (  )
-COMPOSITE: int
-		IGNORED:
-		TYPE:int
-VARIABLE:House  
-		NAME:House
-		IGNORED:
-		IGNORED:
-KEYWORD:::
-NAME:getBaseHeight  
-		NAME:getBaseHeight
-		IGNORED:
-		IGNORED:
-KEYWORD:(
-METHOD_VARIABLES:
-KEYWORD:)
-
-
-[RETURN, LINE_OF_CODE] -------> return   baseHeight  
-KEYWORD:return
-IGNORED:
-EXPRESSION: baseHeight  
-		COMPOSITE: baseHeight  
-				IGNORED:
-				VARIABLE:baseHeight  
-						NAME:baseHeight
-						IGNORED:
-						IGNORED:
-
-
-[METHOD_DECLARATION] ------->  void House   :: setBaseHeight   (  int baseHeight   )
-COMPOSITE: void
-		IGNORED:
-		TYPE:void
-VARIABLE:House  
-		NAME:House
-		IGNORED:
-		IGNORED:
-KEYWORD:::
-NAME:setBaseHeight  
-		NAME:setBaseHeight
-		IGNORED:
-		IGNORED:
-KEYWORD:(
-METHOD_VARIABLES: int baseHeight  
-		VARIABLE: int baseHeight  
-				COMPOSITE: int
-						IGNORED:
-						TYPE:int
-				NAME:baseHeight  
-						NAME:baseHeight
-						IGNORED:
-						IGNORED:
-KEYWORD:)
-
-
-[ATTRIBUTE_ASSIGNMENT, ASSIGNMENT, LINE_OF_CODE] -------> this . baseHeight   =  baseHeight  
-KEYWORD:this
-KEYWORD:.
-NAME:baseHeight  
-		NAME:baseHeight
-		IGNORED:
-		IGNORED:
-COMPOSITE:=  baseHeight  
-		KEYWORD:=
-		EXPRESSION: baseHeight  
-				COMPOSITE: baseHeight  
-						IGNORED:
-						VARIABLE:baseHeight  
-								NAME:baseHeight
+						VARIABLE:type  
+								NAME:type
 								IGNORED:
 								IGNORED:
 

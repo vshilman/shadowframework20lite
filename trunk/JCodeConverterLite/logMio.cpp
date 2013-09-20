@@ -1,29 +1,27 @@
 #include SFParameter.h
+#include <iostream>
 
-//#ifndef __SpotLightTownTest__SFParameter__;
-
-
-//#define __SpotLightTownTest__SFParameter__;
+//package shadow.pipeline.parameters;
 
 
-//#include <string>;
 
 
-//#include "SFParameteri.h";
-
-
-//using namespace std;
-
-
+//protected short type=GLOBAL_GENERIC;
 
 
 SFParameter::SFParameter( ):SFParameteri() {
-}
-
-SFParameter::SFParameter( string name):SFParameteri() {
+	this->ancheMe=false;
 }
 
 SFParameter::SFParameter( string name,short type):SFParameteri() {
+	this->name = name;
+	this->type = type;
+	this->ancheMe=false;
+}
+
+SFParameter::SFParameter( string name):SFParameteri() {
+	this->name = name;
+	this->ancheMe=false;
 }
 
 string SFParameter::getName( ) {
@@ -37,4 +35,9 @@ short SFParameter::getType( ) {
 void SFParameter::setType (short type ) {
 	this->type=type;
 }
+
+//@Override	public String toString() {
+//return name+"("+type+")";
+//}
+
 

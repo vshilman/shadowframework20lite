@@ -7,7 +7,7 @@ import codeconverter.codepieces.UniqueKeyword;
 public class CppNameSpaceUsing extends CodePattern{
 
 	public CppNameSpaceUsing() {
-		addCodePiece(new UniqueKeyword("using namespace "),new CppName());
+		addCodePiece(new UniqueKeyword("using"),new UniqueKeyword("namespace"),new CppName());
 		addPatternType(PatternType.NAMESPACE_USAGE);
 	}
 

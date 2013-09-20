@@ -27,8 +27,8 @@ public class ConversionTest {
 
 
 
-        String exOut="js";
-        String ifile="SFParameter.cpp";
+        String exOut="cpp";
+        String ifile="SFParameter.java";
         String c=conv.convertCode(ifile,getStream(ifile),exOut);
 
 

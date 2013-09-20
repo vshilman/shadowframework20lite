@@ -32,7 +32,7 @@ public class CppHeaderStructure implements Structure{
 	@Override
 	public String buildCode(String className,List<Template> convlist) {
 
-		String fin="#include <string>\n"; //too much common
+		String fin="#include <string>\n\n";
 
 		boolean hasClassDec=false;
 		Template t=null;
@@ -58,12 +58,42 @@ public class CppHeaderStructure implements Structure{
 			}
 		}
 		fin+="{\n\n";
+
+		List<Template> tPriv=new ArrayList<Template>();
+		List<Template> tProt=new ArrayList<Template>();
+		List<Template> tPubl=new ArrayList<Template>();
+
 		while(GeneralPurposeTemplateUtilities.findTemplateByID(convlist, 1)!=null){
 			Template tl=GeneralPurposeTemplateUtilities.findTemplateByID(convlist, 1);
-			fin+=tl.constructCode()+"\n\n";
+			if(tl.getProperties().get("$MOD$").equals("public")){
+				tPubl.add(tl);
+			} else if (tl.getProperties().get("$MOD$").equals("protected")){
+				tProt.add(tl);
+			} else {
+				tPriv.add(tl);
+			}
 			GeneralPurposeTemplateUtilities.deleteByID(convlist, 1, false);
 		}
+		for (int i = 0; i < tPriv.size(); i++) {
+			fin+=tPriv.get(i).constructCode()+"\n";
+		}
+		fin+="\n";
+
+		if(tProt.size()>0){
+			fin+="protected:\n\n";
+			for (int i = 0; i < tProt.size(); i++) {
+				fin+=tProt.get(i).constructCode()+"\n";
+			}
+		}
+		fin+="\n";
+
 		fin+="public:\n\n";
+
+		for (int i = 0; i < tPubl.size(); i++) {
+			fin+=tPubl.get(i).constructCode()+"\n";
+		}
+
+		fin+="\n";
 
 		for (int i = 0; i < convlist.size(); i++) {
 			fin+=convlist.get(i).constructCode()+"\n\n";
