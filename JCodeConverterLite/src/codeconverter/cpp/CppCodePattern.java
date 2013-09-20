@@ -27,6 +27,7 @@ public class CppCodePattern {
 		patterns.add(new CppElse()); //ok
 		patterns.add(new CppFor()); //ok
 		patterns.add(new CppIf()); //ok
+		patterns.add(new CppNameSpaceUsing()); //no need
 		patterns.add(new CppAttributeAssignmentPattern()); //ok
 		patterns.add(new CppConstrutorDeclaration()); //ok
 		patterns.add(new CppSuperPattern());
@@ -35,7 +36,6 @@ public class CppCodePattern {
 		patterns.add(new CppGenericDirectiveLine()); //no need
 		patterns.add(new CppIncludeDirectiveLine()); //no need
 		patterns.add(new CppisolatedkeyWords()); //ok
-		patterns.add(new CppNameSpaceUsing()); //no need
 		patterns.add(new CppNamespaceDeclaration()); //no need
 		patterns.add(new CppMethodAccess()); //ok
 		patterns.add(new CppReturnPattern());//ok
