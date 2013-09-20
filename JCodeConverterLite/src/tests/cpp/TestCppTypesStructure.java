@@ -26,7 +26,9 @@ public class TestCppTypesStructure {
 
 		ArrayList<String> tests = new ArrayList<String>();
 
-		tests.add(DIRECTORY+"house.cpp");
+		//tests.add(DIRECTORY+"house.cpp");
+
+		tests.add("SFParameter.cpp");
 
 		StringWriter logWriter = new StringWriter();
 		for (String file : tests) {

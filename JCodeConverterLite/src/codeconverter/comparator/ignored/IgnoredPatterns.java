@@ -1,4 +1,4 @@
-package tests.tmp;
+package codeconverter.comparator.ignored;
 
 import java.util.List;
 

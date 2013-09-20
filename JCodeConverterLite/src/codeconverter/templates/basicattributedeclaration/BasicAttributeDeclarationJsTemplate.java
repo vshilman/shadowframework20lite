@@ -30,6 +30,7 @@ public class BasicAttributeDeclarationJsTemplate implements Template{
 		param.put("$NAME$","$NAME$");
 		param.put("$ASS$","false");
 		param.put("$TYPE","var");
+		param.put("$MOD$", "private");
 	}
 
 

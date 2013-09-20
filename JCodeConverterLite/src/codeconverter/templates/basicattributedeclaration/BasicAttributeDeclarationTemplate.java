@@ -29,7 +29,7 @@ public abstract class BasicAttributeDeclarationTemplate implements Template{
 		param.put("$NAME$","$NAME$");
 		param.put("$ASS$","false");
 		param.put("$TYPE$","$TYPE$");
-		param.put("$MOD$", "$MOD$");
+		param.put("$MOD$", "private");
 	}
 
 

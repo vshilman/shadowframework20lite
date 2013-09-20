@@ -1,7 +1,7 @@
 package codeconverter;
 
-import tests.tmp.IgnoredPatterns;
 import codeconverter.comparator.PatternComparator;
+import codeconverter.comparator.ignored.IgnoredPatterns;
 
 public class ComparatorsHolder {
 

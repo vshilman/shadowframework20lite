@@ -6,9 +6,7 @@ package shadow.pipeline.parameters;
  */
 public class SFParameter extends SFParameteri {
 
-	protected String name;
-	protected int assignMe;
-	protected boolean ancheMe;
+	private String name;
 	protected short type=GLOBAL_GENERIC;
 
 	public SFParameter() {
@@ -40,7 +38,7 @@ public class SFParameter extends SFParameteri {
 	 * @see shadow.pipeline.SFParameteri#getType()
 	 */
 	@Override
-	public short getType() {
+	public long getType() {
 		return type;
 	}
 

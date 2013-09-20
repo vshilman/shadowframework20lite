@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Set;
 
 import tests.tmp.GeneralTests;
-import tests.tmp.IgnoredPatterns;
 
 import codeconverter.comparator.CodePatternComparator;
 import codeconverter.comparator.PatternComparator;
+import codeconverter.comparator.ignored.IgnoredHolder;
+import codeconverter.comparator.ignored.IgnoredPatterns;
 import codeconverter.factories.ComparatorFactory;
 import codeconverter.factories.LanguagesObjectsFactory;
 import codeconverter.utility.FileStringUtility;
@@ -94,8 +95,16 @@ public class ComparisonDelegate {
 		List<CodeModule> ignoredModules1=new ArrayList<CodeModule>();
 		List<CodeModule> ignoredModules2=new ArrayList<CodeModule>();
 
-		IgnoredPatterns ip1=lof.getIgnoredPatterns(ext1);
-		IgnoredPatterns ip2=lof.getIgnoredPatterns(ext2);
+		IgnoredHolder ih=cf.getIgnoreds(ext1, ext2);
+		IgnoredPatterns ip1,ip2;
+		System.out.println(ext1+"    "+ext2);
+		if(ih.isInOrder(ext1, ext2)){
+			ip1=ih.getFirstIgnored();
+			ip2=ih.getSecondIgnored();
+		} else {
+			ip1=ih.getSecondIgnored();
+			ip2=ih.getFirstIgnored();
+		}
 
 		for (CodeModule codeModule : firstModules) {
 			CodePattern pattern=pattMap1.get(codeModule);
