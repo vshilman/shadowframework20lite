@@ -15,6 +15,7 @@ public class CppHeaderCodePatterns {
 		patterns.add(new CppMethodHeaderDeclaration()); //ok
 		patterns.add(new CppAttributeDeclaration()); //ok
 		patterns.add(new CppisolatedkeyWords()); //ok
+		patterns.add(new CppNameSpaceUsing());
 		patterns.add(new CppConstructorHeaderDeclaration()); //ok
 		patterns.add(new CppDestructorHeaderDeclaration()); //no need
 		patterns.add(new CppFriendClassDeclaration()); //no need
