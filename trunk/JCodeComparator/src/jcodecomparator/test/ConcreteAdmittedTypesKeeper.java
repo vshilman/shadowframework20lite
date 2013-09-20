@@ -12,6 +12,8 @@ public class ConcreteAdmittedTypesKeeper implements AdmittedTypesKeeper{
 		public ConcreteAdmittedTypesKeeper() {
 			list.add("java");
 			list.add("js");
+			list.add("cpp");
+			list.add("h");
 		}
 
 

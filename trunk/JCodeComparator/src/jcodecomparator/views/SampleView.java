@@ -30,7 +30,7 @@ import org.osgi.service.event.EventHandler;
 
 public class SampleView extends ViewPart {
 
-	private String[] supportedLanguages={"java","js"};
+	private String[] supportedLanguages={"java","js","cpp","h"};
 	public static final String DEF="Select Language...";
 
 	private Combo combo0;
