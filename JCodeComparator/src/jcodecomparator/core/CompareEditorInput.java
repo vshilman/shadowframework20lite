@@ -4,14 +4,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IStorage;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPersistableElement;
+
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ * An adapter class for ICompareItem
+ *
+ */
+
 
 public class CompareEditorInput implements IEditorInput{
 
@@ -35,7 +40,7 @@ public class CompareEditorInput implements IEditorInput{
 
 
 	@Override
-	public Object getAdapter(Class arg0) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class arg0) {
 		return null;
 	}
 

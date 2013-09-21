@@ -1,10 +1,6 @@
 package jcodecomparator.compare;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.jdt.core.JavaModelException;
@@ -14,7 +10,16 @@ import org.eclipse.swt.graphics.Image;
 import jcodecomparator.core.ICompareItem;
 import jcodecomparator.core.ImageByTypeKeeper;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
+
+@SuppressWarnings("restriction")
 public class CompilationUnitCompareItem implements ICompareItem{
+
 
 	private CompilationUnit cu;
 	private ImageByTypeKeeper ibtk;
@@ -46,7 +51,6 @@ public class CompilationUnitCompareItem implements ICompareItem{
 
 	}
 
-	@SuppressWarnings("restriction")
 	@Override
 	public InputStream getContents() {
 		try {

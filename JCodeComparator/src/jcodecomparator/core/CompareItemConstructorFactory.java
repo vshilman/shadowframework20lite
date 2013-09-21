@@ -1,8 +1,22 @@
 package jcodecomparator.core;
 
-import org.eclipse.jface.viewers.ISelection;
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ * Returns the correct CompareItemConstructor using the type of ISelection
+ *
+ */
+
+
 
 public interface CompareItemConstructorFactory {
+
+	/**
+	 *
+	 * @param canonicalName
+	 * @return constructor
+	 */
 
 	public CompareItemConstructor generateCompareItemConstructor(String canonicalName);
 }

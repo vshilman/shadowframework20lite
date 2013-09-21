@@ -6,6 +6,13 @@ import jcodecomparator.core.ICompareItem;
 import jcodecomparator.core.ImageByTypeKeeper;
 import org.eclipse.swt.graphics.Image;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
+
 public class SelectedTextCompareItem implements ICompareItem{
 
 	private String selectedText;

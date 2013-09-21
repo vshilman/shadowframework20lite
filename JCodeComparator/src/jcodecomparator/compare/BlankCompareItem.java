@@ -7,6 +7,13 @@ import org.eclipse.swt.graphics.Image;
 
 import jcodecomparator.core.ICompareItem;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
+
 public class BlankCompareItem implements ICompareItem{
 
 	@Override
