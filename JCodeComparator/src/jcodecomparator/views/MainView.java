@@ -374,6 +374,11 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+	}
+
 
 
 

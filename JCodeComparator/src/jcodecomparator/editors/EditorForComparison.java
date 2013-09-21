@@ -25,7 +25,6 @@ public class EditorForComparison extends EditorPart implements IAccettableLeftRi
 	@Override
 	public void dispose() {
 		super.dispose();
-
 	}
 
 
