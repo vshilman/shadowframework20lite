@@ -7,6 +7,12 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.swt.graphics.Image;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class WorkspaceFileCompareItem implements ICompareItem{
 
 	private IFile file;

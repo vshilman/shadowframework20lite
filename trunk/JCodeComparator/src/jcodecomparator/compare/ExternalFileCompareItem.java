@@ -12,6 +12,12 @@ import jcodecomparator.core.ImageByTypeKeeper;
 
 import org.eclipse.swt.graphics.Image;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class ExternalFileCompareItem implements ICompareItem{
 
 	private File file;
@@ -41,6 +47,7 @@ public class ExternalFileCompareItem implements ICompareItem{
 				fileContent+=s+"\n";
 				s=r.readLine();
 			}
+			r.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();

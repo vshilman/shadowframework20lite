@@ -457,7 +457,17 @@ public class CompareEditorViewer extends ContentMergeViewer{
     }
 
 
-     private MessageConsole findConsole(String name) {
+
+
+     public StyledText getfLeft() {
+		return fLeft;
+	}
+
+	public StyledText getfRight() {
+		return fRight;
+	}
+
+	private MessageConsole findConsole(String name) {
             ConsolePlugin plugin = ConsolePlugin.getDefault();
             IConsoleManager conMan = plugin.getConsoleManager();
             IConsole[] existing = conMan.getConsoles();

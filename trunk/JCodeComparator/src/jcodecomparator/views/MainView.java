@@ -188,9 +188,24 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 			}
 		});
 
+		Button but1a=new Button(comp2a, SWT.PUSH);
+		but1a.setSize(new Point(40, 30));
+		but1a.setLocation(43, -2);
+		but1a.setImage(AbstractUIPlugin.imageDescriptorFromPlugin("JCodeComparator", "icons/refresh.png").createImage());
+
+		but1a.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				refresh();
+			}
+		});
+
+
+
 		Button buta2=new Button(comp2a,SWT.PUSH);
 		buta2.setSize(new Point(40,30));
-		buta2.setLocation(43, -2);
+		buta2.setLocation(83, -2);
 		buta2.setImage(AbstractUIPlugin.imageDescriptorFromPlugin("JCodeComparator", "icons/templtrasp.png").createImage());
 		buta2.setToolTipText("Generate conversion using Data Structure Templates");
 		buta2.addSelectionListener(new SelectionAdapter() {
@@ -204,16 +219,12 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 								String c=conv.convertCode(titleLeft, str, extSelectRigth);
 								StringTokenizer tok=new StringTokenizer(titleLeft, ".");
 								String name=tok.nextToken();
-								//File f=new File(name+"."+extSelectRigth);
 								if(c!=null){
-										//PrintWriter pw=new PrintWriter(f);
-										//pw.write(c);
-										//pw.close();
-										//ExternalFileCompareItem efc=new ExternalFileCompareItem(new TestImageByTypeKeeper(),f);
 										SelectedTextCompareItem efc=new SelectedTextCompareItem(new TestImageByTypeKeeper());
 										efc.setInformations(c, name+"."+extSelectRigth);
 										viewer.setRightInput(new CompareEditorInput(efc));
 										titleRight=name+"."+extSelectRigth;
+										l2.setText(titleRight);
 								}
 							}
 						}
@@ -271,9 +282,24 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 			}
 		});
 
+		Button but1b=new Button(comp2b, SWT.PUSH);
+		but1b.setSize(new Point(40, 30));
+		but1b.setLocation(43, -2);
+		but1b.setImage(AbstractUIPlugin.imageDescriptorFromPlugin("JCodeComparator", "icons/refresh.png").createImage());
+
+		but1b.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				refresh();
+			}
+		});
+
+
+
 		Button butb2=new Button(comp2b,SWT.PUSH);
 		butb2.setSize(new Point(40,30));
-		butb2.setLocation(43, -2);
+		butb2.setLocation(83, -2);
 		butb2.setImage(AbstractUIPlugin.imageDescriptorFromPlugin("JCodeComparator", "icons/templtrasp.png").createImage());
 		butb2.setToolTipText("Generate conversion using Data Structure Templates");
 		butb2.addSelectionListener(new SelectionAdapter() {
@@ -287,12 +313,7 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 							String c=conv.convertCode(titleRight, str, extSelectLeft);
 							StringTokenizer tok=new StringTokenizer(titleRight, ".");
 							String name=tok.nextToken();
-							//File f=new File(name+"."+extSelectLeft);
 							if(c!=null){
-									//PrintWriter pw=new PrintWriter(f);
-									//pw.write(c);
-									//pw.close();
-									//ExternalFileCompareItem efc=new ExternalFileCompareItem(new TestImageByTypeKeeper(),f);
 									SelectedTextCompareItem efc=new SelectedTextCompareItem(new TestImageByTypeKeeper());
 									efc.setInformations(c, name+"."+extSelectLeft);
 									viewer.setLeftInput(new CompareEditorInput(efc));
@@ -337,6 +358,18 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 		viewer.setLeftInput(cei);
 		titleLeft=cei.getDelegate().getName();
 		l1.setText(titleLeft);
+	}
+
+	public void refresh(){
+		String strleft=viewer.getfLeft().getText();
+		String strRight=viewer.getfRight().getText();
+		SelectedTextCompareItem efcLeft=new SelectedTextCompareItem(new TestImageByTypeKeeper());
+		efcLeft.setInformations(strleft,titleLeft);
+		SelectedTextCompareItem efcRight=new SelectedTextCompareItem(new TestImageByTypeKeeper());
+		efcRight.setInformations(strRight,titleRight);
+		viewer.setLeftInput(new CompareEditorInput(efcLeft));
+		viewer.setRightInput(new CompareEditorInput(efcRight));
+
 	}
 
 

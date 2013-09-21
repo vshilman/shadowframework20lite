@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -12,20 +11,26 @@ import java.util.Vector;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.LineStyleEvent;
-import org.eclipse.swt.custom.LineStyleListener;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.MessageConsoleStream;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ * Basic line styler for the editor.
+ *
+ */
+
+
+@SuppressWarnings("rawtypes")
 public  class DefaultLineStyler implements LineBackgroundStylerListener{
+
+
 
 		  private DefaultScanner scanner;
 
@@ -33,8 +38,10 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 
 		  Color[] colors;
 
-		 private  Vector blockComments = new Vector();
 
+		  private  Vector blockComments = new Vector();
+
+		  @SuppressWarnings("unchecked")
 		  private  Vector<StyleRange> styles = new Vector();
 
 		  private HashMap<Point, Color> toConsider=new HashMap<>();
@@ -48,19 +55,22 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		    this.scanner=scanner;
 		  }
 
-		  /* (non-Javadoc)
-		 * @see jcodecomparator.core.LineBackgroundStylerListener#cleanToConsider()
+		/**
+		 * Clear the differences map
 		 */
 		@Override
 		public void cleanToConsider(){
 			toConsider.clear();
 		  }
 
+		/**
+		 * Set the new style at the given point
+		 *
+		 * @param pos: position of the difference
+		 * @param color: color of highlighting
+		 */
+
 		 private void internalSetBackground (Point pos,Color color){
-
-			 MessageConsole myConsole = findConsole("Console");
-			 MessageConsoleStream out=myConsole.newMessageStream();
-
 
 			 for (int j = pos.x; j < pos.y; j++) {
 				 List<Integer> l=new ArrayList<>();
@@ -90,9 +100,10 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		 }
 
 
-		/* (non-Javadoc)
-		 * @see jcodecomparator.core.LineBackgroundStylerListener#setBackground(org.eclipse.swt.graphics.Point, org.eclipse.swt.graphics.Color)
-		 */
+		 /**
+		  * Put a difference in the map
+		  */
+
 		@Override
 		public void setBackground (Point pos,Color color){
 				toConsider.put(pos, color);
@@ -170,10 +181,6 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 
 
 				 	styles.clear();
-
-				 	 MessageConsole myConsole = findConsole("Console");
-					 MessageConsoleStream out=myConsole.newMessageStream();
-
 				    int token;
 				    StyleRange lastStyle;
 
@@ -254,7 +261,8 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 
 
 
-				     public void parseBlockComments(String text) {
+				     @SuppressWarnings("unchecked")
+					public void parseBlockComments(String text) {
 				        blockComments = new Vector();
 				        StringReader buffer = new StringReader(text);
 				        int ch;
@@ -313,24 +321,6 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 				          }
 				        }
 
-
-
-
-
-				     private MessageConsole findConsole(String name) {
-					        ConsolePlugin plugin = ConsolePlugin.getDefault();
-					        IConsoleManager conMan = plugin.getConsoleManager();
-					        IConsole[] existing = conMan.getConsoles();
-					        for (int i = 0; i < existing.length; i++) {
-					            if (name.equals(existing[i].getName())) {
-					                return (MessageConsole) existing[i];
-					            }
-					        }
-					        //no console found, so create a new one
-					        MessageConsole myConsole = new MessageConsole(name, null);
-					        conMan.addConsoles(new IConsole[]{myConsole});
-					        return myConsole;
-					    }
 
 				     public LineBackgroundStylerListener clone(){
 				    	 return new DefaultLineStyler(scanner);
