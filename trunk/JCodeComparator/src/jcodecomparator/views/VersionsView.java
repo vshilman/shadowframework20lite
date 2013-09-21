@@ -30,4 +30,9 @@ public class VersionsView extends ViewPart{
 	public void setFocus() {
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+	}
+
 }

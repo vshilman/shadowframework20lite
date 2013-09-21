@@ -150,7 +150,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
         fLeft=new StyledText(composite,SWT.BORDER| SWT.V_SCROLL | SWT.H_SCROLL);
         fRight=new StyledText(composite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 
-       // createToolBar();
     }
 
 
@@ -255,7 +254,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
             Point pos=getPos(s, true,res.getUninterpretatesLeft().get(i).getFirstLine(),res.getUninterpretatesLeft().get(i).getLastLine());
             //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), true);
             dLeft.setBackground(pos, new Color(display, new RGB(229, 220, 209)));
-            out.println("posUs:  "+pos);
+            out.println("posUs:  "+pos+" "+s);
             infos+=s+"\n";
         }
 
@@ -266,7 +265,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
             Point pos=getPos(s, false,res.getUninterpretatesRight().get(i).getFirstLine(),res.getUninterpretatesRight().get(i).getLastLine());
             //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), false);
             dRight.setBackground(pos, new Color(display, new RGB(229, 220, 209)));
-           out.println("posUd:  "+pos);
+           out.println("posUd:  "+pos+" "+s);
             infos+=s+"\n";
         }
 
@@ -311,6 +310,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
          out.println(s+" "+firstLine+" "+lastLine);
 
+
         String text="";
         if(left){
             text=fLeft.getText();
@@ -326,6 +326,9 @@ public class CompareEditorViewer extends ContentMergeViewer{
         if(text.indexOf(s,f)>=0 && text.indexOf(s,f)<=l){
         	out.println("Esco subito");
             return new Point(text.indexOf(s,f),text.indexOf(s,f)+s.length());
+        }
+        if(s.endsWith(";")){
+        	s=s.substring(0, s.length()-1);
         }
 
         if(replaceSpaces(text).indexOf(replaceSpaces(s))>=0){
