@@ -367,7 +367,9 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 		efcLeft.setInformations(strleft,titleLeft);
 		SelectedTextCompareItem efcRight=new SelectedTextCompareItem(new TestImageByTypeKeeper());
 		efcRight.setInformations(strRight,titleRight);
+		viewer.isComparisonEnabled(false);
 		viewer.setLeftInput(new CompareEditorInput(efcLeft));
+		viewer.isComparisonEnabled(true);
 		viewer.setRightInput(new CompareEditorInput(efcRight));
 
 	}

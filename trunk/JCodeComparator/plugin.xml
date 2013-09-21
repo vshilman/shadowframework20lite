@@ -55,15 +55,6 @@
                   name="sampleGroup">
             </separator>
          </menu>
-         <action
-               class="jcodecomparator.actions.SampleAction"
-               icon="icons/sample.gif"
-               id="jcodecomparator.actions.SampleAction"
-               label="&amp;Sample Action"
-               menubarPath="sampleMenu/sampleGroup"
-               toolbarPath="sampleGroup"
-               tooltip="Hello, Eclipse world">
-         </action>
       </actionSet>
    </extension>
    <extension
