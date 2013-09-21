@@ -73,10 +73,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
     private int count=0;
     private  MessageConsoleStream out;
 
-    //private BufferedCanvas bcLeft;
-    //private BufferedCanvas bcRight;
-
-
+    private boolean comp=true;
 
     public CompareEditorViewer(Composite parent, int styles, CompareConfiguration mp, ComparisonExecutingDelegate ced, LineStylerFactory lsf) {
         super(styles, ResourceBundle.getBundle(BUNDLE_NAME), mp);
@@ -121,7 +118,7 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
 
 
-        if(fLeft.getText()!=null && fRight.getText()!=null && fLeft.getText().length()>0 && fRight.getText().length()>0){
+        if(fLeft.getText()!=null && fRight.getText()!=null && fLeft.getText().length()>0 && fRight.getText().length()>0 && comp){
             res=ced.executeComparison(leftInput.getDelegate(), rightInput.getDelegate());
             showDifferences();
         }
@@ -201,16 +198,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
     }
 
     protected void copy(boolean leftToRight) {
-    /*	if (leftToRight) {
-            fRightImage= fLeftImage;
-            setInput(fRight, fRightImage);
-            setRightDirty(true);
-        } else {
-            fLeftImage= fRightImage;
-            setInput(fLeft, fLeftImage);
-            setLeftDirty(true);
-        }*/
-        //TO IMPLEMENT
     }
 
 
@@ -250,6 +237,10 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
                 }
             }
+    }
+
+    public void isComparisonEnabled(boolean comp){
+    	this.comp=comp;
     }
 
 
