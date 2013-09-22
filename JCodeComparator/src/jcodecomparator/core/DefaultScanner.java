@@ -2,9 +2,19 @@ package jcodecomparator.core;
 
 import java.util.Hashtable;
 
+/**
+ *
+ * Document scanner
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
+
 public class DefaultScanner {
 
-	    protected Hashtable fgKeys = null;
+	    @SuppressWarnings("rawtypes")
+		protected Hashtable fgKeys = null;
 
 	    protected StringBuffer fBuffer = new StringBuffer();
 
@@ -34,9 +44,7 @@ public class DefaultScanner {
 			return fPos - fStartToken;
 		}
 
-		/**
-		* Initialize the lookup table.
-		*/
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		protected void initialize() {
 			fgKeys = new Hashtable();
 			Integer k = new Integer(Keywords.KEY.id);

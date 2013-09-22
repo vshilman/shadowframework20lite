@@ -12,6 +12,12 @@ import jcodecomparator.compare.WorkspaceFileCompareItem;
 import jcodecomparator.core.CompareItemConstructor;
 import jcodecomparator.core.ICompareItem;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class TextSelectionConstructor implements CompareItemConstructor{
 
 	@Override

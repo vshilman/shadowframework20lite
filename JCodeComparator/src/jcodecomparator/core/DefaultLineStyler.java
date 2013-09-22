@@ -55,20 +55,12 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		    this.scanner=scanner;
 		  }
 
-		/**
-		 * Clear the differences map
-		 */
+
 		@Override
 		public void cleanToConsider(){
 			toConsider.clear();
 		  }
 
-		/**
-		 * Set the new style at the given point
-		 *
-		 * @param pos: position of the difference
-		 * @param color: color of highlighting
-		 */
 
 		 private void internalSetBackground (Point pos,Color color){
 
@@ -100,15 +92,18 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 		 }
 
 
-		 /**
-		  * Put a difference in the map
-		  */
 
 		@Override
 		public void setBackground (Point pos,Color color){
 				toConsider.put(pos, color);
 		  }
 
+		/**
+		 * Returns the type associated to the given type
+		 *
+		 * @param type
+		 * @return
+		 */
 
 
 		  public Color getColor(int type) {
@@ -117,6 +112,14 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 			    }
 			    return colors[tokenColors[type]];
 			  }
+
+		  /**
+		   * Returns true if the given interval is in a comment block
+		   *
+		   * @param start
+		   * @param end
+		   * @return
+		   */
 
 
 		  public boolean inBlockComment(int start, int end) {
@@ -135,6 +138,9 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 			    return false;
 			  }
 
+		  	/**
+		  	 * Initialize all the parts of the source file with their default color
+		  	 */
 
 
 			public  void initializeColors() {
@@ -156,11 +162,17 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 
 			  }
 
+			/**
+			 * Dispose colors
+			 */
+
+
 			  void disposeColors() {
 			    for (int i = 0; i < colors.length; i++) {
 			      colors[i].dispose();
 			    }
 			  }
+
 
 
 			private boolean containsRange(int start, int lenght){
@@ -174,7 +186,9 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 				return false;
 			}
 
-
+			/**
+			 *Main method to set styles at the refresh of the StyledText
+			 */
 
 
 			 public void lineGetStyle(LineStyleEvent event) {
@@ -246,9 +260,6 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 
 
 				    	Set<Point> keys=toConsider.keySet();
-				    	//out.println("-> "+keys.size());
-
-				    //	 out.println("-----> while searching "+toConsider.size()+"");
 				    	for (Iterator<Point> iterator = keys.iterator(); iterator.hasNext();) {
 							Point point = iterator.next();
 							internalSetBackground(point, toConsider.get(point));
@@ -257,7 +268,10 @@ public  class DefaultLineStyler implements LineBackgroundStylerListener{
 				        styles.copyInto(event.styles);
 				      }
 
-
+			 		/**
+			 		 * Block comments recognizing
+			 		 * @param text
+			 		 */
 
 
 

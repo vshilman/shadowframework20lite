@@ -11,6 +11,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+/**
+ * The handler for a failed comparison
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class CannotCompareHandler extends AbstractHandler{
 
 
@@ -20,9 +27,15 @@ public class CannotCompareHandler extends AbstractHandler{
 		 Shell shell = HandlerUtil.getActiveWorkbenchWindow(arg0).getShell();
          TitleAreaDialog tad = new MyTitleAreaDialog(shell,"\n\n\nOps!","\n\nCodeCompareAction cannot be done on this type of object.","/icons/gear_sad.png");
          tad.setTitleAreaColor(Display.getDefault().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND).getRGB());
-         int selected = tad.open();
+         @SuppressWarnings("unused")
+		int selected = tad.open();
          return null;
 
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
 	}
 
 }

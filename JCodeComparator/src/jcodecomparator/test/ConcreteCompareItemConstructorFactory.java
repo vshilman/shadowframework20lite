@@ -2,10 +2,16 @@ package jcodecomparator.test;
 
 import java.util.HashMap;
 
-import org.eclipse.jface.viewers.ISelection;
 
 import jcodecomparator.core.CompareItemConstructor;
 import jcodecomparator.core.CompareItemConstructorFactory;
+
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 
 public class ConcreteCompareItemConstructorFactory implements CompareItemConstructorFactory{
 

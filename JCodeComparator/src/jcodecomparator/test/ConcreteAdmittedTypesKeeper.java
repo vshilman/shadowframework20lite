@@ -5,6 +5,12 @@ import java.util.List;
 
 import jcodecomparator.core.AdmittedTypesKeeper;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class ConcreteAdmittedTypesKeeper implements AdmittedTypesKeeper{
 
 		private List<String> list=new ArrayList<>();

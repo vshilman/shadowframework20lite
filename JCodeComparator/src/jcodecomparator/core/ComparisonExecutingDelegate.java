@@ -1,6 +1,5 @@
 package jcodecomparator.core;
 
-import java.util.List;
 
 import codeconverter.DifferentiationResult;
 

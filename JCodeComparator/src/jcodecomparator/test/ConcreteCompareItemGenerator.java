@@ -2,9 +2,15 @@ package jcodecomparator.test;
 
 import java.util.HashMap;
 
-import jcodecomparator.core.CompareItemConstructor;
 import jcodecomparator.core.CompareItemGenerator;
 import jcodecomparator.core.ICompareItem;
+
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 
 public class ConcreteCompareItemGenerator implements CompareItemGenerator{
 

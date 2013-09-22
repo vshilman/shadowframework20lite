@@ -1,10 +1,7 @@
 package jcodecomparator.views;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -12,7 +9,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import jcodecomparator.compare.CompareDelegate;
-import jcodecomparator.compare.ExternalFileCompareItem;
 import jcodecomparator.compare.SelectedTextCompareItem;
 import jcodecomparator.core.ColumnLayout;
 import jcodecomparator.core.CompareEditorInput;
@@ -55,6 +51,13 @@ import codeconverter.factories.test.TestDataStructureTemplateFactory;
 import codeconverter.factories.test.TestLanguagesObjectsFactory;
 import codeconverter.templates.ConversionByTemplateDelegate;
 
+/**
+ *That's the view that shows all the central elements of the plugin
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class MainView extends ViewPart implements IAccettableLeftRight{
 
 	private CompareEditorViewer viewer;
@@ -70,19 +73,15 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 
 	public MainView() {
 		 BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
-
 	        EventHandler handler=new EventHandler() {
 
 				@Override
 				public void handleEvent(Event event) {
 					if(event.getProperty("COMBO_0")!=null){
 						extSelectLeft=(String) event.getProperty("COMBO_0");
-						//out.println(languageLeft);
-
 					}
 					if(event.getProperty("COMBO_1")!=null){
 						extSelectRigth=(String) event.getProperty("COMBO_1");
-						//out.println(languageRight);
 					}
 
 				}
@@ -103,9 +102,6 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 	@Override
 	public void createPartControl(Composite arg0) {
 		int style=SWT.MULTI;
-
-		MessageConsole myConsole = findConsole("Templ");
-        final MessageConsoleStream out=myConsole.newMessageStream();
 
 		ColumnLayout l=new ColumnLayout();
 		arg0.setLayout(l);
@@ -156,7 +152,6 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
                 int y = comp2a.getBounds().y;
                 e.gc.setForeground(new Color(null, new RGB(193,197,192)));
                 e.gc.drawRectangle(x, y, comp2.getBounds().width/2-3,comp2.getBounds().height-3);
-                //out.println(comp2.getBounds().width/2+" "+comp2.getBounds().height);
             }
 
 
@@ -211,7 +206,6 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 		buta2.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				super.widgetSelected(e);
-				out.println(extSelectLeft+" "+extSelectRigth);
 				if(!titleLeft.equals("")){
 							InputStream str=viewer.getLeftInput().getDelegate().getContents();
 							ConversionByTemplateDelegate conv=new ConversionByTemplateDelegate(new TestLanguagesObjectsFactory(), new TestDataStructureTemplateFactory());
@@ -248,7 +242,6 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
                 int y = 0;
                 e.gc.setForeground(new Color(null, new RGB(193,197,192)));
                 e.gc.drawRectangle(x, y, comp2.getBounds().width/2-1,comp2.getBounds().height-3);
-                //out.println(comp2.getBounds().width/2+" "+comp2.getBounds().height);
             }
 
 
@@ -305,7 +298,6 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 		butb2.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				super.widgetSelected(e);
-				out.println(extSelectLeft+" "+extSelectRigth);
 				if(!titleRight.equals("")){
 						InputStream str=viewer.getRightInput().getDelegate().getContents();
 						ConversionByTemplateDelegate conv=new ConversionByTemplateDelegate(new TestLanguagesObjectsFactory(), new TestDataStructureTemplateFactory());
@@ -331,7 +323,6 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 
 		comp2.layout();
 
-		//can2.setBackground(new Color(null, new RGB(193,197,192)));
 
 		viewer=new CompareEditorViewer(arg0, style, new CompareConfiguration(),new CompareDelegate(),new TestLineStyleFactory());
 
@@ -360,7 +351,9 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 		l1.setText(titleLeft);
 	}
 
-	public void refresh(){
+
+
+	private void refresh(){
 		String strleft=viewer.getfLeft().getText();
 		String strRight=viewer.getfRight().getText();
 		SelectedTextCompareItem efcLeft=new SelectedTextCompareItem(new TestImageByTypeKeeper());
@@ -378,24 +371,6 @@ public class MainView extends ViewPart implements IAccettableLeftRight{
 	public void dispose() {
 		super.dispose();
 	}
-
-
-
-
-	 private MessageConsole findConsole(String name) {
-	        ConsolePlugin plugin = ConsolePlugin.getDefault();
-	        IConsoleManager conMan = plugin.getConsoleManager();
-	        IConsole[] existing = conMan.getConsoles();
-	        for (int i = 0; i < existing.length; i++) {
-	            if (name.equals(existing[i].getName())) {
-	                return (MessageConsole) existing[i];
-	            }
-	        }
-	        //no console found, so create a new one
-	        MessageConsole myConsole = new MessageConsole(name, null);
-	        conMan.addConsoles(new IConsole[]{myConsole});
-	        return myConsole;
-	    }
 
 
 }

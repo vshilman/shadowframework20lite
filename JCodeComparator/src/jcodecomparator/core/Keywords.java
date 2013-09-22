@@ -1,5 +1,12 @@
 package jcodecomparator.core;
 
+/**
+ * Source code logical division for the line styler
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public enum Keywords {
 
 	  EOF(-1),

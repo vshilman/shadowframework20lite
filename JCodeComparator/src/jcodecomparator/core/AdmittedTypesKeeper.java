@@ -13,6 +13,11 @@ import java.util.List;
 
 public interface AdmittedTypesKeeper {
 
+/**
+ *
+ * @return ammitted types
+ */
+
 
 	public List<String> getAmmittedTypes();
 }

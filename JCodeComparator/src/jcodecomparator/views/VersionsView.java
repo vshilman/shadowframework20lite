@@ -1,10 +1,16 @@
 package jcodecomparator.views;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.part.ViewPart;
+
+/**
+ * View for showing the files versions
+ *
+ * @author Nicola Pellicano'
+ *
+ */
 
 public class VersionsView extends ViewPart{
 

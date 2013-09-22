@@ -8,11 +8,11 @@ import org.eclipse.jdt.ui.JavaUI;
 
 
 /**
- *  This class is meant to serve as an example for how various contributions
- *  are made to a perspective. Note that some of the extension point id's are
- *  referred to as API constants while others are hardcoded and may be subject
- *  to change.
+ *  The plugin perspective. Based on the Eclipse Sample Perspective Class
+ *
+ *  @author Nicola Pellicano'
  */
+
 public class JCodeComparatorPerspective implements IPerspectiveFactory {
 
 	private IPageLayout factory;
@@ -32,25 +32,19 @@ public class JCodeComparatorPerspective implements IPerspectiveFactory {
 	}
 
 	private void addViews() {
-		// Creates the overall folder layout.
-		// Note that each new Folder uses a percentage of the remaining EditorArea.
 			IFolderLayout topLeft =
 			factory.createFolder(
 				"topLeft", //NON-NLS-1
 				IPageLayout.LEFT,
 				0.15f,
 				factory.getEditorArea());
-		//topLeft.addView(IPageLayout.ID_RES_NAV);
 		topLeft.addView("org.eclipse.ui.views.ResourceNavigator");
-		//topLeft.addView("org.eclipse.jdt.junit.ResultView"); //NON-NLS-1
-
 
 		IFolderLayout right=factory.createFolder("right", IPageLayout.BOTTOM, 0.7f, factory.getEditorArea());
 		right.addView("jcodecomparator.views.VersionsView");
 
 		IFolderLayout top=factory.createFolder("top", IPageLayout.TOP, 0.15f, factory.getEditorArea());
 		top.addView("jcodecomparator.views.SampleView");
-		//top.addPlaceholder("org.eclipse.ui.views.jcodecomparator.views.SampleView");
 
 
 		factory.addFastView("org.eclipse.team.ccvs.ui.RepositoriesView",0.50f); //NON-NLS-1
