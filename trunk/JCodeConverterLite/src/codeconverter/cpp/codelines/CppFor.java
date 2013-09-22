@@ -12,7 +12,6 @@ import codeconverter.codepieces.UniqueKeyword;
 import codeconverter.cpp.CppAlgebraicExpression;
 import codeconverter.cpp.CppName;
 import codeconverter.cpp.CppVariable;
-import codeconverter.java.JavaVariable;
 
 public class CppFor extends CodePattern{
 

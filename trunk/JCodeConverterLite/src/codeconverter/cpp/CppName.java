@@ -1,8 +1,5 @@
 package codeconverter.cpp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import codeconverter.PieceType;
 import codeconverter.codepieces.BestAlternativeCode;
 import codeconverter.codepieces.CodeSequence;
@@ -11,7 +8,6 @@ import codeconverter.codepieces.ConcreteValue;
 import codeconverter.codepieces.Name;
 import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
-import codeconverter.codepieces.Value;
 
 public class CppName extends CompositeCodePiece{
 

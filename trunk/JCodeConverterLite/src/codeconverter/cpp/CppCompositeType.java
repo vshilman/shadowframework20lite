@@ -1,6 +1,5 @@
 package codeconverter.cpp;
 
-import codeconverter.PieceType;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.Name;
 import codeconverter.codepieces.OptionalCode;

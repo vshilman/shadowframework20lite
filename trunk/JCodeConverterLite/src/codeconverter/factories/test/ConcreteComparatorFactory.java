@@ -6,10 +6,14 @@ import java.util.List;
 
 
 import codeconverter.ComparatorsHolder;
-import codeconverter.comparator.PatternComparator;
 import codeconverter.comparator.ignored.IgnoredHolder;
-import codeconverter.comparator.ignored.IgnoredPatterns;
 import codeconverter.factories.ComparatorFactory;
+
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
 
 public class ConcreteComparatorFactory implements ComparatorFactory{
 

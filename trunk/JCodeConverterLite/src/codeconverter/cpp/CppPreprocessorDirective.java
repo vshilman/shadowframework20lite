@@ -1,10 +1,8 @@
 package codeconverter.cpp;
 
-import java.util.List;
 
 import codeconverter.PieceType;
 import codeconverter.codepieces.ConcreteValue;
-import codeconverter.codepieces.Value;
 
 public class CppPreprocessorDirective extends ConcreteValue{
 

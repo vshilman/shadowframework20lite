@@ -12,6 +12,12 @@ import codeconverter.javaCppComparator.JavaCppCodePatternComparators;
 import codeconverter.javaCppComparator.JavaHeaderCodePatternComparators;
 import codeconverter.javaJsComparator.JavaJsCodePatternComparators;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class TestComparatorFactory extends ConcreteComparatorFactory{
 
 

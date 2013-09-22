@@ -1,7 +1,6 @@
 package codeconverter;
 
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +16,14 @@ import codeconverter.factories.ComparatorFactory;
 import codeconverter.factories.LanguagesObjectsFactory;
 import codeconverter.utility.FileStringUtility;
 
+
+/**
+ * It executes the comparison
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class ComparisonDelegate {
 
 	private ComparatorFactory cf;
@@ -31,6 +38,15 @@ public class ComparisonDelegate {
 		this.lof = lof;
 	}
 
+	/**
+	 *Comparison algorithm
+	 *
+	 * @param firstTest
+	 * @param secondTest
+	 * @param firstStream
+	 * @param secondStream
+	 * @return differences
+	 */
 
 	public DifferentiationResult compareFiles(String firstTest, String secondTest,InputStream firstStream, InputStream secondStream){
 

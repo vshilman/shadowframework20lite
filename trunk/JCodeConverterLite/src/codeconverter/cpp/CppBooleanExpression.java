@@ -7,8 +7,6 @@ import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.Expression;
 import codeconverter.codepieces.Number;
 import codeconverter.codepieces.UniqueKeyword;
-import codeconverter.java.JavaName;
-import codeconverter.java.JavaNewStatement;
 
 public class CppBooleanExpression extends Expression{
 

@@ -1,15 +1,16 @@
 package codeconverter.factories.test;
 
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
-
-
 import codeconverter.BlockDataInterpreter;
-import codeconverter.comparator.ignored.IgnoredPatterns;
 import codeconverter.factories.LanguagesObjectsFactory;
 import codeconverter.filecodelinesgenerators.CodeLineGenerator;
-import codeconverter.filecodelinesgenerators.FileCodeLine;
+
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 
 public class ConcreteLanguagesObjectsFactory implements LanguagesObjectsFactory{
 
