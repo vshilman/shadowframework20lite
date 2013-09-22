@@ -13,6 +13,7 @@ public class MethodDeclarationComparatorJCH implements CodePatternComparator{
 	public boolean compare(CodePattern javaPattern, CodePattern cppPattern) {
 
 		System.out.println(javaPattern.toString()+" vs "+cppPattern.toString());
+		System.out.println(javaPattern.getPatternType().get(0)+" vs "+cppPattern.getPatternType().get(0));
 
 		if (javaPattern.getPatternType().get(0) != PatternType.METHOD_DECLARATION) {
 			System.out.println("1");

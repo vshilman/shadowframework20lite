@@ -10,10 +10,11 @@ public class CppIncludeDirectiveLine extends CodePattern{
 
 	public CppIncludeDirectiveLine() {
 		BestAlternativeCode bcc=new BestAlternativeCode(true, new UniqueKeyword("<"),new UniqueKeyword("\""));
+		BestAlternativeCode bcc2=new BestAlternativeCode(true, new UniqueKeyword(">"),new UniqueKeyword("\""));
 		addCodePiece(new UniqueKeyword("#include "),
 					bcc,
 					new CppName(),
-					bcc);
+					bcc2);
 		addPatternType(PatternType.LIBRARY_DECLARATION);
 	}
 
