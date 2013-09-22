@@ -8,7 +8,6 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -21,11 +20,16 @@ import org.eclipse.swt.SWT;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
-import org.osgi.framework.launch.Framework;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
+
+/**
+ * View for language selection
+ * @author Nicola Pellicano'
+ *
+ */
 
 
 public class SampleView extends ViewPart {
@@ -36,7 +40,8 @@ public class SampleView extends ViewPart {
     private Combo combo0;
     private Combo combo1;
 
-    public SampleView() {
+    @SuppressWarnings("deprecation")
+	public SampleView() {
         setTitle("Select_language");
         EventHandler handler=new EventHandler() {
 
@@ -44,10 +49,6 @@ public class SampleView extends ViewPart {
             public void handleEvent(Event arg0) {
 
                 if(arg0.getProperty("Request")!=null){
-
-                     MessageConsole myconsole = findConsole("console");
-                        MessageConsoleStream out = myconsole.newMessageStream();
-
                     BundleContext ctx=  FrameworkUtil.getBundle(SampleView.class).getBundleContext();
                     ServiceReference<EventAdmin> ref=ctx.getServiceReference(EventAdmin.class);
                     EventAdmin eventAdmin =ctx.getService(ref);
@@ -60,9 +61,6 @@ public class SampleView extends ViewPart {
                     }
                     Event event=new Event("viewcommunication/syncEvent",properties);
                     eventAdmin.sendEvent(event);
-
-                    //event=new Event("viewcommunication/asyncEvent", properties);
-                    //eventAdmin.postEvent(event);
 
                 }
 
@@ -153,13 +151,6 @@ public class SampleView extends ViewPart {
 
     }
 
-    public SampleView(String[] supported){
-        this.supportedLanguages=new String[supported.length];
-        for (int i = 0; i < supported.length; i++) {
-            this.supportedLanguages[i]=supported[i];
-        }
-    }
-
 
     @Override
     public void createPartControl(Composite arg0) {
@@ -240,11 +231,21 @@ public class SampleView extends ViewPart {
 
     }
 
+    /**
+     *
+     * @return left combo
+     */
+
 
 
     public Combo getCombo0() {
         return combo0;
     }
+
+    /**
+     *
+     * @return right combo
+     */
 
     public Combo getCombo1() {
         return combo1;
@@ -252,21 +253,6 @@ public class SampleView extends ViewPart {
 
     @Override
     public void setFocus() {
-    }
-
-    private MessageConsole findConsole(String name) {
-        ConsolePlugin plugin = ConsolePlugin.getDefault();
-        IConsoleManager conMan = plugin.getConsoleManager();
-        IConsole[] existing = conMan.getConsoles();
-        for (int i = 0; i < existing.length; i++) {
-            if (name.equals(existing[i].getName())) {
-                return (MessageConsole) existing[i];
-            }
-        }
-        //no console found, so create a new one
-        MessageConsole myConsole = new MessageConsole(name, null);
-        conMan.addConsoles(new IConsole[]{myConsole});
-        return myConsole;
     }
 
     @Override

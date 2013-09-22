@@ -2,6 +2,12 @@ package jcodecomparator.test;
 
 import jcodecomparator.core.DefaultLineStyler;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class TestLineStyleFactory extends ConcreteLineStylerfactory{
 
 	public TestLineStyleFactory() {

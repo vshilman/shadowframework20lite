@@ -2,7 +2,11 @@ package jcodecomparator.test;
 
 import jcodecomparator.core.CompareItemGenerator;
 
-import org.eclipse.jface.viewers.ISelection;
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
 
 public class TestCompareItemConstructorFactory extends ConcreteCompareItemConstructorFactory{
 

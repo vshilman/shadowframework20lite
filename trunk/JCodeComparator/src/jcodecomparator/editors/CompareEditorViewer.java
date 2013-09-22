@@ -16,8 +16,6 @@ import jcodecomparator.core.LineStylerFactory;
 import org.eclipse.compare.CompareConfiguration;
 import org.eclipse.compare.CompareUI;
 import org.eclipse.compare.contentmergeviewer.ContentMergeViewer;
-
-
 import org.eclipse.compare.internal.ICompareContextIds;
 import org.eclipse.compare.internal.Utilities;
 import org.eclipse.swt.SWT;
@@ -25,30 +23,23 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.MessageConsoleStream;
 import codeconverter.CodeModule;
 import codeconverter.DifferentiationResult;
 
+/**
+ * Main viewer for comparison. It computes the differents received from the model.
+ *
+ * @author Nicola Pellicano'
+ *
+ */
 
 
+
+@SuppressWarnings("restriction")
 public class CompareEditorViewer extends ContentMergeViewer{
-
-
-    public CompareEditorInput getRightInput() {
-		return rightInput;
-	}
-
-	public CompareEditorInput getLeftInput() {
-		return leftInput;
-	}
 
 
 	public static final String BUNDLE_NAME= "org.eclipse.compare.internal.ImageMergeViewerResources"; //$NON-NLS-1$
@@ -56,8 +47,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
     private CompareEditorInput rightInput;
     private CompareEditorInput leftInput;
 
-    //private Label fLeft;
-    //private Label fRight;
 
     private StyledText fLeft;
     private StyledText fRight;
@@ -70,9 +59,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
     private LineBackgroundStylerListener dLeft;
     private LineBackgroundStylerListener dRight;
 
-    private int count=0;
-    private  MessageConsoleStream out;
-
     private boolean comp=true;
 
     public CompareEditorViewer(Composite parent, int styles, CompareConfiguration mp, ComparisonExecutingDelegate ced, LineStylerFactory lsf) {
@@ -83,15 +69,30 @@ public class CompareEditorViewer extends ContentMergeViewer{
         buildControl(parent);
         String title= Utilities.getString(getResourceBundle(), "title"); //$NON-NLS-1$
         getControl().setData(CompareUI.COMPARE_VIEWER_TITLE, title);
-        MessageConsole myConsole = findConsole("PositionFinding");
-        out=myConsole.newMessageStream();
 
     }
 
-    protected void updateContent(Object ancestor, Object left, Object right) {
+    /**
+     *
+     * @return right input
+     */
 
-        MessageConsole myConsole = findConsole("Console");
-        MessageConsoleStream out=myConsole.newMessageStream();
+    public CompareEditorInput getRightInput() {
+		return rightInput;
+	}
+
+    /**
+     *
+     * @return left input
+     */
+
+	public CompareEditorInput getLeftInput() {
+		return leftInput;
+	}
+
+
+
+    protected void updateContent(Object ancestor, Object left, Object right) {
 
         if(left!=null){
             leftInput= (CompareEditorInput) left;
@@ -125,10 +126,22 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
     }
 
+    /**
+     * Sets right input
+     *
+     * @param right
+     */
+
     public void setRightInput(CompareEditorInput right){
         updateContent(null, null, right);
 
     }
+
+    /**
+     * Sets left input
+     *
+     * @param left
+     */
 
     public void setLeftInput(CompareEditorInput left){
         updateContent(null, left,null);
@@ -145,13 +158,17 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
     public void createControls(Composite composite) {
 
-        Combo combo=new Combo(composite, SWT.NONE);
-
         fLeft=new StyledText(composite,SWT.BORDER| SWT.V_SCROLL | SWT.H_SCROLL);
         fRight=new StyledText(composite, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 
     }
 
+    /**
+     * Sets the right input to the styledText chosen
+     *
+     * @param canvas
+     * @param input
+     */
 
 
     private static void setInput( StyledText canvas , Object input) {
@@ -186,8 +203,9 @@ public class CompareEditorViewer extends ContentMergeViewer{
         }
     }
 
+
     protected void handleResizeAncestor(int x, int y, int width, int height) {
-        //No ANCESTOR
+        //NO ANCESTOR
     }
 
     protected void handleResizeLeftRight(int x, int y, int width1, int centerWidth, int width2, int height) {
@@ -218,6 +236,12 @@ public class CompareEditorViewer extends ContentMergeViewer{
 
     }
 
+    /**
+     * Assign the correct line styler to a tyled text
+     *
+     * @param left
+     */
+
     public void setLineStyler(boolean left){
             if(left){
                 LineBackgroundStylerListener ls1=lsf.getLineStyler(leftInput.getDelegate().getType());
@@ -238,53 +262,39 @@ public class CompareEditorViewer extends ContentMergeViewer{
             }
     }
 
+    /**
+     * Enable/Disable comparison
+     * @param comp
+     */
+
     public void isComparisonEnabled(boolean comp){
     	this.comp=comp;
     }
 
 
     private void showDifferences(){
-        MessageConsole myConsole = findConsole("Console");
-         MessageConsoleStream out=myConsole.newMessageStream();
-        String infos="Non interpretate sinistra:\n";
         Display display = Display.getDefault();
 
         for (int i = 0; i < res.getUninterpretatesLeft().size(); i++) {
             String s=res.getUninterpretatesLeft().get(i).getExtendedCode();
             Point pos=getPos(s, true,res.getUninterpretatesLeft().get(i).getFirstLine(),res.getUninterpretatesLeft().get(i).getLastLine());
-            //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), true);
             dLeft.setBackground(pos, new Color(display, new RGB(229, 220, 209)));
-            out.println("posUs:  "+pos+" "+s);
-            infos+=s+"\n";
         }
-
-        infos+="Non interpretate destra:\n";
 
         for (int i = 0; i < res.getUninterpretatesRight().size(); i++) {
             String s=res.getUninterpretatesRight().get(i).getExtendedCode();
             Point pos=getPos(s, false,res.getUninterpretatesRight().get(i).getFirstLine(),res.getUninterpretatesRight().get(i).getLastLine());
-            //setBackGround(pos, new Color(display, new RGB(128, 128, 128)), false);
             dRight.setBackground(pos, new Color(display, new RGB(229, 220, 209)));
-           out.println("posUd:  "+pos+" "+s);
-            infos+=s+"\n";
         }
-
-
-        infos+="Differenti sinistra:\n";
-
 
         if(res.getDifferentLeft()!=null){
             for (Iterator<CodeModule> iterator = res.getDifferentLeft().iterator(); iterator.hasNext();) {
                 CodeModule cm=iterator.next();
                 String s=cm.getExtendedCode();
                 Point pos=getPos(s, true,cm.getFirstLine(),cm.getLastLine());
-                //setBackGround(pos, new Color(display, new RGB(128, 128, 255)), true);
                 dLeft.setBackground(pos, new Color(display, new RGB(180, 214, 252)));
-              out.println("posS:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]"+s);
-                infos+=s+"\n";
             }
         }
-        infos+="Differenti destra:\n";
 
         if(res.getDifferentRight()!=null){
             for (Iterator<CodeModule> iterator = res.getDifferentRight().iterator(); iterator.hasNext();) {
@@ -292,9 +302,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
                 String s=cm.getExtendedCode();
                 Point pos=getPos(s, false,cm.getFirstLine(),cm.getLastLine());
                 dRight.setBackground(pos, new Color(display, new RGB(180, 214, 252)));
-                out.println("posD:  "+pos+"   "+"["+cm.getFirstLine()+","+cm.getLastLine()+"]"+s);
-                infos+=s+"\n";
-
             }
         }
 
@@ -308,8 +315,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
     public Point getPos(String s, boolean left,int firstLine,int lastLine){
 
 
-         out.println(s+" "+firstLine+" "+lastLine);
-
 
         String text="";
         if(left){
@@ -321,10 +326,8 @@ public class CompareEditorViewer extends ContentMergeViewer{
         int f=getFirstIndexAtLine(text, firstLine);
         int l=getLastIndexAtLine(text, lastLine);
 
-        out.println("Devo ricercare da "+f+" a "+l);
 
         if(text.indexOf(s,f)>=0 && text.indexOf(s,f)<=l){
-        	out.println("Esco subito");
             return new Point(text.indexOf(s,f),text.indexOf(s,f)+s.length());
         }
         if(s.endsWith(";")){
@@ -334,8 +337,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
         if(replaceSpaces(text).indexOf(replaceSpaces(s))>=0){
         	s=replaceN(s);
         	text=replaceN(text);
-        	out.println("------>"+text+"<-----");
-        	out.println("<------"+s+"------->");
             char[] sc=s.toCharArray();
             int pos=0;
             List<Character> fin=new ArrayList<>();
@@ -343,7 +344,6 @@ public class CompareEditorViewer extends ContentMergeViewer{
             for (int i = 0; i < sc.length; i++) {
                 fin.add(sc[i]);
                 String actual=convertToString(fin);
-                out.println(actual+"//");
                 int x=0;
                 while((text.indexOf(actual,f)<0 || text.indexOf(actual,f)>l) && x<10){
                     fin.add(fin.size()-1, ' ');
@@ -440,6 +440,11 @@ public class CompareEditorViewer extends ContentMergeViewer{
         return s;
     }
 
+    /**
+     * Delete a resource from one of the sides
+     * @param left
+     */
+
 
     public void removeResource(boolean left){
             CompareEditorInput cei=new CompareEditorInput(new BlankCompareItem());
@@ -451,28 +456,23 @@ public class CompareEditorViewer extends ContentMergeViewer{
     }
 
 
-
+    /**
+     * returns st left
+     * @return
+     */
 
      public StyledText getfLeft() {
 		return fLeft;
 	}
 
+     /**
+      * Returns ST right
+      *
+      * @return
+      */
+
 	public StyledText getfRight() {
 		return fRight;
 	}
 
-	private MessageConsole findConsole(String name) {
-            ConsolePlugin plugin = ConsolePlugin.getDefault();
-            IConsoleManager conMan = plugin.getConsoleManager();
-            IConsole[] existing = conMan.getConsoles();
-            for (int i = 0; i < existing.length; i++) {
-                if (name.equals(existing[i].getName())) {
-                    return (MessageConsole) existing[i];
-                }
-            }
-            //no console found, so create a new one
-            MessageConsole myConsole = new MessageConsole(name, null);
-            conMan.addConsoles(new IConsole[]{myConsole});
-            return myConsole;
-        }
 }

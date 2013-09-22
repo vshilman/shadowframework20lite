@@ -4,6 +4,12 @@ import jcodecomparator.compare.CompilationUnitCompareItem;
 import jcodecomparator.compare.WorkspaceFileCompareItem;
 import jcodecomparator.core.ImageByTypeKeeper;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class TestCompareItemGenerator extends ConcreteCompareItemGenerator{
 
 	private ImageByTypeKeeper ibtk;

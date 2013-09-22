@@ -4,6 +4,12 @@ package jcodecomparator.test;
 import org.eclipse.compare.ITypedElement;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class TestImageByTypeKeeper extends ConcreteImageByTypeKeeper{
 
 

@@ -1,6 +1,12 @@
 package jcodecomparator.core;
 
-import org.eclipse.swt.custom.LineStyleListener;
+
+/**
+ * Returns the line styler for each language
+ *
+ * @author Nicola Pellicano'
+ *
+ */
 
 public interface LineStylerFactory {
 

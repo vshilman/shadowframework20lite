@@ -8,6 +8,12 @@ import jcodecomparator.core.ImageByTypeKeeper;
 import org.eclipse.compare.ITypedElement;
 import org.eclipse.swt.graphics.Image;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class ConcreteImageByTypeKeeper implements ImageByTypeKeeper{
 
 

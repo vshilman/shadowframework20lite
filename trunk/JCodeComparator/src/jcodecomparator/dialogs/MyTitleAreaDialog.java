@@ -1,25 +1,21 @@
 package jcodecomparator.dialogs;
 
-import org.eclipse.jdt.internal.ui.wizards.buildpaths.SetFilterWizardPage;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Device;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+
+/**
+ * Personal dialog
+ *
+ * @author Nicola Pellicano'
+ *
+ */
 
 public class MyTitleAreaDialog extends TitleAreaDialog{
 
@@ -35,6 +31,10 @@ public class MyTitleAreaDialog extends TitleAreaDialog{
 		this.message=message;
 		image=AbstractUIPlugin.imageDescriptorFromPlugin("JCodeComparator", imagePath).createImage();
 	}
+
+	/**
+	 * Creation
+	 */
 
 	public void create(){
 		super.create();

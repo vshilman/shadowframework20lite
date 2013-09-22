@@ -2,6 +2,12 @@ package jcodecomparator.test;
 
 import jcodecomparator.core.DefaultScanner;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class JsScanner extends DefaultScanner{
 
 
