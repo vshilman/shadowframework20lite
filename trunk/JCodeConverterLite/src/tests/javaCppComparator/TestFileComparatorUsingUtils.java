@@ -13,12 +13,12 @@ public class TestFileComparatorUsingUtils {
 	private static StringWriter logWriter = new StringWriter();
 
 	public static void main(String[] args) {
-		String name = "\n SFParameter.java VS SFParameter.js\n";
+		String name = "\n SFParameter.java VS SFParameter.h\n";
 
 		System.out.println(name);
 
 		String javaFileName = "SFParameter.java";
-		String jsFileName = "SFParameter.js";
+		String jsFileName = "SFParameter.h";
 
 
 		logWriter.write(name + "\n");

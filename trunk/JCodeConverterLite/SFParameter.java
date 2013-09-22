@@ -31,14 +31,14 @@ public class SFParameter extends SFParameteri {
 	 */
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/* (non-Javadoc)
 	 * @see shadow.pipeline.SFParameteri#getType()
 	 */
 	@Override
-	public long getType() {
+	public short getType() {
 		return type;
 	}
 

@@ -12,10 +12,10 @@ public class CppHeaderCodePatterns {
 	public static List<CodePattern> getPatterns(){
 
 		patterns.add(new CppClassDeclaration()); //ok
+		patterns.add(new CppNameSpaceUsing());
 		patterns.add(new CppMethodHeaderDeclaration()); //ok
 		patterns.add(new CppAttributeDeclaration()); //ok
 		patterns.add(new CppisolatedkeyWords()); //ok
-		patterns.add(new CppNameSpaceUsing());
 		patterns.add(new CppConstructorHeaderDeclaration()); //ok
 		patterns.add(new CppDestructorHeaderDeclaration()); //no need
 		patterns.add(new CppFriendClassDeclaration()); //no need
