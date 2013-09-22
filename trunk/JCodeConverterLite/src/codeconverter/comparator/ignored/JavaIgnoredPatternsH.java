@@ -12,7 +12,6 @@ public class JavaIgnoredPatternsH implements IgnoredPatterns {
 	static{
 		javaIgnoredTypes.add(PatternType.LIBRARY_DECLARATION);
 		javaIgnoredTypes.add(PatternType.SUPER);
-		javaIgnoredTypes.add(PatternType.ATTRIBUTE_ASSIGNMENT);
 
 		javaIgnoredTypes.add(PatternType.IF);
 		javaIgnoredTypes.add(PatternType.ELSE);
