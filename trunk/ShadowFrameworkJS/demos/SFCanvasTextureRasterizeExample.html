@@ -1,5 +1,5 @@
 !<!-------------------------
-	Esempio con RASTERIZEHTML che funziona con SETTIMEOUT (legge da FileToReadRasterize.html)
+	Esempio con RASTERIZEHTML (legge da FileToReadRasterize.html)
 	------------------------->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -9,13 +9,13 @@
 	
 	
 	
-    <title>House Test</title>
+    <title>Example</title>
 	<script type="text/javascript" >
 		var sfLocation="../src/";
 	</script>
     <script type="text/javascript" src="../src/ShadowFrameworkInclude.js"></script>
     <script type="text/javascript" src="SFViewer.js"></script>
-    <script type="text/javascript" src="SFExamples2.js"></script>
+    <script type="text/javascript" src="SFExamples3.js"></script>
     <script type="text/javascript" src="rasterizeHTML.allinone.js"></script>
     
     <script type="text/javascript" >
@@ -59,6 +59,7 @@
 			var sfPipelineTexture1 = new SFGL20Texture();
 			var sfPipelineTexture2 = new SFGL20Texture();
 			var sfPipelineTexture3 = new SFGL20Texture();
+			var sfPipelineTexture4 = new SFGL20Texture();
 		
 			var gl=SFGL2_getGL();
 			
@@ -71,25 +72,32 @@
 			var canv3 = document.getElementById("canv3");
 			initTextureFromCanvas(gl,canv3,sfPipelineTexture3);
 			
+			var canv4 = document.getElementById("canv4");
+			initTextureFromCanvas(gl,canv4,sfPipelineTexture4);
+			
 			
 			var sceneRoot=new SFReferenceNode();
 			
-			
-			
-			//alto sx
-			sceneRoot.addNode(createTexturedBaloon(-0.1,0.1,0, 0.6,sfPipelineTexture1));
-			
-			//alto dx
-			sceneRoot.addNode(createTexturedBaloon(0.5,0.3,0, -0.6,sfPipelineTexture2));
-			
-			//basso sx		
-			sceneRoot.addNode(createTexturedBaloon(-0.5,-0.5,1,0,sfPipelineTexture1));
-			
-			//basso dx
-			sceneRoot.addNode(createTexturedBaloon(0.6,-0.4,0,3.10,sfPipelineTexture2));	
-					
-			//sceneRoot.addNode(createTexturedRect(-0.2,-0.8,0,0,sfPipelineTexture2));
-			sceneRoot.addNode(createTexturedCurtain(0.4,-0.2,0,2.6,sfPipelineTexture3));
+			//Parameters are (x,y,z,rotationY,sfPipelineTexture)
+						//(x,y,z): coordinates of the base Point of the geometry
+						//(rotationY): rotation around the Y-axis (in radians)
+						//(sfPipelineTexture): an sf texture you use to store the texture object
+						//(scaling) : scaling Factor
+						//(txoX,txoY) : textures scaling factors
+				sceneRoot.addNode(createTexturedBaloon(0.2,-0.15,0, -0.5, sfPipelineTexture2 ,0.6,2,2));
+				sceneRoot.addNode(createTexturedBaloon(-0.6,-0.9,0, 0, sfPipelineTexture2 ,1,2,2));
+				sceneRoot.addNode(createTexturedBaloon(0.5,-0.9,0, 1, sfPipelineTexture1 ,0.7,2,2));
+				sceneRoot.addNode(createTexturedBaloon(0,-0.8,0, 3, sfPipelineTexture1 ,0.9,2,2));
+				sceneRoot.addNode(createTexturedBaloon(-0.25,0,0,3,sfPipelineTexture2,0.5,2,2));
+				sceneRoot.addNode(createTexturedBaloon(-0.05,0.3,0,4,sfPipelineTexture1,0.4,2,2));
+				sceneRoot.addNode(createTexturedBaloon(-0.2,0.5,0,1,sfPipelineTexture2,0.3,2,2));
+				sceneRoot.addNode(createTexturedBaloon(0.2,0.55,0,3,sfPipelineTexture1,0.3,2,2));
+				
+				sceneRoot.addNode(createTexturedCurtain(0.9,+0.9,+0.5,2.6,sfPipelineTexture3,1,-1,1));	
+		
+				sceneRoot.addNode(createSupporter(-0.4,-0.2,0,0,1,1,0.5,0));
+				
+				sceneRoot.addNode(createTexturedRect(-0.85,0.35,0,0,sfPipelineTexture4,1.5,1,-1));
 			
 			return sceneRoot;
 		}
@@ -125,12 +133,14 @@
         	
         	var canvas2 = document.getElementById("canv2");
         	var ctx=canvas2.getContext("2d");
-			ctx.fillStyle="#FFE6CC";
+        	ctx.fillStyle="#f7ea74"
+			//ctx.fillStyle="#FFE6CC";
 			ctx.fillRect(0,0,256,256);
 			var file2=loadFile("FileToReadRasterize2.html");
 			//console.log(file2);
 	        //rasterizeHTML.drawHTML('<p style="font-size: 14px;">Some <span style="font-size: 28px; color: green">HTML</span> with an image <img src="images/boston.jpg" height="256" width="256"/></p>', canvas);
 	   		rasterizeHTML.drawHTML(file2, canvas2);
+	   		canvas2.style.display = "none";
 	   		canvas2.style.display = "none";
 	   		
 	   		var canvas1 = document.getElementById("canv1");
@@ -141,19 +151,27 @@
 			//console.log(file1);
 	        //rasterizeHTML.drawHTML('<p style="font-size: 14px;">Some <span style="font-size: 28px; color: green">HTML</span> with an image <img src="images/boston.jpg" height="256" width="256"/></p>', canvas);
 	   		rasterizeHTML.drawHTML(file1, canvas1);
+	   		canvas1.style.display = "none";
 	   		
 	   		var canvas3 = document.getElementById("canv3");
         	var ctx=canvas3.getContext("2d");
-			ctx.fillStyle="#000000";
+			ctx.fillStyle="#f7afd4";
 			ctx.fillRect(0,0,256,256);
 			var file3=loadFile("FileToReadRasterize3.html");
 			//console.log(file1);
 	        //rasterizeHTML.drawHTML('<p style="font-size: 14px;">Some <span style="font-size: 28px; color: green">HTML</span> with an image <img src="images/boston.jpg" height="256" width="256"/></p>', canvas);
 	   		rasterizeHTML.drawHTML(file3, canvas3);
-	   		
-	   		canvas1.style.display = "none";
-	   		canvas2.style.display = "none";
 	   		canvas3.style.display = "none";
+	   		
+	   		var canvas4 = document.getElementById("canv4");
+        	var ctx=canvas4.getContext("2d");
+			ctx.fillStyle="#000000";
+			ctx.fillRect(0,0,256,256);
+			var file4=loadFile("FileToReadRasterize4.html");
+			//console.log(file1);
+	        //rasterizeHTML.drawHTML('<p style="font-size: 14px;">Some <span style="font-size: 28px; color: green">HTML</span> with an image <img src="images/boston.jpg" height="256" width="256"/></p>', canvas);
+	   		rasterizeHTML.drawHTML(file4, canvas4);
+	   		canvas4.style.display = "none";
 	   		
 	   		Test();
 	   	
@@ -169,7 +187,9 @@
   	
   	<canvas id="canv3"  width="256" height="256">Your browser doesn't support HTML5</canvas>
   	
-  	<canvas id="canvas3d" style="border: none;" width="900" height="900">Your browser doesn't support HTML5</canvas>
+  	<canvas id="canv4"  width="256" height="256">Your browser doesn't support HTML5</canvas>
+  	
+  	<canvas id="canvas3d" style="border: none;" width="800" height="800">Your browser doesn't support HTML5</canvas>
   	
   
 	
