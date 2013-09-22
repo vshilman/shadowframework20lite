@@ -5,6 +5,12 @@ import codeconverter.templates.test.data.CppHeaderStructure;
 import codeconverter.templates.test.data.JavaDataStructure;
 import codeconverter.templates.test.data.JsDataStructure;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class TestDataStructureTemplateFactory extends ConcreteDataStructureTemplateFactory{
 
 	public TestDataStructureTemplateFactory() {

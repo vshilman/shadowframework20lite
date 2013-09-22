@@ -1,11 +1,9 @@
 package codeconverter.cpp;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import codeconverter.PieceType;
 import codeconverter.codepieces.ConcreteValue;
-import codeconverter.codepieces.Value;
+
 
 public class CppValue extends ConcreteValue{
 

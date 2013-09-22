@@ -5,6 +5,12 @@ import java.util.HashMap;
 import codeconverter.factories.DataStructureTemplateFactory;
 import codeconverter.templates.Structure;
 
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 public class ConcreteDataStructureTemplateFactory implements DataStructureTemplateFactory{
 
 	protected HashMap<String, Structure> map=new HashMap<String, Structure>();

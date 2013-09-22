@@ -3,7 +3,6 @@ package codeconverter.cpp;
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
 import codeconverter.PieceType;
-import codeconverter.codepieces.OptionalCode;
 import codeconverter.codepieces.UniqueKeyword;
 
 public class CppDestructorDeclaration extends CodePattern{

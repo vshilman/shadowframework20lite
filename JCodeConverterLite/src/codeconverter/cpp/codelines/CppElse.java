@@ -1,7 +1,6 @@
 package codeconverter.cpp.codelines;
 
 import codeconverter.CodePattern;
-import codeconverter.ICodePiece;
 import codeconverter.PatternType;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.OptionalCode;

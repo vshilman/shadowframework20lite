@@ -1,7 +1,6 @@
 package codeconverter.factories.test;
 
-import codeconverter.comparator.ignored.JavaIgnoredPatterns;
-import codeconverter.comparator.ignored.NothingToIgnorePatterns;
+
 import codeconverter.cpp.CppCodePatternInterpreter;
 import codeconverter.cpp.codelines.CppHeaderCodePatternInterpreter;
 import codeconverter.filecodelinesgenerators.test.CppCodeLineGenerator;
@@ -9,6 +8,12 @@ import codeconverter.filecodelinesgenerators.test.CppHeaderCodeLineGenerator;
 import codeconverter.filecodelinesgenerators.test.DefaultCodeLineGenerator;
 import codeconverter.java.JavaCodePatternInterpreter;
 import codeconverter.js.JsCodePatternInterpreter;
+
+/**
+ *
+ * @author Nicola Pellicano'
+ *
+ */
 
 public class TestLanguagesObjectsFactory extends ConcreteLanguagesObjectsFactory {
 

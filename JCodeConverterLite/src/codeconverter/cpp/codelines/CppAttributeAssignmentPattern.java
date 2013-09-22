@@ -4,7 +4,6 @@ import codeconverter.CodePattern;
 import codeconverter.PatternType;
 import codeconverter.PieceType;
 import codeconverter.codepieces.AlternativeCode;
-import codeconverter.codepieces.BestAlternativeCode;
 import codeconverter.codepieces.CodeSequence;
 import codeconverter.codepieces.CompositeCodePiece;
 import codeconverter.codepieces.OptionalCode;

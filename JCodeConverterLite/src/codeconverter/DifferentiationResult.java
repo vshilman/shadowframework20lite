@@ -3,7 +3,12 @@ package codeconverter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
+
+/**
+ * Data structure for all the informations learned from a comparison
+ * @author Nicola Pellicano'
+ *
+ */
 
 
 public class DifferentiationResult {

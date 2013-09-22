@@ -1,10 +1,7 @@
 package codeconverter.cpp;
 
-import java.util.List;
-
 import codeconverter.PieceType;
 import codeconverter.codepieces.CompositeCodePiece;
-import codeconverter.codepieces.Value;
 
 public class CppVariable extends CompositeCodePiece{
 

@@ -1,7 +1,13 @@
 package codeconverter;
 
 import codeconverter.comparator.PatternComparator;
-import codeconverter.comparator.ignored.IgnoredPatterns;
+
+/**
+ * Contains the comparators for the specified compare languages
+ *
+ * @author nicolapelicano
+ *
+ */
 
 public class ComparatorsHolder {
 

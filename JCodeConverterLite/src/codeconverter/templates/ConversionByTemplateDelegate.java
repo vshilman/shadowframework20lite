@@ -1,11 +1,9 @@
 package codeconverter.templates;
 
 import java.io.InputStream;
-import java.text.spi.DecimalFormatSymbolsProvider;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,12 +13,19 @@ import tests.tmp.GeneralTests;
 
 import codeconverter.Block;
 import codeconverter.BlockDataInterpreter;
-import codeconverter.CodeLine;
 import codeconverter.CodeModule;
 import codeconverter.CodePattern;
 import codeconverter.DeclaredBlock;
 import codeconverter.factories.DataStructureTemplateFactory;
 import codeconverter.factories.LanguagesObjectsFactory;
+
+/**
+ * Model for the template-using conversion
+ *
+ * @author Nicola Pellicano'
+ *
+ */
+
 
 public class ConversionByTemplateDelegate {
 
@@ -42,7 +47,14 @@ public class ConversionByTemplateDelegate {
 	}
 
 
-
+	/**
+	 * Conversion algorithm
+	 *
+	 * @param nameIn
+	 * @param streamIn
+	 * @param langOut
+	 * @return the converted code
+	 */
 
 
 	public String convertCode(String nameIn, InputStream streamIn,String langOut){

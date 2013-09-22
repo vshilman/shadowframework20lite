@@ -1,9 +1,7 @@
 package codeconverter.cpp;
 
-import java.util.List;
 
 import codeconverter.codepieces.KeywordSet;
-import codeconverter.codepieces.Value;
 
 public class CppSpecifier extends KeywordSet{
 

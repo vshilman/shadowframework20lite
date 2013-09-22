@@ -1,7 +1,5 @@
 package codeconverter.cpp.codelines;
 
-import java.awt.PageAttributes;
-
 import codeconverter.CodePattern;
 import codeconverter.PatternType;
 import codeconverter.PieceType;
