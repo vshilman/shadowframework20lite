@@ -198,9 +198,13 @@ function createTexturedSurface(x,y,z,rotationY,texture,surfaceFunction,texCoordF
 }
 
 
-function createTexturedBaloon(x,y,z,rotationY,texture,scaleFactor){
+function createTexturedBaloon(x,y,z,rotationY,texture,scaleFactor,txoX,txoY){
+	if(txoX==undefined)
+		txoX=1;
+	if(txoY==undefined)
+		txoY=1;
 	checkBaloonSurface();
-	var node= createTexturedSurface(x,y,z,rotationY,texture,baloonSurfaceFunction);
+	var node= createTexturedSurface(x,y,z,rotationY,texture,baloonSurfaceFunction,new SFSimpleTexCoordGeometryuv(txoX,txoY));
 	
 	if(scaleFactor!=undefined){
 		var matrix=new SFMatrix3f();
@@ -215,9 +219,13 @@ function createTexturedBaloon(x,y,z,rotationY,texture,scaleFactor){
 
 
 
-function createTexturedRect(x,y,z,rotationY,texture,scaleFactor){
+function createTexturedRect(x,y,z,rotationY,texture,scaleFactor,txoX,txoY){
+	if(txoX==undefined)
+		txoX=1;
+	if(txoY==undefined)
+		txoY=1;
 	checkRectSurface();
-	var node= createTexturedSurface(x,y,z,rotationY,texture,rectSurfaceFunction,new MyTexCoord(1,1,0,0));
+	var node= createTexturedSurface(x,y,z,rotationY,texture,rectSurfaceFunction,new MyTexCoord(txoX,txoY,0,0));
 	
 	if(scaleFactor!=undefined){
 		var matrix=new SFMatrix3f();
@@ -353,9 +361,13 @@ function createCurtainHolder(x,y,z,rotationY,scaleFactor,r,g,b){
 }
 
 
-function createTexturedCurtain(x,y,z,rotationY,texture,scaleFactor){
+function createTexturedCurtain(x,y,z,rotationY,texture,scaleFactor,txoX,txoY){
+	if(txoX==undefined)
+		txoX=1;
+	if(txoY==undefined)
+		txoY=1;
 	checkCurtainSurface();
-	var node = createTexturedSurface(x,y,z,rotationY,texture,curtainSurfaceFunction,new MyTexCoord(1,1,0,0));
+	var node = createTexturedSurface(x,y,z,rotationY,texture,curtainSurfaceFunction,new MyTexCoord(txoX,txoY,0,0));
 	
 	var sceneNode=new SFReferenceNode();
 	
