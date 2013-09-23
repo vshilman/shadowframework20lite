@@ -49,7 +49,7 @@ public class BasicGetCppTemplate implements Template{
 		//System.out.println("Processing... "+code);
 		String mtype=code.split(" ")[0];
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppType(), mtype)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 		String code1=code.substring(mtype.length(),code.length()).trim();
@@ -60,14 +60,14 @@ public class BasicGetCppTemplate implements Template{
 
 
 		if(!code1.contains("::")){
-			System.out.println("ext1");
+			//System.out.println("ext1");
 			return false;
 		}
 
 		StringTokenizer tok=new StringTokenizer(code1,":");
 		String mclass=tok.nextToken();
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), mclass)){
-			System.out.println("uns2");
+			//System.out.println("uns2");
 			return false;
 		}
 
@@ -76,11 +76,11 @@ public class BasicGetCppTemplate implements Template{
 		int off=3;
 		if(!code2.startsWith("get")){
 			if(bool==false){
-				System.out.println("ext2");
+				//System.out.println("ext2");
 				return false;
 			} else{
 				if(!code2.startsWith("is")){
-					System.out.println("ext2a");
+					//System.out.println("ext2a");
 					return false;
 				}
 				off=2;
@@ -98,31 +98,31 @@ public class BasicGetCppTemplate implements Template{
 		name=init.toLowerCase()+name.substring(1,name.length());
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), name)){
-			System.out.println("ex3");
+			//System.out.println("ex3");
 			return false;
 		}
 		String code4=code3.substring(nam.length(),code3.length()).trim();
 
 		if(!code4.startsWith("(")){
-			System.out.println("ex4");
+			//System.out.println("ex4");
 			return false;
 		}
 		String code5=code4.substring(1,code4.length()).trim();
 
 		if(!code5.startsWith(")")){
-			System.out.println("ex5");
+			//System.out.println("ex5");
 			return false;
 		}
 		String code6=code5.substring(1,code5.length()).trim();
 		if(!code6.startsWith("{")){
-			System.out.println("ex6");
+			//System.out.println("ex6");
 			return false;
 		}
 
 		String code7=code6.substring(1,code6.length()).trim();
 
 		if(!code7.startsWith("return")){
-			System.out.println("ex7");
+			//System.out.println("ex7");
 			return false;
 		}
 
@@ -137,7 +137,7 @@ public class BasicGetCppTemplate implements Template{
 		if(!code8.startsWith(name)){
 			String x="is"+name.substring(0,1).toUpperCase()+name.substring(1,name.length());
 			if(!code8.startsWith(x) || bool==false){
-				System.out.println("ex8");
+				//System.out.println("ex8");
 				return false;
 			}
 			name=x;

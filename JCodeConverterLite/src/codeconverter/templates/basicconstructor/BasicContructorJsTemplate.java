@@ -51,7 +51,7 @@ public class BasicContructorJsTemplate implements Template{
 
 		//System.out.println("Processing... "+code);
 		if(!code.startsWith("function")){
-			System.out.println("ex1");
+			//System.out.println("ex1");
 			return false;
 		}
 
@@ -61,12 +61,12 @@ public class BasicContructorJsTemplate implements Template{
 		String mcl=tok.nextToken();
 		String mclass=mcl.trim();
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JsName(), mclass)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 		String code2=code1.substring(mcl.length(),code1.length());
 		if(!code2.startsWith("(")){
-			System.out.println("ex2");
+			//System.out.println("ex2");
 			return false;
 		}
 
@@ -84,7 +84,7 @@ public class BasicContructorJsTemplate implements Template{
 
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new JsName(), x)){
 				list.clear();
-				System.out.println("ex3");
+				//System.out.println("ex3");
 				return false;
 			}
 			list.add(x);
@@ -93,7 +93,7 @@ public class BasicContructorJsTemplate implements Template{
 		String code4=code3.substring(param.length(),code3.length()).trim();
 		if(!code4.startsWith("{")){
 			list.clear();
-			System.out.println("ex4");
+			//System.out.println("ex4");
 			return false;
 		}
 		String code5=code4.substring(1,code4.length());
@@ -109,7 +109,7 @@ public class BasicContructorJsTemplate implements Template{
 			if(!x.startsWith("this.")){
 				list.clear();
 				assigned.clear();
-				System.out.println("ex5");
+				//System.out.println("ex5");
 				return false;
 			}
 			String x1=x.substring(5,x.length()).trim();
@@ -118,14 +118,14 @@ public class BasicContructorJsTemplate implements Template{
 			if(!list.contains(n)){
 				list.clear();
 				assigned.clear();
-				System.out.println("ex6");
+				//System.out.println("ex6");
 				return false;
 			}
 			String n2=tokx.nextToken().trim();
 			if(!n2.equals(n)){
 				list.clear();
 				assigned.clear();
-				System.out.println("ex7");
+				//System.out.println("ex7");
 				return false;
 			}
 			assigned.add(n);

@@ -64,13 +64,13 @@ public class BasicSetCppHeaderTemplate implements Template{
 		name=init.toLowerCase()+name.substring(1,name.length());
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), name)){
-			System.out.println("ex3");
+			//System.out.println("ex3");
 			return false;
 		}
 		String code4=code3.substring(nam.length(),code3.length()).trim();
 
 		if(!code4.startsWith("(")){
-			System.out.println("ex4");
+			//System.out.println("ex4");
 			return false;
 		}
 		String code5=code4.substring(1,code4.length()).trim();
@@ -83,7 +83,7 @@ public class BasicSetCppHeaderTemplate implements Template{
 
 		int num=toka.countTokens();
 		if(num<2){
-			System.out.println("exx");
+			//System.out.println("exx");
 			return false;
 		}
 		String mtype=toka.nextToken();
@@ -104,7 +104,7 @@ public class BasicSetCppHeaderTemplate implements Template{
 		if(!name2.equals(name)){
 			String x="is"+name.substring(0,1).toUpperCase()+name.substring(1,name.length());
 			if(!x.equals(name2) || bool==false){
-				System.out.println("ext6");
+				//System.out.println("ext6");
 				return false;
 			}
 			name=name2;
@@ -112,7 +112,7 @@ public class BasicSetCppHeaderTemplate implements Template{
 
 		String code7=code5.substring(args.length(),code5.length()).trim();
 		if(!code7.startsWith(")")){
-			System.out.println("ex7");
+			//System.out.println("ex7");
 			return false;
 		}
 		String code8=code7.substring(1,code7.length()).trim();

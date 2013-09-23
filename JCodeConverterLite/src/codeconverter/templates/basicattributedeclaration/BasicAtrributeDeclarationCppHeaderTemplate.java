@@ -67,13 +67,13 @@ public class BasicAtrributeDeclarationCppHeaderTemplate extends BasicAttributeDe
 		//System.out.println("Processing... "+code);
 		boolean assigned=false;
 		if(!code.endsWith(";")){
-			System.out.println("ex0");
+			//System.out.println("ex0");
 			return false;
 		}
 
 		String modt=code.split(" ")[0];
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(piecet, modt)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 
@@ -84,12 +84,12 @@ public class BasicAtrributeDeclarationCppHeaderTemplate extends BasicAttributeDe
 		String n=tokk.nextToken();
 			name=n.trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(piecen, name)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 			String code3=code2.substring(n.length(),code2.length()).trim();
 			if(!code3.equals(";")){
-				System.out.println("ex6+"+code3);
+				//System.out.println("ex6+"+code3);
 				return false;
 		}
 

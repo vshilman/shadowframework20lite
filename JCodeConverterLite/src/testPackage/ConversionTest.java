@@ -3,18 +3,14 @@ package testPackage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Iterator;
-import java.util.Set;
 
 import tests.tmp.GeneralTests;
 
-import codeconverter.CodeModule;
 import codeconverter.DifferentiationResult;
 import codeconverter.factories.test.TestDataStructureTemplateFactory;
 import codeconverter.factories.test.TestLanguagesObjectsFactory;
@@ -27,7 +23,7 @@ public class ConversionTest {
 
 
 
-        String exOut="cpp";
+        String exOut="h";
         String ifile="SFParameter.java";
         String c=conv.convertCode(ifile,getStream(ifile),exOut);
 

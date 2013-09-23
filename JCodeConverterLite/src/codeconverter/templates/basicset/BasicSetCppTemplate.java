@@ -49,14 +49,14 @@ public class BasicSetCppTemplate implements Template{
 		boolean bool=false;
 
 			if(!code.startsWith("void")){
-			System.out.println("ext1");
+			//System.out.println("ext1");
 			return false;
 		}
 
 		String code1=code.substring(4,code.length()).trim();
 
 		if(!code1.contains("::")){
-			System.out.println("ext2");
+			//System.out.println("ext2");
 			return false;
 		}
 
@@ -69,7 +69,7 @@ public class BasicSetCppTemplate implements Template{
 
 		String code2=code1.substring(mclass.length()+2,code1.length()).trim();
 		if(!code2.startsWith("set")){
-			System.out.println("ext3");
+			//System.out.println("ext3");
 			return false;
 		}
 
@@ -83,13 +83,13 @@ public class BasicSetCppTemplate implements Template{
 		name=init.toLowerCase()+name.substring(1,name.length());
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), name)){
-			System.out.println("ex3");
+			//System.out.println("ex3");
 			return false;
 		}
 		String code4=code3.substring(nam.length(),code3.length()).trim();
 
 		if(!code4.startsWith("(")){
-			System.out.println("ex4");
+			//System.out.println("ex4");
 			return false;
 		}
 		String code5=code4.substring(1,code4.length()).trim();
@@ -102,7 +102,7 @@ public class BasicSetCppTemplate implements Template{
 
 		int num=toka.countTokens();
 		if(num<2){
-			System.out.println("exx");
+			//System.out.println("exx");
 			return false;
 		}
 		String mtype=toka.nextToken();
@@ -115,7 +115,7 @@ public class BasicSetCppTemplate implements Template{
 		}
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppType(), mtype)){
-			System.out.println("uns2");
+			//System.out.println("uns2");
 			return false;
 		}
 		String name2=toka.nextToken();
@@ -131,13 +131,13 @@ public class BasicSetCppTemplate implements Template{
 
 		String code7=code5.substring(args.length(),code5.length()).trim();
 		if(!code7.startsWith(")")){
-			System.out.println("ex7");
+			//System.out.println("ex7");
 			return false;
 		}
 
 		String code8=code7.substring(1,code7.length()).trim();
 		if(!code8.startsWith("{")){
-			System.out.println("ex8");
+			//System.out.println("ex8");
 			return false;
 		}
 
@@ -156,25 +156,25 @@ public class BasicSetCppTemplate implements Template{
 
 		String code10=code9.substring(name.length(),code9.length()).trim();
 		if(!code10.startsWith("=")){
-			System.out.println("ex10");
+			//System.out.println("ex10");
 			return false;
 		}
 
 		String code11=code10.substring(1,code10.length()).trim();
 		if(!code11.startsWith(name)){
-			System.out.println("ex11");
+			//System.out.println("ex11");
 			return false;
 		}
 
 		String code12=code11.substring(name.length(),code11.length()).trim();
 		if(!code12.startsWith(";")){
-			System.out.println("ex12");
+			//System.out.println("ex12");
 			return false;
 		}
 
 		String code13=code12.substring(1,code12.length()).trim();
 		if(!code13.equals("}")){
-			System.out.println("ex13");
+			//System.out.println("ex13");
 			return false;
 		}
 

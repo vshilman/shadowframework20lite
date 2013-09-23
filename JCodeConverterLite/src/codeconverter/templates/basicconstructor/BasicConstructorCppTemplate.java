@@ -64,7 +64,7 @@ public class BasicConstructorCppTemplate implements Template{
 
 		//System.out.println("Processing... "+code);
 		if(!code.contains("::")){
-			System.out.println("ex1");
+			//System.out.println("ex1");
 			return false;
 		}
 
@@ -72,7 +72,7 @@ public class BasicConstructorCppTemplate implements Template{
 		String mclass=tok.nextToken().trim();
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), mclass)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 
@@ -84,7 +84,7 @@ public class BasicConstructorCppTemplate implements Template{
 
 
 		if(!mclass.equals(mclass2)){
-			System.out.println("ex2");
+			//System.out.println("ex2");
 			return false;
 		}
 
@@ -98,9 +98,9 @@ public class BasicConstructorCppTemplate implements Template{
 			String x=toka.nextToken().trim();
 			StringTokenizer tokx=new StringTokenizer(x," ");
 			if(tokx.countTokens()<2 && !x.trim().equals("")){
-				System.out.println("exit");
+				//System.out.println("exit");
 				mapArgs.clear();
-				System.out.println("ex3");
+				//System.out.println("ex3");
 				return false;
 			}
 			if(x.trim().equals("")){
@@ -114,14 +114,14 @@ public class BasicConstructorCppTemplate implements Template{
 			}
 
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppType(), tp)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 
 			String n=tokx.nextToken();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), n)){
 				mapArgs.clear();
-				System.out.println("ex4");
+				//System.out.println("ex4");
 				return false;
 			}
 			mapArgs.put(n, tp);
@@ -143,7 +143,7 @@ public class BasicConstructorCppTemplate implements Template{
 			String cld=toks.nextToken();
 			classd=cld.trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), classd)){
-				System.out.println("uns3");
+				//System.out.println("uns3");
 				return false;
 			}
 			code4=code4.substring(cld.length()+1,code4.length()).trim();
@@ -162,7 +162,7 @@ public class BasicConstructorCppTemplate implements Template{
 	if(!code3.startsWith("{")){
 		superlist.clear();
 		mapArgs.clear();
-		System.out.println("extboh");
+		//System.out.println("extboh");
 		return false;
 	}
 	String code5=code3.substring(1,code3.length());
@@ -184,7 +184,7 @@ public class BasicConstructorCppTemplate implements Template{
 				mapArgs.clear();
 				superlist.clear();
 				assigned.clear();
-				System.out.println("ex5");
+				//System.out.println("ex5");
 				return false;
 			}
 		}
@@ -195,7 +195,7 @@ public class BasicConstructorCppTemplate implements Template{
 			mapArgs.clear();
 			superlist.clear();
 			assigned.clear();
-			System.out.println("ex6");
+			//System.out.println("ex6");
 			return false;
 		}
 		String n2=tokx.nextToken().trim();
@@ -203,7 +203,7 @@ public class BasicConstructorCppTemplate implements Template{
 			mapArgs.clear();
 			superlist.clear();
 			assigned.clear();
-			System.out.println("ex7");
+			//System.out.println("ex7");
 			return false;
 		}
 		assigned.add(n);

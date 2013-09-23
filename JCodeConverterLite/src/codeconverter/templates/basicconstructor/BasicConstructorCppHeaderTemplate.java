@@ -44,7 +44,7 @@ public class BasicConstructorCppHeaderTemplate implements Template{
 		mapArgs.clear();
 		//System.out.println("Processing... "+code);
 		if(!(code.contains("(") && code.contains(")"))){
-			System.out.println("ex1");
+			//System.out.println("ex1");
 			return false;
 		}
 
@@ -53,7 +53,7 @@ public class BasicConstructorCppHeaderTemplate implements Template{
 		String mclass=mclas.trim();
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), mclass)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 
@@ -72,9 +72,9 @@ public class BasicConstructorCppHeaderTemplate implements Template{
 			}
 
 			if(tokx.countTokens()<2){
-				System.out.println("exit");
+				//System.out.println("exit");
 				mapArgs.clear();
-				System.out.println("ex3");
+				//System.out.println("ex3");
 				return false;
 			}
 
@@ -85,14 +85,14 @@ public class BasicConstructorCppHeaderTemplate implements Template{
 			}
 
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppType(), tp)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 
 			String n=tokx.nextToken();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), n)){
 				mapArgs.clear();
-				System.out.println("ex4");
+				//System.out.println("ex4");
 				return false;
 			}
 			mapArgs.put(n, tp);
@@ -100,7 +100,7 @@ public class BasicConstructorCppHeaderTemplate implements Template{
 
 		String code2=code1.substring(args.length(),code1.length()).trim();
 		if(!code2.equals(";")){
-			System.out.println("exf");
+			//System.out.println("exf");
 			return false;
 		}
 		this.classn=mclass;

@@ -3,6 +3,7 @@ package tests.cpp;
 import codeconverter.CodePattern;
 import codeconverter.ICodePiece.ICodePieceMatch;
 import codeconverter.cpp.CppBooleanExpression;
+import codeconverter.cpp.codelines.CppCoutPattern;
 import codeconverter.cpp.codelines.CppIf;
 import codeconverter.java.JavaBooleanExpression;
 import codeconverter.java.codelines.JavaIf;
@@ -27,5 +28,10 @@ public static void main(String[] args) {
 			System.out.println("Failed");
 		else
 			System.out.println("Success "+match.getMatchPosition());
+
 	}
+
+
+
+
 }

@@ -39,19 +39,19 @@ public class BasicClassDeclarationJavaTemplate implements Template{
 		boolean isDerivate=false;
 		String modc=code.split(" ")[0];
 		if(!(modc.equals("public"))){
-			System.out.println("ex1"+modc);
+			//System.out.println("ex1"+modc);
 			return false;
 		}
 
 		String code1=code.substring(modc.length(),code.length()).trim();
 		if(!code1.startsWith("class")){
-			System.out.println("ex2");
+			//System.out.println("ex2");
 			return false;
 		}
 		String code2=code1.substring(5,code1.length()).trim();
 		String name=code2.split(" ")[0];
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaName(), name)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 		String code3=code2.substring(name.length(),code2.length()).trim();
@@ -60,13 +60,13 @@ public class BasicClassDeclarationJavaTemplate implements Template{
 			isDerivate=true;
 			code3=code3.substring(7,code3.length()).trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaName(), code3)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 			classd=code3;
 		} else {
 			if(!code3.equals("")){
-				System.out.println("exfischia");
+				//System.out.println("exfischia");
 				return false;
 			}
 		}
