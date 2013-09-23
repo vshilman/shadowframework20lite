@@ -32,7 +32,7 @@ public class CppHeaderStructure implements Structure{
 	@Override
 	public String buildCode(String className,List<Template> convlist) {
 
-		String fin="#include <string>\n\n";
+		String fin="#include <string>\n";
 
 		boolean hasClassDec=false;
 		Template t=null;
@@ -75,14 +75,14 @@ public class CppHeaderStructure implements Structure{
 			GeneralPurposeTemplateUtilities.deleteByID(convlist, 1, false);
 		}
 		for (int i = 0; i < tPriv.size(); i++) {
-			fin+=tPriv.get(i).constructCode()+"\n";
+			fin+="\t"+tPriv.get(i).constructCode()+"\n";
 		}
 		fin+="\n";
 
 		if(tProt.size()>0){
 			fin+="protected:\n\n";
 			for (int i = 0; i < tProt.size(); i++) {
-				fin+=tProt.get(i).constructCode()+"\n";
+				fin+="\t"+tProt.get(i).constructCode()+"\n";
 			}
 		}
 		fin+="\n";
@@ -90,13 +90,13 @@ public class CppHeaderStructure implements Structure{
 		fin+="public:\n\n";
 
 		for (int i = 0; i < tPubl.size(); i++) {
-			fin+=tPubl.get(i).constructCode()+"\n";
+			fin+="t"+tPubl.get(i).constructCode()+"\n";
 		}
 
 		fin+="\n";
 
 		for (int i = 0; i < convlist.size(); i++) {
-			fin+=convlist.get(i).constructCode()+"\n\n";
+			fin+="\t"+convlist.get(i).constructCode()+"\n";
 		}
 
 		fin+="};";

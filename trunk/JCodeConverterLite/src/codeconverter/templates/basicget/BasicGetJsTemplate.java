@@ -45,20 +45,20 @@ public class BasicGetJsTemplate implements Template{
 		init();
 		//System.out.println("Processing... "+code);
 		if(!code.contains(".")){
-			System.out.println("ext1");
+			//System.out.println("ext1");
 			return false;
 		}
 		StringTokenizer tok=new StringTokenizer(code,".");
 		String mclass=tok.nextToken();
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JsName(), mclass)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 		String code2=code.substring(mclass.length()+1,code.length()).trim();
 
 		String s="prototype[\"";
 		if(!code2.startsWith(s)){
-			System.out.println("ext2");
+			//System.out.println("ext2");
 			return false;
 		}
 
@@ -66,7 +66,7 @@ public class BasicGetJsTemplate implements Template{
 		int off=3;
 		if(!code3.startsWith("get")){
 			if(!code3.startsWith("is")){
-				System.out.println("ext2a");
+				//System.out.println("ext2a");
 				return false;
 			}
 			off=2;
@@ -78,7 +78,7 @@ public class BasicGetJsTemplate implements Template{
 		String init=name.substring(0,1);
 		name=init.toLowerCase()+name.substring(1,name.length());
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JsName(), name)){
-			System.out.println("ext3");
+			//System.out.println("ext3");
 			return false;
 		}
 
@@ -86,40 +86,40 @@ public class BasicGetJsTemplate implements Template{
 
 
 		if(!code4.startsWith("]")){
-			System.out.println("ext4");
+			//System.out.println("ext4");
 			return false;
 		}
 		String code5=code4.substring(1,code4.length()).trim();
 		if(!code5.startsWith("=")){
-			System.out.println("ext5");
+			//System.out.println("ext5");
 			return false;
 		}
 
 		String code6=code5.substring(1,code5.length()).trim();
 
 		if(!code6.startsWith("function")){
-			System.out.println("ext6");
+			//System.out.println("ext6");
 			return false;
 		}
 		String code7=code6.substring(8,code6.length()).trim();
 		if(!code7.startsWith("(")){
-			System.out.println("ext7");
+			//System.out.println("ext7");
 			return false;
 		}
 		String code8=code7.substring(1,code7.length()).trim();
 		if(!code8.startsWith(")")){
-			System.out.println("ext8");
+			//System.out.println("ext8");
 			return false;
 		}
 		String code9=code8.substring(1,code8.length()).trim();
 		if(!code9.startsWith("{")){
-			System.out.println("ext9");
+			//System.out.println("ext9");
 			return false;
 		}
 
 		String code10=code9.substring(1,code9.length()).trim();
 		if(!code10.startsWith("return")){
-			System.out.println("ext10");
+			//System.out.println("ext10");
 			return false;
 		}
 
@@ -130,7 +130,7 @@ public class BasicGetJsTemplate implements Template{
 		if(!code11.startsWith(name)){
 			String x="is"+name.substring(0,1).toUpperCase()+name.substring(1,name.length());
 			if(!code11.startsWith(x)){
-				System.out.println("ext11");
+				//System.out.println("ext11");
 				return false;
 			}
 			name=x;
@@ -138,18 +138,18 @@ public class BasicGetJsTemplate implements Template{
 
 		String code12=code11.substring(name.length(),code11.length()).trim();
 		if(!code12.startsWith(";")){
-			System.out.println("ext12");
+			//System.out.println("ext12");
 			return false;
 		}
 
 		String code13=code12.substring(1,code12.length()).trim();
 		if(!code13.startsWith("}")){
-			System.out.println("ext13");
+			//System.out.println("ext13");
 			return false;
 		}
 		String code14=code13.substring(1,code13.length()).trim();
 		if(!code14.equals("")){
-			System.out.println("ext14");
+			//System.out.println("ext14");
 			return false;
 		}
 

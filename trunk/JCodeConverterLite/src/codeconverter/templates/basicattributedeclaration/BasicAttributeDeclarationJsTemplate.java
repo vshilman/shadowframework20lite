@@ -48,13 +48,13 @@ public class BasicAttributeDeclarationJsTemplate implements Template{
 		//System.out.println("Processing... "+code);
 		boolean assigned=false;
 		if(!code.endsWith(";")){
-			System.out.println("ex0");
+			//System.out.println("ex0");
 			return false;
 		}
 
 		String modc=code.split(" ")[0];
 		if(!modc.equals("var")){
-			System.out.println("ex1");
+			//System.out.println("ex1");
 			return false;
 		}
 		String code2=code.substring(modc.length(),code.length()).trim();
@@ -65,18 +65,18 @@ public class BasicAttributeDeclarationJsTemplate implements Template{
 			String n=tok.nextToken();
 			name=n.trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new JsName(), name)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 			String code3=code2.substring(n.length()+1,code2.length()).trim();
 			StringTokenizer tok2=new StringTokenizer(code3,";");
 			if(tok2.countTokens()!=1){
-				System.out.println("ext2");
+				//System.out.println("ext2");
 				return false;
 			}
 			String assignment=tok2.nextToken().trim();
 			if(!assignment.equals("0")){
-				System.out.println("ext3");
+				//System.out.println("ext3");
 				return false;
 			}
 			assigned=true;
@@ -86,12 +86,12 @@ public class BasicAttributeDeclarationJsTemplate implements Template{
 			String n=tokk.nextToken();
 			name=n.trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new JsName(), name)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 			String code3=code2.substring(n.length(),code2.length()).trim();
 			if(!code3.equals(";")){
-				System.out.println("ex6+"+code3);
+				//System.out.println("ex6+"+code3);
 				return false;
 			}
 		}

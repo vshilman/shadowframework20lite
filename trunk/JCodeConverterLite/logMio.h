@@ -1,42 +1,28 @@
 #include <string>
-
 #include SFParameteri.h
 
 using namespace std;
 
 class SFParameter : public SFParameteri{
 
-string name;
+	string name;
 
-protected:
-
-int assignMe;
-bool ancheMe;
 
 public:
 
 
-//package shadow.pipeline.parameters;
+	//package shadow.pipeline.parameters;
 
+	//protected short type=GLOBAL_GENERIC;
 
-//protected short type=GLOBAL_GENERIC;
-
-
-SFParameter();
-
-SFParameter(string name,short type);
-
-SFParameter(string name);
-
-string getName ( );
-
-short getType ( );
-
-void setType( short type );
-
-//@Override	public String toString() {
+	SFParameter();
+	SFParameter(string name,short type);
+	SFParameter(string name);
+	string getName ( );
+	short getType ( );
+	void setType( short type );
+	//@Override	public String toString() {
 //return name+"("+type+")";
 //}
-
 
 };

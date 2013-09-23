@@ -53,21 +53,21 @@ public class BasicConstructorJavaTemplate implements Template{
 		//System.out.println("Processing... "+code);
 		String modc=code.split(" ")[0];
 		if(!(modc.equals("public") || modc.equals("private") || modc.equals("protected"))){
-			System.out.println("ex1");
+			//System.out.println("ex1");
 			return false;
 		}
 
 
 		String code1=code.substring(modc.length(),code.length()).trim();
 		if(!code1.contains("(")){
-			System.out.println("ex2");
+			//System.out.println("ex2");
 			return false;
 		}
 		StringTokenizer tok=new StringTokenizer(code1,"(");
 		String mcl=tok.nextToken();
 		String mclass=mcl.trim();
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaName(), mclass)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 		String code2=code1.substring(mcl.length()+1,code1.length()).trim();
@@ -80,7 +80,7 @@ public class BasicConstructorJavaTemplate implements Template{
 			//System.out.println("-->"+x);
 			StringTokenizer tokx=new StringTokenizer(x," ");
 			if(tokx.countTokens()<2 && !x.trim().equals("")){
-				System.out.println("exit");
+				//System.out.println("exit");
 				mapArgs.clear();
 				return false;
 			}
@@ -93,13 +93,13 @@ public class BasicConstructorJavaTemplate implements Template{
 				tp+=" "+tokx.nextToken();
 			}
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaType(), tp)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 			String n=tokx.nextToken();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaName(), n)){
 				mapArgs.clear();
-				System.out.println("ex3");
+				//System.out.println("ex3");
 				return false;
 			}
 			mapArgs.put(n, tp);
@@ -108,7 +108,7 @@ public class BasicConstructorJavaTemplate implements Template{
 		String code3=code2.substring(arguments.length(),code2.length()).trim();
 		if(!code3.startsWith("{")){
 			mapArgs.clear();
-			System.out.println("ex4");
+			//System.out.println("ex4");
 			return false;
 		}
 
@@ -124,7 +124,7 @@ public class BasicConstructorJavaTemplate implements Template{
 					continue;
 				}
 				if(!(GeneralPurposeTemplateUtilities.isNameSupported(new JavaName(), n1))){
-					System.out.println("uns3");
+					//System.out.println("uns3");
 					return false;
 				}
 				supernames.add(n1);
@@ -146,7 +146,7 @@ public class BasicConstructorJavaTemplate implements Template{
 				mapArgs.clear();
 				supernames.clear();
 				assigned.clear();
-				System.out.println("ex5");
+				//System.out.println("ex5");
 				return false;
 			}
 			String x1=x.substring(5,x.length()).trim();
@@ -156,7 +156,7 @@ public class BasicConstructorJavaTemplate implements Template{
 				mapArgs.clear();
 				supernames.clear();
 				assigned.clear();
-				System.out.println("ex6");
+				//System.out.println("ex6");
 				return false;
 			}
 			String n2=tokx.nextToken().trim();
@@ -164,7 +164,7 @@ public class BasicConstructorJavaTemplate implements Template{
 				mapArgs.clear();
 				supernames.clear();
 				assigned.clear();
-				System.out.println("ex7");
+				//System.out.println("ex7");
 				return false;
 			}
 			assigned.add(n);

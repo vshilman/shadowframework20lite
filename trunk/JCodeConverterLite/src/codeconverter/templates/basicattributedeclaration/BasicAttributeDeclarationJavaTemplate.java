@@ -61,20 +61,20 @@ public class BasicAttributeDeclarationJavaTemplate extends BasicAttributeDeclara
 		//System.out.println("Processing... "+code);
 		boolean assigned=false;
 		if(!code.endsWith(";")){
-			System.out.println("ex0");
+			//System.out.println("ex0");
 			return false;
 		}
 
 		String modc=code.split(" ")[0];
 		if(!(modc.equals("public") || modc.equals("private") || modc.equals("protected"))){
-			System.out.println("ext1");
+			//System.out.println("ext1");
 			return false;
 		}
 		code=code.substring(modc.length(),code.length()).trim();
 
 		String modt=code.split(" ")[0];
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(piecet, modt)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 
@@ -86,13 +86,13 @@ public class BasicAttributeDeclarationJavaTemplate extends BasicAttributeDeclara
 			String n=tok.nextToken();
 			name=n.trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(piecen, name)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 			String code3=code2.substring(n.length()+1,code2.length()).trim();
 			StringTokenizer tok2=new StringTokenizer(code3,";");
 			if(tok2.countTokens()!=1){
-				System.out.println("ext2");
+				//System.out.println("ext2");
 				return false;
 			}
 			String assignment=tok2.nextToken().trim();
@@ -100,12 +100,12 @@ public class BasicAttributeDeclarationJavaTemplate extends BasicAttributeDeclara
 			if(defValues.containsKey(modt)){
 				String[] arr=defValues.get(modt);
 				if(!GeneralPurposeTemplateUtilities.isValueInArray(arr, assignment)){
-					System.out.println("extass");
+					//System.out.println("extass");
 					return false;
 				}
 			} else {
 				if(!assignment.equals(defAss)){
-					System.out.println("extass2");
+					//System.out.println("extass2");
 					return false;
 				}
 			}
@@ -116,12 +116,12 @@ public class BasicAttributeDeclarationJavaTemplate extends BasicAttributeDeclara
 			String n=tokk.nextToken();
 			name=n.trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(piecen, name)){
-				System.out.println("uns2");
+				//System.out.println("uns2");
 				return false;
 			}
 			String code3=code2.substring(n.length(),code2.length()).trim();
 			if(!code3.equals(";")){
-				System.out.println("ex6+"+code3);
+				//System.out.println("ex6+"+code3);
 				return false;
 			}
 		}

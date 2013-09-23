@@ -51,19 +51,19 @@ public class BasicSetJavaTemplate implements Template{
 		boolean bool=false;
 		String modc=code.split(" ")[0];
 		if(!(modc.equals("public"))){
-			System.out.println("ex1");
+			//System.out.println("ex1");
 			return false;
 		}
 
 		String code1=code.substring(modc.length(),code.length()).trim();
 		if(!code1.startsWith("void")){
-			System.out.println("ex2");
+			//System.out.println("ex2");
 			return false;
 		}
 
 		String code2=code1.substring(4,code1.length()).trim();
 		if(!code2.startsWith("set")){
-			System.out.println("ex3");
+			//System.out.println("ex3");
 			return false;
 		}
 
@@ -77,13 +77,13 @@ public class BasicSetJavaTemplate implements Template{
 		name=init.toLowerCase()+name.substring(1,name.length());
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaName(), name)){
-			System.out.println("ex4");
+			//System.out.println("ex4");
 			return false;
 		}
 
 		String code4=code3.substring(nam.length(),code3.length()).trim();
 		if(!code4.startsWith("(")){
-			System.out.println("ex5");
+			//System.out.println("ex5");
 			return false;
 		}
 
@@ -96,7 +96,7 @@ public class BasicSetJavaTemplate implements Template{
 
 		int num=toka.countTokens();
 		if(num<2){
-			System.out.println("exx");
+			//System.out.println("exx");
 			return false;
 		}
 		String mtype=toka.nextToken();
@@ -109,7 +109,7 @@ public class BasicSetJavaTemplate implements Template{
 		}
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaType(), mtype)){
-			System.out.println("uns2");
+			//System.out.println("uns2");
 			return false;
 		}
 		String name2=toka.nextToken();
@@ -117,7 +117,7 @@ public class BasicSetJavaTemplate implements Template{
 		if(!name2.equals(name)){
 			String x="is"+name.substring(0,1).toUpperCase()+name.substring(1,name.length());
 			if(!x.equals(name2) || bool==false){
-				System.out.println("ext6");
+				//System.out.println("ext6");
 				return false;
 			}
 			name=name2;
@@ -125,13 +125,13 @@ public class BasicSetJavaTemplate implements Template{
 
 		String code7=code5.substring(args.length(),code5.length()).trim();
 		if(!code7.startsWith(")")){
-			System.out.println("ex7");
+			//System.out.println("ex7");
 			return false;
 		}
 
 		String code8=code7.substring(1,code7.length()).trim();
 		if(!code8.startsWith("{")){
-			System.out.println("ex8");
+			//System.out.println("ex8");
 			return false;
 		}
 
@@ -141,31 +141,31 @@ public class BasicSetJavaTemplate implements Template{
 			code9=code9.split("this.")[1];
 		}
 		if(!code9.startsWith(name)){
-			System.out.println("ex9");
+			//System.out.println("ex9");
 			return false;
 		}
 
 		String code10=code9.substring(name.length(),code9.length()).trim();
 		if(!code10.startsWith("=")){
-			System.out.println("ex10");
+			//System.out.println("ex10");
 			return false;
 		}
 
 		String code11=code10.substring(1,code10.length()).trim();
 		if(!code11.startsWith(name)){
-			System.out.println("ex11");
+			//System.out.println("ex11");
 			return false;
 		}
 
 		String code12=code11.substring(name.length(),code11.length()).trim();
 		if(!code12.startsWith(";")){
-			System.out.println("ex12");
+			//System.out.println("ex12");
 			return false;
 		}
 
 		String code13=code12.substring(1,code12.length()).trim();
 		if(!code13.equals("}")){
-			System.out.println("ex13");
+			//System.out.println("ex13");
 			return false;
 		}
 

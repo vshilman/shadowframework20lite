@@ -49,7 +49,7 @@ public class BasicGetJavaTemplate implements Template{
 		boolean bool=false;
 		String modc=code.split(" ")[0];
 		if(!(modc.equals("public"))){
-			System.out.println("ex1+ "+modc);
+			//System.out.println("ex1+ "+modc);
 			return false;
 		}
 
@@ -57,7 +57,7 @@ public class BasicGetJavaTemplate implements Template{
 
 		String modt=code1.split(" ")[0];
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaType(), modt)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 		if(modt.contains("boolean")){
@@ -68,11 +68,11 @@ public class BasicGetJavaTemplate implements Template{
 		int off=3;
 		if(!code2.startsWith("get")){
 			if(bool==false){
-				System.out.println("ex2");
+				//System.out.println("ex2");
 				return false;
 			} else{
 				if(!code2.startsWith("is")){
-					System.out.println("ex2a");
+					//System.out.println("ex2a");
 					return false;
 				}
 				off=2;
@@ -89,32 +89,32 @@ public class BasicGetJavaTemplate implements Template{
 		name=init.toLowerCase()+name.substring(1,name.length());
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new JavaName(), name)){
-			System.out.println("ex3");
+			//System.out.println("ex3");
 			return false;
 		}
 		String code4=code3.substring(nam.length(),code3.length()).trim();
 
 
 		if(!code4.startsWith("(")){
-			System.out.println("ex4");
+			//System.out.println("ex4");
 			return false;
 		}
 		String code5=code4.substring(1,code4.length()).trim();
 
 		if(!code5.startsWith(")")){
-			System.out.println("ex5");
+			//System.out.println("ex5");
 			return false;
 		}
 		String code6=code5.substring(1,code5.length()).trim();
 		if(!code6.startsWith("{")){
-			System.out.println("ex6");
+			//System.out.println("ex6");
 			return false;
 		}
 
 		String code7=code6.substring(1,code6.length()).trim();
 
 		if(!code7.startsWith("return")){
-			System.out.println("ex7");
+			//System.out.println("ex7");
 			return false;
 		}
 
@@ -126,7 +126,7 @@ public class BasicGetJavaTemplate implements Template{
 		if(!code8.startsWith(name)){
 			String x="is"+name.substring(0,1).toUpperCase()+name.substring(1,name.length());
 			if(!code8.startsWith(x) || bool==false){
-				System.out.println("ex8");
+				//System.out.println("ex8");
 				return false;
 			}
 			name=x;

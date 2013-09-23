@@ -44,7 +44,7 @@ public class BasicClassDeclarationCppHeaderTemplate implements Template{
 		//System.out.println("Processing... "+code);
 		boolean isDerivate=false;
 		if(!code.startsWith("class")){
-			System.out.println("ext1");
+			//System.out.println("ext1");
 			return false;
 		}
 		String code1=code.substring(5,code.length()).trim();
@@ -55,25 +55,25 @@ public class BasicClassDeclarationCppHeaderTemplate implements Template{
 			String n=tok.nextToken();
 			name=n.trim();
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), name)){
-				System.out.println("uns1");
+				//System.out.println("uns1");
 				return false;
 			}
 			code1=code1.substring(n.length()+1,code1.length()).trim();
 			if(!code1.startsWith("public")){
-				System.out.println("exx");
+				//System.out.println("exx");
 				return false;
 			}
 			code1=code1.substring(6,code1.length()).trim();
 
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), code1)){
-				System.out.println("uns2"+code1);
+				//System.out.println("uns2"+code1);
 				return false;
 			}
 			classd=code1;
 			isDerivate=true;
 		} else {
 			if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), code1)){
-				System.out.println("uns3");
+				//System.out.println("uns3");
 				return false;
 			}
 			name=code1;

@@ -46,7 +46,7 @@ public class BasicGetCppHeaderTemplate implements Template{
 
 		String mtype=code.split(" ")[0];
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppType(), mtype)){
-			System.out.println("uns1");
+			//System.out.println("uns1");
 			return false;
 		}
 		String code1=code.substring(mtype.length(),code.length()).trim();
@@ -58,11 +58,11 @@ public class BasicGetCppHeaderTemplate implements Template{
 		int off=3;
 		if(!code1.startsWith("get")){
 			if(bool==false){
-				System.out.println("ext1");
+				//System.out.println("ext1");
 				return false;
 			} else{
 				if(!code1.startsWith("is")){
-					System.out.println("ext1a");
+					//System.out.println("ext1a");
 					return false;
 				}
 				off=2;
@@ -80,19 +80,19 @@ public class BasicGetCppHeaderTemplate implements Template{
 		name=init.toLowerCase()+name.substring(1,name.length());
 
 		if(!GeneralPurposeTemplateUtilities.isNameSupported(new CppName(), name)){
-			System.out.println("ex3");
+			//System.out.println("ex3");
 			return false;
 		}
 		String code4=code3.substring(nam.length(),code3.length()).trim();
 
 		if(!code4.startsWith("(")){
-			System.out.println("ex4");
+			//System.out.println("ex4");
 			return false;
 		}
 		String code5=code4.substring(1,code4.length()).trim();
 
 		if(!code5.startsWith(")")){
-			System.out.println("ex5");
+			//System.out.println("ex5");
 			return false;
 		}
 
