@@ -12,6 +12,7 @@ public class JavaIgnoredPatternsH implements IgnoredPatterns {
 	static{
 		javaIgnoredTypes.add(PatternType.LIBRARY_DECLARATION);
 		javaIgnoredTypes.add(PatternType.SUPER);
+		javaIgnoredTypes.add(PatternType.ATTRIBUTE_ASSIGNMENT);
 
 		javaIgnoredTypes.add(PatternType.IF);
 		javaIgnoredTypes.add(PatternType.ELSE);
@@ -34,6 +35,12 @@ public class JavaIgnoredPatternsH implements IgnoredPatterns {
 	 */
 	@Override
 	public  boolean ignoredContainsAny(List<PatternType> types){
+		boolean attdec=types.contains(PatternType.ATTRIBUTE_DECLARATION);
+		boolean attass=types.contains(PatternType.ATTRIBUTE_ASSIGNMENT);
+		if(attdec==true && attass==true){
+			return false;
+		}
+
 		for (int i = 0; i < types.size(); i++) {
 			if(javaIgnoredTypes.contains(types.get(i)))
 				return true;
