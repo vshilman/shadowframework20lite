@@ -170,7 +170,7 @@ public abstract class SFAbstractTestAO {
 	    		  
 	    		  SFVertex3f rayDirection = new SFVertex3f((float)(Math.cos(b)*Math.sin(a)), (float)(Math.sin(b)*Math.sin(a)), (float)(Math.cos(a)));
 	    		  
-	    		  if (normal.dot3f(rayDirection) < 0){
+	    		  if (normal.dot3f(rayDirection) < 0.05f){
 	    		 
 	    		   	r--;
 	    		   			
@@ -199,13 +199,12 @@ public abstract class SFAbstractTestAO {
 		
 	public boolean intersectionTest(SFVertex3f p, SFVertex3f d, ArrayList<Triangle> triangleArray) {
 
-		float epsilon = 0.00001f;
 		boolean intersection = false;
 		boolean isFinish = false;
 	    
 		while (intersection == false && isFinish == false){
 		
-			for (int k=0; k<triangleArray.size(); k++){
+			for(int k=0; k<triangleArray.size(); k++){
 				
 				if(intersection == false){
 					
@@ -215,60 +214,66 @@ public abstract class SFAbstractTestAO {
 					SFVertex3f v0 = triangleArray.get(k).getVertex1();
 					SFVertex3f v1 = triangleArray.get(k).getVertex2();
 					SFVertex3f v2 = triangleArray.get(k).getVertex3();
-				
-					//e1 = v1-v0
-					SFVertex3f clonev1 = v1.cloneV();
-					clonev1.subtract3f(v0);
-					SFVertex3f e1 = clonev1;
 					
-					//e2 = v2-v0
-					SFVertex3f clonev2 = v2.cloneV();
-					clonev2.subtract3f(v0);
-					SFVertex3f e2 = clonev2;
+					// normali del triangolo da testare
+					//SFVertex3f n0 = triangleArray.get(k).getNormal1();
+					//SFVertex3f n1 = triangleArray.get(k).getNormal2();
+					//SFVertex3f n2 = triangleArray.get(k).getNormal3();
 					
-					SFVertex3f h = d.cross(e2);
-						
-					float a = e1.dot3f(h);
+					//if(n0.dot3f(d)>0.05f && n1.dot3f(d)>0.05f && n2.dot3f(d)>0.05f)
+						//intersection = false;
 					
-					if (a > -epsilon && a < epsilon)
-						intersection = false;
+					if(intersection==true){
 						
-					if(intersection == true){
-
-						float f = 1.0f/a;
+						//e1 = v1-v0
+						SFVertex3f clonev1 = v1.cloneV();
+						clonev1.subtract3f(v0);
+						SFVertex3f e1 = clonev1;
 						
-						//s = p- v0
-						SFVertex3f clonep = p.cloneV();
-						clonep.subtract3f(v0);
-						SFVertex3f s = clonep;
+						//e2 = v2-v0
+						SFVertex3f clonev2 = v2.cloneV();
+						clonev2.subtract3f(v0);
+						SFVertex3f e2 = clonev2;
 						
-						float u = f*(s.dot3f(h));
+						SFVertex3f h = d.cross(e2);
 							
-						if(u < 0.0f || u > 1.0f)
+						float a = e1.dot3f(h);
+						
+						//verifico se il raggio è sullo stesso piano del triangolo; se a=0 sono //
+						if (Math.abs(a) < 0.0001f)
 							intersection = false;
 							
 						if(intersection == true){
-								
-							SFVertex3f q = s.cross(e1);
-							float v = f*(d.dot3f(q));
-								
-							if(v < 0.0f || (u+v) > 1.0f)
+
+							float f = 1.0f/a;
+						
+							//s = p- v0
+							SFVertex3f clonep = p.cloneV();
+							clonep.subtract3f(v0);
+							SFVertex3f s = clonep;
+							
+							float u = f*(s.dot3f(h));
+							
+							if(u < 0.0f || u > 1.0f)
 								intersection = false;
 								
 							if(intersection == true){
 									
-								float t = f*(e2.dot3f(q));
+								SFVertex3f q = s.cross(e1);
 								
-								if(t <= epsilon)
-									intersection = false;
-								
-								if(intersection == true){
-									//controllo che il punto di intersezione non � l'origine del raggio
-									SFVertex3f intersectionPoint = new SFVertex3f(p.getX()+t*d.getX(), p.getY()+t*d.getY(), p.getZ()+t*d.getZ());
+								float v = f*(d.dot3f(q));
 									
-									if(intersectionPoint.getX() == p.getX() && intersectionPoint.getY() == p.getY() && intersectionPoint.getZ() == p.getZ())
-										intersection = false;
-	
+								if(v < 0.0f || (u+v) > 1.0f)
+									intersection = false;
+									
+								if(intersection == true){
+										
+									float t = f*(e2.dot3f(q));
+										
+										// t è la distanza tra l'origine del raggio e il punto di intersezione
+										if(t <= 0.05f)
+											intersection = false;
+											
 								}
 							}
 						}
@@ -277,12 +282,17 @@ public abstract class SFAbstractTestAO {
 				
 				if (k == triangleArray.size()-1)
 					isFinish = true;
+				
 			}	 
 		}
 			
 		return intersection;
-
+		
 	}
+	
+	
+	
+
 
 
 		
