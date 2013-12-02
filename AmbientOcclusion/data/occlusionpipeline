@@ -1,8 +1,4 @@
-@begin PrimitiveComponent Triangle
-@grid A,B,C as Triangle:1:<>
-@use uvw
-@write <> A*w+B*u+C*v 
-@end
+//PRIMITIVE
 
 @begin Primitive TrianglePND1
 @domain Triangle
@@ -10,6 +6,23 @@
 @block NORMAL Triangle
 @block DATA1 Triangle
 @end
+
+@begin Primitive Triangle2PND1
+@domain Triangle
+@block POSITION InterpolatingTriangle2
+@block NORMAL InterpolatingTriangle2
+@block DATA1 InterpolatingTriangle2
+@end
+
+@begin Primitive Triangle3PND1
+@domain Triangle
+@block POSITION Triangle3
+@block NORMAL Triangle3
+@block DATA1 Triangle3
+@end
+
+
+//TRANSFORM
 
 @begin TransformsComponent BasicPND1
 @use modelview
@@ -23,13 +36,98 @@
 @write data1 prData01
 @end
 
+
+//MATERIAL 
+
 @begin MaterialComponent Data1OccMat
 @use data1
-@define temp:3 data1
-@write color temp
+@use normal
+@param diffColor as Mat01
+@define temp1:3 data1
+@define temp2:3 diffColor
+@write matnormal normal
 @end
 
-@begin LightStepComponent BasicColor
-@use color 
-@write fColor color
+
+//LIGHT
+
+@begin LightStepComponent BasicColorData1
+@define tmp1:3 temp1*temp2
+@write fColor tmp1
 @end
+
+@begin LightStepComponent Lambert
+@param intensity,lPosition as PLight01
+@use matnormal 
+@use position
+@use color
+@define tmp1:3 normalize(lPosition-position)
+@define tmp3:3 dot(normalize(matnormal),tmp1) 
+@write fColor (color*intensity*tmp3)+(color*intensity)
+@end
+
+@begin LightStepComponent LambertAO
+@param intensity,lPosition as PLight01
+@use matnormal
+@use position
+@define L:3 normalize(lPosition-position)
+@define tmp1:3 dot(normalize(matnormal),L)
+@write fColor (temp2*intensity*tmp1)+(temp2*intensity*temp1)
+@end
+
+@begin LightStepComponent SpecularLight
+@param intensity,lPosition as PLight01
+@use matnormal
+@use position
+@use color
+@define L:3 normalize(lPosition-position)
+@define V:3 normalize(-position)
+@define H:3 L+V
+@define tmp1:3 dot(normalize(matnormal),normalize(H))
+@define tmp2:3 pow(tmp1,2)
+@write fColor (color*intensity*tmp2)+(color*intensity)
+@end
+
+@begin LightStepComponent SpecularLightAO
+@param intensity,lPosition as PLight01
+@use matnormal
+@use position
+@define L:3 normalize(lPosition-position)
+@define V:3 normalize(-position)
+@define H:3 L+V
+@define tmp1:3 dot(normalize(matnormal),normalize(H))
+@define tmp2:3 pow(tmp1,2)
+@write fColor (temp2*intensity*tmp2)+(temp2*intensity*temp1)
+@end
+
+
+@begin LightStepComponent BlinnPhong
+@param intensity,lPosition as PLight01
+@use matnormal
+@use position
+@use color
+@define L:3 normalize(lPosition-position)
+@define lambert:3 dot(normalize(matnormal),L)
+@define V:3 normalize(-position)
+@define H:3 L+V
+@define tmp1:3 dot(normalize(matnormal),normalize(H))
+@define specular:3 pow(tmp1,2)
+@write fColor (color*intensity*lambert)+(color*intensity*specular)+(color*intensity)
+@end
+
+@begin LightStepComponent BlinnPhongAO
+@param intensity,lPosition as PLight01
+@use matnormal
+@use position
+@define L:3 normalize(lPosition-position)
+@define lambert:3 dot(normalize(matnormal),L)
+@define V:3 normalize(-position)
+@define H:3 L+V
+@define tmp1:3 dot(normalize(matnormal),normalize(H))
+@define specular:3 pow(tmp1,2)
+@write fColor (temp2*intensity*lambert)+(temp2*intensity*specular)+(temp2*intensity*temp1)
+@end
+
+
+
+

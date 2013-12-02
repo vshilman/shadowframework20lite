@@ -1,5 +1,3 @@
-//NOTE: grid does not requires domains. They are only not of points used to build geometries
-
 
 @begin Structure Mat01
 @float3 diffColor
@@ -37,4 +35,11 @@
 @begin Structure Dim2D
 @float width
 @float height
+@end Structure 
+
+@begin Structure RainbowQuarterMatStructure
+@float3 diffColor
+@float Rf
+@float m
+@float b
 @end Structure 
