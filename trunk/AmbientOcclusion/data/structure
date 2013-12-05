@@ -8,6 +8,15 @@
 @float3 position
 @end Structure 
 
+
+@begin Structure PLight02
+@float3 diffIntensity
+@float3 specIntensity
+@float3 ambIntensity
+@float3 position
+@end Structure
+
+
 @begin Structure Size
 @float size
 @end Structure 

@@ -71,6 +71,8 @@ public class CommonMaterial {
 		return material;
 	}
 
+	
+	
 	public static float[][] generateColours() {
 		final float[][] colours={
 				{0.5f,0,0},{1,0,0},
@@ -118,6 +120,8 @@ public class CommonMaterial {
 			@Override
 			public void select(int index) {
 				model.getModel().getMaterialComponent().getData().get(0).setRefIndex(index);
+				model.getModel().getMaterialComponent().getData().get(1).setRefIndex(index);
+				model.getModel().getMaterialComponent().getData().get(2).setRefIndex(index);
 				colorIndex = index;
 			}
 		};
