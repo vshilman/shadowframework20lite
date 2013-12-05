@@ -39,17 +39,6 @@
 
 //MATERIAL 
 
-@begin MaterialComponent BasicMat2
-@use normal
-@param diffColor as Mat01
-@param specColor as Mat01
-@param ambColor as Mat01
-@write color diffColor
-@write color1 specColor
-@write color2 ambColor
-@write matnormal normal
-@end
-
 @begin MaterialComponent Data1OccMat
 @use data1
 @use normal
@@ -66,16 +55,18 @@
 
 //LIGHT
 
-@begin LightStepComponent BasicColor2
-@use color
-@write fColor color
+@begin LightStepComponent Ambient
+@param diffIntensity,specIntensity,ambIntensity,lPosition as PLight02
+@use color2
+@write fColor color2*ambIntensity
 @end
 
 
-@begin LightStepComponent BasicColorData1
-@use color
+@begin LightStepComponent AmbientAO
+@param diffIntensity,specIntensity,ambIntensity,lPosition as PLight02
+@use color2
 @use color3
-@define tmp1:3 color*color3
+@define tmp1:3 color2*color3*ambIntensity
 @write fColor tmp1
 @end
 

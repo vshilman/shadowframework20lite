@@ -52,10 +52,12 @@ public class SFViewer implements SFDrawable{
 	
 	public void generateSteps(){
 		
-		programAssets[0]=new SFProgramModuleStructures("BasicColor");
-		
-		programAssets[1]=new SFProgramModuleStructures("BasicColorData1");
-		
+		programAssets[0]=new SFProgramModuleStructures("Ambient");
+		programAssets[0].getData().add(getSceneLight("Ambient"));
+
+		programAssets[1]=new SFProgramModuleStructures("AmbientAO");
+		programAssets[1].getData().add(getSceneLight("AmbientAO"));
+
 		programAssets[2]=new SFProgramModuleStructures("Lambert");
 		programAssets[2].getData().add(getSceneLight("Lambert"));
       
@@ -248,8 +250,8 @@ public class SFViewer implements SFDrawable{
 	
 
 	private static String[] stepNames={
-		"Basic Color",
-		"Basic Color_AO",
+		"Ambient",
+		"Ambient_AO",
 		"Lambert",
 		"Lambert_AO",  
 		"Specular",
