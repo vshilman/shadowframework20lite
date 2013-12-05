@@ -42,24 +42,38 @@ public class SFViewer implements SFDrawable{
 	private static boolean wireframe;
 	private SFDrawableFrame frame;
 	private static SFProgramModuleStructures[] programAssets=new SFProgramModuleStructures[8];
-
+	
+	private static SFVertex3f[] lightData;
+	
+	private static SFStructureArray diffArray;
+	private static SFStructureArray specArray;
+	private static SFStructureArray ambArray;
+	
 	
 	public void generateSteps(){
 		
 		programAssets[0]=new SFProgramModuleStructures("BasicColor");
+		
 		programAssets[1]=new SFProgramModuleStructures("BasicColorData1");
+		
 		programAssets[2]=new SFProgramModuleStructures("Lambert");
 		programAssets[2].getData().add(getSceneLight("Lambert"));
+      
 		programAssets[3]=new SFProgramModuleStructures("LambertAO");
 		programAssets[3].getData().add(getSceneLight("LambertAO"));
-		programAssets[4]=new SFProgramModuleStructures("SpecularLight");
+		
+        programAssets[4]=new SFProgramModuleStructures("SpecularLight");
 		programAssets[4].getData().add(getSceneLight("SpecularLight"));
+		
 		programAssets[5]=new SFProgramModuleStructures("SpecularLightAO");
 		programAssets[5].getData().add(getSceneLight("SpecularLightAO"));
+		
 		programAssets[6]=new SFProgramModuleStructures("BlinnPhong");
 		programAssets[6].getData().add(getSceneLight("BlinnPhong"));
+	
 		programAssets[7]=new SFProgramModuleStructures("BlinnPhongAO");
 		programAssets[7].getData().add(getSceneLight("BlinnPhongAO"));
+		
 		
 	}
 	
@@ -79,7 +93,7 @@ public class SFViewer implements SFDrawable{
 		camera.extractTransform();
 		renderer.setCamera(camera);
 		generateSteps();
-		renderer.setLight(programAssets[1]);
+		renderer.setLight(programAssets[6]);
 	}
 	
 	
@@ -94,6 +108,12 @@ public class SFViewer implements SFDrawable{
 	
 	public static SFViewer generateFrame(SFNode node,SFFrameController... controllers){
 		SFViewer viewer=new SFViewer();
+		node.getModel().getMaterialComponent().addData(new SFStructureReference(diffArray, 0));
+		node.getModel().getMaterialComponent().addData(new SFStructureReference(specArray, 1));
+		node.getModel().getMaterialComponent().addData(new SFStructureReference(ambArray, 2));
+		node.getModel().getMaterialComponent().getData().get(0).setRefIndex(0);
+		node.getModel().getMaterialComponent().getData().get(1).setRefIndex(0);
+		node.getModel().getMaterialComponent().getData().get(2).setRefIndex(0);
 		viewer.setNode(node);
 		viewer.frame=new SFDrawableFrame("Scene Viewer", 600, 600, viewer, controllers);
 		viewer.frame.setVisible(true);
@@ -193,9 +213,12 @@ public class SFViewer implements SFDrawable{
 
 	private static SFStructureReference getSceneLight(String lightProgramName){
 		SFStructureArray lightArray=generateLightData(lightProgramName, 0);
-		SFVertex3f[] lightData={new SFVertex3f(1, 1, 1), new SFVertex3f(1,1,-1)};
-		SFStructureReference lightReference=generateStructureDataReference( lightArray, lightData);
+		SFStructureReference lightReference=generateStructureDataReference(lightArray, lightData);
 		return lightReference;
+	}
+	
+	public static void setLight(SFVertex3f[] lightData){
+		SFViewer.lightData = lightData;
 	}
 	
 	public static SFStructureArray generateLightData(String program,int lightIndex){
@@ -235,6 +258,14 @@ public class SFViewer implements SFDrawable{
 		"BlinnPhong_AO"
 	};
 	
+	public static void setColor(float[][] diffColor, float[][] specColor, float[][] ambColor){
+		
+		diffArray = CommonMaterial.generateMaterial(diffColor);
+		specArray = CommonMaterial.generateMaterial(specColor);
+		ambArray = CommonMaterial.generateMaterial(ambColor);
+		
+	}
+	
 	public static SFFrameController lightStepController=new SFFrameController() {
 		
 		@Override
@@ -249,25 +280,6 @@ public class SFViewer implements SFDrawable{
 		
 		@Override
 		public void select(int index) {
-			
-			float[][] colours= CommonMaterial.generateColours();
-			SFStructureArray array = CommonMaterial.generateMaterial(colours);
-			
-			if(index==0 || index==2 || index==4 || index==6){
-				
-				node.getModel().setTransformComponent(new SFProgramModuleStructures("BasicPNTransform"));
-				node.getModel().setMaterialComponent(new SFProgramModuleStructures("BasicMat"));
-				node.getModel().getMaterialComponent().addData(new SFStructureReference(array, 0));
-				
-			}else if(index==1 || index==3 || index==5|| index==7){
-				
-				node.getModel().setTransformComponent(new SFProgramModuleStructures("BasicPND1"));
-				node.getModel().setMaterialComponent(new SFProgramModuleStructures("Data1OccMat"));
-				node.getModel().getMaterialComponent().addData(new SFStructureReference(array, 0));
-				
-			}
-			
-			node.getModel().getMaterialComponent().getData().get(0).setRefIndex(CommonMaterial.colorIndex);
 			renderer.setLight(programAssets[index]);
 
 		}

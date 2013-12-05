@@ -2,8 +2,6 @@ package test;
 
 import java.util.ArrayList;
 
-import common.CommonMaterial;
-
 import shadow.geometry.functions.SFCurvedTubeFunction;
 import shadow.geometry.functions.data.SFCurvedTubeFunctionData;
 import shadow.geometry.geometries.SFMeshGeometry;
@@ -12,10 +10,8 @@ import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineGrid;
 import shadow.pipeline.SFPrimitive;
-import shadow.pipeline.SFStructureArray;
 import shadow.renderer.SFObjectModel;
 import shadow.renderer.SFProgramModuleStructures;
-import shadow.renderer.SFStructureReference;
 import shadow.system.data.SFDataCenter;
 import shadow.system.data.SFDataCenterListener;
 import shadow.system.data.objects.SFShortByteField;
@@ -118,18 +114,26 @@ public class Test0252_D2_LateralTubeAO extends SFAbstractTestAO{
 		SFMeshGeometry geometry = createNeWSFMeshGeometryAO(triangleMesh, primitive);
 		geometry.init();
 			
-		float[][] colours= CommonMaterial.generateColours();
-		SFStructureArray array = CommonMaterial.generateMaterial(colours);
+		// select Cd,Cs,Ca
+		float[][] diffColor={{0f,0,0.9f}};;
+		float[][] specColor={{0.3f,0.9f,0.99f}};;
+		float[][] ambColor={{0.3f,0.2f,0.5f}};;
 				
+		// select light: ILD, ILS, ILA, LIGHT_POSITION
+		SFVertex3f[] lightData={new SFVertex3f(0.5,0.5,0.2), new SFVertex3f(1,1,1), new SFVertex3f(1,1,1),  new SFVertex3f(1,1,-1)};
+						
 		SFObjectModel model=new SFObjectModel();
 		model.getModel().setRootGeometry(geometry);
 		model.getModel().setTransformComponent(new SFProgramModuleStructures("BasicPND1"));
 		model.getModel().setMaterialComponent(new SFProgramModuleStructures("Data1OccMat"));
-		model.getModel().getMaterialComponent().addData(new SFStructureReference(array, 0));
-		model.init();
 				
-		SFViewer.generateFrame(model,SFViewer.getLightStepController(),CommonMaterial.generateColoursController(model),SFViewer.getRotationController(),SFViewer.getZoomController());
-		
+		SFViewer.setColor(diffColor, specColor, ambColor);
+		SFViewer.setLight(lightData);
+			
+		model.init();
+						
+		SFViewer.generateFrame(model,SFViewer.getLightStepController(),SFViewer.getRotationController(),SFViewer.getZoomController());
+
 }
 	
 	
