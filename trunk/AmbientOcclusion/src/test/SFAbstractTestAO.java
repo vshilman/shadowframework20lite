@@ -2,6 +2,7 @@ package test;
 
 import java.util.ArrayList;
 
+import shadow.geometry.functions.SFCurvedTubeFunction;
 import shadow.geometry.geometries.SFMeshGeometry;
 import shadow.image.SFRenderedTexturesSet;
 import shadow.image.SFTexture;
@@ -479,47 +480,47 @@ public SFMeshGeometry createNeWSFMeshGeometryAO(final ArrayList<Triangle> triang
 					SFVertex3f[] normalsArray = new SFVertex3f[6];
 					float[] occlusionArray = new float[6];
 					//0
-					SFVertex3f sfp0 = triangleArray.get(i).getVertex1();
-					SFVertex3f sfn0 = triangleArray.get(i).getNormal1();
-					float sfao0 = triangleArray.get(i).getAO1();
-					positionsArray[0] = sfp0;
-					normalsArray[0] = sfn0;
-					occlusionArray[0] = sfao0;
+					SFVertex3f p0 = triangleArray.get(i).getVertex1();
+					SFVertex3f n0 = triangleArray.get(i).getNormal1();
+					float ao0 = triangleArray.get(i).getAO1();
+					positionsArray[0] = p0;
+					normalsArray[0] = n0;
+					occlusionArray[0] = ao0;
 					//1
-					SFVertex3f sfp1 = triangleArray.get(i+1).getVertex1();
-					SFVertex3f sfn1 = triangleArray.get(i+1).getNormal1();
-					float sfao1 = triangleArray.get(i+1).getAO1();
-					positionsArray[1] = sfp1;
-					normalsArray[1] = sfn1;
-					occlusionArray[1] = sfao1;
+					SFVertex3f p1 = triangleArray.get(i+1).getVertex1();
+					SFVertex3f n1 = triangleArray.get(i+1).getNormal1();
+					float ao1 = triangleArray.get(i+1).getAO1();
+					positionsArray[1] = p1;
+					normalsArray[1] = n1;
+					occlusionArray[1] = ao1;
 					//2
-					SFVertex3f sfp2 = triangleArray.get(i+2).getVertex1();
-					SFVertex3f sfn2 = triangleArray.get(i+2).getNormal1();
-					float sfao2 = triangleArray.get(i+2).getAO1();
-					positionsArray[2] = sfp2;
-					normalsArray[2] = sfn2;
-					occlusionArray[2] = sfao2;
+					SFVertex3f p2 = triangleArray.get(i+2).getVertex1();
+					SFVertex3f n2 = triangleArray.get(i+2).getNormal1();
+					float ao2 = triangleArray.get(i+2).getAO1();
+					positionsArray[2] = p2;
+					normalsArray[2] = n2;
+					occlusionArray[2] = ao2;
 					//3
-					SFVertex3f sfp3 = triangleArray.get(i+3).getVertex1();
-					SFVertex3f sfn3 = triangleArray.get(i+3).getNormal1();
-					float sfao3 = triangleArray.get(i+3).getAO1();
-					positionsArray[3] = sfp3;
-					normalsArray[3] = sfn3;
-					occlusionArray[3] = sfao3;
+					SFVertex3f p3 = triangleArray.get(i+3).getVertex1();
+					SFVertex3f n3 = triangleArray.get(i+3).getNormal1();
+					float ao3 = triangleArray.get(i+3).getAO1();
+					positionsArray[3] = p3;
+					normalsArray[3] = n3;
+					occlusionArray[3] = ao3;
 					//4
-					SFVertex3f sfp4 = triangleArray.get(i+1).getVertex2();
-					SFVertex3f sfn4 = triangleArray.get(i+1).getNormal2();
-					float sfao4 = triangleArray.get(i+1).getAO2();
-					positionsArray[4] = sfp4;
-					normalsArray[4] = sfn4;
-					occlusionArray[4] = sfao4;
+					SFVertex3f p4 = triangleArray.get(i+1).getVertex2();
+					SFVertex3f n4 = triangleArray.get(i+1).getNormal2();
+					float ao4 = triangleArray.get(i+1).getAO2();
+					positionsArray[4] = p4;
+					normalsArray[4] = n4;
+					occlusionArray[4] = ao4;
 					//5
-					SFVertex3f sfp5 = triangleArray.get(i+2).getVertex2();
-					SFVertex3f sfn5 = triangleArray.get(i+2).getNormal2();
-					float sfao5 = triangleArray.get(i+2).getAO2();
-					positionsArray[5] = sfp5;
-					normalsArray[5] = sfn5;
-					occlusionArray[5] = sfao5;
+					SFVertex3f p5 = triangleArray.get(i+2).getVertex2();
+					SFVertex3f n5 = triangleArray.get(i+2).getNormal2();
+					float ao5 = triangleArray.get(i+2).getAO2();
+					positionsArray[5] = p5;
+					normalsArray[5] = n5;
+					occlusionArray[5] = ao5;
 					
 					for (int j=0; j<6; j++){
 						
@@ -547,75 +548,75 @@ public SFMeshGeometry createNeWSFMeshGeometryAO(final ArrayList<Triangle> triang
 					SFVertex3f[] normalsArray = new SFVertex3f[10];
 					float[] occlusionArray = new float[10];
 					//0
-					SFVertex3f sfp0 = triangleArray.get(i+8).getVertex2();
-					SFVertex3f sfn0 = triangleArray.get(i+8).getNormal2();
-					float sfao0 = triangleArray.get(i+8).getAO2();
-					positionsArray[0] = sfp0;
-					normalsArray[0] = sfn0;
-					occlusionArray[0] = sfao0;
+					SFVertex3f p0 = triangleArray.get(i+8).getVertex2();
+					SFVertex3f n0 = triangleArray.get(i+8).getNormal2();
+					float ao0 = triangleArray.get(i+8).getAO2();
+					positionsArray[0] = p0;
+					normalsArray[0] = n0;
+					occlusionArray[0] = ao0;
 					//1
-					SFVertex3f sfp1 = triangleArray.get(i+2).getVertex3();
-					SFVertex3f sfn1 = triangleArray.get(i+2).getNormal3();
-					float sfao1 = triangleArray.get(i+2).getAO3();
-					positionsArray[1] = sfp1;
-					normalsArray[1] = sfn1;
-					occlusionArray[1] = sfao1;
+					SFVertex3f p1 = triangleArray.get(i+2).getVertex3();
+					SFVertex3f n1 = triangleArray.get(i+2).getNormal3();
+					float ao1 = triangleArray.get(i+2).getAO3();
+					positionsArray[1] = p1;
+					normalsArray[1] = n1;
+					occlusionArray[1] = ao1;
 					//2
-					SFVertex3f sfp2 = triangleArray.get(i).getVertex1();
-					SFVertex3f sfn2 = triangleArray.get(i).getNormal1();
-					float sfao2 = triangleArray.get(i).getAO1();
-					positionsArray[2] = sfp2;
-					normalsArray[2] = sfn2;
-					occlusionArray[2] = sfao2;
+					SFVertex3f p2 = triangleArray.get(i).getVertex1();
+					SFVertex3f n2 = triangleArray.get(i).getNormal1();
+					float ao2 = triangleArray.get(i).getAO1();
+					positionsArray[2] = p2;
+					normalsArray[2] = n2;
+					occlusionArray[2] = ao2;
 					//3
-					SFVertex3f sfp3 = triangleArray.get(i+8).getVertex3();
-					SFVertex3f sfn3 = triangleArray.get(i+8).getNormal3();
-					float sfao3 = triangleArray.get(i+8).getAO3();
-					positionsArray[3] = sfp3;
-					normalsArray[3] = sfn3;
-					occlusionArray[3] = sfao3;
+					SFVertex3f p3 = triangleArray.get(i+8).getVertex3();
+					SFVertex3f n3 = triangleArray.get(i+8).getNormal3();
+					float ao3 = triangleArray.get(i+8).getAO3();
+					positionsArray[3] = p3;
+					normalsArray[3] = n3;
+					occlusionArray[3] = ao3;
 					//4
-					SFVertex3f sfp4 = triangleArray.get(i+3).getVertex2();
-					SFVertex3f sfn4 = triangleArray.get(i+3).getNormal2();
-					float sfao4 = triangleArray.get(i+3).getAO2();
-					positionsArray[4] = sfp4;
-					normalsArray[4] = sfn4;
-					occlusionArray[4] = sfao4;
+					SFVertex3f p4 = triangleArray.get(i+3).getVertex2();
+					SFVertex3f n4 = triangleArray.get(i+3).getNormal2();
+					float ao4 = triangleArray.get(i+3).getAO2();
+					positionsArray[4] = p4;
+					normalsArray[4] = n4;
+					occlusionArray[4] = ao4;
 					//5
-					SFVertex3f sfp5 = triangleArray.get(i+2).getVertex1();
-					SFVertex3f sfn5 = triangleArray.get(i+2).getNormal1();
-					float sfao5 = triangleArray.get(i+2).getAO1();
-					positionsArray[5] = sfp5;
-					normalsArray[5] = sfn5;
-					occlusionArray[5] = sfao5;
+					SFVertex3f p5 = triangleArray.get(i+2).getVertex1();
+					SFVertex3f n5 = triangleArray.get(i+2).getNormal1();
+					float ao5 = triangleArray.get(i+2).getAO1();
+					positionsArray[5] = p5;
+					normalsArray[5] = n5;
+					occlusionArray[5] = ao5;
 					//6
-					SFVertex3f sfp6 = triangleArray.get(i).getVertex3();
-					SFVertex3f sfn6 = triangleArray.get(i).getNormal3();
-					float sfao6 = triangleArray.get(i).getAO3();
-					positionsArray[6] = sfp6;
-					normalsArray[6] = sfn6;
-					occlusionArray[6] = sfao6;
+					SFVertex3f p6 = triangleArray.get(i).getVertex3();
+					SFVertex3f n6 = triangleArray.get(i).getNormal3();
+					float ao6 = triangleArray.get(i).getAO3();
+					positionsArray[6] = p6;
+					normalsArray[6] = n6;
+					occlusionArray[6] = ao6;
 					//7
-					SFVertex3f sfp7 = triangleArray.get(i).getVertex2();
-					SFVertex3f sfn7 = triangleArray.get(i).getNormal2();
-					float sfao7 = triangleArray.get(i).getAO2();
-					positionsArray[7] = sfp7;
-					normalsArray[7] = sfn7;
-					occlusionArray[7] = sfao7;
+					SFVertex3f p7 = triangleArray.get(i).getVertex2();
+					SFVertex3f n7 = triangleArray.get(i).getNormal2();
+					float ao7 = triangleArray.get(i).getAO2();
+					positionsArray[7] = p7;
+					normalsArray[7] = n7;
+					occlusionArray[7] = ao7;
 					//8
-					SFVertex3f sfp8 = triangleArray.get(i+8).getVertex1();
-					SFVertex3f sfn8 = triangleArray.get(i+8).getNormal1();
-					float sfao8 = triangleArray.get(i+8).getAO1();
-					positionsArray[8] = sfp8;
-					normalsArray[8] = sfn8;
-					occlusionArray[8] = sfao8;
+					SFVertex3f p8 = triangleArray.get(i+8).getVertex1();
+					SFVertex3f n8 = triangleArray.get(i+8).getNormal1();
+					float ao8 = triangleArray.get(i+8).getAO1();
+					positionsArray[8] = p8;
+					normalsArray[8] = n8;
+					occlusionArray[8] = ao8;
 					//9
-					SFVertex3f sfp9 = triangleArray.get(i+6).getVertex1();
-					SFVertex3f sfn9 = triangleArray.get(i+6).getNormal1();
-					float sfao9 = triangleArray.get(i+6).getAO1();
-					positionsArray[9] = sfp9;
-					normalsArray[9] = sfn9;
-					occlusionArray[9] = sfao9;
+					SFVertex3f p9 = triangleArray.get(i+6).getVertex1();
+					SFVertex3f n9 = triangleArray.get(i+6).getNormal1();
+					float ao9 = triangleArray.get(i+6).getAO1();
+					positionsArray[9] = p9;
+					normalsArray[9] = n9;
+					occlusionArray[9] = ao9;
 					
 					for (int j=0; j<10; j++){
 						
@@ -642,9 +643,134 @@ public SFMeshGeometry createNeWSFMeshGeometryAO(final ArrayList<Triangle> triang
 }
 
 	
-		
-// end AO		
 
+public ArrayList<Triangle> sample(SFCurvedTubeFunction function, float step_u, float step_v){
+	
+	ArrayList<Triangle> triangleMesh = new ArrayList<Triangle>();
+	
+	step_u = 0.05f;
+	step_v = 0.05f;
+	
+	for(float v=0; v<1.0f; v += step_v){
+		
+		for(float u=0; u<1.0f; u += step_u){
+			
+			SFVertex3f p1 = function.getPosition(u, v);  
+			SFVertex3f p2 = function.getPosition(u, v+step_v); 
+			SFVertex3f p3 = function.getPosition(u+step_u, v ); 
+			
+			SFVertex3f n1 = function.getNormal(u, v); 
+			n1.normalize3f();
+			SFVertex3f n2 = function.getNormal(u, v+step_v);
+			n2.normalize3f();
+			SFVertex3f n3 = function.getNormal(u+step_u, v);
+			n3.normalize3f();
+			
+			Triangle t2 = new Triangle (p1,p2,p3,n1,n2,n3);
+			t2.setAO1(getKao(function, u,v,n1));
+			t2.setAO2(getKao(function, u,v+step_v,n2));
+			t2.setAO3(getKao(function, u+step_u,v,n3));
+			triangleMesh.add(t2);
+			
+			p1 = function.getPosition(u, v+step_v);  
+			p2 = function.getPosition(u+step_u, v); 
+			p3 = function.getPosition(u+step_u, v+step_v); 
+			
+	     	n1 = function.getNormal(u, v+step_v);  
+	     	n1.normalize3f();
+			n2 = function.getNormal(u+step_u, v); 
+			n2.normalize3f();
+			n3 = function.getNormal(u+step_u, v+step_v);
+			n3.normalize3f();
+		 
+			t2 = new Triangle (p1,p2,p3,n1,n2,n3);
+			t2.setAO1(getKao(function, u,v+step_v,n1));
+			t2.setAO2(getKao(function, u+step_u,v,n2));
+			t2.setAO3(getKao(function, u+step_u,v+step_v,n3));
+			triangleMesh.add(t2);
+			
+		}
+		
+	} 
+	
+	
+	return triangleMesh;
+	
+	
+	
+}
+
+
+
+private static final float eps=0.01f;
+private static final double g = 0.05f;
+
+
+public SFVertex3f getDu2(SFCurvedTubeFunction function, float u,float v){
+	
+	SFVertex3f p1 = function.getPosition(u+eps,v);
+	SFVertex3f p2 = function.getPosition(u,v);
+	SFVertex3f p3 = function.getPosition(u-eps,v);
+	p2.mult(2.0f);
+	p1.subtract3f(p2);
+	p1.add3f(p3);
+	p1.mult(1.0f/(eps*eps));
+	return p1;
+}
+
+public SFVertex3f getDv2(SFCurvedTubeFunction function, float u,float v){
+	
+	SFVertex3f p1 = function.getPosition(u,v+eps);
+	SFVertex3f p2 = function.getPosition(u,v);
+	SFVertex3f p3 = function.getPosition(u,v-eps);
+	p2.mult(2.0f);
+	p1.subtract3f(p2);
+	p1.add3f(p3);
+	p1.mult(1.0f/(eps*eps));
+	return p1;
+}
+
+public SFVertex3f getDuv(SFCurvedTubeFunction function, float u,float v){
+	
+	SFVertex3f p1 = function.getPosition(u+eps,v+eps);
+	SFVertex3f p2 = function.getPosition(u+eps,v-eps);
+	SFVertex3f p3 = function.getPosition(u-eps,v+eps);
+	SFVertex3f p4 = function.getPosition(u-eps,v-eps);
+	p1.subtract3f(p2);
+	p1.subtract3f(p3);
+	p1.add3f(p4);
+	p1.mult(1.0f/(4*(eps*eps)));
+	return p1;
+}
+
+public float getKao(SFCurvedTubeFunction function, float u, float v, SFVertex3f normal){
+	
+	SFVertex3f Du2 = getDu2(function,u,v);
+	SFVertex3f Dv2 = getDv2(function,u,v);
+	SFVertex3f Duv = getDuv(function,u,v);
+	
+	float ku2 = normal.dot3f(Du2); 
+	float kv2 = normal.dot3f(Dv2);
+	float kuv = normal.dot3f(Duv);
+	
+	float k = ku2+kv2+2*kuv;
+	
+	if (k<0.001f){
+		
+		k=1;
+		
+	}else{
+		
+		k = (float)Math.exp(-g*(double)k);
+		
+	}
+	
+	return k;
+
+}
+
+
+//end AO		
 
 	
 
