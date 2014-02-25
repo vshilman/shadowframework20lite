@@ -12,7 +12,6 @@ import shadow.geometry.functions.data.SFCurvedTubeFunctionData;
 import shadow.geometry.geometries.SFMeshGeometry;
 import shadow.geometry.geometries.data.SFQuadsSurfaceGeometryData;
 import shadow.math.SFValuenf;
-import shadow.math.SFVertex3f;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipelineGrid;
 import shadow.pipeline.SFPrimitive;
@@ -78,44 +77,38 @@ public class Test0250_D2_MushroomAO_Animation extends SFAbstractTestAO{
 			}
 				
 		});
-    	
-		triangleMesh = sample(function, step_u, step_v);
-
-		SFPrimitive primitive=SFPipeline.getPrimitive("TrianglePND1");		
-		final SFMeshGeometry geometry = createNeWSFMeshGeometryAO(triangleMesh, primitive);
-			
+		triangleMesh = sample(function, step_u, step_v,1);
+		SFPrimitive primitive=SFPipeline.getPrimitive("Triangle3PND1");		
+		final SFMeshGeometry geometry = createNeWSFMeshD2(triangleMesh, primitive);
 		SFBasisSpline2<SFValuenf> curve=(SFBasisSpline2<SFValuenf>)function.getRayCurve();
-	
 		final SFValuenf value=curve.getVertices().get(5);
 		final SFValuenf value2=curve.getVertices().get(1);
 		final SFValuenf value3=curve.getVertices().get(2);
-		
-		SFAnimation morphAnimation=new SFAnimation() {
-			public void init() {
+	
+		SFAnimation morphAnimation=new SFAnimation(){
+			
+			public void init(){
 			}
 			
-			public SFAnimation clone()  {
+			public SFAnimation clone(){
 				return null;
 			}
 			
-			public void destroy() {
+			public void destroy(){
 			}
 			
 			@Override
-			public void animate(long time) {
-				List<Long> times=new ArrayList<Long>();
+			public void animate(long time){
+				List<Long> times = new ArrayList<Long>();
 				times.add(System.nanoTime());
-				float t=(time/(1.0f*4000));
-				t=4*t*(1-t)*0.3f+0.5f;
+				float t = (time/(1.0f*4000));
+				t = 4*t*(1-t)*0.3f+0.5f;
 				value.set(0.45f*t,0.5f*t,t*0.25f);
 				value2.set(0.3f*t,0.1f,-t*0.25f);
 				value3.set(0.3f*t,0.2f,-t*0.25f);
-				
-				triangleMesh = sample(function, step_u, step_v);
-				
-				SFPrimitive primitive = SFPipeline.getPrimitive("TrianglePND1");
-				SFMeshGeometry geometry = createNeWSFMeshGeometryAO(triangleMesh, primitive);
-				
+				triangleMesh = sample(function, step_u, step_v,1);
+				SFPrimitive primitive = SFPipeline.getPrimitive("Triangle3PND1");
+				SFMeshGeometry geometry = createNeWSFMeshD2(triangleMesh, primitive);
 				geometry.init();
 				model.getModel().setRootGeometry(geometry);
 			}
@@ -123,24 +116,13 @@ public class Test0250_D2_MushroomAO_Animation extends SFAbstractTestAO{
 		
 		SFPeriodicAnimation morphAnimationPeriod=new SFPeriodicAnimation(morphAnimation,4000, 0);
 		SFAnimator.addAnimation(morphAnimationPeriod);
-		// select Cd,Cs,Ca
-		float[][] diffColor={{0f,0,0.9f}};;
-		float[][] specColor={{0.3f,0.9f,0.99f}};;
-	    float[][] ambColor={{0.3f,0.2f,0.5f}};;
-						
-		// select light: ILD, ILS, ILA, LIGHT_POSITION
-		SFVertex3f[] lightData={new SFVertex3f(0.5,0.5,0.2), new SFVertex3f(1,1,1), new SFVertex3f(1,1,1),  new SFVertex3f(1,1,-1)};
 		model=new SFObjectModel();
 		model.getModel().setRootGeometry(geometry);
 		model.getModel().setTransformComponent(new SFProgramModuleStructures("BasicPND1"));
 		model.getModel().setMaterialComponent(new SFProgramModuleStructures("Data1OccMat"));
-		SFViewer.setColor(diffColor, specColor, ambColor);
-		SFViewer.setLight(lightData);
 		model.init();
-					
-		SFViewer.generateFrame(model,SFViewer.getLightStepController(),SFViewer.getRotationController(),SFViewer.getZoomController());
-		
-}
+		SFViewer.generateFrame(model,SFViewer.getMaterialController(),SFViewer.getLightStepController(),SFViewer.getRotationController(),SFViewer.getZoomController());	
+	}
 	
 	
 	
@@ -150,4 +132,5 @@ public class Test0250_D2_MushroomAO_Animation extends SFAbstractTestAO{
 		
 	}
 
+	
 }
