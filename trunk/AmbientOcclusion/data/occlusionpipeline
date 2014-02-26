@@ -14,11 +14,38 @@
 @block DATA1 InterpolatingTriangle2
 @end
 
+
+
+@begin PrimitiveComponent Triangle3Coefficients
+@use uvw
+//Acoeff = w*(w^2-(5/2)*(u+v)*w+(u^2+v^2)-(2/27)u*v)
+@define Acoeff:1 w*(w*w+(-2.5)*w*(1-w)+(u*u+v*v)+2*u*v)
+@define Bcoeff:1 u*(u*u+(-2.5)*u*(1-u)+(v*v+w*w)+2*v*w)
+@define Ccoeff:1 v*(v*v+(-2.5)*v*(1-v)+(w*w+u*u)+2*w*u)
+//ABcoeff = u*w*( 9*w - (9/2)*u + v )
+@define ABcoeff:1 w*u*(9*w+(-4.5)*u+(-4.5)*v)
+@define BAcoeff:1 u*w*(9*u+(-4.5)*w+(-4.5)*v)
+@define BCcoeff:1 u*v*(9*u+(-4.5)*v+(-4.5)*w)
+@define CBcoeff:1 v*u*(9*v+(-4.5)*u+(-4.5)*w)
+@define CAcoeff:1 v*w*(9*v+(-4.5)*w+(-4.5)*u)
+@define ACcoeff:1 w*v*(9*w+(-4.5)*v+(-4.5)*u)
+//ABCcoeff = (2/9)*u*v*w
+@define ABCcoeff:1 w*v*u*27
+@end
+
+@begin PrimitiveComponent InterpolatingTriangle3
+@grid A,B,C,AB,BA,BC,CB,CA,AC,ABC as Triangle:3:<>
+@write <> A*PAcoeff+B*PBcoeff+C*PCcoeff+AB*PABcoeff+BA*PBAcoeff+BC*PBCcoeff+CB*PCBcoeff+CA*PCAcoeff+AC*PACcoeff+ABC*PABCcoeff
+@end
+
+
+
 @begin Primitive Triangle3PND1
 @domain Triangle
-@block POSITION Triangle3
-@block NORMAL Triangle3
-@block DATA1 Triangle3
+@block POSITION Triangle3Coefficients
+@block POSITION InterpolatingTriangle3
+@block NORMAL InterpolatingTriangle3
+@block DATA1 InterpolatingTriangle3
 @end
 
 
