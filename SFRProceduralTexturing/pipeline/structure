@@ -1,0 +1,13 @@
+
+structure Mat01{
+	float3 diffColor;
+}
+
+structure PLight01{
+	float3 intensity;
+	float3 position;
+}
+
+structure Texture{
+	texture texture;
+}

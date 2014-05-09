@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/Users/Alessandro/Documents/Libraries/jogl/gluegen-rt.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/Alessandro/Documents/Libraries/jogl"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/Alessandro/Documents/Libraries/jogl/jogl.all.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/Alessandro/Documents/Libraries/jogl"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20DataTools"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20Graphics"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20GraphicsJava"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20Gui"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20RenderingData"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20System"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20Viewer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SFROpenGL20"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SFRPipeline"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SFRPipelineTools"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SFTests"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
