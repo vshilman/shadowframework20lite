@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFSurfaceData name="RectangleSurface">
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<w>1.0</w>
+			<h>1.0</h>
+			<y>-0.5</y>
+			<x>-0.5</x>
+		</SFRectangle2DFunctionData>
+	</SFSurfaceData>
+	<SFStructureArrayDataUnit8 name="BasicMatColours">
+		<structure>Mat01</structure>
+		<values>
+			<values_element>(0.5,0.0,0.0)</values_element>
+			<values_element>(1.0,0.0,0.0)</values_element>
+			<values_element>(0.0,0.5,0.0)</values_element>
+			<values_element>(0.5,0.5,0.0)</values_element>
+			<values_element>(0.5,0.0,0.5)</values_element>
+			<values_element>(0.0,0.0,0.5)</values_element>
+			<values_element>(0.5,0.0,1.0)</values_element>
+			<values_element>(0.5,1.0,0.0)</values_element>
+			<values_element>(0.6,1.0,0.4)</values_element>
+			<values_element>(0.0,1.0,1.0)</values_element>
+			<values_element>(1.0,0.6,0.0)</values_element>
+			<values_element>(1.0,0.84800005,0.0)</values_element>
+			<values_element>(0.0,0.6,0.2)</values_element>
+			<values_element>(0.1,0.0,0.3)</values_element>
+			<values_element>(1.0,1.0,1.0)</values_element>
+			<values_element>(0.6,0.6,0.6)</values_element>
+			<values_element>(0.0,0.0,1.0)</values_element>
+		</values>
+	</SFStructureArrayDataUnit8>
+	<SFQuadsSurfaceGeometryData name="Rectangle">
+		<surface>RectangleSurface</surface>
+		<NuNv>(2,2)</NuNv>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="RectangleModel">
+		<SFTranslateAndScaleFixed16Data name="transform">
+		</SFTranslateAndScaleFixed16Data>
+		<SFProgramAssetData name="materialComponent">
+			<program>BasicMat</program>
+			<structures>
+				<structures_element>BasicMatColours:1</structures_element>
+			</structures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<geometry>Rectangle</geometry>
+	</SFObjectModelData>
+</library>
