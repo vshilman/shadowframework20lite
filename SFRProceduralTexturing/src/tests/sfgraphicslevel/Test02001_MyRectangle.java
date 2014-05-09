@@ -3,6 +3,8 @@ package tests.sfgraphicslevel;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
+import sfogl2.SFOGLRenderedTexture;
+import sfogl2.tests.objects.BlurredScreenObject;
 import shadow.nodes.SFObjectModel;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipeline.PipelineModule;
@@ -37,13 +39,28 @@ public class Test02001_MyRectangle extends MainPTTest implements SFDrawable{
 	private SFObjectModel objectModel;
 	private SFProgramModuleStructures lightComponent=new SFProgramModuleStructures("BasicColor");
 	
+	public static final int FRAMEBUFFERSIZE=512;
+	private static SFOGLRenderedTexture renderedTexture=new SFOGLRenderedTexture(FRAMEBUFFERSIZE,true);
+	private boolean initialized=false;
+
+	private BlurredScreenObject screen=new BlurredScreenObject(FRAMEBUFFERSIZE,renderedTexture);
+	
 	@Override
 	public void draw() {
 		
 		GL2 gl=SFGL2.getGL();
 		
+		if(!initialized){
+			renderedTexture.prepare(gl);
+			screen.init(gl);
+			initialized=true;
+		}
+		
 		gl.glClearColor(1, 1, 0, 1);
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+
+		int[] viewport=new int[4];
+		gl.glGetIntegerv(GL.GL_VIEWPORT, viewport, 0);
 		
 		gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
 		
@@ -53,10 +70,17 @@ public class Test02001_MyRectangle extends MainPTTest implements SFDrawable{
 				0,0,1,0,
 				0,0,0,1
 		};
-		
 		SFPipeline.getSfPipelineGraphics().setupProjection(projection);
 
+		renderedTexture.apply(gl);
+		
 		drawObjectModel(objectModel, lightComponent);
+
+		renderedTexture.unapply(gl);
+
+		gl.glViewport(0, 0, viewport[2],viewport[3]);
+
+		screen.draw(gl);
 	}
 
 	private void drawObjectModel(SFObjectModel objectModel,
