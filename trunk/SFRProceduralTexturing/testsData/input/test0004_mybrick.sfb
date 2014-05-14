@@ -1,0 +1,34 @@
+
+RectangleSurface as SFSurfaceData{
+	surfaceFunction as SFRectangle2DFunctionData{
+		x = -0.5
+		y = -0.1
+		w = 1.0
+		h = 0.2
+	}
+}
+
+BasicMatColours as SFStructureArrayDataUnit8{
+	structure = Mat01
+	values = (0.5,0.0,0.0) (1.0,0.0,0.0) (0.0,0.5,0.0) (0.5,0.5,0.0) (0.5,0.0,0.5)
+			(0.0,0.0,0.5) (0.5,0.0,1.0) (0.5,1.0,0.0) (0.6,1.0,0.4) (0.0,1.0,1.0) (1.0,0.6,0.0)
+			(1.0,0.84800005,0.0) (0.0,0.6,0.2) (0.1,0.0,0.3) (1.0,1.0,1.0) (0.6,0.6,0.6) (0.0,0.0,1.0)
+}
+						
+Rectangle as SFQuadsSurfaceGeometryData{
+	NuNv = (2,2)
+	primitive = Triangle2PN
+	surface == RectangleSurface
+}
+			
+RectangleModel as SFObjectModelData{
+	transform = SFTranslateAndScaleFixed16Data{
+	}
+	geometry == Rectangle
+	transformComponent as SFProgramAssetData{
+		program = BasicPNTransform
+	}
+	materialComponent as SFProgramAssetData{
+		program = BrickMat
+	}
+}
