@@ -15,16 +15,14 @@ import shadow.system.SFDrawable;
 import shadow.system.data.SFDataCenter;
 import tests.sfdatalevel.MainPTTest;
 
-/* -disegna un quadrato */
-public class Test02001b_MyRectangle extends MainPTTest implements SFDrawable{
+public class Test02004_MyBrick extends MainPTTest implements SFDrawable{
 
-	private static final String FILENAME="test0001_myrectangle";
+	private static final String FILENAME="test0004_mybrick";
 	
 	public static void main(String[] args) {
 		setFilename(FILENAME);
-		execute(new Test02001b_MyRectangle());
+		execute(new Test02004_MyBrick());
 	}
-
 	public void viewTestData() {
 		loadLibraryAsDataCenter();
 		this.objectModel=(SFObjectModel)SFDataCenter.getDataCenter().makeDatasetAvailable("RectangleModel").getResource();
@@ -75,6 +73,4 @@ public class Test02001b_MyRectangle extends MainPTTest implements SFDrawable{
 		//Draw the object
 		objectModel.getModel().getGeometry().draw();
 	}
-	
-	
 }
