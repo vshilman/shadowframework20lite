@@ -7,6 +7,7 @@ import shadow.nodes.SFObjectModel;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipeline.PipelineModule;
 import shadow.pipeline.openGL20.SFGL2;
+import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.SFModel;
 import shadow.renderer.SFProgramModuleStructures;
 import shadow.renderer.SFRenderer;
@@ -20,6 +21,8 @@ public class Test02004_MyBrick extends MainPTTest implements SFDrawable{
 	private static final String FILENAME="test0004_mybrick";
 	
 	public static void main(String[] args) {
+		SFCommonPipeline.setPipelineLocation("pipeline/","simpleglpipeline01.txt");
+		
 		setFilename(FILENAME);
 		execute(new Test02004_MyBrick());
 	}
