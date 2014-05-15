@@ -139,6 +139,26 @@ materialComponent BrickMat(){
 	vec3 matnormal = normal;
 }
 
+materialComponent BrickMat2(){
+	vec3 red = vec3(0.5,0.1,0.1);
+	vec3 gray = vec3(0.6,0.6,0.6);
+	vec2 size = vec2(0.3,0.15);
+	vec2 pct = vec2(0.90, 0.85);
+	
+	vec2 MCpos = vec2(position.xy);
+	
+	vec2 pos = MCpos/size;
+	
+	pos.x += 0.5 * step(0.5, fract(pos.y*0.5));
+	
+	pos = fract(pos);
+	
+	vec2 useBrick = step(pos, pct);
+	
+	vec3 color = mix(gray, red, useBrick.x * useBrick.y);
+	vec3 matnormal = normal;
+}
+
 lightComponent BasicLSPN(PLight01 light){
 	vec3 tmp1 = normalize(light_position-position.xyz);
 	vec3 tmp3 = vec3(dot(normalize(matnormal),tmp1)); 
