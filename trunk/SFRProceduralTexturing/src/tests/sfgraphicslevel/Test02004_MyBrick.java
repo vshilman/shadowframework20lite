@@ -27,10 +27,10 @@ public class Test02004_MyBrick extends MainPTTest implements SFDrawable{
 		loadLibraryAsDataCenter();
 		this.objectModel=(SFObjectModel)SFDataCenter.getDataCenter().makeDatasetAvailable("RectangleModel").getResource();
 		
-		SFDrawableFrame frame=new SFDrawableFrame("MyRectangle", 600, 600, this);
+		SFDrawableFrame frame=new SFDrawableFrame("MyWall", 600, 600, this);
 		frame.setVisible(true);
 	}
-	
+
 
 	private SFObjectModel objectModel;
 	private SFProgramModuleStructures lightComponent=new SFProgramModuleStructures("BasicColor");
