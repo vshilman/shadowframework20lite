@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<script type="text/javascript" src="./ajax.js"></script>
+		<script type="text/javascript" src="./sendToServer.js"></script>
+
+		<script type="text/javascript">
+			var httpRequest = null;
+
+			function SendRequest(txt) {
+				if (!httpRequest) {
+					httpRequest = CreateHTTPRequestObject();
+					// defined in ajax.js
+				}
+				if (httpRequest) {
+					// The requested file must be in the same domain that the page is served from.
+					var url = "./news.xml";
+					httpRequest.open("GET", url, true);
+					// async
+					httpRequest.setRequestHeader("Accept", "text/xml");
+					httpRequest.onreadystatechange = OnStateChange;
+					httpRequest.send(txt);
+				}
+			}
+
+			function OnStateChange() {
+				if (httpRequest.readyState == 0 || httpRequest.readyState == 4) {
+					if (IsRequestSuccessful(httpRequest)) {// defined in ajax.js
+						alert("Request complete.");
+					} else {
+						alert("Operation failed.");
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button onclick="tryToSend(txt)">
+			Send request
+		</button>
+	</body>
+</html>
