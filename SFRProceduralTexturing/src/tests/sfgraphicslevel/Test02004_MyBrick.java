@@ -21,7 +21,7 @@ public class Test02004_MyBrick extends MainPTTest implements SFDrawable{
 	private static final String FILENAME="test0004_mybrick";
 	
 	public static void main(String[] args) {
-		SFCommonPipeline.setPipelineLocation("pipeline/","simpleglpipeline01.txt");
+		SFCommonPipeline.setPipelineLocation("pipeline/","wallcoveringspipeline.txt");
 		
 		setFilename(FILENAME);
 		execute(new Test02004_MyBrick());
