@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+if(typeof(EventSource)!=="undefined")
+  {
+  var source=new EventSource("192.168.0.10");
+  source.onmessage=function(event)
+    {
+    document.getElementById("result").innerHTML+=event.data + "<br>";
+    };
+  }
+else
+  {
+  document.getElementById("result").innerHTML="Sorry, your browser does not support server-sent events...";
+  }
+function loadXMLDoc(str)
+{
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function(){
+  if (xmlhttp.readyState==4 && xmlhttp.status==200){
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+}
+xmlhttp.open("POST","./Test1",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("nickname="+str);
+}
+</script>
+</head>
+<body>
+
+<h2>AJAX</h2>
+<input type="text" id="nickname" name="nickname" value="" />
+<button type="button" onclick="loadXMLDoc(nickname.value)">Send it!</button>
+<div id="myDiv"></div>
+<div id="result"></div>
+</body>
+</html>
