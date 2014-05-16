@@ -20,7 +20,7 @@ public class ServiceServer implements Runnable {
 		
 	public ServiceServer() {
 		super();
-		serviceMap.putAll(Mediator.getMed().getServiceMap());
+		serviceMap.putAll(Mediator.getMed().getComputator().getServiceMap());
 		
 
 	}
@@ -31,8 +31,8 @@ public class ServiceServer implements Runnable {
 				service=new ServerSocket(3000);
 			
 			while (true) {
-				if (!serviceMap.equals(Mediator.getMed().getServiceMap())) {
-					serviceMap.putAll(Mediator.getMed().getServiceMap());
+				if (!serviceMap.equals(Mediator.getCMed().getServiceMap())) {
+					serviceMap.putAll(Mediator.getCMed().getServiceMap());
 				}
 				Socket connection=service.accept();
 				if (connection.isConnected()) {
@@ -42,6 +42,7 @@ public class ServiceServer implements Runnable {
 					while (reader.ready()) {
 						request+=reader.readLine();
 					}
+					
 					System.out.println(request);
 					//Mediator.getMed().checkAns(request);
 				}	

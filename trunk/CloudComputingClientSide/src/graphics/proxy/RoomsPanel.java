@@ -23,7 +23,7 @@ public class RoomsPanel extends JPanel implements IProxyGraphic{
 	
 	private void build(){
 		removeAll();
-		tables.putAll(Mediator.getMed().getTables());
+		tables.putAll(Mediator.getMed().getComputator().getTables());
 		setLayout(new GridLayout(tables.size(), 2));
 		Set<String> tablesName= tables.keySet();
 		for (Iterator iterator = tablesName.iterator(); iterator.hasNext();) {

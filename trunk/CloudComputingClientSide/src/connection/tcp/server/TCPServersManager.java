@@ -17,21 +17,31 @@ public class TCPServersManager{
 	}
 	
 	public void openServiceServer(){
-		service.start();
-		
-		
+			service.run();
 	}
 	public void openGamingServer(){
-		gaming.start();
+		gaming.run();
 		
 		
 		
 	}
 	public void closeServiceServer(){
 		service.interrupt();
-	}
+		try {
+			service.join();
+		} catch (InterruptedException e) {
+
+			
+		}
+}
 	public void closeGamingServer(){
 		gaming.interrupt();
+		try {
+			gaming.join();
+		} catch (InterruptedException e) {
+
+			
+		}
 	}
 	
 }

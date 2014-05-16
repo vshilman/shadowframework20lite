@@ -40,10 +40,10 @@ public class GameMenu extends JMenu{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (field.getText().isEmpty()) {
-							Mediator.getMed().addNewTable("Come to Play");
+							Mediator.getMed().getComputator().addNewTable("Come to Play");
 							
 						}else {
-							Mediator.getMed().addNewTable(field.getText());
+							Mediator.getMed().getComputator().addNewTable(field.getText());
 						}
 						
 						dialog.dispose();

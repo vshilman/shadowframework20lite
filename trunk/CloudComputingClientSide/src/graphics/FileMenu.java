@@ -60,7 +60,7 @@ public class FileMenu extends JMenu{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Mediator.getMed().logout();
+				Mediator.getCMed().logout();
 				
 			}
 		});
