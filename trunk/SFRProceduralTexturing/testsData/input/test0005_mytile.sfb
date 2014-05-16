@@ -7,7 +7,7 @@ RectangleSurface as SFSurfaceData{
 		h = 2.0
 	}
 }
-						
+					
 Rectangle as SFQuadsSurfaceGeometryData{
 	NuNv = (2,2)
 	primitive = Triangle2PN
@@ -22,6 +22,6 @@ RectangleModel as SFObjectModelData{
 		program = BasicPNTransform
 	}
 	materialComponent as SFProgramAssetData{
-		program = BrickMat
+		program = TileMat
 	}
 }

@@ -5,13 +5,15 @@ import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.viewer.SFViewer;
 import shadow.system.data.SFDataCenter;
 
-public class Test01004_MyBrick extends MainPTTest{
-private static final String FILENAME="test0004_mybrick";
+public class Test01005_MyTile extends MainPTTest{
+
+	
+	private static final String FILENAME="test0005_mytile";
 	
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","wallcoveringspipeline.txt");
 		setFilename(FILENAME);
-		execute(new Test01004_MyBrick());
+		execute(new Test01005_MyTile());
 		
 	}
 
@@ -23,3 +25,4 @@ private static final String FILENAME="test0004_mybrick";
 	}
 
 }
+
