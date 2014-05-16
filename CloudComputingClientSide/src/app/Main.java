@@ -10,7 +10,7 @@ import mediator.Mediator;
 
 public class Main{
 
-	private static JFrame frame= Mediator.getMed().getFrame();
+	private static JFrame frame= Mediator.getGMed().getFrame();
 	
 		public static void main(String[] args) {
 			frame.setVisible(true);
@@ -18,10 +18,10 @@ public class Main{
 		//	frame.setIconImage(Toolkit.getDefaultToolkit().getImage("./images/libro.png"));
 //			frame.setLayout(new BorderLayout());
 //		-->	CalculatePanel cPanel=new CalculatePanel();
-			JPanel mainPanel= Mediator.getMed().getMainPanel();
+			JPanel mainPanel= Mediator.getGMed().getMainPanel();
 			JMenuBar menuBar= new JMenuBar();
-			menuBar.add(Mediator.getMed().getFileMenu());
-			menuBar.add(Mediator.getMed().getGameMenu());
+			menuBar.add(Mediator.getGMed().getFileMenu());
+			menuBar.add(Mediator.getGMed().getGameMenu());
 			frame.setJMenuBar(menuBar);	
 			frame.getContentPane().add(mainPanel);
 			frame.setMinimumSize(new Dimension(800, 500));

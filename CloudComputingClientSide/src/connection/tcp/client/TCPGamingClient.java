@@ -4,6 +4,7 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
 public class TCPGamingClient implements ITCPClient {
 
@@ -33,8 +34,10 @@ public class TCPGamingClient implements ITCPClient {
 	}
 
 	@Override
-	public void send(Object toSend) {
-		encoder.writeObject(toSend);
+	public void send(List<Object> toSend) {
+		for (int i = 0; i < toSend.size(); i++) {
+			encoder.writeObject(toSend.get(i));
+		}
 		encoder.flush();
 		obtainAnswer();
 	}

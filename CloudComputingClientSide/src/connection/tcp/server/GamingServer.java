@@ -20,8 +20,8 @@ public class GamingServer implements Runnable{
 	
 	public GamingServer() {
 		super();
-		playersMap.putAll(Mediator.getMed().getPlayersMap());
-		visitorsMap.putAll(Mediator.getMed().getVisitorsMap());
+		playersMap.putAll(Mediator.getCMed().getPlayersMap());
+		visitorsMap.putAll(Mediator.getCMed().getVisitorsMap());
 		
 		
 	}
@@ -33,11 +33,11 @@ public class GamingServer implements Runnable{
 			gaming=new ServerSocket(3333);
 		
 		while (true) {
-			if (!playersMap.equals(Mediator.getMed().getPlayersMap())) {
-				playersMap.putAll(Mediator.getMed().getPlayersMap());
+			if (!playersMap.equals(Mediator.getCMed().getPlayersMap())) {
+				playersMap.putAll(Mediator.getCMed().getPlayersMap());
 			}
-			if (!visitorsMap.equals(Mediator.getMed().getVisitorsMap())) {
-				visitorsMap.putAll(Mediator.getMed().getVisitorsMap());
+			if (!visitorsMap.equals(Mediator.getCMed().getVisitorsMap())) {
+				visitorsMap.putAll(Mediator.getCMed().getVisitorsMap());
 			}
 			Socket connection=gaming.accept();
 			if (connection.isConnected()) {

@@ -32,7 +32,7 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				passwordToString(password.getPassword());
-				Mediator.getMed().getConnection().login(username.getText(),passwordToSend);
+				Mediator.getCMed().getConnection().login(username.getText(),passwordToSend);
 			}
 		});
 
@@ -40,7 +40,7 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Mediator.getMed().logout();
+				Mediator.getCMed().logout();
 				
 			}
 		});

@@ -60,7 +60,7 @@ public class Connector{
 				}
 				in.close();
 				
-				Mediator.getMed().validateLogin(ans, user, pass);
+				Mediator.getMed().getComputator().validateLogin(ans, user, pass);
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -79,7 +79,7 @@ public class Connector{
 			connection.setRequestProperty("User-Agent", "Java");
 			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(NICKHEAD+Mediator.getMed().getNick());
+			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick());
 			wr.flush();
 			wr.close();
 			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -111,7 +111,7 @@ public class Connector{
 			for (int i = 0; i < answer.size(); i++) {
 				System.out.println(answer.get(i));
 			}
-			Mediator.getMed().checkAns(answer);
+			Mediator.getMed().getComputator().checkAns(answer);
 			decoder.close();
 			
 		} catch (MalformedURLException e) {
