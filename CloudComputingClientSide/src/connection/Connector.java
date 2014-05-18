@@ -108,9 +108,9 @@ public class Connector{
 			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 			XMLDecoder decoder= new XMLDecoder(connection.getInputStream());
 			answer=(ArrayList<String>)decoder.readObject();
-			for (int i = 0; i < answer.size(); i++) {
-				System.out.println(answer.get(i));
-			}
+//			for (int i = 0; i < answer.size(); i++) {
+//				System.out.println(answer.get(i));
+//			}
 			Mediator.getMed().getComputator().checkAns(answer);
 			decoder.close();
 			
