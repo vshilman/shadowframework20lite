@@ -45,7 +45,7 @@ public class Computator {
 			setNick(nick);
 			setPass(pass);
 			Mediator.getCMed().getConnection().getWelcome();
-			Mediator.getCMed().getServerManager().openServiceServer();
+			Mediator.getCMed().openServiceServer();
 		}else{
 			Mediator.getGMed().generateDialog("  "+ans);
 		}
@@ -60,19 +60,19 @@ public class Computator {
 				Mediator.getGMed().setLoginPanel();
 				setNick("");
 				setPass("");
-				Mediator.getCMed().getServerManager().closeServiceServer();
+				Mediator.getCMed().closeServiceServer();
 				
 			}else{
 				objectsToSend.add(REMOVE_ME);
 				objectsToSend.add(me.getNick());
-				Mediator.getCMed().sendOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
+				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
 				String ans=(String)Mediator.getCMed().getAns();
 				if (ans.equals(OK)) {
 					Mediator.getCMed().getConnection().login(me.getNick(), pass);
 					Mediator.getGMed().setLoginPanel();
 					setNick("");
 					setPass("");
-					Mediator.getCMed().getServerManager().closeServiceServer();
+					Mediator.getCMed().closeServiceServer();
 				}
 				objectsToSend.clear();
 				
@@ -88,14 +88,16 @@ public class Computator {
 			serviceMap.put(DEALER, me);
 			Mediator.getGMed().setRoomsPanel();
 		}else if(answer.get(2).equals(JAVA)) {
-			serviceMap.put(WELCOMER, me);
 			serviceMap.put(WELCOMER, generateUser(answer));
+
 			objectsToSend.add(WHO_IS_DEALER);
-			Mediator.getCMed().sendOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
+			Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
 			objectsToSend.clear();
+			
 			serviceMap.put(DEALER, (User)Mediator.getCMed().getAns());
+			
 			objectsToSend.add(GET_TABLES_MAP);
-			Mediator.getCMed().sendOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
+			Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
 			objectsToSend.clear();
 
 			
@@ -109,7 +111,29 @@ public class Computator {
 			Mediator.getGMed().setRoomsPanel();
 		}
 		
-		
+	}
+	
+	public void checkRequest(List<Object> request){
+		String action=(String)request.get(0);
+		if (action.equals(WHO_IS_DEALER)) {
+			Mediator.getCMed().sendAnswerOnService(serviceMap.get(DEALER));
+		}else if (action.equals(GET_TABLES_MAP)) {
+			Mediator.getCMed().sendAnswerOnService(tables);
+		}else if (action.equals(NEW_TABLE)) {
+			String addingTable=(String)request.get(1);
+			Substring sub= new Substring(addingTable, "$$||$$");
+			sub.nextSubString();
+			tables.put(addingTable, sub.nextSubString());
+			Mediator.getGMed().refreshPanel();
+			Mediator.getCMed().sendAnswerOnService(tables);
+		}else if (action.equals(REMOVE_ME)) {
+			Mediator.getCMed().getPlayersMap().remove((String)request.get(1));
+			Mediator.getCMed().sendAnswerOnService(OK);
+		}else if (action.equals(UPDATE_TABLE_MAP)) {
+			tables.putAll((HashMap<String, String>)request.get(1));
+			Mediator.getCMed().sendAnswerOnService(OK);
+			Mediator.getGMed().refreshPanel();
+		}
 	}
 	
 	public void addNewTable(String tableName){
@@ -122,8 +146,8 @@ public class Computator {
 			objectsToSend.add(NEW_TABLE);
 			objectsToSend.add(tableNameComposed);
 			if (!me.getNick().equals(serviceMap.get(DEALER).getNick())) {
-				Mediator.getCMed().sendOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
-				tables.put(tableNameComposed,me.getNick());
+				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
+				tables.putAll((HashMap<String, String>)Mediator.getCMed().getAns());
 				Mediator.getGMed().refreshPanel();
 				//TODO:EVENTUALMENTE DA FINIRE
 			}else {

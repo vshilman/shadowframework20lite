@@ -1,12 +1,13 @@
 package connection.tcp.server;
 
-import java.io.BufferedReader;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import mediator.Mediator;
 import utils.User;
@@ -15,7 +16,9 @@ public class ServiceServer implements Runnable {
 
 	private ServerSocket service;
 	private HashMap<String, User> serviceMap= new HashMap<String, User>();
-	private BufferedReader reader;
+	private XMLDecoder decoder;
+	private XMLEncoder encoder;
+	private List<Object> request;
 	
 		
 	public ServiceServer() {
@@ -37,25 +40,23 @@ public class ServiceServer implements Runnable {
 				Socket connection=service.accept();
 				if (connection.isConnected()) {
 					
-					reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
-					String request="";
-					while (reader.ready()) {
-						request+=reader.readLine();
-					}
-					
-					System.out.println(request);
-					//Mediator.getMed().checkAns(request);
+					decoder=new XMLDecoder(connection.getInputStream());
+					request=(ArrayList<Object>)decoder.readObject();
+					Mediator.getMed().getComputator().checkRequest(request);
 				}	
 				
-				//Mediator.getMed().refresh();
 			}
 			
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			
 		
+	}
+	public void sendAnswer(Object answer){
+		encoder.writeObject(answer);
+		encoder.flush();
 	}
 
 

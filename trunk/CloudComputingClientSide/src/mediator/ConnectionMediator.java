@@ -38,20 +38,26 @@ public class ConnectionMediator {
 	public HashMap<String, User> getVisitorsMap(){
 		return Mediator.getMed().getComputator().getVisitorsMap();
 	}
-	public void sendOnService(String ip, List<Object> objectsToSend){
+	public void sendRequestOnService(String ip, List<Object> objectsToSend){
 		serviceClient=new TCPServiceClient(ip);
 		serviceClient.send(objectsToSend);
 		answer=serviceClient.getAnswer();
 		serviceClient.closeConnection();
+	}
+	public void openServiceServer(){
+		serverManager.openServiceServer();
+	}
+	public void closeServiceServer(){
+		serverManager.closeServiceServer();
+	}
+	public void sendAnswerOnService(Object objectsToSend){
+		serverManager.getServiceServer().sendAnswer(objectsToSend);
 	}
 	public Object getAns(){
 		return answer;
 	}
 	public Connector getConnection() {
 		return connection;
-	}
-	public TCPServersManager getServerManager(){
-		return serverManager;
 	}
 	
 
