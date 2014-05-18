@@ -16,14 +16,12 @@ public class TCPServersManager{
 		
 	}
 	
+	
 	public void openServiceServer(){
 			service.run();
 	}
 	public void openGamingServer(){
 		gaming.run();
-		
-		
-		
 	}
 	public void closeServiceServer(){
 		service.interrupt();
@@ -42,6 +40,14 @@ public class TCPServersManager{
 
 			
 		}
+	}
+
+	public GamingServer getGamingServer() {
+		return gamingServer;
+	}
+	
+	public ServiceServer getServiceServer() {
+		return serviceServer;
 	}
 	
 }
