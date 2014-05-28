@@ -1,0 +1,57 @@
+package $A$.$B$.$C$.$D$;
+-----#ifndef $A$_$B$_$C$_$D$_H_
+-----#define $A$_$B$_$C$_$D$_H_
+package $A$.$B$.$C$;
+-----#ifndef $A$_$B$_$C$_H_
+-----#define $A$_$B$_$C$_H_
+package $A$.$B$;
+-----#ifndef $A$_$B$_H_
+-----#define $A$_$B$_H_
+import $A$.$B$.$C$.$D$.$E$;
+-----#include "$A$/$B$/$C/$D/$E$.h"
+import $A$.$B$.$C$.$D$;
+-----#include "$A$/$B$/$C/$D$.h"
+import $A$.$B$.$C$;
+-----#include "$A$/$B$/$C$.h"
+public class $A${
+-----namespace sf{
+-----class $A${
+public interface $A$ extends $B${
+-----namespace sf{
+-----class $A$: public $B${
+public interface $A$ extends $B$ $G${
+-----namespace sf{
+-----class $A$: public $B$ $G${
+public class $A$ extends $B${
+-----namespace sf{
+-----class $A$: public $B${
+public class $A$ extends $B$ implements $C${
+-----namespace sf{
+-----class $A$: public $B$, public $C${
+public class $A$ extends $B$ implements $C$ $D${
+-----namespace sf{
+-----class $A$: public $B$, public $C$ , $D${
+private $A$;
+-----$A$;
+public $name$($D$)$end${
+-----$name$($D$)$end${
+public $A$ $name$($D$)$end${
+-----$A$ $name$($D$)$end${
+public static $A$ $name$($D$)$end${
+-----static $A$ $name$($D$)$end${
+protected $name$($D$)$end${
+-----$name$($D$)$end${
+protected $A$ $name$($D$)$end${
+-----$A$ $name$($D$)$end${
+protected static $A$ $name$($D$)$end${
+-----static $A$ $name$($D$)$end${
+@Override
+-----
+}
+-----}
+this.$A$=$G$;
+-----this->$A$=$G$;
+EOF ____
+-----;
+-----}
+-----#endif
