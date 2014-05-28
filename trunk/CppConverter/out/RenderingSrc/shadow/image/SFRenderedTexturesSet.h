@@ -1,0 +1,16 @@
+#ifndef shadow_image_H_
+#define shadow_image_H_
+
+#include "shadow/system/SFGraphicsResource.h"
+#include "shadow/system/SFUpdatable.h"
+
+class SFRenderedTexturesSet: SFGraphicsResource,SFUpdatable{
+
+//	SFPipelineTexture getTexture(int index);
+
+//	int getTextureSize();
+
+}
+;
+}
+#endif
