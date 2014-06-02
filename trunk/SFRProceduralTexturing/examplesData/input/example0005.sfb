@@ -1,0 +1,39 @@
+		
+import example0001;
+
+PerlinTexture01 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (1024,1024)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables = SFRenderedTextureStackPushData 
+		drawables += SFStateDrawableData{
+			state = BlendModeAdd
+		}
+		drawables += SFImageModelData{
+			materialComponent = SFProgramAssetData{
+				program = LinearOctaveFilter
+				structures = (8)(1)(1.0)
+				textures = BitmapTexture0001
+			}
+			lightComponent = SFProgramAssetData{
+				program = BasicColor
+			}
+		}
+		drawables += SFImageModelData{
+			materialComponent = SFProgramAssetData{
+				program = LinearOctaveFilter
+				structures = (8)(8)(0.1)
+				textures = BitmapTexture0001
+			}
+			lightComponent = SFProgramAssetData{
+				program = BasicColor
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}

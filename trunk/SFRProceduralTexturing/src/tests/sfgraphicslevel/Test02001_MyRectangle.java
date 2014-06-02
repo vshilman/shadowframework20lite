@@ -40,7 +40,7 @@ public class Test02001_MyRectangle extends MainPTTest implements SFDrawable{
 	private SFProgramModuleStructures lightComponent=new SFProgramModuleStructures("BasicColor");
 	
 	public static final int FRAMEBUFFERSIZE=512;
-	private static SFOGLRenderedTexture renderedTexture=new SFOGLRenderedTexture(FRAMEBUFFERSIZE,true);
+	private static SFOGLRenderedTexture renderedTexture=new SFOGLRenderedTexture(FRAMEBUFFERSIZE,FRAMEBUFFERSIZE,true);
 	private boolean initialized=false;
 
 	private BlurredScreenObject screen=new BlurredScreenObject(FRAMEBUFFERSIZE,renderedTexture);
@@ -91,9 +91,9 @@ public class Test02001_MyRectangle extends MainPTTest implements SFDrawable{
 		int program=model.getProgram(lightComponent);
 		SFPipeline.getSfPipelineGraphics().loadProgram(program);
 		//Setup any program data
-		SFRenderer.setupMaterialData(PipelineModule.TRANSFORM,model.getTransformComponent());
-		SFRenderer.setupMaterialData(PipelineModule.MATERIAL,model.getMaterialComponent());
-		SFRenderer.setupMaterialData(PipelineModule.LIGHT,lightComponent);
+		model.getTransformComponent().setupData(PipelineModule.TRANSFORM);
+		model.getMaterialComponent().setupData(PipelineModule.MATERIAL);
+		lightComponent.setupData(PipelineModule.LIGHT);
 		//apply object transform
 		objectModel.getTransform().apply();
 		//Draw the object

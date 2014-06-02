@@ -1,0 +1,179 @@
+
+#primitiveblock P:float3 POSITION
+#primitiveblock N:float3 NORMAL
+#primitiveblock TxO:float2 TXO
+
+#register position:float4 TRANSFORM
+#register normal:float3 TRANSFORM
+#register texCoord0:float2 TRANSFORM
+#register color:float4 MATERIAL
+#register matnormal:float3 MATERIAL
+
+primitiveComponent <> Triangle(Triangle:2:<> Param){
+	return Param00*w+Param10*u+Param01*v;
+}
+
+primitiveComponent <> Triangle2(Triangle:3:<> Param){
+	return Param00*w*(2.0*w-1.0)+Param20*u*(2.0*u-1.0)+Param02*v*(2.0*v-1.0)+Param10*4.0*u*w+Param11*4.0*u*v+Param01*4.0*v*w;
+}
+
+primitiveComponent <> Triangle3Coefficients(Triangle:4:<> Param){
+	float Acoeff=w*(w*w+(-2.5)*w*(1.0-w)+(u*u+v*v)+2.0*u*v);
+	float Bcoeff=u*(u*u+(-2.5)*u*(1.0-u)+(v*v+w*w)+2.0*v*w);
+	float Ccoeff=v*(v*v+(-2.5)*v*(1.0-v)+(w*w+u*u)+2.0*w*u);
+	float ABcoeff=w*u*(9.0*w+(-4.5)*u+(-4.5)*v);
+	float BAcoeff=u*w*(9.0*u+(-4.5)*w+(-4.5)*v);
+	float BCcoeff=u*v*(9.0*u+(-4.5)*v+(-4.5)*w);
+	float CBcoeff=v*u*(9.0*v+(-4.5)*u+(-4.5)*w);
+	float CAcoeff=v*w*(9.0*v+(-4.5)*w+(-4.5)*u);
+	float ACcoeff=w*v*(9.0*w+(-4.5)*v+(-4.5)*u);
+	float ABCcoeff=w*v*u*27.0;
+	return Param00*Acoeff+Param30*Bcoeff+Param03*Ccoeff+Param10*ABcoeff+Param20*BAcoeff+Param21*BCcoeff+Param12*CBcoeff+Param02*CAcoeff+Param01*ACcoeff+Param11*ABCcoeff;
+}
+
+primitiveComponent <> Triangle3N(Triangle:4:<> Param){
+	return Param00*Acoeff+Param30*Bcoeff+Param03*Ccoeff+Param10*ABcoeff+Param20*BAcoeff+Param21*BCcoeff+Param12*CBcoeff+Param02*CAcoeff+Param01*ACcoeff+Param11*ABCcoeff;
+}
+
+primitiveComponent <> Quad2Coefficients(Quad:3:<> Param){
+	float um=1-u;
+	float vm=1-v;
+	float Acf = um*um*vm*vm-um*u*vm*vm-vm*v*um*um-0.5*um*u*vm*v;
+	float Bcf = u*u*vm*vm-um*u*vm*vm-vm*v*u*u-0.5*um*u*vm*v;
+	float Ccf = u*u*v*v-um*u*v*v-vm*v*u*u-0.5*um*u*vm*v;
+	float Dcf = um*um*v*v-um*u*v*v-vm*v*um*um-0.5*um*u*vm*v;
+	float ABcf = 4*um*u*vm*vm-um*u*vm*v;
+	float BCcf = 4*vm*v*u*u-um*u*vm*v;
+	float CDcf = 4*um*u*v*v-um*u*vm*v;
+	float DAcf = 4*vm*v*um*um-um*u*vm*v;
+	float ABCDcf = 10*um*u*vm*v;
+	return (Param00*Acf)+(Param22*Bcf)+(Param02*Ccf)+(Param22*Dcf)+(Param10*ABcf)+(Param21*BCcf)+(CDcf*Param12)+(Param01*DAcf)+(Param11*ABCDcf);
+}
+
+primitiveComponent <> Quad2(Quad:3:<> Param){
+	return (Param00*Acf)+(Param22*Bcf)+(Param02*Ccf)+(Param22*Dcf)+(Param10*ABcf)+(Param21*BCcf)+(CDcf*Param12)+(Param01*DAcf)+(Param11*ABCDcf);
+}
+
+primitive TrianglePN(){
+	P = Triangle();
+	N = Triangle();
+}
+
+primitive Triangle2PN(){
+	P = Triangle2();
+	N = Triangle2();
+}
+
+primitive Triangle2PNTxO(){
+	P = Triangle2();
+	N = Triangle2();
+	TxO = Triangle2();
+}
+
+primitive Triangle3PN(){
+	P = Triangle3Coefficients();
+	N = Triangle3N();
+}
+
+primitive Quad2PN(){
+	P = Quad2Coefficients();
+	N = Quad2();
+}
+
+transformComponent BasicP(){
+	position = (projection*modelview*vec4(P,1));
+}
+
+transformComponent BasicN(){
+	normal = N;
+}
+
+transformComponent BasicTx0(){
+	texCoord0 = TxO;
+}
+
+transform BasicPNTransform(){
+	BasicP();
+	BasicN();
+}
+
+transform BasicPNTx0Transform(){
+	BasicP();
+	BasicN();
+	BasicTx0();
+}
+
+materialComponent BasicTexturedMat(Mat01 m,Texture texture0){
+	vec3 color = m_diffColor*texture2D(texture0_texture,texCoord0).xyz;
+	vec3 matnormal = normal;
+}
+
+materialComponent BasicMat(Mat01 m){
+	vec3 color = m_diffColor;
+	vec3 matnormal = normal;
+}
+
+materialComponent TexturedMat(Texture texture0){
+	vec3 color = texture2D(texture0_texture,texCoord0).xyz;
+	vec3 matnormal = normal;
+}
+
+
+materialComponent BlackMat(){
+	vec3 color = vec3(0.0,0.0,0.0);
+	vec3 matnormal = normal;
+}
+
+materialComponent RedMat(){
+	vec3 color = vec3(1.0,0.0,0.0);
+	vec3 matnormal = normal;
+}
+
+lightComponent BasicLSPN(PLight01 light){
+	vec3 tmp1 = normalize(light_position-position.xyz);
+	vec3 tmp3 = vec3(dot(normalize(matnormal),tmp1)); 
+	vec4 fColor = vec4(color*light_intensity*tmp3,1.0);
+}
+
+lightComponent BasicLSPN2(PLight01 light){
+	vec3 tmp1 = normalize(light_position-position.xyz);
+	vec3 tmp3 = vec3(0.3+dot(normalize(matnormal),tmp1)); 
+	vec4 fColor = vec4(color*light_intensity*tmp3,1.0);
+}
+
+lightComponent DrawNormals(){
+	vec4 fColor = vec4(normalize(matnormal)*vec3(0.5)+vec3(0.5),1.0);
+}
+
+lightComponent DrawPosition(){
+	vec4 fColor = vec4(normalize(position)*vec3(0.5)+vec3(0.5),1.0);
+}
+
+lightComponent DrawTexture(){
+	vec4 fColor = vec4(color,1.0);
+}
+
+lightComponent DrawTextCoord(){
+	vec4 fColor = vec4(texCoord0,0.0,1.0);
+}
+
+lightComponent BasicColor(){
+	vec4 fColor = vec4(color,1.0);
+}
+
+
+textureModel linearTextureModel(){
+	FORMAT:RGB;
+	WRAP_S:GL_REPEAT;
+	WRAP_T:GL_REPEAT;
+	MIN_FILTER:GL_LINEAR;
+	MAG_FILTER:GL_LINEAR;
+}
+
+state MainViewerSetup(){
+	glClearColor(0.4,0.4,0.4,1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}

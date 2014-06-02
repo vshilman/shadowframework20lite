@@ -4,8 +4,8 @@
 		<SFRectangle2DFunctionData name="surfaceFunction">
 			<w>1.0</w>
 			<h>1.0</h>
-			<y>-0.5</y>
-			<x>-0.5</x>
+			<y>65.036</y>
+			<x>65.036</x>
 		</SFRectangle2DFunctionData>
 	</SFSurfaceData>
 	<SFStructureArrayDataUnit8 name="BasicMatColours">

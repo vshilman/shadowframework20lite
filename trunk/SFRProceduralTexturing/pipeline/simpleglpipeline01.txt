@@ -166,3 +166,20 @@ lightComponent BasicColor(){
 	vec4 fColor = vec4(color,1.0);
 }
 
+
+textureModel linearTextureModel(){
+	FORMAT:RGB;
+	WRAP_S:GL_REPEAT;
+	WRAP_T:GL_REPEAT;
+	MIN_FILTER:GL_LINEAR;
+	MAG_FILTER:GL_LINEAR;
+}
+
+state MainViewerSetup(){
+	glClearColor(0.4,0.4,0.4,1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+

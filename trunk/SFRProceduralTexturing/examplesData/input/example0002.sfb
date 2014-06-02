@@ -1,0 +1,27 @@
+		
+import example0001;
+
+
+NearestFilterTexture01 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (1024,1024)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFImageModelData{
+			materialComponent = SFProgramAssetData{
+				program = NearestOctaveFilter
+				structures = (8)(8)(0.4)
+				textures = BitmapTexture0001
+			}
+			lightComponent = SFProgramAssetData{
+				program = BasicColor
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFBitmapTextureData name="BitmapTexture0001">
+		<SFFunction2DBitmapData name="bitmap">
+			<height>8</height>
+			<width>8</width>
+			<SFFunctionRandomizerData name="function">
+				<seed>77</seed>
+			</SFFunctionRandomizerData>
+		</SFFunction2DBitmapData>
+		<textureModel>linearTextureModel</textureModel>
+	</SFBitmapTextureData>
+	<SFTemplateDataAsset name="GenericPerlinTextureTemplate">
+		<SFRenderingAlgorithmData name="asset">
+			<SFRenderingProcessData name="process">
+				<drawables>
+					<SFRenderedTextureStackPushData name="">
+					</SFRenderedTextureStackPushData>
+					<SFStateDrawableData name="">
+						<state>BlendModeAdd</state>
+					</SFStateDrawableData>
+					<SFImageModelData name="">
+						<SFProgramAssetData name="lightComponent">
+							<program>BasicColor</program>
+						</SFProgramAssetData>
+						<SFProgramAssetData name="materialComponent">
+							<textures>param:2</textures>
+							<program>LinearOctaveFilter</program>
+							<structures>param:1</structures>
+						</SFProgramAssetData>
+					</SFImageModelData>
+					<SFImageModelData name="">
+						<SFProgramAssetData name="lightComponent">
+							<program>BasicColor</program>
+						</SFProgramAssetData>
+						<SFProgramAssetData name="materialComponent">
+							<textures>param:2</textures>
+							<program>LinearOctaveFilter</program>
+							<structures>param:3</structures>
+						</SFProgramAssetData>
+					</SFImageModelData>
+					<SFImageModelData name="">
+						<SFProgramAssetData name="lightComponent">
+							<program>BasicColor</program>
+						</SFProgramAssetData>
+						<SFProgramAssetData name="materialComponent">
+							<textures>param:2</textures>
+							<program>LinearOctaveFilter</program>
+							<structures>param:4</structures>
+						</SFProgramAssetData>
+					</SFImageModelData>
+					<SFImageModelData name="">
+						<SFProgramAssetData name="lightComponent">
+							<program>BasicColor</program>
+						</SFProgramAssetData>
+						<SFProgramAssetData name="materialComponent">
+							<textures>param:2</textures>
+							<program>LinearOctaveFilter</program>
+							<structures>param:5</structures>
+						</SFProgramAssetData>
+					</SFImageModelData>
+					<SFRenderedTextureStackPopData name="">
+					</SFRenderedTextureStackPopData>
+				</drawables>
+			</SFRenderingProcessData>
+			<SFRenderedTextureStackData name="stack">
+				<textures>
+					<SFRenderedTextureData name="">
+						<textureModel>linearTextureModel</textureModel>
+						<useDepth>false</useDepth>
+						<size>param:0</size>
+					</SFRenderedTextureData>
+				</textures>
+			</SFRenderedTextureStackData>
+		</SFRenderingAlgorithmData>
+	</SFTemplateDataAsset>
+	<SFTemplateDataAsset name="TemplateTextureViewer01">
+		<SFImageModelData name="asset">
+			<SFProgramAssetData name="lightComponent">
+				<program>BasicColor</program>
+			</SFProgramAssetData>
+			<SFProgramAssetData name="materialComponent">
+				<textures>param:6</textures>
+				<program>TexturedMat</program>
+			</SFProgramAssetData>
+		</SFImageModelData>
+	</SFTemplateDataAsset>
+</library>

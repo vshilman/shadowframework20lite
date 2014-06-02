@@ -1,0 +1,50 @@
+		
+import example0007;
+
+TemplatePerlinTexture02 as TemplatePerlinTexture01 {
+	parameters = {
+		octaveParameters01 = (8)(1)(0.9)
+	}
+}
+
+TemplatePerlinTexture03 as TemplatePerlinTexture01 {
+	parameters = {
+		octaveParameters01 = (8)(1)(0.8)
+	}
+}
+
+TemplatePerlinTexture04 as TemplatePerlinTexture01 {
+	parameters = {
+		octaveParameters01 = (8)(1)(0.7)
+	}
+}
+
+TemplatePerlinTexture05 as TemplatePerlinTexture01 {
+	parameters = {
+		octaveParameters01 = (8)(1)(0.6)
+	}
+}
+
+TemplateTextureViewer02 as TemplateTextureViewer01{
+	parameters = {
+		texture = TemplatePerlinTexture02
+	}
+}
+
+TemplateTextureViewer03 as TemplateTextureViewer01{
+	parameters = {
+		texture = TemplatePerlinTexture03
+	}
+}
+
+TemplateTextureViewer04 as TemplateTextureViewer01{
+	parameters = {
+		texture = TemplatePerlinTexture04
+	}
+}
+
+TemplateTextureViewer05 as TemplateTextureViewer01{
+	parameters = {
+		texture = TemplatePerlinTexture05
+	}
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFBitmapTextureData name="BitmapTexture0001">
+		<SFFunction2DBitmapData name="bitmap">
+			<height>128</height>
+			<width>128</width>
+			<SFFunctionRandomizerData name="function">
+				<seed>77</seed>
+			</SFFunctionRandomizerData>
+		</SFFunction2DBitmapData>
+		<textureModel>linearTextureModel</textureModel>
+	</SFBitmapTextureData>
+	<SFSurfaceData name="RectangleSurface">
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<w>1.0</w>
+			<h>1.0</h>
+			<y>65.036</y>
+			<x>65.036</x>
+		</SFRectangle2DFunctionData>
+		<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+			<du>1.0</du>
+			<dv>1.0</dv>
+		</SFSimpleTexCoordGeometryuvData>
+	</SFSurfaceData>
+	<SFObjectModelData name="RectangleModel">
+		<SFTranslateAndScaleFixed16Data name="transform">
+		</SFTranslateAndScaleFixed16Data>
+		<SFProgramAssetData name="materialComponent">
+			<textures>
+				<textures_element>BitmapTexture0001:</textures_element>
+			</textures>
+			<program>BasicTexturedMat</program>
+			<structures>
+				<structures_element>(0.0,0.5,1.0)</structures_element>
+			</structures>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+		</SFProgramAssetData>
+		<SFQuadsSurfaceGeometryData name="geometry">
+			<surface>RectangleSurface</surface>
+			<NuNv>(2,2)</NuNv>
+			<primitive>Triangle2PNTxO</primitive>
+		</SFQuadsSurfaceGeometryData>
+	</SFObjectModelData>
+	<SFRendererData name="Renderer00002">
+		<viewSize>150.0</viewSize>
+		<SFProgramAssetData name="light">
+			<program>BasicColor</program>
+		</SFProgramAssetData>
+	</SFRendererData>
+	<SFRenderingAlgorithmData name="RenderedTexture0002">
+		<SFRenderingProcessData name="process">
+			<drawables>
+				<SFRenderedTextureStackPushData name="">
+				</SFRenderedTextureStackPushData>
+				<SFRenderingProcessData name="">
+					<drawables>
+						<SFStateDrawableData name="">
+							<state>MainViewerSetup</state>
+						</SFStateDrawableData>
+						<SFRendererDrawableData name="">
+							<node>RectangleModel</node>
+							<renderer>Renderer00002</renderer>
+						</SFRendererDrawableData>
+						<SFRenderedTextureStackPopData name="">
+						</SFRenderedTextureStackPopData>
+					</drawables>
+				</SFRenderingProcessData>
+			</drawables>
+		</SFRenderingProcessData>
+		<SFRenderedTextureStackData name="stack">
+			<textures>
+				<SFRenderedTextureData name="">
+					<textureModel>linearTextureModel</textureModel>
+					<useDepth>false</useDepth>
+					<size>(256,256)</size>
+				</SFRenderedTextureData>
+			</textures>
+		</SFRenderedTextureStackData>
+	</SFRenderingAlgorithmData>
+	<SFImageModelData name="RenderedTextureViewer0002">
+		<SFProgramAssetData name="lightComponent">
+			<program>BasicColor</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<textures>
+				<textures_element>RenderedTexture0002:</textures_element>
+			</textures>
+			<program>TexturedMat</program>
+		</SFProgramAssetData>
+	</SFImageModelData>
+</library>

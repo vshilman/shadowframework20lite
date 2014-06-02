@@ -1,0 +1,13 @@
+		
+import example0005;
+
+
+FilteredTextureViewer0001 as SFImageModelData{
+	materialComponent = SFProgramAssetData{
+		program = TexturedMat
+		textures = PerlinTexture01
+	}
+	lightComponent = SFProgramAssetData{
+		program = BasicColor
+	}
+}
