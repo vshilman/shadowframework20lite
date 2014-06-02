@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFBitmapTextureData name="BitmapTexture0001">
+		<SFFunction2DBitmapData name="bitmap">
+			<height>8</height>
+			<width>8</width>
+			<SFFunctionRandomizerData name="function">
+				<seed>77</seed>
+			</SFFunctionRandomizerData>
+		</SFFunction2DBitmapData>
+		<textureModel>linearTextureModel</textureModel>
+	</SFBitmapTextureData>
+</library>

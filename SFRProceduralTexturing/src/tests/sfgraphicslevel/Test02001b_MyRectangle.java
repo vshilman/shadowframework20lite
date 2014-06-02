@@ -67,9 +67,9 @@ public class Test02001b_MyRectangle extends MainPTTest implements SFDrawable{
 		int program=model.getProgram(lightComponent);
 		SFPipeline.getSfPipelineGraphics().loadProgram(program);
 		//Setup any program data
-		SFRenderer.setupMaterialData(PipelineModule.TRANSFORM,model.getTransformComponent());
-		SFRenderer.setupMaterialData(PipelineModule.MATERIAL,model.getMaterialComponent());
-		SFRenderer.setupMaterialData(PipelineModule.LIGHT,lightComponent);
+		model.getTransformComponent().setupData(PipelineModule.TRANSFORM);
+		model.getMaterialComponent().setupData(PipelineModule.MATERIAL);
+		lightComponent.setupData(PipelineModule.LIGHT);
 		//apply object transform
 		objectModel.getTransform().apply();
 		//Draw the object

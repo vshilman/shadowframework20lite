@@ -10,7 +10,6 @@ import shadow.pipeline.openGL20.SFGL2;
 import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.SFModel;
 import shadow.renderer.SFProgramModuleStructures;
-import shadow.renderer.SFRenderer;
 import shadow.renderer.viewer.SFDrawableFrame;
 import shadow.system.SFDrawable;
 import shadow.system.data.SFDataCenter;
@@ -68,9 +67,9 @@ public class Test02004_MyBrick extends MainPTTest implements SFDrawable{
 		int program=model.getProgram(lightComponent);
 		SFPipeline.getSfPipelineGraphics().loadProgram(program);
 		//Setup any program data
-		SFRenderer.setupMaterialData(PipelineModule.TRANSFORM,model.getTransformComponent());
-		SFRenderer.setupMaterialData(PipelineModule.MATERIAL,model.getMaterialComponent());
-		SFRenderer.setupMaterialData(PipelineModule.LIGHT,lightComponent);
+		model.getTransformComponent().setupData(PipelineModule.TRANSFORM);
+		model.getMaterialComponent().setupData(PipelineModule.MATERIAL);
+		lightComponent.setupData(PipelineModule.LIGHT);
 		//apply object transform
 		objectModel.getTransform().apply();
 		//Draw the object

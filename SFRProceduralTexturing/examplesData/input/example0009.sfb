@@ -1,0 +1,73 @@
+		
+import example0001;
+
+GenericPerlinTextureTemplate as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = $size:(1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveParameters01:(8)(1)(0.1)
+					textures = $bitmap:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveParameters02:(8)(2)(0.1)
+					textures = $bitmap:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveParameters03:(8)(4)(0.1)
+					textures = $bitmap:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveParameters04:(8)(8)(0.1)
+					textures = $bitmap:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
+		}
+	}
+}
+
+TemplateTextureViewer01 as SFTemplateDataAsset {
+	asset =  SFImageModelData{
+		materialComponent = SFProgramAssetData{
+			program = TexturedMat
+			textures = $texture:GenericPerlinTextureTemplate
+		}
+		lightComponent = SFProgramAssetData{
+			program = BasicColor
+		}
+	}
+}

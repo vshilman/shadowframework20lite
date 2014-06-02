@@ -1,0 +1,80 @@
+		
+BitmapTexture0001 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 32 \\ height = 32
+		function as SFFunctionRandomizerData{
+			seed = 77
+		}
+	}
+	textureModel = linearTextureModel
+}
+
+RectangleSurface as SFSurfaceData{
+	surfaceFunction as SFRectangle2DFunctionData{
+		x = -0.5
+		y = -0.5
+		w = 1.0
+		h = 1.0
+	}
+	texCoordFunction as SFSimpleTexCoordGeometryuvData{
+		du = 1.0 \\ dv = 1.0
+	}
+}
+			
+			
+RectangleModel as SFObjectModelData{
+	transform = SFTranslateAndScaleFixed16Data{
+	}
+	geometry = SFQuadsSurfaceGeometryData{
+		NuNv = (2,2)
+		primitive = Triangle2PNTxO
+		surface == RectangleSurface
+	}
+	transformComponent as SFProgramAssetData{
+		program = BasicPNTx0Transform
+	}
+	materialComponent as SFProgramAssetData{
+		program = TexturedMat
+		textures = BitmapTexture0001
+	}
+}
+
+Renderer00002 as SFRendererData{
+	light as SFProgramAssetData{
+		program = BasicColor  
+		viewSize = 150
+	}
+}
+
+RenderedTexture0002 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (256,256)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = MainViewerSetup
+			}
+			drawables += SFRendererDrawableData{
+				renderer == Renderer00002
+				node == RectangleModel
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+RenderedTextureViewer0002 as SFImageModelData{
+	materialComponent = SFProgramAssetData{
+		program = TexturedMat
+		textures = RenderedTexture0002
+	}
+	lightComponent = SFProgramAssetData{
+		program = BasicColor
+	}
+}

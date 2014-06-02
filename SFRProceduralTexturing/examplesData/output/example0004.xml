@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFBitmapTextureData name="BitmapTexture0001">
+		<SFFunction2DBitmapData name="bitmap">
+			<height>8</height>
+			<width>8</width>
+			<SFFunctionRandomizerData name="function">
+				<seed>77</seed>
+			</SFFunctionRandomizerData>
+		</SFFunction2DBitmapData>
+		<textureModel>linearTextureModel</textureModel>
+	</SFBitmapTextureData>
+	<SFRenderingAlgorithmData name="CubicFilterTexture01">
+		<SFRenderingProcessData name="process">
+			<drawables>
+				<SFRenderedTextureStackPushData name="">
+				</SFRenderedTextureStackPushData>
+				<SFImageModelData name="">
+					<SFProgramAssetData name="lightComponent">
+						<program>BasicColor</program>
+					</SFProgramAssetData>
+					<SFProgramAssetData name="materialComponent">
+						<textures>
+							<textures_element>BitmapTexture0001:</textures_element>
+						</textures>
+						<program>CubicOctaveFilter</program>
+						<structures>
+							<structures_element>(8.0)(8.0)(0.39999998)</structures_element>
+						</structures>
+					</SFProgramAssetData>
+				</SFImageModelData>
+				<SFRenderedTextureStackPopData name="">
+				</SFRenderedTextureStackPopData>
+			</drawables>
+		</SFRenderingProcessData>
+		<SFRenderedTextureStackData name="stack">
+			<textures>
+				<SFRenderedTextureData name="">
+					<textureModel>linearTextureModel</textureModel>
+					<useDepth>false</useDepth>
+					<size>(1024,1024)</size>
+				</SFRenderedTextureData>
+			</textures>
+		</SFRenderedTextureStackData>
+	</SFRenderingAlgorithmData>
+</library>

@@ -1,8 +1,9 @@
 package tests.sfdatalevel;
 
 import shadow.nodes.SFObjectModel;
-import shadow.renderer.viewer.SFViewer;
+import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.system.data.SFDataCenter;
+import shadow.tests.tools.SFViewer;
 
 /* -disegna un quadrato */
 public class Test01001_MyRectangle extends MainPTTest {
@@ -10,6 +11,7 @@ public class Test01001_MyRectangle extends MainPTTest {
 	private static final String FILENAME="test0001_myrectangle";
 	
 	public static void main(String[] args) {
+		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
 		setFilename(FILENAME);
 		execute(new Test01001_MyRectangle());
 	}
