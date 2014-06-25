@@ -36,7 +36,11 @@ materialComponent BrickMatTextured(Texture texture0){
 	
 	vec2 useBrick = step(pos, pct);
 	
-	vec3 color = mix(gray, red, useBrick.x * useBrick.y)*texture2D(texture0_texture,texCoord0).xyz;
+	vec3 colormax = texture2D(texture0_texture,texCoord0).xyz*step(texture2D(texture0_texture,texCoord0).xyz,vec3(0.7,0.7,0.7))+ vec3(0.5,0.5,0.5)*step(vec3(0.7,0.7,0.7),texture2D(texture0_texture,texCoord0).xyz);
+	vec3 colormin = colormax*step(vec3(0.3,0.3,0.3),colormax)+ vec3(0.5,0.5,0.5)*step(colormax,vec3(0.3,0.3,0.3));
+	vec3 colortmp = colormin;
+	
+	vec3 color = mix(gray, red, useBrick.x * useBrick.y)*vec3(colortmp+vec3(0.3,0.3,0.3));
 	vec3 matnormal = normal;
 }
 
