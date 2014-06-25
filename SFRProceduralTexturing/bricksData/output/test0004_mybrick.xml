@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFSurfaceData name="RectangleSurface">
+		<SFRectangle2DFunctionData name="surfaceFunction">
+			<w>2.0</w>
+			<h>2.0</h>
+			<y>64.536</y>
+			<x>64.536</x>
+		</SFRectangle2DFunctionData>
+	</SFSurfaceData>
+	<SFQuadsSurfaceGeometryData name="Rectangle">
+		<surface>RectangleSurface</surface>
+		<NuNv>(2,2)</NuNv>
+		<primitive>Triangle2PN</primitive>
+	</SFQuadsSurfaceGeometryData>
+	<SFObjectModelData name="RectangleModel">
+		<SFTranslateAndScaleFixed16Data name="transform">
+		</SFTranslateAndScaleFixed16Data>
+		<SFProgramAssetData name="materialComponent">
+			<program>BrickMat</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTransform</program>
+		</SFProgramAssetData>
+		<geometry>Rectangle</geometry>
+	</SFObjectModelData>
+</library>
