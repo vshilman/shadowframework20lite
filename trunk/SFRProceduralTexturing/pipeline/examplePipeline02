@@ -3,3 +3,4 @@
 #include basicPipeline
 #include perlin
 #include materials
+#include bump

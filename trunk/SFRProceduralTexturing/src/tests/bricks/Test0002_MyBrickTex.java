@@ -9,7 +9,7 @@ import tests.sfdatalevel.MainPTTest;
 
 public class Test0002_MyBrickTex extends MainPTBricks {
 	
-		private static final String FILENAME="test0004b_mybrick";
+		private static final String FILENAME="test0002_mybricktex";
 
 		public static void main(String[] args) {
 			SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");

@@ -7,7 +7,7 @@ import shadow.tests.tools.SFViewer;
 import tests.sfdatalevel.MainPTTest;
 
 public class Test0004_MyPaper extends MainPTBricks {
-	private static final String FILENAME="test0006_mypaper";
+	private static final String FILENAME="test0004_mypaper";
 		
 		public static void main(String[] args) {
 			SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
