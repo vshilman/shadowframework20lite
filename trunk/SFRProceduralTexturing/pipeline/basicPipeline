@@ -3,11 +3,18 @@
 #primitiveblock N:float3 NORMAL
 #primitiveblock TxO:float2 TXO
 
+#primitiveblock Du:float3 DU
+#primitiveblock Dv:float3 DV
+
 #register position:float4 TRANSFORM
 #register normal:float3 TRANSFORM
 #register texCoord0:float2 TRANSFORM
 #register color:float4 MATERIAL
 #register matnormal:float3 MATERIAL
+
+#register du:float3 TRANSFORM
+#register dv:float3 TRANSFORM
+
 
 primitiveComponent <> Triangle(Triangle:2:<> Param){
 	return Param00*w+Param10*u+Param01*v;
@@ -70,6 +77,13 @@ primitive Triangle2PNTxO(){
 	TxO = Triangle2();
 }
 
+primitive Triangle2BumpMap(){
+	P = Triangle2();
+	TxO = Triangle2();
+	Du = Triangle2();
+	Dv = Triangle2();
+}
+
 primitive Triangle3PN(){
 	P = Triangle3Coefficients();
 	N = Triangle3N();
@@ -92,6 +106,12 @@ transformComponent BasicTx0(){
 	texCoord0 = TxO;
 }
 
+transformComponent BasicDuDv(){
+	du = vectorsModelview*Du;
+	dv = vectorsModelview*Dv;
+	normal = cross(du,dv);
+}
+
 transform BasicPNTransform(){
 	BasicP();
 	BasicN();
@@ -100,7 +120,13 @@ transform BasicPNTransform(){
 transform BasicPNTx0Transform(){
 	BasicP();
 	BasicN();
-	BasicTx0();
+	BasicTx0();	
+}
+
+transform BasicPNTx0DuDvTransform(){
+	BasicP();
+	BasicTx0();	
+	BasicDuDv();
 }
 
 materialComponent BasicTexturedMat(Mat01 m,Texture texture0){
