@@ -20,11 +20,19 @@ materialComponent BrickBumpMap(Texture texture0){
 	float sbump = smoothstep(0, MWF, pos.x)- smoothstep(1-MWF, 1, pos.x);
 	float tbump = smoothstep(0, MHF, pos.y)- smoothstep(1-MHF, 1, pos.y);
 	float stbump = sbump * tbump;
-			
 	
-	vec3 U= vec3(stbump*du * cross(normal,position.xyz*dv));
-	vec3 V= vec3(-stbump*dv * cross(normal,position.xyz*du));
-	vec3 D = vec3((1/length(normal))*(U+V));
+	float dsbump = smoothstep(0, MWF, pos.x + du.x)- smoothstep(1-MWF, 1, pos.x + du.x);
+	float dtbump = smoothstep(0, MHF, pos.y + du.y)- smoothstep(1-MHF, 1, pos.y + du.y);
+	float dstbump = dsbump * dtbump;
+	
+	float dvsbump = smoothstep(0, MWF, pos.x + dv.x)- smoothstep(1-MWF, 1, pos.x + dv.x);
+	float dvtbump = smoothstep(0, MHF, pos.y + dv.y)- smoothstep(1-MHF, 1, pos.y + dv.y);
+	float dvstbump = dvsbump * dvtbump;
+					
+	
+	vec3 U= vec3((dstbump - stbump)/du * cross(normal,vec3(pos.xy, position.z)*dv));
+	vec3 V= vec3(-(dvstbump - stbump)/dv * cross(normal,vec3(pos.xy, position.z)*du));
+	vec3 D = vec3((1/length(normal))*vec3(U.x,V.y,0));
 	vec3 Nf = vec3(normal + D);
 	Nf = Nf*(0.5)+vec3(0.5);
 	
@@ -38,7 +46,7 @@ materialComponent BrickBumpMap(Texture texture0){
 	
 	vec3 normalMap = Nf;
 	
-	vec3 lightDir = vec3(lightPos.x - (position.x), lightPos.y - (position.y), lightPos.z);
+	vec3 lightDir = vec3(lightPos.x - (pos.x), lightPos.y - (pos.y), lightPos.z);
 	
 	
 	float DD = length(lightDir);
@@ -56,7 +64,7 @@ materialComponent BrickBumpMap(Texture texture0){
 	
 	
 			
-	vec3 color = Nf;
+	vec3 color = finalColor;
 	vec3 matnormal = normal;
 }
 
