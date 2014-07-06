@@ -43,8 +43,8 @@ RectangleModel as SFObjectModelData{
 
 Renderer00002 as SFRendererData{
 	light as SFProgramAssetData{
-		program = BasicLSPN2
-		structures= (1,1,1)(0.5,0,0.7)
+		program = BasicColor
+
 		viewSize = 150
 	}
 }
