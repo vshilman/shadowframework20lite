@@ -8,7 +8,7 @@ import tests.sfdatalevel.MainPTTest;
 
 public class Test0001_MyBrick extends MainPTBricks{
 	
-	private static final String FILENAME="test0001_mybrick";
+	private static final String FILENAME="test0001b_mybrick";
 	
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");

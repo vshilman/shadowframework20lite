@@ -1,4 +1,3 @@
-		
 BitmapTexture0001 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
 		width = 512 \\ height = 512
@@ -8,7 +7,6 @@ BitmapTexture0001 = SFBitmapTextureData{
 	}
 	textureModel = linearTextureModel
 }
-
 
 RectangleSurface as SFSurfaceData{
 	surfaceFunction as SFRectangle2DFunctionData{
@@ -35,8 +33,8 @@ RectangleModel as SFObjectModelData{
 		program = BasicPNTx0DuDvTransform
 	}
 	materialComponent as SFProgramAssetData{
-		program = BrickBumpMapTextured
-		structures = (0.3,0.15)(0.01)(0.5,0.1,0.1)(0.6,0.6,0.6)(0.01)
+		program = BrickBumpMap
+		structures = (0.15,0.15)(0.01)(0.41,0.56,0.96)(0.92,0.92,0.92)(0.01)
 		textures = BitmapTexture0001
 	}
 }
