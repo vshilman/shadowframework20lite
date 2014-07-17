@@ -1,0 +1,27 @@
+RectangleSurface as SFSurfaceData{
+	surfaceFunction as SFRectangle2DFunctionData{
+		x = -1.0
+		y = -1.0
+		w = 2.0
+		h = 2.0
+	}
+}
+						
+Rectangle as SFQuadsSurfaceGeometryData{
+	NuNv = (2,2)
+	primitive = Triangle2PN
+	surface == RectangleSurface
+}
+			
+RectangleModel as SFObjectModelData{
+	transform = SFTranslateAndScaleFixed16Data{
+	}
+	geometry == Rectangle
+	transformComponent as SFProgramAssetData{
+		program = BasicPNTransform
+	}
+	materialComponent as SFProgramAssetData{
+		program = TileMat
+		structures = (0.15,0.15)(0.02)(0.61,0.76,0.76)(0.92,0.92,0.92)
+	}
+}

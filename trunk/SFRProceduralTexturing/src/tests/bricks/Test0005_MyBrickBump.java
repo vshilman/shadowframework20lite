@@ -6,7 +6,7 @@ import shadow.system.SFDrawable;
 
 public class Test0005_MyBrickBump extends MainPTBricks{
 
-	private static final String FILENAME="test0005_brickbump";
+	private static final String FILENAME="test0005b_tilebump";
 
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");

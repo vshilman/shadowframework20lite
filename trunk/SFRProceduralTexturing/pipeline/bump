@@ -1,38 +1,31 @@
-materialComponent BrickBumpMap(Texture texture0){
+
+
+materialComponent BrickBumpMap(Size01 size,Colors01 colors,Eps eps,Texture texture0){
 	
-	vec3 red = vec3(0.5,0.1,0.1);
-	vec3 gray = vec3(0.6,0.6,0.6);
+	float totwidth = size_brickSize.x+size_mortarSize;
+	float totheight = size_brickSize.y+size_mortarSize;
 	
-	vec2 size = vec2(0.3,0.15);
-	float mortar = 0.01;
-	float totwidth = size.x+mortar;
-	float totheight = size.y + mortar;
-	
-	
-	float MWF = (mortar* 0.5)/totwidth;
-	float MHF = (mortar* 0.5)/totheight;
+	float MWF = (size_mortarSize* 0.5)/totwidth;
+	float MHF = (size_mortarSize* 0.5)/totheight;
 	
 	vec2 MCpos = vec2(position.xy);
-	vec2 pos = MCpos/size;
+	vec2 pos = MCpos/size_brickSize;
 	pos.x = pos.x + step(0.5, mod(pos.y*0.5,1))*0.5;
 	float sbrick = floor(pos.x);
 	float tbrick = floor(pos.y);
 	pos.x -= sbrick;
 	pos.y -= tbrick;
-	
 	float w = step(MWF, pos.x) - step(1-MWF, pos.x);
 	float h = step(MHF, pos.y) - step(1-MHF, pos.y);
 		
-	vec3 base = mix(gray, red, w*h);
-
+	vec3 base = mix(colors_mortarColor, colors_brickColor, w*h);
 
 	float sbump = smoothstep(0, MWF, pos.x)- smoothstep(1-MWF, 1, pos.x);
 	float tbump = smoothstep(0, MHF, pos.y)- smoothstep(1-MHF, 1, pos.y);
 	float stbump = sbump * tbump;
 	
-	float eps = 0.025;
+	float eps = eps_eps;
 	float epsRec = 1.0/eps;
-	
 
 	float dusbump = smoothstep(0, MWF, pos.x + du.x*eps)- smoothstep(1-MWF, 1, pos.x + du.x*eps);
 	float dutbump = smoothstep(0, MHF, pos.y + du.y*eps)- smoothstep(1-MHF, 1, pos.y + du.y*eps);
@@ -44,7 +37,6 @@ materialComponent BrickBumpMap(Texture texture0){
 	float dvstbump = dvsbump * dvtbump;
 	float DvF = (dvstbump - stbump)*epsRec;				
 	
-	
 	vec3 U= vec3(vec3(DuF) * (cross(normal,dv)));
 	vec3 V= vec3(-vec3(DvF) * (cross(normal,du)));
 	vec3 D = vec3((1/length(normal))*vec3(U.x,V.y,0));
@@ -52,8 +44,7 @@ materialComponent BrickBumpMap(Texture texture0){
 
 	
 	
-	vec2 resolution = vec2(1920,1080);
-	vec3 lightPos = vec3(0.8,-0.2,0.7);
+	vec3 lightPos = vec3(-0.8,-0.2,0.7);
 	vec3 lightColor = vec3(1,1,1);
 	vec3 ambientColor = vec3(1,1,1);
 	vec3 diffuseColor = base;
@@ -61,8 +52,7 @@ materialComponent BrickBumpMap(Texture texture0){
 	vec3 normalMap = normalize(Nf);
 	
 	vec3 lightDir = vec3(lightPos.x - (pos.x), lightPos.y - (pos.y), lightPos.z);
-	
-	
+		
 	float DD = length(lightDir);
 	vec3 NN = vec3(normalize(normalMap * 2.0 - 1.0));
 	vec3 LL = vec3(normalize(lightDir));
@@ -75,12 +65,94 @@ materialComponent BrickBumpMap(Texture texture0){
 	vec3 intensity = vec3(ambient+diffuse*att);
 	vec3 finalColor = vec3(diffuseColor.xyz * intensity);
 	
+			
+	vec3 color = finalColor;
+	vec3 matnormal = normal;
+}
+
+
+materialComponent BrickBumpMapTextured(Size01 size,Colors01 colors,Texture texture0){
+
+	float totwidth = size_brickSize.x+size_mortarSize;
+	float totheight = size_brickSize.y+size_mortarSize;
 	
+	float MWF = (size_mortarSize* 0.5)/totwidth;
+	float MHF = (size_mortarSize* 0.5)/totheight;
+	
+	vec2 MCpos = vec2(position.xy);
+	vec2 pos = MCpos/size_brickSize;
+	pos.x = pos.x + step(0.5, mod(pos.y*0.5,1))*0.5;
+	float sbrick = floor(pos.x);
+	float tbrick = floor(pos.y);
+	pos.x -= sbrick;
+	pos.y -= tbrick;
+	float w = step(MWF, pos.x) - step(1-MWF, pos.x);
+	float h = step(MHF, pos.y) - step(1-MHF, pos.y);
+		
+	vec3 base = mix(colors_mortarColor, colors_brickColor, w*h);
+
+	float sbump = smoothstep(0, MWF, pos.x)- smoothstep(1-MWF, 1, pos.x);
+	float tbump = smoothstep(0, MHF, pos.y)- smoothstep(1-MHF, 1, pos.y);
+	float stbump = sbump * tbump;
+	
+	float eps = 0.01;
+	float epsRec = 1.0/eps;
+	
+	float dusbump = smoothstep(0, MWF, pos.x + du.x*eps)- smoothstep(1-MWF, 1, pos.x + du.x*eps);
+	float dutbump = smoothstep(0, MHF, pos.y + du.y*eps)- smoothstep(1-MHF, 1, pos.y + du.y*eps);
+	float dustbump = dusbump * dutbump;
+	float DuF = (dustbump - stbump)*epsRec;
+	
+	float dvsbump = smoothstep(0, MWF, pos.x + dv.x*eps)- smoothstep(1-MWF, 1, pos.x + dv.x*eps);
+	float dvtbump = smoothstep(0, MHF, pos.y + dv.y*eps)- smoothstep(1-MHF, 1, pos.y + dv.y*eps);
+	float dvstbump = dvsbump * dvtbump;
+	float DvF = (dvstbump - stbump)*epsRec;				
+	
+	vec3 U= vec3(vec3(DuF) * (cross(normal,dv)));
+	vec3 V= vec3(-vec3(DvF) * (cross(normal,du)));
+	vec3 D = vec3((1/length(normal))*vec3(U.x,V.y,0));
+	vec3 Nf = vec3(normal + D);
+
+
+	vec3 lightPos = vec3(0.8,-0.2,0.7);
+	vec3 lightColor = vec3(1,1,1);
+	vec3 ambientColor = vec3(1,1,1);
+	vec3 diffuseColor = base;
+	
+	vec3 normalMap = normalize(Nf);
+	
+	vec3 lightDir = vec3(lightPos.x - (pos.x), lightPos.y - (pos.y), lightPos.z);	
+	float DD = length(lightDir);
+	vec3 NN = vec3(normalize(normalMap * 2.0 - 1.0));
+	vec3 LL = vec3(normalize(lightDir));
+	
+	vec3 diffuse = vec3((lightColor * max(dot(NN,LL), 0.0)));
+	vec3 ambient = ambientColor;
+	
+	float att = 1.0/(0.3 + 0.3*DD + 0.3*DD*DD);
+	
+	vec3 intensity = vec3(ambient+diffuse*att);
+	vec3 finalColor = vec3(diffuseColor.xyz * intensity);
+	
+	vec3 colormax = texture2D(texture0_texture,texCoord0).xyz*step(texture2D(texture0_texture,texCoord0).xyz,vec3(0.7,0.7,0.7))+ vec3(0.5,0.5,0.5)*step(vec3(0.7,0.7,0.7),texture2D(texture0_texture,texCoord0).xyz);
+	vec3 colormin = colormax*step(vec3(0.3,0.3,0.3),colormax)+ vec3(0.5,0.5,0.5)*step(colormax,vec3(0.3,0.3,0.3));
+	vec3 colortmp = colormin;
+	finalColor = finalColor*vec3(colortmp+0.3);
 	
 			
 	vec3 color = finalColor;
 	vec3 matnormal = normal;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

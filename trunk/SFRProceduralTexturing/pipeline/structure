@@ -1,3 +1,20 @@
+structure Colors01{
+	float3 brickColor;
+	float3 mortarColor;
+}
+
+structure Eps{
+	float eps;
+}
+
+structure Size01{
+	float2 brickSize;
+	float mortarSize;
+}
+
+structure AmbientLight{
+	float3 intensity;
+}
 
 structure Mat01{
 	float3 diffColor;
@@ -11,3 +28,4 @@ structure PLight01{
 structure Texture{
 	texture texture;
 }
+
