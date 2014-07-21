@@ -4,9 +4,8 @@ import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.viewer.SFDrawableFrame;
 import shadow.system.SFDrawable;
 
-public class Test0005_MyBrickBump extends MainPTBricks{
-
-	private static final String FILENAME="test0005_brickbump";
+public class Test0011_BrickImg01 extends MainPTBricks{
+	private static final String FILENAME="test0011_brickimg01";
 
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
@@ -21,5 +20,4 @@ public class Test0005_MyBrickBump extends MainPTBricks{
 		SFDrawableFrame frame = new SFDrawableFrame("Brick Wall Bump Mapping", 800, 800, drawable);
 		frame.setVisible(true);
 	}
-	
 }
