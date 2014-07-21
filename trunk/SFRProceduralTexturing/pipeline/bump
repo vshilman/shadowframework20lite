@@ -5,10 +5,10 @@ materialComponent BrickBumpMap(Size01 size,Colors01 colors,Eps eps,Texture textu
 	float totwidth = size_brickSize.x+size_mortarSize;
 	float totheight = size_brickSize.y+size_mortarSize;
 	
-	float MWF = (size_mortarSize* 0.5)/totwidth;
-	float MHF = (size_mortarSize* 0.5)/totheight;
+	float MWF = size_mortarSize* 0.5/totwidth;
+	float MHF = size_mortarSize* 0.5/totheight;
 	
-	vec2 MCpos = vec2(position.xy);
+	vec2 MCpos = vec2(vec2(position.xy + vec2(1))/vec2(2));
 	vec2 pos = MCpos/size_brickSize;
 	pos.x = pos.x + step(0.5, mod(pos.y*0.5,1))*0.5;
 	float sbrick = floor(pos.x);
@@ -37,14 +37,14 @@ materialComponent BrickBumpMap(Size01 size,Colors01 colors,Eps eps,Texture textu
 	float dvstbump = dvsbump * dvtbump;
 	float DvF = (dvstbump - stbump)*epsRec;				
 	
-	vec3 U= vec3(vec3(DuF) * (cross(normal,dv)));
-	vec3 V= vec3(-vec3(DvF) * (cross(normal,du)));
-	vec3 D = vec3((1/length(normal))*vec3(U.x,V.y,0));
+	vec3 U= vec3(vec3(DuF)*(cross(normal,dv)));
+	vec3 V= vec3(-vec3(DvF)*(cross(normal,du)));
+	vec3 D = vec3((1/length(normal))*vec3(U+V));
 	vec3 Nf = vec3(normal + D);
 
 	
 	
-	vec3 lightPos = vec3(-0.8,-0.2,0.7);
+	vec3 lightPos = vec3(-0.8,0.5,0.7);
 	vec3 lightColor = vec3(1,1,1);
 	vec3 ambientColor = vec3(1,1,1);
 	vec3 diffuseColor = base;
@@ -54,7 +54,7 @@ materialComponent BrickBumpMap(Size01 size,Colors01 colors,Eps eps,Texture textu
 	vec3 lightDir = vec3(lightPos.x - (pos.x), lightPos.y - (pos.y), lightPos.z);
 		
 	float DD = length(lightDir);
-	vec3 NN = vec3(normalize(normalMap * 2.0 - 1.0));
+	vec3 NN = normalMap;
 	vec3 LL = vec3(normalize(lightDir));
 	
 	vec3 diffuse = vec3((lightColor * max(dot(NN,LL), 0.0)));
@@ -66,7 +66,7 @@ materialComponent BrickBumpMap(Size01 size,Colors01 colors,Eps eps,Texture textu
 	vec3 finalColor = vec3(diffuseColor.xyz * intensity);
 	
 			
-	vec3 color = finalColor;
+	vec3 color = normalMap;
 	vec3 matnormal = normal;
 }
 
