@@ -1,0 +1,10 @@
+The code needs the following dependencies: python3, blender, python3-numpy, python3-scipy.
+
+run_tests.sh runs the test suites contained in tests.py and print the results.
+bpy_main.py export the given scene (in this case the monkey mesh) into a sfb representation (the output path hardcoded in bpy_main.py).
+
+The code is organized in the following way:
+    -geometry defines the basic elements used (Vertex, Face, Curve, Mesh..) and some function to operate on those.
+    -funchelps some useful general purpose functions.
+    -simplemesh some mesh that are/will_be useful for testing.
+    -mymath.py contains the math functions that define bezier patches and curves, this is still new and will replace the definitions inside geometry.
