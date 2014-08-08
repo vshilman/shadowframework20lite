@@ -245,7 +245,13 @@ class PatchFitting(unittest.TestCase):
         cverts = [Vertex(p) for p in cpoints]
         bzr_patch = compile_bezier_patch(cverts)
         points = sample_func_2D(bzr_patch, 0.1)
-        print(fit_bezier_patch(points, bezier_patch_2_tuple))
+        estimated_points = fit_bezier_patch(points, bezier_patch_2_tuple)
+
+        print("-----------------")
+        for i, p in enumerate(cpoints):
+            print(estimated_points[i])
+            print(cpoints[i])
+            print("-----------------")
 
     def runTest(self):
         self.test_bezier_curves()
