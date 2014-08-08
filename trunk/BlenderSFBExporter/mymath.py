@@ -44,6 +44,9 @@ def bezier_patch_1(u, v, A, B, C, D):
     vm=1-v
     return vm*um*A+vm*u*B+v*um*D+u*v*C
 
+def bezier_patch_1_tuple(uv, A, B, C, D):
+    return bezier_patch_1(uv[0], uv[1], A, B, C, D)
+
 def bezier_patch_2(u, v, A,B,C,D,AB,BC,CD,DA,ABCD):
     um=1-u
     vm=1-v
@@ -114,20 +117,20 @@ def fit_bezier_curve(points, bezier_func):
     return list(zip(xs, ys, zs))
 
 def fit_bezier_patch(points, bezier_func):
-    us = numpy.array(numpy.linspace(0.0, 1.0, sqrt(len(points))))
-    vs = numpy.array(numpy.linspace(0.0, 1.0, sqrt(len(points))))
+    us = numpy.linspace(0.0, 1.0, sqrt(len(points)))
+    vs = numpy.linspace(0.0, 1.0, sqrt(len(points)))
+    uvpoints = [(u,v) for u in us for v in vs]
+    uvs = numpy.array([[p[0] for p in uvpoints], [p[1] for p in uvpoints]])
 
     pointsx = numpy.array([p[0] for p in points])
     pointsy = numpy.array([p[1] for p in points])
     pointsz = numpy.array([p[2] for p in points])
 
-    #uvs = numpy.array([(u, v) for u in us for v in vs])
-
     #TODO figure out the propert way to do this.
 
     ##Actual fitting
-    xs, box = opt.curve_fit(bezier_func, (us, vs), pointsx)
-    ys, boy = opt.curve_fit(bezier_func, (us, vs), pointsy)
-    zs, boz = opt.curve_fit(bezier_func, (us, vs), pointsz)
+    xs, box = opt.curve_fit(bezier_func, uvs, pointsx)
+    ys, boy = opt.curve_fit(bezier_func, uvs, pointsy)
+    zs, boz = opt.curve_fit(bezier_func, uvs, pointsz)
 
     return list(zip(xs, ys, zs))
