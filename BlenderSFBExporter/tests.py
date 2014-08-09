@@ -9,6 +9,10 @@ if blend_dir not in sys.path:
 import unittest
 
 from funchelps import *
+from geometry import Vertex
+
+VERBOSE = False
+
 class TestFunctionHelps(unittest.TestCase):
     def test_vec_product(self):
         self.assertEqual(vec_product((1,2,4),(1,2,1)), (1,4,4))
@@ -25,6 +29,12 @@ class TestFunctionHelps(unittest.TestCase):
         for i in range(len(mylist)):
             self.assertAlmostEqual(mylist[i], rightlist[i])
 
+    def test_almost_equal(self):
+        set1 = [Vertex((0.0, 0.0, 0.0)), Vertex((1.0, 1.0, 1.0))]
+        set2 = [Vertex((0.000000001, 0.000000001, 0.000000000001)), Vertex((1.0000000001, 1.0000001, 1.0000001))]
+        self.assertFalse(set1 == set2)
+        self.assertTrue(almost_equal_lists(set1, set2))
+
     def test_compare_th(self):
         self.assertEqual(compare_float(0.1, 0.1), 0)
         self.assertEqual(compare_float(0.1, 0.0), 1)
@@ -33,7 +43,8 @@ class TestFunctionHelps(unittest.TestCase):
     def runTest(self):
         self.test_vec_product()
         self.test_float_range()
-        self.test_compare_th()       
+        self.test_compare_th()
+        self.test_almost_equal()
 
 unittest.TextTestRunner().run(TestFunctionHelps())
 
@@ -215,7 +226,7 @@ class MyMathTests(unittest.TestCase):
 unittest.TextTestRunner().run(MyMathTests())
 
 from mymath import compile_bezier_curve, compile_bezier_patch, sample_func, sample_func_2D, bezier_curve_1, bezier_curve_2, fit_bezier_curve, fit_bezier_patch, bezier_patch_2_tuple
-
+from random import uniform
 class PatchFitting(unittest.TestCase):
 
     def setUp(self):
@@ -224,38 +235,39 @@ class PatchFitting(unittest.TestCase):
     def simple_curve_test(self, coeffs, out_curve):
         func = compile_bezier_curve(coeffs)
         points = list(sample_func(func, 0.1))
-        print(fit_bezier_curve(points, out_curve))
-        print(coeffs)
-
-    def simple_patch_test(self, coeffs, out_patch):
-        func = compile_bezier_patch(coeffs)
-        points = list(sample_func_2D(func, 0.1))
-        print(fit_bezier_patch(points, out_patch))
-        print(coeffs)
+        estimated_coeffs = [Vertex(x) for x in fit_bezier_curve(points, out_curve)]
+        self.assertTrue(almost_equal_lists(coeffs, estimated_coeffs))
 
     def test_bezier_curves(self):
         #TODO At the moment those are manual tests. Just read the output.
         self.simple_curve_test([Vertex((0.0, 0.0, 0.0)), Vertex((1.0, 1.0, 1.0))], bezier_curve_1)
-        self.simple_curve_test([Vertex((0.0, 0.0, 0.0)), Vertex((1.0, 1.0, 1.0))], bezier_curve_2)
         self.simple_curve_test([Vertex((0.0, 0.0, 0.0)), Vertex((5.0, 2.0, 3.0)), Vertex((1.0, 1.0, 1.0))], bezier_curve_2)
 
-    def test_bezier_patch(self):
+    def test_bezier_patch(self, cpoints):
         #TODO At the moment those are manual tests. Just read the output.
-        cpoints = [(0.0, 0.0, 0.0), (0.0, 0.5, 0.0), (0.0, 1.0, 0.0), (0.5, 0.0, 0.0), (0.5, 0.5, 0.0), (0.5, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.5, 0.0), (1.0, 1.0, 0.0)]
         cverts = [Vertex(p) for p in cpoints]
         bzr_patch = compile_bezier_patch(cverts)
         points = sample_func_2D(bzr_patch, 0.1)
         estimated_points = fit_bezier_patch(points, bezier_patch_2_tuple)
+        estimaded_cverts = [Vertex(p) for p in estimated_points]
 
-        print("-----------------")
-        for i, p in enumerate(cpoints):
-            print(estimated_points[i])
-            print(cpoints[i])
-            print("-----------------")
+        if VERBOSE:
+            print(".....................................")
+            print(cverts)
+            print(estimaded_cverts)
+            print(".....................................")
+
+        self.assertTrue(almost_equal_lists(cverts, estimaded_cverts))
+
+    def test_bezier_patches(self):
+        cpoints = [(0.0, 0.0, 0.0), (0.0, 0.5, 0.0), (0.0, 1.0, 0.0), (0.5, 0.0, 0.0), (0.5, 0.5, 0.0), (0.5, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.5, 0.0), (1.0, 1.0, 0.0)]
+        cpoints2 = [(uniform(0.0, 1.0), uniform(0.0,1.0), uniform(0.0,1.0))] * 9
+        self.test_bezier_patch(cpoints)
+        self.test_bezier_patch(cpoints2)
 
     def runTest(self):
         self.test_bezier_curves()
-        self.test_bezier_patch()
+        self.test_bezier_patches()
 
 
 

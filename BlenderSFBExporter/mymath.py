@@ -117,6 +117,7 @@ def fit_bezier_curve(points, bezier_func):
     return list(zip(xs, ys, zs))
 
 def fit_bezier_patch(points, bezier_func):
+    #TODO Maybe there is a better way but at the moment we stick with this.
     us = numpy.linspace(0.0, 1.0, sqrt(len(points)))
     vs = numpy.linspace(0.0, 1.0, sqrt(len(points)))
     uvpoints = [(u,v) for u in us for v in vs]
@@ -125,8 +126,6 @@ def fit_bezier_patch(points, bezier_func):
     pointsx = numpy.array([p[0] for p in points])
     pointsy = numpy.array([p[1] for p in points])
     pointsz = numpy.array([p[2] for p in points])
-
-    #TODO figure out the propert way to do this.
 
     ##Actual fitting
     xs, box = opt.curve_fit(bezier_func, uvs, pointsx)

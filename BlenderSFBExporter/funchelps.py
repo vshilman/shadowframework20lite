@@ -50,6 +50,20 @@ def float_range(start = 0.0, stop = 1.0, step = 0.1):
         yield t
         t += step
 
+def almost_equal_lists(set1, set2):
+    '''Compare two lists of verts and retuns true if they are almost equal.'''
+    assert(len(set1) == len(set2))
+    if(set1 == set2):
+        return True
+    s1, s2 = list(set1), list(set2)
+    for e1 in s1:
+        for e2 in s2:
+            if verts_almost_equal(e1, e2):
+                s1.remove(e1)
+                s2.remove(e2)
+                return almost_equal_lists(s1, s2)
+    return False
+
 def are_sorted(curves):
     edges = [c.to_edge() for c in curves]
     t = zip(edges, edges[1:])
