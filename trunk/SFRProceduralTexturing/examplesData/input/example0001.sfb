@@ -1,7 +1,7 @@
 		
 BitmapTexture0001 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
-		width = 8 \\ height = 8
+		width = 1000 \\ height = 1000
 		function as SFFunctionRandomizerData{
 			seed = 77
 		}
