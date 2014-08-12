@@ -1,3 +1,7 @@
+structure Granularity{
+	float granularity;
+}
+
 structure Colors01{
 	float3 brickColor;
 	float3 mortarColor;
