@@ -227,6 +227,7 @@ unittest.TextTestRunner().run(MyMathTests())
 
 from mymath import compile_bezier_curve, compile_bezier_patch, sample_func, sample_func_2D, bezier_curve_1, bezier_curve_2, fit_bezier_curve, fit_bezier_patch, bezier_patch_2_tuple
 from random import uniform
+from simplemeshes import two_patches_points
 class PatchFitting(unittest.TestCase):
 
     def setUp(self):
@@ -239,12 +240,10 @@ class PatchFitting(unittest.TestCase):
         self.assertTrue(almost_equal_lists(coeffs, estimated_coeffs))
 
     def test_bezier_curves(self):
-        #TODO At the moment those are manual tests. Just read the output.
         self.simple_curve_test([Vertex((0.0, 0.0, 0.0)), Vertex((1.0, 1.0, 1.0))], bezier_curve_1)
         self.simple_curve_test([Vertex((0.0, 0.0, 0.0)), Vertex((5.0, 2.0, 3.0)), Vertex((1.0, 1.0, 1.0))], bezier_curve_2)
 
     def test_bezier_patch(self, cpoints):
-        #TODO At the moment those are manual tests. Just read the output.
         cverts = [Vertex(p) for p in cpoints]
         bzr_patch = compile_bezier_patch(cverts)
         points = sample_func_2D(bzr_patch, 0.1)
@@ -265,9 +264,15 @@ class PatchFitting(unittest.TestCase):
         self.test_bezier_patch(cpoints)
         self.test_bezier_patch(cpoints2)
 
+    def test_double_patch(self):
+        points = [Vertex(p) for p in two_patches_points]
+        estimated_points = fit_bezier_patch(points, bezier_patch_2_tuple)
+        print(estimated_points)
+
     def runTest(self):
         self.test_bezier_curves()
         self.test_bezier_patches()
+        self.test_double_patch()
 
 
 

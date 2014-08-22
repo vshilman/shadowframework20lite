@@ -6,7 +6,8 @@ from random import shuffle, random
 import functools
 import itertools
 
-output_path = "/home/swordfish/workspaces/grafica/SF20Research/SFTests/testsData/netGeometries/input/BlenderTest.sfb"
+output_path = "/home/swordfish/workspaces/SF20Research/SFTests/testsData/geometries/input/BlenderTest.sfb"
+#output_path = "/home/swordfish/workspaces/grafica/SF20Research/SFTests/testsData/netGeometries/input/BlenderTest.sfb"
 f_out = open(output_path, "wt")
 
 
