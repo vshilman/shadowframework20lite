@@ -19,7 +19,7 @@ if blend_dir not in sys.path:
 from geometry import *
 from funchelps import *
 
-from mymath import fit_bezier_patch, bezier_patch_2_tuple, bezier_patch_1_tuple
+from mymath import fit_bezier_patch, bezier_patch_2_tuple, bezier_patch_1_tuple, interpolating_bezier_patch_2_tuple
 import mymath
 import numpy
 
@@ -50,7 +50,7 @@ def convert_face(f):
     return Face([e.index for e in f.edges])
 
 template = """
-SFMeshGeometry001 = SFMeshGeometryData{
+SFMeshGeometry00%s = SFMeshGeometryData{
 	primitivesArray = SFPrimitiveArrayData{
 		primitive = Quad2PN
 		// Positions Array
@@ -58,16 +58,58 @@ SFMeshGeometry001 = SFMeshGeometryData{
 			 vertices = %s
 		}
 		primitiveData += SFVertexListDataUnit8{
-			 vertices = (0.0,0.0,1.0)
+			 vertices = (0.0,1.0)
 		}
 		//indices
-		elements = (0,1,2,3,4,5,6,7,8,0,0,0,0,0,0,0,0,0) 
+        %s
 	}
 	firstElement=0
 	lastElement=1
 }
 """
 
+def patches_to_sfb(index, list_cpoints):
+    cpoints = []
+    elements = []
+    
+    for i, cpts in enumerate(list_cpoints):
+        cpoints += cpts
+        start = sum(map(len, elements)) // 2
+        indexes = list(range(start, start + len(cpts))) + [0] * len(cpts)
+        elements.append(indexes)
+    
+    cpoints_str = ' '.join(map(str, cpoints))
+    elements_strs = [str(e).replace(' ','').replace('[','(').replace(']',')') for e in map(str, elements)]
+    elements_prefixes = ["elements = "] + ["elements += "] * (len(elements_strs) - 1)
+    elements_final = '\n'.join(''.join(e) for e in zip(elements_prefixes, elements_strs))
+    return template % (index, cpoints_str, elements_final)
+
+def convert_to_sf_points(cpoints):
+    A,B,C,D,AB,BC,CD,DA,ABCD = cpoints
+    return [A, AB, B, DA, ABCD, BC, D, CD, C]
+    #return [A, DA, D, AB, ABCD, CD, B, BC, C]
+    #return [A, DA, C, AB, ABCD, CD, ]
+
+def high_degree_approximation(verts):
+    '''Split the verts into four sets (separated on the average) and approximate each of them.'''
+    avgx = numpy.mean([v[0] for v in verts])
+    avgy = numpy.mean([v[1] for v in verts])
+    
+    f1 = lambda v: v[0] < avgx
+    f2 = lambda v: v[1] < avgy
+    
+    sub_verts = [None] * 4
+    sub_verts[0] = list(filter(lambda v: f1(v) and f2(v), verts))
+    sub_verts[1] = list(filter(lambda v: f1(v) and not f2(v), verts))
+    sub_verts[2] = list(filter(lambda v: not f1(v) and f2(v), verts))
+    sub_verts[3] = list(filter(lambda v: not f1(v) and not f2(v), verts))
+    
+    sub_patches_cpoints = [0] * 4
+    
+    for i,vs in enumerate(sub_verts):
+        sub_patches_cpoints[i] = [Vertex(x) for x in fit_bezier_patch(vs, bezier_patch_2_tuple)]
+    
+    return sub_patches_cpoints
 
 context = bpy.context
 scene = context.scene
@@ -90,79 +132,52 @@ for obj in objects:
     verts =  [convert_vertex(v) for v in bm.verts]
     
     #Scale the model
-    verts =  [v * 0.1 for v in verts]
-
-    #curves = [convert_edge(e) for e in bm.edges]
-    #faces =  [convert_face(f) for f in bm.faces]
-
-    #print(verts)
-    #print(curves)
-    #print(faces)
-
-    #my_mesh = Mesh(verts, curves, faces)
-
-    #compute_high_level_mesh(my_mesh, 65)
-
-    #edges =  [to_edge(c) for c in my_mesh.curves]
-
-    #verts_string = ' '.join(map(str,  my_mesh.verts))
-    #edges_string = ' '.join(map(lambda x: "(%s,%s,1)" % tuple(x), edges))
-    #curves_string = ' '.join(map(str, my_mesh.curves))
-    #faces_string = ' '.join(map(str, my_mesh.faces))
-
-    #patchs = []
-    #polygons_out = []
-
-    #for p in polygons:
-    #    patches.append(Polygon
-    #    l = map(edges_tuples.index, p.edge_keys)
-    #    polygons_out.append('(' + reduce(lambda x,y: "%s,%s" % (x,y), l) + ")")
-
-
-    #Fitting of all the patch
+    verts =  [v for v in verts]
+    
+    #Approximate with degree 1 patch
     estimated_patch1 = [Vertex(x) for x in fit_bezier_patch(verts, bezier_patch_1_tuple)]
-    estimated_patch2 = [Vertex(x) for x in fit_bezier_patch(verts, bezier_patch_2_tuple)]
-    
     patch1 = mymath.compile_bezier_patch_1(*estimated_patch1)
-    patch2 = mymath.compile_bezier_patch_2(*estimated_patch2)
-    
     points_patch1 = mymath.sample_func_2D(patch1, 0.1)
-    points_patch2 = mymath.sample_func_2D(patch2, 0.1)
-    
     print(squared_error_verts(verts, points_patch1))
+    
+    #Write patch 1 to file
+    #final_string = patches_to_sfb(0, [estimated_patch1])
+    #f_out.write(final_string)
+    
+    #Approximate with degree 2 patch
+    estimated_patch2 = [Vertex(x) for x in fit_bezier_patch(verts, interpolating_bezier_patch_2_tuple)]
+    patch2 = mymath.compile_interpolating_bezier_patch_2(*estimated_patch2)
+    points_patch2 = mymath.sample_func_2D(patch2, 0.1)
     print(squared_error_verts(verts, points_patch2))
     
-    #Subdivide the patch into four subpatches
-    avgx = numpy.mean([v[0] for v in verts])
-    avgy = numpy.mean([v[1] for v in verts])
+    #Write patch 2 to file
+    #final_string = patches_to_sfb(0, [estimated_patch2])
+    #f_out.write(final_string)
     
-    f1 = lambda v: v[0] < avgx
-    f2 = lambda v: v[1] < avgy
+    #Approximate with high degree patches
+    sub_patches_cpoints = high_degree_approximation(verts)
+    #sub_patches_cpoints = list(map(convert_to_sf_points, sub_patches_cpoints))
     
-    sub_verts = [None] * 4
-    sub_verts[0] = list(filter(lambda v: f1(v) and f2(v), verts))
-    sub_verts[1] = list(filter(lambda v: f1(v) and not f2(v), verts))
-    sub_verts[2] = list(filter(lambda v: not f1(v) and f2(v), verts))
-    sub_verts[3] = list(filter(lambda v: not f1(v) and not f2(v), verts))
-    
-    sub_patches_cpoints = [0] * 4
-    
-    for i,vs in enumerate(sub_verts):
-        sub_patches_cpoints[i] = [Vertex(x) for x in fit_bezier_patch(vs, bezier_patch_2_tuple)]
+    final_string = patches_to_sfb(0, sub_patches_cpoints)
+    f_out.write(final_string)
     
     sub_patches = [mymath.compile_bezier_patch_2(*cpoints) for cpoints in sub_patches_cpoints]
     sub_points = [mymath.sample_func_2D(sub_patch, 0.2) for sub_patch in sub_patches]
+    
+    for i in range(4):
+        cpoints = sub_patches_cpoints[i]
+        cverts = convert_to_sf_points([Vertex(cp) for cp in cpoints])
     
     points_patch3 = concat(sub_points)
     print(squared_error_verts(verts, points_patch3))
     
     #Write patch 2 to sfb file
-    estimated_verts = (Vertex(p) for p in estimated_patch2)
-    estimated_cpoints_string = ' '.join((str(v) for v in estimated_verts))
+    #estimated_verts = (Vertex(p) for p in estimated_patch2)
+    #estimated_cpoints_string = ' '.join((str(v) for v in estimated_verts))
     #print(estimated_cpoints_string)
 
-    final_string = template % (estimated_cpoints_string)
-    f_out.write(final_string)
+    #final_string = patch_to_sfb(1, estimated_cpoints_string)
+    #f_out.write(final_string)
 
 
 f_out.close()
