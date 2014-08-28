@@ -118,3 +118,8 @@ materialComponent PaperMat(Size01 size,Colors01 colors){
 	vec3 color = mix(colors_mortarColor, colors_brickColor, usePaper.x * usePaper.y);
 	vec3 matnormal = normal;
 }
+
+materialComponent SkyColor(Color c){
+	vec3 color = (c_color);
+	vec3 matnormal = normal;
+}
