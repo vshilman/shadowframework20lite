@@ -35,7 +35,7 @@ RectangleModel as SFObjectModelData{
 		program = BasicPNTx0DuDvTransform
 	}
 	materialComponent as SFProgramAssetData{
-		program = BrickBumpMapTexturedNoSmooth
+		program = BrickBumpMapTextured
 		structures = (0.662,0.321)(0.047)(0.18,0.049,0.046)(0.404,0.404,0.404)(20)
 		textures = BitmapTexture0001
 	}

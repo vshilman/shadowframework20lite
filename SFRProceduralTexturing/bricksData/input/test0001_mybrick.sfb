@@ -23,5 +23,6 @@ RectangleModel as SFObjectModelData{
 	}
 	materialComponent as SFProgramAssetData{
 		program = BrickMat
+		structures = (0.662,0.321)(0.047)(0.18,0.049,0.046)(0.404,0.404,0.404)
 	}
 }

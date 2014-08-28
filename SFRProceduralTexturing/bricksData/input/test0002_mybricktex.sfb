@@ -36,7 +36,7 @@ RectangleModel as SFObjectModelData{
 	}
 	materialComponent as SFProgramAssetData{
 		program = BrickMatTextured
-		structures = (0.662,0.321)(0.047)(0.18,0.049,0.046)(0.404,0.404,0.404)(30)
+		structures = (0.662,0.321)(0.047)(0.18,0.049,0.046)(0.404,0.404,0.404)(20)
 		textures = BitmapTexture0001
 	}
 }
@@ -45,7 +45,7 @@ Renderer00002 as SFRendererData{
 	light as SFProgramAssetData{
 		program = BasicLSPN2
 		structures= (1,1,1)(0.0,0,0.7)
-		viewSize = 150
+		viewSize = 250
 	}
 }
 
