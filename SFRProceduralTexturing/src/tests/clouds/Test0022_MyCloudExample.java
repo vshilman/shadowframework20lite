@@ -1,23 +1,17 @@
 package tests.clouds;
 
-import shadow.image.SFTexture;
 import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.SFImageModel;
-import shadow.renderer.SFRenderingAlgorithm;
 import shadow.renderer.viewer.SFDrawableFrame;
-import shadow.system.data.SFDataCenter;
-import shadow.tests.tools.SFTextureViewer;
 
-public class Test0021_MyCloud extends MainPTClouds {
+public class Test0022_MyCloudExample extends MainPTClouds {
 
-/* Draw a bitmap texture viewer */
-
-	private static final String FILENAME="test0021_mycloud";
+private static final String FILENAME="test0022_mycloudexample";
 	
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
 		setFilename(FILENAME);
-		execute(new Test0021_MyCloud());
+		execute(new Test0022_MyCloudExample());
 	}
 
 	public void viewTestData() {
@@ -28,10 +22,9 @@ public class Test0021_MyCloud extends MainPTClouds {
 		SFTextureViewer.generateFrame(new SFTexture(bitmap,0));
 		*/
 		
-		SFImageModel imageModel=getAlreadyAvailableDatasetResource("TemplateTextureViewer01");
-		SFDrawableFrame frame=new SFDrawableFrame("Cloud Test", 800, 800, imageModel);
+		SFImageModel imageModel=getAlreadyAvailableDatasetResource("TextureViewer02");
+		SFDrawableFrame frame=new SFDrawableFrame("Cloud Test Example", 800, 800, imageModel);
 		frame.setVisible(true);
 		
 	}
-	
 }

@@ -1,87 +1,82 @@
-		
-BitmapTexture0001 = SFBitmapTextureData{
-	bitmap = SFFunction2DBitmapData{
-		width = 700 \\ height = 700
-		function as SFFunctionRandomizerData{
-			seed = 77
+import bitmaps;
+
+TemplateCloudTexture01 as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = (1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter01:(8)(1)(0.55)
+					textures = $bitmap01:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter02:(8)(4)(0.1)
+					textures = $bitmap02:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter03:(8)(6)(0.1)
+					textures = $bitmap03:BitmapTexture0002
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter04:(8)(8)(0.1)
+					textures = $bitmap04:BitmapTexture0002
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = SkyColor
+					structures = $skycolor:(0,0,0.7)
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
 		}
 	}
-	textureModel = linearTextureModel
 }
 
-BitmapTexture0002 = SFBitmapTextureData{
-	bitmap = SFFunction2DBitmapData{
-		width = 280 \\ height = 280
-		function as SFFunctionRandomizerData{
-			seed = 47
-		}
-	}
-	textureModel = linearTextureModel
-}
 
-
-PerlinTexture01 as SFRenderingAlgorithmData{
-	stack = SFRenderedTextureStackData{
-		textures = SFRenderedTextureData{
-			size = (1024,1024)
-			useDepth = false
-			textureModel = linearTextureModel
+TemplateTextureViewer01 as SFTemplateDataAsset {
+	asset =  SFImageModelData{
+		materialComponent = SFProgramAssetData{
+			program = TexturedMat
+			textures = $texture:TemplateCloudTexture01
 		}
-	}
-	process = SFRenderingProcessData{
-		drawables = SFRenderedTextureStackPushData 
-		drawables += SFStateDrawableData{
-			state = BlendModeAdd
+		lightComponent = SFProgramAssetData{
+			program = BasicColor
 		}
-		drawables += SFImageModelData{
-			materialComponent = SFProgramAssetData{
-				program = LinearOctaveFilter
-				structures = (8)(1)(0.55)
-				textures = BitmapTexture0001
-			}
-			lightComponent = SFProgramAssetData{
-				program = BasicColor
-			}
-		}
-		drawables += SFImageModelData{
-			materialComponent = SFProgramAssetData{
-				program = LinearOctaveFilter
-				structures = (8)(4)(0.1)
-				textures = BitmapTexture0001
-			}
-			lightComponent = SFProgramAssetData{
-				program = BasicColor
-			}
-		}
-		drawables += SFImageModelData{
-			materialComponent = SFProgramAssetData{
-				program = LinearOctaveFilter
-				structures = (8)(6)(0.1)
-				textures = BitmapTexture0002
-			}
-			lightComponent = SFProgramAssetData{
-				program = BasicColor
-			}
-		}
-		drawables += SFImageModelData{
-			materialComponent = SFProgramAssetData{
-				program = LinearOctaveFilter
-				structures = (8)(8)(0.1)
-				textures = BitmapTexture0002
-			}
-			lightComponent = SFProgramAssetData{
-				program = BasicColor
-			}
-		}
-		drawables += SFImageModelData{
-			materialComponent = SFProgramAssetData{
-				program = SkyColor
-				structures = (0,0,0.7)
-			}
-			lightComponent = SFProgramAssetData{
-				program = BasicColor
-			}
-		}
-		drawables += SFRenderedTextureStackPopData 
 	}
 }
