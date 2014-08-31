@@ -153,18 +153,18 @@ def fit_bezier_patch(points, bezier_func):
     us = numpy.linspace(0.0, 1.0, sqrt(len(points)))
     vs = numpy.linspace(0.0, 1.0, sqrt(len(points)))
     uvpoints = [(u,v) for u in us for v in vs]
-    #print(uvpoints)
+
     uvs = numpy.array([[p[0] for p in uvpoints], [p[1] for p in uvpoints]])
 
     pointsx = numpy.array([p[0] for p in points])
     pointsy = numpy.array([p[1] for p in points])
     pointsz = numpy.array([p[2] for p in points])
 
-    n_params = len(inspect.getargspec(bezier_func).args) - 1
-
     ##Actual fitting
-    xs, box = opt.curve_fit(bezier_func, uvs, pointsx, p0=[randint(10000,13212312)] * n_params)
-    ys, boy = opt.curve_fit(bezier_func, uvs, pointsy, p0=[randint(10000,13212312)] * n_params)
-    zs, boz = opt.curve_fit(bezier_func, uvs, pointsz, p0=[randint(10000,13212312)] * n_params)
+    xs, pcovx = opt.curve_fit(bezier_func, uvs, pointsx)
+    ys, pcovy = opt.curve_fit(bezier_func, uvs, pointsy)
+    zs, pcovz = opt.curve_fit(bezier_func, uvs, pointsz)
+
+    temp = list(map(lambda x: numpy.sqrt(numpy.diag(x)), [xs, ys, zs]))
 
     return list(zip(xs, ys, zs))
