@@ -19,7 +19,6 @@ if blend_dir not in sys.path:
 from geometry import *
 from funchelps import *
 
-from mymath import fit_bezier_patch, bezier_patch_2_tuple, bezier_patch_1_tuple, interpolating_bezier_patch_2_tuple
 import mymath
 import numpy
 
@@ -105,6 +104,22 @@ def patches_to_sfb(index, list_cpoints, list_cnormals, verts):
     elements_final = '\n'.join(''.join(e) for e in zip(elements_prefixes, elements_strs))
     return template % (index, cpoints_str, cnormals_str, elements_final, verts)
 
+
+#TODO Those functions assume interpolating_bezier_patch_2_tuple
+
+def simple_approximation(verts, func):
+    #Simply approximate the verts with the given function
+    cpoints = mymath.fit_bezier_patch(verts, func)
+    return [Vertex(cp) for cp in cpoints]
+
+def highdegree_approximation(vertex, simple_approximation_cpoints, func):
+    #Split into smaller subproblem and approximate that.
+    
+    #Take the parameters from the previous approixmation and force the passage for those
+    A,B,C,D,AB,BC,CD,DA,ABCD = simple_approximation_cpoints
+    
+    
+
 def high_degree_approximation(verts):
     '''Split the verts into four sets (separated on the average) and approximate each of them.'''
     avgx = numpy.mean([v[0] for v in verts])
@@ -122,7 +137,7 @@ def high_degree_approximation(verts):
     sub_patches_cpoints = [0] * 4
     
     for i,vs in enumerate(sub_verts):
-        sub_patches_cpoints[i] = [Vertex(x) for x in fit_bezier_patch(vs, bezier_patch_2_tuple)]
+        sub_patches_cpoints[i] = [Vertex(x) for x in mymath.fit_bezier_patch(vs, mymath.bezier_patch_2_tuple)]
     
     return sub_patches_cpoints
 
@@ -154,7 +169,7 @@ for obj in objects:
     verts_str = ' '.join(map(str, verts))
     
     #Approximate with degree 1 patch
-    estimated_patch1 = [Vertex(x) for x in fit_bezier_patch(verts, bezier_patch_1_tuple)]
+    estimated_patch1 = [Vertex(x) for x in mymath.fit_bezier_patch(verts, mymath.bezier_patch_1_tuple)]
     patch1 = mymath.compile_bezier_patch_1(*estimated_patch1)
     points_patch1 = mymath.sample_func_2D(patch1, 0.1)
     print(squared_error_verts(verts, points_patch1))
@@ -164,15 +179,15 @@ for obj in objects:
     #f_out.write(final_string)
     
     #Approximate with degree 2 patch
-    estimated_patch2 = [Vertex(x) for x in fit_bezier_patch(verts, interpolating_bezier_patch_2_tuple)]
-    estimated_normals2 = [Vertex(x) for x in fit_bezier_patch(normals, interpolating_bezier_patch_2_tuple)]
+    estimated_patch2 = [Vertex(x) for x in mymath.fit_bezier_patch(verts, mymath.interpolating_bezier_patch_2_tuple)]
+    estimated_normals2 = [Vertex(x) for x in mymath.fit_bezier_patch(normals, mymath.interpolating_bezier_patch_2_tuple)]
     patch2 = mymath.compile_interpolating_bezier_patch_2(*estimated_patch2)
     points_patch2 = mymath.sample_func_2D(patch2, 0.1)
     print(squared_error_verts(verts, points_patch2))
     
     #Write patch 2 to file
-    final_string = patches_to_sfb(0, [estimated_patch2], [estimated_normals2], verts_str)
-    f_out.write(final_string)
+    #final_string = patches_to_sfb(0, [estimated_patch2], [estimated_normals2], verts_str)
+    #f_out.write(final_string)
     
     #Approximate with high degree patches
     sub_patches_cpoints = high_degree_approximation(verts)
@@ -190,13 +205,12 @@ for obj in objects:
     points_patch3 = concat(sub_points)
     print(squared_error_verts(verts, points_patch3))
     
-    #Write patch 2 to sfb file
-    #estimated_verts = (Vertex(p) for p in estimated_patch2)
-    #estimated_cpoints_string = ' '.join((str(v) for v in estimated_verts))
-    #print(estimated_cpoints_string)
-
-    #final_string = patch_to_sfb(1, estimated_cpoints_string)
-    #f_out.write(final_string)
+    #Final high degree testing
+    cpoints_quads = mymath.high_degree_fitting(verts)
+    #cpoints_normals = mymath.high_degree_fitting(normals)
+    #banan = [cpoints_quads[0], cpoints_quads[1], cpoints_quads[3]] #0, 3
+    final_string = patches_to_sfb(0, cpoints_quads, cpoints_quads, verts_str)
+    f_out.write(final_string)
 
 
 f_out.close()

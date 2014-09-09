@@ -131,8 +131,8 @@ def sample_func_2D(f, step):
 # Fitting
 ###############################################################################
 
-from geometry import Vertex
 import scipy.optimize as opt
+import geometry as geo
 
 def fit_bezier_curve(points, bezier_func):
     ts = numpy.array(list(float_range(0.0, 1.0, 1.0 / (len(points) - 1))))
@@ -148,7 +148,8 @@ def fit_bezier_curve(points, bezier_func):
 
     return list(zip(xs, ys, zs))
 
-def fit_bezier_patch(points, bezier_func):
+def _fit_bezier_patch_funcs(points, bezier_funcs):
+    """Fit bezier patch. Assumes x y z functions are different"""
     #TODO Maybe there is a better way but at the moment we stick with this.
     us = numpy.linspace(0.0, 1.0, sqrt(len(points)))
     vs = numpy.linspace(0.0, 1.0, sqrt(len(points)))
@@ -161,10 +162,67 @@ def fit_bezier_patch(points, bezier_func):
     pointsz = numpy.array([p[2] for p in points])
 
     ##Actual fitting
-    xs, pcovx = opt.curve_fit(bezier_func, uvs, pointsx)
-    ys, pcovy = opt.curve_fit(bezier_func, uvs, pointsy)
-    zs, pcovz = opt.curve_fit(bezier_func, uvs, pointsz)
+    xs, pcovx = opt.curve_fit(bezier_funcs[0], uvs, pointsx)
+    ys, pcovy = opt.curve_fit(bezier_funcs[1], uvs, pointsy)
+    zs, pcovz = opt.curve_fit(bezier_funcs[2], uvs, pointsz)
 
-    temp = list(map(lambda x: numpy.sqrt(numpy.diag(x)), [xs, ys, zs]))
+    #temp = list(map(lambda x: numpy.sqrt(numpy.diag(x)), [xs, ys, zs]))
 
     return list(zip(xs, ys, zs))
+
+def fit_bezier_patch(points, bezier_func):
+    return _fit_bezier_patch_funcs(points, [bezier_func, bezier_func, bezier_func])
+    
+
+def high_degree_fitting(points):
+    #TODO this sorta works but there are still some stitching problems.
+    simple_fitting_verts = geo.list_to_verts(fit_bezier_patch(points, interpolating_bezier_patch_2_tuple))
+    A,B,C,D,AB,BC,CD,DA,ABCD = simple_fitting_verts
+    
+    #Computer error in a magical way. Split the results into the four quads
+    
+    avgx = sum((v[0] for v in points)) / len(points)
+    avgy = sum((v[1] for v in points)) / len(points)
+    
+    #Quad1
+    q1_bezier_funcs = [
+        lambda uv, a,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, a,AB[0],ABCD[0],DA[0],ab,bc,cd,da,abcd),
+        lambda uv, a,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, a,AB[1],ABCD[1],DA[1],ab,bc,cd,da,abcd),
+        lambda uv, a,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, a,AB[2],ABCD[2],DA[2],ab,bc,cd,da,abcd)
+    ]
+        
+    q1_points = list(filter(lambda x: x[0] >= avgx and x[1] <= avgy, points))
+    a, ab, bc, cd, da, abcd = geo.list_to_verts(_fit_bezier_patch_funcs(q1_points, q1_bezier_funcs))
+    q1_final_cpoints = [a,AB,ABCD,DA,ab,bc,cd,da,abcd]
+    
+    #Quad2
+    q2_bezier_funcs = [
+        lambda uv, b,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, AB[0],b,BC[0],ABCD[0],ab,bc,cd,da,abcd),
+        lambda uv, b,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, AB[1],b,BC[1],ABCD[1],ab,bc,cd,da,abcd),
+        lambda uv, b,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, AB[2],b,BC[2],ABCD[2],ab,bc,cd,da,abcd)
+    ]
+    q2_points = list(filter(lambda x: x[0] <= avgx and x[1] <= avgy, points))
+    b, ab, bc, cd, da, abcd = geo.list_to_verts(_fit_bezier_patch_funcs(q2_points, q2_bezier_funcs))
+    q2_final_cpoints = [AB,b,BC,ABCD,ab,bc,cd,da,abcd]
+    
+    ##Quad3
+    q3_bezier_funcs = [
+        lambda uv, c,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, ABCD[0],BC[0],c,CD[0],ab,bc,cd,da,abcd),
+        lambda uv, c,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, ABCD[1],BC[1],c,CD[1],ab,bc,cd,da,abcd),
+        lambda uv, c,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, ABCD[2],BC[2],c,CD[2],ab,bc,cd,da,abcd)
+    ]
+    q3_points = list(filter(lambda x: x[0] <= avgx and x[1] >= avgy, points))
+    c, ab, bc, cd, da, abcd = geo.list_to_verts(_fit_bezier_patch_funcs(q3_points, q3_bezier_funcs))
+    q3_final_cpoints = [ABCD,BC,c,CD,ab,bc,cd,da,abcd]
+    
+    ##Quad4
+    q4_bezier_funcs = [
+        lambda uv, d,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, DA[0],ABCD[0],CD[0],d,ab,bc,cd,da,abcd),
+        lambda uv, d,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, DA[1],ABCD[1],CD[1],d,ab,bc,cd,da,abcd),
+        lambda uv, d,ab,bc,cd,da,abcd: interpolating_bezier_patch_2_tuple(uv, DA[2],ABCD[2],CD[2],d,ab,bc,cd,da,abcd)
+    ]
+    q4_points = list(filter(lambda x: x[0] >= avgx and x[1] >= avgy, points))
+    d, ab, bc, cd, da, abcd = geo.list_to_verts(_fit_bezier_patch_funcs(q4_points, q4_bezier_funcs))
+    q4_final_cpoints = [DA,ABCD,CD,d,ab,bc,cd,da,abcd]
+    
+    return [q1_final_cpoints, q2_final_cpoints, q3_final_cpoints, q4_final_cpoints]
