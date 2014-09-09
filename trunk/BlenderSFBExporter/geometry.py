@@ -273,6 +273,9 @@ def get_edge_direction(mesh, e_index):
     vi1,vi2 = mesh.edges[e_index]
     return mesh.verts[vi1] - mesh.verts[vi2]
 
+def list_to_verts(l):
+    return [Vertex(e) for e in l]
+
 ###############################################################################
 # Estimation
 ###############################################################################
