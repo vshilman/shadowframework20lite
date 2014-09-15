@@ -1,6 +1,54 @@
 import bitmaps;
 
-TemplateCloudTexture01 as SFTemplateDataAsset {
+TemplateCloudTexture02 as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = (1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter01:(8)(1)(0.55)
+					textures = $bitmap01:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter02:(8)(8)(0.1)
+					textures = $bitmap02:BitmapTexture0002
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = SkyColor
+					structures = $skycolor:(0,0,0.7)
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
+		}
+	}
+}
+
+TemplateCloudTexture03 as SFTemplateDataAsset {
 	asset as SFRenderingAlgorithmData{
 		stack = SFRenderedTextureStackData{
 			textures = SFRenderedTextureData{
@@ -46,9 +94,67 @@ TemplateCloudTexture01 as SFTemplateDataAsset {
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
+					program = SkyColor
+					structures = $skycolor:(0,0,0.7)
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
+		}
+	}
+}
+
+TemplateCloudTexture04 as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = (1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter01:(8)(1)(0.55)
+					textures = $bitmap01:BitmapTexture0000
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter02:(8)(2)(0.1)
+					textures = $bitmap02:BitmapTexture0000
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter03:(8)(6)(0.1)
+					textures = $bitmap03:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
 					program = LinearOctaveFilter
 					structures = $octaveparameter04:(8)(8)(0.1)
-					textures = $bitmap04:BitmapTexture0002
+					textures = $bitmap04:BitmapTexture0001
 				}
 				lightComponent = SFProgramAssetData{
 					program = BasicColor
@@ -73,10 +179,61 @@ TemplateTextureViewer01 as SFTemplateDataAsset {
 	asset =  SFImageModelData{
 		materialComponent = SFProgramAssetData{
 			program = TexturedMat
-			textures = $texture:TemplateCloudTexture01
+			textures = $texture:TemplateCloudTextureXX
 		}
 		lightComponent = SFProgramAssetData{
 			program = BasicColor
+		}
+	}
+}
+
+
+
+
+TemplateCloudTextureXX as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = (1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilterModified
+					structures = $octaveparameter01:(8)(1)(0.55)
+					textures = $bitmap01:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilterModified
+					structures = $octaveparameter02:(8)(8)(0.1)
+					textures = $bitmap02:BitmapTexture0002
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = SkyColor
+					structures = $skycolor:(0,0,0.7)
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
 		}
 	}
 }

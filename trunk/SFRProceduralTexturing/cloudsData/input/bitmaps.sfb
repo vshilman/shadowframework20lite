@@ -1,7 +1,7 @@
-
-BitmapTexture0001 = SFBitmapTextureData{
+		
+BitmapTexture0000 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
-		width = 700 \\ height = 700
+		width = 1000 \\ height = 1000
 		function as SFFunctionRandomizerData{
 			seed = 77
 		}
@@ -9,11 +9,52 @@ BitmapTexture0001 = SFBitmapTextureData{
 	textureModel = linearTextureModel
 }
 
+
+BitmapTexture0001 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 780 \\ height = 780
+		function as SFFunctionRandomizerData{
+			seed = 35
+		}
+	}
+	textureModel = linearTextureModel
+}
+
 BitmapTexture0002 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
-		width = 280 \\ height = 280
+		width = 512 \\ height = 512
 		function as SFFunctionRandomizerData{
 			seed = 47
+		}
+	}
+	textureModel = linearTextureModel
+}
+
+BitmapTexture0003 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 700 \\ height = 700
+		function as SFFunctionRandomizerData{
+			seed = 6
+		}
+	}
+	textureModel = linearTextureModel
+}
+
+BitmapTexture0004 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 700 \\ height = 700
+		function as SFFunctionRandomizerData{
+			seed = 35
+		}
+	}
+	textureModel = linearTextureModel
+}
+
+BitmapTexture0005 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 16 \\ height = 16
+		function as SFFunctionRandomizerData{
+			seed = 7
 		}
 	}
 	textureModel = linearTextureModel

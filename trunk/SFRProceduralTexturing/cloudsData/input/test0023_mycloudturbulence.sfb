@@ -1,0 +1,37 @@
+import test0021_mycloud;
+
+CloudTurbulence01 as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = (1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = Turbulence
+					structures = (8)(1)(0.9)
+					textures = BitmapTexture0005
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
+		}
+	}
+}
+
+
+TextureViewer02 as TemplateTextureViewer01 {
+	parameters = {
+			texture = CloudTurbulence01
+	}
+}
