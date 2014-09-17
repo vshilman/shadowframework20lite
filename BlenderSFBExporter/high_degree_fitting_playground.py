@@ -97,8 +97,8 @@ def patches_to_sfb(index, list_cpoints, list_cnormals, verts):
         indexes = list(range(start, start + len(cpts))) + list(range(start, start + len(cpts)))
         elements.append(indexes)
     
-    cpoints_str = ' '.join(map(str, cpoints))
-    cnormals_str = ' '.join(map(str, cnormals))
+    cpoints_str = ' '.join(map(lambda x: str(x).replace(' ', ''), cpoints))
+    cnormals_str = ' '.join(map(lambda x: str(x).replace(' ',''), cnormals))
     elements_strs = [str(e).replace(' ','').replace('[','(').replace(']',')') for e in map(str, elements)]
     elements_prefixes = ["elements = "] + ["elements += "] * (len(elements_strs) - 1)
     elements_final = '\n'.join(''.join(e) for e in zip(elements_prefixes, elements_strs))
@@ -163,53 +163,56 @@ for obj in objects:
     normals = [convert_normal(v) for v in bm.verts]
     
     #Scale the model
-    verts =  [v * 0.5 for v in verts]
+    verts =  [v * 0.4 for v in verts]
     
     #Generate the string used to show the verts in the SF
     verts_str = ' '.join(map(str, verts))
     
     #Approximate with degree 1 patch
-    estimated_patch1 = [Vertex(x) for x in mymath.fit_bezier_patch(verts, mymath.bezier_patch_1_tuple)]
-    patch1 = mymath.compile_bezier_patch_1(*estimated_patch1)
-    points_patch1 = mymath.sample_func_2D(patch1, 0.1)
-    print(squared_error_verts(verts, points_patch1))
+    #estimated_patch1 = [Vertex(x) for x in mymath.fit_bezier_patch(verts, mymath.bezier_patch_1_tuple)]
+    #patch1 = mymath.compile_bezier_patch_1(*estimated_patch1)
+    #points_patch1 = mymath.sample_func_2D(patch1, 0.1)
+    #print(squared_error_verts(verts, points_patch1))
     
     #Write patch 1 to file
     #final_string = patches_to_sfb(0, [estimated_patch1], verts_str)
     #f_out.write(final_string)
     
     #Approximate with degree 2 patch
-    estimated_patch2 = [Vertex(x) for x in mymath.fit_bezier_patch(verts, mymath.interpolating_bezier_patch_2_tuple)]
-    estimated_normals2 = [Vertex(x) for x in mymath.fit_bezier_patch(normals, mymath.interpolating_bezier_patch_2_tuple)]
-    patch2 = mymath.compile_interpolating_bezier_patch_2(*estimated_patch2)
-    points_patch2 = mymath.sample_func_2D(patch2, 0.1)
-    print(squared_error_verts(verts, points_patch2))
+    #estimated_patch2 = [Vertex(x) for x in mymath.fit_bezier_patch(verts, mymath.interpolating_bezier_patch_2_tuple)]
+    #estimated_normals2 = [Vertex(x) for x in mymath.fit_bezier_patch(normals, mymath.interpolating_bezier_patch_2_tuple)]
+    #patch2 = mymath.compile_interpolating_bezier_patch_2(*estimated_patch2)
+    #points_patch2 = mymath.sample_func_2D(patch2, 0.1)
+    #print(squared_error_verts(verts, points_patch2))
     
     #Write patch 2 to file
     #final_string = patches_to_sfb(0, [estimated_patch2], [estimated_normals2], verts_str)
     #f_out.write(final_string)
     
     #Approximate with high degree patches
-    sub_patches_cpoints = high_degree_approximation(verts)
+    #sub_patches_cpoints = high_degree_approximation(verts)
     
-    #final_string = patches_to_sfb(0, sub_patches_cpoints, verts_str)
+    #final_string = patches_to_sfb(0, sub_patches_cpoints, sub_patches_cpoints, verts)
     #f_out.write(final_string)
     
-    sub_patches = [mymath.compile_bezier_patch_2(*cpoints) for cpoints in sub_patches_cpoints]
-    sub_points = [mymath.sample_func_2D(sub_patch, 0.1) for sub_patch in sub_patches]
+    #sub_patches = [mymath.compile_bezier_patch_2(*cpoints) for cpoints in sub_patches_cpoints]
+    #sub_points = [mymath.sample_func_2D(sub_patch, 0.1) for sub_patch in sub_patches]
     
-    for i in range(4):
-        cpoints = sub_patches_cpoints[i]
-        cverts = [Vertex(cp) for cp in cpoints]
+    #for i in range(4):
+        #cpoints = sub_patches_cpoints[i]
+        #cverts = [Vertex(cp) for cp in cpoints]
     
-    points_patch3 = concat(sub_points)
-    print(squared_error_verts(verts, points_patch3))
+    #points_patch3 = concat(sub_points)
+    #print(squared_error_verts(verts, points_patch3))
+    
+    test = mymath.high_degree_fitting_n(25, verts)
+    print(test)
     
     #Final high degree testing
-    cpoints_quads = mymath.high_degree_fitting(verts)
-    #cpoints_normals = mymath.high_degree_fitting(normals)
-    #banan = [cpoints_quads[0], cpoints_quads[1], cpoints_quads[3]] #0, 3
-    final_string = patches_to_sfb(0, cpoints_quads, cpoints_quads, verts_str)
+    cpoints_quads = mymath.high_degree_fitting2(verts)
+    cpoints_normals = mymath.high_degree_fitting2(normals)
+    #banan = [cpoints_quads[2]] #0, 3
+    final_string = patches_to_sfb(0, cpoints_quads, cpoints_normals, verts_str)
     f_out.write(final_string)
 
 

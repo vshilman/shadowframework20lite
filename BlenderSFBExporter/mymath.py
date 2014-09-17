@@ -76,8 +76,61 @@ def interpolating_bezier_patch_2(u, v, A,B,C,D,AB,BC,CD,DA,ABCD):
     ABCDcf = 10.0*um*u*vm*v
     return (A*Acf)+(B*Bcf)+(C*Ccf)+(D*Dcf)+(AB*ABcf)+(BC*BCcf)+(CD*CDcf)+(DA*DAcf)+(ABCD*ABCDcf)
 
+def interpolating_bezier_patch_4_4(u,v,A,AB,B,BC,C,CD,D,DA,ABCD, x1,x2,x3,x4,x5,x6 ,y1,y2,y3,y4,y5,y6, c1,c2,c3,c4):
+    if u <= 0.5 and v <= 0.5:
+        return interpolating_bezier_patch_2(u,v,A,AB,ABCD,DA,x1,y3,x3,y1,c1)
+    elif u > 0.5 and v <= 0.5:
+        return interpolating_bezier_patch_2(u,v,AB,B,BC,ABCD,x2,y5,x4,y3,c2)
+    elif u <= 0.5 and v > 0.5:
+        return interpolating_bezier_patch_2(u,v,DA,ABCD,CD,D,x3,y4,x5,y2,c3)
+    else:
+        return interpolating_bezier_patch_2(u,v,ABCD,BC,C,CD,x4,y6,x6,y4,c4)
+
+def interpolating_bezier_patch_4_4(u,v,A,AB,B,BC,C,CD,D,DA,ABCD, y1,y2,y3,y4,y5,y6, x1,x2,x3,x4,x5,x6, c1,c2,c3,c4):
+    if u <= 0.5 and v <= 0.5:
+        return interpolating_bezier_patch_2(u,v,A,AB,ABCD,DA,x1,y3,x3,y1,c1)
+    elif u > 0.5 and v <= 0.5:
+        return interpolating_bezier_patch_2(u,v,AB,B,BC,ABCD,x2,y5,x4,y3,c2)
+    elif u <= 0.5 and v > 0.5:
+        return interpolating_bezier_patch_2(u,v,DA,ABCD,CD,D,x3,y4,x5,y2,c3)
+    else:
+        return interpolating_bezier_patch_2(u,v,ABCD,BC,C,CD,x4,y6,x6,y4,c4)
+
 def interpolating_bezier_patch_2_tuple(uv, A,B,C,D,AB,BC,CD,DA,ABCD):
     return interpolating_bezier_patch_2(uv[0], uv[1], A,B,C,D,AB,BC,CD,DA,ABCD)
+
+def interpolating_bezier_patch_4_4_tuple(uv,A,AB,B,BC,C,CD,D,DA,ABCD, x1,x2,x3,x4,x5,x6 ,y1,y2,y3,y4,y5,y6, c1,c2,c3,c4):
+    vfunc = numpy.vectorize(interpolating_bezier_patch_4_4)
+    return vfunc(uv[0],uv[1],A,AB,B,BC,C,CD,D,DA,ABCD, x1,x2,x3,x4,x5,x6 ,y1,y2,y3,y4,y5,y6, c1,c2,c3,c4)
+
+###############################################################################
+# Dynamic interpolating bezier patches
+###############################################################################
+
+def dynamic_interpolating_bezier_patches(u, v, *cpoints):
+    n = sqrt(len(cpoints))
+    linear_patches = (n-1) / 2
+    
+    cpoints_matrix = numpy.array(cpoints).reshape((n,n))
+    
+    u_patch_index = int(u * linear_patches)
+    v_patch_index = int(v * linear_patches)
+    
+    A    = cpoints_matrix[u_patch_index    , v_patch_index    ]
+    B    = cpoints_matrix[u_patch_index + 2, v_patch_index    ]
+    C    = cpoints_matrix[u_patch_index + 2, v_patch_index + 2]
+    D    = cpoints_matrix[u_patch_index    , v_patch_index + 2]
+    AB   = cpoints_matrix[u_patch_index + 1, v_patch_index    ]
+    BC   = cpoints_matrix[u_patch_index + 2, v_patch_index + 1]
+    CD   = cpoints_matrix[u_patch_index + 1, v_patch_index + 2]
+    DA   = cpoints_matrix[u_patch_index    , v_patch_index + 1]
+    ABCD = cpoints_matrix[u_patch_index + 1, v_patch_index + 1]
+    
+    return interpolating_bezier_patch_2(u,v,A,B,C,D,AB,BC,CD,DA,ABCD)
+
+def dynamic_interpolating_bezier_patches_tuple(uv, *points):
+    vfunc = numpy.vectorize(dynamic_interpolating_bezier_patches)
+    return vfunc(uv[0], uv[1], *points)
 
 ###############################################################################
 # Bezier function compilers
@@ -148,7 +201,7 @@ def fit_bezier_curve(points, bezier_func):
 
     return list(zip(xs, ys, zs))
 
-def _fit_bezier_patch_funcs(points, bezier_funcs):
+def _fit_bezier_patch_funcs(points, bezier_funcs, p0=None):
     """Fit bezier patch. Assumes x y z functions are different"""
     #TODO Maybe there is a better way but at the moment we stick with this.
     us = numpy.linspace(0.0, 1.0, sqrt(len(points)))
@@ -162,17 +215,39 @@ def _fit_bezier_patch_funcs(points, bezier_funcs):
     pointsz = numpy.array([p[2] for p in points])
 
     ##Actual fitting
-    xs, pcovx = opt.curve_fit(bezier_funcs[0], uvs, pointsx)
-    ys, pcovy = opt.curve_fit(bezier_funcs[1], uvs, pointsy)
-    zs, pcovz = opt.curve_fit(bezier_funcs[2], uvs, pointsz)
+    xs, pcovx = opt.curve_fit(bezier_funcs[0], uvs, pointsx, p0)
+    ys, pcovy = opt.curve_fit(bezier_funcs[1], uvs, pointsy, p0)
+    zs, pcovz = opt.curve_fit(bezier_funcs[2], uvs, pointsz, p0)
 
     #temp = list(map(lambda x: numpy.sqrt(numpy.diag(x)), [xs, ys, zs]))
 
     return list(zip(xs, ys, zs))
 
-def fit_bezier_patch(points, bezier_func):
-    return _fit_bezier_patch_funcs(points, [bezier_func, bezier_func, bezier_func])
-    
+def fit_bezier_patch(points, bezier_func, p0=None):
+    '''Fit the following points with the following function. p0 allows definition of inital values'''
+    return _fit_bezier_patch_funcs(points, [bezier_func, bezier_func, bezier_func], p0)
+
+def high_degree_fitting_n(n, points):
+    """With n squared control points"""
+    params = fit_bezier_patch(points, dynamic_interpolating_bezier_patches_tuple, [0.0] * n)
+    return params
+
+
+def high_degree_fitting2(points):
+    params = fit_bezier_patch(points, dynamic_interpolating_bezier_patches_tuple, [0.0] * 25)
+    A,x1,AB,x2,B,y1,c1,y3,c2,y5,DA,x3,ABCD,x4,BC,y2,c3,y4,c4,y6,D,x5,CD,x6,C = params
+    return [[A,AB,ABCD,DA,x1,y3,x3,y1,c1],
+            [AB,B,BC,ABCD,x2,y5,x4,y3,c2],
+            [DA,ABCD,CD,D,x3,y4,x5,y2,c3],
+            [ABCD,BC,C,CD,x4,y6,x6,y4,c4]]
+
+#def high_degree_fitting2(points):
+    #params = fit_bezier_patch(points, interpolating_bezier_patch_4_4_tuple, list(numpy.random.rand(25)))
+    #A,AB,B,BC,C,CD,D,DA,ABCD, x1,x2,x3,x4,x5,x6 ,y1,y2,y3,y4,y5,y6, c1,c2,c3,c4 = params
+    #return [[A,AB,ABCD,DA,x1,y3,x3,y1,c1],
+            #[AB,B,BC,ABCD,x2,y5,x4,y3,c2],
+            #[DA,ABCD,CD,D,x3,y4,x5,y2,c3],
+            #[ABCD,BC,C,CD,x4,y6,x6,y4,c4]]
 
 def high_degree_fitting(points):
     #TODO this sorta works but there are still some stitching problems.
