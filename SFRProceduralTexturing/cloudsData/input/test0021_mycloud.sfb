@@ -1,5 +1,43 @@
 import bitmaps;
 
+TemplateCloudTexture01 as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = (1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = LinearOctaveFilter
+					structures = $octaveparameter01:(8)(1)(0.55)
+					textures = $bitmap01:BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = SkyColor
+					structures = $skycolor:(0,0,0.7)
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
+		}
+	}
+}
+
 TemplateCloudTexture02 as SFTemplateDataAsset {
 	asset as SFRenderingAlgorithmData{
 		stack = SFRenderedTextureStackData{
@@ -207,8 +245,8 @@ TemplateCloudTextureXX as SFTemplateDataAsset {
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
 					program = LinearOctaveFilterModified
-					structures = $octaveparameter01:(8)(1)(0.55)
-					textures = $bitmap01:BitmapTexture0001
+					structures = (8)(1)(0.55) (0,0.025,1) (0.7,0.7,0.7)
+					textures = BitmapTexture0001
 				}
 				lightComponent = SFProgramAssetData{
 					program = BasicColor
@@ -217,17 +255,8 @@ TemplateCloudTextureXX as SFTemplateDataAsset {
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
 					program = LinearOctaveFilterModified
-					structures = $octaveparameter02:(8)(8)(0.1)
-					textures = $bitmap02:BitmapTexture0002
-				}
-				lightComponent = SFProgramAssetData{
-					program = BasicColor
-				}
-			}
-			drawables += SFImageModelData{
-				materialComponent = SFProgramAssetData{
-					program = SkyColor
-					structures = $skycolor:(0,0,0.7)
+					structures = (8)(8)(0.1) (0,0.025,1) (1,1,1)
+					textures = BitmapTexture0002
 				}
 				lightComponent = SFProgramAssetData{
 					program = BasicColor

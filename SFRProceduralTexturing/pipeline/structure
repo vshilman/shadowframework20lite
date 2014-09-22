@@ -2,6 +2,12 @@ structure Granularity{
 	float granularity;
 }
 
+structure ImageOctave{
+	float bitmapSize;
+	float octave;
+	float intensity;
+}
+
 structure Color{
 	float3 color;
 }
