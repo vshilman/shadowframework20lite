@@ -1,0 +1,116 @@
+		
+BitmapTexture0001 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 4 \\ height = 4
+		function as SFFunctionRandomizerData{
+			seed = 4
+		}
+	}
+	textureModel = linearTextureModel
+}
+
+
+BitmapTexture0002 = SFBitmapTextureData{
+	bitmap = SFBitmapArrayData{
+		width=4 \\ height=4 \\ type=RGB8
+		bitmap=(255,255,255,0,0,0,255,255,255,0,0,0,0,0,0,255,255,255,0,0,0,255,255,255,255,255,255,0,0,0,255,255,255,0,0,0,0,0,0,255,255,255,0,0,0,255,255,255)
+	}
+	textureModel = linearTextureModel
+}
+
+RectangleSurface as SFSurfaceData{
+	surfaceFunction as SFRectangle2DFunctionData{
+		x = -0.5
+		y = -0.5
+		w = 1.0
+		h = 1.0
+	}
+	texCoordFunction as SFSimpleTexCoordGeometryuvData{
+		du = 1.0 \\ dv = 1.0
+	}
+}
+			
+			
+RectangleModel as SFObjectModelData{
+	transform = SFTranslateAndScaleFixed16Data{
+	}
+	geometry = SFQuadsSurfaceGeometryData{
+		NuNv = (2,2)
+		primitive = Triangle2PNTxO
+		surface == RectangleSurface
+	}
+	transformComponent as SFProgramAssetData{
+		program = BasicPNTx0Transform
+	}
+	materialComponent as SFProgramAssetData{
+		program = BasicTexturedMat
+		structures = (0,0.5,1)
+		textures = BitmapTexture0001
+	}
+}
+
+Renderer00002 as SFRendererData{
+	light as SFProgramAssetData{
+		program = BasicColor  
+		viewSize = 150
+	}
+}
+
+RenderedTexture0002 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (256,256)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables = SFRenderedTextureStackPushData 
+		drawables += SFStateDrawableData{
+			state = BlendModeAdd
+		}
+		drawables += SFImageModelData{
+			materialComponent = SFProgramAssetData{
+				program = CubicOctaveFilter
+				structures = (4)(2)(0.5)
+				textures = BitmapTexture0001
+			}
+			lightComponent = SFProgramAssetData{
+				program = BasicColor
+			}
+		}
+		drawables += SFImageModelData{
+			materialComponent = SFProgramAssetData{
+				program = CubicOctaveFilter
+				structures = (4)(4)(0.3)
+				textures = BitmapTexture0001
+			}
+			lightComponent = SFProgramAssetData{
+				program = BasicColor
+			}
+		}
+		drawables += SFImageModelData{
+			materialComponent = SFProgramAssetData{
+				program = CubicOctaveFilter
+				structures = (4)(8)(0.2)
+				textures = BitmapTexture0001
+			}
+			lightComponent = SFProgramAssetData{
+				program = BasicColor
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+RenderedTextureViewer0002 as SFImageModelData{
+	materialComponent = SFProgramAssetData{
+		program = TexturedMat
+		textures = RenderedTexture0002
+	}
+	lightComponent = SFProgramAssetData{
+		program = BasicColor
+	}
+}
+
+
