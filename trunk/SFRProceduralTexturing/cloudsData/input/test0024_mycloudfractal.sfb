@@ -1,6 +1,6 @@
 import test0021_mycloud;
 
-CloudTurbulence01 as SFTemplateDataAsset {
+CloudFractal01 as SFTemplateDataAsset {
 	asset as SFRenderingAlgorithmData{
 		stack = SFRenderedTextureStackData{
 			textures = SFRenderedTextureData{
@@ -16,8 +16,8 @@ CloudTurbulence01 as SFTemplateDataAsset {
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
-					program = TurbulenceLinearModified
-					structures = (16)(2)(0.9)
+					program = Fbm
+					structures = (8)(2)(0.9)
 					textures = BitmapTexture0005
 				}
 				lightComponent = SFProgramAssetData{
@@ -32,6 +32,6 @@ CloudTurbulence01 as SFTemplateDataAsset {
 
 TextureViewer02 as TemplateTextureViewer01 {
 	parameters = {
-			texture = CloudTurbulence01
+			texture = CloudFractal01
 	}
 }

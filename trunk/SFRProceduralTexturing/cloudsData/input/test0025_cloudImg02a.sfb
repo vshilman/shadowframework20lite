@@ -1,0 +1,19 @@
+import test0021_mycloud;
+
+CloudTexture02 as TemplateCloudTexture02 {
+	parameters = {
+		octaveparameter01 = (28)(1)(0.4)
+		bitmap01 = BitmapTexture0003
+		
+		octaveparameter04 = (28)(8)(0)
+		bitmap04 = BitmapTexture0004
+		
+		skycolor = (0,0.15,0.22)
+	}
+}
+
+TextureViewer02 as TemplateTextureViewer01 {
+	parameters = {
+			texture = CloudTexture02
+	}
+}
