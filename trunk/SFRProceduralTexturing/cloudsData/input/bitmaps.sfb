@@ -12,7 +12,7 @@ BitmapTexture0000 = SFBitmapTextureData{
 
 BitmapTexture0001 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
-		width = 780 \\ height = 780
+		width = 8 \\ height = 8
 		function as SFFunctionRandomizerData{
 			seed = 35
 		}
@@ -22,7 +22,7 @@ BitmapTexture0001 = SFBitmapTextureData{
 
 BitmapTexture0002 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
-		width = 512 \\ height = 512
+		width = 8 \\ height = 8
 		function as SFFunctionRandomizerData{
 			seed = 47
 		}
@@ -52,7 +52,7 @@ BitmapTexture0004 = SFBitmapTextureData{
 
 BitmapTexture0005 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
-		width = 16 \\ height = 16
+		width = 12 \\ height = 12
 		function as SFFunctionRandomizerData{
 			seed = 7
 		}

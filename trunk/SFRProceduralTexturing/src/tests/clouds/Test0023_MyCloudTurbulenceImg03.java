@@ -6,14 +6,14 @@ import shadow.renderer.viewer.SFDrawableFrame;
 
 
 	
-public class Test0023_MyCloudTurbulence extends MainPTClouds {
+public class Test0023_MyCloudTurbulenceImg03 extends MainPTClouds {
 
-	private static final String FILENAME="test0023_mycloudturbulence";
+	private static final String FILENAME="test0023_mycloudTurbulenceImg03";
 		
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
 		setFilename(FILENAME);
-		execute(new Test0023_MyCloudTurbulence());
+		execute(new Test0023_MyCloudTurbulenceImg03());
 	}
 
 	public void viewTestData() {
@@ -25,7 +25,7 @@ public class Test0023_MyCloudTurbulence extends MainPTClouds {
 		*/
 		
 		SFImageModel imageModel=getAlreadyAvailableDatasetResource("TextureViewer02");
-		SFDrawableFrame frame=new SFDrawableFrame("Turbulence Cloud Test", 800, 800, imageModel);
+		SFDrawableFrame frame=new SFDrawableFrame("Turbulence Cloud Test Img03", 800, 800, imageModel);
 		frame.setVisible(true);
 		
 	}

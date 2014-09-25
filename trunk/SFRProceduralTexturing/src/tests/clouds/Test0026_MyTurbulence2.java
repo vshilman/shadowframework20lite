@@ -4,15 +4,15 @@ import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.SFImageModel;
 import shadow.renderer.viewer.SFDrawableFrame;
 
-public class Test0025_CloudImg02a extends MainPTClouds{
-	
+public class Test0026_MyTurbulence2 extends MainPTClouds{
 
-private static final String FILENAME="test0025_cloudImg02a";
-	
+
+	private static final String FILENAME="test0026myturbulence2";
+		
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
 		setFilename(FILENAME);
-		execute(new Test0025_CloudImg02a());
+		execute(new Test0026_MyTurbulence2());
 	}
 
 	public void viewTestData() {
@@ -24,8 +24,11 @@ private static final String FILENAME="test0025_cloudImg02a";
 		*/
 		
 		SFImageModel imageModel=getAlreadyAvailableDatasetResource("TextureViewer02");
-		SFDrawableFrame frame=new SFDrawableFrame("CloudImg02", 800, 800, imageModel);
+		SFDrawableFrame frame=new SFDrawableFrame("Turbulence Cloud Test", 800, 800, imageModel);
 		frame.setVisible(true);
 		
 	}
+		
 }
+
+
