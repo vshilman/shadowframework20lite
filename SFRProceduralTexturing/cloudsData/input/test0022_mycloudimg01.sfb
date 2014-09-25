@@ -1,0 +1,67 @@
+import test0021_mycloud;
+
+BitmapTextureIm01a = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 16 \\ height = 16
+		function as SFFunctionRandomizerData{
+			seed = 33
+		}
+	}
+	textureModel = linearTextureModel
+}
+
+BitmapTextureIm01b = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 32 \\ height = 32
+		function as SFFunctionRandomizerData{
+			seed = 71
+		}
+	}
+	textureModel = linearTextureModel
+}
+
+CloudTurbulence01 as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = (1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = CubicOctaveFilterCloud
+					structures = (16)(1)(1) (0,0.025,1) (0.7,0.7,0.7)
+					textures = BitmapTextureIm01a
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = CubicOctaveFilter
+					structures = (32)(2)(0.1)
+					textures = BitmapTextureIm01b
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
+		}
+	}
+}
+
+
+TextureViewer02 as TemplateTextureViewer01 {
+	parameters = {
+			texture = CloudTurbulence01
+	}
+}

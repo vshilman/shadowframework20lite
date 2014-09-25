@@ -1,5 +1,15 @@
 import test0021_mycloud;
 
+BitmapTextureIm03 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 12 \\ height = 12
+		function as SFFunctionRandomizerData{
+			seed = 7
+		}
+	}
+	textureModel = linearTextureModel
+}
+
 CloudTurbulence01 as SFTemplateDataAsset {
 	asset as SFRenderingAlgorithmData{
 		stack = SFRenderedTextureStackData{
@@ -16,9 +26,9 @@ CloudTurbulence01 as SFTemplateDataAsset {
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
-					program = TurbulenceLinearModified
-					structures = (16)(2)(0.9)
-					textures = BitmapTexture0005
+					program = Turbulence
+					structures = (12)(2)(0.8)(0.05,0.18,1)(1,1,1)
+					textures = BitmapTextureIm03
 				}
 				lightComponent = SFProgramAssetData{
 					program = BasicColor
