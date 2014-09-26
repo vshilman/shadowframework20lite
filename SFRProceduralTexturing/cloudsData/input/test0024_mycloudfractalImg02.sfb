@@ -1,5 +1,15 @@
 import test0021_mycloud;
 
+BitmapTextureIm02b = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 16 \\ height = 16
+		function as SFFunctionRandomizerData{
+			seed = 7
+		}
+	}
+	textureModel = linearTextureModel
+}
+
 CloudFractal01 as SFTemplateDataAsset {
 	asset as SFRenderingAlgorithmData{
 		stack = SFRenderedTextureStackData{
@@ -16,9 +26,9 @@ CloudFractal01 as SFTemplateDataAsset {
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
-					program = Fbm
-					structures = (8)(2)(0.9)
-					textures = BitmapTexture0005
+					program = FractalCloud
+					structures = (16)(2)(0.9)(0.1,0.25,0.32)(1,1,1)
+					textures = BitmapTextureIm02b
 				}
 				lightComponent = SFProgramAssetData{
 					program = BasicColor
