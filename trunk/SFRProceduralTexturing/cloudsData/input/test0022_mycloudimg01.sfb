@@ -37,7 +37,7 @@ CloudTurbulence01 as SFTemplateDataAsset {
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
 					program = CubicOctaveFilterCloud
-					structures = (16)(1)(1) (0,0.025,1) (0.7,0.7,0.7)
+					structures = (16)(1)(1) (0,0.025,0.47) (0.45,0.45,0.46)
 					textures = BitmapTextureIm01a
 				}
 				lightComponent = SFProgramAssetData{
