@@ -123,3 +123,8 @@ materialComponent SkyColor(Color c){
 	vec3 color = (c_color);
 	vec3 matnormal = normal;
 }
+
+materialComponent SoilColor(Color c){
+	vec3 color = (c_color);
+	vec3 matnormal = normal;
+}
