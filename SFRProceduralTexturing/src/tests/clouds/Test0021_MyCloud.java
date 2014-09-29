@@ -1,12 +1,8 @@
 package tests.clouds;
 
-import shadow.image.SFTexture;
 import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.SFImageModel;
-import shadow.renderer.SFRenderingAlgorithm;
 import shadow.renderer.viewer.SFDrawableFrame;
-import shadow.system.data.SFDataCenter;
-import shadow.tests.tools.SFTextureViewer;
 
 public class Test0021_MyCloud extends MainPTClouds {
 

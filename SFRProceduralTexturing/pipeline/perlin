@@ -6,6 +6,13 @@ structure ImageOctave{
 	float intensity;
 }
 
+state BlendMode2(){
+	glClearColor(0.0,0.0,0.0,1);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glEnable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
 
 state BlendModeAdd(){
 	glClearColor(0.0,0.0,0.0,1);
@@ -163,6 +170,66 @@ materialComponent CubicOctaveFilterCloud(ImageOctave octave,Color sky,Color clou
 	perlinColor = perlinColor-perlinColor*0.2;
 	
 	vec3 color= vec3(mix(sky_color,cloud_color,smoothstep(0,1,perlinColor)));	
+	vec3 matnormal = normal;
+}
+
+materialComponent CubicOctaveFilterSoil(ImageOctave octave,Color soil,Texture texture0){
+	vec2 multTexCoord = texCoord0*vec2(octave_octave);
+	vec2 uvcoord = floor(vec2(octave_bitmapSize)*multTexCoord);
+	vec2 uvcoordBase = vec2(octave_bitmapSize)*multTexCoord-uvcoord;
+	vec2 uvcoordEff = uvcoord/vec2(octave_bitmapSize);
+	float delta = 1.0/octave_bitmapSize;
+	
+	vec3 zImm00=texture2D(texture0_texture,uvcoordEff).xyz;
+	vec3 zImm10=texture2D(texture0_texture,uvcoordEff+vec2(delta,0.0)).xyz;
+	vec3 zImm01=texture2D(texture0_texture,uvcoordEff+vec2(0.0,delta)).xyz;
+	vec3 zImm11=texture2D(texture0_texture,uvcoordEff+vec2(delta,delta)).xyz;
+	
+	vec3 zImm20=texture2D(texture0_texture,uvcoordEff+vec2(delta*2.0,0.0)).xyz;
+	vec3 zImm21=texture2D(texture0_texture,uvcoordEff+vec2(delta*2.0,delta)).xyz;
+	vec3 zImm02=texture2D(texture0_texture,uvcoordEff+vec2(0.0,delta*2.0)).xyz;
+	vec3 zImm12=texture2D(texture0_texture,uvcoordEff+vec2(delta,delta*2.0)).xyz;
+	vec3 zImml0=texture2D(texture0_texture,uvcoordEff+vec2(-delta,0.0)).xyz;
+	vec3 zImml1=texture2D(texture0_texture,uvcoordEff+vec2(-delta,delta)).xyz;
+	vec3 zImm0l=texture2D(texture0_texture,uvcoordEff+vec2(0.0,-delta)).xyz;
+	vec3 zImm1l=texture2D(texture0_texture,uvcoordEff+vec2(delta,-delta)).xyz;
+	
+	vec3 t=vec3(uvcoordBase.x);
+	vec3 s=vec3(uvcoordBase.y);
+	vec3 tm=vec3(1.0)-t;
+	vec3 sm=vec3(1.0)-s;
+	
+	vec3 vf6=vec3(0.1666);
+	
+	vec3 b00 = zImm00;
+	vec3 b01 = zImm00+(zImm10-zImml0)*vf6;
+	vec3 b02 = zImm10+(zImm00-zImm20)*vf6;
+	vec3 b03 = zImm10;
+	
+	vec3 b10 = zImm00+(zImm01-zImm0l)*vf6;
+	vec3 b11 = zImm00+(zImm01-zImm0l+zImm10-zImml0)*vf6;
+	vec3 b12 = zImm10+(zImm11-zImm1l+zImm00-zImm20)*vf6;
+	vec3 b13 = zImm10+(zImm11-zImm1l)*vf6;
+	
+	vec3 b20 = zImm01+(zImm00-zImm02)*vf6;
+	vec3 b21 = zImm01+(zImm00-zImm02+zImm11-zImml1)*vf6;
+	vec3 b22 = zImm11+(zImm10-zImm12+zImm01-zImm21)*vf6;
+	vec3 b23 = zImm11+(zImm10-zImm12)*vf6;
+	
+	vec3 b30 = zImm01;
+	vec3 b31 = zImm01+(zImm11-zImml1)*vf6;
+	vec3 b32 = zImm11+(zImm01-zImm21)*vf6;
+	vec3 b33 = zImm11;
+	
+	vec3 v3 = vec3(3.0);
+	vec3 val3 = sm*sm*sm*(b00*tm*tm*tm+b01*v3*t*tm*tm+b02*v3*t*t*tm+b03*t*t*t)
+	            +v3*s*sm*sm*(b10*tm*tm*tm+b11*v3*t*tm*tm+b12*v3*t*t*tm+b13*t*t*t)
+	            +v3*s*s*sm*(b20*tm*tm*tm+b21*v3*t*tm*tm+b22*v3*t*t*tm+b23*t*t*t)
+	            +s*s*s*(b30*tm*tm*tm+b31*v3*t*tm*tm+b32*v3*t*t*tm+b33*t*t*t);
+	
+	vec3 perlinColor = vec3(octave_intensity)*val3;
+	//perlinColor = perlinColor - perlinColor*0.2;
+	vec3 color= vec3(soil_color*perlinColor);	
 	vec3 matnormal = normal;
 }
 
@@ -362,50 +429,170 @@ materialComponent FractalCloud(ImageOctave octave,Color sky,Color cloud,Texture 
 	vec2 uvcoordBase = vec2(octave_bitmapSize)*multTexCoord-uvcoord;
 	vec2 uvcoordEff = uvcoord/vec2(octave_bitmapSize);
 	float delta = 1.0/octave_bitmapSize;
+	
 	vec3 zImm00=texture2D(texture0_texture,uvcoordEff).xyz;
 	vec3 zImm10=texture2D(texture0_texture,uvcoordEff+vec2(delta,0.0)).xyz;
 	vec3 zImm01=texture2D(texture0_texture,uvcoordEff+vec2(0.0,delta)).xyz;
 	vec3 zImm11=texture2D(texture0_texture,uvcoordEff+vec2(delta,delta)).xyz;
+	
+	vec3 zImm20=texture2D(texture0_texture,uvcoordEff+vec2(delta*2.0,0.0)).xyz;
+	vec3 zImm21=texture2D(texture0_texture,uvcoordEff+vec2(delta*2.0,delta)).xyz;
+	vec3 zImm02=texture2D(texture0_texture,uvcoordEff+vec2(0.0,delta*2.0)).xyz;
+	vec3 zImm12=texture2D(texture0_texture,uvcoordEff+vec2(delta,delta*2.0)).xyz;
+	vec3 zImml0=texture2D(texture0_texture,uvcoordEff+vec2(-delta,0.0)).xyz;
+	vec3 zImml1=texture2D(texture0_texture,uvcoordEff+vec2(-delta,delta)).xyz;
+	vec3 zImm0l=texture2D(texture0_texture,uvcoordEff+vec2(0.0,-delta)).xyz;
+	vec3 zImm1l=texture2D(texture0_texture,uvcoordEff+vec2(delta,-delta)).xyz;
+	
 	vec3 t=vec3(uvcoordBase.x);
 	vec3 s=vec3(uvcoordBase.y);
 	vec3 tm=vec3(1.0)-t;
 	vec3 sm=vec3(1.0)-s;
-	vec3 perlin0=vec3(octave_intensity)*(sm*(zImm00*tm+zImm10*t)+s*(zImm01*tm+zImm11*t));
 	
-	multTexCoord = texCoord0*vec2(octave_octave)*2;
+	vec3 vf6=vec3(0.1666);
+	
+	vec3 b00 = zImm00;
+	vec3 b01 = zImm00+(zImm10-zImml0)*vf6;
+	vec3 b02 = zImm10+(zImm00-zImm20)*vf6;
+	vec3 b03 = zImm10;
+	
+	vec3 b10 = zImm00+(zImm01-zImm0l)*vf6;
+	vec3 b11 = zImm00+(zImm01-zImm0l+zImm10-zImml0)*vf6;
+	vec3 b12 = zImm10+(zImm11-zImm1l+zImm00-zImm20)*vf6;
+	vec3 b13 = zImm10+(zImm11-zImm1l)*vf6;
+	
+	vec3 b20 = zImm01+(zImm00-zImm02)*vf6;
+	vec3 b21 = zImm01+(zImm00-zImm02+zImm11-zImml1)*vf6;
+	vec3 b22 = zImm11+(zImm10-zImm12+zImm01-zImm21)*vf6;
+	vec3 b23 = zImm11+(zImm10-zImm12)*vf6;
+	
+	vec3 b30 = zImm01;
+	vec3 b31 = zImm01+(zImm11-zImml1)*vf6;
+	vec3 b32 = zImm11+(zImm01-zImm21)*vf6;
+	vec3 b33 = zImm11;
+	
+	vec3 v3 = vec3(3.0);
+	vec3 val3 = sm*sm*sm*(b00*tm*tm*tm+b01*v3*t*tm*tm+b02*v3*t*t*tm+b03*t*t*t)
+	            +v3*s*sm*sm*(b10*tm*tm*tm+b11*v3*t*tm*tm+b12*v3*t*t*tm+b13*t*t*t)
+	            +v3*s*s*sm*(b20*tm*tm*tm+b21*v3*t*tm*tm+b22*v3*t*t*tm+b23*t*t*t)
+	            +s*s*s*(b30*tm*tm*tm+b31*v3*t*tm*tm+b32*v3*t*t*tm+b33*t*t*t);
+	
+	vec3 perlin0=val3;
+	
+	multTexCoord = texCoord0*vec2(octave_octave*2);
 	uvcoord = floor(vec2(octave_bitmapSize)*multTexCoord);
 	uvcoordBase = vec2(octave_bitmapSize)*multTexCoord-uvcoord;
 	uvcoordEff = uvcoord/vec2(octave_bitmapSize);
 	delta = 1.0/octave_bitmapSize;
+	
 	zImm00=texture2D(texture0_texture,uvcoordEff).xyz;
 	zImm10=texture2D(texture0_texture,uvcoordEff+vec2(delta,0.0)).xyz;
 	zImm01=texture2D(texture0_texture,uvcoordEff+vec2(0.0,delta)).xyz;
 	zImm11=texture2D(texture0_texture,uvcoordEff+vec2(delta,delta)).xyz;
+	
+	zImm20=texture2D(texture0_texture,uvcoordEff+vec2(delta*2.0,0.0)).xyz;
+	zImm21=texture2D(texture0_texture,uvcoordEff+vec2(delta*2.0,delta)).xyz;
+	zImm02=texture2D(texture0_texture,uvcoordEff+vec2(0.0,delta*2.0)).xyz;
+	zImm12=texture2D(texture0_texture,uvcoordEff+vec2(delta,delta*2.0)).xyz;
+	zImml0=texture2D(texture0_texture,uvcoordEff+vec2(-delta,0.0)).xyz;
+	zImml1=texture2D(texture0_texture,uvcoordEff+vec2(-delta,delta)).xyz;
+	zImm0l=texture2D(texture0_texture,uvcoordEff+vec2(0.0,-delta)).xyz;
+	zImm1l=texture2D(texture0_texture,uvcoordEff+vec2(delta,-delta)).xyz;
+	
 	t=vec3(uvcoordBase.x);
 	s=vec3(uvcoordBase.y);
 	tm=vec3(1.0)-t;
 	sm=vec3(1.0)-s;
-	vec3 perlin1=vec3(octave_intensity)*(sm*(zImm00*tm+zImm10*t)+s*(zImm01*tm+zImm11*t));
+	
+	vf6=vec3(0.1666);
+	
+	b00 = zImm00;
+	b01 = zImm00+(zImm10-zImml0)*vf6;
+	b02 = zImm10+(zImm00-zImm20)*vf6;
+	b03 = zImm10;
+	
+	b10 = zImm00+(zImm01-zImm0l)*vf6;
+	b11 = zImm00+(zImm01-zImm0l+zImm10-zImml0)*vf6;
+	b12 = zImm10+(zImm11-zImm1l+zImm00-zImm20)*vf6;
+	b13 = zImm10+(zImm11-zImm1l)*vf6;
+	
+	b20 = zImm01+(zImm00-zImm02)*vf6;
+	b21 = zImm01+(zImm00-zImm02+zImm11-zImml1)*vf6;
+	b22 = zImm11+(zImm10-zImm12+zImm01-zImm21)*vf6;
+	b23 = zImm11+(zImm10-zImm12)*vf6;
+	
+	b30 = zImm01;
+	b31 = zImm01+(zImm11-zImml1)*vf6;
+	b32 = zImm11+(zImm01-zImm21)*vf6;
+	b33 = zImm11;
+	
+	v3 = vec3(3.0);
+	val3 = sm*sm*sm*(b00*tm*tm*tm+b01*v3*t*tm*tm+b02*v3*t*t*tm+b03*t*t*t)
+	            +v3*s*sm*sm*(b10*tm*tm*tm+b11*v3*t*tm*tm+b12*v3*t*t*tm+b13*t*t*t)
+	            +v3*s*s*sm*(b20*tm*tm*tm+b21*v3*t*tm*tm+b22*v3*t*t*tm+b23*t*t*t)
+	            +s*s*s*(b30*tm*tm*tm+b31*v3*t*tm*tm+b32*v3*t*t*tm+b33*t*t*t);
+	
+	vec3 perlin1=val3;
 	
 	
-	multTexCoord = texCoord0*vec2(octave_octave)*4;
+	multTexCoord = texCoord0*vec2(octave_octave*4);
 	uvcoord = floor(vec2(octave_bitmapSize)*multTexCoord);
 	uvcoordBase = vec2(octave_bitmapSize)*multTexCoord-uvcoord;
 	uvcoordEff = uvcoord/vec2(octave_bitmapSize);
 	delta = 1.0/octave_bitmapSize;
+	
 	zImm00=texture2D(texture0_texture,uvcoordEff).xyz;
 	zImm10=texture2D(texture0_texture,uvcoordEff+vec2(delta,0.0)).xyz;
 	zImm01=texture2D(texture0_texture,uvcoordEff+vec2(0.0,delta)).xyz;
 	zImm11=texture2D(texture0_texture,uvcoordEff+vec2(delta,delta)).xyz;
+	
+	zImm20=texture2D(texture0_texture,uvcoordEff+vec2(delta*2.0,0.0)).xyz;
+	zImm21=texture2D(texture0_texture,uvcoordEff+vec2(delta*2.0,delta)).xyz;
+	zImm02=texture2D(texture0_texture,uvcoordEff+vec2(0.0,delta*2.0)).xyz;
+	zImm12=texture2D(texture0_texture,uvcoordEff+vec2(delta,delta*2.0)).xyz;
+	zImml0=texture2D(texture0_texture,uvcoordEff+vec2(-delta,0.0)).xyz;
+	zImml1=texture2D(texture0_texture,uvcoordEff+vec2(-delta,delta)).xyz;
+	zImm0l=texture2D(texture0_texture,uvcoordEff+vec2(0.0,-delta)).xyz;
+	zImm1l=texture2D(texture0_texture,uvcoordEff+vec2(delta,-delta)).xyz;
+	
 	t=vec3(uvcoordBase.x);
 	s=vec3(uvcoordBase.y);
 	tm=vec3(1.0)-t;
 	sm=vec3(1.0)-s;
-	vec3 perlin2=vec3(octave_intensity)*(sm*(zImm00*tm+zImm10*t)+s*(zImm01*tm+zImm11*t));
+	
+	vf6=vec3(0.1666);
+	
+	b00 = zImm00;
+	b01 = zImm00+(zImm10-zImml0)*vf6;
+	b02 = zImm10+(zImm00-zImm20)*vf6;
+	b03 = zImm10;
+	
+	b10 = zImm00+(zImm01-zImm0l)*vf6;
+	b11 = zImm00+(zImm01-zImm0l+zImm10-zImml0)*vf6;
+	b12 = zImm10+(zImm11-zImm1l+zImm00-zImm20)*vf6;
+	b13 = zImm10+(zImm11-zImm1l)*vf6;
+	
+	b20 = zImm01+(zImm00-zImm02)*vf6;
+	b21 = zImm01+(zImm00-zImm02+zImm11-zImml1)*vf6;
+	b22 = zImm11+(zImm10-zImm12+zImm01-zImm21)*vf6;
+	b23 = zImm11+(zImm10-zImm12)*vf6;
+	
+	b30 = zImm01;
+	b31 = zImm01+(zImm11-zImml1)*vf6;
+	b32 = zImm11+(zImm01-zImm21)*vf6;
+	b33 = zImm11;
+	
+	v3 = vec3(3.0);
+	val3 = sm*sm*sm*(b00*tm*tm*tm+b01*v3*t*tm*tm+b02*v3*t*t*tm+b03*t*t*t)
+	            +v3*s*sm*sm*(b10*tm*tm*tm+b11*v3*t*tm*tm+b12*v3*t*t*tm+b13*t*t*t)
+	            +v3*s*s*sm*(b20*tm*tm*tm+b21*v3*t*tm*tm+b22*v3*t*t*tm+b23*t*t*t)
+	            +s*s*s*(b30*tm*tm*tm+b31*v3*t*tm*tm+b32*v3*t*t*tm+b33*t*t*t);
+	            
+	vec3 perlin2=val3;
 	
 	
 	float value = perlin0.x * amplitude0 + perlin1.x * amplitude1 + perlin2.x * amplitude2;
-	value = value - value*0.3;
+	value = value - value*0.38;
 	
 	vec3 color = vec3(mix(sky_color,cloud_color,smoothstep(0,1,value)));
 	vec3 matnormal = normal;

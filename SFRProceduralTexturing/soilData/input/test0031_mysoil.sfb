@@ -1,0 +1,55 @@
+BitmapTexture0001 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 400 \\ height = 400
+		function as SFFunctionRandomizerData{
+			seed = 3
+		}
+	}
+	textureModel = linearTextureModel
+}
+
+
+TemplateSoilTexture01 as SFTemplateDataAsset {
+	asset as SFRenderingAlgorithmData{
+		stack = SFRenderedTextureStackData{
+			textures = SFRenderedTextureData{
+				size = (1024,1024)
+				useDepth = false
+				textureModel = linearTextureModel
+			}
+		}
+		process = SFRenderingProcessData{
+			drawables = SFRenderedTextureStackPushData 
+			drawables += SFStateDrawableData{
+				state = BlendMode2
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = CubicOctaveFilterSoil
+					structures = (400)(1)(0.5) (0.75,0.45,0.45)
+					textures = BitmapTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFRenderedTextureStackPopData 
+		}
+	}
+}
+
+
+
+TextureViewer01 as SFTemplateDataAsset {
+	asset =  SFImageModelData{
+		materialComponent = SFProgramAssetData{
+			program = TexturedMat
+			textures = TemplateSoilTexture01
+		}
+		lightComponent = SFProgramAssetData{
+			program = BasicColor
+		}
+	}
+}
+
+
