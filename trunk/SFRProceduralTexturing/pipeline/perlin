@@ -228,7 +228,7 @@ materialComponent CubicOctaveFilterSoil(ImageOctave octave,Color soil,Texture te
 	            +s*s*s*(b30*tm*tm*tm+b31*v3*t*tm*tm+b32*v3*t*t*tm+b33*t*t*t);
 	
 	vec3 perlinColor = vec3(octave_intensity)*val3;
-	//perlinColor = perlinColor - perlinColor*0.2;
+	perlinColor = vec3(0.6 * step(perlinColor.x,0.09)) + perlinColor * step(0.09,perlinColor.x);
 	vec3 color= vec3(soil_color*perlinColor);	
 	vec3 matnormal = normal;
 }
