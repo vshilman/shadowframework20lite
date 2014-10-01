@@ -21,12 +21,12 @@ TemplateSoilTexture01 as SFTemplateDataAsset {
 		process = SFRenderingProcessData{
 			drawables = SFRenderedTextureStackPushData 
 			drawables += SFStateDrawableData{
-				state = BlendMode2
+				state = BlendModeAdd
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
 					program = CubicOctaveFilterSoil
-					structures = (400)(1)(0.5) (0.85,0.55,0.44)
+					structures = (400)(1)(0.6) (1,1,0)
 					textures = BitmapTexture0001
 				}
 				lightComponent = SFProgramAssetData{
