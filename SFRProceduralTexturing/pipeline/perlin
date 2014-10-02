@@ -173,7 +173,7 @@ materialComponent CubicOctaveFilterCloud(ImageOctave octave,Color sky,Color clou
 	vec3 matnormal = normal;
 }
 
-materialComponent CubicOctaveFilterSoil(ImageOctave octave,Color soil,Texture texture0){
+materialComponent CubicOctaveFilterSoil(ImageOctave octave,Color primary,Color secundary,Granularity g,Texture texture0){
 	vec2 multTexCoord = texCoord0*vec2(octave_octave);
 	vec2 uvcoord = floor(vec2(octave_bitmapSize)*multTexCoord);
 	vec2 uvcoordBase = vec2(octave_bitmapSize)*multTexCoord-uvcoord;
@@ -228,8 +228,16 @@ materialComponent CubicOctaveFilterSoil(ImageOctave octave,Color soil,Texture te
 	            +s*s*s*(b30*tm*tm*tm+b31*v3*t*tm*tm+b32*v3*t*t*tm+b33*t*t*t);
 	
 	vec3 perlinColor = vec3(octave_intensity)*val3;
-	perlinColor = vec3(0.6 * step(perlinColor.x,0.09)) + perlinColor * step(0.09,perlinColor.x);
-	vec3 color= vec3(soil_color*perlinColor);	
+	
+	//effetto sassolini
+	//perlinColor = vec3(0.6 * step(perlinColor.x,g_granularity)) + perlinColor * step(g_granularity,perlinColor.x);
+	
+	//effetto ghiaia (due colori)
+	//vec3 color = vec3(mix(primary_color,secundary_color,smoothstep(0,1,perlinColor)));
+	
+	//erba
+	vec3 color= vec3(primary_color*perlinColor);	
+	
 	vec3 matnormal = normal;
 }
 
