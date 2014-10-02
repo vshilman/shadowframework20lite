@@ -4,21 +4,22 @@ import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.SFImageModel;
 import shadow.renderer.viewer.SFDrawableFrame;
 
-//grass
-public class Test0032_SoilImg02  extends MainPTSoil {
-	
-	private static final String FILENAME="test0032_soilimg02";
+//sand
+public class Test0033_SoilImg03 extends MainPTSoil{
+
+		
+		private static final String FILENAME="test0033_soilimg03";
 	
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
 		setFilename(FILENAME);
-		execute(new Test0032_SoilImg02());
+		execute(new Test0033_SoilImg03());
 	}
 
 	public void viewTestData() {
 		loadLibraryAsDataCenter();
 		SFImageModel imageModel=getAlreadyAvailableDatasetResource("TextureViewer01");
-		SFDrawableFrame frame=new SFDrawableFrame("Soil Test Img02", 800, 800, imageModel);
+		SFDrawableFrame frame=new SFDrawableFrame("Soil Test Img03", 800, 800, imageModel);
 		frame.setVisible(true);
 		
 	}

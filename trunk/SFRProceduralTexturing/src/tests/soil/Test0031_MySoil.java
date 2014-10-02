@@ -4,6 +4,8 @@ import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.SFImageModel;
 import shadow.renderer.viewer.SFDrawableFrame;
 
+//ground
+//per ottenere l'effetto sassolini decommentare una riga dello shader
 public class Test0031_MySoil extends MainPTSoil {
 	
 	private static final String FILENAME="test0031_mysoil";
