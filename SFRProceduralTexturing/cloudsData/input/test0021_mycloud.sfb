@@ -244,24 +244,15 @@ TemplateCloudTextureXX as SFTemplateDataAsset {
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
-					program = LinearOctaveFilterModified
-					structures = (8)(1)(0.55) (0,0.025,1) (0.7,0.7,0.7)
-					textures = BitmapTexture0001
+					program = CubicOctaveFilterCloud
+					structures = (16)(1)(0.55)(0,0.1,1)(1,1,1)
+					textures = BitmapTexture0006
 				}
 				lightComponent = SFProgramAssetData{
 					program = BasicColor
 				}
 			}
-			drawables += SFImageModelData{
-				materialComponent = SFProgramAssetData{
-					program = LinearOctaveFilterModified
-					structures = (8)(8)(0.1) (0,0.025,1) (1,1,1)
-					textures = BitmapTexture0002
-				}
-				lightComponent = SFProgramAssetData{
-					program = BasicColor
-				}
-			}
+						
 			drawables += SFRenderedTextureStackPopData 
 		}
 	}
