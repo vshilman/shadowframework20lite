@@ -5,13 +5,12 @@ import javax.media.opengl.GL2;
 
 import sfogl2.SFOGLRenderedTexture;
 import sfogl2.tests.objects.BlurredScreenObject;
-import shadow.nodes.SFObjectModel;
 import shadow.pipeline.SFPipeline;
 import shadow.pipeline.SFPipeline.PipelineModule;
 import shadow.pipeline.openGL20.SFGL2;
 import shadow.renderer.SFModel;
+import shadow.renderer.SFObjectModel;
 import shadow.renderer.SFProgramModuleStructures;
-import shadow.renderer.SFRenderer;
 import shadow.renderer.viewer.SFDrawableFrame;
 import shadow.system.SFDrawable;
 import shadow.system.data.SFDataCenter;
@@ -70,7 +69,7 @@ public class Test02001_MyRectangle extends MainPTTest implements SFDrawable{
 				0,0,1,0,
 				0,0,0,1
 		};
-		SFPipeline.getSfPipelineGraphics().setupProjection(projection);
+		SFPipeline.getPipeline().setupProjection(projection);
 
 		renderedTexture.apply(gl);
 		
@@ -89,7 +88,7 @@ public class Test02001_MyRectangle extends MainPTTest implements SFDrawable{
 		SFModel model=this.objectModel.getModel();
 		//generate or retrieve the program
 		int program=model.getProgram(lightComponent);
-		SFPipeline.getSfPipelineGraphics().loadProgram(program);
+		SFPipeline.getPipeline().loadProgram(program);
 		//Setup any program data
 		model.getTransformComponent().setupData(PipelineModule.TRANSFORM);
 		model.getMaterialComponent().setupData(PipelineModule.MATERIAL);

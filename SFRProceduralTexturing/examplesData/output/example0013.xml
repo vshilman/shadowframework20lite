@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<SFBitmapTextureData name="BitmapTexture0011">
+		<SFBitmapArrayData name="bitmap">
+			<height>4</height>
+			<bitmap>(0,0,0,0,0,255,0,0,0,0,255,0,0,0,0,0)</bitmap>
+			<width>4</width>
+			<type>GRAY8</type>
+		</SFBitmapArrayData>
+		<textureModel>linearTextureModel</textureModel>
+	</SFBitmapTextureData>
+	<SFBitmapTextureData name="BitmapTexture0012">
+		<SFBitmapArrayData name="bitmap">
+			<height>4</height>
+			<bitmap>(0,255,0,255,0,255,0,0,0,0,255,0,125,0,125,255)</bitmap>
+			<width>4</width>
+			<type>GRAY8</type>
+		</SFBitmapArrayData>
+		<textureModel>linearTextureModel</textureModel>
+	</SFBitmapTextureData>
+	<SFObjectModelData name="RectangleObject01">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<scale>0.4</scale>
+			<y>0.0</y>
+			<x>0.0</x>
+		</SFTranslateAndScaleFixed16Data>
+		<SFProgramAssetData name="materialComponent">
+			<textures>
+				<textures_element>BitmapTexture0011:</textures_element>
+			</textures>
+			<program>TexturedMat</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+		</SFProgramAssetData>
+		<SFQuadsSurfaceGeometryData name="geometry">
+			<SFSurfaceData name="surface">
+				<SFRectangle2DFunctionData name="surfaceFunction">
+					<w>1.0</w>
+					<h>1.0</h>
+					<y>0.0</y>
+					<x>0.0</x>
+				</SFRectangle2DFunctionData>
+				<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+					<du>1.0</du>
+					<dv>1.0</dv>
+				</SFSimpleTexCoordGeometryuvData>
+			</SFSurfaceData>
+			<NuNv>(2,2)</NuNv>
+			<primitive>Triangle2PNTxO</primitive>
+		</SFQuadsSurfaceGeometryData>
+	</SFObjectModelData>
+	<SFObjectModelData name="RectangleObject02">
+		<SFTranslateAndScaleFixed16Data name="transform">
+			<scale>0.4</scale>
+			<y>0.0</y>
+			<x>0.0</x>
+		</SFTranslateAndScaleFixed16Data>
+		<SFProgramAssetData name="materialComponent">
+			<textures>
+				<textures_element>BitmapTexture0012:</textures_element>
+			</textures>
+			<program>TexturedMat</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="transformComponent">
+			<program>BasicPNTx0Transform</program>
+		</SFProgramAssetData>
+		<SFQuadsSurfaceGeometryData name="geometry">
+			<SFSurfaceData name="surface">
+				<SFRectangle2DFunctionData name="surfaceFunction">
+					<w>1.0</w>
+					<h>1.0</h>
+					<y>0.0</y>
+					<x>0.0</x>
+				</SFRectangle2DFunctionData>
+				<SFSimpleTexCoordGeometryuvData name="texCoordFunction">
+					<du>1.0</du>
+					<dv>1.0</dv>
+				</SFSimpleTexCoordGeometryuvData>
+			</SFSurfaceData>
+			<NuNv>(2,2)</NuNv>
+			<primitive>Triangle2PNTxO</primitive>
+		</SFQuadsSurfaceGeometryData>
+	</SFObjectModelData>
+	<SFRandomTransform2DRepeaterData name="RectangelObjectRepeater">
+		<minRot>-0.707</minRot>
+		<minScale>0.01</minScale>
+		<count>300</count>
+		<seed>30</seed>
+		<maxY>0.5</maxY>
+		<maxX>0.5</maxX>
+		<maxScale>0.02</maxScale>
+		<maxRot>0.707</maxRot>
+		<minX>-0.5</minX>
+		<minY>-0.5</minY>
+	</SFRandomTransform2DRepeaterData>
+	<SFRendererData name="Renderer00002">
+		<viewSize>512.0</viewSize>
+		<SFProgramAssetData name="light">
+			<program>BasicColor</program>
+		</SFProgramAssetData>
+	</SFRendererData>
+	<SFRenderingAlgorithmData name="RenderedTexture0002">
+		<SFRenderingProcessData name="process">
+			<drawables>
+				<SFRenderedTextureStackPushData name="">
+				</SFRenderedTextureStackPushData>
+				<SFRenderingProcessData name="">
+					<drawables>
+						<SFStateDrawableData name="">
+							<state>MainViewerSetup</state>
+						</SFStateDrawableData>
+						<SFImageModelData name="">
+							<SFProgramAssetData name="lightComponent">
+								<program>BasicColor</program>
+							</SFProgramAssetData>
+							<SFProgramAssetData name="materialComponent">
+								<textures>
+									<textures_element>BitmapTexture0011:</textures_element>
+								</textures>
+								<program>TexturedMat</program>
+							</SFProgramAssetData>
+						</SFImageModelData>
+						<SFRepeatingDrawableArrayData name="">
+							<repeater>RectangelObjectRepeater</repeater>
+							<references id="nodes">
+								<reference>RectangleObject01</reference>
+								<reference>RectangleObject02</reference>
+							</references>
+							<renderer>Renderer00002</renderer>
+						</SFRepeatingDrawableArrayData>
+						<SFRenderedTextureStackPopData name="">
+						</SFRenderedTextureStackPopData>
+					</drawables>
+				</SFRenderingProcessData>
+			</drawables>
+		</SFRenderingProcessData>
+		<SFRenderedTextureStackData name="stack">
+			<textures>
+				<SFRenderedTextureData name="">
+					<textureModel>linearTextureModel</textureModel>
+					<useDepth>false</useDepth>
+					<size>(512,512)</size>
+				</SFRenderedTextureData>
+			</textures>
+		</SFRenderedTextureStackData>
+	</SFRenderingAlgorithmData>
+	<SFImageModelData name="RenderedTextureViewer0002">
+		<SFProgramAssetData name="lightComponent">
+			<program>BasicColor</program>
+		</SFProgramAssetData>
+		<SFProgramAssetData name="materialComponent">
+			<textures>
+				<textures_element>RenderedTexture0002:</textures_element>
+			</textures>
+			<program>TexturedMat</program>
+		</SFProgramAssetData>
+	</SFImageModelData>
+</library>
