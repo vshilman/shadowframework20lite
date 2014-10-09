@@ -1,7 +1,7 @@
 package tests.sfdatalevel;
 
-import shadow.nodes.SFObjectModel;
 import shadow.pipeline.tools.SFCommonPipeline;
+import shadow.renderer.SFObjectModel;
 import shadow.system.data.SFDataCenter;
 import shadow.tests.tools.SFViewer;
 

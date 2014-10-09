@@ -1,12 +1,8 @@
 package tests.sfdatalevel;
 
-import shadow.image.SFRenderedTexturesSet;
-import shadow.nodes.SFObjectModel;
 import shadow.pipeline.tools.SFCommonPipeline;
 import shadow.renderer.viewer.SFDrawableFrame;
 import shadow.system.SFDrawable;
-import shadow.system.data.SFDataCenter;
-import shadow.tests.tools.SFViewer;
 
 
 /* -disegna un quadrato con la texture Perlin */

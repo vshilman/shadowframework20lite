@@ -2,8 +2,8 @@
 <library>
 	<SFBitmapTextureData name="BitmapTexture0001">
 		<SFFunction2DBitmapData name="bitmap">
-			<height>8</height>
-			<width>8</width>
+			<height>1000</height>
+			<width>1000</width>
 			<SFFunctionRandomizerData name="function">
 				<seed>77</seed>
 			</SFFunctionRandomizerData>

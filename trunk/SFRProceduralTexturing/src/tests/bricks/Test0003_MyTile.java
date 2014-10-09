@@ -1,10 +1,9 @@
 package tests.bricks;
 
-import shadow.nodes.SFObjectModel;
 import shadow.pipeline.tools.SFCommonPipeline;
+import shadow.renderer.SFObjectModel;
 import shadow.system.data.SFDataCenter;
 import shadow.tests.tools.SFViewer;
-import tests.sfdatalevel.MainPTTest;
 
 public class Test0003_MyTile extends MainPTBricks{
 

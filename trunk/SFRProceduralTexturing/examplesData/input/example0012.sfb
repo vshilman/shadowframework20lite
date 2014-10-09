@@ -1,0 +1,90 @@
+
+BitmapTexture0011 = SFBitmapTextureData{
+	bitmap = SFBitmapArrayData{
+		width=4 \\ height=4 \\ type=GRAY8
+		bitmap=(0,0,0,0,0,255,0,0,0,0,255,0,0,0,0,0)
+	}
+	textureModel = linearTextureModel
+}
+
+
+RectangleObject as SFObjectModelData{
+	transform = SFTranslateAndScaleFixed16Data{
+		x = 0.0 \\ y = 0.0 \\ scale = 0.4
+	}
+	geometry = SFQuadsSurfaceGeometryData{
+		NuNv = (2,2)
+		primitive = Triangle2PNTxO
+		surface = SFSurfaceData{
+			surfaceFunction as SFRectangle2DFunctionData{
+				x=0.0 \\ y=0.0 \\ w=1.0 \\ h=1.0
+			}
+			texCoordFunction as SFSimpleTexCoordGeometryuvData{
+				du = 1.0 \\ dv = 1.0
+			}
+		}
+	}
+	transformComponent as SFProgramAssetData{
+		program = BasicPNTx0Transform
+	}
+	materialComponent as SFProgramAssetData{
+		program = TexturedMat	
+		textures = BitmapTexture0011
+	}	
+}
+
+RectangelObjectRepeater as SFArrayTransformRepeaterData{
+	transforms+=SFTranslateAndScaleFixed16Data{
+		x = -0.3 \\ y = -0.2 \\ scale = 0.03
+	}
+	transforms+=SFTranslateAndScaleFixed16Data{
+		x = 0.3 \\ y = -0.2 \\ scale = 0.02
+	}
+	transforms+=SFTranslateAndScaleFixed16Data{
+		x = -0.3 \\ y = 0.1 \\ scale = 0.02
+	}
+	transforms+=SFTranslateFixed16Data{
+		x = 0.0 \\ y = 0.0
+	}
+}
+
+Renderer00002 as SFRendererData{
+	light as SFProgramAssetData{
+		program = BasicColor  
+		viewSize = 512
+	}
+}
+
+RenderedTexture0002 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (512,512)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = MainViewerSetup
+			}
+			drawables += SFRepeatingDrawableData{
+				renderer == Renderer00002
+				node == RectangleObject
+				repeater == RectangelObjectRepeater
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+RenderedTextureViewer0002 as SFImageModelData{
+	materialComponent = SFProgramAssetData{
+		program = TexturedMat
+		textures = RenderedTexture0002
+	}
+	lightComponent = SFProgramAssetData{
+		program = BasicColor
+	}
+}
