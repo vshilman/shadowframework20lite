@@ -59,3 +59,13 @@ BitmapTexture0005 = SFBitmapTextureData{
 	}
 	textureModel = linearTextureModel
 }
+
+BitmapTexture0006 = SFBitmapTextureData{
+	bitmap = SFFunction2DBitmapData{
+		width = 16 \\ height = 16
+		function as SFFunctionRandomizerData{
+			seed = 35
+		}
+	}
+	textureModel = linearTextureModel
+}
