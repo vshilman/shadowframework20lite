@@ -1,0 +1,103 @@
+
+StoneSurface as SFSurfaceData{
+	valuesData = SFVertexListDataUnit8{
+		vertices = (0.0,0.0) (0.0,0.1) (0.0,0.2) (0.0,0.3) (0.0,0.4) (0.0,0.5) (0.0,0.6)
+			 (0.1,0.0) (0.1,0.1) (0.3,0.2) (0.3,0.3) (0.3,0.4) (0.2,0.5) (0.1,0.6)
+	}
+	surfaceFunction as SFCurvedTubeFunctionData{
+		firstCurve as SFBezier3SplineData{
+			vertices = (0,1,2,3,4,5,6)
+		}
+		secondCurve as SFBezier3SplineData{
+			vertices = (7,8,9,10,11,12,13)
+		}
+	}
+}
+
+BasicMatColours as SFStructureArrayDataUnit8{
+	structure = Mat01
+	values = (0.8,0.6,0.0) (0.4,0.8,0.4) (0.8,0.6,0.4)
+}
+			
+Stone01 as SFObjectModelData{
+	transform = SFTranslateAndScaleFixed16Data{
+		y = -0.5
+		scale = 2.5
+	}
+	geometry = SFQuadsSurfaceGeometryData{
+		NuNv = (6,6)
+		primitive = Triangle2PN
+		surface == StoneSurface
+	}
+	transformComponent as SFProgramAssetData{
+		program = BasicPNTransform
+	}
+	materialComponent as SFProgramAssetData{
+		program = BasicMat
+		structures = BasicMatColours:0
+	}
+}	
+
+Stone02 as Stone01{
+	materialComponent as SFProgramAssetData{
+		program = BasicMat
+		structures = BasicMatColours:1
+	}
+}
+
+Stone03 as Stone01{
+	materialComponent as SFProgramAssetData{
+		program = BasicMat
+		structures = BasicMatColours:2
+	}
+}
+
+RectangelObjectRepeater as SFRandomTransform2DRepeaterData{
+	minX=-0.5 \\ maxX=0.5
+	minY=-0.5 \\ maxY=0.5
+	minScale=0.05 \\ maxScale=0.1
+	minRot=-0.707 \\ maxRot=0.707
+	seed=100 \\ count=600
+}
+
+Renderer00002 as SFRendererData{
+	light as SFProgramAssetData{
+		program = BasicLSPN2
+		structures= (1,1,1)(0.0,0,0.7)
+		viewSize = 512
+	}
+}
+
+RenderedTexture0002 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (512,512)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = MainViewerSetup
+			}
+			drawables += SFRepeatingDrawableArrayData{
+				renderer == Renderer00002
+				nodes == Stone01,Stone02,Stone03
+				repeater == RectangelObjectRepeater
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+RenderedTextureViewer0002 as SFImageModelData{
+	materialComponent = SFProgramAssetData{
+		program = TexturedMat
+		textures = RenderedTexture0002
+	}
+	lightComponent = SFProgramAssetData{
+		program = BasicColor
+	}
+}
