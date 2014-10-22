@@ -10,30 +10,93 @@ BitmapTexture01 = SFBitmapTextureData{
 }
 
 BitmapTexture02 = SFBitmapTextureData{
-	bitmap = SFBitmapArrayData{
-		width=4 \\ height=4 \\ type=GRAY8
-		bitmap=(255,255,255,0,0,255,0,0,0,0,255,0,0,0,0,0)
+	bitmap = SFFunction2DBitmapData{
+		width = 64 \\ height = 64
+		function as SFFunctionRandomizerData{
+			seed = 3
+		}
 	}
 	textureModel = linearTextureModel
 }
 
 
-
 StoneSurface as SFSurfaceData{
 	valuesData = SFVertexListDataUnit8{
-		vertices = (0.0,0.0,0.0) (-0.2,-0.5,0.0) (0.3,-0.6,0.0) (0.5,0.1,0.1) (0.4,0.0,+0.1) (0.1,0.1,+0.1)
+		vertices = (0.0,0.0,0.0) (0.2,0.05,0.0) (0.5,0.0,0.0) (0.55,0.15,0.0) (0.5,0.3,0.0) (0.1,0.3,0.0) (0.3,0.15,+0.08) (0.1,0.1,+0.08)
 	}
 	surfaceFunction as SFRadialSurfaceFunctionData{
 		firstCurve as SFBasisSpline2Data{
-			vertices = (0,1,2)
+			vertices = (0,1,2,3,4,5)
 			closed = 1
 		}
 		secondCurve as SFBasisSpline2Data{
-			vertices = (3,4,5,0)
+			vertices = (6,7,0)
 		}
+	}
+	texCoordFunction as SFSimpleTexCoordGeometryuvData{
+		du = 6.0
+        dv = 6.0
+	}
+}	
+
+StoneSurface2 as SFSurfaceData{
+	valuesData = SFVertexListDataUnit8{
+		vertices = (0.6,0.2,0.0) (0.5,0.4,0.0) (0.1,0.5,0.0) (0.2,0.0,0.0) (0.2,0.4,+0.02) (0.5,0.2,+0.02)
+	}
+	surfaceFunction as SFRadialSurfaceFunctionData{
+		firstCurve as SFBasisSpline2Data{
+			vertices = (0,1,2,3)
+			closed = 1
+		}
+		secondCurve as SFBasisSpline2Data{
+			vertices = (4,5,0)
+		}
+	}
+	texCoordFunction as SFSimpleTexCoordGeometryuvData{
+		du = 6.0
+        dv = 6.0
 	}
 }
 
+StoneSurface3 as SFSurfaceData{
+	valuesData = SFVertexListDataUnit8{
+		vertices = (0.3,0.4,0.0) (0.2,0.5,0.0) (0.0,0.4,0.0) (0.1,0.0,0.0) (0.4,0.0,0.0) (0.5,0.2,0.0) (0.4,0.3,0.0)    
+					(0.2,0.2,0.08)(0.2,0.1,0.08)(0.2,0.0,0.0)
+	}
+	surfaceFunction as SFRadialSurfaceFunctionData{
+		firstCurve as SFBasisSpline2Data{
+			vertices = (0,1,2,3,4,5,6)
+			closed = 1
+		}
+		secondCurve as SFBasisSpline2Data{
+			vertices = (7,8,9)
+		}
+	}
+	texCoordFunction as SFSimpleTexCoordGeometryuvData{
+		du = 6.0
+        dv = 6.0
+	}
+}
+
+StoneSurface4 as SFSurfaceData{
+	valuesData = SFVertexListDataUnit8{
+		vertices = (0.0,0.0,0.0) (0.5,0.0,0.0) (0.6,0.3,0.0) (0.3,0.35,0.0) (0.0,0.5,0.0)
+					(0.45,0.15,0.08)(0.1,0.1,0.08)(0.05,0.05,0.0)
+	}
+	surfaceFunction as SFRadialSurfaceFunctionData{
+		firstCurve as SFBasisSpline2Data{
+			vertices = (0,1,2,3,4)
+			closed = 1
+		}
+		secondCurve as SFBasisSpline2Data{
+			vertices = (5,6,7)
+		}
+	}
+	texCoordFunction as SFSimpleTexCoordGeometryuvData{
+		du = 6.0
+        dv = 6.0
+	}
+}
 			
 Stone01 as SFObjectModelData{
 	transform = SFTranslateAndScaleFixed16Data{
@@ -48,33 +111,60 @@ Stone01 as SFObjectModelData{
 	transformComponent as SFProgramAssetData{
 		program = BasicPNTx0Transform
 	}
-	materialComponent as SFProgramAssetData{
+	materialComponent = SFProgramAssetData{
 		program = Turbulence
-		structures =  (400)(1)(0.6)(1,1,1)(0.95,0.95,0.95)
+		structures = (64)(1)(0.6)(0.93,0.93,0.93)(1,1,1)
 		textures = BitmapTexture01
 	}
 }	
 
+Stone02 as Stone01{
+	geometry = SFQuadsSurfaceGeometryData{
+		NuNv = (6,6)
+		primitive = Triangle2PNTxO
+		surface == StoneSurface2
+	}
+}	
+
+Stone03 as Stone01{
+	geometry = SFQuadsSurfaceGeometryData{
+		NuNv = (6,6)
+		primitive = Triangle2PNTxO
+		surface == StoneSurface3
+	}
+}
+
+Stone04 as Stone01{
+	geometry = SFQuadsSurfaceGeometryData{
+		NuNv = (6,6)
+		primitive = Triangle2PNTxO
+		surface == StoneSurface4
+	}
+}	
+
+
+
 RectangleObjectRepeater as SFArrayTransformRepeaterData{
 	transforms+=SFTranslateAndScaleFixed16Data{
-		x = -0.3 \\ y = 0.4 \\ scale = 0.1
+		x = -0.4 \\ y = 0.45 \\ scale = 0.15
 	}
 	transforms+=SFTranslateAndScaleFixed16Data{
-		x = -0.08 \\ y = 0.13 \\ scale = 0.15
+		x = 0.3 \\ y = -0.2 \\ scale = 0.13
 	}
 	transforms+=SFTranslateAndScaleFixed16Data{
-		x = -0.3 \\ y = 0 \\ scale = 0.2
+		x = -0.23 \\ y = 0.1 \\ scale = 0.18
 	}
 	transforms+=SFTranslateAndScaleFixed16Data{
-		x = -0.3 \\ y = 0.25 \\ scale = 0.09
+		x = -0.1 \\ y = 0.2 \\ scale = 0.13
 	}
+	
 }
 
 
 Renderer00002 as SFRendererData{
 	light as SFProgramAssetData{
 		program = BasicLSPN2
-		structures= (1,1,1)(-0.6,0,-0.7)
+		structures= (0.95,0.95,0.95)(-0.8,+0.7,-1.5)
 		viewSize = 512
 	}
 }
@@ -97,7 +187,7 @@ RenderedTexture0002 as SFRenderingAlgorithmData{
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
 					program = Turbulence
-					structures = (400)(1)(0.6)(1,1,1)(0.95,0.95,0.95)
+					structures = (400)(1)(0.6)(1,1,1)(0.96,0.96,0.96)
 					textures = BitmapTexture01
 				}
 				lightComponent = SFProgramAssetData{
@@ -106,7 +196,7 @@ RenderedTexture0002 as SFRenderingAlgorithmData{
 			}
 			drawables += SFRepeatingDrawableArrayData{
 				renderer == Renderer00002
-				nodes == Stone01
+				nodes == Stone01,Stone02,Stone03,Stone04
 				repeater == RectangleObjectRepeater
 			}
 		}
