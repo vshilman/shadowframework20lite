@@ -21,7 +21,7 @@ TemplateSoilTexture01 as SFTemplateDataAsset {
 		process = SFRenderingProcessData{
 			drawables = SFRenderedTextureStackPushData 
 			drawables += SFStateDrawableData{
-				state = BlendMode2
+				state = MainViewerSetup
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
