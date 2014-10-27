@@ -26,7 +26,7 @@ TemplateSoilTexture01 as SFTemplateDataAsset {
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
 					program = CubicOctaveFilterSoil
-					structures = (400)(1)(0.6)(0.2,1,0)(0.2,1,0)(0)
+					structures = (400)(1)(0.6)(0.3,1,0.25)(0.3,1,0.25)(0)
 					textures = BitmapTexture0001
 				}
 				lightComponent = SFProgramAssetData{
