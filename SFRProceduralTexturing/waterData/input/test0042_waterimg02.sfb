@@ -1,6 +1,6 @@
 BitmapTexture0001 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
-		width = 32 \\ height = 32
+		width = 100 \\ height = 100
 		function as SFFunctionRandomizerData{
 			seed = 3
 		}
@@ -34,16 +34,15 @@ RectangleModel as SFObjectModelData{
 		program = BasicPNTx0DuDvTransform
 	}
 	materialComponent as SFProgramAssetData{
-		program = waterfBm
-		structures = (32)(1)(0.6)(0,0.8,1)
+		program = CubicOctaveFilterCloud
+		structures = (100)(1)(0.6)(0,0.75,1)(0,0.4,1)
 		textures = BitmapTexture0001
 	}
 }
 
 Renderer00002 as SFRendererData{
 	light as SFProgramAssetData{
-		program = BasicLSPN2
-		structures= (1,1,1)(1.5,0,0.11)
+		program = BasicColor
 		viewSize = 512
 	}
 }
