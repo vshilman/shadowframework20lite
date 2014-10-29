@@ -609,11 +609,23 @@ materialComponent FractalCloud(ImageOctave octave,Color sky,Color cloud,Texture 
 
 materialComponent waterfBm(ImageOctave octave,Color water,Texture texture0){
 	
-	float gain = 0.5;
+	float gain = 0.1;
+	float gain1 = 0.45;
+	float gain2 = 1;
+	
 	float H = 0.5;
+
 	float amplitude0 = gain;
 	float amplitude1 = amplitude0*gain;
 	float amplitude2 = amplitude1*gain;
+	float bamplitude0 = gain1;
+	float bamplitude1 = bamplitude0*gain1;
+	float bamplitude2 = bamplitude1*gain1;
+	float camplitude0 = gain2;
+	float camplitude1 = camplitude0*gain2;
+	float camplitude2 = camplitude1*gain2;
+	
+	
 	
 	vec2 multTexCoord = texCoord0*vec2(octave_octave);
 	vec2 uvcoord = floor(vec2(octave_bitmapSize)*multTexCoord);
@@ -781,10 +793,11 @@ materialComponent waterfBm(ImageOctave octave,Color water,Texture texture0){
 	            
 	vec3 perlin2=val3;
 	
-	
 	float value = perlin0.x * amplitude0 + perlin1.x * amplitude1 + perlin2.x * amplitude2;
+	float value2 = perlin0.x * bamplitude0 *2 + perlin1.x * bamplitude1 *2 + perlin2.x * bamplitude2 *2;
+	float value3 = perlin0.x * camplitude0 + perlin1.x * camplitude1 + perlin2.x * camplitude2;
 	
-	vec3 color = water_color;
-	vec3 matnormal = vec3(normal.x,normal.y,normal.z);
+	vec3 color = vec3(water_color);
+	vec3 matnormal = normalize(vec3(value2,value,value3));
 	
 }
