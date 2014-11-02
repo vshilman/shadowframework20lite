@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.6" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <interface id="1" language="java" name="shadow.system.data.SFDataObject" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFDataObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="61" width="194" x="235" y="395"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="2" language="java" name="shadow.system.data.SFNamedParametersObject" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFNamedParametersObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="381" y="212"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="shadow.system.data.SFDataAsset" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFDataAsset.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="657" y="227"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="shadow.system.data.SFDictionary" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFDictionary.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="817" y="331"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="5" language="java" name="shadow.system.data.SFInputStream" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFInputStream.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="89" y="354"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="shadow.system.data.SFWritableDataObject" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFWritableDataObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="403" y="302"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="7" language="java" name="shadow.system.data.SFOutputStream" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFOutputStream.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="80" y="448"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="8" language="java" name="shadow.system.data.SFDataObjectsList" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFDataObjectsList.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="192" y="269"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="shadow.system.data.SFDataCenter" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFDataCenter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="878" y="206"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="shadow.system.data.SFLibraryReferenceList" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFLibraryReferenceList.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="844" y="523"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="shadow.system.data.SFStaticParametersObject" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFStaticParametersObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="226" y="98"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="shadow.system.data.SFTemplateDataAsset" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFTemplateDataAsset.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="611" y="132"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="shadow.system.data.SFDataAssetList" project="SFDataApplication" 
+    file="/SFDataApplication/src/shadow/system/data/SFDataAssetList.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="595" y="356"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <association id="14">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="15" name="parametersObject"/>      
+      <multiplicity id="16" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="17">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="19">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="20">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="21" name="dataCenter"/>      
+      <multiplicity id="22" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="23">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="24" name="object"/>      
+      <multiplicity id="25" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="27">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <association id="28">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="29" name="dictionary"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="31">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="32">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <association id="33">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="34" name="type"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
