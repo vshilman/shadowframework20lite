@@ -1,0 +1,26 @@
+TestDataAsset01 as DataAsset001{
+	amount = 1
+	mark = Michelin
+}
+
+
+TestDataAsset02 as SFTemplateDataAsset{
+	asset = DataAsset001{
+		amount = $value:154
+		mark = $name:Bridgestone
+	}
+}
+
+TestDataAsset03 as TestDataAsset02{
+	parameters ={
+		value = 78
+	}
+}
+
+TestDataAsset04 as TestDataAsset02{
+	parameters ={
+		name = KGB
+	}
+}
+
+

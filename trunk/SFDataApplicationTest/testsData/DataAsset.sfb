@@ -1,0 +1,49 @@
+TestDataAsset01 as DataAssetTest004{
+	T1 = DataAssetTest001{
+		amount = 4
+		mark = Hello
+	}
+	T2 = DataAssetTest003{
+		dimension = 18
+		type = Normal
+	}
+}
+
+TestDataAsset02 as SFTemplateDataAsset {
+	asset = DataAssetTest004{
+		T1 = TestDataAsset{
+			amount = $value:4
+			mark = $name:Michelin
+		}
+		T2 = TestDataAsset2{
+			dimension = 18.7
+			type = $name2:Sport
+		}
+	}
+}
+
+TestDataAsset03 as TestDataAsset02{
+	parameters = {
+		value = 10
+		name = Koneigh
+		name2 = HighQuality
+	}
+}
+
+TestDataAsset04 as TestDataAsset03{
+	parameters = {
+		value = 77
+	}
+}
+
+TestDataAsset05 as TestDataAsset04{
+	parameters = {
+		name = Winchester
+	}
+}
+
+TestDataAsset06 as TestDataAsset05{
+	parameters = {
+		name2 = Summer
+	}
+}

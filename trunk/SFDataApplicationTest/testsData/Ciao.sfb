@@ -1,0 +1,27 @@
+
+TestDataAsset01 as SFDataAssetBuilder{
+	type = Normal
+	mark = Bridge
+	amount = 8
+	dimension = 17.7
+}
+
+TestDataAsset02 as SFTemplateDataAsset{
+	asset = SFDataAssetBuilder{
+		type = $name:Sport
+		mark = $name1:Michelin
+		amount = $value:100
+		dimension = $value1:11.1
+	}
+}
+TestDataAsset03 as TestDataAsset02{
+	parameters ={
+		value = 21
+		value1 = 7.7
+	}
+}
+
+
+
+
+
