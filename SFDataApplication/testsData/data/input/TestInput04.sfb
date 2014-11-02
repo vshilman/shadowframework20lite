@@ -1,0 +1,13 @@
+
+TestDataAsset01 as SFTemplateDataAsset{
+	asset = TestDataAsset{
+		number = $value:23
+		string = $name:TwentyOne
+	}
+}
+
+TestDataAsset02 as TestDataAsset01{
+	parameters ={
+		value = 21
+	}
+}

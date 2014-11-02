@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SFData Application</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit_message2">Enter tire mark</string>
+    <string name="edit_message1">Enter tire dimension</string>
+    <string name="edit_message3">Enter tire amount</string>
+    <string name="edit_message4">Enter tire type</string>
+    <string name="button_send">Confirm</string>
+    <string name="advertisement1">Full all fields</string>
+    <string name="advertisement2">Data saved</string>
+    <string name="title_activity_display_data">DisplayDataActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="fileName">Insert file name</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="newOrder">Read an existing order</string>
+    <string name="title_activity_display_order">DisplayOrderActivity</string>
+    <string name="selectOrder">Select an Order</string>
+    <string name="advertisement3">Full just the first field</string>
+    <string name="readSFB">Read an SFB file</string>
+    <string name="title_activity_sfborder">SFBOrderActivity</string>
+
+</resources>

@@ -1,0 +1,53 @@
+
+
+TestDataAsset01 as TestDataAsset{
+	number = 1
+	string = Hello
+}
+
+
+TestDataAsset02 as SFTemplateDataAsset{
+	asset = TestDataAsset{
+		number = $value:23
+		string = $name:TwentyOne
+	}
+}
+
+TestDataAsset03 as TestDataAsset02{
+	parameters ={
+		value = 21
+	}
+}
+
+TestDataAsset04 as TestDataAsset02{
+	parameters ={
+		name = TwentyThree
+	}
+}
+
+TestDataAsset05 as TestDataAsset02{
+	parameters ={
+		value = 8
+		name = Height
+	}
+}
+
+TestDataAsset06 as TestDataAsset02{
+	parameters ={
+		value = 5
+		name = Five
+	}
+}
+
+TestDataAsset07 as TestDataAsset06{
+	parameters ={
+		value = 10
+		name = Two Times Five
+	}
+}
+
+TestDataAsset08 as TestDataAsset07{
+	parameters ={
+		name = Ten
+	}
+}

@@ -1,0 +1,54 @@
+
+TestDataAsset01 as TestDataAsset3{
+	T1 = TestDataAsset{
+		number = 1
+		string = Hello
+	}
+	T2 = TestDataAsset2{
+		number = 1
+		string = Hello
+		boolean = false
+		float = 1.0
+	}
+}
+
+TestDataAsset02 as SFTemplateDataAsset {
+	asset = TestDataAsset3{
+		T1 = TestDataAsset{
+			number = $value:1
+			string = Hello
+		}
+		T2 = TestDataAsset2{
+			number = 1
+			string = $name:Paul
+			boolean = $activated:true
+			float = 1.0
+		}
+	}
+}
+
+TestDataAsset03 as TestDataAsset02{
+	parameters = {
+		value = 10
+		name = Salve
+		activated = false
+	}
+}
+
+TestDataAsset04 as TestDataAsset03{
+	parameters = {
+		value = 11
+	}
+}
+
+TestDataAsset05 as TestDataAsset04{
+	parameters = {
+		value = 15
+	}
+}
+
+TestDataAsset06 as TestDataAsset05{
+	parameters = {
+		activated = true
+	}
+}
