@@ -1,0 +1,33 @@
+
+
+TestDataAsset01 as SFDataAssetBuilder{
+	type = Normal
+	mark = Bridge
+	amount = 8
+	dimension = 17.7
+}
+
+
+TestDataAsset02 as TestDataAsset01{
+	parameters ={
+		amount = 100
+		type =Winter
+	}
+}
+
+TestDataAsset03 as TestDataAsset02{
+	parameters ={
+		amount = 1
+	}
+}
+
+TestDataAsset04 as TestDataAsset02{
+	parameters ={
+		type = Sport
+	}
+}
+
+
+
+
+
