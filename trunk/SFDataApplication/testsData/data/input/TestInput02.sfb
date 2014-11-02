@@ -1,0 +1,58 @@
+
+TestDataAsset01 as TestDataAsset2{
+	number = 1
+	string = Hello
+	boolean = false
+	float = 1.0
+}
+
+TestDataAsset02 as SFTemplateDataAsset{
+	asset = TestDataAsset2{
+		number = 1
+		string = By
+		boolean = $execute:true
+		float = $paramValue:4.0
+	}
+}
+
+TestDataAsset03 as TestDataAsset02{
+	parameters ={
+		execute = false
+	}
+}
+
+TestDataAsset04 as TestDataAsset02{
+	parameters ={
+		execute = false
+		paramValue = 0.0
+	}
+}
+
+TestDataAsset05 as SFTemplateDataAsset{
+	asset = TestDataAsset2{
+		number = $count:1
+		string = $title:Hello
+		boolean = $execute:true
+		float = $paramValue:4.0
+	}
+}
+
+TestDataAsset06 as TestDataAsset05{
+	parameters ={
+		count = 2
+		title = TwoTimes
+	}
+}
+
+TestDataAsset07 as TestDataAsset06{
+	parameters ={
+		paramValue = 8.0
+	}
+}
+
+TestDataAsset08 as TestDataAsset06{
+	parameters ={
+		paramValue = 8.0
+		execute = false
+	}
+}
