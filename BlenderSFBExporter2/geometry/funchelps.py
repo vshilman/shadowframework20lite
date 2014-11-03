@@ -4,6 +4,9 @@ from itertools import chain, dropwhile, tee
 from decimal import Decimal, getcontext
 from math import sqrt
 
+def stringify_list(l):
+    return list.__str__(l).replace('[','(').replace(']',')').replace(' ', '')
+
 def is_scalar(n):
     return isinstance(n, (int, float, complex))
 
