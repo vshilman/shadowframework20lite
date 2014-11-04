@@ -17,6 +17,21 @@ def fit_bezier_curve(points, bezier_func):
 
     return list(zip(xs, ys, zs))
 
+def split_list(l, n):
+    '''Split the list l into chunks with a size of maximum n. The first element
+    of the list n equals the last of the list'''
+    for i in range(0, len(l), n):
+        start = max(0, i-1)
+        end = i+n
+        yield l[start:end]
+
+def fit_bezier_spline(points, bezier_func, n):
+    '''Fit the current points with a spline made by the following bezier function.
+    n representes the number of bezier function to be used.'''
+    chunks = split_list(points, len(points) // n)
+    return (fit_bezier_curve(chunk, bezier_func) for chunk in chunks)
+    
+
 def _fit_bezier_patch_funcs(points, bezier_funcs, p0=None):
     """Fit bezier patch. Assumes x y z functions are different"""
     #TODO Maybe there is a better way but at the moment we stick with this.

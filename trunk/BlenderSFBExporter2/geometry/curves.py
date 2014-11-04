@@ -15,7 +15,7 @@ class BaseCurve(list):
     def __repr__(self):
         return 'BaseCurve(func=%s, verts=(%s))' % (self.func.__name__, ','.join(self))
 
-class Spline(list):
+class SuperCurve(list):
     '''This class represents a collection of curves. It might be etherogeneus
     but the curves have to implement a curve method.'''
     def __init__(self, curves):

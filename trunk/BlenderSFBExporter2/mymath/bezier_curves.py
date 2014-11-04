@@ -10,6 +10,7 @@ def bezier_curve_2(t, A, AB, B):
 def bezier_curve_3(t, A, B, C, D):
     return (1-t)**3 * A + 3*(1-t)**2 * t * B + 3*(1-t)*t**2 * C + t**3 * D
 
+
 # Compile functions ###########################################################
 
 def compile_bezier_curve_1(A, B):
