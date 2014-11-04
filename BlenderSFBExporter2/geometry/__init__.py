@@ -1,7 +1,7 @@
 from base import Vertex
 
 from curves import BaseCurve
-from curves import Spline
+from curves import SuperCurve 
 from curves import SubCurve
 
 from samplers import sample_curve_samples
