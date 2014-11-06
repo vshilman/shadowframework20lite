@@ -1,0 +1,1 @@
+blender --background spherical_cube4.blend --python tests.py
