@@ -1,4 +1,4 @@
-from utils import lint
+from .utils import lint
 
 """
 This class contains representations of curves.
