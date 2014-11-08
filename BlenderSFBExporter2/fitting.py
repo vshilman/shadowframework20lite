@@ -4,7 +4,7 @@ from math import sqrt
 
 def fit_bezier_curve(points, bezier_func):
     '''Fit the selected points with '''
-    ts = np.linspace(0.0, 1.0, len(points) - 1)
+    ts = np.linspace(0.0, 1.0, len(points))
 
     pointsx = np.array([p[0] for p in points])
     pointsy = np.array([p[1] for p in points])

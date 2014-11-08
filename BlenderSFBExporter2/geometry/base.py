@@ -22,7 +22,7 @@ class Vertex(np.ndarray):
         assert(len(vals) == 3), "Vertex object requires exactly three parameters."
         return np.array(vals).view(cls)
     def __eq__(self, other):
-        return all(self.view(np.ndarray) == other.view(np.ndarray))
+        return np.allclose(self, other)
     def __str__(self): 
         return "(%s)" % ','.join(str(x) for x in self)
     def __round__(self, ndigits = 0): 
