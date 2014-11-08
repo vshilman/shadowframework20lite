@@ -6,8 +6,13 @@ blend_dir = os.path.dirname(bpy.data.filepath)
 if blend_dir not in sys.path:
     sys.path.append(blend_dir)
 
+import numpy as np
 import unittest
 import geometry as geom
+
+#This variable allow tests which are not automatic are printed to stdout.
+HUMAN_READABLE_TESTS = True
+DELIMETER = "=" * 80
 
 def runTests(obj):
     '''Run all the methods that start with test in the object'''
@@ -20,14 +25,83 @@ class BaseGeometryTest(unittest.TestCase):
     def test_vert(self):
         vert1 = geom.Vertex((2.0, 3.0, -3.0))
         vert2 = geom.Vertex((2.0, 3.0, 3.0))
-        self.assertFalse(vert1 == vert2)
-        self.assertTrue((vert1 + vert2) == geom.Vertex((4.0, 6.0, 0.0)))
-        self.assertFalse(2 * vert1 == vert1 * 3)
-        self.assertTrue(vert2 == abs(vert1))
-        self.assertTrue(abs(vert1) == abs(vert2))
-
-runTests(BaseGeometryTest())
+        self.assertFalse(np.allclose(vert1, vert2))
+        self.assertTrue(np.allclose((vert1 + vert2), geom.Vertex((4.0, 6.0, 0.0))))
+        self.assertFalse(np.allclose(2 * vert1, vert1 * 3))
+        self.assertTrue(np.allclose(vert2,abs(vert1)))
+        self.assertTrue(np.allclose(abs(vert1), abs(vert2)))
         
+runTests(BaseGeometryTest())
+
+import mymath as mmath
+
+class MyMathCurvesTests(unittest.TestCase):
+    def test_interpolating_curves(self):
+        '''We should check that interpolating curves are really interpolating'''
+        A = geom.Vertex((0.0, 0.0, 0.0))
+        B = geom.Vertex((0.0, 1.0, 0.0))
+        C = geom.Vertex((1.0, 1.0, 0.0))
+        c = mmath.interp_bezier_curve_2
+        
+        self.assertTrue(np.allclose(c(0.0, A, B, C), A))
+        self.assertTrue(np.allclose(c(0.5, A, B, C), B))
+        self.assertTrue(np.allclose(c(1.0, A, B, C), C))
+        
+        A = geom.Vertex((0.0, 0.0, 0.0))
+        B = geom.Vertex((0.5, 2.0, 0.0))
+        C = geom.Vertex((1.0, 2.0, 1.0))
+        D = geom.Vertex((0.0, 0.0, 1.0))
+        c = mmath.interp_bezier_curve_3
+        
+        self.assertTrue(np.allclose(c(0.0, A, B, C, D), A))
+        self.assertTrue(np.allclose(c(1/3, A, B, C, D), B))
+        self.assertTrue(np.allclose(c(2/3, A, B, C, D), C))
+        self.assertTrue(np.allclose(c(1.0, A, B, C, D), D))
+
+runTests(MyMathCurvesTests())
+
+import fitting as fit
+
+class SimpleFittingTests(unittest.TestCase):
+    def test_curve2_fitting(self):
+        A = geom.Vertex((0.0, 0.0, 0.0))
+        B = geom.Vertex((0.5, 2.0, 0.0))
+        C = geom.Vertex((1.0, 2.0, 1.0))
+        curve = geom.BaseCurve((A, B, C), mmath.bezier_curve_2)
+        
+        points = list(geom.sample_curve_samples(curve, 20))
+        vals = fit.fit_bezier_curve(points, mmath.bezier_curve_2)
+        
+        self.assertTrue(np.allclose(np.array(vals), np.array([A,B,C])))
+        
+        if HUMAN_READABLE_TESTS:
+            print(DELIMETER)
+            print(vals)
+            print([A, B, C])
+            print(DELIMETER)
+    
+    def test_curve3_fitting(self):
+        A = geom.Vertex((0.0, 0.0, 0.0))
+        B = geom.Vertex((0.5, 2.0, 0.0))
+        C = geom.Vertex((1.0, 2.0, 1.0))
+        D = geom.Vertex((3.0, 3.0, 3.0))
+        curve = geom.BaseCurve((A, B, C, D), mmath.bezier_curve_3)
+        
+        points = list(geom.sample_curve_samples(curve, 50))
+        vals = fit.fit_bezier_curve(points, mmath.bezier_curve_3)
+        
+        self.assertTrue(np.allclose(np.array(vals), np.array([A,B,C,D])))
+        
+        if HUMAN_READABLE_TESTS:
+            print(DELIMETER)
+            print(vals)
+            print([A, B, C, D])
+            print(DELIMETER)
+
+runTests(SimpleFittingTests())
+
+print("All tests passed")
+
 #unittest.main()
 
 #class TestFunctionHelps(unittest.TestCase):
