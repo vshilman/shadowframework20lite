@@ -13,7 +13,7 @@ public class SFIntTest001 extends TestCase{
 		
 		NativeLib nativeLib = new NativeLib();
 		System.out.println(nativeLib.getData());
-		assertEquals(10, nativeLib.getData());
+		assertEquals(-15, nativeLib.getData());
 		
 	}
 
