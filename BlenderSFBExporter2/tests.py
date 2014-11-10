@@ -70,10 +70,10 @@ class SimpleFittingTests(unittest.TestCase):
         A = geom.Vertex((0.0, 0.0, 0.0))
         B = geom.Vertex((0.5, 2.0, 0.0))
         C = geom.Vertex((1.0, 2.0, 1.0))
-        curve = geom.BaseCurve((A, B, C), mmath.bezier_curve_2)
+        curve = geom.BaseCurve((A, B, C), mmath.interp_bezier_curve_2)
         
-        points = list(geom.sample_curve_samples(curve, 20))
-        vals = fit.fit_bezier_curve(points, mmath.bezier_curve_2)
+        points = list(geom.sample_curve_samples(curve, 100))
+        vals = fit.fit_bezier_curve(points, mmath.interp_bezier_curve_2)
         
         self.assertTrue(np.allclose(np.array(vals), np.array([A,B,C])))
         
@@ -120,10 +120,41 @@ class SimpleFittingTests(unittest.TestCase):
         spline_xs = [p.x for p in spline_points]
         spline_ys = [p.y for p in spline_points]
         
-        plt.plot(spline_xs, spline_ys)
+        # Print the graph
+        #plt.plot(spline_xs, spline_ys)
+        #plt.show()
+    
+    def test_spline_fitting(self):
+        # Test a real spline interpolation
+        xs = np.linspace(0.0, 2 * math.pi, 100)
+        ys = np.array([math.sin(x) for x in xs])
+        points = [geom.Vertex((xs[i], ys[i], 0.0)) for i in range(len(xs))]
+        
+        cpoints_chunks = fit.fit_bezier_spline(points, mmath.interp_bezier_curve_2, 2)
+        curves = []
+        cpoints = []
+        for chunk in cpoints_chunks:
+            cpoints += chunk
+            verts = map(lambda x: geom.Vertex(x), chunk)
+            curves += [geom.BaseCurve(list(verts), mmath.interp_bezier_curve_2)]
+        curve = geom.SuperCurve(curves)
+        
+        # Compute the current spline
+        spline_ts = np.linspace(0.0, 1.0, 100)
+        spline_points = [curve.t(t) for t in spline_ts]
+        spline_xs = [p.x for p in spline_points]
+        spline_ys = [p.y for p in spline_points]
+        
+        # Compute the control points
+        cpointsx = [cp[0] for cp in cpoints]
+        cpointsy = [cp[1] for cp in cpoints]
+        
+        # Actually plot the graph
+        plt.plot(spline_xs, spline_ys) # Approximate function
+        plt.plot(xs, ys) # Original function
+        plt.plot(cpointsx, cpointsy, "o")
         plt.show()
         
-        # Test the two function
 
 runTests(SimpleFittingTests())
 

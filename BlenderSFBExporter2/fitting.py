@@ -1,22 +1,45 @@
 import numpy as np
 import scipy.optimize as opt
 from math import sqrt
+import inspect
 
-def fit_bezier_curve(points, bezier_func):
-    '''Fit the selected points with '''
+def __get_number_arguments(f):
+    args, varargs, varkw, defaults = inspect.getargspec(f)
+    if len(args) < 2:
+        msg = "Unable to determine number of fit parameters."
+        raise ValueError(msg)
+    if 'self' in args:
+        return (len(args)-2)
+    else:
+        return (len(args)-1)
+
+def __fit_bezier_curve_funcs(points, bezier_funcs, p0s=[None,None,None]):
+    '''This functions fits the points with one function for each dimension.
+    it is not exported to be used.'''
     ts = np.linspace(0.0, 1.0, len(points))
 
     pointsx = np.array([p[0] for p in points])
     pointsy = np.array([p[1] for p in points])
     pointsz = np.array([p[2] for p in points])
 
+    error_msgs = [None] * 3
+
     ##Actual fitting
-    xs, box = opt.curve_fit(bezier_func, ts, pointsx)
-    ys, boy = opt.curve_fit(bezier_func, ts, pointsy)
-    zs, boz = opt.curve_fit(bezier_func, ts, pointsz)
+    xs, box, infodict, error_msgs[0], ier = opt.curve_fit(bezier_funcs[0], ts, pointsx, p0s[0], full_output = True)
+    ys, boy, infodict, error_msgs[1], ier = opt.curve_fit(bezier_funcs[1], ts, pointsy, p0s[1], full_output = True)
+    zs, boz, infodict, error_msgs[2], ier = opt.curve_fit(bezier_funcs[2], ts, pointsz, p0s[2], full_output = True)
+
+    # Error checking
+    for e in error_msgs:
+        if e:
+            print(e)
 
     return list(zip(xs, ys, zs))
 
+def fit_bezier_curve(points, bezier_func, p0=None):
+    '''Fit the selected points with given bezier function.'''
+    return __fit_bezier_curve_funcs(points, [bezier_func] * 3, [p0, p0, p0])
+    
 def split_list(l, n):
     '''Split the list l into chunks with a size of maximum n. The first element
     of the list n equals the last of the list'''
@@ -28,11 +51,26 @@ def split_list(l, n):
 def fit_bezier_spline(points, bezier_func, n):
     '''Fit the current points with a spline made by the following bezier function.
     n representes the number of bezier function to be used.'''
-    chunks = split_list(points, len(points) // n)
-    return (fit_bezier_curve(chunk, bezier_func) for chunk in chunks)
+    
+    n_params = __get_number_arguments(bezier_func) - 2
+    chunks = list(split_list(points, len(points) // n))
+            
+    cpoints = []
+    for chunk in chunks:
+        # We force the passage from the first and last point to grant continuity.
+        first_knot = tuple(chunk[0])
+        last_knot  = tuple(chunk[-1])
+        shadow_functions = [lambda t, *params: bezier_func(t, *((first_knot[0],) + params + (last_knot[0],))),
+                            lambda t, *params: bezier_func(t, *((first_knot[1],) + params + (last_knot[1],))),
+                            lambda t, *params: bezier_func(t, *((first_knot[2],) + params + (last_knot[2],)))]
+        
+        estimated_cpoints = __fit_bezier_curve_funcs(chunk, shadow_functions, [[1.0] * n_params, [1.0] * n_params, [1.0] * n_params])
+        cpoints += [[first_knot] + estimated_cpoints + [last_knot]]
+    
+    return cpoints
     
 
-def _fit_bezier_patch_funcs(points, bezier_funcs, p0=None):
+def __fit_bezier_patch_funcs(points, bezier_funcs, p0=None):
     """Fit bezier patch. Assumes x y z functions are different"""
     #TODO Maybe there is a better way but at the moment we stick with this.
     us = np.linspace(0.0, 1.0, sqrt(len(points)))
@@ -56,4 +94,4 @@ def _fit_bezier_patch_funcs(points, bezier_funcs, p0=None):
 
 def fit_bezier_patch(points, bezier_func, p0=None):
     '''Fit the following points with the following function. p0 allows definition of inital values'''
-    return _fit_bezier_patch_funcs(points, [bezier_func, bezier_func, bezier_func], p0)
+    return __fit_bezier_patch_funcs(points, [bezier_func, bezier_func, bezier_func], p0)
