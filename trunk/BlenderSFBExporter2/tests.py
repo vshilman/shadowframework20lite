@@ -6,12 +6,13 @@ blend_dir = os.path.dirname(bpy.data.filepath)
 if blend_dir not in sys.path:
     sys.path.append(blend_dir)
 
+import math
 import numpy as np
 import unittest
 import geometry as geom
 
 #This variable allow tests which are not automatic are printed to stdout.
-HUMAN_READABLE_TESTS = True
+HUMAN_READABLE_TESTS = False
 DELIMETER = "=" * 80
 
 def runTests(obj):
@@ -61,6 +62,8 @@ class MyMathCurvesTests(unittest.TestCase):
 runTests(MyMathCurvesTests())
 
 import fitting as fit
+import funchelps as ut
+import matplotlib.pyplot as plt
 
 class SimpleFittingTests(unittest.TestCase):
     def test_curve2_fitting(self):
@@ -97,6 +100,30 @@ class SimpleFittingTests(unittest.TestCase):
             print(vals)
             print([A, B, C, D])
             print(DELIMETER)
+    
+    def test_very_simple_spline_fitting(self):
+        # Manually construct a sort of sine wave using bezier curves
+        sin = lambda x: math.sin(x)
+        
+        xs = np.linspace(0.0, 2 * math.pi, 5)
+        ys = np.array([math.sin(x) for x in xs])
+        cpoints = [geom.Vertex((xs[i], ys[i], 0.0)) for i in range(len(xs))]
+        
+        # We need to repeat the control points to have a spline
+        cpoints_chunks = ut.splinify_list(cpoints, 3)
+        curves = [geom.BaseCurve(ps, mmath.interp_bezier_curve_2) for ps in cpoints_chunks]
+        curve = geom.SuperCurve(curves)
+        
+        # Plot the current spline
+        spline_ts = np.linspace(0.0, 1.0, 100)
+        spline_points = [curve.t(t) for t in spline_ts]
+        spline_xs = [p.x for p in spline_points]
+        spline_ys = [p.y for p in spline_points]
+        
+        plt.plot(spline_xs, spline_ys)
+        plt.show()
+        
+        # Test the two function
 
 runTests(SimpleFittingTests())
 
