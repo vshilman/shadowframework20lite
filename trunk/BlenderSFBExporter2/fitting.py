@@ -3,6 +3,8 @@ import scipy.optimize as opt
 from math import sqrt
 import inspect
 
+VERBOSE = False
+
 def __get_number_arguments(f):
     args, varargs, varkw, defaults = inspect.getargspec(f)
     if len(args) < 2:
@@ -30,9 +32,10 @@ def __fit_bezier_curve_funcs(points, bezier_funcs, p0s=[None,None,None]):
     zs, boz, infodict, error_msgs[2], ier = opt.curve_fit(bezier_funcs[2], ts, pointsz, p0s[2], full_output = True)
 
     # Error checking
-    for e in error_msgs:
-        if e:
-            print(e)
+    if VERBOSE:
+        for e in error_msgs:
+            if e:
+                print(e)
 
     return list(zip(xs, ys, zs))
 
@@ -63,7 +66,6 @@ def fit_bezier_spline(points, bezier_func, n):
         shadow_functions = [lambda t, *params: bezier_func(t, *((first_knot[0],) + params + (last_knot[0],))),
                             lambda t, *params: bezier_func(t, *((first_knot[1],) + params + (last_knot[1],))),
                             lambda t, *params: bezier_func(t, *((first_knot[2],) + params + (last_knot[2],)))]
-        
         estimated_cpoints = __fit_bezier_curve_funcs(chunk, shadow_functions, [[1.0] * n_params, [1.0] * n_params, [1.0] * n_params])
         cpoints += [[first_knot] + estimated_cpoints + [last_knot]]
     

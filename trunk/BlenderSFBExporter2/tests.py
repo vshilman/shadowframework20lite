@@ -13,12 +13,14 @@ import geometry as geom
 
 #This variable allow tests which are not automatic are printed to stdout.
 HUMAN_READABLE_TESTS = False
+DRAW_GRAPHS = True
 DELIMETER = "=" * 80
 
 def runTests(obj):
     '''Run all the methods that start with test in the object'''
     methods = filter(lambda x: x[0:4] == "test", dir(obj))
     for method in methods:
+        print("Testing method %s" % method)
         getattr(obj, method)()
 
 
@@ -63,7 +65,11 @@ runTests(MyMathCurvesTests())
 
 import fitting as fit
 import funchelps as ut
+
+# Matplotlib imports
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 class SimpleFittingTests(unittest.TestCase):
     def test_curve2_fitting(self):
@@ -121,8 +127,9 @@ class SimpleFittingTests(unittest.TestCase):
         spline_ys = [p.y for p in spline_points]
         
         # Print the graph
-        #plt.plot(spline_xs, spline_ys)
-        #plt.show()
+        if DRAW_GRAPHS:
+            plt.plot(spline_xs, spline_ys)
+            plt.show()
     
     def test_spline_fitting(self):
         # Test a real spline interpolation
@@ -150,10 +157,53 @@ class SimpleFittingTests(unittest.TestCase):
         cpointsy = [cp[1] for cp in cpoints]
         
         # Actually plot the graph
-        plt.plot(spline_xs, spline_ys) # Approximate function
-        plt.plot(xs, ys) # Original function
-        plt.plot(cpointsx, cpointsy, "o")
-        plt.show()
+        if DRAW_GRAPHS:
+            plt.plot(spline_xs, spline_ys) # Approximate function
+            plt.plot(xs, ys) # Original function
+            plt.plot(cpointsx, cpointsy, "o")
+            plt.show()
+    
+    def test_spline_fitting_3d(self):
+        '''Fit a complex 3d curve with a bezier spline of degree three (5 curves).'''
+        # Generate a cool 3d curve
+        theta = np.linspace(-4 * np.pi, 4 * np.pi, 100)
+        zs = np.linspace(-2, 2, 100)
+        r = zs**2 + 1
+        xs = r * np.sin(theta)
+        ys = r * np.cos(theta)
+        
+        # Fit the data
+        points = list(zip(xs, ys, zs))
+        cpoints_chunks = fit.fit_bezier_spline(points, mmath.bezier_curve_3, 5)
+        curves = []
+        cpoints = []
+        for chunk in cpoints_chunks:
+            cpoints += chunk
+            verts = map(lambda x: geom.Vertex(x), chunk)
+            curves += [geom.BaseCurve(list(verts), mmath.bezier_curve_3)]
+        curve = geom.SuperCurve(curves)
+        
+        # Compute the current spline
+        spline_ts = np.linspace(0.0, 1.0, 100)
+        spline_points = [curve.t(t) for t in spline_ts]
+        spline_xs = [p.x for p in spline_points]
+        spline_ys = [p.y for p in spline_points]
+        spline_zs = [p.z for p in spline_points]
+        
+        # Compute the current control points
+        cpointsx = [cp[0] for cp in cpoints]
+        cpointsy = [cp[1] for cp in cpoints]
+        cpointsz = [cp[2] for cp in cpoints]
+        
+        # Draw the graph
+        if DRAW_GRAPHS:
+            fig = plt.figure()
+            ax = fig.gca(projection='3d')
+            ax.plot(xs, ys, zs, label='parametric curve')
+            ax.plot(spline_xs, spline_ys, spline_zs, label='Fitted spline')
+            ax.plot(cpointsx, cpointsy, cpointsz, "o", label="Control points")
+            plt.legend()
+            plt.show()
         
 
 runTests(SimpleFittingTests())
