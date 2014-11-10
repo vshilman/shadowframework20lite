@@ -74,5 +74,15 @@ def sort_curves(cs, last=None):
     cs.remove(curve)
     return [curve] + sort_curves(cs, curve)
 
+def splinify_list(l, n):
+    if len(l) <= n: return [list(l)]
+    return [l[0:n]] + splinify_list(l[n-1:], n)
+
+def split_list_chunks(l, n):
+    """ Yield successive n-sized chunks from l.
+    """
+    for i in range(0, len(l), n):
+        yield l[i:i+n]
+
 def isqrt(val):
     return int(sqrt(val))

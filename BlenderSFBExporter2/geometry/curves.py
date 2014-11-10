@@ -22,7 +22,8 @@ class SuperCurve(list):
         self.curves = curves
     def t(self, t_val):
         normt = t_val * len(self.curves)
-        return self.curves[normt // 1].t(normt % 1)
+        curve_index = min(int(normt), len(self.curves) - 1)
+        return self.curves[curve_index].t(normt - curve_index)
 
 class SubCurve:
     '''This class represent a subset of a curve starting and ending to different ts.'''

@@ -77,5 +77,13 @@ def sort_curves(cs, last=None):
     cs.remove(curve)
     return [curve] + sort_curves(cs, curve)
 
+def split_list(l, n):
+    '''Split the list l into chunks with a size of maximum n. The first element
+    of the list n equals the last of the list'''
+    for i in range(0, len(l), n):
+        start = max(0, i-1)
+        end = i+n
+        yield l[start:end]
+
 def isqrt(val):
     return int(sqrt(val))
