@@ -13,7 +13,7 @@ import geometry as geom
 
 #This variable allow tests which are not automatic are printed to stdout.
 HUMAN_READABLE_TESTS = False
-DRAW_GRAPHS = True
+DRAW_GRAPHS = False
 DELIMETER = "=" * 80
 
 def runTests(obj):
@@ -69,7 +69,10 @@ import funchelps as ut
 # Matplotlib imports
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+
+# Matplotlib 3d drawings
 from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 class SimpleFittingTests(unittest.TestCase):
     def test_curve2_fitting(self):
@@ -204,7 +207,31 @@ class SimpleFittingTests(unittest.TestCase):
             ax.plot(cpointsx, cpointsy, cpointsz, "o", label="Control points")
             plt.legend()
             plt.show()
+    
+    def test_3d_quad_plot_almost_cube(self):
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+                 
+        verts = [geom.Vertex((0.0, 0.0, 0.0)),
+                 geom.Vertex((1.0, 0.0, 0.0)),
+                 geom.Vertex((1.0, 1.0, 0.0)),
+                 geom.Vertex((0.0, 1.0, 0.0))]
+        verts2 = [geom.Vertex((0.0, 0.0, 1.0)),
+                 geom.Vertex((1.0, 0.0, 1.0)),
+                 geom.Vertex((1.0, 1.0, 1.0)),
+                 geom.Vertex((0.0, 1.0, 1.0))]
+        verts3 = [geom.Vertex((0.0, 0.0, 0.0)),
+                 geom.Vertex((0.0, 0.0, 1.0)),
+                 geom.Vertex((1.0, 0.0, 1.0)),
+                 geom.Vertex((1.0, 0.0, 0.0))]
+        verts4 = [geom.Vertex((0.0, 1.0, 0.0)),
+                 geom.Vertex((0.0, 1.0, 1.0)),
+                 geom.Vertex((1.0, 1.0, 1.0)),
+                 geom.Vertex((1.0, 1.0, 0.0))]
         
+        #out_verts = [list(zip(x,y,z))]
+        ax.add_collection3d(Poly3DCollection([verts, verts2, verts3, verts4]))
+        plt.show()
 
 runTests(SimpleFittingTests())
 
