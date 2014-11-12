@@ -1,5 +1,3 @@
-
-
 #include "SFInt.h"
 
 

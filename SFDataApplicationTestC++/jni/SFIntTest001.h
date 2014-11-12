@@ -10,9 +10,9 @@ extern "C" {
 /*
  * Class:     dataObjectTests_NativeLib
  * Method:    getData
- * Signature: ()I
+ * Signature: ([I)[I
  */
-JNIEXPORT jint JNICALL Java_dataObjectTests_NativeLib_getData
+JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib_getData
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus
