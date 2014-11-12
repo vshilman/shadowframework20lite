@@ -12,12 +12,12 @@ public class SFIntTest001 extends TestCase{
 	public void testA() {
 		
 		NativeLib nativeLib = new NativeLib();
-		System.out.println(nativeLib.getData());
-		assertEquals(-15, nativeLib.getData());
+		
+		assertEquals(23, nativeLib.getData()[0]);
+		assertEquals(-8, nativeLib.getData()[1]);
+		assertEquals(23, nativeLib.getData()[2]);
 		
 	}
-
-
 }
 
 class NativeLib
@@ -26,5 +26,5 @@ class NativeLib
 	      System.loadLibrary("IntLib"); 
 	   }
 	   
-	public native int getData();
+	public native int[] getData();
 }
