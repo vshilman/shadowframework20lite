@@ -24,3 +24,6 @@ JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib_getData
 
 	 return jResult;
 }
+
+
+
