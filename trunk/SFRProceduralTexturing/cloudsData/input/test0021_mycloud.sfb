@@ -217,7 +217,7 @@ TemplateTextureViewer01 as SFTemplateDataAsset {
 	asset =  SFImageModelData{
 		materialComponent = SFProgramAssetData{
 			program = TexturedMat
-			textures = $texture:TemplateCloudTextureXX
+			textures = $texture:TemplateCloudTexture03
 		}
 		lightComponent = SFProgramAssetData{
 			program = BasicColor
