@@ -23,7 +23,7 @@ public class SFIntTest001 extends TestCase{
 class NativeLib
 {   
 	   {
-	      System.loadLibrary("IntLib"); 
+	      System.loadLibrary("Library"); 
 	   }
 	   
 	public native int[] getData();
