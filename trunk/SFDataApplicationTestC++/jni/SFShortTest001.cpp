@@ -1,13 +1,19 @@
 #include <jni.h>
 #include "shadow/system/data/objects/SFShort.h"
+#include "shadow\system\data\cpp\SFInputStreamCpp.h"
 #include "SFShortTest001.h"
+#include <iostream>
+#include <fstream>
 
 using namespace sf;
 
 JNIEXPORT jshortArray JNICALL Java_dataObjectTests_NativeLib1_getData
-  (JNIEnv* env, jobject object){
+  (JNIEnv* env, jobject object,jstring string){
 
-	short result[3];
+	const char *fileName;
+	fileName = env->GetStringUTFChars(string, 0);
+
+	short result[5];
 	SFShort *pointerShort;
 	SFShort short1(12);
 	SFShort short2(-1);
@@ -17,9 +23,20 @@ JNIEXPORT jshortArray JNICALL Java_dataObjectTests_NativeLib1_getData
 	result[1] = short1.getShortValue();
 	result[2] = pointerShort->getShortValue();
 
-	jshortArray jResult;
-	jResult = env->NewShortArray(3);
-	env->SetShortArrayRegion(jResult, 0, 3, result);
+	ifstream stream;
+	SFInputStreamCpp inputStream(&stream);
+	stream.open(fileName, std::ifstream::in);
+	short value1 = inputStream.readShort();
+	short value2 = inputStream.readShort();
+	stream.close();
+	result[3] = value1;
+	result[4] = value2;
 
-		 return jResult;
+	jshortArray jResult;
+	jResult = env->NewShortArray(5);
+	env->SetShortArrayRegion(jResult, 0, 5, result);
+	env->ReleaseStringUTFChars(string, fileName);
+	env->ReleaseShortArrayElements(jResult, result, 0);
+
+	 return jResult;
 }

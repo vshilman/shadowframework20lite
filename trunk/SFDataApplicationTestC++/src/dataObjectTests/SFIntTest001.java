@@ -2,20 +2,28 @@ package dataObjectTests;
 
 import org.junit.Test;
 
+import android.os.Environment;
 import junit.framework.TestCase;
 
-
-
 public class SFIntTest001 extends TestCase{
+	
+	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFData";
 	
 	@Test
 	public void testA() {
 		
-		NativeLib nativeLib = new NativeLib();
+		String fileName = DIRECTORY+"/"+"SFIntTest001.sf";
 		
-		assertEquals(23, nativeLib.getData()[0]);
-		assertEquals(-8, nativeLib.getData()[1]);
-		assertEquals(23, nativeLib.getData()[2]);
+		NativeLib nativeLib = new NativeLib();
+		int[] result = nativeLib.getData(fileName);
+		
+		assertEquals(23, result[0]);
+		assertEquals(-8, result[1]);
+		assertEquals(23, result[2]);
+		assertEquals(15, result[3]);
+		assertEquals(1, result[4]);
+		//System.out.println(result[3]);
+		//System.out.println(result[4]);
 		
 	}
 }
@@ -26,5 +34,5 @@ class NativeLib
 	      System.loadLibrary("Library"); 
 	   }
 	   
-	public native int[] getData();
+	public native int[] getData(String fileName);
 }
