@@ -156,7 +156,16 @@ obj/local/armeabi/objs/Library/SFIntTest001.o: jni/SFIntTest001.cpp \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_num_get.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_num_get.c \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_string_io.c \
- jni/shadow\system\data\objects\../SFOutputStream.h jni/SFIntTest001.h
+ jni/shadow\system\data\objects\../SFOutputStream.h \
+ jni/shadow\system\data\cpp\SFInputStreamCpp.h \
+ jni/shadow\system\data\cpp\../SFInputStream.h \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/iostream \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
+ jni/SFIntTest001.h \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/fstream \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_fstream.h \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_codecvt.h \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_fstream.c
 
 C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/jni.h:
 
@@ -474,4 +483,20 @@ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_string_io.c:
 
 jni/shadow\system\data\objects\../SFOutputStream.h:
 
+jni/shadow\system\data\cpp\SFInputStreamCpp.h:
+
+jni/shadow\system\data\cpp\../SFInputStream.h:
+
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/iostream:
+
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_ioserr.h:
+
 jni/SFIntTest001.h:
+
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/fstream:
+
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_fstream.h:
+
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_codecvt.h:
+
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_fstream.c:

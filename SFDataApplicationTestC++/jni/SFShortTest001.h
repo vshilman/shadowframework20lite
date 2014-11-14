@@ -13,7 +13,7 @@ extern "C" {
  * Signature: ()[S
  */
 JNIEXPORT jshortArray JNICALL Java_dataObjectTests_NativeLib1_getData
-  (JNIEnv *, jobject);
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

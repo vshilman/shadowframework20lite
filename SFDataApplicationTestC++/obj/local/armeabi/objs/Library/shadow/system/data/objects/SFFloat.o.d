@@ -1,9 +1,11 @@
-obj/local/armeabi/objs/Library/SFShortTest001.o: jni/SFShortTest001.cpp \
- C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/jni.h \
- C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/cdefs.h \
- C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/cdefs_elf.h \
- C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/android/api-level.h \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stdarg.h \
+obj/local/armeabi/objs/Library/shadow/system/data/objects/SFFloat.o: \
+ jni/shadow/system/data/objects/SFFloat.cpp \
+ jni/shadow/system/data/objects/SFFloat.h \
+ jni/shadow/system/data/objects/SFPrimitiveType.h \
+ jni/shadow/system/data/objects/../SFDataObject.h \
+ jni/shadow/system/data/objects/../SFInputStream.h \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/string \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_cprolog.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/features.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_stlport_version.h \
@@ -12,17 +14,12 @@ obj/local/armeabi/objs/Library/SFShortTest001.o: jni/SFShortTest001.cpp \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/host.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/_system.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/_android.h \
+ C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/cdefs.h \
+ C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/cdefs_elf.h \
+ C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/android/api-level.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/_gcc.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
- jni/shadow/system/data/objects/SFShort.h \
- jni/shadow/system/data/objects/SFPrimitiveType.h \
- jni/shadow/system/data/objects/../SFDataObject.h \
- jni/shadow/system/data/objects/../SFInputStream.h \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/string \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_string.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_alloc.h \
@@ -90,6 +87,7 @@ obj/local/armeabi/objs/Library/SFShortTest001.o: jni/SFShortTest001.cpp \
  C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/../include/wchar.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stdio.h \
  C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/../include/stdio.h \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stdarg.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/time.h \
  C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/../include/time.h \
  C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/time.h \
@@ -156,26 +154,21 @@ obj/local/armeabi/objs/Library/SFShortTest001.o: jni/SFShortTest001.cpp \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_num_get.h \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_num_get.c \
  C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_string_io.c \
- jni/shadow/system/data/objects/../SFOutputStream.h \
- jni/shadow\system\data\cpp\SFInputStreamCpp.h \
- jni/shadow\system\data\cpp\../SFInputStream.h \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/iostream \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
- jni/SFShortTest001.h \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/fstream \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_fstream.h \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_codecvt.h \
- C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_fstream.c
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
+ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
+ jni/shadow/system/data/objects/../SFOutputStream.h
 
-C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/jni.h:
+jni/shadow/system/data/objects/SFFloat.h:
 
-C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/cdefs.h:
+jni/shadow/system/data/objects/SFPrimitiveType.h:
 
-C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/cdefs_elf.h:
+jni/shadow/system/data/objects/../SFDataObject.h:
 
-C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/android/api-level.h:
+jni/shadow/system/data/objects/../SFInputStream.h:
 
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stdarg.h:
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/string:
+
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_prolog.h:
 
 C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_cprolog.h:
 
@@ -193,27 +186,17 @@ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/_system.h:
 
 C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/_android.h:
 
+C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/cdefs.h:
+
+C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/sys/cdefs_elf.h:
+
+C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/android/api-level.h:
+
 C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/_gcc.h:
 
 C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h:
 
 C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
-
-jni/shadow/system/data/objects/SFShort.h:
-
-jni/shadow/system/data/objects/SFPrimitiveType.h:
-
-jni/shadow/system/data/objects/../SFDataObject.h:
-
-jni/shadow/system/data/objects/../SFInputStream.h:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/string:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_prolog.h:
 
 C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h:
 
@@ -349,6 +332,8 @@ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stdio.h:
 
 C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/../include/stdio.h:
 
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stdarg.h:
+
 C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/time.h:
 
 C:/android-ndk-r10b/platforms/android-L/arch-arm/usr/include/../include/time.h:
@@ -481,22 +466,8 @@ C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_num_get.c:
 
 C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_string_io.c:
 
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
+
+C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
+
 jni/shadow/system/data/objects/../SFOutputStream.h:
-
-jni/shadow\system\data\cpp\SFInputStreamCpp.h:
-
-jni/shadow\system\data\cpp\../SFInputStream.h:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/iostream:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_ioserr.h:
-
-jni/SFShortTest001.h:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/fstream:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_fstream.h:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_codecvt.h:
-
-C:/android-ndk-r10b/sources/cxx-stl/stlport/stlport/stl/_fstream.c:
