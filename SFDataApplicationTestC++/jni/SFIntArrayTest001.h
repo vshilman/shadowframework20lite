@@ -23,6 +23,14 @@ JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib3_getData
 JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib3_getData2
   (JNIEnv *, jobject);
 
+/*
+ * Class:     dataObjectTests_NativeLib3
+ * Method:    getData3
+ * Signature: ()[I
+ */
+JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib3_getData3
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
