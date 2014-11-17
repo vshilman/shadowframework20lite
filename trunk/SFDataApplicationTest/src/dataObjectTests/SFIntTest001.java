@@ -49,7 +49,7 @@ public class SFIntTest001 extends TestCase {
 	@Test
 	public void testC(){
 		
-		int1.setIntValue(0);
+		int1.setIntValue(15);
 		int2.setIntValue(1);
 		
 		try {
@@ -85,7 +85,7 @@ public class SFIntTest001 extends TestCase {
 			e.printStackTrace();
 		}
 
-		assertEquals(0, int1.getIntValue());
+		assertEquals(15, int1.getIntValue());
 		assertEquals(1, int2.getIntValue());	
 		
 	}

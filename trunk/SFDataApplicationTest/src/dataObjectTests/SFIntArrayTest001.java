@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
 import android.os.Environment;
@@ -17,7 +19,7 @@ import shadow.system.data.java.SFOutputStreamJava;
 import shadow.system.data.objects.SFIntArray;
 import shadow.system.data.tools.DefaultExceptionKeeper;
 
-public class SFIntArrayTest001 {
+public class SFIntArrayTest001 extends TestCase{
 
 	SFIntArray intArray1 = new SFIntArray(5);
 	SFIntArray intArray2 = new SFIntArray(3);
@@ -135,7 +137,7 @@ public class SFIntArrayTest001 {
 	}
 	
 	@Test
-	public void TestE(){
+	public void testE(){
 		
 		System.out.println(intArray1.toStringValue());
 		String value = "256,0,1,8,0";
@@ -149,3 +151,4 @@ public class SFIntArrayTest001 {
 	}
 
 }
+;
