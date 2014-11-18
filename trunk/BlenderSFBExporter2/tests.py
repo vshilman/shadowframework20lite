@@ -228,10 +228,10 @@ class SimpleFittingTests(unittest.TestCase):
                  geom.Vertex((0.0, 1.0, 1.0)),
                  geom.Vertex((1.0, 1.0, 1.0)),
                  geom.Vertex((1.0, 1.0, 0.0))]
-        
-        #out_verts = [list(zip(x,y,z))]
-        ax.add_collection3d(Poly3DCollection([verts, verts2, verts3, verts4]))
-        plt.show()
+
+        if DRAW_GRAPHS:
+            ax.add_collection3d(Poly3DCollection([verts, verts2, verts3, verts4]))
+            plt.show()
 
 runTests(SimpleFittingTests())
 
