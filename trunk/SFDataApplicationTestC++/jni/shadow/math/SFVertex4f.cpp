@@ -8,7 +8,7 @@ namespace sf{
 
 
     SFVertex4f::SFVertex4f(){
-        
+    	set4f(0, 0, 0, 0);     //aggiunto da me
     }
 
 SFVertex4f* SFVertex4f::middle(SFVertex4f A,SFVertex4f B){
