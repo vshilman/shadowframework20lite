@@ -235,6 +235,46 @@ class SimpleFittingTests(unittest.TestCase):
 
 runTests(SimpleFittingTests())
 
+class PolygonsNetTests(unittest.TestCase):
+    def test_simple_net(self):
+        v0 = geom.Vertex((0.0, 0.0, 0.0))
+        v1 = geom.Vertex((1.0, 0.0, 0.0))
+        v2 = geom.Vertex((1.0, 1.0, 0.0))
+        v3 = geom.Vertex((0.0, 1.0, 0.0))
+        
+        disp = geom.Vertex((0.0, 0.0, 0.5))
+        
+        m0 = (v0 + v1) / 2.0 + disp
+        m1 = (v1 + v2) / 2.0 + disp
+        m2 = (v2 + v3) / 2.0 + disp
+        m3 = (v3 + v0) / 2.0 + disp
+        
+        # Second try
+        c1 = geom.BaseCurve((v0, m0, v1), mmath.interp_bezier_curve_2)
+        c2 = geom.BaseCurve((v1, m1, v2), mmath.interp_bezier_curve_2)
+        c3 = geom.BaseCurve((v2, m2, v3), mmath.interp_bezier_curve_2)
+        c4 = geom.BaseCurve((v3, m3, v0), mmath.interp_bezier_curve_2)
+        
+        c1_points = list(geom.sample_curve_samples(c1, 10))
+        c2_points = list(geom.sample_curve_samples(c2, 10))
+        c3_points = list(geom.sample_curve_samples(c3, 10))
+        c4_points = list(geom.sample_curve_samples(c4, 10))
+        
+        polygon = geom.PolygonsNetQuad((c1, c2, c3, c4))
+        points = list(geom.sample_patch_samples(polygon, 70))
+        
+        if True:
+            fig = plt.figure()
+            ax = fig.gca(projection='3d')
+            ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
+            ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points])
+            ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points])
+            ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
+            ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
+            plt.show()
+        
+
+runTests(PolygonsNetTests())
 print("All tests passed")
 
 #unittest.main()
