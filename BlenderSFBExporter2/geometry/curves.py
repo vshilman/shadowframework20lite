@@ -1,4 +1,4 @@
-from .utils import lint
+import utils
 
 """
 This class contains representations of curves.
@@ -13,9 +13,9 @@ class BaseCurve(list):
         assert(t_val >= 0 and t_val <= 1.0), "t parameter has to be between 0.0 and 1.0"
         return self.func(t_val, *self)
     def __repr__(self):
-        return 'BaseCurve(func=%s, verts=(%s))' % (self.func.__name__, ','.join(self))
+        return 'BaseCurve(func=%s, verts=(%s))' % (self.func.__name__, ','.join(list.__repr__(self)))
 
-class SuperCurve(list):
+class SuperCurve:
     '''This class represents a collection of curves. It might be etherogeneus
     but the curves have to implement a curve method.'''
     def __init__(self, curves):
@@ -24,6 +24,8 @@ class SuperCurve(list):
         normt = t_val * len(self.curves)
         curve_index = min(int(normt), len(self.curves) - 1)
         return self.curves[curve_index].t(normt - curve_index)
+    def __repr__(self):
+        return repr(self.curves)
 
 class SubCurve:
     '''This class represent a subset of a curve starting and ending to different ts.'''
@@ -33,4 +35,18 @@ class SubCurve:
         self.start_t = start_t
         self.end_t = end_t
     def t(self, t_val):
-        return self.curve.t(lint(self.start_t, self.end_t, t_val))
+        return self.curve.t(utils.lint(self.start_t, self.end_t, t_val))
+
+def __split_cpoints(cpoints, size):
+    '''Split the cpoints to create a spline.'''
+    if len(cpoints) < size:
+        return []
+    return [cpoints[:size]] + __split_cpoints(cpoints[size-1:], size)
+
+def generate_spline(cpoints, func):
+    '''Generate a spline from a series of control points and a function'''
+    nargs = utils.get_number_arguments(func)
+    print(__split_cpoints(cpoints, nargs))
+    curves = [BaseCurve(cps, func) for cps in __split_cpoints(cpoints, nargs)]
+    return SuperCurve(curves)
+    
