@@ -209,9 +209,6 @@ class SimpleFittingTests(unittest.TestCase):
             plt.show()
     
     def test_3d_quad_plot_almost_cube(self):
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
-                 
         verts = [geom.Vertex((0.0, 0.0, 0.0)),
                  geom.Vertex((1.0, 0.0, 0.0)),
                  geom.Vertex((1.0, 1.0, 0.0)),
@@ -230,10 +227,21 @@ class SimpleFittingTests(unittest.TestCase):
                  geom.Vertex((1.0, 1.0, 0.0))]
 
         if DRAW_GRAPHS:
+            fig = plt.figure()
+            ax = fig.add_subplot(111, projection='3d')
             ax.add_collection3d(Poly3DCollection([verts, verts2, verts3, verts4]))
             plt.show()
 
 runTests(SimpleFittingTests())
+
+import utils
+
+class TestUtils(unittest.TestCase):
+    def test_get_arguments(self):
+        self.assertEquals(utils.get_number_arguments(mmath.bezier_curve_2), 3)
+        self.assertEquals(utils.get_number_arguments(mmath.bezier_curve_3), 4)
+
+runTests(TestUtils())
 
 class PolygonsNetTests(unittest.TestCase):
     def test_simple_net(self):
@@ -250,7 +258,7 @@ class PolygonsNetTests(unittest.TestCase):
         m3 = (v3 + v0) / 2.0 + disp
         
         # Second try
-        c1 = geom.BaseCurve((v0, m0, v1), mmath.interp_bezier_curve_2)
+        c1 = geom.SuperCurve([geom.BaseCurve((v0, m0, v1), mmath.interp_bezier_curve_2)])
         c2 = geom.BaseCurve((v1, m1, v2), mmath.interp_bezier_curve_2)
         c3 = geom.BaseCurve((v2, m2, v3), mmath.interp_bezier_curve_2)
         c4 = geom.BaseCurve((v3, m3, v0), mmath.interp_bezier_curve_2)
@@ -263,7 +271,7 @@ class PolygonsNetTests(unittest.TestCase):
         polygon = geom.PolygonsNetQuad((c1, c2, c3, c4))
         points = list(geom.sample_patch_samples(polygon, 70))
         
-        if True:
+        if DRAW_GRAPHS:
             fig = plt.figure()
             ax = fig.gca(projection='3d')
             ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
@@ -272,7 +280,41 @@ class PolygonsNetTests(unittest.TestCase):
             ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
             ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
             plt.show()
+    
+    def test_complex_net(self):
+        coords1 = [(0.0, 0.0, 0.0), (0.5, 0.0, 1.0), (1.0, -0.2, 0.5), (1.5, 0.0, 0.0), (2.0, -0.1, 0.5)]
+        cpoints1 = [geom.Vertex(coord) for coord in coords1]
+        curve1 = geom.generate_spline(cpoints1, mmath.interp_bezier_curve_2)
         
+        coords2 = [(2.0, -0.1, 0.5), (2.0, 1.0, 1.0), (2.1, 2.0, 0.0)]
+        cpoints2 = [geom.Vertex(coord) for coord in coords2]
+        curve2 = geom.generate_spline(cpoints2, mmath.interp_bezier_curve_2)
+        
+        coords3 = [(2.1, 2.0, 0.0), (1.5, 2.0, 0.0), (1.0, 2.1, 0.5), (0.5, 2.0, 1.0), (0.0, 2.0, 0.0)]
+        cpoints3 = [geom.Vertex(coord) for coord in coords3]
+        curve3 = geom.generate_spline(cpoints3, mmath.interp_bezier_curve_2)
+        
+        coords4 = [(0.0, 2.0, 0.0), (-0.5, 1.0, 0.0), (0.0, 0.0, 0.0)]
+        cpoints4 = [geom.Vertex(coord) for coord in coords4]
+        curve4 = geom.generate_spline(cpoints4, mmath.interp_bezier_curve_2)
+        
+        polygon = geom.PolygonsNetQuad((curve1, curve2, curve3, curve4))
+        points = list(geom.sample_patch_samples(polygon, 50))
+        
+        c1_points = list(geom.sample_curve_samples(curve1, 20))
+        c2_points = list(geom.sample_curve_samples(curve2, 20))
+        c3_points = list(geom.sample_curve_samples(curve3, 20))
+        c4_points = list(geom.sample_curve_samples(curve4, 20))
+        
+        if True:
+            fig = plt.figure()
+            ax = fig.gca(projection='3d')
+            ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
+            ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points])
+            ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points])
+            ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
+            ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
+            plt.show()     
 
 runTests(PolygonsNetTests())
 print("All tests passed")

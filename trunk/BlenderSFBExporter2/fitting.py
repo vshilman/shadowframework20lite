@@ -1,19 +1,11 @@
 import numpy as np
 import scipy.optimize as opt
 from math import sqrt
+import utils
+
 import inspect
 
 VERBOSE = False
-
-def __get_number_arguments(f):
-    args, varargs, varkw, defaults = inspect.getargspec(f)
-    if len(args) < 2:
-        msg = "Unable to determine number of fit parameters."
-        raise ValueError(msg)
-    if 'self' in args:
-        return (len(args)-2)
-    else:
-        return (len(args)-1)
 
 def __fit_bezier_curve_funcs(points, bezier_funcs, p0s=[None,None,None]):
     '''This functions fits the points with one function for each dimension.
@@ -55,7 +47,7 @@ def fit_bezier_spline(points, bezier_func, n):
     '''Fit the current points with a spline made by the following bezier function.
     n representes the number of bezier function to be used.'''
     
-    n_params = __get_number_arguments(bezier_func) - 2
+    n_params = utils.get_number_arguments(bezier_func) - 2
     chunks = list(split_list(points, len(points) // n))
             
     cpoints = []
