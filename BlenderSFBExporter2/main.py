@@ -1,5 +1,6 @@
 import bpy
 import bmesh
+import functools as func
 
 # Managing import the blender way. Dirty hack to get access to files in the same dir.
 import os, sys
@@ -35,19 +36,6 @@ def vert_get_neighbors(v):
     neighbors = [e.other_vert(v) for e in edges]
     return [v.index for v in neighbors]
 
-#def follow_edge(vert, edge, goals, prev_faces = []):
-    #if vert.index in goals:
-        #return [vert]
-    
-    #prev_faces += [f.index for f in edge.link_faces]
-    #next_vert = edge.other_vert(vert)
-    
-    #is_next = lambda x: not contains_one([f.index for f in x.link_faces], prev_faces)
-    #next_edges = list(filter(is_next, list(next_vert.link_edges)))
-    
-    #assert len(next_edges) <= 1, "There has been an error. There are two possible directions."
-    #return [vert] + follow_edge(next_vert, next_edges[0], goals, prev_faces)
-
 def unpack_list1(l):
     '''Unpack the list if it only consists of 1 element.'''
     return l[0] if len(l) == 1 else l
@@ -67,14 +55,6 @@ def discard_invalid(paths, goals):
         return path[0] in goals and path[-1] in goals
     return [p for p in paths if is_valid(p)]
 
-#def explore(v_index, bmesh, goals, prev_verts=[], path=[]):
-    #'''Explore the mesh until the goal has been found.'''
-    ## Base case
-    
-    ##Recursive call    
-    #for edge in list(v.link_edges):
-        #dest = filter(lambda x: x.index , edge.verts)
-
 for obj in objects:
     try:
         mesh = obj.to_mesh(scene, True, 'PREVIEW', calc_tessface=True)
@@ -88,26 +68,66 @@ for obj in objects:
         
     verts_list = list(bm.verts)
     faces_list = list(bm.faces)
+    verts_indexes = [v.index for v in verts_list]
     
     # Compute the singular vertices
     singular_verts = list(filter(is_singular, verts_list))
     singular_verts_indexes = [s.index for s in singular_verts]
     
-    goals = singular_verts_indexes
+    # Compute the superedges: the long edges which should be the borders of the patches.
+    super_edges = []
     
-    v = singular_verts[0]
-    e = v.link_edges[0]
+    for vi in singular_verts_indexes:
+        goals = list(singular_verts_indexes)
+        goals.remove(vi)
+        edges = explore_vert(verts_list[vi], goals)
+        for edge in edges:
+            super_edges.append(tuple(edge))
+
+    # Getting rid of the duplicate edges (counting the ones walked in opposite directions).
+    final_super_egdes = set([])
+    for e in super_edges:
+        if e not in final_super_egdes and e[::-1] not in final_super_egdes:
+            final_super_egdes.add(e)
+    super_edges = final_super_egdes
+
+    # Now we need to understand which vertex belong to which face. We use the connected components approach.
+    boundaries = set(sum(final_super_egdes, ()))
+    inner_verts = list(set(verts_indexes) - set(boundaries))
     
-    print("Analyzing v", v.index)
-    print("Edge      e", e.index)
-    print("Neighbors v", vert_get_neighbors(v))
-    print("Destinations", goals)
+    def explore(vertexi, boundaries, mesh):
+        '''Returns all the connected components'''
+        frontier = [vertexi]
+        explored = set()
+        
+        while len(frontier) > 0:
+            vi = frontier.pop(0)
+            if vi in explored:
+                continue
+            if vi in boundaries: 
+                explored.add(vi)
+                continue
+            explored.add(vi)
+            v = mesh.verts[vi]
+            frontier += [e.other_vert(v).index for e in v.link_edges]
+        
+        return explored
+        
+    partitions = []
     
-    goals.remove(v.index)
-    
-    paths_from_v = explore_vert(v, goals)
-    print(paths_from_v)
-    paths_from_v = discard_invalid(paths_from_v, goals)
+    while len(inner_verts) > 0:
+        vi = inner_verts.pop(0)
+        print(vi)
+        partition = explore(vi, boundaries, bm)
+        for e in partition:
+            if e in inner_verts:
+                inner_verts.remove(e)
+        partitions.append(frozenset(partition))
+        
+    for p in partitions:
+        print(p)
+
+    # TODO With this system the corners of the patches are not included in the partitions.
     
     
     # Find the edges of the patches composing it.
