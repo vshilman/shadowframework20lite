@@ -174,7 +174,7 @@ for obj in objects:
     
     
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
+    ax = fig.add_subplot(111, projection='3d')
     
     for patch in patches:
         curves = []
@@ -183,17 +183,21 @@ for obj in objects:
             curves.append(geom.generate_spline(verts, mmath.interp_bezier_curve_2))
     
         polygon = geom.PolygonsNetQuad(curves)
-        points = list(geom.sample_patch_samples(polygon, 25))
+        #points = list(geom.sample_patch_samples(polygon, 25))
+        quads = list(geom.sample_patch_quads_samples(polygon, 5))
         
         c1_points = list(geom.sample_curve_samples(curves[0], 10))
         c2_points = list(geom.sample_curve_samples(curves[1], 10))
         c3_points = list(geom.sample_curve_samples(curves[2], 10))
         c4_points = list(geom.sample_curve_samples(curves[3], 10))
         
-        ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
+        ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points], width=10)
         ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points])
         ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points])
         ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
-        ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
+        # Print as quads
+        ax.add_collection3d(Poly3DCollection(quads))
+        # Print as points
+        #ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
     
     plt.show()
