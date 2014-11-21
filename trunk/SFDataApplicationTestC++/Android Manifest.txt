@@ -28,6 +28,26 @@ SFVertex3fTest001.cpp
 shadow/math/SFVertex3f.cpp 
 SFVertex4fTest001.cpp 
 shadow/math/SFVertex4f.cpp 
+SFBinaryFloatArrayObjectTest001.cpp 
+shadow/system/data/objects/SFBinaryFloatArrayObject.cpp 
+SFBinaryArrayObjectTest001.cpp 
+shadow/system/data/objects/SFBinaryArrayObject.cpp 
+shadow/system/data/objects/SFPrimitiveType.h
+shadow/system/data/objects/SFVertex2fData.cpp 
+SFVertex2fDataTest001.cpp 
+shadow/system/data/objects/SFVectorData.cpp 
+shadow/math/SFValue.cpp
+shadow/system/data/objects/SFVertex3fData.cpp
+SFVertex3fDataTest001.cpp 
+shadow/system/data/objects/SFVertex4fData.cpp
+ SFVertex4fDataTest001.cpp 
+
+
+
+
+
+
+
 
 
 
