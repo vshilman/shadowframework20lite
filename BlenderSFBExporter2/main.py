@@ -136,13 +136,13 @@ for obj in objects:
     # TODO? Beware the corner of the patches are not included in the partitions.
     # Now we need to understand which superedges belong to which face.
     
-    partitions_edges = []
+    patches = []
     for partition in partitions:
         current_edges = []
         for edge in super_edges:
             if any((pp in edge) for pp in partition):
                 current_edges.append(edge)
-        partitions_edges.append(current_edges)
+        patches.append(current_edges)
     
     
     # We now need to reorder the vertices of each face so that we can build a spline on them.
@@ -165,45 +165,35 @@ for obj in objects:
             elif elem[-1] == item[-1]:
                 return [elem[::-1]] + reorder_list(remove_from_list(l, elem), elem[::-1])
     
-    for i, part in enumerate(partitions_edges):
-        partitions_edges[i] = [part[0]] + reorder_list(list(part[1:]), part[0])
+    for i, part in enumerate(patches):
+        patches[i] = [part[0]] + reorder_list(list(part[1:]), part[0])
 
-    # Lets create the splines
+    # Lets create and draw the patches
     def convert_vert(bmv):
         return geom.Vertex((bmv.co[0], bmv.co[1], bmv.co[2]))
     
-    patch1 = partitions_edges[0]
-    curves = []
-    for edge in patch1:
-        verts = (tuple((convert_vert(bm.verts[i]) for i in edge)))
-        curves.append(geom.generate_spline(verts, mmath.interp_bezier_curve_2))
     
-    polygon = geom.PolygonsNetQuad(curves)
-    points = list(geom.sample_patch_samples(polygon, 50))
-        
-    c1_points = list(geom.sample_curve_samples(curves[0], 10))
-    c2_points = list(geom.sample_curve_samples(curves[1], 10))
-    c3_points = list(geom.sample_curve_samples(curves[2], 10))
-    c4_points = list(geom.sample_curve_samples(curves[3], 10))
-        
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-    ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
-    ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points])
-    ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points])
-    ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
-    ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
-    plt.show()     
     
-    # Find the edges of the patches composing it.
-    #for vert in singular_verts:
-        #goals.remove(vert.index)
-        #print(follow_edge(vert, )
-
-
-    # We need to build some loops over them
-    #for v in singular_verts:
-        #loops = list(v.link_edges)
-        #print(loops)
+    for patch in patches:
+        curves = []
+        for edge in patch:
+            verts = (tuple((convert_vert(bm.verts[i]) for i in edge)))
+            curves.append(geom.generate_spline(verts, mmath.interp_bezier_curve_2))
     
-    #print(faces_list)
+        polygon = geom.PolygonsNetQuad(curves)
+        points = list(geom.sample_patch_samples(polygon, 25))
+        
+        c1_points = list(geom.sample_curve_samples(curves[0], 10))
+        c2_points = list(geom.sample_curve_samples(curves[1], 10))
+        c3_points = list(geom.sample_curve_samples(curves[2], 10))
+        c4_points = list(geom.sample_curve_samples(curves[3], 10))
+        
+        ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
+        ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points])
+        ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points])
+        ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
+        ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
+    
+    plt.show()
