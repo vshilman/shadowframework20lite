@@ -8,6 +8,16 @@ blend_dir = os.path.dirname(bpy.data.filepath)
 if blend_dir not in sys.path:
     sys.path.append(blend_dir)
 
+# Imports of out modules
+import geometry as geom
+import mymath as mmath
+
+# Matplotlib imports
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
 # Initialize blender varialbles
 context = bpy.context
 scene = context.scene
@@ -89,7 +99,7 @@ for obj in objects:
     for e in super_edges:
         if e not in final_super_egdes and e[::-1] not in final_super_egdes:
             final_super_egdes.add(e)
-    super_edges = final_super_egdes
+    super_edges = list(final_super_egdes)
 
     # Now we need to understand which vertex belong to which face. We use the connected components approach.
     boundaries = set(sum(final_super_egdes, ()))
@@ -117,18 +127,73 @@ for obj in objects:
     
     while len(inner_verts) > 0:
         vi = inner_verts.pop(0)
-        print(vi)
         partition = explore(vi, boundaries, bm)
         for e in partition:
             if e in inner_verts:
                 inner_verts.remove(e)
         partitions.append(frozenset(partition))
-        
-    for p in partitions:
-        print(p)
 
-    # TODO With this system the corners of the patches are not included in the partitions.
+    # TODO? Beware the corner of the patches are not included in the partitions.
+    # Now we need to understand which superedges belong to which face.
     
+    partitions_edges = []
+    for partition in partitions:
+        current_edges = []
+        for edge in super_edges:
+            if any((pp in edge) for pp in partition):
+                current_edges.append(edge)
+        partitions_edges.append(current_edges)
+    
+    
+    # We now need to reorder the vertices of each face so that we can build a spline on them.
+    def first(seq, cond):
+        '''Returns the first element of seq which satisfies cond.'''
+        return next(x for x in seq if cond(x))
+    
+    def remove_from_list(l, elem):
+        temp = list(l)
+        temp.remove(elem)
+        return temp
+    
+    #TODO This doesn't manage the error case
+    def reorder_list(l, item):
+        if l == []:
+            return l
+        for elem in l:
+            if elem[0] == item[-1]:
+                return [elem] + reorder_list(remove_from_list(l, elem), elem)
+            elif elem[-1] == item[-1]:
+                return [elem[::-1]] + reorder_list(remove_from_list(l, elem), elem[::-1])
+    
+    for i, part in enumerate(partitions_edges):
+        partitions_edges[i] = [part[0]] + reorder_list(list(part[1:]), part[0])
+
+    # Lets create the splines
+    def convert_vert(bmv):
+        return geom.Vertex((bmv.co[0], bmv.co[1], bmv.co[2]))
+    
+    patch1 = partitions_edges[0]
+    curves = []
+    for edge in patch1:
+        verts = (tuple((convert_vert(bm.verts[i]) for i in edge)))
+        curves.append(geom.generate_spline(verts, mmath.interp_bezier_curve_2))
+    
+    polygon = geom.PolygonsNetQuad(curves)
+    points = list(geom.sample_patch_samples(polygon, 50))
+        
+    c1_points = list(geom.sample_curve_samples(curves[0], 10))
+    c2_points = list(geom.sample_curve_samples(curves[1], 10))
+    c3_points = list(geom.sample_curve_samples(curves[2], 10))
+    c4_points = list(geom.sample_curve_samples(curves[3], 10))
+        
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
+    ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points])
+    ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points])
+    ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
+    ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
+    plt.show()     
     
     # Find the edges of the patches composing it.
     #for vert in singular_verts:
