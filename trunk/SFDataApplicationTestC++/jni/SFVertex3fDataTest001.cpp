@@ -8,6 +8,8 @@
 
 using namespace sf;
 
+//Test sulla classe SFVertex3fData
+
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib17_getData
   (JNIEnv* env, jobject){
 

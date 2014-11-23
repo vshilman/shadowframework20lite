@@ -7,12 +7,18 @@
 
 using namespace sf;
 
+//Test sulla classe SFInt
+
 JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib_getData
 
   (JNIEnv* env, jobject object,jstring string) {
 
+	//Creazione stringa contenente il nome del file (in cui leggerò i valori) passato tramite java nel metodo nativo
+
 	const char *fileName;
 	fileName = env->GetStringUTFChars(string, 0);
+
+	//Test su alcuni metodi della classe
 
 		int result[5];
 		SFInt *pointerInt;
@@ -24,6 +30,8 @@ JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib_getData
 		result[1] = intero.getIntValue();
 		result[2] = pointerInt->getIntValue();
 
+		//Lettura valori interi da file
+
 		ifstream stream;
 		SFInputStreamCpp inputStream(&stream);
 		stream.open(fileName, std::ifstream::in);
@@ -32,7 +40,7 @@ JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib_getData
 		int value2 = inputStream.readInt();
 
 		stream.close();
-		result[3] = value1;
+		result[3] = value1;   //Salvo i valori letti nel vettore result che passerò in java
 		result[4] = value2;
 
 		jintArray jResult;

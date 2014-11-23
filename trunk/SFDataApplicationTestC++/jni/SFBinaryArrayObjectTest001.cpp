@@ -5,6 +5,8 @@
 
 using namespace sf;
 
+//Test sulla classe SFBinaryArrayObject
+
 JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib15_getData
   (JNIEnv* env, jobject){
 
@@ -14,6 +16,8 @@ JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib15_getData
 	int array1[5] = {1,44,23,-15,100};
 
 	arrayObject1.setBytes(array1);
+
+	//creazione array in cui vado a mettere i risultati da passare al test in java
 
 	int result[6];
 

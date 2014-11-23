@@ -10,7 +10,7 @@ using namespace sf;
 
 //QUESTO TEST CONTIENE ANCHE IL TESTING DELLA CLASSE "SFVectorData"
 
-//Test che non funziona (come SFVertex2fDataTest001).
+//Test che non funziona (come SFVertex2fDataTest001).Valori restituiti non corretti
 
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib18_getData
   (JNIEnv* env, jobject){

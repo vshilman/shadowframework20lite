@@ -14,8 +14,8 @@ JNIEXPORT jshortArray JNICALL Java_dataObjectTests_NativeLib5_getData
 	const char *fileName;
 	fileName = env->GetStringUTFChars(string, 0);
 
-	SFShortArray array(7);
-	SFShortArray array2(2);
+	SFShortArray array(5);
+
 
 	for (int var = 0; var < 5; ++var) {
 
@@ -23,20 +23,20 @@ JNIEXPORT jshortArray JNICALL Java_dataObjectTests_NativeLib5_getData
 		}
 
 	jshortArray jResult;
-	jResult = env->NewShortArray(7);
+	jResult = env->NewShortArray(5);
 
 	ifstream stream;
 	SFInputStreamCpp inputStream(&stream);
 	stream.open(fileName, std::ifstream::in);
 
-	//short value = inputStream.readShorts(0);
+	array.readFromStream(&inputStream);
 
 	stream.close();
 
 	//array.getShortValues()[5] = value;
 	//array.getShortValues()[6] = array2.getShortValues()[1];
 
-	env->SetShortArrayRegion(jResult, 0, 7, array.getShortValues());
+	env->SetShortArrayRegion(jResult, 0, 5, array.getShortValues());
 	env->ReleaseStringUTFChars(string, fileName);
 	env->ReleaseShortArrayElements(jResult, array.getShortValues(), 0);
 

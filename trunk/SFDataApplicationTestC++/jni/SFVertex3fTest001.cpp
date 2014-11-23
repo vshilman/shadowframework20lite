@@ -4,6 +4,7 @@
 
 using namespace sf;
 
+//Test sulla classe SFVertex3f
 
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib12_getData
   (JNIEnv* env, jobject){
@@ -14,6 +15,8 @@ JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib12_getData
 			float x2 = 10;
 			float y2 = 10;
 			float z2 = 10;
+
+			//Test praticamente identico a quello sulla classe SFVertex2f.Stesse componenti testate, cambia solo il numero di parametri del vettore
 
 			SFVertex3f vertex1 = SFVertex3f();
 			SFVertex3f vertex2(x1,y1,z1);

@@ -7,8 +7,12 @@
 
 using namespace sf;
 
+//Test sulla classe SFIntArray
+
 JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib3_getData
   (JNIEnv* env, jobject, jstring string ){
+
+	//Creazione stringa contenente il nome del file (in cui leggerò i valori) passato tramite java nel metodo nativo
 
 	const char *fileName;
 	fileName = env->GetStringUTFChars(string, 0);
@@ -21,25 +25,29 @@ JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib3_getData
 		array.getIntValues()[var] = var;
 	}
 
+	//Lettura file
+
+	ifstream stream;
+	SFInputStreamCpp inputStream(&stream);
+	stream.open(fileName, std::ifstream::in);
+
+	array.readFromStream(&inputStream);
+
+	    stream.close();
+
 		jintArray jResult;
 		jResult = env->NewIntArray(5);
 		env->SetIntArrayRegion(jResult, 0, 5, array.getIntValues());
 		env->ReleaseStringUTFChars(string, fileName);
 		env->ReleaseIntArrayElements(jResult, array.getIntValues(), 0);
 
-		ifstream stream;
-		SFInputStreamCpp inputStream(&stream);
-		stream.open(fileName, std::ifstream::in);
 
-		int value1 = inputStream.readInt();
-		int value2 = inputStream.readInt();
-
-
-		stream.close();
 
 	 return jResult;
 
 }
+
+//Altro test sul metodo getIntValues() e su clone()
 
 JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib3_getData2
   (JNIEnv* env, jobject){

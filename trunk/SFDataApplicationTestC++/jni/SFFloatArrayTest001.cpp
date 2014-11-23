@@ -8,37 +8,46 @@
 
 using namespace sf;
 
+//Test sulla classe SFFloatArray
+
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib6_getData
   (JNIEnv* env, jobject, jstring string){
 
-		const char *fileName;
-		fileName = env->GetStringUTFChars(string, 0);
 
-		SFFloatArray array(7);
+		const char *fileName;
+		fileName = env->GetStringUTFChars(string, 0);   //nome del file in cui andrò a leggere i valori
+
+		SFFloatArray array(2);
 
 		array.getFloatValues()[0] = 15.8f;
 		array.getFloatValues()[1] = 33.3f;
-		array.getFloatValues()[2] = -1.5f;
-		array.getFloatValues()[3] = 877.88f;
-		array.getFloatValues()[4] = -78.37f;
-
 
 		jfloatArray jResult;
-		jResult = env->NewFloatArray(7);
+		jResult = env->NewFloatArray(2);
+
+		//test sulla lettura dei valori da file passato tramite java
 
 		ifstream stream;
 		SFInputStreamCpp inputStream(&stream);
 		stream.open(fileName, std::ifstream::in);
 
+		float value1 = inputStream.readFloat();   //leggo i float da file
+		float value2 = inputStream.readFloat();
+
 		stream.close();
 
-		env->SetFloatArrayRegion(jResult, 0, 7, array.getFloatValues());
+		array.getFloatValues()[0] = value1;
+		array.getFloatValues()[1] = value2;
+
+		env->SetFloatArrayRegion(jResult, 0, 2, array.getFloatValues());
 		env->ReleaseStringUTFChars(string, fileName);
 		env->ReleaseFloatArrayElements(jResult, array.getFloatValues(), 0);
 
 			 return jResult;
 }
 
+
+//Altro test in cui provo altri metodi
 
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib6_getData2
   (JNIEnv* env, jobject){
@@ -52,7 +61,7 @@ JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib6_getData2
 			array3.getFloatValues()[3] = 33.33f;
 			array3.getFloatValues()[4] = -0.1f;
 
-			SFFloatArray *pointerFloatArray;
+			SFFloatArray *pointerFloatArray;           //creazione puntatore da usare per il metodo clone()
 			pointerFloatArray = array2.clone();
 
 			for (int var = 0;  var < 6; ++var) {

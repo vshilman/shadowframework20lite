@@ -4,6 +4,8 @@
 
 using namespace sf;
 
+//Test sulla classe SFShortByteField
+
 JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib9_getData
   (JNIEnv* env, jobject){
 
@@ -12,8 +14,8 @@ JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib9_getData
 
 	int result[4];
 
-	result[0] = intero1.getByte(0);
-	result[1] = intero1.getByte(1);
+	result[0] = intero1.getByte(0);   //leggo solo i primi 8 bit(1 byte)meno significativi di uno short (16 bit = 2 byte)
+	result[1] = intero1.getByte(1);   //leggo solo gli ultimi 8 bit(1 byte)più significativi di uno short
 	result[2] = intero2.getByte(0);
 	result[3] = intero2.getByte(1);
 

@@ -4,6 +4,8 @@
 
 using namespace sf;
 
+//Test sulla classe SFVertex4f
+
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib13_getData
   (JNIEnv* env, jobject){
 

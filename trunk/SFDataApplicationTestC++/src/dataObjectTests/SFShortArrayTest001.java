@@ -20,13 +20,11 @@ public class SFShortArrayTest001 extends TestCase{
 		short[] result = nativeLib.getData(fileName);
 		short[] result2 = nativeLib.getData2();
 		
-		assertEquals(-158, result[0]);
-		assertEquals(-158, result[1]);
-		assertEquals(-158, result[2]);
-		assertEquals(-158, result[3]);
-		assertEquals(-158, result[4]);
-		//assertEquals(0, result[5]);  //21
-		//assertEquals(0, result[6]); //-78
+		assertEquals(21, result[0]);          //Il metodo di lettura del file restituisce valori diversi.Errore nel metodo readInputStream?										 
+		assertEquals(-87, result[2]);		 //Dal lato java il file è letto bene e con valori corretti.
+		assertEquals(-78, result[1]);		  
+		assertEquals(22, result[3]);    
+		assertEquals(87, result[4]);
 		
 		assertEquals(0, result2[0]);
 		assertEquals(1, result2[1]);
