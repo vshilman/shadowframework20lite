@@ -50,14 +50,16 @@ def unpack_list1(l):
     '''Unpack the list if it only consists of 1 element.'''
     return l[0] if len(l) == 1 else l
 
-def explore_vert(vert, goals, prev_faces=[]):
+def explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False)):
+    if avoid(vert.index):
+        return []
     if vert.index in goals:
         return [vert.index]
     result = []
     for edge in vert.link_edges:
         face_indexes = [f.index for f in edge.link_faces]
         if not contains_one(face_indexes, prev_faces):
-            result += [[vert.index] + explore_vert(edge.other_vert(vert), goals, prev_faces + face_indexes)]
+            result += [[vert.index] + explore_vert(edge.other_vert(vert), goals, prev_faces + face_indexes, avoid)]
     return unpack_list1(result)
 
 def discard_invalid(paths, goals):
@@ -123,7 +125,7 @@ for obj in objects:
         
         return explored
         
-    partitions = []
+    patches_verts = []
     
     while len(inner_verts) > 0:
         vi = inner_verts.pop(0)
@@ -131,13 +133,13 @@ for obj in objects:
         for e in partition:
             if e in inner_verts:
                 inner_verts.remove(e)
-        partitions.append(frozenset(partition))
+        patches_verts.append(frozenset(partition))
 
-    # TODO? Beware the corner of the patches are not included in the partitions.
+    # TODO? Beware the corner of the patches are not included in the patches_verts.
     # Now we need to understand which superedges belong to which face.
     
     patches = []
-    for partition in partitions:
+    for partition in patches_verts:
         current_edges = []
         for edge in super_edges:
             if any((pp in edge) for pp in partition):
@@ -176,6 +178,33 @@ for obj in objects:
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     
+    # TODO At the moment we are splitting only on one of the two edges.
+    def split_patch(patch_edges, patch_verts, mesh):
+        assert len(patch_edges) == 4, "We only deal with rectangular patch"
+        e1, e2, e3, e4 = patch_edges
+        v1 = mesh.verts[(e1[len(e1) // 2])]
+        
+        new_edges = explore_vert(v1, e2, avoid=lambda x: x not in patch_verts)
+        new_edge = list(filter(lambda x: x[0] in e1 and x[-1] in e3, new_edges))[0]
+        new_edge = tuple(new_edge)
+        
+        print(new_edge)
+        
+        vi_0 = new_edge[0]
+        vi_F = new_edge[-1]
+        
+        patch1 = [e1[e1.index(vi_0):], e2, e3[:e3.index(vi_F)+1], new_edge[::-1]]
+        patch2 = [new_edge, e3[e3.index(vi_F):], e4, e1[:e1.index(vi_0)+1]]
+        
+        return [patch1, patch2]
+    
+    # Split all the patches!
+    new_patches = []
+    for i, patch in enumerate(patches):
+        new_patches += split_patch(patch, patches_verts[i], bm)
+    patches = new_patches
+     
+    # Plot the meshes.
     for patch in patches:
         curves = []
         for edge in patch:
@@ -184,14 +213,14 @@ for obj in objects:
     
         polygon = geom.PolygonsNetQuad(curves)
         #points = list(geom.sample_patch_samples(polygon, 25))
-        quads = list(geom.sample_patch_quads_samples(polygon, 5))
+        quads = list(geom.sample_patch_quads_samples(polygon, 20))
         
         c1_points = list(geom.sample_curve_samples(curves[0], 10))
         c2_points = list(geom.sample_curve_samples(curves[1], 10))
         c3_points = list(geom.sample_curve_samples(curves[2], 10))
         c4_points = list(geom.sample_curve_samples(curves[3], 10))
         
-        ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points], width=10)
+        ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
         ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points])
         ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points])
         ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
