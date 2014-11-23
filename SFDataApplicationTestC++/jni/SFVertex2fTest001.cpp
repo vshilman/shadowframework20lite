@@ -4,6 +4,8 @@
 
 using namespace sf;
 
+//Test sulla classe SFVertex2f
+
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib11_getData
   (JNIEnv* env, jobject){
 
@@ -12,11 +14,15 @@ JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib11_getData
 		float x2 = 10;
 		float y2 = 10;
 
+		//Creazione oggetti
+
 		SFVertex2f vertex1 = SFVertex2f();
 		SFVertex2f vertex2(x1,y1);
 		SFVertex2f vertex3(x2,y2);
 
 		float result[20];
+
+		//test sui diversi metodi della classe; tutti i risultati sono salvati in un vettore da restituire a java
 
 		result[0] = vertex1.getSize();
 		result[1] = vertex2.getV()[0];

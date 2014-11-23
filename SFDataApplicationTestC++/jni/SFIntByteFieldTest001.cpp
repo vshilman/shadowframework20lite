@@ -4,16 +4,20 @@
 
 using namespace sf;
 
+//Test sulla classe SFIntByteField
+
 JNIEXPORT jintArray JNICALL Java_dataObjectTests_NativeLib7_getData
   (JNIEnv* env, jobject){
+
+	//creazione degli oggetti
 
 	SFIntByteField intero1(269);
 	SFIntByteField intero2(4);
 
 	int result[4];
 
-	result[0] = intero1.getByte(0);
-	result[1] = intero1.getByte(1);
+	result[0] = intero1.getByte(0);  //vado a leggere solamente il byte nella posizione meno significativa
+	result[1] = intero1.getByte(1);  //leggo solamente il byte nella posizione più significativa
 	result[2] = intero2.getByte(0);
 	result[3] = intero2.getByte(1);
 

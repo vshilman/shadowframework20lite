@@ -6,12 +6,16 @@
 #include "shadow\math\SFVertex3f.h"
 using namespace sf;
 
+//Test sulla classe SFMatrix3f del package math
 
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib10_getData
   (JNIEnv* env, jobject){
 
 		SFMatrix3f matrix1(0,0,0,0,0,0,0,0,0); //Se la dichiaro così SFMatrix3f matrix1() non riesco a fare i set e i get;
 											  //Devo dichiararla così SFMatrix3f matrix1 = SFMatrix3f(); (STILE JAVA)
+
+		//Test sui metodi set() e get() delle diverse componenti della matrice
+
 		matrix1.setA(1);
 		matrix1.setB(1);
 		matrix1.setC(1);
@@ -24,7 +28,7 @@ JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib10_getData
 
 		float result[10];
 
-		result[0] = matrix1.getSize();
+		result[0] = matrix1.getSize();   //salvo i valori in un vettore
 		result[1] = matrix1.getA();
 		result[2] = matrix1.getB();
 		result[3] = matrix1.getC();
@@ -44,6 +48,8 @@ JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib10_getData
 
 
 }
+
+//test su altri metodi della classe SFMatrix3f
 
 JNIEXPORT jfloatArray JNICALL Java_dataObjectTests_NativeLib10_getData2
   (JNIEnv* env, jobject){

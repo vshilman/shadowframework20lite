@@ -40,10 +40,9 @@ shadow/math/SFValue.cpp
 shadow/system/data/objects/SFVertex3fData.cpp
 SFVertex3fDataTest001.cpp 
 shadow/system/data/objects/SFVertex4fData.cpp
- SFVertex4fDataTest001.cpp 
-
-
-
+SFVertex4fDataTest001.cpp 
+shadow/system/data/SFNamedParametersObject.cpp
+SFNamedParametersObjectTest001.cpp
 
 
 

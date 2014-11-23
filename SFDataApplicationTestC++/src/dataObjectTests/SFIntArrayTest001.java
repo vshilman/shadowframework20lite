@@ -22,8 +22,8 @@ public class SFIntArrayTest001 extends TestCase {
 		
 		assertEquals(0, result[0]);
 		assertEquals(1, result[1]);
-		assertEquals(2, result[2]);
-		assertEquals(3, result[3]);
+		assertEquals(55, result[2]);
+		assertEquals(3, result[3]);  
 		assertEquals(4, result[4]);
 	
 		assertEquals(0, result2[0]);
