@@ -46,7 +46,6 @@ def __split_cpoints(cpoints, size):
 def generate_spline(cpoints, func):
     '''Generate a spline from a series of control points and a function'''
     nargs = utils.get_number_arguments(func)
-    print(__split_cpoints(cpoints, nargs))
     curves = [BaseCurve(cps, func) for cps in __split_cpoints(cpoints, nargs)]
     return SuperCurve(curves)
     

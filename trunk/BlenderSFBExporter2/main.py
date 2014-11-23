@@ -31,11 +31,11 @@ def contains_one(s1, s2):
     '''Retuns true if at least one element of s1 is in s2'''
     return any(elem in s2 for elem in s1)
 
-def follow_edge_ind(bmesh, v_index, e_index, goals):
-    '''Start from verts and follow the edge until a another is found'''
-    edge = bmesh.edges[e_index]
-    connected_faces = list(edge.link_faces)
-    print(connected_faces)
+#def follow_edge_ind(bmesh, v_index, e_index, goals):
+    #'''Start from verts and follow the edge until a another is found'''
+    #edge = bmesh.edges[e_index]
+    #connected_faces = list(edge.link_faces)
+    #print(connected_faces)
 
 def edges_get_faces(e):
     faces = e.link_faces
@@ -81,7 +81,7 @@ for obj in objects:
     verts_list = list(bm.verts)
     faces_list = list(bm.faces)
     verts_indexes = [v.index for v in verts_list]
-    
+        
     # Compute the singular vertices
     singular_verts = list(filter(is_singular, verts_list))
     singular_verts_indexes = [s.index for s in singular_verts]
@@ -105,10 +105,9 @@ for obj in objects:
 
     # Now we need to understand which vertex belong to which face. We use the connected components approach.
     boundaries = set(sum(final_super_egdes, ()))
-    inner_verts = list(set(verts_indexes) - set(boundaries))
     
     def explore(vertexi, boundaries, mesh):
-        '''Returns all the connected components'''
+        '''Returns all the connected component'''
         frontier = [vertexi]
         explored = set()
         
@@ -124,28 +123,36 @@ for obj in objects:
             frontier += [e.other_vert(v).index for e in v.link_edges]
         
         return explored
-        
-    patches_verts = []
     
-    while len(inner_verts) > 0:
-        vi = inner_verts.pop(0)
-        partition = explore(vi, boundaries, bm)
-        for e in partition:
-            if e in inner_verts:
-                inner_verts.remove(e)
-        patches_verts.append(frozenset(partition))
-
-    # TODO? Beware the corner of the patches are not included in the patches_verts.
-    # Now we need to understand which superedges belong to which face.
+    def partition_mesh_vertices(verts, boundaries, mesh):
+        '''Partition the mesh verts into sets that never cross the given borders.'''
+        # TODO? Beware the corner of the patches are not included in the patches_verts.
+        # Now we need to understand which superedges belong to which face.
+        inner_verts = list(set(verts) - set(boundaries))
+        result = []
+        while len(inner_verts) > 0:
+            vi = inner_verts.pop(0)
+            partition = explore(vi, boundaries, mesh)
+            for e in partition:
+                if e in inner_verts:
+                    inner_verts.remove(e)
+            result.append(frozenset(partition))
+        return result
     
-    patches = []
-    for partition in patches_verts:
-        current_edges = []
-        for edge in super_edges:
-            if any((pp in edge) for pp in partition):
-                current_edges.append(edge)
-        patches.append(current_edges)
+    patches_verts = partition_mesh_vertices(verts_indexes, boundaries, bm)
     
+    def compute_patch_edges(faces_verts, all_edges):
+        '''Compute which edges belong to which face'''
+        patches = []
+        for partition in faces_verts:
+            current_edges = []
+            for edge in all_edges:
+                if any((pp in edge) for pp in partition):
+                    current_edges.append(edge)
+            patches.append(current_edges)
+        return patches
+    
+    patches = compute_patch_edges(patches_verts, super_edges)
     
     # We now need to reorder the vertices of each face so that we can build a spline on them.
     def first(seq, cond):
@@ -187,9 +194,7 @@ for obj in objects:
         new_edges = explore_vert(v1, e2, avoid=lambda x: x not in patch_verts)
         new_edge = list(filter(lambda x: x[0] in e1 and x[-1] in e3, new_edges))[0]
         new_edge = tuple(new_edge)
-        
-        print(new_edge)
-        
+                
         vi_0 = new_edge[0]
         vi_F = new_edge[-1]
         
@@ -204,6 +209,8 @@ for obj in objects:
         new_patches += split_patch(patch, patches_verts[i], bm)
     patches = new_patches
      
+    print(len(patches))
+     
     # Plot the meshes.
     for patch in patches:
         curves = []
@@ -213,7 +220,7 @@ for obj in objects:
     
         polygon = geom.PolygonsNetQuad(curves)
         #points = list(geom.sample_patch_samples(polygon, 25))
-        quads = list(geom.sample_patch_quads_samples(polygon, 20))
+        quads = list(geom.sample_patch_quads_samples(polygon, 5))
         
         c1_points = list(geom.sample_curve_samples(curves[0], 10))
         c2_points = list(geom.sample_curve_samples(curves[1], 10))
