@@ -127,7 +127,7 @@ Renderer00002 as SFRendererData{
 }
 
 
-RenderedTexture0002 as SFRenderingAlgorithmData{
+RenderedTexture0001 as SFRenderingAlgorithmData{
 	stack = SFRenderedTextureStackData{
 		textures = SFRenderedTextureData{
 			size = (512,512)
@@ -141,16 +141,6 @@ RenderedTexture0002 as SFRenderingAlgorithmData{
 			drawables = SFStateDrawableData{
 				state = MainViewerSetup
 			}
-			drawables += SFImageModelData{
-				materialComponent = SFProgramAssetData{
-					program = Turbulence
-					structures = (16)(1)(0.6)(1,1,1) (1,1,1)
-					textures = BitmapTexture01
-				}
-				lightComponent = SFProgramAssetData{
-					program = BasicColor
-				}
-			}
 			drawables += SFRepeatingDrawableArrayData{
 				renderer == Renderer00002
 				nodes == Stone01,Stone02,Stone03
@@ -161,10 +151,71 @@ RenderedTexture0002 as SFRenderingAlgorithmData{
 	}
 }
 
+RenderedTexture0002 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (800,800)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = GaussianFilterHorizontal
+					textures = RenderedTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+					
+				}
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+RenderedTexture0003 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (800,800)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = GaussianFilterVertical
+					textures = RenderedTexture0002
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+					
+				}
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+
+
+
 RenderedTextureViewer0002 as SFImageModelData{
 	materialComponent = SFProgramAssetData{
 		program = TexturedMat
-		textures = RenderedTexture0002
+		textures = RenderedTexture0003
 	}
 	lightComponent = SFProgramAssetData{
 		program = BasicColor

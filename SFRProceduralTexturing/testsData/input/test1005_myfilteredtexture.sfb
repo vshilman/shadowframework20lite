@@ -186,7 +186,90 @@ Renderer00002 as SFRendererData{
 }
 
 
+RenderedTexture0001 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (800,800)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFRepeatingDrawableArrayData{
+				renderer == Renderer00002
+				nodes == Stone01,Stone02,Stone03,Stone04
+				repeater == RectangleObjectRepeater
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
 RenderedTexture0002 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (800,800)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = GaussianFilterHorizontal
+					textures = RenderedTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+					
+				}
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+RenderedTexture0003 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (800,800)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = BlendModeAdd
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
+					program = GaussianFilterVertical
+					textures = RenderedTexture0002
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+					
+				}
+			}
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+
+RenderedTexture0004 as SFRenderingAlgorithmData{
 	stack = SFRenderedTextureStackData{
 		textures = SFRenderedTextureData{
 			size = (800,800)
@@ -223,6 +306,15 @@ RenderedTexture0002 as SFRenderingAlgorithmData{
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
+					program = TexturedMat
+					textures = RenderedTexture0001
+				}
+				lightComponent = SFProgramAssetData{
+					program = BasicColor
+				}
+			}
+			drawables += SFImageModelData{
+				materialComponent = SFProgramAssetData{
 					program = SoilColor
 					structures = $soilcolor:(0.31,0.31,0.36)
 				}
@@ -230,20 +322,16 @@ RenderedTexture0002 as SFRenderingAlgorithmData{
 					program = BasicColor
 				}
 			}
-			drawables += SFRepeatingDrawableArrayData{
-				renderer == Renderer00002
-				nodes == Stone01,Stone02,Stone03,Stone04
-				repeater == RectangleObjectRepeater
-			}
 		}
 		drawables += SFRenderedTextureStackPopData 
 	}
 }
 
+
 RenderedTextureViewer0002 as SFImageModelData{
 	materialComponent = SFProgramAssetData{
 		program = TexturedMat
-		textures = RenderedTexture0002
+		textures = RenderedTexture0004
 	}
 	lightComponent = SFProgramAssetData{
 		program = BasicColor

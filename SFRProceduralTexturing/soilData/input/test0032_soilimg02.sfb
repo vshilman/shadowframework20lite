@@ -13,7 +13,7 @@ TemplateSoilTexture01 as SFTemplateDataAsset {
 	asset as SFRenderingAlgorithmData{
 		stack = SFRenderedTextureStackData{
 			textures = SFRenderedTextureData{
-				size = (1024,1024)
+				size = (96,96)
 				useDepth = false
 				textureModel = linearTextureModel
 			}

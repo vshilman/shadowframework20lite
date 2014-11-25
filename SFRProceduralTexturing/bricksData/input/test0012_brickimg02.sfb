@@ -1,7 +1,7 @@
 		
 BitmapTexture0001 = SFBitmapTextureData{
 	bitmap = SFFunction2DBitmapData{
-		width = 1000 \\ height = 1000
+		width = 600 \\ height = 600
 		function as SFFunctionRandomizerData{
 			seed = 77
 		}
@@ -45,14 +45,14 @@ Renderer00002 as SFRendererData{
 	light as SFProgramAssetData{
 		program = BasicColor
 
-		viewSize = 250
+		viewSize = 800
 	}
 }
 
 RenderedTexture0002 as SFRenderingAlgorithmData{
 	stack = SFRenderedTextureStackData{
 		textures = SFRenderedTextureData{
-			size = (256,256)
+			size = (800,800)
 			useDepth = false
 			textureModel = linearTextureModel
 		}

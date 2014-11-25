@@ -128,3 +128,8 @@ materialComponent SoilColor(Color c){
 	vec3 color = (c_color);
 	vec3 matnormal = normal;
 }
+
+materialComponent StepColor(Color a,Color b){
+	vec3 color = mix(a_color, b_color, step(position.x,0.5));
+	vec3 matnormal = normal;
+}

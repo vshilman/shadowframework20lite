@@ -10,7 +10,11 @@ public class Test0011_BrickImg01 extends MainPTBricks{
 	public static void main(String[] args) {
 		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
 		setFilename(FILENAME);
+		
+		System.out.println("Start " + System.nanoTime());
 		execute(new Test0011_BrickImg01());
+		System.out.println("End " + System.nanoTime());
+		
 	}
 
 	public void viewTestData() {

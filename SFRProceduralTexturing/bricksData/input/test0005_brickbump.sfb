@@ -12,10 +12,10 @@ BitmapTexture0001 = SFBitmapTextureData{
 
 RectangleSurface as SFSurfaceData{
 	surfaceFunction as SFRectangle2DFunctionData{
-		x = -0.5
-		y = -0.5
-		w = 1.0
-		h = 1.0
+		x = -1
+		y = -1
+		w = 2.0
+		h = 2.0
 	}
 	texCoordFunction as SFSimpleTexCoordGeometryuvData{
 		du = 1.0 \\ dv = 1.0
@@ -36,7 +36,7 @@ RectangleModel as SFObjectModelData{
 	}
 	materialComponent as SFProgramAssetData{
 		program = BrickBumpMap
-		structures = (0.3,0.15)(0.01)(0.18,0.049,0.046)(0.404,0.404,0.404)(0.03)
+		structures = (0.4,0.2)(0.03)(0.18,0.049,0.046)(0.404,0.404,0.404)(0.03)
 		textures = BitmapTexture0001
 	}
 }
@@ -45,14 +45,14 @@ Renderer00002 as SFRendererData{
 	light as SFProgramAssetData{
 		program = BasicColor
 
-		viewSize = 150
+		viewSize = 800
 	}
 }
 
 RenderedTexture0002 as SFRenderingAlgorithmData{
 	stack = SFRenderedTextureStackData{
 		textures = SFRenderedTextureData{
-			size = (256,256)
+			size = (800,800)
 			useDepth = false
 			textureModel = linearTextureModel
 		}
