@@ -18,7 +18,7 @@ public class Test0032_SoilImg02  extends MainPTSoil {
 	public void viewTestData() {
 		loadLibraryAsDataCenter();
 		SFImageModel imageModel=getAlreadyAvailableDatasetResource("TextureViewer01");
-		SFDrawableFrame frame=new SFDrawableFrame("Soil Test Img02", 800, 800, imageModel);
+		SFDrawableFrame frame=new SFDrawableFrame("Soil Test Img02", 256, 256, imageModel);
 		frame.setVisible(true);
 		
 	}

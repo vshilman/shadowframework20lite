@@ -4,3 +4,4 @@
 #include perlin
 #include materials
 #include bump
+#include filters
