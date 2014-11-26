@@ -29,28 +29,30 @@ public class Login extends HttpServlet {
 		String address = req.getRemoteAddr();
 
 		
+//		System.out.println("fino a qui tutto ok!");
+//		System.out.println(action);
 		if (action.equals("login")) {
 			
 			if (platform.equals("java")) {
-	//			System.out.println("Someone is trying to connect to me -- JAVA");
+//				System.out.println("Someone is trying to connect to me -- JAVA");
 				if (nickname.isEmpty()||password.isEmpty()) {
 					PrintWriter wr= resp.getWriter();
 					wr.write("Username or Password empty");
 					wr.close();
 				}else{
-	//				System.out.println(" ci sono"+ nickname+password);
+//					System.out.println(" ci sono"+ nickname+password);
 						if (isAutenticated(nickname, password)) {
-	//						System.out.println("nick and pass ok");
+//							System.out.println("nick and pass ok");
 		
 							if (!Mediator.getMed().getOnline().containsKey(nickname)) {
-	//							System.out.println("i'm not online");
+//								System.out.println("i'm not online");
 		
 								Mediator.getMed().addOnline(nickname, address, 0, "yes", platform);
 								PrintWriter w= resp.getWriter();
 								w.write("Success!");
 								w.close();
 							}else{
-	//							System.out.println("I'm Online!");
+//								System.out.println("I'm Online!");
 								
 								Mediator.getMed().removeOnline(nickname);
 								PrintWriter w= resp.getWriter();
@@ -58,7 +60,7 @@ public class Login extends HttpServlet {
 								w.close();
 							}
 						}else {
-	//						System.out.println("wrong user or pass");
+//							System.out.println("wrong user or pass");
 		
 							PrintWriter w= resp.getWriter();
 							w.write("Wrong Username or Password!");
@@ -114,9 +116,9 @@ public class Login extends HttpServlet {
 	
 			}
 		}else if (action.equals("logout")) {
-//			System.out.println("entro e nick= "+ses.getAttribute("id"));
+//			System.out.println("entro e nick= "+nickname);
 			if (platform.equals("java")) {
-				Mediator.getMed().removeOnline((String)ses.getAttribute("id"));
+				Mediator.getMed().removeOnline(nickname);
 				PrintWriter w= resp.getWriter();
 				w.write("Disconnected!");
 				w.close();
