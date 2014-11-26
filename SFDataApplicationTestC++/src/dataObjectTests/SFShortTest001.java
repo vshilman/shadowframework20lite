@@ -13,6 +13,8 @@ public class SFShortTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		String fileName = DIRECTORY+"/"+"SFShortTest001.sf";
 		
 		NativeLib1 nativeLib = new NativeLib1();
@@ -25,6 +27,11 @@ public class SFShortTest001 extends TestCase{
 		assertEquals((short)-88.88, result[4]);
 		//System.out.println(result[3]);
 		//System.out.println(result[4]);
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 
 }

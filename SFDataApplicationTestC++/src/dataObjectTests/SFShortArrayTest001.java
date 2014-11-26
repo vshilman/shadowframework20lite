@@ -15,6 +15,8 @@ public class SFShortArrayTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		String fileName = DIRECTORY+"/"+"SFShortArrayTest001.sf";
 		NativeLib5 nativeLib = new NativeLib5();
 		short[] result = nativeLib.getData(fileName);
@@ -33,6 +35,10 @@ public class SFShortArrayTest001 extends TestCase{
 		assertEquals(4, result2[4]);
 		assertEquals(6, result2[5]);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 
 }

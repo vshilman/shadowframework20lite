@@ -9,6 +9,8 @@ public class SFVertex4fTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		NativeLib13 nativeLib = new NativeLib13();
 		float[] result = nativeLib.getData();
 		
@@ -50,6 +52,10 @@ public class SFVertex4fTest001 extends TestCase{
 		assertEquals(7, result[35], 0);
 		assertEquals(7, result[36], 0);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 
 }

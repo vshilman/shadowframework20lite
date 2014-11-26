@@ -13,6 +13,8 @@ public class SFIntArrayTest001 extends TestCase {
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		String fileName = DIRECTORY+"/"+"SFIntArrayTest001.sf";
 		
 		NativeLib3 nativeLib = new NativeLib3();
@@ -38,6 +40,11 @@ public class SFIntArrayTest001 extends TestCase {
 //		assertEquals(-69, result3[3]);
 //		assertEquals(-78, result3[4]);
 
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 
 }

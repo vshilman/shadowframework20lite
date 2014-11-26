@@ -13,6 +13,8 @@ public class SFFloatTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		String fileName = DIRECTORY+"/"+"SFFloatTest001.sf";
 		
 		NativeLib2 nativeLib = new NativeLib2();
@@ -26,6 +28,10 @@ public class SFFloatTest001 extends TestCase{
 		System.out.println(result[3]);
 		System.out.println(result[4]);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 
 }

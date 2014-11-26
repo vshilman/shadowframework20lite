@@ -10,6 +10,8 @@ public class SFMatrix3fTest001 extends TestCase {
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		NativeLib10 nativeLib = new NativeLib10();
 		float[] result = nativeLib.getData();
 		float[] result2 = nativeLib.getData2();
@@ -44,6 +46,10 @@ public class SFMatrix3fTest001 extends TestCase {
 		//assertEquals(-1, result2[16], 0);
 		//assertEquals(-1, result2[17], 0);   //valori strani
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 
 }
