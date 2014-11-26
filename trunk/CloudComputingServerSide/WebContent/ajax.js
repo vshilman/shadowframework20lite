@@ -31,3 +31,20 @@ function loadXMLDoc(){
 
 }
 window.setTimeout("loadXMLDoc()", 0); 
+
+
+function logout(){
+	var xmlhttp;
+	if (window.XMLHttpRequest){
+		// codice per IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}else{
+		// codice per IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.open("POST","./Login",true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send("platform=html&action=logout");
+	window.location.assign("http://127.0.0.1:8080/ccom/html/login/login.html");
+
+}

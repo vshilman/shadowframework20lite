@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import sun.awt.windows.WLightweightFramePeer;
+import utils.Incapsulator;
 
 public class Mediator {
 	private static final String NOBODY = "nobody";
@@ -22,11 +23,13 @@ public class Mediator {
 	private static String path;
 	private User user;
 	private static List<User> usersList;
+	private static Incapsulator computator;
 
 	private Mediator() {
 	}
 	
 	static{
+		computator=new Incapsulator();
 		path="ccomdata/dataUsers.txt";
 		reader= new Reader(path);
 		writer= new Writer(path);

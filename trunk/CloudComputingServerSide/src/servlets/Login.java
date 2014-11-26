@@ -25,90 +25,109 @@ public class Login extends HttpServlet {
 		String nickname = req.getParameter("nickname");
 		String password = req.getParameter("password");
 		String platform = req.getParameter("platform");
+		String action= req.getParameter("action");
 		String address = req.getRemoteAddr();
 
-		if (platform.equals("java")) {
-//			System.out.println("Someone is trying to connect to me -- JAVA");
-			if (nickname.isEmpty()||password.isEmpty()) {
-				PrintWriter wr= resp.getWriter();
-				wr.write("Username or Password empty");
-				wr.close();
-			}else{
-//				System.out.println(" ci sono"+ nickname+password);
-					if (isAutenticated(nickname, password)) {
-//						System.out.println("nick and pass ok");
-	
-						if (!Mediator.getMed().getOnline().containsKey(nickname)) {
-//							System.out.println("i'm not online");
-	
-							Mediator.getMed().addOnline(nickname, address, 0, "yes", platform);
+		
+		if (action.equals("login")) {
+			
+			if (platform.equals("java")) {
+	//			System.out.println("Someone is trying to connect to me -- JAVA");
+				if (nickname.isEmpty()||password.isEmpty()) {
+					PrintWriter wr= resp.getWriter();
+					wr.write("Username or Password empty");
+					wr.close();
+				}else{
+	//				System.out.println(" ci sono"+ nickname+password);
+						if (isAutenticated(nickname, password)) {
+	//						System.out.println("nick and pass ok");
+		
+							if (!Mediator.getMed().getOnline().containsKey(nickname)) {
+	//							System.out.println("i'm not online");
+		
+								Mediator.getMed().addOnline(nickname, address, 0, "yes", platform);
+								PrintWriter w= resp.getWriter();
+								w.write("Success!");
+								w.close();
+							}else{
+	//							System.out.println("I'm Online!");
+								
+								Mediator.getMed().removeOnline(nickname);
+								PrintWriter w= resp.getWriter();
+								w.write("Disconnected!");
+								w.close();
+							}
+						}else {
+	//						System.out.println("wrong user or pass");
+		
 							PrintWriter w= resp.getWriter();
-							w.write("Success!");
-							w.close();
-						}else{
-//							System.out.println("I'm Online!");
-							
-							Mediator.getMed().removeOnline(req.getParameter("nickname"));
-							PrintWriter w= resp.getWriter();
-							w.write("Disconnected!");
+							w.write("Wrong Username or Password!");
 							w.close();
 						}
-					}else {
-//						System.out.println("wrong user or pass");
+						
+				}
+				
+			}else{
+				if (ses == null) {
+					if (req.getParameterMap().containsKey("nickname")&& req.getParameterMap().containsKey("password")) {
+						boolean rights = isAutenticated(nickname, password);			
+//						System.out.println("Someone is trying to connect to me");
+						
+						if (rights) {
+//							System.out.println("User and pass ok");
 	
-						PrintWriter w= resp.getWriter();
-						w.write("Wrong Username or Password!");
-						w.close();
-					}
-					
-			}
-			
-		}else{
-			if (ses == null) {
-				if (req.getParameterMap().containsKey("nickname")&& req.getParameterMap().containsKey("password")) {
-					boolean rights = isAutenticated(nickname, password);			
-//					System.out.println("Someone is trying to connect to me");
-					
-					if (rights) {
-//						System.out.println("User and pass ok");
-
-						if (!Mediator.getMed().getOnline().containsKey(nickname)) {
-//							System.out.println("I'm not online");
-
-							ses = req.getSession(true);
-							ses.setAttribute("id", nickname);
-							Mediator.getMed().addOnline(nickname, address, 0 , "yes", platform);
-							
-//							System.out.println("connected others");
-							resp.sendRedirect("./index.html");
-
+							if (!Mediator.getMed().getOnline().containsKey(nickname)) {
+//								System.out.println("I'm not online");
+	
+								ses = req.getSession(true);
+								ses.setAttribute("id", nickname);
+								Mediator.getMed().addOnline(nickname, address, 0 , "yes", platform);
+								
+								
+//								System.out.println("connected others");
+//								System.out.println(nickname+" "+address+" "+platform);
+								resp.sendRedirect("./index.html");
+	
+							}else {
+//								System.out.println("I'm already online");
+								
+								Mediator.getMed().removeOnline(nickname);
+								resp.sendRedirect("./html/login/login.html");
+							}
+	
 						}else {
-//							System.out.println("I'm already online");
-							
-							Mediator.getMed().removeOnline(req.getParameter("nickname"));
+//							System.out.println("user or password incorrect");
 							resp.sendRedirect("./html/login/login.html");
 						}
-
-					}else {
-//						System.out.println("user or password incorrect");
+					} else {
+//						System.out.println("not enough parameters");
 						resp.sendRedirect("./html/login/login.html");
 					}
+	
 				} else {
-//					System.out.println("not enough parameters");
+//					System.out.println("relogged, so disconnected");
+					Mediator.getMed().removeOnline(nickname);
+					ses.invalidate();
 					resp.sendRedirect("./html/login/login.html");
+	
 				}
-
-			} else {
-//				System.out.println("relogged, so disconnected");
+	
+			}
+		}else if (action.equals("logout")) {
+//			System.out.println("entro e nick= "+ses.getAttribute("id"));
+			if (platform.equals("java")) {
+				Mediator.getMed().removeOnline((String)ses.getAttribute("id"));
+				PrintWriter w= resp.getWriter();
+				w.write("Disconnected!");
+				w.close();
 				
-				Mediator.getMed().removeOnline(req.getParameter("nickname"));
+			}else if (platform.equals("html")) {
+//				System.out.println((String)ses.getAttribute("id"));
+				Mediator.getMed().removeOnline((String)ses.getAttribute("id"));
 				ses.invalidate();
 				resp.sendRedirect("./html/login/login.html");
-
 			}
-
-		}
-				
+		}	
 		
 
 	}

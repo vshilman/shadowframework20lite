@@ -3,6 +3,7 @@ package servlets;
 import generic.Mediator;
 import generic.UserState;
 
+import java.beans.XMLEncoder;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -43,12 +44,21 @@ public class OnlineUsersHtml extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession ses = request.getSession(false);
-		if (ses == null) {
-			response.sendRedirect("./html/login/login.html");
-		} else {
+		if (ses == null || !Mediator.getMed().getOnline().containsKey(ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html")) {
+				System.out.println("UNA CAZZO DI RICHIESTA GET");		
 			PrintWriter writer = response.getWriter();
-			writer.write("ERROR: NO GET METHOD ACCEPTED");
+			writer.write("<p>");
+			writer.write("You seem to not be logged, please log in <a href=\"./html/login/login.html\">here</a>.");
+			writer.write("</p>");
 			writer.close();
+			
+			
+		} else {
+			List<String> welcomer=Mediator.getMed().getWelcomeUser();
+			XMLEncoder encode= new XMLEncoder(response.getOutputStream());
+			encode.writeObject(welcomer);
+			encode.flush();
+			encode.close();
 		}
 	}
 
@@ -61,7 +71,10 @@ public class OnlineUsersHtml extends HttpServlet {
 
 		HttpSession ses = request.getSession(false);
 		if (ses == null || !Mediator.getMed().getOnline().containsKey(ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html")) {
-						
+			
+			System.out.println(ses.toString());
+			System.out.println(Mediator.getMed().getOnline().containsKey(ses.getAttribute("id")));
+			System.out.println(Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html"));
 			PrintWriter writer = response.getWriter();
 			writer.write("<p>");
 			writer.write("You seem to not be logged, please log in <a href=\"./html/login/login.html\">here</a>.");
@@ -70,32 +83,42 @@ public class OnlineUsersHtml extends HttpServlet {
 			
 			
 		} else {
-			String name = request.getParameter("nickname");
-			PrintWriter writer = response.getWriter();
-			writer.write("<p>Hi: " + ses.getAttribute("id") + "</p>");
-			Set<String> usersOnline = Mediator.getMed().getOnline().keySet();
-			HashMap<String, List<String>> status = new HashMap<String, List<String>>();
-			status.putAll(Mediator.getMed().getOnline());
-			List<String> users = new ArrayList<String>();
-			for (Iterator iterator = usersOnline.iterator(); iterator.hasNext();) {
-				String string = (String) iterator.next();
-				users.add(string);
+			String nick=(String)ses.getAttribute("id");
+			PrintWriter wr= response.getWriter();
+			if (Mediator.getMed().getOnline().containsKey(nick)) {
+				Mediator.getMed().setWelcomeUser(nick);
+				wr.write("done");
+				wr.close();
+			}else {
+				wr.write("error");
+				wr.close();
 			}
-			writer.write("<table>");
-			writer.write("<tr>");
-			writer.write("<th> Nickname </th>");
-			writer.write("<th> Available </th>");
-			writer.write("</tr>");
-			for (int i = 0; i < users.size(); i++) {
-				writer.write("<tr>");
-				writer.write("<td> " + users.get(i) + " </td>");
-				writer.write("<td>" + status.get(users.get(i)).get(0) + "</td>");
-				writer.write("</tr>");
-
-			}
-			writer.write("</table>");
-			// writer.write("<p><a href=\"./html/test/appletTest.html\"> Go to the Applet </a></p>");
-			writer.close();
+//			String name = request.getParameter("nickname");
+//			PrintWriter writer = response.getWriter();
+//			writer.write("<p>Hi: " + ses.getAttribute("id") + "</p>");
+//			Set<String> usersOnline = Mediator.getMed().getOnline().keySet();
+//			HashMap<String, List<String>> status = new HashMap<String, List<String>>();
+//			status.putAll(Mediator.getMed().getOnline());
+//			List<String> users = new ArrayList<String>();
+//			for (Iterator iterator = usersOnline.iterator(); iterator.hasNext();) {
+//				String string = (String) iterator.next();
+//				users.add(string);
+//			}
+//			writer.write("<table>");
+//			writer.write("<tr>");
+//			writer.write("<th> Nickname </th>");
+//			writer.write("<th> Available </th>");
+//			writer.write("</tr>");
+//			for (int i = 0; i < users.size(); i++) {
+//				writer.write("<tr>");
+//				writer.write("<td> " + users.get(i) + " </td>");
+//				writer.write("<td>" + status.get(users.get(i)).get(0) + "</td>");
+//				writer.write("</tr>");
+//
+//			}
+//			writer.write("</table>");
+//			// writer.write("<p><a href=\"./html/test/appletTest.html\"> Go to the Applet </a></p>");
+//			writer.close();
 
 		}
 	}

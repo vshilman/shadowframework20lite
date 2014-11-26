@@ -5,9 +5,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="../../Login" method="post">
+<form name="loginForm" action="../../Login" method="post">
   Nickname: <input type="text" name="nickname"><br>
   Password: <input type="password" name="password"><br>
+  <input type="hidden" name="action" value="login">
   <input type="hidden" name="platform" value="html">
   <input type="submit" value="Login!">
 </form>
