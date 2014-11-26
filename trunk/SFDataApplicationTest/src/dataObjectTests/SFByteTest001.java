@@ -30,6 +30,8 @@ public class SFByteTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		assertEquals(8, byte1.getByteValue());
 		assertEquals(-74, byte2.getByteValue());
 		
@@ -48,10 +50,17 @@ public class SFByteTest001 extends TestCase{
 		
 		assertEquals("111", byte1.toStringValue());
 		assertEquals("-111", byte2.toStringValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		byte2 = byte1.copyDataObject();
 		
@@ -96,6 +105,11 @@ public class SFByteTest001 extends TestCase{
 
 		assertEquals(13, byte1.getByteValue());
 		assertEquals(-101, byte2.getByteValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 
 }

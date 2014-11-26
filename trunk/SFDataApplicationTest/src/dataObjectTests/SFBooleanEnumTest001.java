@@ -28,6 +28,8 @@ public class SFBooleanEnumTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		boolean1.setValue(false);
 		assertEquals(0, boolean1.getIndex());
 		
@@ -75,6 +77,11 @@ public class SFBooleanEnumTest001 extends TestCase{
 		assertEquals("false", boolean1.toStringValue());
 
 		boolean1.setIndex(1);
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 
 }

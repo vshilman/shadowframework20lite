@@ -29,15 +29,24 @@ public class SFShortTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		short1.setShortValue((short)8874);
 		short2.setShortValue((short)-32767);
 		
 		assertEquals(8874, short1.getShortValue());
 		assertEquals(-32767, short2.getShortValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		short1.setShortValue((short)118);
 		short2.setShortValue((short) -154.35);
@@ -81,10 +90,17 @@ public class SFShortTest001 extends TestCase{
 
 		assertEquals((short)1111.111, short1.getShortValue());
 		assertEquals((short) -88.88, short2.getShortValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 	
 	@Test
 	public void testC(){
+		
+		long startTime = System.nanoTime();
 		
 		short1.setShortValue((short)1978);
 		short2 = short1.copyDataObject();
@@ -96,6 +112,11 @@ public class SFShortTest001 extends TestCase{
 		
 		assertEquals((short)1187, short2.getShortValue());
 		assertEquals("1978", short1.toStringValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test C: "+duration+"ms");
 		
 	}
 

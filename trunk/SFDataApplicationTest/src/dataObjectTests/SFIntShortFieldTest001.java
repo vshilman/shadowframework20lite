@@ -16,6 +16,8 @@ public class SFIntShortFieldTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		assertEquals(55, shortInt1.getShort(0));
 		assertEquals(0, shortInt1.getShort(1));
 		assertEquals(19288, shortInt2.getShort(0));
@@ -28,11 +30,18 @@ public class SFIntShortFieldTest001 extends TestCase{
 		assertEquals(87, shortInt1.getShort(1));
 		assertEquals(0, shortInt2.getShort(1));
 		assertEquals(19288, shortInt2.getShort(0)+shortInt2.getShort(1));
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		shortInt3 = shortInt2.copyDataObject();
 		assertEquals(19288, shortInt3.getShort(0));
@@ -44,6 +53,11 @@ public class SFIntShortFieldTest001 extends TestCase{
 		assertEquals(0, shortInt3.getShort(1));
 		assertEquals("(187,0)", shortInt3.toStringValue());
 		assertEquals("(19288,13)", shortInt2.toStringValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 		
 	}
 

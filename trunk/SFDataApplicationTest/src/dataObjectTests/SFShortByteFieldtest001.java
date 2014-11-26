@@ -14,6 +14,8 @@ public class SFShortByteFieldtest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		assertEquals((short) 10, shortByte1.getByte(0));
 		assertEquals((short) 0, shortByte1.getByte(1));
 		
@@ -22,10 +24,16 @@ public class SFShortByteFieldtest001 extends TestCase{
 		assertEquals((short) 522,  shortByte1.getShortValue());
 		assertEquals((short) 2, shortByte1.getByte(1));
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		SFShortByteField shortByte2 = new SFShortByteField((short) 0);
 		
@@ -39,10 +47,16 @@ public class SFShortByteFieldtest001 extends TestCase{
 		assertEquals((short) 522,  shortByte2.getShortValue());
 		assertEquals((short) 2, shortByte2.getByte(1));
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 	
 	@Test
 	public void testC(){
+		
+		long startTime = System.nanoTime();
 		
 		shortByte1.setStringValue("145");
 		
@@ -56,6 +70,10 @@ public class SFShortByteFieldtest001 extends TestCase{
 		assertEquals((short) 4, shortByte1.getByte(1));
 		assertEquals((short) 1169, shortByte1.getShortValue());
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test C: "+duration+"ms");
 	}
 	
 }

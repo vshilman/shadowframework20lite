@@ -29,6 +29,8 @@ public class SFBinaryDataListTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		binaryObject.addCharSetObjects("0.5");
 		binaryObject.addCharSetObjects("0.87");
 		binaryObject.addCharSetObjects("1.78");
@@ -39,11 +41,17 @@ public class SFBinaryDataListTest001 extends TestCase{
 		assertEquals("0.87", binaryObject.getCharSetObjectString(1));
 		assertEquals("1.78", binaryObject.getCharSetObjectString(2));
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testB(){
 		
+		long startTime = System.nanoTime();
 		
 		try {
 			FileOutputStream output=new FileOutputStream(DIRECTORY+"/"+"SFBinaryDataListTest001.sf");
@@ -72,6 +80,11 @@ public class SFBinaryDataListTest001 extends TestCase{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 		
 	}
 

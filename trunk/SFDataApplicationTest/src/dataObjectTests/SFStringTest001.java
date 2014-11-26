@@ -29,15 +29,24 @@ public class SFStringTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		string1.setString("Giacomo");
 		string2.setString("Mattia");
 		
 		assertEquals("Giacomo", string1.getString());
 		assertEquals("Mattia", string2.getString());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		string1.setStringValue("Alberto");
 		string2.setStringValue("Benedetta");
@@ -84,10 +93,17 @@ public class SFStringTest001 extends TestCase{
 		assertEquals("Spagna", string1.getString());
 		assertEquals("Italia", string2.getString());	
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
+		
 	}
 	
 	 @Test
 	 public void testC(){
+		 
+		 long startTime = System.nanoTime();
 		 
 		 string1.setString("Ingegneria");
 		 string2 = string1.copyDataObject();
@@ -99,6 +115,11 @@ public class SFStringTest001 extends TestCase{
 		 
 		 assertEquals("Medicina", string1.toStringValue());
 		 assertEquals("Ingegneria", string2.toStringValue());
+		 
+		 long endTime = System.nanoTime();
+		 long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test C: "+duration+"ms");
 	 }
 
 }
