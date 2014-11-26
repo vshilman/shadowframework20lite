@@ -12,6 +12,8 @@ public class SFIntTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		String fileName = DIRECTORY+"/"+"SFIntTest001.sf";
 		
 		NativeLib nativeLib = new NativeLib();
@@ -24,8 +26,15 @@ public class SFIntTest001 extends TestCase{
 		assertEquals(1, result[4]);
 		//System.out.println(result[3]);
 		//System.out.println(result[4]);
+		System.out.println();
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 		
 	}
+	
 }
 
 class NativeLib

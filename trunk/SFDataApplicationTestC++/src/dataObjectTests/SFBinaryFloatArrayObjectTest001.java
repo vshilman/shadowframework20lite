@@ -9,6 +9,8 @@ public class SFBinaryFloatArrayObjectTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		NativeLib14 nativeLib = new NativeLib14();
 		float[] result = nativeLib.getData();
 		
@@ -19,6 +21,10 @@ public class SFBinaryFloatArrayObjectTest001 extends TestCase{
 		assertEquals(-1.5f, result[4], 0);
 		assertEquals(1.5f, result[5], 0);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 }
 
