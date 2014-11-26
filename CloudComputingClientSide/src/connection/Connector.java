@@ -20,6 +20,8 @@ public class Connector{
 
 	
 	private String NICKHEAD= "nickname=";
+	private String LOGINACTION="&action=login";
+	private String LOGOUTACTION="&action=logout";
 	private String PASSHEAD= "&password=";
 	private String PLATFORM= "&platform=java";
 	
@@ -49,7 +51,7 @@ public class Connector{
 				connection.setRequestProperty("User-Agent", "Java");
 				connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 				DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-				wr.writeBytes(NICKHEAD+user+PASSHEAD+pass+PLATFORM);
+				wr.writeBytes(NICKHEAD+user+PASSHEAD+pass+PLATFORM+LOGINACTION);
 				wr.flush();
 				wr.close();
 	//			System.out.println(NICKHEAD+user+PASSHEAD+pass+PLATFORM);
@@ -69,6 +71,39 @@ public class Connector{
 			}
 	
 	}
+	
+	
+	public void logout(String user) {
+		
+		try {
+			url= new URL("http://"+ip+":8080/ccom/Login");
+			connection=(HttpURLConnection)url.openConnection();
+			connection.setDoOutput(true);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("User-Agent", "Java");
+			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			wr.writeBytes(NICKHEAD+user+PLATFORM+LOGOUTACTION);
+			wr.flush();
+			wr.close();
+//			System.out.println(NICKHEAD+user+PASSHEAD+pass+PLATFORM);
+			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			ans="";
+			while (in.ready()) {
+				ans+=in.readLine();
+			}
+			in.close();
+			
+			Mediator.getMed().getComputator().validateLogin(ans, "", "");
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+}
+	
 	
 	public void setMyselfAsWelcomer(){
 		try {
