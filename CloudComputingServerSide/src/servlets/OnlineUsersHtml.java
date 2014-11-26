@@ -72,9 +72,6 @@ public class OnlineUsersHtml extends HttpServlet {
 		HttpSession ses = request.getSession(false);
 		if (ses == null || !Mediator.getMed().getOnline().containsKey(ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html")) {
 			
-			System.out.println(ses.toString());
-			System.out.println(Mediator.getMed().getOnline().containsKey(ses.getAttribute("id")));
-			System.out.println(Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html"));
 			PrintWriter writer = response.getWriter();
 			writer.write("<p>");
 			writer.write("You seem to not be logged, please log in <a href=\"./html/login/login.html\">here</a>.");
