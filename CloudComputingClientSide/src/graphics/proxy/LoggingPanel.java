@@ -36,14 +36,14 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 			}
 		});
 
-		logout.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Mediator.getCMed().logout();
-				
-			}
-		});
+//		logout.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				Mediator.getCMed().logout();
+//				
+//			}
+//		});
 
 		setLayout(new GridLayout(4,2));
 		add(nick);
