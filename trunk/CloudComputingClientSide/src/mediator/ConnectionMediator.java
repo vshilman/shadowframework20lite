@@ -64,9 +64,7 @@ public class ConnectionMediator {
 
 	
 	
-	public void logout(){
-		Mediator.getMed().getComputator().validateLogout();
-	}
+	
 //	private void activateDeamon(){
 //		thread.setDaemon(true);
 //		thread.start();

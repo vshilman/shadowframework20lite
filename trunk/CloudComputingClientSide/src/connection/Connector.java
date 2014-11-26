@@ -73,7 +73,7 @@ public class Connector{
 	}
 	
 	
-	public void logout(String user) {
+	public void logout(String nick) {
 		
 		try {
 			url= new URL("http://"+ip+":8080/ccom/Login");
@@ -83,7 +83,7 @@ public class Connector{
 			connection.setRequestProperty("User-Agent", "Java");
 			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(NICKHEAD+user+PLATFORM+LOGOUTACTION);
+			wr.writeBytes(NICKHEAD+nick+PLATFORM+LOGOUTACTION);
 			wr.flush();
 			wr.close();
 //			System.out.println(NICKHEAD+user+PASSHEAD+pass+PLATFORM);
@@ -94,7 +94,7 @@ public class Connector{
 			}
 			in.close();
 			
-			Mediator.getMed().getComputator().validateLogin(ans, "", "");
+//			Mediator.getMed().getComputator().validateLogout();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
