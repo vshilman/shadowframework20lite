@@ -56,7 +56,7 @@ public class Computator {
 		}else{
 			if (me.getNick().equals(serviceMap.get(DEALER).getNick())) {
 				//TODO: DESIGNARE NUOVO DEALER
-				Mediator.getCMed().getConnection().login(me.getNick(), pass);
+				Mediator.getCMed().getConnection().logout(me.getNick());
 				Mediator.getGMed().setLoginPanel();
 				setNick("");
 				setPass("");
@@ -68,7 +68,7 @@ public class Computator {
 				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
 				String ans=(String)Mediator.getCMed().getAns();
 				if (ans.equals(OK)) {
-					Mediator.getCMed().getConnection().login(me.getNick(), pass);
+					Mediator.getCMed().getConnection().logout(me.getNick());
 					Mediator.getGMed().setLoginPanel();
 					setNick("");
 					setPass("");
@@ -84,6 +84,7 @@ public class Computator {
 		
 		if (answer.get(0).equals(NOBODY)) {
 			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
+			System.out.println("setto welcomer: me stesso");
 			serviceMap.put(WELCOMER, me);
 			serviceMap.put(DEALER, me);
 			Mediator.getGMed().setRoomsPanel();
