@@ -31,6 +31,8 @@ public class SFBinaryVertexListTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		vertices.addValue(vertex1);
 		
 		float [] expectedValues = {(float)10,(float)18.788};
@@ -42,10 +44,17 @@ public class SFBinaryVertexListTest001 extends TestCase{
 	
 		assertEquals("[10.0, 18.788]", vertices.getValue(0,vertex1).toString());
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		SFVertex2f vertex2 = new SFVertex2f(0, 0);
 		
@@ -88,6 +97,11 @@ public class SFBinaryVertexListTest001 extends TestCase{
 		}
 		
 		//assertEquals("[10.0, 18.788]", vertices.getValue(0,vertex1).toString());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 
 	

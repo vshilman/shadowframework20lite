@@ -27,8 +27,11 @@ public class DataAssetTest001 extends TestCase{
 
 	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFData";
 	
+	
 	@Test
 	public void testA(){
+		
+		long startTime = System.nanoTime();
 
 		DictionaryUtils dictionary = new DictionaryUtils();
 		SFDataCenter.setDictionary(dictionary);
@@ -84,10 +87,18 @@ public class DataAssetTest001 extends TestCase{
 		assertEquals(1, dataAsset.getIndex("mark"));
 		assertEquals(-1, dataAsset.getIndex("int1"));
 		assertEquals(-1, dataAsset.getIndex("float1"));
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
+	
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		DictionaryUtils dictionary = new DictionaryUtils();
 		SFDataCenter.setDictionary(dictionary);
@@ -135,5 +146,10 @@ public class DataAssetTest001 extends TestCase{
 		assertEquals(1, dataAsset.getIndex("mark"));
 		assertEquals(-1, dataAsset.getIndex("int1"));
 		assertEquals(-1, dataAsset.getIndex("float1"));
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 }

@@ -29,6 +29,8 @@ public class SFBinaryObjectTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		binaryObject.getBinaryValue().setFloat((float)0.5);
 		assertEquals(0.5, binaryObject.getBinaryValue().getFloat(), 0);
 		
@@ -65,5 +67,10 @@ public class SFBinaryObjectTest001 extends TestCase{
 		assertEquals(0.5, binaryObject.getBinaryValue().getFloat(), 0);
 		
 		assertEquals(8, binaryObject.getBinaryValue().getBitSize());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 }

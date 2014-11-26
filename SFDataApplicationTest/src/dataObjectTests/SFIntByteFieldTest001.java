@@ -15,6 +15,8 @@ public class SFIntByteFieldTest001 extends TestCase {
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		assertEquals(10, intByte1.getByte(0));
 		assertEquals(0, intByte1.getByte(1));
 		assertEquals(17, intByte2.getByte(1));
@@ -35,17 +37,28 @@ public class SFIntByteFieldTest001 extends TestCase {
 		assertEquals(1, intByte2.getByte(1));
 		assertEquals(0, intByte2.getByte(0));
 		assertEquals(256, intByte2.getIntValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 	
 	@Test
 	public void testB(){
 		
+		long startTime = System.nanoTime();
 	
 		intByte1.setStringValue("555");
 		intByte2.setStringValue("100");
 		
 		assertEquals(38, intByte1.getIntValue());
 		assertEquals(100, intByte2.getIntValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 		
 	}
 }

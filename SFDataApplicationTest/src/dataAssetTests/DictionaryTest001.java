@@ -28,6 +28,8 @@ public class DictionaryTest001 extends TestCase{
 
 	@Test
 	public void testA() {
+		
+		long startTime = System.nanoTime();
 			
 		SFDataCenter.setDictionary(new DictionaryUtils());
 		
@@ -56,10 +58,17 @@ public class DictionaryTest001 extends TestCase{
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		DictionaryUtils dictionary = new DictionaryUtils();
 		
@@ -110,6 +119,10 @@ public class DictionaryTest001 extends TestCase{
 		
 		System.out.println(dataAssets[0].toString());
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 }
 

@@ -38,6 +38,8 @@ public class SFEnumObjectTest001 extends TestCase{
 		@Test
 		public void testA(){
 			
+			long startTime = System.nanoTime();
+			
 			intArray[0] = int1;
 			intArray[1] = int2;
 			
@@ -88,6 +90,10 @@ public class SFEnumObjectTest001 extends TestCase{
 				e.printStackTrace();
 			}
 			
+			long endTime = System.nanoTime();
+			long duration = (endTime - startTime)/1000000;
+			
+			System.out.println("Durata Test B: "+duration+"ms");
 		}
 	
 	

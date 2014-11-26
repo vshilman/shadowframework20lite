@@ -29,6 +29,8 @@ public class SFIntArrayTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		int[] expectedArray1 = new int[5];
 		int[] expectedArray2 = new int[3];
 		
@@ -44,10 +46,17 @@ public class SFIntArrayTest001 extends TestCase{
 		assertArrayEquals(expectedArray3, intArray1.getIntValues());
 		assertArrayEquals(expectedArray4, intArray2.getIntValues());
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		int[] expectedArray1 = {0,1,55,3,4};
 		
@@ -92,11 +101,18 @@ public class SFIntArrayTest001 extends TestCase{
 		}
 		
 			assertArrayEquals(expectedArray1, intArray1.getIntValues());
+			
+			long endTime = System.nanoTime();
+			long duration = (endTime - startTime)/1000000;
+			
+			System.out.println("Durata Test B: "+duration+"ms");
 	
 	}
 	
 	@Test
 	public void testC(){
+		
+		long startTime = System.nanoTime();
 		
 		int[] expectedArray1 = {0,1,2,3,4};
 		int[] expectedArray2 = {0,-1,-2,-3,128};
@@ -117,10 +133,17 @@ public class SFIntArrayTest001 extends TestCase{
 		System.out.println(intArray1.toStringValue());
 		assertArrayEquals(expectedArray2, intArray1.getIntValues());
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test C: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testD(){
+		
+		long startTime = System.nanoTime();
 		
 		SFIntArray intArray3 = new SFIntArray(55);
 		SFIntArray intArray4 = new SFIntArray(11);
@@ -134,10 +157,17 @@ public class SFIntArrayTest001 extends TestCase{
 		intArray3.getIntValues()[4] = 100;
 		System.out.println(intArray3.toStringValue());
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test D: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testE(){
+		
+		long startTime = System.nanoTime();
 		
 		System.out.println(intArray1.toStringValue());
 		String value = "256,0,1,8,0";
@@ -148,6 +178,11 @@ public class SFIntArrayTest001 extends TestCase{
 		
 		//String value2 = "256,0/1,8;0";     //Lanciano una Malformed Exception a causa del formato errato della stringa
 		//intArray1.setStringValue(value2);
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test E: "+duration+"ms");
 	}
 
 }

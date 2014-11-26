@@ -31,6 +31,8 @@ public class SFShortArrayTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		short[] expectedArray = {(short)0,(short)1,(short) 2,(short) 3,(short)4};
 		
 		for (short i = 0; i < shortArray1.getShortValues().length; i++) {
@@ -44,11 +46,18 @@ public class SFShortArrayTest001 extends TestCase{
 		short[] expectedArray2 = {(short)0,(short)0,(short) 0,(short) 0,(short)0};
 			
 		assertArrayEquals(expectedArray2, shortArray2.getShortValues());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 						
 		shortArray1.getShortValues()[0] =(short)21;
 		shortArray1.getShortValues()[1] =(short)-78;
@@ -101,5 +110,10 @@ public class SFShortArrayTest001 extends TestCase{
 		System.out.println(shortArray1.getShortValues()[4]);
 		
 		assertEquals(expectedArray, shortArray1.getShortValues());	//il test va bene anche se segnala errore.
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 }

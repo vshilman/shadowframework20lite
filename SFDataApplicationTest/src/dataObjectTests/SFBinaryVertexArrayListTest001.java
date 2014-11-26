@@ -41,6 +41,8 @@ public class SFBinaryVertexArrayListTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		vertexArray1.addValue(valuesArray);
 		vertexArray1.addValue(valuesArray2);
 		
@@ -74,17 +76,29 @@ public class SFBinaryVertexArrayListTest001 extends TestCase{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 				
 	}
 	
 	@Test
 	public void testB(){
 		
+		long startTime = System.nanoTime();
+		
 		vertexArray1.addValue(valuesArray);
 
 		assertEquals(3, vertexArray1.getVertexSize().length);
 	
 		System.out.println(vertexArray1.getVertexCount());	
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 
 }

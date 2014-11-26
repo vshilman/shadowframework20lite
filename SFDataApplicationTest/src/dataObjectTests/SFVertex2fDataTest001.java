@@ -15,6 +15,8 @@ public class SFVertex2fDataTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		assertEquals(30, vertex1.getX(), 0);
 		assertEquals(-5, vertex1.getY(), 0);
 		
@@ -36,10 +38,17 @@ public class SFVertex2fDataTest001 extends TestCase{
 		assertEquals(33, vertex1.getX(), 0);
 		assertEquals(-8, vertex1.getY(), 0);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test A: "+duration+"ms");
+		
 	}
 
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		vertex1.scale2f(2, 5);
 		
@@ -49,10 +58,17 @@ public class SFVertex2fDataTest001 extends TestCase{
 		assertEquals(85, vertex1.dot2f(vertex2), 0);
 		
 		assertEquals(65, vertex1.getLength(), 0);
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test B: "+duration+"ms");
 	}
 	
 	@Test
 	public void testC(){
+		
+		long startTime = System.nanoTime();
 		
 		vertex1.set2f(1, 1);
 	
@@ -63,6 +79,11 @@ public class SFVertex2fDataTest001 extends TestCase{
 		
 		assertEquals(0, vertex1.getX(), 0);
 		assertEquals(2, vertex1.getY(), 0);
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test C: "+duration+"ms");
 	}
 	
 }

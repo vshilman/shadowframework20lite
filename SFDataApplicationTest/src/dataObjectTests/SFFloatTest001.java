@@ -27,6 +27,8 @@ public class SFFloatTest001 extends TestCase {
 	@Test
 	public void testA(){
 		
+		long startTime = System.nanoTime();
+		
 		float expectedValue = (float) 3.11;
 		float expectedValue2 = (float) -0.11;
 		
@@ -37,10 +39,17 @@ public class SFFloatTest001 extends TestCase {
 		assertEquals(expectedValue, float1.getFloatValue(), 0);
 		assertEquals(expectedValue2, float2.getFloatValue(), 0);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testB(){
+		
+		long startTime = System.nanoTime();
 		
 		float value1 = (float) 44.2112;
 		float value2 = (float) 0.001225;
@@ -83,10 +92,17 @@ public class SFFloatTest001 extends TestCase {
 
 		assertEquals(value1, float1.getFloatValue());
 		assertEquals(value2, float2.getFloatValue());	
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 	}
 	
 	@Test
 	public void testC(){
+		
+		long startTime = System.nanoTime();
 		
 		String value1 = "44.111";
 		String value2 = "-15.225";
@@ -96,11 +112,18 @@ public class SFFloatTest001 extends TestCase {
 		
 		assertEquals(Float.parseFloat(value1), float1.getFloatValue(), 0);
 		assertEquals(Float.parseFloat(value2), float2.getFloatValue(), 0);
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test C: "+duration+"ms");
 
 	}
 	
 	@Test
 	public void testD(){
+		
+		long startTime = System.nanoTime();
 		
 		float value1 = (float) 66.00008;
 		
@@ -111,10 +134,17 @@ public class SFFloatTest001 extends TestCase {
 		assertEquals(value1, float1.getFloatValue());
 		assertEquals(value1, float2.getFloatValue());
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test D: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testE(){
+		
+		long startTime = System.nanoTime();
 		
 		float value1 = (float) 138.1075;
 		
@@ -122,6 +152,11 @@ public class SFFloatTest001 extends TestCase {
 		float1.setFloatValue(value1);
 		
 		assertEquals(String.valueOf(value1), float1.toStringValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test E: "+duration+"ms");
 	
 	}
 	

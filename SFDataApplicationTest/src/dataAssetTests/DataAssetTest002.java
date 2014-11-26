@@ -16,6 +16,8 @@ public class DataAssetTest002 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		SFDataCenter.setDictionary(new DictionaryUtils());
 		
 		SFDataBuilder dataBuilder=new SFDataBuilder();
@@ -42,6 +44,11 @@ public class DataAssetTest002 extends TestCase{
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
+
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 		
 	}
 

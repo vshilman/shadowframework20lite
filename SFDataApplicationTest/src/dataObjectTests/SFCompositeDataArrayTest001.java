@@ -31,6 +31,8 @@ public class SFCompositeDataArrayTest001 extends TestCase{
 	
 	@Test
 	public void testA() {
+		
+		long startTime = System.nanoTime();
 
 		assertEquals(20, dataObject.intData1.getIntValue());
 		assertEquals(-96, dataObject.intData2.getIntValue());
@@ -39,11 +41,18 @@ public class SFCompositeDataArrayTest001 extends TestCase{
 		assertEquals((long)87875669, dataObject.long2.getLongValue());
 		
 		assertEquals(5, dataObject.elementsSize());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A: "+duration+"ms");
 	}
 	
 	@Test
 	public void testB() {
 
+		long startTime = System.nanoTime();
+		
 		dataObject.intData1.setIntValue(0);
 		
 		try {
@@ -81,6 +90,11 @@ public class SFCompositeDataArrayTest001 extends TestCase{
 		assertEquals("Torta", dataObject.string1.getString());
 		assertEquals(14789, dataObject.long1.getLongValue());
 		assertEquals((long)87875669, dataObject.long2.getLongValue());
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test B: "+duration+"ms");
 		
 		
 	}

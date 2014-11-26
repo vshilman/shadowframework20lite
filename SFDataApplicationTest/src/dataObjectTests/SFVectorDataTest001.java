@@ -38,6 +38,8 @@ public class SFVectorDataTest001 extends TestCase{
 	@Test
 	public void testA() {
 		
+		long startTime = System.nanoTime();
+		
 		assertEquals(25, matrixData1.getMatrix3f().getA(), 0);
 		assertEquals(1, matrixData1.getMatrix3f().getB(), 0);
 		assertEquals(7, matrixData1.getMatrix3f().getC(), 0);
@@ -60,21 +62,35 @@ public class SFVectorDataTest001 extends TestCase{
 		assertEquals(0, matrixData2.getMatrix3f().getE(), 0);
 		assertEquals(0, matrixData2.getMatrix3f().getI(), 0);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test A: "+duration+"ms");
+		
 	}
 	
 //	@Test
 //	public void testB(){
+//	
+//		long startTime = System.nanoTime();
 //		
 //		assertEquals(1, matrix3.getRotationX((float)Math.PI).getA(), 0);
 //		assertEquals(1, matrix3.getRotationY((float)Math.PI).getE(), 0);
 //		assertEquals(1, matrix3.getRotationZ((float)Math.PI).getI(), 0);
 //		assertEquals(-1, matrix3.getRotationZ((float)Math.PI).getA(), 0);
+//	
+//		long endTime = System.nanoTime();
+//		long duration = (endTime - startTime)/1000000;
+//		
+//		System.out.println("Durata Test B: "+duration+"ms");
 //		
 //	
 //	}
 	
 	@Test
 	public void testC(){
+		
+		long startTime = System.nanoTime();
 		
 		matrixData1.getMatrix3f();
 		SFMatrix3f.getTransposed(matrix1);
@@ -88,10 +104,17 @@ public class SFVectorDataTest001 extends TestCase{
 		assertEquals(7, SFMatrix3f.getTransposed(matrix1).getG(), 0);
 		assertEquals(-7, SFMatrix3f.getTransposed(matrix1).getH(), 0);
 		assertEquals((float)17.9, SFMatrix3f.getTransposed(matrix1).getI(), 0);
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test C: "+duration+"ms");
 	}
 	
 	@Test
 	public void testD(){
+		
+		long startTime = System.nanoTime();
 		
 		matrixData3.getMatrix3f();
 		
@@ -119,10 +142,17 @@ public class SFVectorDataTest001 extends TestCase{
 		assertEquals(877, SFMatrix3f.getScale(-33, 877, -14).getE(), 0);
 		assertEquals(-14, SFMatrix3f.getScale(-33, 178, -14).getI(), 0);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test D: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testE(){
+		
+		long startTime = System.nanoTime();
 		
 		//Esempio stampa matrice 
 		
@@ -151,10 +181,17 @@ public class SFVectorDataTest001 extends TestCase{
 		assertEquals(18, vertex1.getY(), 0);
 		assertEquals(0, vertex1.getZ(), 0);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test E: "+duration+"ms");
+		
 	}
 	
 	@Test
 	public void testF(){
+		
+		long startTime = System.nanoTime();
 		
 //		SFMatrix3f matrix6 = new SFMatrix3f(1,0,0,0,1,0,0,0,1);
 //		SFVectorData specialMatrix = new SFMatrix3fData(matrix6);
@@ -196,6 +233,11 @@ public class SFVectorDataTest001 extends TestCase{
 
 		assertEquals(188, matrixData1.getMatrix3f().getA(), 0);
 		assertEquals(-97, matrixData3.getMatrix3f().getB(), 0);
+		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+			
+		 System.out.println("Durata Test F: "+duration+"ms");
 		
 	}
 	
