@@ -11,7 +11,7 @@ import android.os.Environment;
 
 public class SFObjectFileReader {
 	
-	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFData";
+	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFOrders";
 
 	private SFObjectsBuilder objectsBuilder;
 	
@@ -22,7 +22,7 @@ public class SFObjectFileReader {
 	public void readData(String fileName){
 		
 		try {
-			FileInputStream input=new FileInputStream(DIRECTORY+"/"+fileName+".sf");
+			FileInputStream input=new FileInputStream(DIRECTORY+"/"+fileName);
 			SFInputStream inputStream=new SFInputStreamJava(input, new DefaultExceptionKeeper());
 			
 			objectsBuilder.getTireDimension().readFromStream(inputStream);

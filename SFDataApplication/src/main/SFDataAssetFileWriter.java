@@ -10,7 +10,7 @@ import android.os.Environment;
 
 public class SFDataAssetFileWriter {
 	
-	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFData";
+	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFOrders";
 	
 	SFDataAssetBuilder dataAssetBuilder;
 	

@@ -19,7 +19,7 @@ public class SFObjectFileWriter {
 		this.objectsBuilder = objectsBuilder;
 	}
 
-	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFData";
+	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFOrders";
 	
 	public void saveData(String fileName){
 		

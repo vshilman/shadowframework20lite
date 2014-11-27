@@ -33,6 +33,10 @@
             android:name="main.SFBOrderActivity"
             android:label="@string/title_activity_sfborder" >
         </activity>
+        <activity
+            android:name="main.DisplayFiles"
+            android:label="@string/title_activity_display_files" >
+        </activity>
     </application>
 
 </manifest>
