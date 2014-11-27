@@ -56,35 +56,10 @@ for obj in objects:
     # Convert to bm mesh
     bm = bmesh.new()
     bm.from_mesh(mesh)
-        
-    verts_list = list(bm.verts)
-    faces_list = list(bm.faces)
-    verts_indexes = [v.index for v in verts_list]
-        
-    # Compute the singular vertices
-    singular_verts = alg.find_singular_vertices(verts_list)
     
-    # Compute the superedges: the long edges which should be the borders of the patches.
-    macro_edges = alg.compute_macro_edges(singular_verts)
-
-    # Now we need to understand which vertex belong to which face. We use the connected components approach.
-    boundaries = set(sum(macro_edges, ()))
+    patches = alg.run(bm)
     
-    patches_verts = alg.partition_mesh_vertices(verts_indexes, boundaries, bm)
-
-    # Now we need to understand which superedges belong to which face.
-    patches = alg.compute_patch_edges(patches_verts, macro_edges)
     
-    # We now need to reorder the vertices of each face so that we can build a spline on them.
-    for i, part in enumerate(patches):
-        patches[i] = alg.reorder_patch_edges(part)
-    
-    # Split all the patches!
-    new_patches = []
-    for i, patch in enumerate(patches):
-        new_patches += alg.split_patch(patch, patches_verts[i], bm)
-    patches = new_patches
-         
     # Plot the mesh.
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
@@ -97,7 +72,7 @@ for obj in objects:
     
         polygon = geom.PolygonsNetQuad(curves)
         #points = list(geom.sample_patch_samples(polygon, 25))
-        quads = list(geom.sample_patch_quads_samples(polygon, 20))
+        quads = list(geom.sample_patch_quads_samples(polygon, 5))
         
         c1_points = list(geom.sample_curve_samples(curves[0], 10))
         c2_points = list(geom.sample_curve_samples(curves[1], 10))

@@ -13,7 +13,7 @@ import geometry as geom
 
 #This variable allow tests which are not automatic are printed to stdout.
 HUMAN_READABLE_TESTS = False
-DRAW_GRAPHS = True 
+DRAW_GRAPHS = False
 DELIMETER = "=" * 80
 
 def runTests(obj):
@@ -316,4 +316,16 @@ class PolygonsNetTests(unittest.TestCase):
             plt.show()     
 
 runTests(PolygonsNetTests())
+
+import errors
+
+class TestErrors(unittest.TestCase):
+    def test_complex_error(self):
+        verts1 = [geom.Vertex((0.0, 0.0, 1.0)),
+                  geom.Vertex((0.0, 0.0, 0.0))]
+        refs = [geom.Vertex((0.0, 1.0, 1.0)),
+                geom.Vertex((0.0, 1.0, 0.0))]
+        self.assertEqual(errors.verts_sets_sq_error(verts1, refs), 2)
+
+runTests(TestErrors())
 print("All tests passed")
