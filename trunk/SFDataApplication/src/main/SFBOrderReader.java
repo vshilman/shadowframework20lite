@@ -7,7 +7,7 @@ import shadow.system.data.tools.SFDataBuilder;
 
 public class SFBOrderReader {
 	
-	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFData";
+	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFOrders";
 	
 	public SFDataAssetBuilder[] createSFBOrder(String fileName){
 		
@@ -19,7 +19,7 @@ public class SFBOrderReader {
 		
 		SFObjectsLibrary library=new SFObjectsLibrary();	
 		
-		dataBuilder.loadBuilderData(DIRECTORY+"/"+fileName+".sfb", library);
+		dataBuilder.loadBuilderData(DIRECTORY+"/"+fileName, library);
 		
 			SFDataAssetBuilder[] dataAssets={ 
 					(SFDataAssetBuilder)(SFDataCenter.makeDatasetAvailable("TestDataAsset01").getResource()),

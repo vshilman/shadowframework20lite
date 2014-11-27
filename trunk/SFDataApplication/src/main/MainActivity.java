@@ -1,10 +1,12 @@
 package main;
 
 
+
 import com.example.sfdataapplication.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
@@ -16,6 +18,7 @@ public class MainActivity extends ActionBarActivity {
 	
 	
 	public final static String EXTRA_MESSAGE = "MESSAGE";
+	public static final String DIRECTORY = Environment.getExternalStorageDirectory().getAbsolutePath()+"/SFOrders";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,4 +110,12 @@ public class MainActivity extends ActionBarActivity {
         		toastNegative.show();
         	  }
     }
+    
+    
+    public void listFiles(View view){
+    	
+    	Intent intent = new Intent(this, DisplayFiles.class);
+    	this.startActivity(intent);
+		
+	}
 }

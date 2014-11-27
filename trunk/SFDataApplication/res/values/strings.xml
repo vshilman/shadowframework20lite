@@ -21,5 +21,7 @@
     <string name="advertisement3">Full just the first field</string>
     <string name="readSFB">Read an SFB file</string>
     <string name="title_activity_sfborder">SFBOrderActivity</string>
+    <string name="title_activity_display_files">DisplayFiles</string>
+    <string name="list_files">Orders List</string>
 
 </resources>
