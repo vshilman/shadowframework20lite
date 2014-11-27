@@ -186,15 +186,18 @@ def create_function_from_patch(mesh, patch): #TODO This should be customized
     return geom.PolygonsNetQuad(curves)
     return curves
 
+def compute_patch_error(patch, bm, patch_verts_attribution):
+    patch_func = create_function_from_patch(bm, patch)
+    patch_func_points = list(geom.sample_patch_samples(patch_func, math.sqrt(10 * len(patch_verts_attribution)) // 1))
+    patch_verts = [blender.convert_vert(bm.verts[vi]) for vi in patch_verts_attribution]
+    return errors.verts_sets_sq_error(patch_func_points, patch_verts)
+
 def compute_error(patches, bm, patch_verts_attribution):
     result = []
     verts_list = list(bm.verts)
     
     for i, patch in enumerate(patches):
-        patch_func = create_function_from_patch(bm, patch)
-        patch_func_points = list(geom.sample_patch_samples(patch_func, math.sqrt(10 * len(patch_verts_attribution[i])) // 1))
-        patch_verts = [blender.convert_vert(verts_list[vi]) for vi in patch_verts_attribution[i]]
-        result.append(errors.verts_sets_sq_error(patch_func_points, patch_verts))
+        result.append(compute_patch_error(patch, bm, patch_verts_attribution[i]))
     
     return sum(result)
     

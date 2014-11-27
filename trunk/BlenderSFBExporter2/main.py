@@ -20,6 +20,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from matplotlib.colors import colorConverter
 
 # Initialize blender varialbles
 context = bpy.context
@@ -63,8 +64,10 @@ for obj in objects:
     # Plot the mesh.
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
+    cc = lambda arg: colorConverter.to_rgba(arg, alpha=0.6)
+    colors = ['r', 'g', 'b', 'y', 'm', 'c']
     
-    for patch in patches:
+    for i, patch in enumerate(patches):
         curves = []
         for edge in patch:
             verts = (tuple((blender.convert_vert(bm.verts[i]) for i in edge)))
@@ -84,7 +87,7 @@ for obj in objects:
         ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points])
         ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points])
         # Print as quads
-        ax.add_collection3d(Poly3DCollection(quads))
+        ax.add_collection3d(Poly3DCollection(quads, facecolors=[cc(colors[i % len(colors)])]))
         # Print as points
         #ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
     
