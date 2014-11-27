@@ -1,4 +1,9 @@
 import utils
+import errors
+import blender
+import mymath as mmath
+import geometry as geom
+import math
 
 def is_singular(v):
     '''Returns whether a vertex is singular: has three connections.
@@ -77,6 +82,15 @@ def partition_mesh_vertices(verts, boundaries, mesh):
         result.append(frozenset(partition))
     return result
 
+def compute_patch_verts_attribution(partitions, patches):
+    '''Understand which verts below to which patch.'''
+    result = [None] * len(partitions)
+    for i, patch in enumerate(patches):
+        for part in partitions:
+            if all(set(edge) & set(part) for edge in patch):
+                result[i] = part
+    return result
+
 def __reorder_edges(l, item):
     if l == []:
         return l
@@ -111,7 +125,7 @@ def rotate_patch(patch):
     '''Rotate the edges of the patch. This might be used to split the patch into the other directions.'''
     return [patch[-1]] + patch[:3]
 
-def split_patch(patch_edges, patch_verts, mesh):
+def split_patch_2(patch_edges, patch_verts, mesh):
     '''Split the current patch between the first and the third edge.'''
     assert len(patch_edges) == 4, "We only deal with rectangular patch"
     e1, e2, e3, e4 = patch_edges
@@ -129,6 +143,99 @@ def split_patch(patch_edges, patch_verts, mesh):
     
     return [patch1, patch2]
 
-#def split_patch_4(patch_edges, patch_verts, mesh):
-    #halves = split_patch(patch_edges, patch_verts, mesh)
-    #quarters1 = split_patch(halves[0])
+# TODO There is probalby a way to refactor this.
+def split_patch_4(patch_edges, patch_verts, mesh):
+    '''Split the current patch between the first and the third edge.'''
+    assert len(patch_edges) == 4, "We only deal with rectangular patch"
+    e1, e2, e3, e4 = patch_edges
+    
+    v1 = mesh.verts[(e1[len(e1) // 2])]
+    v2 = mesh.verts[(e2[len(e2) // 2])]
+    
+    new_edges1 = explore_vert(v1, e3, avoid=lambda x:x not in patch_verts)
+    new_edge1 = list(filter(lambda x: x[0] in e1 and x[-1] in e3, new_edges1))[0]
+    new_edge1 = tuple(new_edge1)
+            
+    vi_0 = new_edge1[0]
+    vi_F = new_edge1[-1]
+    
+    new_edges2 = explore_vert(v2, e4, avoid=lambda x: x not in patch_verts)
+    new_edge2 = list(filter(lambda x: x[0] in e2 and x[-1] in e4, new_edges2))[0]
+    new_edge2 = tuple(new_edge2)
+    
+    vj_0 = new_edge2[0]
+    vj_F = new_edge2[-1]
+    
+    vm = list(set(new_edge1) & set(new_edge2))[0]
+    print(new_edge1, new_edge2)
+    print(vm)
+    
+    patch1 = [e1[e1.index(vi_0):], e2[:e2.index(vj_0)+1], new_edge2[:new_edge2.index(vm)+1], new_edge1[:new_edge1.index(vm)+1][::-1]]
+    patch2 = [new_edge2[:new_edge2.index(vm)+1][::-1], e2[e2.index(vj_0):], e3[:e3.index(vi_F)+1], new_edge1[new_edge1.index(vm):new_edge1.index(vi_F)+1][::-1]]
+    patch3 = [e1[:e1.index(vi_0)+1], new_edge1[:new_edge1.index(vm)+1], new_edge2[new_edge2.index(vm):], e4[e4.index(vj_F):]]
+    patch4 = [new_edge2[new_edge2.index(vm):][::-1], new_edge1[new_edge1.index(vm):], e3[e3.index(vi_F):], e4[:e4.index(vj_F)+1]]
+    
+    return [patch1, patch2, patch3, patch4]
+
+
+def create_function_from_patch(mesh, patch): #TODO This should be customized
+    curves = []
+    for edge in patch:
+        verts = (tuple((blender.convert_vert(mesh.verts[i]) for i in edge)))
+        curves.append(geom.generate_spline(verts, mmath.interp_bezier_curve_2))
+    return geom.PolygonsNetQuad(curves)
+    return curves
+
+def compute_error(patches, bm, patch_verts_attribution):
+    result = []
+    verts_list = list(bm.verts)
+    
+    for i, patch in enumerate(patches):
+        patch_func = create_function_from_patch(bm, patch)
+        patch_func_points = list(geom.sample_patch_samples(patch_func, math.sqrt(10 * len(patch_verts_attribution[i])) // 1))
+        patch_verts = [blender.convert_vert(verts_list[vi]) for vi in patch_verts_attribution[i]]
+        result.append(errors.verts_sets_sq_error(patch_func_points, patch_verts))
+    
+    return sum(result)
+    
+
+def run(bm):
+    '''Run the algorithm on the given bmesh (blender mesh), 
+    returns the patches (TODO in a data structure we still need to decide)'''
+    verts_list = list(bm.verts)
+    faces_list = list(bm.faces)
+    verts_indexes = [v.index for v in verts_list]
+        
+    # Compute the singular vertices
+    singular_verts = find_singular_vertices(verts_list)
+    
+    # Compute the macro edges: the long edges (which be the borders of the patches).
+    macro_edges = compute_macro_edges(singular_verts)
+
+    # Now we need to understand which vertex belong to which face. We use the connected components approach.
+    boundaries = set(sum(macro_edges, ()))
+    
+    patch_verts_attribution = partition_mesh_vertices(verts_indexes, boundaries, bm)
+
+    # Now we need to understand which superedges belong to which face.
+    patches = compute_patch_edges(patch_verts_attribution, macro_edges)
+    
+    # We now need to reorder the vertices of each face so that we can build a spline on them.
+    for i, part in enumerate(patches):
+        patches[i] = reorder_patch_edges(part)
+    
+    print(compute_error(patches, bm, patch_verts_attribution))
+    
+    # Split all the patches! TODO This is still not right.
+    new_patches = []
+    for i, patch in enumerate(patches):
+        new_patches += split_patch_4(patch, patch_verts_attribution[i], bm)
+    patches = new_patches
+    
+    boundaries = sum(sum(patches, []),())
+    partitions = partition_mesh_vertices(verts_indexes, boundaries, bm)
+    patch_verts_attribution = compute_patch_verts_attribution(partitions, patches)
+        
+    print(compute_error(patches, bm, patch_verts_attribution))
+    
+    return patches

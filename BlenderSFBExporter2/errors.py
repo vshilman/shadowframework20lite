@@ -16,6 +16,6 @@ def simple_sq_error(verts1, verts2):
 def verts_sets_sq_error(verts, reference):
     '''Compare the current unordered set of verts to a reference. This is slow
     and is not commutative but doesn't require the verts to be ordered.'''
-    errors = (min(module(v1 - v2) for v1 in verts) for v2 in reference)
+    errors = (min(module(v - vref) for v in verts) for vref in reference)
     return sum(errors)
     
