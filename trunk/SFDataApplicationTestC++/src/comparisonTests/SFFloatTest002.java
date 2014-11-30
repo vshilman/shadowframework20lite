@@ -21,17 +21,17 @@ public class SFFloatTest002 extends TestCase{
 		NativeLib2 nativeLib = new NativeLib2();
 		float[] result = nativeLib.getData(fileName);
 		
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime)/1000000;
+		
+		System.out.println("Durata Test A (C++): "+duration+"ms");
+		
 		assertEquals(10.5f, result[0]);
 		assertEquals(-78.8f, result[1]);
 		assertEquals(1.5f, result[2]);
 		assertEquals(-1.5f, result[3]);
 		assertEquals(1.5f, result[4]);
 		assertEquals(-1.5f, result[5]);
-		
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime)/1000000;
-		
-		System.out.println("Durata Test A (C++): "+duration+"ms");
 		
 	}
 
