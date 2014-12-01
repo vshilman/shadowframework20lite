@@ -123,7 +123,7 @@ Stone01 as SFObjectModelData{
 	}
 	materialComponent = SFProgramAssetData{
 		program = CubicOctaveFilterSnow
-		structures = (700)(1)(0.6)
+		structures = (700)(1)(0.25)
 		textures = BitmapTexture01
 	}
 }	
@@ -174,13 +174,28 @@ RectangleObjectRepeater as SFArrayTransformRepeaterData{
    transforms+=SFTranslateAndScaleFixed16Data{
      x = -0.2 \\ y = 0.2 \\ scale = 0.23
    }	
+   transforms+=SFTranslateAndScaleFixed16Data{
+     x = 0.0 \\ y = -0.1 \\ scale = 0.28
+   }
+   transforms+=SFTranslateAndScaleFixed16Data{
+     x = -0.1 \\ y = -0.22 \\ scale = 0.23
+   }
+   transforms+=SFTranslateAndScaleFixed16Data{
+     x = 0.33 \\ y = 0.15 \\ scale = 0.22
+   }
+   transforms+=SFTranslateAndScaleFixed16Data{
+     x = 0.2 \\ y = 0.0 \\ scale = 0.25
+   }
+   transforms+=SFTranslateAndScaleFixed16Data{
+     x = -0.4 \\ y = -0.4 \\ scale = 0.25 
+   }	
 }
 
 
 Renderer00002 as SFRendererData{
 	light as SFProgramAssetData{
 		program = BasicLSPN2
-		structures= (0.5,0.5,0.5)(-0.8,-0.8,-1)
+		structures= (0.5,0.5,0.5)(0.8,0.8,-1)
 		viewSize = 800
 	}
 }
@@ -220,11 +235,31 @@ RenderedTexture0002 as SFRenderingAlgorithmData{
 				lightComponent = SFProgramAssetData{
 					program = BasicColor
 				}
+			}	
+		}
+		drawables += SFRenderedTextureStackPopData 
+	}
+}
+
+RenderedTexture0003 as SFRenderingAlgorithmData{
+	stack = SFRenderedTextureStackData{
+		textures = SFRenderedTextureData{
+			size = (800,800)
+			useDepth = false
+			textureModel = linearTextureModel
+		}
+	}
+	process = SFRenderingProcessData{
+		drawables as SFRenderedTextureStackPushData 
+		drawables += SFRenderingProcessData{
+			drawables = SFStateDrawableData{
+				state = BlendModeAdd
 			}
 			drawables += SFImageModelData{
 				materialComponent = SFProgramAssetData{
-					program = SoilColor
-					structures = $soilcolor:(0.31,0.31,0.36)
+					program = SnowColor
+					structures = (0.63,0.63,0.65)(0.31,0.31,0.31)
+					textures = RenderedTexture0002
 				}
 				lightComponent = SFProgramAssetData{
 					program = BasicColor
@@ -243,7 +278,7 @@ RenderedTexture0002 as SFRenderingAlgorithmData{
 RenderedTextureViewer0002 as SFImageModelData{
 	materialComponent = SFProgramAssetData{
 		program = TexturedMat
-		textures = RenderedTexture0002
+		textures = RenderedTexture0003
 	}
 	lightComponent = SFProgramAssetData{
 		program = BasicColor
