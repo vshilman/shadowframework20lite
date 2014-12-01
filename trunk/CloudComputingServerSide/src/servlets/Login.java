@@ -125,9 +125,14 @@ public class Login extends HttpServlet {
 				
 			}else if (platform.equals("html")) {
 //				System.out.println((String)ses.getAttribute("id"));
-				Mediator.getMed().removeOnline((String)ses.getAttribute("id"));
-				ses.invalidate();
-				resp.sendRedirect("./html/login/login.html");
+				if (ses!=null) {
+					Mediator.getMed().removeOnline((String)ses.getAttribute("id"));
+					ses.invalidate();
+					resp.sendRedirect("./html/login/login.html");
+				}else {
+					resp.sendRedirect("./html/login/login.html");
+				}
+				
 			}
 		}	
 		
