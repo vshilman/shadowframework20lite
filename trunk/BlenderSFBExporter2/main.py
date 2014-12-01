@@ -60,7 +60,6 @@ for obj in objects:
     
     patches = alg.run(bm)
     
-    
     # Plot the mesh.
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')

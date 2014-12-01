@@ -8,7 +8,7 @@ import math
 def is_singular(v):
     '''Returns whether a vertex is singular: has three connections.
     TODO This implementation probably has to take into account more variables (like boundaries conditions).'''
-    return len(list(v.link_edges)) == 3
+    return len(list(v.link_faces)) > 2 and len(list(v.link_faces)) != 4
 
 def find_singular_vertices(verts):
     '''Extract vertex that should be corners of the macro patches.'''
@@ -167,8 +167,6 @@ def split_patch_4(patch_edges, patch_verts, mesh):
     vj_F = new_edge2[-1]
     
     vm = list(set(new_edge1) & set(new_edge2))[0]
-    print(new_edge1, new_edge2)
-    print(vm)
     
     patch1 = [e1[e1.index(vi_0):], e2[:e2.index(vj_0)+1], new_edge2[:new_edge2.index(vm)+1], new_edge1[:new_edge1.index(vm)+1][::-1]]
     patch2 = [new_edge2[:new_edge2.index(vm)+1][::-1], e2[e2.index(vj_0):], e3[:e3.index(vi_F)+1], new_edge1[new_edge1.index(vm):new_edge1.index(vi_F)+1][::-1]]
@@ -208,7 +206,7 @@ def run(bm):
     verts_list = list(bm.verts)
     faces_list = list(bm.faces)
     verts_indexes = [v.index for v in verts_list]
-        
+    
     # Compute the singular vertices
     singular_verts = find_singular_vertices(verts_list)
     
@@ -227,18 +225,34 @@ def run(bm):
     for i, part in enumerate(patches):
         patches[i] = reorder_patch_edges(part)
     
-    print(compute_error(patches, bm, patch_verts_attribution))
+    THRESHOLD = 0.20000
+    MIN_VERTS = 5
     
-    # Split all the patches! TODO This is still not right.
-    new_patches = []
-    for i, patch in enumerate(patches):
-        new_patches += split_patch_4(patch, patch_verts_attribution[i], bm)
-    patches = new_patches
+    def can_simplify(patch_verts):
+        '''Returns wheter the patch contains enough point to be simplified.'''
+        return patch_verts and len(patch_verts) > MIN_VERTS
     
-    boundaries = sum(sum(patches, []),())
-    partitions = partition_mesh_vertices(verts_indexes, boundaries, bm)
-    patch_verts_attribution = compute_patch_verts_attribution(partitions, patches)
+    # Now that we defined the patches we should iterate to improve the error.
+    result = []
+    require_improvement = list(patches)
+    require_improvement_verts = list(patch_verts_attribution)
+    while len(require_improvement) > 0:
         
-    print(compute_error(patches, bm, patch_verts_attribution))
-    
-    return patches
+        current_patch = require_improvement.pop(0)
+        current_attr = require_improvement_verts.pop(0)
+        
+        print("N. PATCHES IN FRONTIER:",len(require_improvement))
+        print("CURRENT PATCH", current_patch)
+        print("CURRENT POINTS", current_attr)
+        
+        if can_simplify(current_attr) and compute_patch_error(current_patch, bm, current_attr) > THRESHOLD:
+            print("ERROR", compute_patch_error(current_patch, bm, current_attr))
+            new_patches = split_patch_4(current_patch, current_attr, bm)
+            require_improvement += new_patches
+            boundaries = set(sum(sum(result + require_improvement, []),()))
+            partitions = partition_mesh_vertices(verts_indexes, boundaries, bm)
+            temp = compute_patch_verts_attribution(partitions, result + require_improvement)
+            require_improvement_verts = temp[len(result):] #We need to exclude the current correct results.
+        else:
+            result += [current_patch]
+    return result
