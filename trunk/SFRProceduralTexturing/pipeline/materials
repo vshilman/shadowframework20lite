@@ -129,6 +129,11 @@ materialComponent SoilColor(Color c){
 	vec3 matnormal = normal;
 }
 
+materialComponent SnowColor(Color a,Color b,Texture texture0){
+	vec3 color = vec3(mix(a_color, b_color, smoothstep(0,1,texture2D(texture0_texture,texCoord0).xyz)));
+	vec3 matnormal = normal;
+}
+
 materialComponent StepColor(Color a,Color b){
 	vec3 color = mix(a_color, b_color, step(position.x,0.5));
 	vec3 matnormal = normal;

@@ -12,7 +12,7 @@ public class Example0004_CubicTextureFilter extends MainPTExamples {
 	private static final String FILENAME="example0004";
 	
 	public static void main(String[] args) {
-		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline01");
+		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
 		setFilename(FILENAME);
 		execute(new Example0004_CubicTextureFilter());
 	}

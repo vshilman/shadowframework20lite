@@ -12,7 +12,7 @@ public class Example0001_UnfilteredTexture extends MainPTExamples {
 	private static final String FILENAME="example0001";
 	
 	public static void main(String[] args) {
-		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline01");
+		SFCommonPipeline.setPipelineLocation("pipeline/","examplePipeline02");
 		setFilename(FILENAME);
 		execute(new Example0001_UnfilteredTexture());
 	}
