@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import sun.awt.windows.WLightweightFramePeer;
 import utils.Incapsulator;
 
 public class Mediator {

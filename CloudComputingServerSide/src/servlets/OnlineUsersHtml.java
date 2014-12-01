@@ -45,7 +45,6 @@ public class OnlineUsersHtml extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession ses = request.getSession(false);
 		if (ses == null || !Mediator.getMed().getOnline().containsKey(ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html")) {
-				System.out.println("UNA CAZZO DI RICHIESTA GET");		
 			PrintWriter writer = response.getWriter();
 			writer.write("<p>");
 			writer.write("You seem to not be logged, please log in <a href=\"./html/login/login.html\">here</a>.");
