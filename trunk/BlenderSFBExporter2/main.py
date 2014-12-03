@@ -58,7 +58,19 @@ for obj in objects:
     bm = bmesh.new()
     bm.from_mesh(mesh)
     
-    patches = alg.run(bm)
+    # Extract skeleton mesh
+    skeleton = alg.extract_base_mesh(bm)
+    #print(skeleton)
+    
+    #sys.exit(0)
+    
+    #patches = alg.run(bm)
+    skeleton_patches = skeleton
+    bad_patches = list(filter(lambda x: len(x) != 4, skeleton_patches))
+    patches = list(filter(lambda x: len(x) == 4, skeleton_patches))
+    
+    print(bad_patches)
+    #edges = sum(patches, [])
     
     # Plot the mesh.
     fig = plt.figure()

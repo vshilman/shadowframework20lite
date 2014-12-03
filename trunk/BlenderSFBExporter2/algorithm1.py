@@ -5,6 +5,12 @@ import mymath as mmath
 import geometry as geom
 import math
 
+VERBOSE = False
+
+def pr(*s):
+    if VERBOSE:
+        print(*s)
+
 def is_singular(v):
     '''Returns whether a vertex is singular: has three connections.
     TODO This implementation probably has to take into account more variables (like boundaries conditions).'''
@@ -32,16 +38,16 @@ def explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False)):
 
 def compute_macro_edges(singular_verts):
     result = []
-    singular_verts_indexes = set([v.index for v in singular_verts])
+    singular_verts_indexes = [v.index for v in singular_verts]
     
-    for vi in singular_verts_indexes:
-        goals = singular_verts_indexes - set([vi])
-        edges = explore_vert(singular_verts[vi], goals)
+    for i, vi in enumerate(singular_verts_indexes):
+        goals = set(singular_verts_indexes) - set([vi])
+        edges = explore_vert(singular_verts[i], goals)
         result.extend((tuple(edge) for edge in edges))
     
     # Remove the invalid edges (the duplicate ones).
     final_result = set([])
-    is_valid = lambda e: e not in final_result and e[::-1] not in final_result
+    is_valid = lambda e: e not in final_result and e[::-1] not in final_result and e[0] in singular_verts_indexes and e[-1] in singular_verts_indexes
     for e in result:
         if is_valid(e):
             final_result.add(e)
@@ -88,13 +94,14 @@ def compute_patch_verts_attribution(partitions, patches):
     return result
 
 def __reorder_edges(l, item):
-    if l == []:
-        return l
+    if not l:
+        return []
     for elem in l:
         if elem[0] == item[-1]:
             return [elem] + __reorder_edges(utils.remove_from_list(l, elem), elem)
         elif elem[-1] == item[-1]:
             return [elem[::-1]] + __reorder_edges(utils.remove_from_list(l, elem), elem[::-1])
+    return []
 
 def compute_patch_edges(faces_verts, all_edges):
     '''Compute which edges belong to which face'''
@@ -195,6 +202,66 @@ def compute_error(patches, bm, patch_verts_attribution):
     
     return sum(result)
 
+import random
+
+def remove_intersections(macro_edges, singular_verts_indexes):
+    '''Remove the intersected vertices'''
+    new_edges = sorted(macro_edges, key=len)
+    result = []
+    for e in new_edges:
+        inner_verts = set(sum(result, ())) - set(singular_verts_indexes)
+        if len(set(e) & inner_verts) == 0:
+            result.append(e)
+    return result
+
+import sys
+
+def extract_base_mesh(bm):
+    '''Returns a skeleton mesh, made of big quads on the main edges'''
+    verts_list = list(bm.verts)
+    faces_list = list(bm.faces)
+    verts_indexes = [v.index for v in verts_list]
+    
+    singular_verts = find_singular_vertices(verts_list)
+    singular_verts_indexes = [v.index for v in singular_verts]
+    
+    for p in singular_verts_indexes:
+        pr("SINGULAR_VERTS", p)
+    
+    macro_edges = compute_macro_edges(singular_verts)
+    macro_edges = remove_intersections(macro_edges, singular_verts_indexes)
+    
+    for p in macro_edges:
+        pr("MACRO_EDGES", p)
+    
+    boundaries = set(sum(macro_edges, ()))
+    patch_verts_attribution = partition_mesh_vertices(verts_indexes, boundaries, bm)
+    
+    for p in patch_verts_attribution:
+        pr("INNER_POINTS",p)
+    
+    patches = compute_patch_edges(patch_verts_attribution, macro_edges)
+    
+    for p in patches:
+        pr("PATCH", p)
+    
+    # We need to filter the patches: only the ones with four are good
+    
+    #for p in filter(lambda x: len(x) != 4, patches):
+    #    print("asdfasdf", p)
+    
+    #patches = list(filter(lambda x: len(x) == 4, patches))
+    
+    ordered_patches = []
+    for i, part in enumerate(patches):
+        ordered_patch = reorder_patch_edges(part)
+        if ordered_patch:
+            ordered_patches.append(ordered_patch)
+    patches = ordered_patches
+    
+    return patches
+    
+
 def run(bm):
     '''Run the algorithm on the given bmesh (blender mesh), 
     returns the patches (TODO in a data structure we still need to decide)'''
@@ -236,12 +303,12 @@ def run(bm):
         current_patch = require_improvement.pop(0)
         current_attr = require_improvement_verts.pop(0)
         
-        print("N. PATCHES IN FRONTIER:",len(require_improvement))
-        print("CURRENT PATCH", current_patch)
-        print("CURRENT POINTS", current_attr)
+        pr("N. PATCHES IN FRONTIER:",len(require_improvement))
+        pr("CURRENT PATCH", current_patch)
+        pr("CURRENT POINTS", current_attr)
         
         if can_simplify(current_attr) and compute_patch_error(current_patch, bm, current_attr) > THRESHOLD:
-            print("ERROR", compute_patch_error(current_patch, bm, current_attr))
+            pr("ERROR", compute_patch_error(current_patch, bm, current_attr))
             new_patches = split_patch_4(current_patch, current_attr, bm)
             require_improvement += new_patches
             boundaries = set(sum(sum(result + require_improvement, []),()))
