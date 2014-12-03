@@ -1,0 +1,2 @@
+#!/bin/sh
+blender --background deformed_cube01.blend --python main.py
