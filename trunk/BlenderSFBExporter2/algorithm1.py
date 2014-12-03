@@ -8,7 +8,7 @@ import math
 def is_singular(v):
     '''Returns whether a vertex is singular: has three connections.
     TODO This implementation probably has to take into account more variables (like boundaries conditions).'''
-    return len(list(v.link_faces)) > 2 and len(list(v.link_faces)) != 4
+    return len(list(v.link_faces)) != 4
 
 def find_singular_vertices(verts):
     '''Extract vertex that should be corners of the macro patches.'''
@@ -32,22 +32,19 @@ def explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False)):
 
 def compute_macro_edges(singular_verts):
     result = []
-    singular_verts_indexes = [v.index for v in singular_verts]
+    singular_verts_indexes = set([v.index for v in singular_verts])
     
     for vi in singular_verts_indexes:
-        goals = list(singular_verts_indexes)
-        goals.remove(vi)
+        goals = singular_verts_indexes - set([vi])
         edges = explore_vert(singular_verts[vi], goals)
-        for edge in edges:
-            result.append(tuple(edge))
+        result.extend((tuple(edge) for edge in edges))
     
     # Remove the invalid edges (the duplicate ones).
     final_result = set([])
+    is_valid = lambda e: e not in final_result and e[::-1] not in final_result
     for e in result:
-        if e not in final_result and e[::-1] not in final_result:
+        if is_valid(e):
             final_result.add(e)
-    macro_edges = list(final_result)
-    
     return final_result
 
 def connected_component_index(vertexi, boundaries, mesh):
@@ -59,10 +56,9 @@ def connected_component_index(vertexi, boundaries, mesh):
         vi = frontier.pop(0)
         if vi in explored:
             continue
-        if vi in boundaries: 
-            explored.add(vi)
-            continue
         explored.add(vi)
+        if vi in boundaries:
+            continue
         v = mesh.verts[vi]
         frontier += [e.other_vert(v).index for e in v.link_edges]
     
@@ -198,7 +194,6 @@ def compute_error(patches, bm, patch_verts_attribution):
         result.append(compute_patch_error(patch, bm, patch_verts_attribution[i]))
     
     return sum(result)
-    
 
 def run(bm):
     '''Run the algorithm on the given bmesh (blender mesh), 
@@ -225,7 +220,7 @@ def run(bm):
     for i, part in enumerate(patches):
         patches[i] = reorder_patch_edges(part)
     
-    THRESHOLD = 0.20000
+    THRESHOLD = 0.10000
     MIN_VERTS = 5
     
     def can_simplify(patch_verts):

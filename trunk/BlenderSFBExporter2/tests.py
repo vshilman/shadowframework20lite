@@ -13,7 +13,7 @@ import geometry as geom
 
 #This variable allow tests which are not automatic are printed to stdout.
 HUMAN_READABLE_TESTS = False
-DRAW_GRAPHS = False
+DRAW_GRAPHS = True
 DELIMETER = "=" * 80
 
 def runTests(obj):
