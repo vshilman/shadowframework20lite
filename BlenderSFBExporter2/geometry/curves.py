@@ -39,13 +39,20 @@ class SubCurve:
 
 def __split_cpoints(cpoints, size):
     '''Split the cpoints to create a spline.'''
-    if len(cpoints) < size:
-        return []
+    if len(cpoints) <= size:
+        return [cpoints]
     return [cpoints[:size]] + __split_cpoints(cpoints[size-1:], size)
 
 def generate_spline(cpoints, func):
     '''Generate a spline from a series of control points and a function'''
     nargs = utils.get_number_arguments(func)
-    curves = [BaseCurve(cps, func) for cps in __split_cpoints(cpoints, nargs)]
-    return SuperCurve(curves)
+    result = []
+    for cps in __split_cpoints(cpoints, nargs):
+        if len(cps) == nargs:
+            result.append(BaseCurve(cps, func))
+        else:
+            #TODO This is bad. This just fixes the number of verts, but it should be managed properly.
+            added_verts = tuple([cps[-1]] * (nargs - len(cps)))
+            result.append(BaseCurve(cps + added_verts, func))
+    return SuperCurve(result)
     
