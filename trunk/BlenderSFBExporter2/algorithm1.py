@@ -4,6 +4,7 @@ import blender
 import mymath as mmath
 import geometry as geom
 import math
+import itertools
 
 VERBOSE = False
 
@@ -204,6 +205,36 @@ def compute_error(patches, bm, patch_verts_attribution):
 
 import random
 
+def intersect_point(edge1, edge2):
+    shared_points = set(edge1[1:-1]) & set(edge2[1:-1])
+    return shared_points.pop() if len(shared_points) > 0 else None
+
+def check_and_split(edge1, edge2):
+    '''If two edges share a vertex (not counting the extremes) split them in four.'''
+    p = intersect_point(edge1, edge2)
+    if p:
+        return [edge1[:edge1.index(p)+1], edge1[edge1.index(p):], edge2[:edge2.index(p)+1], edge2[edge2.index(p):]]
+    return [edge1, edge2]
+
+def split_intersecting(macro_edges):
+    '''Split the macroedges which are intersecting.'''
+    frontier = set(macro_edges)
+    result = set()
+    
+    while len(frontier) > 0:
+        current = frontier.pop()
+        intersection = False
+        for edge in set(frontier):
+            if intersect_point(current, edge):
+                frontier -= set([edge])
+                frontier |= set(check_and_split(edge, current))
+                intersection = True
+                break
+        
+        if not intersection:
+            result.add(current)
+    return result
+
 def remove_intersections(macro_edges, singular_verts_indexes):
     '''Remove the intersected vertices'''
     new_edges = sorted(macro_edges, key=len)
@@ -229,7 +260,8 @@ def extract_base_mesh(bm):
         pr("SINGULAR_VERTS", p)
     
     macro_edges = compute_macro_edges(singular_verts)
-    macro_edges = remove_intersections(macro_edges, singular_verts_indexes)
+    macro_edges = split_intersecting(macro_edges)
+    #macro_edges = remove_intersections(macro_edges, singular_verts_indexes)
     
     for p in macro_edges:
         pr("MACRO_EDGES", p)
