@@ -13,7 +13,7 @@ import geometry as geom
 
 #This variable allow tests which are not automatic are printed to stdout.
 HUMAN_READABLE_TESTS = False
-DRAW_GRAPHS = True
+DRAW_GRAPHS = False
 DELIMETER = "=" * 80
 
 def runTests(obj):
@@ -305,7 +305,7 @@ class PolygonsNetTests(unittest.TestCase):
         c3_points = list(geom.sample_curve_samples(curve3, 20))
         c4_points = list(geom.sample_curve_samples(curve4, 20))
         
-        if True:
+        if DRAW_GRAPHS:
             fig = plt.figure()
             ax = fig.gca(projection='3d')
             ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
@@ -316,6 +316,19 @@ class PolygonsNetTests(unittest.TestCase):
             plt.show()     
 
 runTests(PolygonsNetTests())
+
+import algorithm1
+
+class TestAlgorithm(unittest.TestCase):
+    def test_check_split(self):
+        edge1 = (1,2,3,4,5,6)
+        edge2 = (10, 11, 4, 12, 13, 14, 15)
+        edge3 = (6,7,8,9,10)
+        self.assertEqual(algorithm1.check_and_split(edge1, edge2), [(1,2,3,4),(4,5,6),(10,11,4),(4,12,13,14,15)])
+        self.assertEqual(algorithm1.check_and_split(edge1, edge3), [edge1, edge3])
+
+runTests(TestAlgorithm())
+
 
 import errors
 

@@ -68,8 +68,7 @@ for obj in objects:
     skeleton_patches = skeleton
     bad_patches = list(filter(lambda x: len(x) != 4, skeleton_patches))
     patches = list(filter(lambda x: len(x) == 4, skeleton_patches))
-    
-    print(bad_patches)
+
     #edges = sum(patches, [])
     
     # Plot the mesh.
