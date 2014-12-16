@@ -1,5 +1,6 @@
 package mediator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -29,12 +30,15 @@ public class ConnectionMediator {
 		
 		
 	}
+//	public void addOnlinePlayer(User user){
+//		onlinePlayers.put(user.getNick(), user);
+//	}
 	public HashMap<String, User> getServiceMap(){
 		return Mediator.getMed().getComputator().getServiceMap();
 	}
-	public HashMap<String, User> getPlayersMap(){
-		return Mediator.getMed().getComputator().getPlayersMap();
-	}
+//	public HashMap<String, User> getPlayersMap(){
+//		return Mediator.getMed().getComputator().getPlayersMap();
+//	}
 	public HashMap<String, User> getVisitorsMap(){
 		return Mediator.getMed().getComputator().getVisitorsMap();
 	}
@@ -59,7 +63,20 @@ public class ConnectionMediator {
 	public Connector getConnection() {
 		return connection;
 	}
-	
+	public HashMap<String, User> getOnlinePlayers() {
+		return onlinePlayers;
+	}
+	public void setOnlineMap(HashMap<String, List<String>> rawMap){
+		Set<String>keySet=rawMap.keySet();
+		List<String> list=new ArrayList<String>();
+		for (int i = 0; i < rawMap.size(); i++) {
+			list.add(keySet.iterator().next());
+			list.add(rawMap.get(list.get(0)).get(0));
+			list.add(rawMap.get(list.get(0)).get(1));
+			onlinePlayers.clear();
+			onlinePlayers.put(list.get(0), Mediator.getMed().getComputator().generateUser(list));
+		}
+	}
 
 
 	
