@@ -1,45 +1,66 @@
 package graphics.proxy;
 
+import graphics.buttonFactory.TableButton;
+
 import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import utils.Substring;
-
 import mediator.Mediator;
+import utils.Substring;
 
 public class RoomsPanel extends JPanel implements IProxyGraphic{
 
-	private HashMap<String, String> tables= new HashMap<String, String>();
+	private HashMap<String, Boolean> tables= new HashMap<String, Boolean>();
+	private JPanel buttonsPanel;
+	private String gameType;
 	
-	
-	public RoomsPanel() {
+	public RoomsPanel(String gameType) {
 		build();
+		this.gameType=gameType;
 	}
 	
 	private void build(){
 		removeAll();
-		tables.putAll(Mediator.getMed().getComputator().getTables());
-		setLayout(new GridLayout(tables.size(), 2));
+		tables.putAll(Mediator.getMed().getComputator().getTables(gameType));
+		setLayout(new GridLayout(tables.size(), 3));
 		Set<String> tablesName= tables.keySet();
 		for (Iterator iterator = tablesName.iterator(); iterator.hasNext();) {
-			String tableName = (String) iterator.next();
-			String tableOwner=tables.get(tableName);
-			add(new JLabel(extractName(tableName)));
+			String codified=(String)iterator.next();
+			Substring sub= new Substring(codified, "$$||$$");
+
+			String tableName = sub.nextSubString();
+			String tableOwner=sub.nextSubString();
+			add(new JLabel(tableName));
 			add(new JLabel(tableOwner));
+			add(generateButtonsPanel(tableName, tables.get(codified)));
 			
 		}
 		validate();
 		repaint();
 	}
 	
-	private String extractName(String nameComposed){
-		Substring sub= new Substring(nameComposed, "$$||$$");
-		return sub.nextSubString();
+	public void setGame(String gameType){
+		this.gameType=gameType;
+	}
+	
+	private JPanel generateButtonsPanel(String tableName, Boolean isFree){
+		buttonsPanel= new JPanel();
+		buttonsPanel.setLayout(new GridLayout(2, 1));
+		JButton enter= new TableButton("Play!", tableName, "play");
+		JButton spectate= new TableButton("Spectate!",tableName, "spectate");
+		if (!isFree) {
+			enter.setEnabled(false);
+		}
+		
+		buttonsPanel.add(enter);
+		buttonsPanel.add(spectate);
+		return buttonsPanel;
 	}
 	@Override
 	public void refreshPanel() {

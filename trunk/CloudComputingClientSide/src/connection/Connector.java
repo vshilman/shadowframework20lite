@@ -19,6 +19,8 @@ import mediator.Mediator;
 public class Connector{
 
 	
+	private static final String GET_ONLINE_MAP_ACTION = "&action=getOnlineMap";
+	private static final String SET_ME_AS_WELCOMER_ACTION = "&action=setMeAsWelcomer";
 	private String NICKHEAD= "nickname=";
 	private String LOGINACTION="&action=login";
 	private String LOGOUTACTION="&action=logout";
@@ -62,7 +64,7 @@ public class Connector{
 				}
 				in.close();
 				
-				Mediator.getMed().getComputator().validateLogin(ans, user, pass);
+				Mediator.getMed().getComputator().validateLogin(ans, user);
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -114,7 +116,7 @@ public class Connector{
 			connection.setRequestProperty("User-Agent", "Java");
 			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick());
+			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick()+SET_ME_AS_WELCOMER_ACTION);
 			wr.flush();
 			wr.close();
 			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -159,7 +161,32 @@ public class Connector{
 		
 	}
 
-	
+	public void getOnlineUsers(){
+		
+		try {
+			url= new URL("http://"+ip+":8080/ccom/HomeJava");
+			connection=(HttpURLConnection)url.openConnection();
+			connection.setDoOutput(true);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("User-Agent", "Java");
+			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick()+GET_ONLINE_MAP_ACTION);
+			wr.flush();
+			wr.close();
+			XMLDecoder decoder= new XMLDecoder(connection.getInputStream());
+//			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			map.clear();
+			map.putAll((HashMap<String, List<String>>)decoder.readObject());
+			Mediator.getCMed().setOnlineMap(map);
+			decoder.close();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public URLConnection getConnection() {
 		return connection;
 	}

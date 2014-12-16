@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import graphics.FileMenu;
 import graphics.GameMenu;
+import graphics.proxy.ChooseGamePanel;
 import graphics.proxy.IProxyGraphic;
 import graphics.proxy.LoggingPanel;
 import graphics.proxy.ProxyGraphic;
@@ -22,6 +23,7 @@ public class GraphicMediator {
 	private static ProxyGraphic proxyPanel;
 	private static IProxyGraphic logPanel;
 	private static IProxyGraphic roomsPanel;
+	private static IProxyGraphic choosePanel;
 
 	public GraphicMediator() {
 
@@ -31,11 +33,16 @@ public class GraphicMediator {
 		frame=new JFrame();
 		fileMenu=new FileMenu(frame, Mediator.getCMed().getConnection());
 		logPanel= new LoggingPanel();
-		roomsPanel= new RoomsPanel();
+		roomsPanel= new RoomsPanel(null);
 		gameMenu= new GameMenu();
+		choosePanel= new ChooseGamePanel();
 		proxyPanel= new ProxyGraphic(logPanel);
 		
 	}
+	public static IProxyGraphic getChoosePanel() {
+		return choosePanel;
+	}
+	
 	public JFrame getFrame() {
 		return frame;
 	}
@@ -65,14 +72,20 @@ public class GraphicMediator {
 	
 	public void setLoginPanel(){
 		proxyPanel.setPanel(logPanel);
-		frame.getContentPane().removeAll();
-		frame.getContentPane().repaint();
-		frame.getContentPane().add(proxyPanel.setUpPanel());
-		frame.getContentPane().validate();
+		refresh();
 
 	}
-	public void setRoomsPanel(){
+	public void setRoomsPanel(String gameName){
+		((RoomsPanel) roomsPanel).setGame(gameName);
 		proxyPanel.setPanel(roomsPanel);
+		refresh();
+	}
+	public void setChoosePanel() {
+		proxyPanel.setPanel(choosePanel);
+		refresh();
+	}
+
+	private static void refresh() {
 		frame.getContentPane().removeAll();
 		frame.getContentPane().repaint();
 		frame.getContentPane().add(proxyPanel.setUpPanel());

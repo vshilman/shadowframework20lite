@@ -17,7 +17,7 @@ import mediator.Mediator;
 public class GameMenu extends JMenu{
 
 	private JTextField field= new JTextField();
-	private JButton button= new JButton("OK");
+	private JButton button;
 	private JDialog dialog;
 
 	public GameMenu() {
@@ -35,6 +35,7 @@ public class GameMenu extends JMenu{
 				dialog.setLayout(new GridLayout(2, 1));
 				dialog.add(new JLabel("Name your table:"));
 				dialog.add(field);
+				button=new JButton("OK");
 				button.addActionListener(new ActionListener() {
 					
 					@Override
