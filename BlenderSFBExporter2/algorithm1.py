@@ -26,7 +26,10 @@ def __unpack_list1(l):
     return l[0] if len(l) == 1 else l
 
 def explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False)):
-    if avoid(vert.index):
+    return _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False))
+
+def _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False), prev_verts=set([])):
+    if avoid(vert.index) or vert.index in prev_verts:
         return []
     if vert.index in goals:
         return [vert.index]
@@ -34,7 +37,8 @@ def explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False)):
     for edge in vert.link_edges:
         face_indexes = [f.index for f in edge.link_faces]
         if not utils.contains_one(face_indexes, prev_faces):
-            result += [[vert.index] + explore_vert(edge.other_vert(vert), goals, prev_faces + face_indexes, avoid)]
+            new_prev_verts = prev_verts | set([vert.index])
+            result += [[vert.index] + _explore_vert(edge.other_vert(vert), goals, prev_faces + face_indexes, avoid, new_prev_verts)]
     return __unpack_list1(result)
 
 def compute_macro_edges(singular_verts):
@@ -50,8 +54,12 @@ def compute_macro_edges(singular_verts):
     final_result = set([])
     is_valid = lambda e: e not in final_result and e[::-1] not in final_result and e[0] in singular_verts_indexes and e[-1] in singular_verts_indexes
     for e in result:
-        if is_valid(e):
-            final_result.add(e)
+        print(e)
+        try:
+            if is_valid(e):
+                final_result.add(e)
+        except:
+            pass
     return final_result
 
 def connected_component_index(vertexi, boundaries, mesh):
@@ -326,12 +334,15 @@ def run(bm):
         '''Returns wheter the patch contains enough point to be simplified.'''
         return patch_verts and len(patch_verts) > MIN_VERTS
     
+    # TODO Disable this
+    # Returns all the pathces without improvements
+    #return patches
+    
     # Now that we defined the patches we should iterate to improve the error.
     result = []
     require_improvement = list(patches)
     require_improvement_verts = list(patch_verts_attribution)
     while len(require_improvement) > 0:
-        
         current_patch = require_improvement.pop(0)
         current_attr = require_improvement_verts.pop(0)
         
