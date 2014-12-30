@@ -87,10 +87,10 @@ for obj in objects:
         #points = list(geom.sample_patch_samples(polygon, 25))
         quads = list(geom.sample_patch_quads_samples(polygon, 5))
         
-        c1_points = list(geom.sample_curve_samples(curves[0], 10))
-        c2_points = list(geom.sample_curve_samples(curves[1], 10))
-        c3_points = list(geom.sample_curve_samples(curves[2], 10))
-        c4_points = list(geom.sample_curve_samples(curves[3], 10))
+        c1_points = list(geom.sample_curve_samples(curves[0], 5))
+        c2_points = list(geom.sample_curve_samples(curves[1], 5))
+        c3_points = list(geom.sample_curve_samples(curves[2], 5))
+        c4_points = list(geom.sample_curve_samples(curves[3], 5))
         
         ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points])
         ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points])

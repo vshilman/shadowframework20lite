@@ -49,9 +49,9 @@ def plot_bezier_curve(points, function, figname):
     plt.plot(points_xs, points_ys, "o", color = "blue", label = "Input points")
     plt.plot(cpoints_xs, cpoints_ys, "o", color = "red", label = "Control points")
     plt.plot(curve_xs, curve_ys, color = "green", label = "Bezier curve")
-    plt.savefig(OUT_GRAPH_DIR + figname)
     plt.grid()
     plt.legend()
+    plt.savefig(OUT_GRAPH_DIR + figname)
     plt.show()
 
 def plot_beizer_spline_2d(points, function, n, figname, steps=100):
@@ -79,9 +79,9 @@ def plot_beizer_spline_2d(points, function, n, figname, steps=100):
     plt.plot(points_xs, points_ys, "o", color = "blue", label = "Input points")
     plt.plot(cpoints_xs, cpoints_ys, "o", color = "red", label = "Control points")
     plt.plot(curve_xs, curve_ys, color = "green", label = "Bezier spline")
-    plt.savefig(OUT_GRAPH_DIR + figname)
     plt.grid()
     plt.legend()
+    plt.savefig(OUT_GRAPH_DIR + figname)
     plt.show()
 
 def plot_bezier_spline_3d(points, function, n, figname, steps=100):
@@ -114,6 +114,7 @@ def plot_bezier_spline_3d(points, function, n, figname, steps=100):
     ax.plot(cpointsx, cpointsy, cpointsz, "o", color="red", label="Control points")
     plt.grid()
     plt.legend()
+    plt.savefig(OUT_GRAPH_DIR + figname)
     plt.show()
     
 
@@ -169,7 +170,7 @@ class SimpleFittingTests(unittest.TestCase):
         sin_ys = np.array([sin(x) for x in sin_xs])
         sin_ys = sin_ys + 0.15*np.random.normal(size=len(sin_ys))
         points = list(zip(sin_xs, sin_ys, [0] * len(sin_xs)))
-        plot_beizer_spline_2d(points, mmath.interp_bezier_curve_3, 2, "longsin_spline_3_interpbezier_fitting_2.pgf")
+        plot_beizer_spline_2d(points, mmath.interp_bezier_curve_3, 2, "noisylongsin_spline_3_interpbezier_fitting_2.pgf")
     
     def test_longsin_spline_fitting_interp_3_5(self):
         sin = lambda x: math.sin(x) + 0.5 * math.sin(0.3 * math.pi + x) + 0.5 * math.sin(4 * x)
@@ -177,7 +178,7 @@ class SimpleFittingTests(unittest.TestCase):
         sin_ys = np.array([sin(x) for x in sin_xs])
         #sin_ys = sin_ys + 0.15*np.random.normal(size=len(sin_ys))
         points = list(zip(sin_xs, sin_ys, [0] * len(sin_xs)))
-        plot_beizer_spline_2d(points, mmath.interp_bezier_curve_3, 5, "longsin_spline_3_interpbezier_fitting_2.pgf")
+        plot_beizer_spline_2d(points, mmath.interp_bezier_curve_3, 5, "longsin_spline_3_interpbezier_fitting_5.pgf")
     
     def test_longsin_spline_fitting_interp_3_10(self):
         sin = lambda x: math.sin(x) + 0.5 * math.sin(0.3 * math.pi + x) + 0.5 * math.sin(4 * x)
@@ -185,7 +186,7 @@ class SimpleFittingTests(unittest.TestCase):
         sin_ys = np.array([sin(x) for x in sin_xs])
         #sin_ys = sin_ys + 0.15*np.random.normal(size=len(sin_ys))
         points = list(zip(sin_xs, sin_ys, [0] * len(sin_xs)))
-        plot_beizer_spline_2d(points, mmath.interp_bezier_curve_3, 10, "longsin_spline_3_interpbezier_fitting_2.pgf", 1000)
+        plot_beizer_spline_2d(points, mmath.interp_bezier_curve_3, 10, "longsin_spline_3_interpbezier_fitting_10.pgf", 1000)
     
     def test_3dcurve_spline_fitting_interp_3_10(self):
         theta = np.linspace(-4 * np.pi, 4 * np.pi, 50)
@@ -196,8 +197,7 @@ class SimpleFittingTests(unittest.TestCase):
         
         # Fit the data
         points = list(zip(xs, ys, zs))
-        
-        plot_bezier_spline_3d(points, mmath.interp_bezier_curve_3, 5, "3dcurve_spline_5_interpbezier_fitting_2.pgf", 1000)
+        plot_bezier_spline_3d(points, mmath.interp_bezier_curve_3, 5, "3Dcurve_spline_5_interpbezier_fitting_2.pgf", 1000)
     
     #def test_bezier_fitting(self):
         #sin = lambda x: math.sin(x)
