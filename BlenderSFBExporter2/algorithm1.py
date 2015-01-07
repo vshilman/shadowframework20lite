@@ -5,6 +5,9 @@ import mymath as mmath
 import geometry as geom
 import math
 import itertools
+import fitting as fit
+
+import collections
 
 VERBOSE = False
 
@@ -26,20 +29,25 @@ def __unpack_list1(l):
     return l[0] if len(l) == 1 else l
 
 def explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False)):
-    return _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False))
+    return _explore_vert(vert, goals, prev_faces, avoid=(lambda x: False))
 
 def _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False), prev_verts=set([])):
     if avoid(vert.index) or vert.index in prev_verts:
         return []
     if vert.index in goals:
-        return [vert.index]
-    result = []
+        return [[vert.index]]
+    subcalls = []
     for edge in vert.link_edges:
         face_indexes = [f.index for f in edge.link_faces]
         if not utils.contains_one(face_indexes, prev_faces):
             new_prev_verts = prev_verts | set([vert.index])
-            result += [[vert.index] + _explore_vert(edge.other_vert(vert), goals, prev_faces + face_indexes, avoid, new_prev_verts)]
-    return __unpack_list1(result)
+            subcalls += _explore_vert(edge.other_vert(vert), goals, prev_faces + face_indexes, avoid, new_prev_verts)
+    
+    result = []
+    for path in subcalls:
+        result += [[vert.index] + path]
+    return result
+
 
 def compute_macro_edges(singular_verts):
     result = []
@@ -165,14 +173,14 @@ def split_patch_4(patch_edges, patch_verts, mesh):
     v2 = mesh.verts[(e2[len(e2) // 2])]
     
     new_edges1 = explore_vert(v1, e3, avoid=lambda x:x not in patch_verts)
-    new_edge1 = list(filter(lambda x: x[0] in e1 and x[-1] in e3, new_edges1))[0]
+    new_edge1 = sorted(list(filter(lambda x: x[0] in e1 and x[-1] in e3, new_edges1)), key=len)[0]
     new_edge1 = tuple(new_edge1)
-            
+        
     vi_0 = new_edge1[0]
     vi_F = new_edge1[-1]
     
     new_edges2 = explore_vert(v2, e4, avoid=lambda x: x not in patch_verts)
-    new_edge2 = list(filter(lambda x: x[0] in e2 and x[-1] in e4, new_edges2))[0]
+    new_edge2 = sorted(list(filter(lambda x: x[0] in e2 and x[-1] in e4, new_edges2)), key=len)[0]
     new_edge2 = tuple(new_edge2)
     
     vj_0 = new_edge2[0]
@@ -256,7 +264,8 @@ def remove_intersections(macro_edges, singular_verts_indexes):
 import sys
 
 def extract_base_mesh(bm):
-    '''Returns a skeleton mesh, made of big quads on the main edges'''
+    '''Compute the skeleton patches. To be refined in following steps.
+    Retuns the singular points, the edges and the patches.'''
     verts_list = list(bm.verts)
     faces_list = list(bm.faces)
     verts_indexes = [v.index for v in verts_list]
@@ -285,13 +294,6 @@ def extract_base_mesh(bm):
     for p in patches:
         pr("PATCH", p)
     
-    # We need to filter the patches: only the ones with four are good
-    
-    #for p in filter(lambda x: len(x) != 4, patches):
-    #    print("asdfasdf", p)
-    
-    #patches = list(filter(lambda x: len(x) == 4, patches))
-    
     ordered_patches = []
     for i, part in enumerate(patches):
         ordered_patch = reorder_patch_edges(part)
@@ -299,7 +301,10 @@ def extract_base_mesh(bm):
             ordered_patches.append(ordered_patch)
     patches = ordered_patches
     
-    return patches
+    # TODO Current we simply get rid of all the non quadrangular patches.
+    patches = [p for p in patches if len(p) == 4]
+    
+    return patches, macro_edges, singular_verts
     
 
 def run(bm):
@@ -309,15 +314,12 @@ def run(bm):
     faces_list = list(bm.faces)
     verts_indexes = [v.index for v in verts_list]
     
-    # Compute the singular vertices
-    singular_verts = find_singular_vertices(verts_list)
-    
-    # Compute the macro edges: the long edges (which be the borders of the patches).
-    macro_edges = compute_macro_edges(singular_verts)
+    # Extract the skeleton mesh.
+    patches, macro_edges, singular_verts = extract_base_mesh(bm)
+
+    boundaries = set(sum(macro_edges, ()))
 
     # Now we need to understand which vertex belong to which face. We use the connected components approach.
-    boundaries = set(sum(macro_edges, ()))
-    
     patch_verts_attribution = partition_mesh_vertices(verts_indexes, boundaries, bm)
 
     # Now we need to understand which superedges belong to which face.
@@ -327,7 +329,11 @@ def run(bm):
     for i, part in enumerate(patches):
         patches[i] = reorder_patch_edges(part)
     
-    THRESHOLD = 0.10000
+    patches = [p for p in patches if len(p) == 4]
+    
+    #return patches
+    
+    THRESHOLD = 0.5
     MIN_VERTS = 5
     
     def can_simplify(patch_verts):
@@ -346,12 +352,14 @@ def run(bm):
         current_patch = require_improvement.pop(0)
         current_attr = require_improvement_verts.pop(0)
         
+        print(len(require_improvement))
+        
         pr("N. PATCHES IN FRONTIER:",len(require_improvement))
         pr("CURRENT PATCH", current_patch)
         pr("CURRENT POINTS", current_attr)
         
         if can_simplify(current_attr) and compute_patch_error(current_patch, bm, current_attr) > THRESHOLD:
-            pr("ERROR", compute_patch_error(current_patch, bm, current_attr))
+            #pr("ERROR", compute_patch_error(current_patch, bm, current_attr))
             new_patches = split_patch_4(current_patch, current_attr, bm)
             require_improvement += new_patches
             boundaries = set(sum(sum(result + require_improvement, []),()))
@@ -360,4 +368,102 @@ def run(bm):
             require_improvement_verts = temp[len(result):] #We need to exclude the current correct results.
         else:
             result += [current_patch]
-    return result
+    
+    # Returns the patches without the edge fitting.
+    #return verts_list, result
+    
+    #We need to fit the patch edges with lower degree curves
+    edges = set(sum(result, []))
+    edge_correspondence = {}
+    old_verts = [geom.Vertex((v.co.x, v.co.y, v.co.z)) for v in verts_list]
+    
+    # Output values
+    new_verts = []
+    new_edges = []
+    new_patches = []
+    
+    SAMPLES = 20
+    THRESHOLD_DISTANCE = 0.001
+    
+    edge_conversion = {}
+    
+    for edge in edges:
+        if edge_conversion.get(edge):
+            pass
+        elif edge_conversion.get(edge[::-1]):
+            edge_conversion[edge] = edge_conversion.get(edge[::-1])[::-1]
+        else:
+            cpoints = tuple([old_verts[i] for i in edge])
+            curve = geom.generate_spline(cpoints, mmath.interp_bezier_curve_2)
+            curve_points = list(geom.sample_curve_samples(curve, 20))
+            
+            # TODO Check precision
+            cpoints_chunks = fit.fit_bezier_spline(curve_points, mmath.interp_bezier_curve_2, 1)
+            approximated_cpoints = [geom.Vertex(chunk) for chunk in cpoints_chunks[0]]
+            
+            # We need to use the original extremes control points to ensure continuity
+            new_cpoints = [cpoints[0]] + approximated_cpoints[1:-1] + [cpoints[-1]]
+            
+            new_verts += new_cpoints
+            new_verts_indexes = tuple([new_verts.index(v) for v in new_cpoints])
+            edge_conversion[edge] = new_verts_indexes
+    
+    print("Old verts", len(verts_list))
+    print("New verts", len(new_verts))
+    
+    # Use the converted vertices instead of the original ones.
+    final_patches = []
+    for patch in result:
+        final_patches += [[edge_conversion[e] for e in patch]]
+    
+    # TODO Remember to disable this.
+    #return new_verts, final_patches
+    
+    def generate_convert(threshold_index, prev_index):
+        def convert(index):
+            if index < threshold_index:
+                return index
+            elif index == threshold_index:
+                return prev_index
+            else:
+                return index - 1
+        return convert
+    
+    def update_edge(e, convert):
+        return tuple([convert(i) for i in e])
+    
+    def update_patch(p, convert):
+        return [update_edge(e, convert) for e in p]
+    
+    def my_index(l, element):
+        """Returns the element in the list, otherwise -1"""
+        return l.index(element) if element in l else -1
+
+    def my_index_closest(l, element):
+        temp = list(l)
+        mod = lambda x: x[0] * x[0] + x[1] * x[1] + x[2] * x[2]
+        
+        closest = sorted(temp, key=lambda x: mod(x - element))[0]
+        
+        return l.index(closest) if mod(element - closest) < THRESHOLD_DISTANCE else -1
+
+    def recursive_max(l):
+        if isinstance(l, (int, float)):
+            return l
+        return max((recursive_max(e) for e in l))
+    
+    # Filter out vertices which are not unique.
+    
+    final_verts = []
+    for i, vert in enumerate(new_verts):
+        index = my_index_closest(final_verts, vert) if final_verts else -1
+        if index == -1:
+            final_verts += [vert]
+        else:
+            # The element is not in the list. This means that we need to decrement all the indexes and replace i with index.
+            convert_func = generate_convert(len(final_verts), index)
+            for i, p in enumerate(final_patches):
+                final_patches[i] = update_patch(p, convert_func)
+    
+    print("Final verts", len(final_verts))
+    return final_verts, final_patches

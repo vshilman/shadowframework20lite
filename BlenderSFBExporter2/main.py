@@ -59,15 +59,13 @@ for obj in objects:
     bm.from_mesh(mesh)
     
     # Extract skeleton mesh
-    skeleton = alg.extract_base_mesh(bm)
-    #print(skeleton)
-    
-    #sys.exit(0)
-    
-    #patches = alg.run(bm)
-    skeleton_patches = skeleton
-    bad_patches = list(filter(lambda x: len(x) != 4, skeleton_patches))
-    patches = list(filter(lambda x: len(x) == 4, skeleton_patches))
+    #patches, macro_edges, singular_verts = alg.extract_base_mesh(bm)    
+
+    # Run the full fledged algorithm
+    alg_verts, patches = alg.run(bm)
+
+    print(len(alg_verts))
+    print(patches)
 
     #edges = sum(patches, [])
     
@@ -80,7 +78,7 @@ for obj in objects:
     for i, patch in enumerate(patches):
         curves = []
         for edge in patch:
-            verts = (tuple((blender.convert_vert(bm.verts[i]) for i in edge)))
+            verts = (tuple(alg_verts[i] for i in edge))
             curves.append(geom.generate_spline(verts, mmath.interp_bezier_curve_2))
     
         polygon = geom.PolygonsNetQuad(curves)
