@@ -232,6 +232,11 @@ def check_and_split(edge1, edge2):
         return [edge1[:edge1.index(p)+1], edge1[edge1.index(p):], edge2[:edge2.index(p)+1], edge2[edge2.index(p):]]
     return [edge1, edge2]
 
+def filter_macro_edges(macro_edges):
+    '''Remove the edges which are not meaningful, such as loops. 
+    Atm this only checks for loops.'''
+    return [e for e macro_edges if e[0] != e[-1]]
+
 def split_intersecting(macro_edges):
     '''Split the macroedges which are intersecting.'''
     frontier = set(macro_edges)
@@ -277,6 +282,7 @@ def extract_base_mesh(bm):
         pr("SINGULAR_VERTS", p)
     
     macro_edges = compute_macro_edges(singular_verts)
+    macro_edges = filter_macro_edges(macro_edges)
     macro_edges = split_intersecting(macro_edges)
     #macro_edges = remove_intersections(macro_edges, singular_verts_indexes)
     
@@ -333,8 +339,8 @@ def run(bm):
     
     #return patches
     
-    THRESHOLD = 0.5
-    MIN_VERTS = 5
+    THRESHOLD = 10.5
+    MIN_VERTS = 10
     
     def can_simplify(patch_verts):
         '''Returns wheter the patch contains enough point to be simplified.'''
@@ -342,7 +348,7 @@ def run(bm):
     
     # TODO Disable this
     # Returns all the pathces without improvements
-    #return patches
+    #return [geom.Vertex((v.co.x, v.co.y, v.co.z)) for v in verts_list], patches
     
     # Now that we defined the patches we should iterate to improve the error.
     result = []
@@ -369,13 +375,13 @@ def run(bm):
         else:
             result += [current_patch]
     
-    # Returns the patches without the edge fitting.
-    #return verts_list, result
-    
     #We need to fit the patch edges with lower degree curves
     edges = set(sum(result, []))
     edge_correspondence = {}
     old_verts = [geom.Vertex((v.co.x, v.co.y, v.co.z)) for v in verts_list]
+    
+    # Returns the patches without the edge fitting.
+    #return old_verts, result    
     
     # Output values
     new_verts = []
