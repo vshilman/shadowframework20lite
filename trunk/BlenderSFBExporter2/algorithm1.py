@@ -235,7 +235,7 @@ def check_and_split(edge1, edge2):
 def filter_macro_edges(macro_edges):
     '''Remove the edges which are not meaningful, such as loops. 
     Atm this only checks for loops.'''
-    return [e for e macro_edges if e[0] != e[-1]]
+    return [e for e in macro_edges if e[0] != e[-1]]
 
 def split_intersecting(macro_edges):
     '''Split the macroedges which are intersecting.'''
