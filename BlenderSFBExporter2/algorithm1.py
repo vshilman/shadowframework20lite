@@ -6,6 +6,8 @@ import geometry as geom
 import math
 import itertools
 import fitting as fit
+import funchelps
+
 
 import collections
 
@@ -28,6 +30,51 @@ def __unpack_list1(l):
     '''Unpack the list if it only consists of 1 element.'''
     return l[0] if len(l) == 1 else l
 
+def compute_angle_blender(bA, bB, bC):
+    '''Same as compute_angle but with blender edges.'''
+    points = tuple([blender.convert_vert(v) for v in [bA, bB, bC]])
+    return compute_angle(*points)
+
+def compute_angle(A, B, C):
+    '''Computer the angle between the vertices of the edges (A, B) and (A, C)'''
+    AB, AC = B - A, C - A
+    cos_angle = funchelps.dot(AB, AC) / (funchelps.module(AB) * funchelps.module(AC))
+    return math.acos(cos_angle)
+
+def split_list_triples(l):
+    '''Returns contiguous couple of list.'''
+    if len(l) < 3: return []
+    return [l[0:3]] + split_list_triples(l[1:])
+
+def split_circular_list_triples(l):
+    '''Like split_list_triples but considering it circular'''
+    return split_list_triples(l + l[0:2])
+
+def is_right_angle(angle, threshold=0.1):
+    '''Returns true if angle is a right angle. A percentual threshold can be specified.'''
+    return abs(angle - math.pi * 0.5) < math.pi * 0.5 * threshold
+
+def is_edge_flat(edge, threshold=0.5):
+    '''Returns if the angle of the faces which share an edge is really low'''
+    return abs(edge.calc_face_angle()) < math.pi * 0.5 * threshold
+
+def are_edes_coplanar(c, e1, e2, e3, threshold=0.2):
+    cross = lambda x,y: geom.Vertex(funchelps.cross(x,y))
+    gc = blender.convert_vert(c)
+    ge1 = blender.convert_vert(e1)
+    ge2 = blender.convert_vert(e2)
+    ge3 = blender.convert_vert(e3)
+    return abs(funchelps.dot(cross(ge1 - gc, ge2 - gc), ge3 - gc)) < threshold
+
+def is_edge_right_angle(c, e1, e2, e3):
+    '''Retruns true if e2 is almost right angle with both e1 and e3. Edges are tuples of indexes.'''
+    
+    angle1 = compute_angle_blender(c, e1, e2)
+    angle2 = compute_angle_blender(c, e2, e3)
+    
+    return is_right_angle(angle1) and is_right_angle(angle2)
+
+
 def explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False)):
     return _explore_vert(vert, goals, prev_faces, avoid=(lambda x: False))
 
@@ -36,8 +83,20 @@ def _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False), prev_vert
         return []
     if vert.index in goals:
         return [[vert.index]]
+    
     subcalls = []
-    for edge in vert.link_edges:
+    edges = list(vert.link_edges)
+    neighbors_verts = [e.other_vert(vert) for e in edges]
+    neighbors_verts_triples = [[vert] + ns for ns in split_circular_list_triples(neighbors_verts)]
+    
+    def is_right_angle(points):
+        return is_edge_right_angle(*(points))
+    
+    for i, edge in enumerate(edges):
+        if len(edges) >= 4 and is_edge_flat(edge) and is_right_angle(neighbors_verts_triples[i]):
+            print("Dropped edge", len(edges))
+            continue
+        
         face_indexes = [f.index for f in edge.link_faces]
         if not utils.contains_one(face_indexes, prev_faces):
             new_prev_verts = prev_verts | set([vert.index])
@@ -62,7 +121,6 @@ def compute_macro_edges(singular_verts):
     final_result = set([])
     is_valid = lambda e: e not in final_result and e[::-1] not in final_result and e[0] in singular_verts_indexes and e[-1] in singular_verts_indexes
     for e in result:
-        print(e)
         try:
             if is_valid(e):
                 final_result.add(e)
@@ -126,7 +184,7 @@ def compute_patch_edges(faces_verts, all_edges):
     for partition in faces_verts:
         current_edges = []
         for edge in all_edges:
-            if any((pp in edge) for pp in partition):
+            if any((pp in partition) for pp in edge[1:-1]): # Do not check the corners
                 current_edges.append(edge)
         patches.append(current_edges)
     return patches
@@ -137,9 +195,11 @@ def reorder_patch_edges(l):
     assert len(l) > 1, "List has to be non empty."
     result = [l[0]] + __reorder_edges(l[1:], l[0])
     if len(result) != len(l) or result[0][0] != result[-1][-1]:
+        print(l)
         print("Warning: reorder_edges couldn't find the proper order")
         return []
     return result
+
 
 def rotate_patch(patch):
     '''Rotate the edges of the patch. This might be used to split the patch into the other directions.'''
@@ -268,6 +328,62 @@ def remove_intersections(macro_edges, singular_verts_indexes):
 
 import sys
 
+def compute_edges_angle(e1, e2, verts_list):
+    '''Compute the angle between the two edges.'''
+    assert e1[-1] == e2[0], "No correspondences among margins"
+    vm = verts_list[e1[-1]]
+    vp = verts_list[e1[-2]]
+    vn = verts_list[e2[1]]
+    
+    return compute_angle_blender(vm, vp, vn)
+
+def are_mergeable(e1, e2, verts_list, threshold=0.3):
+    '''Returns if the two edges are mergeable'''
+    return abs(compute_edges_angle(e1, e2, verts_list) - math.pi) < threshold * math.pi
+
+def merge_edges(e1, e2):
+    '''Merge the two edges'''
+    assert e1[-1] == e2[0], "No correspondences among margins"
+    return e1 + e2[1:]
+
+def extract_pairs(edges):
+    '''Extact the couples from a list'''
+    if len(edges) < 2:
+        return []
+    return [edges[0:2]] + extract_pairs(edges[1:])
+
+def extract_pairs_circular(edges):
+    '''Like extract_pairs but also take into accounts that the last is connected to the first.'''
+    return extract_pairs(edges + [edges[0]])
+
+def first(f,l):
+    '''Returns the first item of l which satisfiers f'''
+    for e in l:
+        if f(e):
+            return e
+    return None
+
+def transform_patch_4(p, verts_list):
+    '''Transform a patch to a four sided one by merging edges'''
+    patch = list(p)
+    if len(p) == 4:
+        return p
+    
+    pairs = extract_pairs_circular(p)
+    cond = lambda x: are_mergeable(x[0], x[1], verts_list)
+    key_func = lambda x: abs(compute_edges_angle(x[0], x[1], verts_list) - math.pi)
+    
+    edges = sorted(pairs, key=key_func)[0]
+    
+    e1, e2 = edges
+    
+    if e1 == e2:
+        return None
+    
+    patch.remove(e1)
+    patch[patch.index(e2)] = merge_edges(e1, e2)
+    return transform_patch_4(patch, verts_list)
+
 def extract_base_mesh(bm):
     '''Compute the skeleton patches. To be refined in following steps.
     Retuns the singular points, the edges and the patches.'''
@@ -305,10 +421,17 @@ def extract_base_mesh(bm):
         ordered_patch = reorder_patch_edges(part)
         if ordered_patch:
             ordered_patches.append(ordered_patch)
-    patches = ordered_patches
+    patches = []
+    
+    #patches = [p for p in ordered_patches if len(p) == 4]
+    
+    # If a patch has more than four sides they need to be merged.
     
     # TODO Current we simply get rid of all the non quadrangular patches.
-    patches = [p for p in patches if len(p) == 4]
+    for p in ordered_patches:
+        temp = transform_patch_4(p, verts_list)
+        if temp:
+            patches.append(temp)
     
     return patches, macro_edges, singular_verts
     

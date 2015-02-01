@@ -36,9 +36,22 @@ def concat(lists):
 def dot(vec1, vec2):
     return sum(e1 * e2 for e1, e2 in zip(vec1, vec2))
 
+def cross(a, b):
+    c = ([a[1]*b[2] - a[2]*b[1],
+          a[2]*b[0] - a[0]*b[2],
+          a[0]*b[1] - a[1]*b[0]])
+
+    return c
+
+def module(vertex):
+    return sqrt(dot(vertex, vertex))
+
 def vec_product(vec1, vec2):
     assert(len(vec1) == len(vec2))
     return tuple(map(lambda x: x[0]*x[1], zip(vec1, vec2)))
+
+def normalize(vertex):
+    return vertex / module(vertex)
 
 def float_range(start = 0.0, stop = 1.0, step = 0.1):
     t = start
