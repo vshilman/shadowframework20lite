@@ -111,7 +111,7 @@ for obj in objects:
     
         polygon = geom.PolygonsNetQuad(curves)
         #points = list(geom.sample_patch_samples(polygon, 25))
-        quads = list(geom.sample_patch_quads_samples(polygon, 2))
+        quads = list(geom.sample_patch_quads_samples(polygon, 10))
 
         # Draw original vertices
         old_verts = [blender.convert_vert(v) for v in bm.verts]
