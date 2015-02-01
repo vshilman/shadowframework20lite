@@ -50,15 +50,15 @@ def split_circular_list_triples(l):
     '''Like split_list_triples but considering it circular'''
     return split_list_triples(l + l[0:2])
 
-def is_right_angle(angle, threshold=0.1):
+def is_right_angle(angle, threshold=0.3):
     '''Returns true if angle is a right angle. A percentual threshold can be specified.'''
     return abs(angle - math.pi * 0.5) < math.pi * 0.5 * threshold
 
-def is_edge_flat(edge, threshold=0.5):
+def is_edge_flat(edge, threshold=0.15):
     '''Returns if the angle of the faces which share an edge is really low'''
     return abs(edge.calc_face_angle()) < math.pi * 0.5 * threshold
 
-def are_edes_coplanar(c, e1, e2, e3, threshold=0.2):
+def are_edges_coplanar(c, e1, e2, e3, threshold=0.1):
     cross = lambda x,y: geom.Vertex(funchelps.cross(x,y))
     gc = blender.convert_vert(c)
     ge1 = blender.convert_vert(e1)
@@ -71,6 +71,9 @@ def is_edge_right_angle(c, e1, e2, e3):
     
     angle1 = compute_angle_blender(c, e1, e2)
     angle2 = compute_angle_blender(c, e2, e3)
+    
+    if c.index == 5662:
+        print(angle1, angle2)
     
     return is_right_angle(angle1) and is_right_angle(angle2)
 
@@ -86,15 +89,25 @@ def _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False), prev_vert
     
     subcalls = []
     edges = list(vert.link_edges)
-    neighbors_verts = [e.other_vert(vert) for e in edges]
-    neighbors_verts_triples = [[vert] + ns for ns in split_circular_list_triples(neighbors_verts)]
     
     def is_right_angle(points):
         return is_edge_right_angle(*(points))
     
     for i, edge in enumerate(edges):
-        if len(edges) >= 4 and is_edge_flat(edge) and is_right_angle(neighbors_verts_triples[i]):
-            print("Dropped edge", len(edges))
+        combinations = itertools.permutations(set(edges) - set([edge]), 2)
+        skip = False
+        if vert.index == 5662: print(vert.index)
+        for neighbors_edges in combinations:
+            neighbors_verts = [e.other_vert(vert) for e in neighbors_edges]
+            neighbors_verts_triple = [vert, neighbors_verts[0], edge.other_vert(vert), neighbors_verts[1]]
+            if vert.index == 5662: print(neighbors_verts_triple)
+            if vert.index == 5662: print(is_right_angle(neighbors_verts_triple))
+            if len(edges) > 4 and is_edge_flat(edge) and are_edges_coplanar(*neighbors_verts_triple) and is_right_angle(neighbors_verts_triple):
+                skip = True
+                break
+
+        if skip:
+            #print("Dropped edge", len(edges))
             continue
         
         face_indexes = [f.index for f in edge.link_faces]
