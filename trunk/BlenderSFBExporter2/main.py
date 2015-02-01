@@ -77,13 +77,14 @@ for obj in objects:
     
     ## Extract skeleton mesh
     skpatches, skmacro_edges, sksingular_verts = alg.extract_base_mesh(bm)
+    verts_list = [blender.convert_vert(v) for v in bm.verts]
+    
     # Plot skeleton edges.
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     #ax.view_init(119, -89)
     cc = lambda arg: colorConverter.to_rgba(arg, alpha=0.6)
     colors = ['r', 'g', 'b', 'y', 'm', 'c']
-    verts_list = [blender.convert_vert(v) for v in bm.verts]
     for edge in skmacro_edges:
         verts = (tuple(verts_list[i] for i in edge))
         curve = geom.generate_spline(verts, mmath.interp_bezier_curve_2)
@@ -93,8 +94,45 @@ for obj in objects:
     ax.plot([v.x for v in verts], [v.y for v in verts], [v.z for v in verts], "o")
     
     plt.show()
-    sys.exit(0)
+    #sys.exit(0)
     
+    # Plot skeleton mesh
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    #ax.view_init(119, -89)
+    cc = lambda arg: colorConverter.to_rgba(arg, alpha=0.6)
+    colors = ['r', 'g', 'b', 'y', 'm', 'c']
+    
+    for i, patch in enumerate(skpatches):
+        curves = []
+        for edge in patch:
+            verts = (tuple(verts_list[i] for i in edge))
+            curves.append(geom.generate_spline(verts, mmath.interp_bezier_curve_2))
+    
+        polygon = geom.PolygonsNetQuad(curves)
+        #points = list(geom.sample_patch_samples(polygon, 25))
+        quads = list(geom.sample_patch_quads_samples(polygon, 2))
+
+        # Draw original vertices
+        old_verts = [blender.convert_vert(v) for v in bm.verts]
+        
+        c1_points = list(geom.sample_curve_samples(curves[0], 10))
+        c2_points = list(geom.sample_curve_samples(curves[1], 10))
+        c3_points = list(geom.sample_curve_samples(curves[2], 10))
+        c4_points = list(geom.sample_curve_samples(curves[3], 10))
+
+        # Print only the curves
+        ax.plot([p.x for p in c1_points], [p.y for p in c1_points], [p.z for p in c1_points], linewidth=0)
+        ax.plot([p.x for p in c2_points], [p.y for p in c2_points], [p.z for p in c2_points], linewidth=0)
+        ax.plot([p.x for p in c3_points], [p.y for p in c3_points], [p.z for p in c3_points], linewidth=0)
+        ax.plot([p.x for p in c4_points], [p.y for p in c4_points], [p.z for p in c4_points], linewidth=0)
+        # Print as quads
+        ax.add_collection3d(Poly3DCollection(quads, facecolors=[cc(colors[i % len(colors)])]))
+        # Print as points
+        #ax.plot([p.x for p in points], [p.y for p in points], [p.z for p in points], "o", label="Geometry points")
+    
+    plt.show()
+    sys.exit(0)
 
     # Run the full fledged algorithm
     alg_verts, patches = alg.run(bm)
@@ -107,7 +145,7 @@ for obj in objects:
     # Plot only the curves.
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.view_init(119, -89)
+    #ax.view_init(119, -89)
     cc = lambda arg: colorConverter.to_rgba(arg, alpha=0.6)
     colors = ['r', 'g', 'b', 'y', 'm', 'c']
     
