@@ -1,2 +1,0 @@
-#!/bin/sh
-blender --background spherical_cube16.blend --python main.py
