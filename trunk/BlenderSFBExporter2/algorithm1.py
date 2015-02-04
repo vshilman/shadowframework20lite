@@ -90,26 +90,7 @@ def _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False), prev_vert
     subcalls = []
     edges = list(vert.link_edges)
     
-    def is_right_angle(points):
-        return is_edge_right_angle(*(points))
-    
-    for i, edge in enumerate(edges):
-        combinations = itertools.permutations(set(edges) - set([edge]), 2)
-        skip = False
-        if vert.index == 5662: print(vert.index)
-        for neighbors_edges in combinations:
-            neighbors_verts = [e.other_vert(vert) for e in neighbors_edges]
-            neighbors_verts_triple = [vert, neighbors_verts[0], edge.other_vert(vert), neighbors_verts[1]]
-            if vert.index == 5662: print(neighbors_verts_triple)
-            if vert.index == 5662: print(is_right_angle(neighbors_verts_triple))
-            if len(edges) > 4 and is_edge_flat(edge) and are_edges_coplanar(*neighbors_verts_triple) and is_right_angle(neighbors_verts_triple):
-                skip = True
-                break
-
-        if skip:
-            #print("Dropped edge", len(edges))
-            continue
-        
+    for i, edge in enumerate(edges):        
         face_indexes = [f.index for f in edge.link_faces]
         if not utils.contains_one(face_indexes, prev_faces):
             new_prev_verts = prev_verts | set([vert.index])
@@ -205,7 +186,8 @@ def compute_patch_edges(faces_verts, all_edges):
 def reorder_patch_edges(l):
     '''Reorder the edges, so that two adjacent edges, will have a shared vertex.
         Returns [] if this is not possible.'''
-    assert len(l) > 1, "List has to be non empty."
+    if len(l) <= 1:
+        return l
     result = [l[0]] + __reorder_edges(l[1:], l[0])
     if len(result) != len(l) or result[0][0] != result[-1][-1]:
         print(l)
@@ -310,13 +292,40 @@ def filter_macro_edges(macro_edges):
     Atm this only checks for loops.'''
     return [e for e in macro_edges if e[0] != e[-1]]
 
-def split_intersecting(macro_edges):
-    '''Split the macroedges which are intersecting.'''
-    frontier = set(macro_edges)
-    result = set()
+def compute_valence(edge, verts_list):
+    '''Compute the valence of the current edge'''
+    first_valence = len(verts_list[edge[0]].link_edges)
+    last_valence = len(verts_list[edge[-1]].link_edges)
+    return max(first_valence, last_valence)
+
+def is_strong_edge(edge, verts_list):
+    return compute_valence(edge, verts_list) == 3
+
+def is_weak_edge(edge, verts_list):
+    return not is_strong_edge(edge, verts_list)
+
+def add_all_discard_intersections(edges, result=set()):
+    frontier = set(edges)
     
     while len(frontier) > 0:
+        current = frontier.pop(0)
+        intersection = False
+        for edge in set(result):
+            if intersect_point(current, edge):
+                intersection = True
+                break
+        
+        if intersection:
+            continue
+        
+        result.add(current)
+    return result
+
+def add_all_split_intersections(edges, result=set([])):
+    frontier = set(edges)
+    while len(frontier) > 0:
         current = frontier.pop()
+
         intersection = False
         for edge in set(frontier):
             if intersect_point(current, edge):
@@ -327,6 +336,62 @@ def split_intersecting(macro_edges):
         
         if not intersection:
             result.add(current)
+    return result
+
+def split_intersecting(macro_edges, verts_list):
+    '''Split the macro-edges which are intersecting.'''
+    result = set()
+    
+    edge_valence = lambda x: compute_valence(x, verts_list)
+    strong = lambda x: is_strong_edge(x, verts_list)
+    weak = lambda x: is_weak_edge(x, verts_list)
+    
+    strong_edges = list(filter(strong, macro_edges))
+    weak_edges = list(filter(weak, macro_edges))
+    
+    # Add all the strong edges. Splitting them if necessary.
+    add_all_split_intersections(strong_edges, result)
+    
+    # Discard all the weak edges which intersect strong edges
+    #for wedge in weak_edges:
+        #intersections_points = [intersect_point(wedge, sedge) for sedge in strong_edges]
+        #intersections_points = [p for p in intersections_points if p]
+        #if len(intersections_points) == 0:
+            #result.add(wedge)
+    
+    # Take only the first part of the weak edges
+    for wedge in weak_edges:
+        intersections_points = [intersect_point(wedge,sedge) for sedge in strong_edges]
+        intersections_points = [p for p in intersections_points if p]
+        intersections_indexes = [wedge.index(point) for point in intersections_points]
+        if intersections_indexes:
+            min_index, max_index = min(intersections_indexes), max(intersections_indexes)
+            result.add(wedge[:min_index+1])
+            result.add(wedge[max_index:])
+            
+            added = set()
+            removed = set()
+            
+            for edge in result:
+                if wedge[min_index] in edge[1:-1]:
+                    removed.add(edge)
+                    added.add(edge[:edge.index(wedge[min_index])+1])
+                    added.add(edge[edge.index(wedge[min_index]):])
+                
+                if wedge[max_index] in edge[1:-1]:
+                    removed.add(edge)
+                    added.add(edge[:edge.index(wedge[max_index])+1])
+                    added.add(edge[edge.index(wedge[max_index]):])
+            
+            for edge in removed:
+                result.remove(edge)
+            for edge in added:
+                result.add(edge)
+            
+        else:
+            result.add(wedge)
+
+    result = add_all_split_intersections(result)
     return result
 
 def remove_intersections(macro_edges, singular_verts_indexes):
@@ -412,7 +477,7 @@ def extract_base_mesh(bm):
     
     macro_edges = compute_macro_edges(singular_verts)
     macro_edges = filter_macro_edges(macro_edges)
-    macro_edges = split_intersecting(macro_edges)
+    macro_edges = split_intersecting(macro_edges, verts_list)
     #macro_edges = remove_intersections(macro_edges, singular_verts_indexes)
     
     for p in macro_edges:
@@ -425,6 +490,7 @@ def extract_base_mesh(bm):
         pr("INNER_POINTS",p)
     
     patches = compute_patch_edges(patch_verts_attribution, macro_edges)
+    patches = [p for p in patches if len(p) >= 4]
     
     for p in patches:
         pr("PATCH", p)
