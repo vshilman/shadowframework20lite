@@ -1,2 +1,0 @@
-#!/bin/sh
-blender --background HippoHD.blend --python main.py

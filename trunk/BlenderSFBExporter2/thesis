@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function run {
+	rm .current_file.blend
+	cp models/$1.blend .current_file.blend
+	blender --background .current_file.blend --python $2
+	rm .current_file.blend
+}
+
+if [ $# -eq 0 ]; then
+	echo "Specify command: list, execute or test"
+	exit 0
+fi
+
+if [ $1 = "list" ]; then
+	ls -1 models | sed "s/\.blend//g"
+fi
+
+if [ $1 = "test" ]; then
+	run spherical_cube4 tests.py
+fi
+
+if [ $1 = "execute" ]; then
+	rm .current_file.blend
+	cp models/$2.blend .current_file.blend
+	blender --background .current_file.blend --python main.py 
+	rm .current_file.blend
+fi
+
+exit 0
+
