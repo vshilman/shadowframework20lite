@@ -21,10 +21,7 @@ if [ $1 = "test" ]; then
 fi
 
 if [ $1 = "execute" ]; then
-	rm .current_file.blend
-	cp models/$2.blend .current_file.blend
-	blender --background .current_file.blend --python main.py 
-	rm .current_file.blend
+	run $2 main.py
 fi
 
 exit 0
