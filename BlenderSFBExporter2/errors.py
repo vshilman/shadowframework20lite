@@ -18,4 +18,8 @@ def verts_sets_sq_error(verts, reference):
     and is not commutative but doesn't require the verts to be ordered.'''
     errors = (min(module(v - vref) for v in verts) for vref in reference)
     return sum(errors)
-    
+
+def verts_max_error(verts, reference):
+    '''Compare the verts with the reference and return the maximum error.'''
+    errors = (min(module(v - vref) for v in verts) for vref in reference)
+    return max(errors)

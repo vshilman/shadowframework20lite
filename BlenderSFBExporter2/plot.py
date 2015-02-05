@@ -23,3 +23,4 @@ def plot_quads(quads, view_params=None):
 
 def plot_edges(edges):
     '''Takes the edges and plot them into a matplolib graph.'''
+    #TODO
