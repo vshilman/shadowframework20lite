@@ -542,7 +542,7 @@ def run(bm):
     #return patches
     
     THRESHOLD = 10.5
-    MIN_VERTS = 10
+    MIN_VERTS = 20
     
     def can_simplify(patch_verts):
         '''Returns wheter the patch contains enough point to be simplified.'''
@@ -567,11 +567,13 @@ def run(bm):
         pr("CURRENT POINTS", current_attr)
         
         if can_simplify(current_attr) and compute_patch_error(current_patch, bm, current_attr) > THRESHOLD:
+            print(current_attr)
             #pr("ERROR", compute_patch_error(current_patch, bm, current_attr))
             new_patches = split_patch_4(current_patch, current_attr, bm)
             require_improvement += new_patches
             boundaries = set(sum(sum(result + require_improvement, []),()))
             partitions = partition_mesh_vertices(verts_indexes, boundaries, bm)
+            print(len(partitions), len(result + require_improvement))
             temp = compute_patch_verts_attribution(partitions, result + require_improvement)
             require_improvement_verts = temp[len(result):] #We need to exclude the current correct results.
         else:
