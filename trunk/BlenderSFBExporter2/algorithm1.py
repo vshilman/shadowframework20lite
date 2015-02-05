@@ -261,9 +261,10 @@ def create_function_from_patch(mesh, patch): #TODO This should be customized
 
 def compute_patch_error(patch, bm, patch_verts_attribution):
     patch_func = create_function_from_patch(bm, patch)
-    patch_func_points = list(geom.sample_patch_samples(patch_func, math.sqrt(10 * len(patch_verts_attribution)) // 1))
+    #patch_func_points = list(geom.sample_patch_samples(patch_func, math.sqrt(10 * len(patch_verts_attribution)) // 1))
+    patch_func_points = list(geom.sample_patch_samples_uv(patch_func, len(patch[0]), len(patch[1])))
     patch_verts = [blender.convert_vert(bm.verts[vi]) for vi in patch_verts_attribution]
-    return errors.verts_sets_sq_error(patch_func_points, patch_verts)
+    return errors.verts_max_error(patch_func_points, patch_verts)
 
 def compute_error(patches, bm, patch_verts_attribution):
     result = []
@@ -443,9 +444,10 @@ def first(f,l):
 
 def transform_patch_4(p, verts_list):
     '''Transform a patch to a four sided one by merging edges'''
-    patch = list(p)
     if len(p) == 4:
         return p
+    
+    patch = list(p)
     
     pairs = extract_pairs_circular(p)
     cond = lambda x: are_mergeable(x[0], x[1], verts_list)
@@ -461,6 +463,15 @@ def transform_patch_4(p, verts_list):
     patch.remove(e1)
     patch[patch.index(e2)] = merge_edges(e1, e2)
     return transform_patch_4(patch, verts_list)
+
+def quadrangulate_patches(patches, verts_list):
+    '''Returns the quadrangular representation of patches'''
+    result = []
+    for p in patches:
+        temp = transform_patch_4(p, verts_list)
+        if temp:
+            result.append(temp)
+    return result
 
 def extract_base_mesh(bm):
     '''Compute the skeleton patches. To be refined in following steps.
@@ -500,17 +511,7 @@ def extract_base_mesh(bm):
         ordered_patch = reorder_patch_edges(part)
         if ordered_patch:
             ordered_patches.append(ordered_patch)
-    patches = []
-    
-    #patches = [p for p in ordered_patches if len(p) == 4]
-    
-    # If a patch has more than four sides they need to be merged.
-    
-    # TODO Current we simply get rid of all the non quadrangular patches.
-    for p in ordered_patches:
-        temp = transform_patch_4(p, verts_list)
-        if temp:
-            patches.append(temp)
+    patches = quadrangulate_patches(ordered_patches, verts_list)
     
     return patches, macro_edges, singular_verts
     
@@ -537,20 +538,14 @@ def run(bm):
     for i, part in enumerate(patches):
         patches[i] = reorder_patch_edges(part)
     
-    patches = [p for p in patches if len(p) == 4]
+    patches = quadrangulate_patches(patches, verts_list)
     
-    #return patches
-    
-    THRESHOLD = 10.5
-    MIN_VERTS = 20
+    THRESHOLD = 0.01
+    MIN_VERTS = 10
     
     def can_simplify(patch_verts):
         '''Returns wheter the patch contains enough point to be simplified.'''
         return patch_verts and len(patch_verts) > MIN_VERTS
-    
-    # TODO Disable this
-    # Returns all the pathces without improvements
-    #return [geom.Vertex((v.co.x, v.co.y, v.co.z)) for v in verts_list], patches
     
     # Now that we defined the patches we should iterate to improve the error.
     result = []

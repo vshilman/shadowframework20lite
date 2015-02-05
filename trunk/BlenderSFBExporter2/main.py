@@ -88,9 +88,6 @@ def plot_base_mesh(patches, verts_list, scale_tassellation=1):
         v_tassellation = max(len(patch[1]) / scale_tassellation, 1)
         
         quads = list(geom.sample_patch_quads_samples_uv(polygon, int(u_tassellation), int(v_tassellation)))
-
-        # Draw original vertices
-        old_verts = [blender.convert_vert(v) for v in bm.verts]
         
         c1_points = list(geom.sample_curve_samples(curves[0], 10))
         c2_points = list(geom.sample_curve_samples(curves[1], 10))
@@ -126,9 +123,6 @@ def plot_final_mesh(patches, alg_verts):
         polygon = geom.PolygonsNetQuad(curves)
         #points = list(geom.sample_patch_samples(polygon, 25))
         quads = list(geom.sample_patch_quads_samples(polygon, 2))
-
-        # Draw original vertices
-        old_verts = [blender.convert_vert(v) for v in bm.verts]
         
         c1_points = list(geom.sample_curve_samples(curves[0], 10))
         c2_points = list(geom.sample_curve_samples(curves[1], 10))
