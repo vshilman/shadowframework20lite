@@ -34,6 +34,9 @@ objects = scene.objects
 BASE_MESH_TASSELLATE = 2
 VIEW_INIT = (119, -89)
 
+INDEX_SIZE = 2
+VERTEX_SIZE = 12
+
 def plot_bm_mesh(bm):
     verts_list = list(bm.verts)
     faces_list = list(bm.faces)
