@@ -155,10 +155,18 @@ def partition_mesh_vertices(verts, boundaries, mesh):
 
 def compute_patch_verts_attribution(partitions, patches):
     '''Understand which verts below to which patch.'''
-    result = [None] * len(partitions)
+    
+    def is_valid_patch(patch):
+        return all(len(edge) > 2 for edge in patch)
+    
+    def is_edge_included(edge, partition):
+        inner_edge = set(edge[1:-1])
+        return inner_edge.issubset(partition)
+    
+    result = [None] * len(patches)
     for i, patch in enumerate(patches):
         for part in partitions:
-            if all(set(edge) & set(part) for edge in patch):
+            if is_valid_patch(patch) and all(is_edge_included(edge, part) for edge in patch):
                 result[i] = part
     return result
 
@@ -433,6 +441,8 @@ def extract_pairs(edges):
 
 def extract_pairs_circular(edges):
     '''Like extract_pairs but also take into accounts that the last is connected to the first.'''
+    if not edges:
+        return []
     return extract_pairs(edges + [edges[0]])
 
 def first(f,l):
@@ -515,6 +525,16 @@ def extract_base_mesh(bm):
     
     return patches, macro_edges, singular_verts
     
+def size_estimate(bm):
+    '''Returns an estimate of the mesh size. '''
+    verts_list = [blender.convert_vert(v) for v in bm.verts]
+    
+    def axis_length(index, vs):
+        axis = [v[index] for v in vs]
+        return max(axis) - min(axis)
+    
+    return max(axis_length(0, verts_list), axis_length(1, verts_list), axis_length(2, verts_list))
+    
 
 def run(bm):
     '''Run the algorithm on the given bmesh (blender mesh), 
@@ -538,10 +558,17 @@ def run(bm):
     for i, part in enumerate(patches):
         patches[i] = reorder_patch_edges(part)
     
+    # Filter out empty patches
+    patches = [p for p in patches if p]
+    
     patches = quadrangulate_patches(patches, verts_list)
     
-    THRESHOLD = 0.01
-    MIN_VERTS = 10
+    THRESHOLD = 0.05
+    MIN_VERTS = 20
+    
+    threshold = THRESHOLD * size_estimate(bm)
+    print("treshold", threshold)
+    
     
     def can_simplify(patch_verts):
         '''Returns wheter the patch contains enough point to be simplified.'''
@@ -561,14 +588,19 @@ def run(bm):
         pr("CURRENT PATCH", current_patch)
         pr("CURRENT POINTS", current_attr)
         
-        if can_simplify(current_attr) and compute_patch_error(current_patch, bm, current_attr) > THRESHOLD:
-            print(current_attr)
+        #print(compute_patch_error(current_patch, bm, current_attr))
+        
+        if can_simplify(current_attr) and compute_patch_error(current_patch, bm, current_attr) > threshold:
+            print("Splitting patch")
             #pr("ERROR", compute_patch_error(current_patch, bm, current_attr))
             new_patches = split_patch_4(current_patch, current_attr, bm)
             require_improvement += new_patches
+            
             boundaries = set(sum(sum(result + require_improvement, []),()))
             partitions = partition_mesh_vertices(verts_indexes, boundaries, bm)
-            print(len(partitions), len(result + require_improvement))
+            
+            #print(len(partitions), len(result + require_improvement))
+            
             temp = compute_patch_verts_attribution(partitions, result + require_improvement)
             require_improvement_verts = temp[len(result):] #We need to exclude the current correct results.
         else:
