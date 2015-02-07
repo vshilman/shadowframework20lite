@@ -590,11 +590,11 @@ def run(bm):
     
     patches = quadrangulate_patches(patches, verts_list)
     
-    THRESHOLD = 0.05
+    THRESHOLD = 0.01
     MIN_VERTS = 20
     
     threshold = THRESHOLD * size_estimate(bm)
-    print("treshold", threshold)
+    print("Using Threshold:", threshold)
     
     
     def can_simplify(patch_verts):
@@ -726,13 +726,17 @@ def run(bm):
             for i, p in enumerate(final_patches):
                 final_patches[i] = update_patch(p, convert_func)
     
+    input_size = compute_input_mesh_size(bm)
+    output_size = compute_output_mesh_size(final_patches)
+    
     print("Statistics ------------------------------------------")
-    print("Input Vertices: ", len(verts_list))
-    print("Input Faces:    ", len(faces_list))
-    print("Output Vertices:", len(final_verts))
-    print("Output Faces:   ", len(final_patches))
-    print("Input Size:     ", compute_input_mesh_size(bm))
-    print("Output Size:    ", compute_output_mesh_size(final_patches))
+    print("Input Vertices:   ", len(verts_list))
+    print("Input Faces:      ", len(faces_list))
+    print("Output Vertices:  ", len(final_verts))
+    print("Output Faces:     ", len(final_patches))
+    print("Input Size:       ", input_size)
+    print("Output Size:      ", output_size)
+    print("Compression Ratio:", (input_size / output_size))
     print("-----------------------------------------------------")
     
-    return final_verts, final_patches
+    return old_verts, result, final_verts, final_patches
