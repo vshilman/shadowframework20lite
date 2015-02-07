@@ -534,7 +534,34 @@ def size_estimate(bm):
         return max(axis) - min(axis)
     
     return max(axis_length(0, verts_list), axis_length(1, verts_list), axis_length(2, verts_list))
+
+VERTEX_BYTE_SIZE = 12
+INDEX_BYTE_SIZE = 2
+
+def compute_input_mesh_size(bm):
+    '''Compute the byte size of the input mesh.'''
+    verts_list = list(bm.verts)
+    faces_list = list(bm.faces)
     
+    verts_size = VERTEX_BYTE_SIZE * len(verts_list)
+    faces_size = INDEX_BYTE_SIZE * 3 * len(faces_list)
+    
+    return verts_size + faces_size
+
+def compute_output_mesh_size(patches):
+    '''Compute the byte size of the output mesh.'''
+    edges = sum(patches, [])
+    verts = set(sum(edges, ()))
+    
+    result = len(verts) * VERTEX_BYTE_SIZE
+    
+    for edge in edges:
+        result += len(edge) * INDEX_BYTE_SIZE
+    
+    for patch in patches:
+        result += len(patch) * INDEX_BYTE_SIZE
+    
+    return result
 
 def run(bm):
     '''Run the algorithm on the given bmesh (blender mesh), 
@@ -645,9 +672,6 @@ def run(bm):
             new_verts_indexes = tuple([new_verts.index(v) for v in new_cpoints])
             edge_conversion[edge] = new_verts_indexes
     
-    print("Old verts", len(verts_list))
-    print("New verts", len(new_verts))
-    
     # Use the converted vertices instead of the original ones.
     final_patches = []
     for patch in result:
@@ -702,5 +726,13 @@ def run(bm):
             for i, p in enumerate(final_patches):
                 final_patches[i] = update_patch(p, convert_func)
     
-    print("Final verts", len(final_verts))
+    print("Statistics ------------------------------------------")
+    print("Input Vertices: ", len(verts_list))
+    print("Input Faces:    ", len(faces_list))
+    print("Output Vertices:", len(final_verts))
+    print("Output Faces:   ", len(final_patches))
+    print("Input Size:     ", compute_input_mesh_size(bm))
+    print("Output Size:    ", compute_output_mesh_size(final_patches))
+    print("-----------------------------------------------------")
+    
     return final_verts, final_patches
