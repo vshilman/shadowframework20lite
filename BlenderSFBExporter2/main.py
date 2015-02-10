@@ -90,11 +90,11 @@ def plot_final_mesh(patches, verts_list, scale_tassellation=1, old_patches=[]):
     
         # We want to tassellate the patch so that it looks always good.
         polygon = geom.PolygonsNetQuad(curves)
-        print(len(old_patches[i][0]))
+        #print(len(old_patches[i][0]))
         u_tassellation = max(len(old_patches[i][0]) / scale_tassellation, 1)
         v_tassellation = max(len(old_patches[i][1]) / scale_tassellation, 1)
         
-        print(int(u_tassellation), int(v_tassellation))
+        #print(int(u_tassellation), int(v_tassellation))
         
         quads = list(geom.sample_patch_quads_samples_uv(polygon, int(u_tassellation), int(v_tassellation)))
         
@@ -217,5 +217,5 @@ for obj in objects:
     # Run the full fledged algorithm
     old_verts, old_patches, alg_verts, alg_patches = alg.run(bm)
     
-    plot_final_mesh(alg_patches, alg_verts, BASE_MESH_TASSELLATE, old_patches)
-    print(set(sum(alg_patches, [])))
+    plot_final_mesh(old_patches, old_verts, BASE_MESH_TASSELLATE, old_patches)
+    #print(set(sum(alg_patches, [])))

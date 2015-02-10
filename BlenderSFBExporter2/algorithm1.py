@@ -635,6 +635,8 @@ def run(bm):
     
     #We need to fit the patch edges with lower degree curves
     edges = set(sum(result, []))
+    edges = sorted(edges, key=len)
+    
     edge_correspondence = {}
     old_verts = [geom.Vertex((v.co.x, v.co.y, v.co.z)) for v in verts_list]
     
@@ -647,15 +649,50 @@ def run(bm):
     new_patches = []
     
     SAMPLES = 20
-    THRESHOLD_DISTANCE = 0.001
+    THRESHOLD_DISTANCE = 0.1 * size_estimate(bm)
     
     edge_conversion = {}
     
-    for edge in edges:
+    def edges_permutations(base_edges, ref_edge):
+        '''Compute the possible permutations of base_edges which are valid wrt edge.'''
+        if ref_edge == ():
+            return []
+        for edge in base_edges:
+            if edge == ref_edge[0:len(edge)]:
+                return [edge] + edges_permutations(base_edges, ref_edge[len(edge)-1:])
+        return []
+    
+    def merge_all_edges(edges):
+        if not edges:
+            return []
+        result = edges[0]
+        for e in edges[1:]:
+            result += e[1:]
+        return tuple(result)
+    
+    #def is_composed(edge, prev_edges):
+        #perms = itertools.permutations(prev_edges, 3)
+        #for comb in filter(is_valid_combination, perms):
+            #if edge == merge_all_edges(comb):
+                #return merge_all_edges(comb)
+        #return None
+    
+    def is_composed(edge, prev_edges):
+        result = edges_permutations(prev_edges, edge)
+        if merge_all_edges(result) == edge:
+            return result
+        return None
+    
+    for i,edge in enumerate(edges):
+        print("Compressing edge:", i, "/", len(edges))
         if edge_conversion.get(edge):
             pass
-        elif edge_conversion.get(edge[::-1]):
-            edge_conversion[edge] = edge_conversion.get(edge[::-1])[::-1]
+        elif is_composed(edge, sorted(list(edge_conversion.keys()), key=len)):
+            print("This is a combination of previous edges")
+            edge_chunks = is_composed(edge, list(edge_conversion.keys()))
+            transformed_edge_chunks = [edge_conversion[e] for e in edge_chunks]
+            edge_conversion[edge] = merge_all_edges(transformed_edge_chunks)
+            edge_conversion[edge[::-1]] = merge_all_edges(transformed_edge_chunks)[::-1]
         else:
             cpoints = tuple([old_verts[i] for i in edge])
             curve = geom.generate_spline(cpoints, mmath.interp_bezier_curve_2)
@@ -671,6 +708,7 @@ def run(bm):
             new_verts += new_cpoints
             new_verts_indexes = tuple([new_verts.index(v) for v in new_cpoints])
             edge_conversion[edge] = new_verts_indexes
+            edge_conversion[edge[::-1]] = new_verts_indexes[::-1]
     
     # Use the converted vertices instead of the original ones.
     final_patches = []
