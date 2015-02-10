@@ -26,7 +26,9 @@ def sample_patch_quads_step_uv(patch, stepu, stepv):
     '''Sample patch in quads using two different steps on u and v'''
     for u in np.arange(0.0, 1.0, stepu):
         for v in np.arange(0.0, 1.0, stepv):
-            yield [patch.uv(u,v), patch.uv(u+stepu,v), patch.uv(u+stepu, v+stepv), patch.uv(u, v+stepv)]
+            newu = min(u+stepu, 1.0)
+            newv = min(v+stepv, 1.0)
+            yield [patch.uv(u,v), patch.uv(newu,v), patch.uv(newu, newv), patch.uv(u, newv)]
 
 def sample_patch_quads_step(patch, step):
     '''Sample the current patch and return quads.'''
