@@ -217,5 +217,5 @@ for obj in objects:
     # Run the full fledged algorithm
     old_verts, old_patches, alg_verts, alg_patches = alg.run(bm)
     
-    plot_final_mesh(old_patches, old_verts, BASE_MESH_TASSELLATE, old_patches)
+    plot_final_mesh(alg_patches, alg_verts, BASE_MESH_TASSELLATE, old_patches)
     #print(set(sum(alg_patches, [])))

@@ -530,9 +530,9 @@ def extract_base_mesh(bm):
     for p in patch_verts_attribution:
         pr("INNER_POINTS",p)
     
-    patches = compute_patch_edges(patch_verts_attribution, macro_edges)
+    patches = compute_patch_edges(patch_verts_attribution, macro_edges)    
     patches = [p for p in patches if len(p) >= 4]
-        
+
     for p in patches:
         pr("PATCH", p)
     
@@ -675,12 +675,18 @@ def run(bm):
     
     def edges_permutations(base_edges, ref_edge):
         '''Compute the possible permutations of base_edges which are valid wrt edge.'''
+        result = []
         if ref_edge == ():
             return []
+        if len(ref_edge) == 1:
+            return [[ref_edge]]
         for edge in base_edges:
             if edge == ref_edge[0:len(edge)]:
-                return [edge] + edges_permutations(base_edges, ref_edge[len(edge)-1:])
-        return []
+                subcalls = edges_permutations(base_edges, ref_edge[len(edge)-1:])
+                for call in subcalls:
+                    result += [[edge] + call]
+        
+        return result
     
     def merge_all_edges(edges):
         if not edges:
@@ -698,9 +704,11 @@ def run(bm):
         #return None
     
     def is_composed(edge, prev_edges):
-        result = edges_permutations(prev_edges, edge)
-        if merge_all_edges(result) == edge:
-            return result
+        results = edges_permutations(prev_edges, edge)
+        results = sorted(results, key=len)
+        for res in results:
+            if merge_all_edges(res) == edge:
+                return res[:-1]
         return None
     
     for i,edge in enumerate(edges):
@@ -709,7 +717,7 @@ def run(bm):
             pass
         elif is_composed(edge, sorted(list(edge_conversion.keys()), key=len)):
             print("This is a combination of previous edges")
-            edge_chunks = is_composed(edge, list(edge_conversion.keys()))
+            edge_chunks = is_composed(edge, sorted(list(edge_conversion.keys()), key=len))
             transformed_edge_chunks = [edge_conversion[e] for e in edge_chunks]
             edge_conversion[edge] = merge_all_edges(transformed_edge_chunks)
             edge_conversion[edge[::-1]] = merge_all_edges(transformed_edge_chunks)[::-1]
