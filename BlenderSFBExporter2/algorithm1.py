@@ -610,7 +610,7 @@ def run(bm):
     
     patches = quadrangulate_patches(patches, verts_list)
     
-    THRESHOLD = 0.1
+    THRESHOLD = 1.0
     MIN_VERTS = 20
     
     threshold = THRESHOLD * size_estimate(bm)
@@ -660,7 +660,7 @@ def run(bm):
     edge_correspondence = {}
     old_verts = [geom.Vertex((v.co.x, v.co.y, v.co.z)) for v in verts_list]
     
-    # Returns the patches without the edge fitting.
+    # TODO Disable this. Returns the patches without the edge fitting.
     #return old_verts, result, old_verts, result
     
     # Output values
@@ -669,7 +669,8 @@ def run(bm):
     new_patches = []
     
     SAMPLES = 20
-    THRESHOLD_DISTANCE = 0.01 * size_estimate(bm)
+    SPLINE_THRESHOLD = 0.05 * size_estimate(bm)
+    THRESHOLD_DISTANCE = 0.005 * size_estimate(bm)
     
     edge_conversion = {}
     
@@ -732,6 +733,14 @@ def run(bm):
             
             # We need to use the original extremes control points to ensure continuity
             new_cpoints = [cpoints[0]] + approximated_cpoints[1:-1] + [cpoints[-1]]
+            
+            # Check the error and fallback to default spline if issues
+            new_curve = geom.generate_spline(new_cpoints, mmath.interp_bezier_curve_2)
+            new_curve_points = list(geom.sample_curve_samples(new_curve, 20))
+            error = errors.simple_max_error(new_curve_points, curve_points)
+            if error > SPLINE_THRESHOLD:
+                print("Reverting to old verts")
+                new_cpoints = cpoints
             
             new_verts += new_cpoints
             new_verts_indexes = tuple([new_verts.index(v) for v in new_cpoints])
