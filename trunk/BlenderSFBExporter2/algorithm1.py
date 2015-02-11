@@ -79,22 +79,23 @@ def is_edge_right_angle(c, e1, e2, e3):
 
 
 def explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False)):
-    return _explore_vert(vert, goals, prev_faces, avoid=(lambda x: False))
+    return _explore_vert(vert, goals, prev_faces, avoid=(lambda x: False), first_call=True)
 
-def _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False), prev_verts=set([])):
-    if avoid(vert.index) or vert.index in prev_verts:
-        return []
-    if vert.index in goals:
+def _explore_vert(vert, goals, prev_faces=[], avoid=(lambda x: False), prev_verts=set([]), first_call=False):
+    if not first_call and vert.index in goals:
         return [[vert.index]]
+    if avoid(vert.index) or vert.index in prev_verts:
+    #if avoid(vert.index):
+        return []
     
     subcalls = []
     edges = list(vert.link_edges)
     
-    for i, edge in enumerate(edges):        
+    for i, edge in enumerate(edges):
         face_indexes = [f.index for f in edge.link_faces]
         if not utils.contains_one(face_indexes, prev_faces):
             new_prev_verts = prev_verts | set([vert.index])
-            subcalls += _explore_vert(edge.other_vert(vert), goals, prev_faces + face_indexes, avoid, new_prev_verts)
+            subcalls += _explore_vert(edge.other_vert(vert), goals, face_indexes, avoid, new_prev_verts)
     
     result = []
     for path in subcalls:
@@ -107,19 +108,20 @@ def compute_macro_edges(singular_verts):
     singular_verts_indexes = [v.index for v in singular_verts]
     
     for i, vi in enumerate(singular_verts_indexes):
-        goals = set(singular_verts_indexes) - set([vi])
+        goals = set(singular_verts_indexes)
         edges = explore_vert(singular_verts[i], goals)
         result.extend((tuple(edge) for edge in edges))
     
     # Remove the invalid edges (the duplicate ones).
     final_result = set([])
-    is_valid = lambda e: e not in final_result and e[::-1] not in final_result and e[0] in singular_verts_indexes and e[-1] in singular_verts_indexes
+    is_valid = lambda e: e and e not in final_result and e[::-1] not in final_result and e[0] in singular_verts_indexes and e[-1] in singular_verts_indexes
     for e in result:
         try:
             if is_valid(e):
                 final_result.add(e)
         except:
             pass
+    
     return final_result
 
 def connected_component_index(vertexi, boundaries, mesh):
@@ -297,9 +299,27 @@ def check_and_split(edge1, edge2):
     return [edge1, edge2]
 
 def filter_macro_edges(macro_edges):
-    '''Remove the edges which are not meaningful, such as loops. 
+    '''It happens that a singular vertex has only one edge connected to it. This has to be removed 
     Atm this only checks for loops.'''
-    return [e for e in macro_edges if e[0] != e[-1]]
+    singular_verts = set(sum(macro_edges,()))
+    singular_verts_counts = collections.defaultdict(lambda: 0)
+    for edge in macro_edges:
+        singular_verts_counts[edge[0]] += 1
+        singular_verts_counts[edge[-1]] += 1
+    
+    remove_verts = []
+    for key, val in singular_verts_counts.items():
+        if val == 1:
+            remove_verts.append(key)
+    
+    result = []
+    for edge in macro_edges:
+        if edge[0] not in remove_verts and edge[-1] not in remove_verts:
+            result.append(edge)
+        else:
+            print("Removing spurious edge.", edge)
+    
+    return result
 
 def compute_valence(edge, verts_list):
     '''Compute the valence of the current edge'''
@@ -512,7 +532,7 @@ def extract_base_mesh(bm):
     
     patches = compute_patch_edges(patch_verts_attribution, macro_edges)
     patches = [p for p in patches if len(p) >= 4]
-    
+        
     for p in patches:
         pr("PATCH", p)
     
@@ -590,7 +610,7 @@ def run(bm):
     
     patches = quadrangulate_patches(patches, verts_list)
     
-    THRESHOLD = 0.01
+    THRESHOLD = 0.1
     MIN_VERTS = 20
     
     threshold = THRESHOLD * size_estimate(bm)
@@ -641,7 +661,7 @@ def run(bm):
     old_verts = [geom.Vertex((v.co.x, v.co.y, v.co.z)) for v in verts_list]
     
     # Returns the patches without the edge fitting.
-    #return old_verts, result    
+    #return old_verts, result, old_verts, result
     
     # Output values
     new_verts = []
@@ -649,7 +669,7 @@ def run(bm):
     new_patches = []
     
     SAMPLES = 20
-    THRESHOLD_DISTANCE = 0.1 * size_estimate(bm)
+    THRESHOLD_DISTANCE = 0.01 * size_estimate(bm)
     
     edge_conversion = {}
     
