@@ -13,6 +13,12 @@ def simple_sq_error(verts1, verts2):
     sq_diffs = (module(x) for x in diffs)
     return sum(sq_diffs)
 
+def simple_max_error(verts1, verts2):
+    assert(len(verts1) == len(verts2)), "The two sequences of verts must have the same length."
+    diffs = (verts1[i] - verts2[i] for i in range(len(verts1)))
+    sq_diffs = (module(x) for x in diffs)
+    return max(sq_diffs)
+
 def verts_sets_sq_error(verts, reference):
     '''Compare the current unordered set of verts to a reference. This is slow
     and is not commutative but doesn't require the verts to be ordered.'''
