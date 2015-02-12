@@ -202,8 +202,7 @@ def reorder_patch_edges(l):
     result = [l[0]] + __reorder_edges(l[1:], l[0])
     if len(result) != len(l) or result[0][0] != result[-1][-1]:
         print(l)
-        print("Warning: reorder_edges couldn't find the proper order")
-        return []
+        raise Exception("Warning: reorder_edges couldn't find the proper order")
     return result
 
 
@@ -228,39 +227,6 @@ def split_patch_2(patch_edges, patch_verts, mesh):
     patch2 = [new_edge, e3[e3.index(vi_F):], e4, e1[:e1.index(vi_0)+1]]
     
     return [patch1, patch2]
-
-# TODO There is probalby a way to refactor this.
-def split_patch_4(patch_edges, patch_verts, mesh):
-    '''Split the current patch between the first and the third edge.'''
-    assert len(patch_edges) == 4, "We only deal with rectangular patch"
-    e1, e2, e3, e4 = patch_edges
-    
-    v1 = mesh.verts[(e1[len(e1) // 2])]
-    v2 = mesh.verts[(e2[len(e2) // 2])]
-    
-    new_edges1 = explore_vert(v1, e3, avoid=lambda x:x not in patch_verts)
-    new_edge1 = sorted(list(filter(lambda x: x[0] in e1 and x[-1] in e3, new_edges1)), key=len)[0]
-    new_edge1 = tuple(new_edge1)
-        
-    vi_0 = new_edge1[0]
-    vi_F = new_edge1[-1]
-    
-    new_edges2 = explore_vert(v2, e4, avoid=lambda x: x not in patch_verts)
-    new_edge2 = sorted(list(filter(lambda x: x[0] in e2 and x[-1] in e4, new_edges2)), key=len)[0]
-    new_edge2 = tuple(new_edge2)
-    
-    vj_0 = new_edge2[0]
-    vj_F = new_edge2[-1]
-    
-    vm = list(set(new_edge1) & set(new_edge2))[0]
-    
-    patch1 = [e1[e1.index(vi_0):], e2[:e2.index(vj_0)+1], new_edge2[:new_edge2.index(vm)+1], new_edge1[:new_edge1.index(vm)+1][::-1]]
-    patch2 = [new_edge2[:new_edge2.index(vm)+1][::-1], e2[e2.index(vj_0):], e3[:e3.index(vi_F)+1], new_edge1[new_edge1.index(vm):new_edge1.index(vi_F)+1][::-1]]
-    patch3 = [e1[:e1.index(vi_0)+1], new_edge1[:new_edge1.index(vm)+1], new_edge2[new_edge2.index(vm):], e4[e4.index(vj_F):]]
-    patch4 = [new_edge2[new_edge2.index(vm):][::-1], new_edge1[new_edge1.index(vm):], e3[e3.index(vi_F):], e4[:e4.index(vj_F)+1]]
-    
-    return [patch1, patch2, patch3, patch4]
-
 
 def create_function_from_patch(mesh, patch): #TODO This should be customized
     curves = []
@@ -502,13 +468,52 @@ def transform_patch_4(p, verts_list):
     edges = sorted(pairs, key=key_func)[0]
     
     e1, e2 = edges
-    
+
     if e1 == e2:
         return None
     
     patch.remove(e1)
     patch[patch.index(e2)] = e1 + e2
     return transform_patch_4(patch, verts_list)
+
+# TODO There is probalby a way to refactor this.
+def split_patch_4(patch_edges, patch_verts, bm):
+    '''Split the patcch and returns the new edges.'''
+    assert len(patch_edges) == 4, "We only deal with rectangular patch"
+    e1, e2, e3, e4 = flat_patch_edges(patch_edges)
+    
+    v1 = bm.verts[(e1[len(e1) // 2])]
+    v2 = bm.verts[(e2[len(e2) // 2])]
+    
+    new_edges1 = explore_vert(v1, e3, avoid=lambda x:x not in patch_verts)
+    new_edge1 = sorted(list(filter(lambda x: x[0] in e1 and x[-1] in e3, new_edges1)), key=len)[0]
+    new_edge1 = tuple(new_edge1)
+        
+    vi_0 = new_edge1[0]
+    vi_F = new_edge1[-1]
+    
+    new_edges2 = explore_vert(v2, e4, avoid=lambda x: x not in patch_verts)
+    new_edge2 = sorted(list(filter(lambda x: x[0] in e2 and x[-1] in e4, new_edges2)), key=len)[0]
+    new_edge2 = tuple(new_edge2)
+    
+    vj_0 = new_edge2[0]
+    vj_F = new_edge2[-1]
+
+    vm = list(set(new_edge1) & set(new_edge2))[0]
+    
+    result = [new_edge1[:new_edge1.index(vm)+1], new_edge1[new_edge1.index(vm):], new_edge2[:new_edge2.index(vm)+1], new_edge2[new_edge2.index(vm):]]
+    
+    for edge in sum(patch_edges, []):
+        intersection_set = set(edge[1:-1]) & set([vi_0, vi_F, vj_0, vj_F])
+        if len(intersection_set) > 0:
+            assert len(intersection_set) == 1, "Multiple intersection. This is impossible."
+            i = intersection_set.pop()
+            result += [edge[edge.index(i):]] 
+            result += [edge[:edge.index(i)+1]]
+        else:
+            result += [edge]
+    
+    return result
 
 
 def quadrangulate_patches_keep_separate_edges(patches, verts_list):
@@ -617,66 +622,84 @@ def run(bm):
     # Extract the skeleton mesh.
     patches, macro_edges, singular_verts = extract_base_mesh(bm)
 
-    boundaries = set(sum(macro_edges, ()))
-
-    # Now we need to understand which vertex belong to which face. We use the connected components approach.
-    patch_verts_attribution = partition_mesh_vertices(verts_indexes, boundaries, bm)
-
-    # Now we need to understand which superedges belong to which face.
-    patches = compute_patch_edges(patch_verts_attribution, macro_edges)
+    def calculate_patches(macro_edges, bm):
+        boundaries = set(sum(macro_edges, ()))
+        
+        # Now we need to understand which vertex belong to which face. We use the connected components approach.
+        patch_verts_attribution = partition_mesh_vertices(verts_indexes, boundaries, bm)
+        
+        # Now we need to understand which superedges belong to which face.
+        patches = compute_patch_edges(patch_verts_attribution, macro_edges)
+        
+        # We now need to reorder the vertices of each face so that we can build a spline on them.
+        for i, part in enumerate(patches):
+            patches[i] = reorder_patch_edges(part)
+        
+        # Filter empty and quadrangualte.
+        patches = [p for p in patches if p]
+        patches = quadrangulate_patches_keep_separate_edges(patches, verts_list)
+        
+        return patch_verts_attribution, patches
     
-    # We now need to reorder the vertices of each face so that we can build a spline on them.
-    for i, part in enumerate(patches):
-        patches[i] = reorder_patch_edges(part)
-    
-    # Filter out empty patches
-    patches = [p for p in patches if p]
-    
-    # Will keep the identity separated.
-    patches = quadrangulate_patches_keep_separate_edges(patches, verts_list)
-    
-    THRESHOLD = 1.0
+    THRESHOLD = 0.05
     MIN_VERTS = 20
     
     threshold = THRESHOLD * size_estimate(bm)
-    print("Using Threshold:", threshold)
+    print("Using Threshold:", threshold)        
     
+    def is_patch_big_enough(patch):
+        '''Returns if all the edges of the patch are big enough for it to be splitted.'''
+        return all(len(edge) >= 5 for edge in flat_patch_edges(patch))
+        
     
     def can_simplify(patch_verts):
         '''Returns wheter the patch contains enough point to be simplified.'''
         return patch_verts and len(patch_verts) > MIN_VERTS
     
+    patch_verts_attribution, patches = calculate_patches(macro_edges, bm)
+    skip_patches = []
+    
     # Now that we defined the patches we should iterate to improve the error.
     result = []
-    require_improvement = list(patches)
-    require_improvement_verts = list(patch_verts_attribution)
-    while len(require_improvement) > 0:
-        current_patch = require_improvement.pop(0)
-        current_attr = require_improvement_verts.pop(0)
+    patch_improved = True
+    while patch_improved:
+        patch_improved = False
+        print("Number of patches", len(patches))
         
-        print(len(require_improvement))
+        for i,current_patch in enumerate(patches):
+            current_attr = patch_verts_attribution[i]
         
-        pr("N. PATCHES IN FRONTIER:",len(require_improvement))
-        pr("CURRENT PATCH", current_patch)
-        pr("CURRENT POINTS", current_attr)
-        
-        #print(compute_patch_error(current_patch, bm, current_attr))
-        
-        if can_simplify(current_attr) and compute_patch_error(current_patch, bm, current_attr) > threshold:
-            print("Splitting patch")
-            #pr("ERROR", compute_patch_error(current_patch, bm, current_attr))
-            new_patches = split_patch_4(current_patch, current_attr, bm)
-            require_improvement += new_patches
-            
-            boundaries = set(sum(sum(result + require_improvement, []),()))
-            partitions = partition_mesh_vertices(verts_indexes, boundaries, bm)
-            
-            #print(len(partitions), len(result + require_improvement))
-            
-            temp = compute_patch_verts_attribution(partitions, result + require_improvement)
-            require_improvement_verts = temp[len(result):] #We need to exclude the current correct results.
-        else:
-            result += [current_patch]
+            if all([current_patch not in skip_patches,
+                    can_simplify(current_attr),
+                    is_patch_big_enough(current_patch),
+                    compute_patch_error(flat_patch_edges(current_patch), bm, current_attr) > threshold]):
+                
+                #pr("ERROR", compute_patch_error(current_patch, bm, current_attr))
+                try:
+                    old_edges = sum(current_patch,[])
+                    new_edges = split_patch_4(current_patch, current_attr, bm)
+                    new_macro_edges = set(macro_edges)
+                    
+                    for edge in old_edges:
+                        if edge in new_macro_edges:
+                            new_macro_edges.remove(edge)
+                        if edge[::-1] in macro_edges:
+                            new_macro_edges.remove(edge[::-1])
+                    
+                    for edge in new_edges:
+                        if edge[::-1] not in new_macro_edges:
+                            new_macro_edges.add(edge)
+                    
+                    patch_verts_attribution, patches = calculate_patches(new_macro_edges, bm)
+                    macro_edges = new_macro_edges
+                    
+                    patch_improved = True
+                    break
+                except Exception as e:
+                    print("Patch discarded")
+                    skip_patches += [current_patch]
+                    
+    result = patches
     
     #We need to fit the patch edges with lower degree curves
     #edges = set(sum(result, []))
