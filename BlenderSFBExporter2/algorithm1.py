@@ -5,6 +5,7 @@ import mymath as mmath
 import geometry as geom
 import math
 import itertools
+import functools
 import fitting as fit
 import funchelps
 
@@ -450,7 +451,11 @@ def are_mergeable(e1, e2, verts_list, threshold=0.3):
 
 def merge_edges(e1, e2):
     '''Merge the two edges'''
-    assert e1[-1] == e2[0], "No correspondences among margins"
+    if not e1:
+        return e2
+    if not e2:
+        return e1
+    assert e1[-1] == e2[0], "Can't merge edges: %s %s" % (e1, e2)
     return e1 + e2[1:]
 
 def extract_pairs(edges):
@@ -472,6 +477,18 @@ def first(f,l):
             return e
     return None
 
+def flat_edge(edges):
+    '''Flat the current edge'''
+    return functools.reduce(merge_edges, edges, [])
+
+def flat_patch_edges(p):
+    '''Takes a patch with separate edges and return the flat representation.'''
+    assert len(p) == 4, "Patch isn't four-sided:" + p
+    result = []
+    for edge in p:
+        result.append(flat_edge(edge))
+    return result
+
 def transform_patch_4(p, verts_list):
     '''Transform a patch to a four sided one by merging edges'''
     if len(p) == 4:
@@ -480,8 +497,7 @@ def transform_patch_4(p, verts_list):
     patch = list(p)
     
     pairs = extract_pairs_circular(p)
-    cond = lambda x: are_mergeable(x[0], x[1], verts_list)
-    key_func = lambda x: abs(compute_edges_angle(x[0], x[1], verts_list) - math.pi)
+    key_func = lambda x: abs(compute_edges_angle(flat_edge(x[0]), flat_edge(x[1]), verts_list) - math.pi)
     
     edges = sorted(pairs, key=key_func)[0]
     
@@ -491,16 +507,24 @@ def transform_patch_4(p, verts_list):
         return None
     
     patch.remove(e1)
-    patch[patch.index(e2)] = merge_edges(e1, e2)
+    patch[patch.index(e2)] = e1 + e2
     return transform_patch_4(patch, verts_list)
+
+
+def quadrangulate_patches_keep_separate_edges(patches, verts_list):
+    '''Do not flat the edges, but keep the pieces separated.'''
+    result = []
+    for p in patches:
+        temp = transform_patch_4([[edge] for edge in p], verts_list)
+        if temp:
+            result.append(temp)
+    return result
 
 def quadrangulate_patches(patches, verts_list):
     '''Returns the quadrangular representation of patches'''
-    result = []
-    for p in patches:
-        temp = transform_patch_4(p, verts_list)
-        if temp:
-            result.append(temp)
+    result = quadrangulate_patches_keep_separate_edges(patches, verts_list)
+    for i,p in enumerate(result):
+        result[i] = flat_patch_edges(p)
     return result
 
 def extract_base_mesh(bm):
@@ -608,7 +632,8 @@ def run(bm):
     # Filter out empty patches
     patches = [p for p in patches if p]
     
-    patches = quadrangulate_patches(patches, verts_list)
+    # Will keep the identity separated.
+    patches = quadrangulate_patches_keep_separate_edges(patches, verts_list)
     
     THRESHOLD = 1.0
     MIN_VERTS = 20
@@ -654,7 +679,8 @@ def run(bm):
             result += [current_patch]
     
     #We need to fit the patch edges with lower degree curves
-    edges = set(sum(result, []))
+    #edges = set(sum(result, []))
+    edges  = set(sum(sum(result, []), []))
     edges = sorted(edges, key=len)
     
     edge_correspondence = {}
@@ -674,21 +700,6 @@ def run(bm):
     
     edge_conversion = {}
     
-    def edges_permutations(base_edges, ref_edge):
-        '''Compute the possible permutations of base_edges which are valid wrt edge.'''
-        result = []
-        if ref_edge == ():
-            return []
-        if len(ref_edge) == 1:
-            return [[ref_edge]]
-        for edge in base_edges:
-            if edge == ref_edge[0:len(edge)]:
-                subcalls = edges_permutations(base_edges, ref_edge[len(edge)-1:])
-                for call in subcalls:
-                    result += [[edge] + call]
-        
-        return result
-    
     def merge_all_edges(edges):
         if not edges:
             return []
@@ -697,31 +708,10 @@ def run(bm):
             result += e[1:]
         return tuple(result)
     
-    #def is_composed(edge, prev_edges):
-        #perms = itertools.permutations(prev_edges, 3)
-        #for comb in filter(is_valid_combination, perms):
-            #if edge == merge_all_edges(comb):
-                #return merge_all_edges(comb)
-        #return None
-    
-    def is_composed(edge, prev_edges):
-        results = edges_permutations(prev_edges, edge)
-        results = sorted(results, key=len)
-        for res in results:
-            if merge_all_edges(res) == edge:
-                return res[:-1]
-        return None
-    
     for i,edge in enumerate(edges):
         print("Compressing edge:", i, "/", len(edges))
         if edge_conversion.get(edge):
             pass
-        elif is_composed(edge, sorted(list(edge_conversion.keys()), key=len)):
-            print("This is a combination of previous edges")
-            edge_chunks = is_composed(edge, sorted(list(edge_conversion.keys()), key=len))
-            transformed_edge_chunks = [edge_conversion[e] for e in edge_chunks]
-            edge_conversion[edge] = merge_all_edges(transformed_edge_chunks)
-            edge_conversion[edge[::-1]] = merge_all_edges(transformed_edge_chunks)[::-1]
         else:
             cpoints = tuple([old_verts[i] for i in edge])
             curve = geom.generate_spline(cpoints, mmath.interp_bezier_curve_2)
@@ -738,7 +728,7 @@ def run(bm):
             new_curve = geom.generate_spline(new_cpoints, mmath.interp_bezier_curve_2)
             new_curve_points = list(geom.sample_curve_samples(new_curve, 20))
             error = errors.simple_max_error(new_curve_points, curve_points)
-            if error > SPLINE_THRESHOLD:
+            if False:#error > SPLINE_THRESHOLD:
                 print("Reverting to old verts")
                 new_cpoints = cpoints
             
@@ -747,13 +737,15 @@ def run(bm):
             edge_conversion[edge] = new_verts_indexes
             edge_conversion[edge[::-1]] = new_verts_indexes[::-1]
     
-    # Use the converted vertices instead of the original ones.
     final_patches = []
+    
+    # Convert the edges with the approximated ones.
     for patch in result:
-        final_patches += [[edge_conversion[e] for e in patch]]
+        converted_edges = [[edge_conversion[edge] for edge in edges] for edges in patch]
+        final_patches += [flat_patch_edges(converted_edges)]
     
     # TODO Remember to disable this.
-    #return new_verts, final_patches
+    #return new_verts, final_patches, new_verts, final_patches
     
     def generate_convert(threshold_index, prev_index):
         def convert(index):
@@ -814,4 +806,6 @@ def run(bm):
     print("Compression Ratio:", (input_size / output_size))
     print("-----------------------------------------------------")
     
-    return old_verts, result, final_verts, final_patches
+    old_pathces = [flat_patch_edges(p) for p in result]
+    
+    return old_verts, old_pathces, final_verts, final_patches
