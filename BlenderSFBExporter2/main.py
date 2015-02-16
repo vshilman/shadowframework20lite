@@ -199,7 +199,7 @@ for obj in objects:
         continue
     
     bm = blender.convert_mesh(mesh)
-    plot_bm_mesh(bm)
+    #plot_bm_mesh(bm)
     
     verts_list = [blender.convert_vert(v) for v in bm.verts]
     
