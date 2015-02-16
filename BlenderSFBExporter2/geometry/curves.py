@@ -47,7 +47,7 @@ def generate_spline_chunks(chunks, func):
     result = []
     for chunk in chunks:
         result.append(BaseCurve(chunk, func))
-    return result
+    return SuperCurve(result)
 
 def generate_spline(cpoints, func):
     '''Generate a spline from a series of control points and a function'''
