@@ -765,7 +765,7 @@ def run(bm):
     new_patches = []
     
     SAMPLES = 20
-    SPLINE_THRESHOLD = 0.01 * size_estimate(bm)
+    SPLINE_THRESHOLD = 0.05 * size_estimate(bm)
     THRESHOLD_DISTANCE = 0.005 * size_estimate(bm)
     
     edge_conversion = {}
@@ -779,7 +779,6 @@ def run(bm):
         return tuple(result)
     
     for i,edge in enumerate(edges):
-        print("Compressing edge:", i, "/", len(edges))
         if edge_conversion.get(edge):
             pass
         else:
@@ -787,20 +786,37 @@ def run(bm):
             curve = geom.generate_spline(cpoints, mmath.interp_bezier_curve_2)
             curve_points = list(geom.sample_curve_samples(curve, 20))
             
-            # TODO Check precision
-            cpoints_chunks = fit.fit_bezier_spline(curve_points, mmath.interp_bezier_curve_2, 1)
-            approximated_cpoints = [geom.Vertex(chunk) for chunk in cpoints_chunks[0]]
+            def squash_chunks(chunks):
+                if len(chunks) == 1:
+                    return chunks[0]
+                return chunks[0][:-1] + squash_chunks(chunks[1:])
             
-            # We need to use the original extremes control points to ensure continuity
-            new_cpoints = [cpoints[0]] + approximated_cpoints[1:-1] + [cpoints[-1]]
             
-            # Check the error and fallback to default spline if issues
-            new_curve = geom.generate_spline(new_cpoints, mmath.interp_bezier_curve_2)
-            new_curve_points = list(geom.sample_curve_samples(new_curve, 20))
-            error = errors.simple_max_error(new_curve_points, curve_points)
-            if error > SPLINE_THRESHOLD:
-                print("Reverting to old verts")
+            new_cpoints = []
+            error = float("inf")
+            n_splines = 1
+            
+            try:
+                while error > SPLINE_THRESHOLD:
+                    cpoints_chunks = fit.fit_bezier_spline(cpoints, mmath.interp_bezier_curve_2, n_splines)
+                    verts_chunks = [[geom.Vertex(p) for p in chunk] for chunk in cpoints_chunks]
+                    verts_chunks[0][0] = cpoints[0]
+                    verts_chunks[-1][-1] = cpoints[-1]
+                    
+                    # Increase the precision at the next step
+                    n_splines += 1 
+                    
+                    # We need to use the original extremes control points to ensure continuity
+                    new_cpoints = squash_chunks(verts_chunks)
+                    
+                    # Check the error and fallback to default spline if issues
+                    new_curve = geom.generate_spline(new_cpoints, mmath.interp_bezier_curve_2)
+                    new_curve_points = list(geom.sample_curve_samples(new_curve, len(cpoints)))
+                    error = errors.simple_max_error(new_curve_points, cpoints)
+            except:
                 new_cpoints = cpoints
+            
+            print("Compressing edge: %s/%s. n.verts: %s -> %s" % (i+1, len(edges), len(cpoints), len(new_cpoints)))
             
             new_verts += new_cpoints
             new_verts_indexes = tuple([new_verts.index(v) for v in new_cpoints])

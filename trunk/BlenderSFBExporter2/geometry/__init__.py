@@ -4,6 +4,7 @@ from .curves import BaseCurve
 from .curves import SuperCurve 
 from .curves import SubCurve
 from .curves import generate_spline
+from .curves import generate_spline_chunks
 
 from .samplers import sample_curve_samples
 from .samplers import sample_curve_step
