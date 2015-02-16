@@ -334,6 +334,46 @@ def add_all_split_intersections(edges, result=set([])):
             result.add(current)
     return result
 
+
+def split_intersecting_opt(macro_edges, verts_list):
+    sorted_edges = sorted(macro_edges, key=len)
+    result = set([])
+    
+    for edge in sorted_edges:
+        intersections_points = [intersect_point(edge, already_edge) for already_edge in result]
+        intersections_points = [p for p in intersections_points if p]
+        intersections_indexes = [edge.index(point) for point in intersections_points]
+        
+        if intersections_indexes:
+            min_index, max_index = min(intersections_indexes), max(intersections_indexes)
+            result.add(edge[:min_index+1])
+            result.add(edge[max_index:])
+            
+            removed = set()
+            added = set()
+            
+            for already_edge in result:
+                if edge[min_index] in already_edge[1:-1]:
+                    removed.add(already_edge)
+                    added.add(already_edge[:already_edge.index(edge[min_index])+1])
+                    added.add(already_edge[already_edge.index(edge[min_index]):])
+                
+                if edge[max_index] in already_edge[1:-1]:
+                    removed.add(already_edge)
+                    added.add(already_edge[:already_edge.index(edge[max_index])+1])
+                    added.add(already_edge[already_edge.index(edge[max_index]):])
+            
+            for already_edge in removed:
+                result.remove(already_edge)
+            
+            for already_edge in added:
+                result.add(already_edge)
+        else:
+            result.add(edge)
+    
+    result = add_all_split_intersections(result)
+    return result
+
 def split_intersecting(macro_edges, verts_list):
     '''Split the macro-edges which are intersecting.'''
     result = set()
@@ -547,7 +587,7 @@ def extract_base_mesh(bm):
     
     macro_edges = compute_macro_edges(singular_verts)
     macro_edges = filter_macro_edges(macro_edges)
-    macro_edges = split_intersecting(macro_edges, verts_list)
+    macro_edges = split_intersecting_opt(macro_edges, verts_list)
     #macro_edges = remove_intersections(macro_edges, singular_verts_indexes)
     
     for p in macro_edges:
@@ -567,7 +607,10 @@ def extract_base_mesh(bm):
     
     ordered_patches = []
     for i, part in enumerate(patches):
-        ordered_patch = reorder_patch_edges(part)
+        try:
+            ordered_patch = reorder_patch_edges(part)
+        except:
+            continue
         if ordered_patch:
             ordered_patches.append(ordered_patch)
     patches = quadrangulate_patches(ordered_patches, verts_list)
@@ -633,7 +676,10 @@ def run(bm):
         
         # We now need to reorder the vertices of each face so that we can build a spline on them.
         for i, part in enumerate(patches):
-            patches[i] = reorder_patch_edges(part)
+            try:
+                patches[i] = reorder_patch_edges(part)
+            except:
+                patches[i] = None
         
         # Filter empty and quadrangualte.
         patches = [p for p in patches if p]
@@ -661,7 +707,8 @@ def run(bm):
     
     # Now that we defined the patches we should iterate to improve the error.
     result = []
-    patch_improved = True
+    #patch_improved = True
+    patch_improved = False
     while patch_improved:
         patch_improved = False
         print("Number of patches", len(patches))
@@ -718,7 +765,7 @@ def run(bm):
     new_patches = []
     
     SAMPLES = 20
-    SPLINE_THRESHOLD = 0.05 * size_estimate(bm)
+    SPLINE_THRESHOLD = 0.01 * size_estimate(bm)
     THRESHOLD_DISTANCE = 0.005 * size_estimate(bm)
     
     edge_conversion = {}
@@ -751,7 +798,7 @@ def run(bm):
             new_curve = geom.generate_spline(new_cpoints, mmath.interp_bezier_curve_2)
             new_curve_points = list(geom.sample_curve_samples(new_curve, 20))
             error = errors.simple_max_error(new_curve_points, curve_points)
-            if False:#error > SPLINE_THRESHOLD:
+            if error > SPLINE_THRESHOLD:
                 print("Reverting to old verts")
                 new_cpoints = cpoints
             
