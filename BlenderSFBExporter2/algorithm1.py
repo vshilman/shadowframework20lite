@@ -14,6 +14,11 @@ import collections
 
 VERBOSE = False
 
+#Algorithm settings
+PATCH_THRESHOLD = 0.5
+SPLINE_THRESHOLD = 0.001
+VERTEX_MERGE_THRESHOLD = 0.0001
+
 def pr(*s):
     if VERBOSE:
         print(*s)
@@ -588,6 +593,7 @@ def extract_base_mesh(bm):
     macro_edges = compute_macro_edges(singular_verts)
     macro_edges = filter_macro_edges(macro_edges)
     macro_edges = split_intersecting_opt(macro_edges, verts_list)
+    #macro_edges = split_intersecting(macro_edges, verts_list)
     #macro_edges = remove_intersections(macro_edges, singular_verts_indexes)
     
     for p in macro_edges:
@@ -687,10 +693,9 @@ def run(bm):
         
         return patch_verts_attribution, patches
     
-    THRESHOLD = 0.05
     MIN_VERTS = 20
     
-    threshold = THRESHOLD * size_estimate(bm)
+    threshold = PATCH_THRESHOLD * size_estimate(bm)
     print("Using Threshold:", threshold)        
     
     def is_patch_big_enough(patch):
@@ -707,8 +712,8 @@ def run(bm):
     
     # Now that we defined the patches we should iterate to improve the error.
     result = []
-    #patch_improved = True
-    patch_improved = False
+    patch_improved = True
+    #patch_improved = False
     while patch_improved:
         patch_improved = False
         print("Number of patches", len(patches))
@@ -765,8 +770,8 @@ def run(bm):
     new_patches = []
     
     SAMPLES = 20
-    SPLINE_THRESHOLD = 0.05 * size_estimate(bm)
-    THRESHOLD_DISTANCE = 0.005 * size_estimate(bm)
+    spline_threshold = SPLINE_THRESHOLD * size_estimate(bm)
+    THRESHOLD_DISTANCE = VERTEX_MERGE_THRESHOLD * size_estimate(bm)
     
     edge_conversion = {}
     
@@ -783,8 +788,6 @@ def run(bm):
             pass
         else:
             cpoints = tuple([old_verts[i] for i in edge])
-            curve = geom.generate_spline(cpoints, mmath.interp_bezier_curve_2)
-            curve_points = list(geom.sample_curve_samples(curve, 20))
             
             def squash_chunks(chunks):
                 if len(chunks) == 1:
@@ -797,7 +800,7 @@ def run(bm):
             n_splines = 1
             
             try:
-                while error > SPLINE_THRESHOLD:
+                while error > spline_threshold:
                     cpoints_chunks = fit.fit_bezier_spline(cpoints, mmath.interp_bezier_curve_2, n_splines)
                     verts_chunks = [[geom.Vertex(p) for p in chunk] for chunk in cpoints_chunks]
                     verts_chunks[0][0] = cpoints[0]

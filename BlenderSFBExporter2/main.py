@@ -15,6 +15,8 @@ import utils
 import algorithm1 as alg
 import blender
 
+import numpy as np
+
 # Matplotlib imports
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -29,10 +31,12 @@ context = bpy.context
 scene = context.scene
 objects = scene.objects
 
+OUTPUT_DIR="/tmp/"
+NAME="graph"
 
 # Config parameters
-BASE_MESH_TASSELLATE = 1
-VIEW_INIT = (119, -89)
+BASE_MESH_TASSELLATE = 2
+VIEW_INIT = (13, -45)
 
 INDEX_SIZE = 2
 VERTEX_SIZE = 12
@@ -45,6 +49,9 @@ def plot_bm_mesh(bm):
     quads = [[blender.convert_vert(v) for v in f.verts] for f in faces_list]
     
     plot.plot_quads(quads, VIEW_INIT)
+
+def randColor():
+    return np.random.rand(3,1)
 
 def plot_edges(skmacro_edges, sksingular_verts, verts_list):  
     fig = plt.figure()
@@ -62,6 +69,7 @@ def plot_edges(skmacro_edges, sksingular_verts, verts_list):
     verts = [blender.convert_vert(v) for v in sksingular_verts]
     ax.plot([v.x for v in verts], [v.y for v in verts], [v.z for v in verts], "o")
     
+    plt.savefig(OUTPUT_DIR + NAME + "_edges.png", format = "png")
     plt.show()
 
 def plot_final_mesh(patches, verts_list, scale_tassellation=1, old_patches=[]):
@@ -80,7 +88,7 @@ def plot_final_mesh(patches, verts_list, scale_tassellation=1, old_patches=[]):
     
     edge_color = lambda c: darker(cc(c))
     
-    colors = ['r', 'g', 'b', 'y', 'm', 'c']
+    colors = [randColor() for patch in patches]
     
     for i, patch in enumerate(patches):
         curves = []
@@ -113,6 +121,7 @@ def plot_final_mesh(patches, verts_list, scale_tassellation=1, old_patches=[]):
         collection = Poly3DCollection(quads, facecolors=[cc(colors[i % len(colors)])], edgecolors=[edge_color(colors[i % len(colors)])])
         ax.add_collection3d(collection)
     
+    plt.savefig(OUTPUT_DIR + NAME + "_final.png", format = "png")
     plt.show()
 
 def plot_base_mesh(patches, verts_list):
@@ -155,6 +164,7 @@ def plot_base_mesh(patches, verts_list):
         collection = Poly3DCollection(quads, facecolors=[cc(colors[i % len(colors)])], edgecolors=[edge_color(colors[i % len(colors)])])
         ax.add_collection3d(collection)
     
+    plt.savefig(OUTPUT_DIR + NAME + "_base.png", format = "png")
     plt.show()
 
 #def plot_final_mesh(patches, alg_verts):
