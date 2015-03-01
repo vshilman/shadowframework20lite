@@ -28,7 +28,6 @@ import javax.servlet.http.HttpSession;
 public class OnlineUsersHtml extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private String frase;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -47,7 +46,7 @@ public class OnlineUsersHtml extends HttpServlet {
 		if (ses == null || !Mediator.getMed().getOnline().containsKey(ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html")) {
 			PrintWriter writer = response.getWriter();
 			writer.write("<p>");
-			writer.write("You seem to not be logged, please log in <a href=\"./html/login/login.html\">here</a>.");
+			writer.write("Sembri non essere loggato, effettua il login <a href=\"./html/login/login.html\">qui</a>.");
 			writer.write("</p>");
 			writer.close();
 			
@@ -60,6 +59,7 @@ public class OnlineUsersHtml extends HttpServlet {
 			encode.close();
 		}
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -69,21 +69,25 @@ public class OnlineUsersHtml extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession ses = request.getSession(false);
+		String action= request.getParameter("action");
+
 		if (ses == null || !Mediator.getMed().getOnline().containsKey(ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html")) {
 			
 			PrintWriter writer = response.getWriter();
 			writer.write("<p>");
-			writer.write("You seem to not be logged, please log in <a href=\"./html/login/login.html\">here</a>.");
+			writer.write("Sembri non essere loggato, effettua il login <a href=\"./html/login/login.html\">qui</a>.");
 			writer.write("</p>");
 			writer.close();
 			
 			
-		} else {
+		} else if (action.equals("refresh")) {
+			
 			String nick=(String)ses.getAttribute("id");
 			PrintWriter wr= response.getWriter();
+			int count=(int)(Math.random()*10000);
 			if (Mediator.getMed().getOnline().containsKey(nick)) {
 				Mediator.getMed().setWelcomeUser(nick);
-				wr.write("done");
+				wr.write("done"+count);
 				wr.close();
 			}else {
 				wr.write("error");
@@ -116,6 +120,10 @@ public class OnlineUsersHtml extends HttpServlet {
 //			// writer.write("<p><a href=\"./html/test/appletTest.html\"> Go to the Applet </a></p>");
 //			writer.close();
 
+		}else if (action.equals("getProfile")){
+			PrintWriter wr= response.getWriter();
+			wr.write((String)ses.getAttribute("id"));
+			wr.close();
 		}
 	}
 }
