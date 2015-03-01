@@ -9,7 +9,13 @@ button {
     
 }
 
-#logout {
+#profile{
+    border: 1px solid;
+    padding: 4px;
     position: absolute;
     right: 1em;
+}
+
+#sala {
+    
 }
