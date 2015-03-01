@@ -69,14 +69,14 @@ public class Computator {
 		}else{
 			if (me.getNick().equals(serviceMap.get(DEALER).getNick())) {
 				HashMap<String, User> map= new HashMap<String, User>();
-				Mediator.getCMed().getConnection().getOnlineUsers();
-				map.putAll(Mediator.getCMed().getOnlinePlayers());
 				if (me.getNick().equals(serviceMap.get(WELCOMER).getNick())) {
 					Mediator.getCMed().getConnection().logout(me.getNick());
 					Mediator.getGMed().setLoginPanel();
 					setNick("");
 					Mediator.getCMed().closeServiceServer();
 				}else {
+					Mediator.getCMed().getConnection().getOnlineUsers();
+					map.putAll(Mediator.getCMed().getOnlinePlayers());
 					if (map.size()==2) {
 						objectsToSend.add(serviceMap.get(WELCOMER));
 						Mediator.getCMed().sendRequestOnService(UPDATE_DEALER, objectsToSend);

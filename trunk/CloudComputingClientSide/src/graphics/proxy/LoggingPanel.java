@@ -3,6 +3,8 @@ package graphics.proxy;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,7 +37,50 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 				Mediator.getCMed().getConnection().login(username.getText(),passwordToSend);
 			}
 		});
-
+		password.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyChar()=='\n') {
+					passwordToString(password.getPassword());
+					Mediator.getCMed().getConnection().login(username.getText(),passwordToSend);
+				}
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		nick.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				passwordToString(password.getPassword());
+				Mediator.getCMed().getConnection().login(username.getText(),passwordToSend);
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 //		logout.addActionListener(new ActionListener() {
 //			
 //			@Override
