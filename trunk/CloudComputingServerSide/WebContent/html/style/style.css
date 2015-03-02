@@ -1,5 +1,4 @@
-table,th,td
-{
+table,th,td{
 border-collapse:collapse;
 border:1px solid black;
 margin:4px;
@@ -18,4 +17,28 @@ button {
 
 #sala {
     
+}
+
+#games{
+    font-size: 40px;
+    text-align: center;
+    
+}
+
+
+
+.gamebutton {
+  padding: 3px 18px;
+  margin:4px;
+  font-size: 25px;
+  line-height: 1.5;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
 }
