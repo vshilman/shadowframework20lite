@@ -23,6 +23,7 @@ public class Mediator {
 	private User user;
 	private static List<User> usersList;
 	private static Incapsulator computator;
+	private static String[] games={"Briscola", "Memory"};
 
 	private Mediator() {
 	}
@@ -48,6 +49,9 @@ public class Mediator {
 	
 	public static Mediator getMed() {
 		return med;
+	}
+	public String[] getGames() {
+		return games;
 	}
 	public List<User> getUsersList(){
 		return usersList;
@@ -75,11 +79,15 @@ public class Mediator {
 		return welcomeUser;
 	}
 	
-	public void addOnline(String nick, String ip, int port, String state, String platform){
+	public void addOnline(String nick, String ip, int port, String game, String platform){
 		List<String> status= new ArrayList<String>();
 		status.add(ip);
 		status.add(platform);
+		status.add(game);
 		onlineMap.put(nick, status);
+	}
+	public void changeGame(String nick, String game){
+		onlineMap.get(nick).set(3, game);
 	}
 	public void removeOnline(String nick){
 		onlineMap.remove(nick);
@@ -88,7 +96,10 @@ public class Mediator {
 			welcomeUser.add(NOBODY);
 		}
 	}
-	public HashMap<String, List<String>> getOnline(){
+	public boolean isOnline(String nick){
+		return onlineMap.containsKey(nick);
+	}
+	public HashMap<String, List<String>> getOnline(String game){
 		return onlineMap;
 	}
 	

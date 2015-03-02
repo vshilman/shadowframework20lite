@@ -44,10 +44,10 @@ public class Login extends HttpServlet {
 						if (isAutenticated(nickname, password)) {
 //							System.out.println("nick and pass ok");
 		
-							if (!Mediator.getMed().getOnline().containsKey(nickname)) {
+							if (!Mediator.getMed().isOnline(nickname)) {
 //								System.out.println("i'm not online");
 		
-								Mediator.getMed().addOnline(nickname, address, 0, "yes", platform);
+								Mediator.getMed().addOnline(nickname, address, 0, "null", platform);
 								PrintWriter w= resp.getWriter();
 								w.write("Success!");
 								w.close();
@@ -78,17 +78,17 @@ public class Login extends HttpServlet {
 						if (rights) {
 //							System.out.println("User and pass ok");
 	
-							if (!Mediator.getMed().getOnline().containsKey(nickname)) {
+							if (!Mediator.getMed().isOnline(nickname)) {
 //								System.out.println("I'm not online");
 	
 								ses = req.getSession(true);
 								ses.setAttribute("id", nickname);
-								Mediator.getMed().addOnline(nickname, address, 0 , "yes", platform);
+								Mediator.getMed().addOnline(nickname, address, 0 , "null", platform);
 								
 								
 //								System.out.println("connected others");
 //								System.out.println(nickname+" "+address+" "+platform);
-								resp.sendRedirect("./index.html");
+								resp.sendRedirect("Switch");
 	
 							}else {
 //								System.out.println("I'm already online");
