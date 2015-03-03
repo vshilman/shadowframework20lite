@@ -18,7 +18,21 @@ function loadXMLDoc(){
 	}
 		xmlhttp.onreadystatechange=function(){
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
-				document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+                var xmlFile;
+                xmlFile=xmlhttp.responseXML;
+                var x=xmlFile.getElementsByTagName("user");
+                var tableContent;
+                tableContent="<tr><th>Player</th><th>Ip</th><th>Platform</th><th>Game</th></tr>"
+                for (i=0;i<x.length;i++)
+                {
+                  tableContent+="<tr><td>"+x[i].getElementsByTagName("nick")[0].childNodes[0].nodeValue+"</td><td>";
+                  tableContent+=x[i].getElementsByTagName("ip")[0].childNodes[0].nodeValue+"</td><td>";
+                  tableContent+=x[i].getElementsByTagName("platform")[0].childNodes[0].nodeValue+"</td><td>";
+                  tableContent+=x[i].getElementsByTagName("game")[0].childNodes[0].nodeValue+"</td></tr>";
+
+                  }
+                document.getElementById("tab").innerHTML=tableContent;
+//				document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
 			}
 		}
 		xmlhttp.open("POST","./HomeHtml",true);
@@ -65,4 +79,14 @@ function loadProfile(){
                     document.getElementById("utente").innerHTML=request.responseText;
 		}
     }
+}
+
+
+function decodeXML(){
+   
+xmlDoc=xmlhttp.responseXML; 
+
+
+
+
 }

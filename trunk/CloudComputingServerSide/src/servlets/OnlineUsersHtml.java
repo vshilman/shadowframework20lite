@@ -58,7 +58,7 @@ public class OnlineUsersHtml extends HttpServlet {
 		HttpSession ses = request.getSession(false);
 		String action= request.getParameter("action");
 
-		if (ses == null || !Mediator.getMed().isOnline((String)ses.getAttribute("id"))|| !Mediator.getMed().getOnline(request.getParameter("game")).get(ses.getAttribute("id")).get(1).equals("html")) {
+		if (ses == null || !Mediator.getMed().isOnline((String)ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html")) {
 			
 			PrintWriter writer = response.getWriter();
 			writer.write("<p>");
@@ -99,7 +99,14 @@ public class OnlineUsersHtml extends HttpServlet {
 //				writer.write("</table>");
 //				// writer.write("<p><a href=\"./html/test/appletTest.html\"> Go to the Applet </a></p>");
 //				writer.close();
-				wr.write("done");
+				String xml= Mediator.getMed().getXmlOnlinePlayers();
+				
+//				for (int i = 0; i < xml.size(); i++) {
+					wr.write(xml);
+//					System.out.println(xml);
+//					System.out.println(xml.get(i));
+//				}
+//				wr.write("done "+(int)(Math.random()*10000));
 				wr.close();
 			}else {
 				wr.write("error");
