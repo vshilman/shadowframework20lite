@@ -22,14 +22,14 @@ public class Mediator {
 	private static String path;
 	private User user;
 	private static List<User> usersList;
-	private static Incapsulator computator;
+	private static Incapsulator converter;
 	private static String[] games={"Briscola", "Memory"};
 
 	private Mediator() {
 	}
 	
 	static{
-		computator=new Incapsulator();
+		converter=new Incapsulator();
 		path="ccomdata/dataUsers.txt";
 		reader= new Reader(path);
 		writer= new Writer(path);
@@ -87,7 +87,7 @@ public class Mediator {
 		onlineMap.put(nick, status);
 	}
 	public void changeGame(String nick, String game){
-		onlineMap.get(nick).set(3, game);
+		onlineMap.get(nick).set(2, game);
 	}
 	public void removeOnline(String nick){
 		onlineMap.remove(nick);
@@ -99,10 +99,12 @@ public class Mediator {
 	public boolean isOnline(String nick){
 		return onlineMap.containsKey(nick);
 	}
-	public HashMap<String, List<String>> getOnline(String game){
+	public HashMap<String, List<String>> getOnline(){
 		return onlineMap;
 	}
-	
+	public String getXmlOnlinePlayers(){
+		return converter.convert(onlineMap);
+	}
 	private static void generateUserMap(){
 		for (int i = 0; i < usersList.size(); i++) {
 			usersMap.put(usersList.get(i).getNickname(), usersList.get(i));
