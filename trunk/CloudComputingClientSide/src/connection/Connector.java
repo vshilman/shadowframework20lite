@@ -187,6 +187,30 @@ public class Connector{
 			e.printStackTrace();
 		}
 	}
+	
+	public void setGame(String game){
+		try {
+			url= new URL("http://"+ip+":8080/ccom/JavaSwitch");
+			connection=(HttpURLConnection)url.openConnection();
+			connection.setDoOutput(true);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("User-Agent", "Java");
+			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick()+"&game="+game);
+			wr.flush();
+			wr.close();
+			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			ans="";
+			ans=in.readLine();
+			in.close();
+//			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public URLConnection getConnection() {
 		return connection;
 	}

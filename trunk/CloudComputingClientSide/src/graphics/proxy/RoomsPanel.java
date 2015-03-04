@@ -1,6 +1,6 @@
 package graphics.proxy;
 
-import graphics.buttonFactory.TableButton;
+import graphics.proxy.buttonFactory.temp.TableButton;
 
 import java.awt.GridLayout;
 import java.util.HashMap;
