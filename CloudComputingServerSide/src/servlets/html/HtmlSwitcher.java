@@ -1,7 +1,8 @@
-package servlets;
+package servlets.html;
 
 import generic.Mediator;
 
+import java.beans.XMLEncoder;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -17,14 +18,14 @@ import com.sun.corba.se.impl.ior.WireObjectKeyTemplate;
 /**
  * Servlet implementation class Switcher
  */
-@WebServlet("/Switch")
-public class Switcher extends HttpServlet {
+@WebServlet("/HtmlSwitch")
+public class HtmlSwitcher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Switcher() {
+    public HtmlSwitcher() {
         super();
     }
 
@@ -46,7 +47,7 @@ public class Switcher extends HttpServlet {
 			writer.write("<body>");
 			writer.write("<div id=\"games\">");
 			writer.write("Scegli un gioco:");
-			writer.write("<form name=\"choosingForm\" action=\"Switch\" method=\"post\">");
+			writer.write("<form name=\"choosingForm\" action=\"HtmlSwitch\" method=\"post\">");
 			String[] games=Mediator.getMed().getGames();
 			for (int i = 0; i < games.length; i++) {
 				writer.write("<input class=\"gamebutton\" type=\"submit\" name=\"game\" value=\""+games[i]+"\">");
@@ -65,6 +66,7 @@ public class Switcher extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession ses = request.getSession(false);
+
 		if (ses==null) {
 			response.sendRedirect("/ccom/html/login/login.html");
 		}else {

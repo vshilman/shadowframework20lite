@@ -1,4 +1,4 @@
-package servlets;
+package servlets.html;
 
 import generic.Mediator;
 import generic.UserState;

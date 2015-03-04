@@ -1,11 +1,10 @@
-package servlets;
+package servlets.java;
 
 import generic.Mediator;
 
 import java.beans.XMLEncoder;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,19 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sun.swing.internal.plaf.metal.resources.metal;
+import com.sun.corba.se.impl.ior.WireObjectKeyTemplate;
 
 /**
- * Servlet implementation class HomeJava
+ * Servlet implementation class Switcher
  */
-@WebServlet("/HomeJava")
-public class OnlineUsersJava extends HttpServlet {
+@WebServlet("/JavaSwitch")
+public class JavaSwitcher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OnlineUsersJava() {
+    public JavaSwitcher() {
         super();
     }
 
@@ -34,12 +33,8 @@ public class OnlineUsersJava extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//TODO
 		
-			List<String> welcomer=Mediator.getMed().getWelcomeUser();
-			XMLEncoder encode= new XMLEncoder(response.getOutputStream());
-			encode.writeObject(welcomer);
-			encode.flush();
-			encode.close();
 	}
 
 	/**
@@ -48,9 +43,10 @@ public class OnlineUsersJava extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String nick=request.getParameter("nickname");
+		String game=request.getParameter("game");
 		PrintWriter wr= response.getWriter();
 		if (Mediator.getMed().isOnline(nick)) {
-			Mediator.getMed().setWelcomeUser(nick);
+			Mediator.getMed().changeGame(nick, game);
 			wr.write("done");
 			wr.close();
 		}else {
@@ -58,11 +54,6 @@ public class OnlineUsersJava extends HttpServlet {
 			wr.close();
 		}
 		
-		
-//		XMLEncoder encoder= new XMLEncoder(response.getOutputStream());
-//		encoder.writeObject(Mediator.getMed().getOnline());
-//		encoder.flush();
-//		encoder.close();
 		
 	}
 
