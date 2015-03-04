@@ -14,6 +14,9 @@ import graphics.proxy.IProxyGraphic;
 import graphics.proxy.LoggingPanel;
 import graphics.proxy.ProxyGraphic;
 import graphics.proxy.RoomsPanel;
+import graphics.proxy.buttonFactory.Factory;
+import graphics.proxy.buttonFactory.IButton;
+import graphics.proxy.buttonFactory.IFactory;
 
 public class GraphicMediator {
 
@@ -24,24 +27,24 @@ public class GraphicMediator {
 	private static IProxyGraphic logPanel;
 	private static IProxyGraphic roomsPanel;
 	private static IProxyGraphic choosePanel;
+	private static IFactory buttonFactory;
 
 	public GraphicMediator() {
 
 	}
 	
 	static{
+		buttonFactory= new Factory();
 		frame=new JFrame();
 		fileMenu=new FileMenu(frame, Mediator.getCMed().getConnection());
 		logPanel= new LoggingPanel();
 		roomsPanel= new RoomsPanel(null);
 		gameMenu= new GameMenu();
-		choosePanel= new ChooseGamePanel();
 		proxyPanel= new ProxyGraphic(logPanel);
-		
+		choosePanel= new ChooseGamePanel();
+
 	}
-	public static IProxyGraphic getChoosePanel() {
-		return choosePanel;
-	}
+
 	
 	public JFrame getFrame() {
 		return frame;
@@ -78,6 +81,7 @@ public class GraphicMediator {
 	public void setRoomsPanel(String gameName){
 		((RoomsPanel) roomsPanel).setGame(gameName);
 		proxyPanel.setPanel(roomsPanel);
+		Mediator.getCMed().getConnection().setGame(gameName);
 		refresh();
 	}
 	public void setChoosePanel() {
@@ -91,7 +95,8 @@ public class GraphicMediator {
 		frame.getContentPane().add(proxyPanel.setUpPanel());
 		frame.getContentPane().validate();
 	}
-	public void setGamePanel(){
-		//
+	
+	public IButton generateButton(String game){
+		return buttonFactory.createGameButton(game);
 	}
 }
