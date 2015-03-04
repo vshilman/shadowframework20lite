@@ -88,7 +88,7 @@ public class Login extends HttpServlet {
 								
 //								System.out.println("connected others");
 //								System.out.println(nickname+" "+address+" "+platform);
-								resp.sendRedirect("Switch");
+								resp.sendRedirect("HtmlSwitch");
 	
 							}else {
 //								System.out.println("I'm already online");
