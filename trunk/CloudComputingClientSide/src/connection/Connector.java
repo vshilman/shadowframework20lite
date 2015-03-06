@@ -25,6 +25,7 @@ public class Connector{
 	private String LOGINACTION="&action=login";
 	private String LOGOUTACTION="&action=logout";
 	private String PASSHEAD= "&password=";
+	private String GAMEHEAD="&game=";
 	private String PLATFORM= "&platform=java";
 	
 	private HttpURLConnection connection;
@@ -43,7 +44,7 @@ public class Connector{
 	public String getIp() {
 		return ip;
 	}
-	public void login(String user, String pass) {
+	public void login(String user, String pass, String game) {
 			
 			try {
 				url= new URL("http://"+ip+":8080/ccom/Login");
@@ -53,7 +54,7 @@ public class Connector{
 				connection.setRequestProperty("User-Agent", "Java");
 				connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 				DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-				wr.writeBytes(NICKHEAD+user+PASSHEAD+pass+PLATFORM+LOGINACTION);
+				wr.writeBytes(NICKHEAD+user+PASSHEAD+pass+PLATFORM+GAMEHEAD+game+LOGINACTION);
 				wr.flush();
 				wr.close();
 	//			System.out.println(NICKHEAD+user+PASSHEAD+pass+PLATFORM);
@@ -64,7 +65,7 @@ public class Connector{
 				}
 				in.close();
 				
-				Mediator.getMed().getComputator().validateLogin(ans, user);
+				Mediator.getMed().getComputator().validateLogin(ans, user, game);
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();

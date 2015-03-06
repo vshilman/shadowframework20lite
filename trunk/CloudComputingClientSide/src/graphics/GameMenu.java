@@ -55,7 +55,18 @@ public class GameMenu extends JMenu{
 				
 			}
 		});
+		
+		JMenuItem changeGame= new JMenuItem("Change game");
+		changeGame.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Mediator.getGMed().setChoosePanel();
+				
+			}
+		});
 		add(newTable);
+		add(changeGame);
 	}
 	
 	

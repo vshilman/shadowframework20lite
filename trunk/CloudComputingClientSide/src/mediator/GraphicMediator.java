@@ -1,6 +1,8 @@
 package mediator;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -64,11 +66,33 @@ public class GraphicMediator {
 	}
 	public void generateDialog(String message){
 		
-		JDialog dialog=new JDialog(frame);
+		final JDialog dialog=new JDialog(frame);
 		dialog.setSize(new Dimension(300,100));
 		dialog.setLocationRelativeTo(frame);
 		dialog.add(new JLabel(message));
 		dialog.setVisible(true);
+		dialog.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if (arg0.getKeyChar()=='\n') {
+					dialog.dispose();
+				}
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 	}
@@ -79,14 +103,19 @@ public class GraphicMediator {
 
 	}
 	public void setRoomsPanel(String gameName){
-		((RoomsPanel) roomsPanel).setGame(gameName);
-		proxyPanel.setPanel(roomsPanel);
-		Mediator.getCMed().getConnection().setGame(gameName);
-		refresh();
+			((RoomsPanel) roomsPanel).setGame(gameName);
+			proxyPanel.setPanel(roomsPanel);
+			Mediator.getCMed().getConnection().setGame(gameName);
+			Mediator.getMed().getComputator().setUserGame(gameName);
+			refresh();
+		
 	}
 	public void setChoosePanel() {
-		proxyPanel.setPanel(choosePanel);
-		refresh();
+		if (Mediator.getMed().getComputator().amILogged()) {
+	
+			proxyPanel.setPanel(choosePanel);
+			refresh();
+		}
 	}
 
 	private static void refresh() {
@@ -98,5 +127,9 @@ public class GraphicMediator {
 	
 	public IButton generateButton(String game){
 		return buttonFactory.createGameButton(game);
+	}
+	
+	public void setGamePanel(){
+		
 	}
 }
