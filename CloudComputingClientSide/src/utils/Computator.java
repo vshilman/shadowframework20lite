@@ -47,7 +47,7 @@ public class Computator {
 	
 	public Computator() {
 		objectsToSend=new ArrayList<Object>();
-		me=new User("", "", JAVA);
+		me=new User("", "", JAVA,"");
 		tables= new HashMap<String,Boolean>();
 		serviceMap=new HashMap<String, User>();
 //		playersMap=new HashMap<String, User>();
@@ -55,15 +55,17 @@ public class Computator {
 		freePlaceMap= new HashMap<String, Integer>();
 	}
 	
-	public void validateLogin(String ans, String nick){
+	public void validateLogin(String ans, String nick, String game){
 		if (ans.equals(SUCCESS)) {
-			setNick(nick);
+			me.setNick(nick);
+			me.setGame(game);
 			Mediator.getCMed().getConnection().getWelcome();
 			Mediator.getCMed().openServiceServer();
 		}else{
 			Mediator.getGMed().generateDialog("  "+ans);
 		}
 	}
+	
 	public void validateLogout(){
 		if (me.getNick().isEmpty()) {
 			Mediator.getGMed().generateDialog("  You must be connected!");
@@ -73,7 +75,7 @@ public class Computator {
 				if (me.getNick().equals(serviceMap.get(WELCOMER).getNick())) {
 					Mediator.getCMed().getConnection().logout(me.getNick());
 					Mediator.getGMed().setLoginPanel();
-					setNick("");
+					me.setNick("");
 					Mediator.getCMed().closeServiceServer();
 				}else {
 					Mediator.getCMed().getConnection().getOnlineUsers();
@@ -95,7 +97,7 @@ public class Computator {
 					}
 					Mediator.getCMed().getConnection().logout(me.getNick());
 					Mediator.getGMed().setLoginPanel();
-					setNick("");
+					me.setNick("");
 					Mediator.getCMed().closeServiceServer();
 				}
 				
@@ -109,7 +111,7 @@ public class Computator {
 				String ans=(String)Mediator.getCMed().getAns();
 				if (ans.equals(OK)) {
 					Mediator.getGMed().setLoginPanel();
-					setNick("");
+					me.setNick("");
 					Mediator.getCMed().closeServiceServer();
 				}
 				objectsToSend.clear();
@@ -122,51 +124,56 @@ public class Computator {
 		
 		if (answer.get(0).equals(NOBODY)) {
 			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
-//			System.out.println("setto welcomer: me stesso");
-			serviceMap.put(WELCOMER, me);
-			serviceMap.put(DEALER, me);
-//			Mediator.getCMed().getConnection().getOnlineUsers();
-			Mediator.getGMed().setChoosePanel();
-//			Mediator.getGMed().setRoomsPanel();
-		}else if(answer.get(2).equals(JAVA)) {
-			serviceMap.put(WELCOMER, generateUser(answer));
-
-			objectsToSend.add(WHO_IS_DEALER);
-			Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
-			objectsToSend.clear();
-			User tempDealer=(User)Mediator.getCMed().getAns();
-			if (serviceMap.get(WELCOMER).getNick().equals(tempDealer.getNick())) {
-				objectsToSend.add(GET_TABLES_MAP);
-				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
-				objectsToSend.clear();
-				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
-				
-				objectsToSend.add(UPDATE_DEALER);
-				objectsToSend.add(me);
-				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
-				serviceMap.put(DEALER, me);
-				objectsToSend.clear();
-				
-
-
-			}else {
-				serviceMap.put(DEALER, tempDealer);
-				objectsToSend.add(GET_TABLES_MAP);
-				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
-				objectsToSend.clear();
-				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
-			}
-			Mediator.getGMed().setChoosePanel();
-
 			
-			
-		}else if (answer.get(2).equals(HTML)) {
-			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
-			serviceMap.put(WELCOMER, me);
-			//TODO: CONTACT WELCOMER AND ASK FOR DEALER
-			//come sopra
-			Mediator.getGMed().setChoosePanel();
 		}
+		
+//		if (answer.get(0).equals(NOBODY)) {
+//			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
+////			System.out.println("setto welcomer: me stesso");
+//			serviceMap.put(WELCOMER, me);
+//			serviceMap.put(DEALER, me);
+////			Mediator.getCMed().getConnection().getOnlineUsers();
+//			Mediator.getGMed().setChoosePanel();
+////			Mediator.getGMed().setRoomsPanel();
+//		}else if(answer.get(2).equals(JAVA)) {
+//			serviceMap.put(WELCOMER, generateUser(answer));
+//
+//			objectsToSend.add(WHO_IS_DEALER);
+//			Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
+//			objectsToSend.clear();
+//			User tempDealer=(User)Mediator.getCMed().getAns();
+//			if (serviceMap.get(WELCOMER).getNick().equals(tempDealer.getNick())) {
+//				objectsToSend.add(GET_TABLES_MAP);
+//				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
+//				objectsToSend.clear();
+//				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
+//				
+//				objectsToSend.add(UPDATE_DEALER);
+//				objectsToSend.add(me);
+//				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
+//				serviceMap.put(DEALER, me);
+//				objectsToSend.clear();
+//				
+//
+//
+//			}else {
+//				serviceMap.put(DEALER, tempDealer);
+//				objectsToSend.add(GET_TABLES_MAP);
+//				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
+//				objectsToSend.clear();
+//				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
+//			}
+//			Mediator.getGMed().setChoosePanel();
+//
+//			
+//			
+//		}else if (answer.get(2).equals(HTML)) {
+//			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
+//			serviceMap.put(WELCOMER, me);
+//			//TODO: CONTACT WELCOMER AND ASK FOR DEALER
+//			//come sopra
+//			Mediator.getGMed().setChoosePanel();
+//		}
 		
 	}
 	
@@ -298,11 +305,12 @@ public class Computator {
 	public String getNick(){
 		return me.getNick();
 	}
-	private void setNick(String nick) {
-		me.setNick(nick);
-	}
+	
 	public User generateUser(List<String> infos){
-		return new User(infos.get(0), infos.get(1), infos.get(2));
+		return new User(infos.get(0), infos.get(1), infos.get(2), "");
+	}
+	public void setUserGame(String game){
+		me.setGame(game);
 	}
 	public void addPlayer(User player){
 		playersMap.put("Player"+(playersMap.size()+1), player);
@@ -312,6 +320,12 @@ public class Computator {
 	}
 	public HashMap<String, User> getServiceMap(){
 		return serviceMap;
+	}
+	public boolean amILogged(){
+		if (!me.getNick().isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 
 //	public HashMap<String, User> getPlayersMap() {

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -24,17 +25,25 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 	private JLabel pass= new JLabel("Password: ");
 	private JButton login= new JButton("Login!");
 	private JButton logout= new JButton("Logout!");
+	private JLabel chooseAGame=new JLabel("Choose a Game: ");
+	private JComboBox<String> games;
 	private String passwordToSend;
 	private JLabel altro= new JLabel();
 	
 	
 	public LoggingPanel() {
+		List<String> gamesList= Mediator.getMed().getAvailableGames();
+		String[] gamesNames= new String[gamesList.size()];
+		for (int i = 0; i < gamesList.size(); i++) {
+			gamesNames[i]=gamesList.get(i);
+		}
+		games= new JComboBox<String>(gamesNames);
 		login.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				passwordToString(password.getPassword());
-				Mediator.getCMed().getConnection().login(username.getText(),passwordToSend);
+				Mediator.getCMed().getConnection().login(username.getText(),passwordToSend, (String)games.getSelectedItem());
 			}
 		});
 		password.addKeyListener(new KeyListener() {
@@ -49,7 +58,7 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyChar()=='\n') {
 					passwordToString(password.getPassword());
-					Mediator.getCMed().getConnection().login(username.getText(),passwordToSend);
+					Mediator.getCMed().getConnection().login(username.getText(),passwordToSend, (String)games.getSelectedItem());
 				}
 				
 			}
@@ -71,7 +80,7 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				passwordToString(password.getPassword());
-				Mediator.getCMed().getConnection().login(username.getText(),passwordToSend);
+				Mediator.getCMed().getConnection().login(username.getText(),passwordToSend, (String)games.getSelectedItem());
 				
 			}
 			
@@ -95,6 +104,8 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 		add(username);
 		add(pass);
 		add(password);
+		add(chooseAGame);
+		add(games);
 		add(altro);
 		add(login);
 	}
