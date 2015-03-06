@@ -25,6 +25,7 @@ public class Login extends HttpServlet {
 		String nickname = req.getParameter("nickname");
 		String password = req.getParameter("password");
 		String platform = req.getParameter("platform");
+		String game = req.getParameter("game");
 		String action= req.getParameter("action");
 		String address = req.getRemoteAddr();
 
@@ -47,7 +48,7 @@ public class Login extends HttpServlet {
 							if (!Mediator.getMed().isOnline(nickname)) {
 //								System.out.println("i'm not online");
 		
-								Mediator.getMed().addOnline(nickname, address, 0, "null", platform);
+								Mediator.getMed().addOnline(nickname, address, 0, game, platform);
 								PrintWriter w= resp.getWriter();
 								w.write("Success!");
 								w.close();
@@ -83,7 +84,7 @@ public class Login extends HttpServlet {
 	
 								ses = req.getSession(true);
 								ses.setAttribute("id", nickname);
-								Mediator.getMed().addOnline(nickname, address, 0 , "null", platform);
+								Mediator.getMed().addOnline(nickname, address, 0 , game, platform);
 								
 								
 //								System.out.println("connected others");

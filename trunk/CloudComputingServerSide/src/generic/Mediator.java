@@ -68,15 +68,16 @@ public class Mediator {
 		
 		welcomeUser.clear();
 		welcomeUser.add(targetNick);
-		welcomeUser.add(onlineMap.get(targetNick).get(0));
-		welcomeUser.add(onlineMap.get(targetNick).get(1));
+		welcomeUser.add(onlineMap.get(targetNick).get(0)); //ip
+		welcomeUser.add(onlineMap.get(targetNick).get(1)); //plat
+		welcomeUser.add(onlineMap.get(targetNick).get(2)); //game
 		
 		
 	}
 	
-	public List<String> getWelcomeUser() {
+	public String getWelcomeUser() {
 		
-		return welcomeUser;
+		return converter.convertWelcomer(welcomeUser);
 	}
 	
 	public void addOnline(String nick, String ip, int port, String game, String platform){
@@ -103,7 +104,7 @@ public class Mediator {
 		return onlineMap;
 	}
 	public String getXmlOnlinePlayers(){
-		return converter.convert(onlineMap);
+		return converter.convertUserMap(onlineMap);
 	}
 	private static void generateUserMap(){
 		for (int i = 0; i < usersList.size(); i++) {

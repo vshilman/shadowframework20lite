@@ -23,11 +23,11 @@ public class TestIncapsulator {
 		}
 		Incapsulator cap= new Incapsulator();
 		lista= new ArrayList<String>();
-		testo=cap.convert(mappa);
+		testo=cap.convertUserMap(mappa);
 //		for (int i = 0; i < lista.size(); i++) {
 			System.out.println(testo);
 //		}
 	}
 	
-	
+
 }

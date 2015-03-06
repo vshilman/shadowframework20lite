@@ -34,12 +34,10 @@ public class OnlineUsersJava extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-			List<String> welcomer=Mediator.getMed().getWelcomeUser();
-			XMLEncoder encode= new XMLEncoder(response.getOutputStream());
-			encode.writeObject(welcomer);
-			encode.flush();
-			encode.close();
+			PrintWriter wr= response.getWriter();
+			wr.write(Mediator.getMed().getWelcomeUser());
+			wr.flush();
+			wr.close();
 	}
 
 	/**
