@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
 //				System.out.println("Someone is trying to connect to me -- JAVA");
 				if (nickname.isEmpty()||password.isEmpty()) {
 					PrintWriter wr= resp.getWriter();
-					wr.write("Username or Password empty");
+					wr.write(Mediator.getMed().codeMessage("Username or Password empty"));
 					wr.close();
 				}else{
 //					System.out.println(" ci sono"+ nickname+password);
@@ -50,21 +50,21 @@ public class Login extends HttpServlet {
 		
 								Mediator.getMed().addOnline(nickname, address, 0, game, platform);
 								PrintWriter w= resp.getWriter();
-								w.write("Success!");
+								w.write(Mediator.getMed().codeMessage("Success!"));
 								w.close();
 							}else{
 //								System.out.println("I'm Online!");
 								
 								Mediator.getMed().removeOnline(nickname);
 								PrintWriter w= resp.getWriter();
-								w.write("Disconnected!");
+								w.write(Mediator.getMed().codeMessage("Disconnected!"));
 								w.close();
 							}
 						}else {
 //							System.out.println("wrong user or pass");
 		
 							PrintWriter w= resp.getWriter();
-							w.write("Wrong Username or Password!");
+							w.write(Mediator.getMed().codeMessage("Wrong Username or Password!"));
 							w.close();
 						}
 						
@@ -121,7 +121,7 @@ public class Login extends HttpServlet {
 			if (platform.equals("java")) {
 				Mediator.getMed().removeOnline(nickname);
 				PrintWriter w= resp.getWriter();
-				w.write("Disconnected!");
+				w.write(Mediator.getMed().codeMessage("Disconnected!"));
 				w.close();
 				
 			}else if (platform.equals("html")) {

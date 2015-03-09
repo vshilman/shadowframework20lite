@@ -67,8 +67,9 @@ public class Incapsulator{
 		return messageConverted;
 	}
 	
-	public String convert(List<String> listToConvert, String headerList, List<String> headers ){
-		return null;
+	public String convertMessage(String message){
+		messageConverted=FILEHEADER+MESSAGEHEADER+message+MESSAGEFOOTER;
+		return messageConverted;
 	}
 	
 	public String convert(List<String> listToConvert, String headerList, String elementsHeader, List<String> headers ){

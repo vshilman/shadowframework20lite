@@ -109,7 +109,7 @@ public class OnlineUsersHtml extends HttpServlet {
 //				wr.write("done "+(int)(Math.random()*10000));
 				wr.close();
 			}else {
-				wr.write("error");
+				wr.write(Mediator.getMed().codeMessage("error"));
 				wr.close();
 			}
 			
@@ -117,6 +117,7 @@ public class OnlineUsersHtml extends HttpServlet {
 		}else if (action.equals("getProfile")){
 			PrintWriter wr= response.getWriter();
 			wr.write((String)ses.getAttribute("id"));
+			//TODO: PASSARE UN USER CODIFICATO PER PANNELLO UTENTE
 			wr.close();
 		}
 	}
