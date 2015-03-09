@@ -13,7 +13,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import mediator.Mediator;
+
+import org.xml.sax.SAXException;
+
+import utils.User;
 
 
 public class Connector{
@@ -58,18 +64,22 @@ public class Connector{
 				wr.flush();
 				wr.close();
 	//			System.out.println(NICKHEAD+user+PASSHEAD+pass+PLATFORM);
-				BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				ans="";
-				while (in.ready()) {
-					ans+=in.readLine();
-				}
-				in.close();
+				ans= Mediator.getMed().getDecoder().decodeMessage(connection.getInputStream());
+				
+				connection.getInputStream().close();
 				
 				Mediator.getMed().getComputator().validateLogin(ans, user, game);
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
@@ -144,17 +154,19 @@ public class Connector{
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("User-Agent", "Java");
 			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-			XMLDecoder decoder= new XMLDecoder(connection.getInputStream());
-			answer=(ArrayList<String>)decoder.readObject();
-//			for (int i = 0; i < answer.size(); i++) {
-//				System.out.println(answer.get(i));
-//			}
-			Mediator.getMed().getComputator().checkAns(answer);
-			decoder.close();
+			User welcomer=Mediator.getMed().getDecoder().decodeWelcomer(connection.getInputStream());
+			Mediator.getMed().getComputator().checkAns(welcomer);
+			connection.getInputStream().close();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

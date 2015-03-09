@@ -1,7 +1,10 @@
 package utils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,6 +100,19 @@ public class DeIncapsulator {
 		}
 		
 		return Mediator.getMed().getComputator().generateUser(welcomer);
+	}
+	public String decodeMessage(InputStream in) throws ParserConfigurationException, SAXException, IOException{
+		
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = dBuilder.parse(in);
+
+		doc.getDocumentElement().normalize();
+
+		String messageDecoded=doc.getElementsByTagName("message").item(0).getTextContent();
+		
+		return messageDecoded;
+		
 	}
 	
 }
