@@ -1,5 +1,6 @@
 package mediator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,6 +46,17 @@ public class ConnectionMediator {
 	public void sendRequestOnService(String ip, List<Object> objectsToSend){
 		serviceClient=new TCPServiceClient(ip);
 		serviceClient.send(objectsToSend);
+		answer=serviceClient.getAnswer();
+		serviceClient.closeConnection();
+	}
+	public void sendRequestOnService(String ip, String message){
+		serviceClient=new TCPServiceClient(ip);
+		try {
+			serviceClient.send(message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		answer=serviceClient.getAnswer();
 		serviceClient.closeConnection();
 	}

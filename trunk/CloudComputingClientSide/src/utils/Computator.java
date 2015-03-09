@@ -120,11 +120,63 @@ public class Computator {
 		}
 	}
 	
+	
 	public void checkAns(List<String> answer) {
 		
-		if (answer.get(0).equals(NOBODY)) {
+		
+	}
+	public void checkAns(HashMap<String, List<String>> answer) {
+		
+		
+	}
+	public void checkAns(User user) {
+		
+		if (user.getNick().equals(NOBODY)) {
 			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
+			serviceMap.put(WELCOMER, me);
+			serviceMap.put(DEALER, me);
+			Mediator.getGMed().setChoosePanel();
+		}else if (user.getPlatform().equals(JAVA)) {
 			
+			
+			serviceMap.put(WELCOMER, user);
+			objectsToSend.add(WHO_IS_DEALER);
+			Mediator.getCMed().sendRequestOnService(user.getIp(), objectsToSend);
+			objectsToSend.clear();
+			User tempDealer=(User)Mediator.getCMed().getAns();
+			
+			if (serviceMap.get(WELCOMER).getNick().equals(tempDealer.getNick())) {
+				objectsToSend.add(GET_TABLES_MAP);
+				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
+				objectsToSend.clear();
+				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
+				
+				objectsToSend.add(UPDATE_DEALER);
+				objectsToSend.add(me);
+				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
+				serviceMap.put(DEALER, me);
+				objectsToSend.clear();
+				
+				
+				
+			}else {
+							serviceMap.put(DEALER, tempDealer);
+							objectsToSend.add(GET_TABLES_MAP);
+							Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
+							objectsToSend.clear();
+							tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
+						}
+						Mediator.getGMed().setChoosePanel();
+			
+						
+						
+					}else if (answer.get(2).equals(HTML)) {
+						Mediator.getCMed().getConnection().setMyselfAsWelcomer();
+						serviceMap.put(WELCOMER, me);
+						//TODO: CONTACT WELCOMER AND ASK FOR DEALER
+						//come sopra
+						Mediator.getGMed().setChoosePanel();
+					}
 		}
 		
 //		if (answer.get(0).equals(NOBODY)) {
