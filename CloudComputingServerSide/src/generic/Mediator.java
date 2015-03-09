@@ -13,6 +13,7 @@ import utils.Incapsulator;
 
 public class Mediator {
 	private static final String NOBODY = "nobody";
+	private static final String NULL = "null";
 	private static Mediator med= new Mediator();
 	private static HashMap<String, User> usersMap;
 	private static List<String> welcomeUser= new ArrayList<String>();
@@ -36,6 +37,9 @@ public class Mediator {
 		usersList=reader.getUserList();
 		usersMap= new HashMap<String, User>();
 		welcomeUser.add(NOBODY);
+		welcomeUser.add(NULL);
+		welcomeUser.add(NULL);
+		welcomeUser.add(NULL);
 		generateUserMap();
 		
 	}
@@ -105,6 +109,9 @@ public class Mediator {
 	}
 	public String getXmlOnlinePlayers(){
 		return converter.convertUserMap(onlineMap);
+	}
+	public String codeMessage(String messageToCode){
+		return converter.convertMessage(messageToCode);
 	}
 	private static void generateUserMap(){
 		for (int i = 0; i < usersList.size(); i++) {

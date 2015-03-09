@@ -34,7 +34,10 @@ public class JavaSwitcher extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//TODO
-		
+		PrintWriter wr= response.getWriter();
+		wr.write(Mediator.getMed().codeMessage("GET METHOD NOT SUPPORTED!"));
+		wr.close();
+
 	}
 
 	/**
@@ -47,10 +50,10 @@ public class JavaSwitcher extends HttpServlet {
 		PrintWriter wr= response.getWriter();
 		if (Mediator.getMed().isOnline(nick)) {
 			Mediator.getMed().changeGame(nick, game);
-			wr.write("done");
+			wr.write((Mediator.getMed().codeMessage("done")));
 			wr.close();
 		}else {
-			wr.write("error");
+			wr.write((Mediator.getMed().codeMessage("You must be online to set your Game")));
 			wr.close();
 		}
 		

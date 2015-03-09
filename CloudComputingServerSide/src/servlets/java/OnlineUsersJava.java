@@ -49,10 +49,10 @@ public class OnlineUsersJava extends HttpServlet {
 		PrintWriter wr= response.getWriter();
 		if (Mediator.getMed().isOnline(nick)) {
 			Mediator.getMed().setWelcomeUser(nick);
-			wr.write("done");
+			wr.write(Mediator.getMed().codeMessage("done"));
 			wr.close();
 		}else {
-			wr.write("error");
+			wr.write(Mediator.getMed().codeMessage("error"));
 			wr.close();
 		}
 		
