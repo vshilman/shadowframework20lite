@@ -1,6 +1,7 @@
 package utils;
 
-import java.util.ArrayList;
+import generic.GamingUser;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -27,20 +28,19 @@ public class Incapsulator{
 	private static String FILEMESSAGEFOOTER="</messageList>";
 	private static String MESSAGEFOOTER="</message>";
 	private Set<String> mainTag;
-	private List<String> message= new ArrayList<String>();
 	private String messageConverted;
 	
 	
 	
 	
 	
-	public String convertUserMap(HashMap<String, List<String>> mapToConvert) {
+	public String convert(HashMap<String, GamingUser> onlineUsersMap) {
 		
-		mainTag=mapToConvert.keySet();
+		mainTag=onlineUsersMap.keySet();
 		messageConverted=FILEHEADER+HEADERLIST;
 		for (Iterator<String> iterator = mainTag.iterator(); iterator.hasNext();) {
 			String nick = (String) iterator.next();
-			messageConverted=messageConverted+HEADERUSER+HEADERNICK+nick+FOOTERNICK+HEADERIP+mapToConvert.get(nick).get(0)+FOOTERIP+HEADERPLATFORM+mapToConvert.get(nick).get(1)+FOOTERPLATFORM+HEADERGAME+mapToConvert.get(nick).get(2)+FOOTERGAME+FOOTERUSER;
+			messageConverted=messageConverted+HEADERUSER+HEADERNICK+nick+FOOTERNICK+HEADERIP+onlineUsersMap.get(nick).getIp()+FOOTERIP+HEADERPLATFORM+onlineUsersMap.get(nick).getPlatform()+FOOTERPLATFORM+HEADERGAME+onlineUsersMap.get(nick).getGame()+FOOTERGAME+FOOTERUSER;
 		}
 		messageConverted=messageConverted+FOOTERLIST;
 		
@@ -48,7 +48,7 @@ public class Incapsulator{
 	}
 	
 	
-	public String convertMessageList(List<String> messages){
+	public String convert(List<String> messages){
 		messageConverted=FILEHEADER+FILEMESSAGEHEADER;
 		for (int i = 0; i < messages.size(); i++) {
 			String actualMessage = messages.get(i);
@@ -59,15 +59,15 @@ public class Incapsulator{
 		return messageConverted;
 	}
 	
-	public String convertWelcomer(List<String> welcomeUser){
+	public String convert(GamingUser gamingUser){
 		messageConverted=FILEHEADER+HEADERLIST;
-		messageConverted=messageConverted+HEADERUSER+HEADERNICK+welcomeUser.get(0)+FOOTERNICK+HEADERIP+welcomeUser.get(1)+FOOTERIP+HEADERPLATFORM+welcomeUser.get(2)+FOOTERPLATFORM+HEADERGAME+welcomeUser.get(3)+FOOTERGAME+FOOTERUSER;
+		messageConverted=messageConverted+HEADERUSER+HEADERNICK+gamingUser.getNick()+FOOTERNICK+HEADERIP+gamingUser.getIp()+FOOTERIP+HEADERPLATFORM+gamingUser.getPlatform()+FOOTERPLATFORM+HEADERGAME+gamingUser.getGame()+FOOTERGAME+FOOTERUSER;
 		messageConverted=messageConverted+FOOTERLIST;
 		
 		return messageConverted;
 	}
 	
-	public String convertMessage(String message){
+	public String convert(String message){
 		messageConverted=FILEHEADER+MESSAGEHEADER+message+MESSAGEFOOTER;
 		return messageConverted;
 	}

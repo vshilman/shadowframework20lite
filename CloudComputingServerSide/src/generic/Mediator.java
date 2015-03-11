@@ -16,8 +16,8 @@ public class Mediator {
 	private static final String NULL = "null";
 	private static Mediator med= new Mediator();
 	private static HashMap<String, User> usersMap;
-	private static List<String> welcomeUser= new ArrayList<String>();
-	private HashMap<String, List<String>> onlineMap= new HashMap<String, List<String>>();
+	private static GamingUser welcomeUser;
+	private HashMap<String, GamingUser> onlineMap= new HashMap<String, GamingUser>();
 	private static IReader reader;
 	private static IWriter writer;
 	private static String path;
@@ -36,10 +36,7 @@ public class Mediator {
 		writer= new Writer(path);
 		usersList=reader.getUserList();
 		usersMap= new HashMap<String, User>();
-		welcomeUser.add(NOBODY);
-		welcomeUser.add(NULL);
-		welcomeUser.add(NULL);
-		welcomeUser.add(NULL);
+		welcomeUser= new GamingUser(NOBODY, NULL, NULL, NULL);
 		generateUserMap();
 		
 	}
@@ -69,49 +66,50 @@ public class Mediator {
 	}
 	
 	public void setWelcomeUser(String targetNick){
-		
-		welcomeUser.clear();
-		welcomeUser.add(targetNick);
-		welcomeUser.add(onlineMap.get(targetNick).get(0)); //ip
-		welcomeUser.add(onlineMap.get(targetNick).get(1)); //plat
-		welcomeUser.add(onlineMap.get(targetNick).get(2)); //game
-		
-		
+		welcomeUser.setNick(targetNick);
+		welcomeUser.setIp(onlineMap.get(targetNick).getIp());
+		welcomeUser.setPlatform(onlineMap.get(targetNick).getPlatform());
+		welcomeUser.setGame(onlineMap.get(targetNick).getGame());
 	}
 	
 	public String getWelcomeUser() {
 		
-		return converter.convertWelcomer(welcomeUser);
+		return converter.convert(welcomeUser);
 	}
 	
-	public void addOnline(String nick, String ip, int port, String game, String platform){
+	public void addOnline(String nick, String ip, String game, String platform){
 		List<String> status= new ArrayList<String>();
 		status.add(ip);
 		status.add(platform);
 		status.add(game);
-		onlineMap.put(nick, status);
+		onlineMap.put(nick, generateGamingUser(nick, ip, platform, game));
 	}
 	public void changeGame(String nick, String game){
-		onlineMap.get(nick).set(2, game);
+		onlineMap.get(nick).setGame(game);
 	}
 	public void removeOnline(String nick){
 		onlineMap.remove(nick);
-		if (welcomeUser.get(0).equals(nick)) {
-			welcomeUser.clear();
-			welcomeUser.add(NOBODY);
+		if (welcomeUser.getNick().equals(nick)) {
+			welcomeUser.setNick(NOBODY);
+			welcomeUser.setIp(NULL);
+			welcomeUser.setPlatform(NULL);
+			welcomeUser.setGame(NULL);
 		}
 	}
 	public boolean isOnline(String nick){
 		return onlineMap.containsKey(nick);
 	}
-	public HashMap<String, List<String>> getOnline(){
+	public HashMap<String, GamingUser> getOnline(){
 		return onlineMap;
 	}
 	public String getXmlOnlinePlayers(){
-		return converter.convertUserMap(onlineMap);
+		return converter.convert(onlineMap);
 	}
 	public String codeMessage(String messageToCode){
-		return converter.convertMessage(messageToCode);
+		return converter.convert(messageToCode);
+	}
+	private GamingUser generateGamingUser(String nick, String ip, String platform, String game){
+		return new GamingUser(nick, ip, platform, game);
 	}
 	private static void generateUserMap(){
 		for (int i = 0; i < usersList.size(); i++) {
