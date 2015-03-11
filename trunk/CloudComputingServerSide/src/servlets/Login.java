@@ -48,7 +48,7 @@ public class Login extends HttpServlet {
 							if (!Mediator.getMed().isOnline(nickname)) {
 //								System.out.println("i'm not online");
 		
-								Mediator.getMed().addOnline(nickname, address, 0, game, platform);
+								Mediator.getMed().addOnline(nickname, address, game, platform);
 								PrintWriter w= resp.getWriter();
 								w.write(Mediator.getMed().codeMessage("Success!"));
 								w.close();
@@ -84,7 +84,7 @@ public class Login extends HttpServlet {
 	
 								ses = req.getSession(true);
 								ses.setAttribute("id", nickname);
-								Mediator.getMed().addOnline(nickname, address, 0 , game, platform);
+								Mediator.getMed().addOnline(nickname, address, game, platform);
 								
 								
 //								System.out.println("connected others");

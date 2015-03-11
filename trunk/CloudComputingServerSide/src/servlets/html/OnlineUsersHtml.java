@@ -58,7 +58,7 @@ public class OnlineUsersHtml extends HttpServlet {
 		HttpSession ses = request.getSession(false);
 		String action= request.getParameter("action");
 
-		if (ses == null || !Mediator.getMed().isOnline((String)ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).get(1).equals("html")) {
+		if (ses == null || !Mediator.getMed().isOnline((String)ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).getPlatform().equals("html")) {
 			
 			PrintWriter writer = response.getWriter();
 			writer.write("<p>");
