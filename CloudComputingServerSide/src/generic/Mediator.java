@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import utils.Incapsulator;
+import utils.Table;
 
 public class Mediator {
 	private static final String NOBODY = "nobody";
@@ -17,7 +18,8 @@ public class Mediator {
 	private static Mediator med= new Mediator();
 	private static HashMap<String, User> usersMap;
 	private static GamingUser welcomeUser;
-	private HashMap<String, GamingUser> onlineMap= new HashMap<String, GamingUser>();
+	private static HashMap<String, GamingUser> onlineMap;
+	private static HashMap<String, Table> tablesMap;
 	private static IReader reader;
 	private static IWriter writer;
 	private static String path;
@@ -30,12 +32,15 @@ public class Mediator {
 	}
 	
 	static{
+		
 		converter=new Incapsulator();
 		path="ccomdata/dataUsers.txt";
 		reader= new Reader(path);
 		writer= new Writer(path);
 		usersList=reader.getUserList();
 		usersMap= new HashMap<String, User>();
+		onlineMap= new HashMap<String, GamingUser>();
+		tablesMap= new HashMap<String, Table>();
 		welcomeUser= new GamingUser(NOBODY, NULL, NULL, NULL);
 		generateUserMap();
 		
@@ -95,6 +100,9 @@ public class Mediator {
 			welcomeUser.setPlatform(NULL);
 			welcomeUser.setGame(NULL);
 		}
+	}
+	public String getXmlTableMap(){
+		return converter.convertTableMap(tablesMap);
 	}
 	public boolean isOnline(String nick){
 		return onlineMap.containsKey(nick);

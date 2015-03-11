@@ -44,23 +44,30 @@ public class OnlineUsersJava extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String action=request.getParameter("action");
 		String nick=request.getParameter("nickname");
 		PrintWriter wr= response.getWriter();
-		if (Mediator.getMed().isOnline(nick)) {
-			Mediator.getMed().setWelcomeUser(nick);
-			wr.write(Mediator.getMed().codeMessage("done"));
+		
+		if (action.equals("getTablesMap")) {
+			wr.write(Mediator.getMed().getXmlTableMap());
 			wr.close();
+		}else if (action.equals("getOnlineMap")) {
+			wr.write(Mediator.getMed().getXmlOnlinePlayers());
+			wr.close();
+		}else if (action.equals("setMeAsWelcomer")) {
+			if (Mediator.getMed().isOnline(nick)) {
+				Mediator.getMed().setWelcomeUser(nick);
+				wr.write(Mediator.getMed().codeMessage("done"));
+				wr.close();
+			}else {
+				wr.write(Mediator.getMed().codeMessage("error"));
+				wr.close();
+			}
 		}else {
 			wr.write(Mediator.getMed().codeMessage("error"));
 			wr.close();
 		}
 		
-		
-//		XMLEncoder encoder= new XMLEncoder(response.getOutputStream());
-//		encoder.writeObject(Mediator.getMed().getOnline());
-//		encoder.flush();
-//		encoder.close();
 		
 	}
 
