@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import javax.jws.Oneway;
+
 import mediator.Mediator;
 
 public class Computator {
@@ -36,7 +38,8 @@ public class Computator {
 	private HashMap<String, User> serviceMap;
 	private HashMap<String, User> playersMap;
 	private HashMap<String, User> visitorsMap;
-	private HashMap<String, Boolean> tables;
+	private HashMap<String, User> onlineMap;
+	private HashMap<Integer, Table> tableMap;
 	private HashMap<String, Integer> freePlaceMap;
 
 	private Random r;
@@ -48,8 +51,9 @@ public class Computator {
 	public Computator() {
 		objectsToSend=new ArrayList<Object>();
 		me=new User("", "", JAVA,"");
-		tables= new HashMap<String,Boolean>();
+		tableMap= new HashMap<Integer,Table>();
 		serviceMap=new HashMap<String, User>();
+		onlineMap= new HashMap<String, User>();
 //		playersMap=new HashMap<String, User>();
 		visitorsMap=new HashMap<String, User>();
 		freePlaceMap= new HashMap<String, Integer>();
@@ -59,8 +63,9 @@ public class Computator {
 		if (ans.equals(SUCCESS)) {
 			me.setNick(nick);
 			me.setGame(game);
-			Mediator.getCMed().getConnection().getWelcome();
 			Mediator.getCMed().openServiceServer();
+			Mediator.getCMed().getConnection().getOnlineUsers();
+			Mediator.getCMed().getConnection().getWelcome();
 		}else{
 			Mediator.getGMed().generateDialog("  "+ans);
 		}
@@ -137,97 +142,43 @@ public class Computator {
 			serviceMap.put(DEALER, me);
 			Mediator.getGMed().setChoosePanel();
 		}else if (user.getPlatform().equals(JAVA)) {
-			
-			
+
 			serviceMap.put(WELCOMER, user);
-			objectsToSend.add(WHO_IS_DEALER);
-			Mediator.getCMed().sendRequestOnService(user.getIp(), objectsToSend);
-			objectsToSend.clear();
-			User tempDealer=(User)Mediator.getCMed().getAns();
+			Mediator.getCMed().sendRequestOnService(user.getIp(), WHO_IS_DEALER);
+			User dealer=Mediator.getMed().getDecoder().decodeUser(Mediator.getCMed().getAns());
 			
-			if (serviceMap.get(WELCOMER).getNick().equals(tempDealer.getNick())) {
-				objectsToSend.add(GET_TABLES_MAP);
-				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
-				objectsToSend.clear();
-				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
+			if (user.getNick().equals(dealer.getNick())) {
 				
 				objectsToSend.add(UPDATE_DEALER);
 				objectsToSend.add(me);
-				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
+				Mediator.getCMed().sendRequestOnService(user.getIp(), UPDATE_DEALER, me);
 				serviceMap.put(DEALER, me);
 				objectsToSend.clear();
 				
 				
 				
 			}else {
-							serviceMap.put(DEALER, tempDealer);
-							objectsToSend.add(GET_TABLES_MAP);
-							Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
-							objectsToSend.clear();
-							tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
-						}
-						Mediator.getGMed().setChoosePanel();
+				serviceMap.put(DEALER, dealer);
+			}
+		
+			Mediator.getCMed().sendRequestOnService(user.getIp(), GET_TABLES_MAP);
+
+			tableMap.putAll(Mediator.getMed().getDecoder().decodeTableMap(Mediator.getCMed().getAns()));
+			
+			Mediator.getGMed().setChoosePanel();
 			
 						
 						
-					}else if (answer.get(2).equals(HTML)) {
-						Mediator.getCMed().getConnection().setMyselfAsWelcomer();
-						serviceMap.put(WELCOMER, me);
-						//TODO: CONTACT WELCOMER AND ASK FOR DEALER
-						//come sopra
-						Mediator.getGMed().setChoosePanel();
-					}
+		}else if (user.getPlatform().equals(HTML)) {
+			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
+			tableMap.putAll(Mediator.getCMed().getConnection().getTablesMap());
+			serviceMap.put(WELCOMER, me);
+			serviceMap.put(DEALER, me);
+			
+			Mediator.getGMed().setChoosePanel();
 		}
-		
-//		if (answer.get(0).equals(NOBODY)) {
-//			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
-////			System.out.println("setto welcomer: me stesso");
-//			serviceMap.put(WELCOMER, me);
-//			serviceMap.put(DEALER, me);
-////			Mediator.getCMed().getConnection().getOnlineUsers();
-//			Mediator.getGMed().setChoosePanel();
-////			Mediator.getGMed().setRoomsPanel();
-//		}else if(answer.get(2).equals(JAVA)) {
-//			serviceMap.put(WELCOMER, generateUser(answer));
-//
-//			objectsToSend.add(WHO_IS_DEALER);
-//			Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
-//			objectsToSend.clear();
-//			User tempDealer=(User)Mediator.getCMed().getAns();
-//			if (serviceMap.get(WELCOMER).getNick().equals(tempDealer.getNick())) {
-//				objectsToSend.add(GET_TABLES_MAP);
-//				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
-//				objectsToSend.clear();
-//				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
-//				
-//				objectsToSend.add(UPDATE_DEALER);
-//				objectsToSend.add(me);
-//				Mediator.getCMed().sendRequestOnService(serviceMap.get(WELCOMER).getIp(), objectsToSend);
-//				serviceMap.put(DEALER, me);
-//				objectsToSend.clear();
-//				
-//
-//
-//			}else {
-//				serviceMap.put(DEALER, tempDealer);
-//				objectsToSend.add(GET_TABLES_MAP);
-//				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
-//				objectsToSend.clear();
-//				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
-//			}
-//			Mediator.getGMed().setChoosePanel();
-//
-//			
-//			
-//		}else if (answer.get(2).equals(HTML)) {
-//			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
-//			serviceMap.put(WELCOMER, me);
-//			//TODO: CONTACT WELCOMER AND ASK FOR DEALER
-//			//come sopra
-//			Mediator.getGMed().setChoosePanel();
-//		}
-		
 	}
+	
 	
 	public void checkRequest(List<Object> request){
 		String action=(String)request.get(0);
@@ -294,6 +245,10 @@ public class Computator {
 			
 			
 		}
+	}
+	
+	public Table generateTable(String name, int id, int playersSupported, List<String> playersList, boolean spectable){
+		return new Table(name, id, playersSupported, playersList, spectable);
 	}
 	
 	public void enterTable(String tableName, String type){

@@ -14,7 +14,8 @@ import connection.tcp.client.TCPServiceClient;
 import connection.tcp.server.TCPServersManager;
 
 public class ConnectionMediator {
-	private static Object answer;
+	private static String answer;
+	private static String secondMessage;
 	private static Connector connection;
 	private static ITCPClient serviceClient;
 	private static TCPServersManager serverManager;
@@ -43,20 +44,30 @@ public class ConnectionMediator {
 	public HashMap<String, User> getVisitorsMap(){
 		return Mediator.getMed().getComputator().getVisitorsMap();
 	}
-	public void sendRequestOnService(String ip, List<Object> objectsToSend){
+	
+	public void sendRequestOnService(String ip,String message, User user){
 		serviceClient=new TCPServiceClient(ip);
-		serviceClient.send(objectsToSend);
+		serviceClient.send(message,user);
+		answer=serviceClient.getAnswer();
+		secondMessage=serviceClient.getSecondMessage();
+		serviceClient.closeConnection();
+	}
+	
+	public void sendRequestOnService(String ip, User user){
+		serviceClient=new TCPServiceClient(ip);
+		serviceClient.send(user);
+		answer=serviceClient.getAnswer();
+		serviceClient.closeConnection();
+	}
+	public void sendRequestOnService(String ip, List<String> messageList){
+		serviceClient=new TCPServiceClient(ip);
+		serviceClient.send(messageList);
 		answer=serviceClient.getAnswer();
 		serviceClient.closeConnection();
 	}
 	public void sendRequestOnService(String ip, String message){
 		serviceClient=new TCPServiceClient(ip);
-		try {
-			serviceClient.send(message);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		serviceClient.send(message);
 		answer=serviceClient.getAnswer();
 		serviceClient.closeConnection();
 	}
@@ -69,8 +80,11 @@ public class ConnectionMediator {
 	public void sendAnswerOnService(Object objectsToSend){
 		serverManager.getServiceServer().sendAnswer(objectsToSend);
 	}
-	public Object getAns(){
+	public String getAns(){
 		return answer;
+	}
+	public String getSecondAns(){
+		return secondMessage;
 	}
 	public Connector getConnection() {
 		return connection;
