@@ -10,6 +10,18 @@ import java.util.Set;
 
 public class Incapsulator{
 
+	private static String HEADERTABLELIST="<tableMap>";
+	private static String FOOTERTABLELIST="</tableMap>";
+	private static String HEADERTABLE="<table>";
+	private static String FOOTERTABLE="</table>";
+	private static String HEADERNAME="<name>";
+	private static String FOOTERNAME="</name>";
+	private static String HEADERID="<ID>";
+	private static String FOOTERID="</ID>";
+	private static String HEADERNPLAYERS="<nPlayers>";
+	private static String FOOTERNPLAYERS="</nPlayers>";
+	private static String HEADERSPECTABLE="<spectable>";
+	private static String FOOTERSPECTABLE="</spectable>";
 	private static String HEADERLIST="<listaOnline>";
 	private static String HEADERUSER="<user>";
 	private static String FOOTERLIST="</listaOnline>";
@@ -31,7 +43,22 @@ public class Incapsulator{
 	private String messageConverted;
 	
 	
-	
+	public String convertTableMap(HashMap<String, Table> tableMap) {
+		
+		mainTag=tableMap.keySet();
+		messageConverted=FILEHEADER+HEADERTABLELIST;
+		for (Iterator<String> iterator = mainTag.iterator(); iterator.hasNext();) {
+			String id = (String) iterator.next();
+			messageConverted=messageConverted+HEADERTABLE+HEADERNAME+tableMap.get(id).getName()+FOOTERNAME+HEADERID+id+FOOTERID+HEADERNPLAYERS+tableMap.get(id).getPlayersSupported()+FOOTERNPLAYERS;
+			for (int i = 0; i < tableMap.get(id).getPlayersSupported(); i++) {
+				messageConverted=messageConverted+"<p"+(i+1)+">"+tableMap.get(id).getPlayersList().get(i)+"</p"+(i+1)+">";
+			}
+			messageConverted=messageConverted+HEADERSPECTABLE+tableMap.get(id).isSpectable()+FOOTERSPECTABLE+FOOTERTABLE;
+		}
+		messageConverted=messageConverted+FOOTERTABLELIST;
+		
+		return messageConverted;
+	}
 	
 	
 	public String convert(HashMap<String, GamingUser> onlineUsersMap) {
