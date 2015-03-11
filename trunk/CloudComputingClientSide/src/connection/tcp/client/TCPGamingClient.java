@@ -24,7 +24,7 @@ public class TCPGamingClient implements ITCPClient {
 
 	}
 
-	private void obtainAnswer() {
+	private void obtainAnswer(String action) {
 		answer = decoder.readObject();
 	}
 

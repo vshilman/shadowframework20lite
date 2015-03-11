@@ -1,6 +1,5 @@
 package utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +8,18 @@ import java.util.Set;
 
 public class Incapsulator{
 
+	private static String HEADERTABLELIST="<tableMap>";
+	private static String FOOTERTABLELIST="</tableMap>";
+	private static String HEADERTABLE="<table>";
+	private static String FOOTERTABLE="</table>";
+	private static String HEADERNAME="<name>";
+	private static String FOOTERNAME="</name>";
+	private static String HEADERID="<ID>";
+	private static String FOOTERID="</ID>";
+	private static String HEADERNPLAYERS="<nPlayers>";
+	private static String FOOTERNPLAYERS="</nPlayers>";
+	private static String HEADERSPECTABLE="<spectable>";
+	private static String FOOTERSPECTABLE="</spectable>";
 	private static String HEADERLIST="<listaOnline>";
 	private static String HEADERUSER="<user>";
 	private static String FOOTERLIST="</listaOnline>";
@@ -27,20 +38,36 @@ public class Incapsulator{
 	private static String FILEMESSAGEFOOTER="</messageList>";
 	private static String MESSAGEFOOTER="</message>";
 	private Set<String> mainTag;
-	private List<String> message= new ArrayList<String>();
 	private String messageConverted;
 	
 	
 	
 	
 	
-	public String convertUserMap(HashMap<String, List<String>> mapToConvert) {
+	public String convertTableMap(HashMap<String, Table> tableMap) {
 		
-		mainTag=mapToConvert.keySet();
+		mainTag=tableMap.keySet();
+		messageConverted=FILEHEADER+HEADERTABLELIST;
+		for (Iterator<String> iterator = mainTag.iterator(); iterator.hasNext();) {
+			String id = (String) iterator.next();
+			messageConverted=messageConverted+HEADERTABLE+HEADERNAME+tableMap.get(id).getName()+FOOTERNAME+HEADERID+id+FOOTERID+HEADERNPLAYERS+tableMap.get(id).getPlayersSupported()+FOOTERNPLAYERS;
+			for (int i = 0; i < tableMap.get(id).getPlayersSupported(); i++) {
+				messageConverted=messageConverted+"<p"+(i+1)+">"+tableMap.get(id).getPlayersList().get(i)+"</p"+(i+1)+">";
+			}
+			messageConverted=messageConverted+HEADERSPECTABLE+tableMap.get(id).isSpectable()+FOOTERSPECTABLE+FOOTERTABLE;
+		}
+		messageConverted=messageConverted+FOOTERTABLELIST;
+		
+		return messageConverted;
+	}
+	
+	public String convert(HashMap<String, List<String>> onlineUsersMap) {
+		
+		mainTag=onlineUsersMap.keySet();
 		messageConverted=FILEHEADER+HEADERLIST;
 		for (Iterator<String> iterator = mainTag.iterator(); iterator.hasNext();) {
 			String nick = (String) iterator.next();
-			messageConverted=messageConverted+HEADERUSER+HEADERNICK+nick+FOOTERNICK+HEADERIP+mapToConvert.get(nick).get(0)+FOOTERIP+HEADERPLATFORM+mapToConvert.get(nick).get(1)+FOOTERPLATFORM+HEADERGAME+mapToConvert.get(nick).get(2)+FOOTERGAME+FOOTERUSER;
+			messageConverted=messageConverted+HEADERUSER+HEADERNICK+nick+FOOTERNICK+HEADERIP+onlineUsersMap.get(nick).get(0)+FOOTERIP+HEADERPLATFORM+onlineUsersMap.get(nick).get(1)+FOOTERPLATFORM+HEADERGAME+onlineUsersMap.get(nick).get(2)+FOOTERGAME+FOOTERUSER;
 		}
 		messageConverted=messageConverted+FOOTERLIST;
 		
@@ -48,7 +75,7 @@ public class Incapsulator{
 	}
 	
 	
-	public String convertMessageList(List<String> messages){
+	public String convert(List<String> messages){
 		messageConverted=FILEHEADER+FILEMESSAGEHEADER;
 		for (int i = 0; i < messages.size(); i++) {
 			String actualMessage = messages.get(i);
@@ -59,15 +86,15 @@ public class Incapsulator{
 		return messageConverted;
 	}
 	
-	public String convertWelcomer(List<String> welcomeUser){
+	public String convert(User user){
 		messageConverted=FILEHEADER+HEADERLIST;
-		messageConverted=messageConverted+HEADERUSER+HEADERNICK+welcomeUser.get(0)+FOOTERNICK+HEADERIP+welcomeUser.get(1)+FOOTERIP+HEADERPLATFORM+welcomeUser.get(2)+FOOTERPLATFORM+HEADERGAME+welcomeUser.get(3)+FOOTERGAME+FOOTERUSER;
+		messageConverted=messageConverted+HEADERUSER+HEADERNICK+user.getNick()+FOOTERNICK+HEADERIP+user.getIp()+FOOTERIP+HEADERPLATFORM+user.getPlatform()+FOOTERPLATFORM+HEADERGAME+user.getGame()+FOOTERGAME+FOOTERUSER;
 		messageConverted=messageConverted+FOOTERLIST;
 		
 		return messageConverted;
 	}
 	
-	public String convertMessage(String message){
+	public String convert(String message){
 		messageConverted=FILEHEADER+MESSAGEHEADER+message+MESSAGEFOOTER;
 		return messageConverted;
 	}

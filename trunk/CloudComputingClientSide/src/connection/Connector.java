@@ -12,6 +12,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -19,6 +20,7 @@ import mediator.Mediator;
 
 import org.xml.sax.SAXException;
 
+import utils.Table;
 import utils.User;
 
 
@@ -27,6 +29,7 @@ public class Connector{
 	
 	private static final String GET_ONLINE_MAP_ACTION = "&action=getOnlineMap";
 	private static final String SET_ME_AS_WELCOMER_ACTION = "&action=setMeAsWelcomer";
+	private static final String GET_TABLES_MAP = "&action=getTablesMap";
 	private String NICKHEAD= "nickname=";
 	private String LOGINACTION="&action=login";
 	private String LOGOUTACTION="&action=logout";
@@ -65,21 +68,16 @@ public class Connector{
 				wr.close();
 	//			System.out.println(NICKHEAD+user+PASSHEAD+pass+PLATFORM);
 				ans="";
-				ans= Mediator.getMed().getDecoder().decodeMessage(connection.getInputStream());
+				BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				ans= Mediator.getMed().getDecoder().decodeMessage(reader.readLine());
 				
-				connection.getInputStream().close();
+				reader.close();
 				
 				Mediator.getMed().getComputator().validateLogin(ans, user, game);
 				
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
@@ -154,19 +152,14 @@ public class Connector{
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("User-Agent", "Java");
 			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-			User welcomer=Mediator.getMed().getDecoder().decodeWelcomer(connection.getInputStream());
+			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			User welcomer=Mediator.getMed().getDecoder().decodeUser(reader.readLine());
 			Mediator.getMed().getComputator().checkAns(welcomer);
-			connection.getInputStream().close();
+			reader.close();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -174,7 +167,9 @@ public class Connector{
 		
 	}
 
-	public void getOnlineUsers(){
+	public HashMap<String, User> getOnlineUsers(){
+		
+		HashMap<String, User> onlineMap= new HashMap<String, User>();
 		
 		try {
 			url= new URL("http://"+ip+":8080/ccom/HomeJava");
@@ -187,19 +182,54 @@ public class Connector{
 			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick()+GET_ONLINE_MAP_ACTION);
 			wr.flush();
 			wr.close();
-			XMLDecoder decoder= new XMLDecoder(connection.getInputStream());
-//			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			map.clear();
-			map.putAll((HashMap<String, List<String>>)decoder.readObject());
+			
+			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			
+			onlineMap.putAll(Mediator.getMed().getDecoder().decodeUsersMap(reader.readLine()));
+			
 			Mediator.getCMed().setOnlineMap(map);
-			decoder.close();
+			reader.close();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return onlineMap;
 	}
+	
+	public HashMap<Integer, Table> getTablesMap(){
+		
+		HashMap<Integer, Table> tablesMap=new HashMap<Integer, Table>();
+
+		try {
+			url= new URL("http://"+ip+":8080/ccom/HomeJava");
+			connection=(HttpURLConnection)url.openConnection();
+			connection.setDoOutput(true);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("User-Agent", "Java");
+			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick()+GET_TABLES_MAP);
+			wr.flush();
+			wr.close();
+			
+			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			
+			tablesMap.putAll(Mediator.getMed().getDecoder().decodeTableMap(reader.readLine()));
+//			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			
+			reader.close();
+			
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return tablesMap;
+	}
+	
 	
 	public void setGame(String game){
 		try {

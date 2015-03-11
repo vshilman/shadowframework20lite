@@ -1,16 +1,25 @@
 package connection.tcp.client;
 
-import java.io.IOException;
 import java.util.List;
+
+import utils.User;
 
 public interface ITCPClient {
 
-	public abstract Object getAnswer();
 
-	public void send(String message) throws IOException;
+	public String getAnswer();
 	
-	public abstract void send(List<String> toSend)  throws IOException;
+	public String getSecondMessage();
+	
+	public void send(String message);
+	
+	public void send(List<String> messageList);
+	
+	public void send(User user);
 
-	public abstract void closeConnection();
+	public void send(String message, User updatingUser);
+
+
+	public void closeConnection();
 
 }

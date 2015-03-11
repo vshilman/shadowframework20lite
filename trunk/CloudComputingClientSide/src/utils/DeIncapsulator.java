@@ -1,10 +1,7 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,48 +16,62 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class DeIncapsulator {
 
-	private HashMap<String, List<String>> mapObtained= new HashMap<String, List<String>>();
+	private HashMap<String, User> usersMapObtained= new HashMap<String, User>();
+	private HashMap<Integer, Table> tableMapObtained= new HashMap<Integer, Table>();
 	private List<String> messageList= new ArrayList<String>();
 	
 	
-	public HashMap<String, List<String>> decodeUsersMap(InputStream in) throws ParserConfigurationException, SAXException, IOException {
+	public HashMap<String, User> decodeUsersMap(String usersMapEncoded) {
 		
-		mapObtained.clear();
+		usersMapObtained.clear();
 		
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc;
+			
+			doc = dBuilder.parse(new InputSource(new StringReader(usersMapEncoded)));
 		
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(in);
-
-		doc.getDocumentElement().normalize();
-
-		NodeList nList = doc.getElementsByTagName("user");
-		for (int temp = 0; temp < nList.getLength(); temp++) {
-
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-				Element eElement = (Element) nNode;
-				String nick=eElement.getElementsByTagName("nick").item(0).getTextContent();
-				List<String> attributes= new ArrayList<String>();
-				attributes.add(eElement.getElementsByTagName("ip").item(0).getTextContent());
-				attributes.add(eElement.getElementsByTagName("platform").item(0).getTextContent());
-				attributes.add(eElement.getElementsByTagName("game").item(0).getTextContent());
-				
-				mapObtained.put(nick, attributes);
+	
+			doc.getDocumentElement().normalize();
+	
+			NodeList nList = doc.getElementsByTagName("user");
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+	
+				Node nNode = nList.item(temp);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					String nick=eElement.getElementsByTagName("nick").item(0).getTextContent();
+					List<String> attributes= new ArrayList<String>();
+					attributes.add(nick);
+					attributes.add(eElement.getElementsByTagName("ip").item(0).getTextContent());
+					attributes.add(eElement.getElementsByTagName("platform").item(0).getTextContent());
+					attributes.add(eElement.getElementsByTagName("game").item(0).getTextContent());
+					User user= Mediator.getMed().getComputator().generateUser(attributes);
+					usersMapObtained.put(nick, user);
+				}
 			}
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return mapObtained;
+		return usersMapObtained;
 	}
 	
-	public List<String> decodeMessageList(InputStream in)throws ParserConfigurationException, SAXException, IOException{
+	public List<String> decodeMessageList(String messageListEncoded){
 		messageList.clear();
+		try{
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(in);
+		Document doc = dBuilder.parse(new InputSource(new StringReader(messageListEncoded)));
 
 		doc.getDocumentElement().normalize();
 
@@ -74,43 +85,108 @@ public class DeIncapsulator {
 				messageList.add(message);
 			}
 		}
+	} catch (SAXException | IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ParserConfigurationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		return messageList;
 	}
 	
-	public User decodeWelcomer(InputStream in) throws ParserConfigurationException, SAXException, IOException{
+	public HashMap<Integer, Table> decodeTableMap(String tablesMapEncoded){
 		
-		
+		tableMapObtained.clear();
+		try{
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(in);
+		Document doc = dBuilder.parse(new InputSource(new StringReader(tablesMapEncoded)));
+
+		doc.getDocumentElement().normalize();
+
+		NodeList nList = doc.getElementsByTagName("table");
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element eElement = (Element) nNode;
+				String name=eElement.getElementsByTagName("name").item(0).getTextContent();
+				int id=Integer.parseInt(eElement.getElementsByTagName("ID").item(0).getTextContent());
+				NodeList nList2=eElement.getElementsByTagName("nPlayers");
+					
+				int nPlayers=Integer.parseInt(nList2.item(0).getTextContent());
+				List<String> players= new ArrayList<String>();
+				for (int i = 0; i < nPlayers; i++) {
+					players.add(eElement.getElementsByTagName("p"+(i+1)).item(0).getTextContent());
+				}
+				boolean spectation=Boolean.parseBoolean(eElement.getElementsByTagName("spectable").item(0).getTextContent());
+				
+				Table table= Mediator.getMed().getComputator().generateTable(name, id, nPlayers, players, spectation);
+				
+				tableMapObtained.put(id, table);
+			}
+		}
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tableMapObtained;
+	}
+	
+	public User decodeUser(String userEncoded){
+				List<String> userAttributes= new ArrayList<String>();
+
+		try{
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = dBuilder.parse(new InputSource(new StringReader(userEncoded)));
 
 		doc.getDocumentElement().normalize();
 
 		NodeList nList = doc.getElementsByTagName("user");
 		Node nNode = nList.item(0);
-		List<String> welcomer= new ArrayList<String>();
 
 		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 			Element eElement = (Element) nNode;
-			welcomer.add(eElement.getElementsByTagName("nick").item(0).getTextContent());
-			welcomer.add(eElement.getElementsByTagName("ip").item(0).getTextContent());
-			welcomer.add(eElement.getElementsByTagName("platform").item(0).getTextContent());
-			welcomer.add(eElement.getElementsByTagName("game").item(0).getTextContent());
+			userAttributes.add(eElement.getElementsByTagName("nick").item(0).getTextContent());
+			userAttributes.add(eElement.getElementsByTagName("ip").item(0).getTextContent());
+			userAttributes.add(eElement.getElementsByTagName("platform").item(0).getTextContent());
+			userAttributes.add(eElement.getElementsByTagName("game").item(0).getTextContent());
 			
 		}
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return Mediator.getMed().getComputator().generateUser(welcomer);
+		return Mediator.getMed().getComputator().generateUser(userAttributes);
 	}
-	public String decodeMessage(InputStream in) throws ParserConfigurationException, SAXException, IOException{
+	public String decodeMessage(String messageEncoded){
 		
+		String messageDecoded= new String();
+		try{
+			
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(in);
+		Document doc = dBuilder.parse(new InputSource(new StringReader(messageEncoded)));
 
 		doc.getDocumentElement().normalize();
 
-		String messageDecoded=doc.getElementsByTagName("message").item(0).getTextContent();
-		
+		messageDecoded=doc.getElementsByTagName("message").item(0).getTextContent();
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return messageDecoded;
 		
 	}

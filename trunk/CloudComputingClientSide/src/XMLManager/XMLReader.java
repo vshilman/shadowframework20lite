@@ -11,6 +11,8 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+import utils.Table;
+
 public class XMLReader {
 	private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 	private InputStream in;
