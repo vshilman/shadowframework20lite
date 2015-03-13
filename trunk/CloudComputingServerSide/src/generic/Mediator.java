@@ -82,6 +82,10 @@ public class Mediator {
 		return converter.convert(welcomeUser);
 	}
 	
+	public String getXmlUser(String nick) {
+		return converter.convert(onlineMap.get(nick));
+	}
+	
 	public void addOnline(String nick, String ip, String game, String platform){
 		List<String> status= new ArrayList<String>();
 		status.add(ip);

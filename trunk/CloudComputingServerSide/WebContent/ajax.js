@@ -59,7 +59,7 @@ function logout(){
 	xmlhttp.open("POST","./Login",true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send("platform=html&action=logout");
-	window.location.assign("http://127.0.0.1:8080/ccom/html/login/login.html");
+	window.location.assign("./html/login/login.html");
 
 }
 function loadProfile(){
@@ -76,17 +76,14 @@ function loadProfile(){
 	request.send("action=getProfile");
     request.onreadystatechange=function(){
 			if (request.readyState==4 && request.status==200){
-                    document.getElementById("utente").innerHTML=request.responseText;
+                var xmlFile;
+                xmlFile=request.responseXML;
+                var x=xmlFile.getElementsByTagName("user");
+                document.getElementById("utente").innerHTML=x[0].getElementsByTagName("nick")[0].childNodes[0].nodeValue;
+                document.getElementsByTagName("input")[0].setAttribute("value", x[0].getElementsByTagName("game")[0].childNodes[0].nodeValue );
+                   
+                
 		}
     }
 }
 
-
-function decodeXML(){
-   
-xmlDoc=xmlhttp.responseXML; 
-
-
-
-
-}

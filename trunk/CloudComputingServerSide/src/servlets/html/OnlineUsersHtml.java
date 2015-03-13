@@ -60,6 +60,7 @@ public class OnlineUsersHtml extends HttpServlet {
 
 		if (ses == null || !Mediator.getMed().isOnline((String)ses.getAttribute("id"))|| !Mediator.getMed().getOnline().get(ses.getAttribute("id")).getPlatform().equals("html")) {
 			
+			
 			PrintWriter writer = response.getWriter();
 			writer.write("<p>");
 			writer.write("Sembri non essere loggato, effettua il login <a href=\"./html/login/login.html\">qui</a>.");
@@ -116,8 +117,7 @@ public class OnlineUsersHtml extends HttpServlet {
 
 		}else if (action.equals("getProfile")){
 			PrintWriter wr= response.getWriter();
-			wr.write((String)ses.getAttribute("id"));
-			//TODO: PASSARE UN USER CODIFICATO PER PANNELLO UTENTE
+			wr.write(Mediator.getMed().getXmlUser((String)ses.getAttribute("id")));
 			wr.close();
 		}
 	}
