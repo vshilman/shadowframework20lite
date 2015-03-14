@@ -1,8 +1,5 @@
 package connection.tcp.client;
 
-import java.util.List;
-
-import utils.User;
 
 public interface ITCPClient {
 
@@ -13,11 +10,7 @@ public interface ITCPClient {
 	
 	public void send(String message);
 	
-	public void send(List<String> messageList);
-	
-	public void send(User user);
-
-	public void send(String message, User updatingUser);
+	public void send(String codedMessage, String codedSecond);
 
 
 	public void closeConnection();

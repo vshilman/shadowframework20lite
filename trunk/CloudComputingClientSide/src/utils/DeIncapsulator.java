@@ -191,4 +191,32 @@ public class DeIncapsulator {
 		
 	}
 	
+	public String whichMethodUse(String xml){
+		try{
+			
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(new InputSource(new StringReader(xml)));
+			
+			doc.getDocumentElement().normalize();
+			if (doc.getElementsByTagName("messageList")!=null) {
+				return "messageList";
+			}else if (doc.getElementsByTagName("listaOnline")!=null) {
+				return "listaOnline";
+			}else if (doc.getElementsByTagName("tableMap")!=null) {
+				return "tableMap";
+			}else if (doc.getElementsByTagName("message")!=null) {
+				return "message";
+			} 
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "unknown";
+	}
+	
 }

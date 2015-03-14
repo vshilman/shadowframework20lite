@@ -20,6 +20,7 @@ public class Incapsulator{
 	private static String FOOTERNPLAYERS="</nPlayers>";
 	private static String HEADERSPECTABLE="<spectable>";
 	private static String FOOTERSPECTABLE="</spectable>";
+	
 	private static String HEADERLIST="<listaOnline>";
 	private static String HEADERUSER="<user>";
 	private static String FOOTERLIST="</listaOnline>";
@@ -33,6 +34,7 @@ public class Incapsulator{
 	private static String FOOTERIP="</ip>";
 	private static String FOOTERGAME="</game>";
 	private static String FILEHEADER="<?xml version=\"1.0\"?>";
+	
 	private static String FILEMESSAGEHEADER="<messageList>";
 	private static String MESSAGEHEADER="<message>";
 	private static String FILEMESSAGEFOOTER="</messageList>";
@@ -44,12 +46,11 @@ public class Incapsulator{
 	
 	
 	
-	public String convertTableMap(HashMap<String, Table> tableMap) {
-		
-		mainTag=tableMap.keySet();
+	public String convertTableMap(HashMap<Integer, Table> tableMap) {
+		Set<Integer> tableID=tableMap.keySet();
 		messageConverted=FILEHEADER+HEADERTABLELIST;
-		for (Iterator<String> iterator = mainTag.iterator(); iterator.hasNext();) {
-			String id = (String) iterator.next();
+		for (Iterator<Integer> iterator = tableID.iterator(); iterator.hasNext();) {
+			Integer id = (Integer) iterator.next();
 			messageConverted=messageConverted+HEADERTABLE+HEADERNAME+tableMap.get(id).getName()+FOOTERNAME+HEADERID+id+FOOTERID+HEADERNPLAYERS+tableMap.get(id).getPlayersSupported()+FOOTERNPLAYERS;
 			for (int i = 0; i < tableMap.get(id).getPlayersSupported(); i++) {
 				messageConverted=messageConverted+"<p"+(i+1)+">"+tableMap.get(id).getPlayersList().get(i)+"</p"+(i+1)+">";
@@ -61,13 +62,13 @@ public class Incapsulator{
 		return messageConverted;
 	}
 	
-	public String convert(HashMap<String, List<String>> onlineUsersMap) {
+	public String convert(HashMap<String, User> onlineUsersMap) {
 		
 		mainTag=onlineUsersMap.keySet();
 		messageConverted=FILEHEADER+HEADERLIST;
 		for (Iterator<String> iterator = mainTag.iterator(); iterator.hasNext();) {
 			String nick = (String) iterator.next();
-			messageConverted=messageConverted+HEADERUSER+HEADERNICK+nick+FOOTERNICK+HEADERIP+onlineUsersMap.get(nick).get(0)+FOOTERIP+HEADERPLATFORM+onlineUsersMap.get(nick).get(1)+FOOTERPLATFORM+HEADERGAME+onlineUsersMap.get(nick).get(2)+FOOTERGAME+FOOTERUSER;
+			messageConverted=messageConverted+HEADERUSER+HEADERNICK+nick+FOOTERNICK+HEADERIP+onlineUsersMap.get(nick).getIp()+FOOTERIP+HEADERPLATFORM+onlineUsersMap.get(nick).getPlatform()+FOOTERPLATFORM+HEADERGAME+onlineUsersMap.get(nick).getGame()+FOOTERGAME+FOOTERUSER;
 		}
 		messageConverted=messageConverted+FOOTERLIST;
 		
@@ -87,9 +88,8 @@ public class Incapsulator{
 	}
 	
 	public String convert(User user){
-		messageConverted=FILEHEADER+HEADERLIST;
+		messageConverted=FILEHEADER;
 		messageConverted=messageConverted+HEADERUSER+HEADERNICK+user.getNick()+FOOTERNICK+HEADERIP+user.getIp()+FOOTERIP+HEADERPLATFORM+user.getPlatform()+FOOTERPLATFORM+HEADERGAME+user.getGame()+FOOTERGAME+FOOTERUSER;
-		messageConverted=messageConverted+FOOTERLIST;
 		
 		return messageConverted;
 	}

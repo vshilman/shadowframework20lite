@@ -58,9 +58,8 @@ public class TCPServiceClient implements ITCPClient {
 	
 	@Override
 	public void send(String message){
-		String codedMessage=Mediator.getMed().getCoder().convert(message);
 		try {
-			out.writeChars(codedMessage);
+			out.writeChars(message);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,40 +67,12 @@ public class TCPServiceClient implements ITCPClient {
 		obtainAnswer();
 		
 	}
-	@Override
-	public void send(User user) {
-		String codedUser=Mediator.getMed().getCoder().convert(user);
-		try {
-			out.writeChars(codedUser);
-			out.flush();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		obtainAnswer();
-	}
-	@Override
-	public void send(List<String> messageList) {
-		String codedList=Mediator.getMed().getCoder().convert(messageList);
-		try {
-			out.writeChars(codedList);
-			out.flush();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		obtainAnswer();
-	}
 
 	@Override
-	public void send(String message, User updatingUser) {
-		String codedMessage=Mediator.getMed().getCoder().convert(message);
-		String codedUser=Mediator.getMed().getCoder().convert(updatingUser);
+	public void send(String codedMessage, String codedSecond) {
 		try {
 			out.writeChars(codedMessage);
-			out.writeChars(codedUser);
+			out.writeChars(codedSecond);
 			out.flush();
 
 		} catch (IOException e) {
