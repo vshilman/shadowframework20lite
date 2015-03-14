@@ -1,7 +1,5 @@
 package mediator;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,29 +43,17 @@ public class ConnectionMediator {
 		return Mediator.getMed().getComputator().getVisitorsMap();
 	}
 	
-	public void sendRequestOnService(String ip,String message, User user){
+	public void sendRequestOnService(String ip,String codedMessage, String codedSecond){
 		serviceClient=new TCPServiceClient(ip);
-		serviceClient.send(message,user);
+		serviceClient.send(codedMessage,codedSecond);
 		answer=serviceClient.getAnswer();
 		secondMessage=serviceClient.getSecondMessage();
 		serviceClient.closeConnection();
 	}
 	
-	public void sendRequestOnService(String ip, User user){
+	public void sendRequestOnService(String ip, String codedOne){
 		serviceClient=new TCPServiceClient(ip);
-		serviceClient.send(user);
-		answer=serviceClient.getAnswer();
-		serviceClient.closeConnection();
-	}
-	public void sendRequestOnService(String ip, List<String> messageList){
-		serviceClient=new TCPServiceClient(ip);
-		serviceClient.send(messageList);
-		answer=serviceClient.getAnswer();
-		serviceClient.closeConnection();
-	}
-	public void sendRequestOnService(String ip, String message){
-		serviceClient=new TCPServiceClient(ip);
-		serviceClient.send(message);
+		serviceClient.send(codedOne);
 		answer=serviceClient.getAnswer();
 		serviceClient.closeConnection();
 	}
@@ -92,16 +78,8 @@ public class ConnectionMediator {
 	public HashMap<String, User> getOnlinePlayers() {
 		return onlinePlayers;
 	}
-	public void setOnlineMap(HashMap<String, List<String>> rawMap){
-		Set<String>keySet=rawMap.keySet();
-		List<String> list=new ArrayList<String>();
-		for (int i = 0; i < rawMap.size(); i++) {
-			list.add(keySet.iterator().next());
-			list.add(rawMap.get(list.get(0)).get(0));
-			list.add(rawMap.get(list.get(0)).get(1));
-			onlinePlayers.clear();
-			onlinePlayers.put(list.get(0), Mediator.getMed().getComputator().generateUser(list));
-		}
+	public void setOnlineMap(HashMap<String, User> map){
+		onlinePlayers.putAll(map);
 	}
 
 
@@ -113,12 +91,12 @@ public class ConnectionMediator {
 //		thread.start();
 //	}
 	
-	public void updateUsers(List<Object> objectsToSend) {
+	public void updateOnlineMap(HashMap<String, User> onlineMap) {
 		Set<String> nickOnline=onlinePlayers.keySet();
 		for (Iterator iterator = nickOnline.iterator(); iterator.hasNext();) {
 			String nick = (String) iterator.next();
 			serviceClient=new TCPServiceClient(onlinePlayers.get(nick).getIp());
-			serviceClient.send(objectsToSend);
+			serviceClient.send(Mediator.getMed().getCoder().convert(onlinePlayers));
 			serviceClient.closeConnection();
 		}
 	}

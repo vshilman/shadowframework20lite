@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -98,12 +99,9 @@ public class Connector{
 			wr.flush();
 			wr.close();
 //			System.out.println(NICKHEAD+user+PASSHEAD+pass+PLATFORM);
-			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			ans="";
-			while (in.ready()) {
-				ans+=in.readLine();
-			}
-			in.close();
+			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			ans=Mediator.getMed().getDecoder().decodeMessage(reader.readLine());
+			reader.close();
 			
 //			Mediator.getMed().getComputator().validateLogout();
 			
@@ -128,13 +126,9 @@ public class Connector{
 			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick()+SET_ME_AS_WELCOMER_ACTION);
 			wr.flush();
 			wr.close();
-			BufferedReader in= new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			ans="";
-			while (in.ready()) {
-				ans+=in.readLine();
-			}
-		
-			in.close();
+			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			ans=Mediator.getMed().getDecoder().decodeMessage(reader.readLine());
+			reader.close();
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -142,7 +136,28 @@ public class Connector{
 			e.printStackTrace();
 		}
 	}
-	
+	public void setWelcomer(String nick){
+		try {
+			url= new URL("http://"+ip+":8080/ccom/HomeJava");
+			connection=(HttpURLConnection)url.openConnection();
+			connection.setDoOutput(true);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("User-Agent", "Java");
+			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			wr.writeBytes(NICKHEAD+nick+SET_ME_AS_WELCOMER_ACTION);
+			wr.flush();
+			wr.close();
+			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			ans=Mediator.getMed().getDecoder().decodeMessage(reader.readLine());
+			reader.close();
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void getWelcome(){
 		
 		try {
@@ -167,7 +182,7 @@ public class Connector{
 		
 	}
 
-	public HashMap<String, User> getOnlineUsers(){
+	public void getOnlineUsers(){
 		
 		HashMap<String, User> onlineMap= new HashMap<String, User>();
 		
@@ -187,7 +202,7 @@ public class Connector{
 			
 			onlineMap.putAll(Mediator.getMed().getDecoder().decodeUsersMap(reader.readLine()));
 			
-			Mediator.getCMed().setOnlineMap(map);
+			Mediator.getCMed().setOnlineMap(onlineMap);
 			reader.close();
 			
 		} catch (MalformedURLException e) {
@@ -195,7 +210,6 @@ public class Connector{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return onlineMap;
 	}
 	
 	public HashMap<Integer, Table> getTablesMap(){
