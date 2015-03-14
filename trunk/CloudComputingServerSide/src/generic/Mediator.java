@@ -19,7 +19,7 @@ public class Mediator {
 	private static HashMap<String, User> usersMap;
 	private static GamingUser welcomeUser;
 	private static HashMap<String, GamingUser> onlineMap;
-	private static HashMap<String, Table> tablesMap;
+	private static HashMap<Integer, Table> tablesMap;
 	private static IReader reader;
 	private static IWriter writer;
 	private static String path;
@@ -40,7 +40,7 @@ public class Mediator {
 		usersList=reader.getUserList();
 		usersMap= new HashMap<String, User>();
 		onlineMap= new HashMap<String, GamingUser>();
-		tablesMap= new HashMap<String, Table>();
+		tablesMap= new HashMap<Integer, Table>();
 		welcomeUser= new GamingUser(NOBODY, NULL, NULL, NULL);
 		generateUserMap();
 		

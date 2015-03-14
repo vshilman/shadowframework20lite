@@ -43,12 +43,11 @@ public class Incapsulator{
 	private String messageConverted;
 	
 	
-	public String convertTableMap(HashMap<String, Table> tableMap) {
-		
-		mainTag=tableMap.keySet();
+	public String convertTableMap(HashMap<Integer, Table> tableMap) {
+		Set<Integer> tableID=tableMap.keySet();
 		messageConverted=FILEHEADER+HEADERTABLELIST;
-		for (Iterator<String> iterator = mainTag.iterator(); iterator.hasNext();) {
-			String id = (String) iterator.next();
+		for (Iterator<Integer> iterator = tableID.iterator(); iterator.hasNext();) {
+			Integer id = (Integer) iterator.next();
 			messageConverted=messageConverted+HEADERTABLE+HEADERNAME+tableMap.get(id).getName()+FOOTERNAME+HEADERID+id+FOOTERID+HEADERNPLAYERS+tableMap.get(id).getPlayersSupported()+FOOTERNPLAYERS;
 			for (int i = 0; i < tableMap.get(id).getPlayersSupported(); i++) {
 				messageConverted=messageConverted+"<p"+(i+1)+">"+tableMap.get(id).getPlayersList().get(i)+"</p"+(i+1)+">";
