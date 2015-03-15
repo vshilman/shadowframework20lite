@@ -1,6 +1,5 @@
 package mediator;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +17,7 @@ public class Mediator {
 	private static List<String> availableGames;
 	private static DeIncapsulator decoder;
 	private static Incapsulator coder;
+	private static PlayingMediator pMed;
 	
 	public Mediator() {
 		availableGames= new ArrayList<String>();
@@ -29,10 +29,14 @@ public class Mediator {
 		computator=new Computator();
 		cMed=new ConnectionMediator();
 		gMed=new GraphicMediator();
+		pMed=new PlayingMediator();
 		decoder=new DeIncapsulator();
 		coder= new Incapsulator();
 	}
 	
+	public static PlayingMediator getPMed() {
+		return pMed;
+	}
 	public static Mediator getMed() {
 		return med;
 	}

@@ -258,7 +258,8 @@ public class Computator {
 			generateID();
 			r= new Random(ID);
 			playersMap= new HashMap<String, User>();
-			String tableNameComposed=tableName+SEPARATOR+me.getNick()+SEPARATOR+ID;
+			String tableNameComposed=ID+tableName;
+			Table newTable= generateTable(tableNameComposed, ID, playersSupported, new ArrayList<>(), true);
 			
 //			for (int i = 0; i < 40; i++) {
 //
@@ -390,20 +391,5 @@ public class Computator {
 	private void generateID(){
 		ID=(int)(Math.random()*100000);
 	}
-	private int nextCard(){
-		
-//		double ID=0;
-//		ID=Math.random();
-		int index=r.nextInt(carteLibere.size());
-		int number=carteLibere.get(index);
-		carteLibere.remove(index);
-		
-		
-		return number;
-	}
-	private void compilaCarte(){
-		for (int i = 1; i < 41; i++) {
-			carteLibere.add(i);
-		}
-	}
+	
 }
