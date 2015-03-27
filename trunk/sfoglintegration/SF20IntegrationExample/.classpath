@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/OSGi%Minimum-1.2"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20Data"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20Integration"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20IntegrationData"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20System"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20Viewer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SFOGL20"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SF20DataTools"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
