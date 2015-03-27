@@ -13,7 +13,7 @@ public class SFCharsetObjectUtils {
 			int index=0;
 			while (tokenizer.hasMoreTokens()) {
 				String token=tokenizer.nextToken();
-				System.err.println("token "+token);
+				//System.err.println("token "+token);
 				floatValues[index]=new Float(token);
 				index++;
 			}

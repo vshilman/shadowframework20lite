@@ -11,6 +11,7 @@ import shadow.system.data.objects.SFShortArray;
 public class ArrayObjectData extends SFDataAsset<ArrayObject>{
 	
 	public ArrayObjectData() {
+		setName("Arrays");
 		addObject("vertices", new SFBinaryVertexList<SFFixedFloat161>(new SFFixedFloat161()));
 		addObject("normals", new SFBinaryVertexList<SFFixedFloat161>(new SFFixedFloat161()));
 		addObject("txCoords", new SFBinaryVertexList<SFFixedFloat161>(new SFFixedFloat161()));
