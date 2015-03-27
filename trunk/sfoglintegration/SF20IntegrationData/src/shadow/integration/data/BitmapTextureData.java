@@ -16,6 +16,7 @@ public class BitmapTextureData extends SFDataAsset<BitmapTexture>{
 			GL2.GL_REPEAT, GL2.GL_REPEAT, GL2.GL_LINEAR_MIPMAP_LINEAR, GL2.GL_LINEAR);
 
 	public BitmapTextureData() {
+		setName("BitmapTexture");
 		addObject("filename", new SFString(""));
 	}
 	

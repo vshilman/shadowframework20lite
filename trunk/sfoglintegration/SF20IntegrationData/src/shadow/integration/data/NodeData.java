@@ -14,6 +14,7 @@ import shadow.system.data.SFNamedParametersObject;
 public class NodeData extends SFDataAsset<Node>{
 
 	public NodeData() {
+		setName("Node");
 		addObject("transform", new SFLibraryReference<SFTransform3f>(new Transform3fData()));
 		addObject("model", new SFLibraryReference<Model>());
 		addObject("nodes", new SFLibraryReferenceList<Node>(new SFLibraryReference<Node>()));

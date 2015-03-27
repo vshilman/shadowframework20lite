@@ -12,6 +12,7 @@ import shadow.system.data.objects.SFVertex3fData;
 public class Transform3fData extends SFDataAsset<SFTransform3f>{
 
 	public Transform3fData(){
+		setName("Transform3f");
 		SFVertex3fData position=new SFVertex3fData();
 		SFVertex3fData orientation=new SFVertex3fData();
 		SFFloat scale=new SFFloat(1);

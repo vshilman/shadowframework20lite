@@ -17,6 +17,7 @@ import shadow.system.data.objects.SFString;
 public class MaterialData extends SFDataAsset<Material>{
 
 	public MaterialData() {
+		setName("Material");
 		addObject("program", new SFString(""));
 		addObject("values", new SFBinaryVertexArrayList<SFFixedFloat16>(new SFFixedFloat16()));
 		addObject("textures", new SFLibraryReferenceList<BitmapTexture>(new SFLibraryReference<BitmapTexture>()));

@@ -1,0 +1,37 @@
+
+import geometries/cube;
+
+Red01 = Material{
+	program = shader01
+	values = (1.0,0.0,0.0,1.0)
+}
+
+RedCube = Model{
+	material = Red01
+	geometry = Cube
+}
+
+Green01 = Red01{
+	values = (0.0,1.0,0.0,1.0)
+}
+
+GreenCube = RedCube{
+	material = Green01
+}
+
+
+ExampleNode = Node {
+	nodes = Node{
+		transform = Transform3f{
+			position = (0.3,0,0)
+		}
+		model = RedCube
+	}
+	nodes += Node{
+		transform = Transform3f{
+			position = (-0.3,0,0)
+			orientation = (0.25,0,0)
+		}
+		model = GreenCube
+	}
+}

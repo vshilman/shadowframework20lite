@@ -11,6 +11,7 @@ import shadow.system.data.SFNamedParametersObject;
 public class ModelData extends SFDataAsset<Model>{
 
 	public ModelData() {
+		setName("Model");
 		addObject("material", new SFLibraryReference<Material>());
 		addObject("geometry", new SFLibraryReference<Mesh>());
 	}

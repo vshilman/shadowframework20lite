@@ -56,7 +56,6 @@ public class SFDictionary implements SFDatabase{
 	
 	public void writeDataset(SFOutputStream stream, SFDataAsset<?> dataset) {
 		int index=assetsList.indexOf(dataset.getName());
-		System.err.println("What is the index? "+index+" "+dataset.getName());
 		if(index<0)
 			throw new SFException("Error writing dataset :"+(dataset.getName()));
 		stream.writeInt(index);
@@ -65,14 +64,16 @@ public class SFDictionary implements SFDatabase{
 
 	public SFDataAsset<?> readDataset(SFInputStream stream,String name) {
 		int index=stream.readInt();
-		System.err.println("#"+name+" "+" "+index);
+		//System.err.println("#"+name+" "+" "+index);
 		String datasetName = assetsList.get(index);
 		SFDataAsset<?> dataset=library.retrieveDataset(datasetName);
 		dataset = dataset.copyDataset();
 		dataset.readFromStream(stream);
 		//this is the point: here I store the dataset.
-		if(checkName(name))
+		if(checkName(name)){
+			assetsList.add(name);
 			library.put(name, dataset);
+		}
 		return dataset;
 	}
 	

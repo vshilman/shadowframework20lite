@@ -10,6 +10,7 @@ import shadow.system.data.objects.SFDataAssetObject;
 public class MeshData extends SFDataAsset<Mesh>{
 
 	public MeshData() {
+		setName("Mesh");
 		addObject("mesh", new SFDataAssetObject<ArrayObject>(new ArrayObjectData()));
 	}
 	
