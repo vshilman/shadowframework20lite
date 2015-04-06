@@ -25,7 +25,7 @@ public class Briscola implements IGame {
 		carteLibere= new ArrayList<Integer>();
 		compilaCarte();
 		possiblePlayers= new ArrayList<Integer>();
-		possiblePlayers.add(2);
+//		possiblePlayers.add(2);
 		possiblePlayers.add(4);
 		storedCards= new ArrayList<Integer>();
 		this.numberOfPlayers=numberOfPlayers;
@@ -90,6 +90,7 @@ public class Briscola implements IGame {
 	@Override
 	public void setPlayer(int position, String name) {
 		orderedPlayers.set(position, name);
+		
 		
 	}
 	

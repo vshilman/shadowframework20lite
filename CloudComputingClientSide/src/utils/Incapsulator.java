@@ -20,7 +20,9 @@ public class Incapsulator{
 	private static String FOOTERNPLAYERS="</nPlayers>";
 	private static String HEADERSPECTABLE="<spectable>";
 	private static String FOOTERSPECTABLE="</spectable>";
-	
+	private static String HEADERMANAGER="<manager>";
+	private static String FOOTERMANAGER="</manager>";
+
 	private static String HEADERLIST="<listaOnline>";
 	private static String HEADERUSER="<user>";
 	private static String FOOTERLIST="</listaOnline>";
@@ -55,7 +57,8 @@ public class Incapsulator{
 			for (int i = 0; i < tableMap.get(id).getPlayersSupported(); i++) {
 				messageConverted=messageConverted+"<p"+(i+1)+">"+tableMap.get(id).getPlayersList().get(i)+"</p"+(i+1)+">";
 			}
-			messageConverted=messageConverted+HEADERSPECTABLE+tableMap.get(id).isSpectable()+FOOTERSPECTABLE+FOOTERTABLE;
+			messageConverted=messageConverted+HEADERSPECTABLE+tableMap.get(id).isSpectable()+FOOTERSPECTABLE;
+			messageConverted=messageConverted+HEADERMANAGER+tableMap.get(id).getManager()+FOOTERMANAGER+FOOTERTABLE;
 		}
 		messageConverted=messageConverted+FOOTERTABLELIST;
 		

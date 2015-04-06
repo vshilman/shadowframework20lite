@@ -221,80 +221,82 @@ public class Computator {
 		}
 	}
 	
-	public void checkRequest(String message, Table table){
-		if (message.equals(NEW_TABLE)) {
-			tableMap.put(table.getId(), table);
-			Set<String> keys=onlineMap.keySet();
-			for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
-				String string = (String) iterator.next();
-				Mediator.getCMed().sendRequestOnService(onlineMap.get(string).getIp(), Mediator.getMed().getCoder().convert(UPDATE_TABLE_MAP), Mediator.getMed().getCoder().convertTableMap(tableMap));
-			}
-		}
-	}
+//	public void checkRequest(String message, Table table){
+//		if (message.equals(NEW_TABLE)) {
+//			tableMap.put(table.getId(), table);
+//			Set<String> keys=onlineMap.keySet();
+//			for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
+//				String string = (String) iterator.next();
+//				Mediator.getCMed().sendRequestOnService(onlineMap.get(string).getIp(), Mediator.getMed().getCoder().convert(UPDATE_TABLE_MAP), Mediator.getMed().getCoder().convertTableMap(tableMap));
+//			}
+//		}
+//	}
 	
 	
-	public void checkRequest(List<String> messageList){
-		//TODO: DO SOMETHING
-		
-		
-	}
+//	public void checkRequest(List<String> messageList){
+//		//TODO: DO SOMETHING
+//		
+//		
+//	}
 	
 	public void checkRequest(String type, HashMap map){
 		if (type.equals("online")) {
 			this.onlineMap.putAll(map);
 		}else if (type.equals("table")||type.equals(UPDATE_TABLE_MAP)) {
 			this.tableMap.putAll(map);
+			if (me.getNick().equals(serviceMap.get(DEALER).getNick())) {
+				Set<String> keys=onlineMap.keySet();
+				for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
+					String string = (String) iterator.next();
+					Mediator.getCMed().sendRequestOnService(onlineMap.get(string).getIp(), Mediator.getMed().getCoder().convert(UPDATE_TABLE_MAP), Mediator.getMed().getCoder().convertTableMap(tableMap));
+				}
+			}
 		}
 		
 	}
 	
 	
-	public void addNewTable(String tableName){
+	public void addNewTable(String tableName, boolean spectable){
 		if (me.getNick().isEmpty()) {
 			Mediator.getGMed().generateDialog("  Please, login first!");
 			
-		}else{
-			compilaCarte();
+		}else if (me.getGame().equals("Briscola")){
 			generateID();
 			r= new Random(ID);
 			playersMap= new HashMap<String, User>();
 			String tableNameComposed=ID+tableName;
-			Table newTable= generateTable(tableNameComposed, ID, playersSupported, new ArrayList<>(), true);
-			
-//			for (int i = 0; i < 40; i++) {
-//
-////				System.out.println("------->"+i);
-//				System.out.println(nextCard());
-//
-//			}
-			//TODO: finire
-		
-			serviceMap.put(tableNameComposed, me);
-			freePlaceMap.put(tableNameComposed, 0);
-			objectsToSend.add(NEW_TABLE);
-			objectsToSend.add(tableNameComposed);
+			List<String> playersNames= new ArrayList<String>();
+			playersNames.add(me.getNick());
+			int numberOfPlayers=0;
+			if (me.getGame().equals("Briscola")) {
+				numberOfPlayers=4;
+			}else {
+				numberOfPlayers=2;
+			}
+			Table newTable= generateTable(tableNameComposed, ID, me.getGame(), numberOfPlayers, playersNames, spectable, me.getNick());
+			serviceMap.put(newTable.getId()+me.getNick(), me);
+
+			tableMap.put(newTable.getId(), newTable);
 			if (!me.getNick().equals(serviceMap.get(DEALER).getNick())) {
-				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), objectsToSend);
-				tables.putAll((HashMap<String, Boolean>)Mediator.getCMed().getAns());
+				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(),Mediator.getMed().getCoder().convert(UPDATE_TABLE_MAP), Mediator.getMed().getCoder().convertTableMap(tableMap));
+				tableMap.putAll(Mediator.getMed().getDecoder().decodeTableMap(Mediator.getCMed().getAns()));
 				Mediator.getGMed().refreshPanel();
 				//TODO:EVENTUALMENTE DA FINIRE
 			}else {
-				tables.put(tableNameComposed, isFree(tableNameComposed));
-				objectsToSend.add(UPDATE_TABLE_MAP);
-				objectsToSend.add(tables);
-				Mediator.getCMed().updateOnlineMap(objectsToSend);
-				objectsToSend.clear();
+				checkRequest(UPDATE_TABLE_MAP, tableMap);
 				Mediator.getGMed().refreshPanel();
 				//TODO ATTENZIONE
 			}
 			objectsToSend.clear();
 			
 			
+		}else if (me.getGame().equals("Memory")){
+		//TODO: simile alla briscolazza
 		}
 	}
 	
-	public Table generateTable(String name, int id, int playersSupported, List<String> playersList, boolean spectable){
-		return new Table(name, id, playersSupported, playersList, spectable);
+	public Table generateTable(String name, int id, String game, int playersSupported, List<String> playersList, boolean spectable, String manager){
+		return new Table(name, id, game, playersSupported, playersList, spectable, manager);
 	}
 	
 	public void enterTable(String tableName, String type){
@@ -351,8 +353,15 @@ public class Computator {
 	}
 	
 	public HashMap<String, Boolean> getTables(String gameType){
-		//TODO: scegliere il dealer giusto
-		return tables;
+		HashMap<String, Boolean> requestedTables=new HashMap<String, Boolean>();
+		Set<Integer> keySet= tableMap.keySet();
+		for (Iterator iterator = keySet.iterator(); iterator.hasNext();) {
+			Integer id = (Integer) iterator.next();
+			if (tableMap.get(id).getGame().equals(gameType)) {
+				requestedTables.put(tableMap.get(id).getName()+"$$||$$"+me.getNick(), tableMap.get(id).isEmpty());
+			}
+		}
+		return requestedTables;
 	}
 
 	public String getNick(){

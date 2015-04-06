@@ -121,8 +121,8 @@ public class DeIncapsulator {
 					players.add(eElement.getElementsByTagName("p"+(i+1)).item(0).getTextContent());
 				}
 				boolean spectation=Boolean.parseBoolean(eElement.getElementsByTagName("spectable").item(0).getTextContent());
-				
-				Table table= Mediator.getMed().getComputator().generateTable(name, id, nPlayers, players, spectation);
+				String manager=eElement.getElementsByTagName("manager").item(0).getTextContent();
+				Table table= Mediator.getMed().getComputator().generateTable(name, id, nPlayers, players, spectation, manager);
 				
 				tableMapObtained.put(id, table);
 			}
