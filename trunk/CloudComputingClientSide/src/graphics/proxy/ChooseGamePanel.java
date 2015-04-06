@@ -18,6 +18,7 @@ public class ChooseGamePanel extends JPanel implements IProxyGraphic {
 	private JLabel message= new JLabel("Scegli a quale gioco giocare: ");
 	private List<String> games= new ArrayList<String>();
 	private IButton button;
+	
 	public ChooseGamePanel() {
 		games.addAll(Mediator.getMed().getAvailableGames());
 		

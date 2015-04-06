@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -32,19 +34,22 @@ public class GameMenu extends JMenu{
 				dialog.setSize(new Dimension(300, 100));
 				dialog.setLocationRelativeTo(null);
 				dialog.setName("New Table");
-				dialog.setLayout(new GridLayout(2, 1));
+				dialog.setLayout(new GridLayout(2, 2));
 				dialog.add(new JLabel("Name your table:"));
 				dialog.add(field);
+				dialog.add(new JLabel("allow Spectators:"));
+				final JCheckBox check= new JCheckBox();
+				dialog.add(check);
 				button=new JButton("OK");
 				button.addActionListener(new ActionListener() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (field.getText().isEmpty()) {
-							Mediator.getMed().getComputator().addNewTable("Come to Play");
+							Mediator.getMed().getComputator().addNewTable("Come to Play", check.isSelected());
 							
 						}else {
-							Mediator.getMed().getComputator().addNewTable(field.getText());
+							Mediator.getMed().getComputator().addNewTable(field.getText(), check.isSelected());
 						}
 						
 						dialog.dispose();
