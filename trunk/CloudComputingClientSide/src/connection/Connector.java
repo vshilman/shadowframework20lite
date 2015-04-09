@@ -38,6 +38,7 @@ public class Connector{
 	private String GAMEHEAD="&game=";
 	private String PLATFORM= "&platform=java";
 	
+	private User welcomer;
 	private HttpURLConnection connection;
 	private URL url;
 	private String ans= new String();
@@ -159,7 +160,6 @@ public class Connector{
 		}
 	}
 	public void getWelcome(){
-		
 		try {
 			url= new URL("http://"+ip+":8080/ccom/HomeJava");
 			connection=(HttpURLConnection)url.openConnection();
@@ -168,8 +168,7 @@ public class Connector{
 			connection.setRequestProperty("User-Agent", "Java");
 			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			User welcomer=Mediator.getMed().getDecoder().decodeUser(reader.readLine());
-			Mediator.getMed().getComputator().checkAns(welcomer);
+			welcomer=Mediator.getMed().getDecoder().decodeUser(reader.readLine());
 			reader.close();
 			
 		} catch (MalformedURLException e) {
@@ -177,8 +176,7 @@ public class Connector{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+		Mediator.getMed().getComputator().checkAns(welcomer);
 		
 	}
 

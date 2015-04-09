@@ -6,19 +6,21 @@ public class TCPServersManager{
 
 	private Thread service;
 	private Thread gaming;
-	private ServiceServer serviceServer;
+	private ServiceServer serviceServer= new ServiceServer();
 	private GamingServer gamingServer;
 	
 	public TCPServersManager() {
 		
 		service= new Thread(serviceServer);
+		service.setDaemon(true);
 		gaming= new Thread(gamingServer);
 		
 	}
 	
 	
 	public void openServiceServer(){
-			service.run();
+			service.start();
+			System.out.println(service.isDaemon());
 	}
 	public void openGamingServer(){
 		gaming.run();

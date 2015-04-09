@@ -22,6 +22,7 @@ public class TCPServiceClient implements ITCPClient {
 	public TCPServiceClient(String ip) {
 
 		try {
+			System.out.println("Entro nel costruttore");
 			clientSocket = new Socket(ip, 3000);
 			out = new DataOutputStream(clientSocket.getOutputStream());
 			in = new DataInputStream(clientSocket.getInputStream());
@@ -68,20 +69,6 @@ public class TCPServiceClient implements ITCPClient {
 		
 	}
 
-	@Override
-	public void send(String codedMessage, String codedSecond) {
-		try {
-			out.writeChars(codedMessage);
-			out.writeChars(codedSecond);
-			out.flush();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		obtainAnswer();
-	}
-	
 	@Override
 	public void closeConnection() {
 		try {

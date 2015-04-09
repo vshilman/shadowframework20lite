@@ -10,8 +10,6 @@ public interface ITCPClient {
 	
 	public void send(String message);
 	
-	public void send(String codedMessage, String codedSecond);
-
 
 	public void closeConnection();
 
