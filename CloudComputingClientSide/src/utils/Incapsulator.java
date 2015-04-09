@@ -53,7 +53,7 @@ public class Incapsulator{
 		messageConverted=FILEHEADER+HEADERTABLELIST;
 		for (Iterator<Integer> iterator = tableID.iterator(); iterator.hasNext();) {
 			Integer id = (Integer) iterator.next();
-			messageConverted=messageConverted+HEADERTABLE+HEADERNAME+tableMap.get(id).getName()+FOOTERNAME+HEADERID+id+FOOTERID+HEADERNPLAYERS+tableMap.get(id).getPlayersSupported()+FOOTERNPLAYERS;
+			messageConverted=messageConverted+HEADERTABLE+HEADERNAME+tableMap.get(id).getName()+FOOTERNAME+HEADERID+id+FOOTERID+HEADERGAME+tableMap.get(id).getGame()+FOOTERGAME+HEADERNPLAYERS+tableMap.get(id).getPlayersSupported()+FOOTERNPLAYERS;
 			for (int i = 0; i < tableMap.get(id).getPlayersSupported(); i++) {
 				messageConverted=messageConverted+"<p"+(i+1)+">"+tableMap.get(id).getPlayersList().get(i)+"</p"+(i+1)+">";
 			}
@@ -99,6 +99,11 @@ public class Incapsulator{
 	
 	public String convert(String message){
 		messageConverted=FILEHEADER+MESSAGEHEADER+message+MESSAGEFOOTER;
+		return messageConverted;
+	}
+	
+	public String convert(int id) {
+		messageConverted=FILEHEADER+HEADERID+id+FOOTERID;
 		return messageConverted;
 	}
 	
