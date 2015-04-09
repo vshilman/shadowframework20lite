@@ -114,7 +114,7 @@ public class DeIncapsulator {
 				String name=eElement.getElementsByTagName("name").item(0).getTextContent();
 				int id=Integer.parseInt(eElement.getElementsByTagName("ID").item(0).getTextContent());
 				NodeList nList2=eElement.getElementsByTagName("nPlayers");
-					
+				String game=eElement.getElementsByTagName("game").item(0).getTextContent();
 				int nPlayers=Integer.parseInt(nList2.item(0).getTextContent());
 				List<String> players= new ArrayList<String>();
 				for (int i = 0; i < nPlayers; i++) {
@@ -122,7 +122,7 @@ public class DeIncapsulator {
 				}
 				boolean spectation=Boolean.parseBoolean(eElement.getElementsByTagName("spectable").item(0).getTextContent());
 				String manager=eElement.getElementsByTagName("manager").item(0).getTextContent();
-				Table table= Mediator.getMed().getComputator().generateTable(name, id, nPlayers, players, spectation, manager);
+				Table table= Mediator.getMed().getComputator().generateTable(name, id, game, nPlayers, players, spectation, manager);
 				
 				tableMapObtained.put(id, table);
 			}
@@ -190,6 +190,26 @@ public class DeIncapsulator {
 		return messageDecoded;
 		
 	}
+	public Integer decodeId(String idEncoded) {
+		int messageDecoded=-1;
+		try{
+			
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(new InputSource(new StringReader(idEncoded)));
+
+			doc.getDocumentElement().normalize();
+
+			messageDecoded=Integer.parseInt(doc.getElementsByTagName("id").item(0).getTextContent());
+			} catch (SAXException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return messageDecoded;
+	}
 	
 	public String whichMethodUse(String xml){
 		try{
@@ -207,7 +227,11 @@ public class DeIncapsulator {
 				return "tableMap";
 			}else if (doc.getElementsByTagName("message")!=null) {
 				return "message";
-			} 
+			}else if (doc.getElementsByTagName("id")!=null) {
+				return "id";
+			}else if (doc.getElementsByTagName("user")!=null) {
+				return "user";
+			}
 		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
