@@ -17,7 +17,6 @@ public class ConnectionMediator {
 	private static Connector connection;
 	private static ITCPClient serviceClient;
 	private static TCPServersManager serverManager;
-	private static ConnectionMediator cMed;
 	private static HashMap<String, User> onlinePlayers;
 	
 	public ConnectionMediator() {
@@ -63,7 +62,7 @@ public class ConnectionMediator {
 	public void closeServiceServer(){
 		serverManager.closeServiceServer();
 	}
-	public void sendAnswerOnService(Object objectsToSend){
+	public void sendAnswerOnService(String objectsToSend){
 		serverManager.getServiceServer().sendAnswer(objectsToSend);
 	}
 	public String getAns(){
