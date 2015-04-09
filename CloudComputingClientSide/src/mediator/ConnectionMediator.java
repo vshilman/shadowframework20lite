@@ -1,5 +1,6 @@
 package mediator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -44,14 +45,17 @@ public class ConnectionMediator {
 	
 	public void sendRequestOnService(String ip,String codedMessage, String codedSecond){
 		serviceClient=new TCPServiceClient(ip);
-		serviceClient.send(codedMessage,codedSecond);
+		List<String> messageList= new ArrayList<String>();
+		messageList.add(codedMessage);
+		messageList.add(codedSecond);
+		serviceClient.send(Mediator.getMed().getCoder().convert(messageList));
 		answer=serviceClient.getAnswer();
-		secondMessage=serviceClient.getSecondMessage();
 		serviceClient.closeConnection();
 	}
 	
 	public void sendRequestOnService(String ip, String codedOne){
 		serviceClient=new TCPServiceClient(ip);
+		System.out.println("Ci sono");
 		serviceClient.send(codedOne);
 		answer=serviceClient.getAnswer();
 		serviceClient.closeConnection();

@@ -29,18 +29,14 @@ public class ServiceServer implements Runnable {
 	private static final String ENTER_TABLE = "enter_table";
 	private static final String UNKNOWN= "unknown";
 	private ServerSocket service;
-	private HashMap<String, User> serviceMap= new HashMap<String, User>();
 	private BufferedReader reader;
 	private BufferedWriter writer;
 	private String request;
-	private String request2;
+	private List<String> request2;
 	private String method;
 		
 	public ServiceServer() {
 		super();
-		serviceMap.putAll(Mediator.getMed().getComputator().getServiceMap());
-		
-
 	}
 	
 	@Override
@@ -48,35 +44,30 @@ public class ServiceServer implements Runnable {
 			try {
 				service=new ServerSocket(3000);
 				
-			while (true) {
-				if (!serviceMap.equals(Mediator.getCMed().getServiceMap())) {
-					serviceMap.putAll(Mediator.getCMed().getServiceMap());
-				}
+//			while (true) {
+				System.out.println("while true");
 				Socket connection=service.accept();
+				System.out.println("accettata");
 				if (connection.isConnected()) {
 					reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
 					writer=new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
 					request=reader.readLine();
 					method=Mediator.getMed().getDecoder().whichMethodUse(request);
-					if (method.equals(MESSAGE)) {
-						request2=reader.readLine();
-						String whichIs=Mediator.getMed().getDecoder().whichMethodUse(request2);
-						if (request2!=null) {
-							if (whichIs.equals(USER)) {
-								Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request),Mediator.getMed().getDecoder().decodeUser(request2));
-							}else if (whichIs.equals(TABLEMAP)) {
-								Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request),Mediator.getMed().getDecoder().decodeTableMap(request2));
-							}else if (whichIs.equals(ONLINELIST)){
-								Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request),Mediator.getMed().getDecoder().decodeUsersMap(request2));
-							}else if (method.equals("id")) {
-								Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request),Mediator.getMed().getDecoder().decodeId(request2), connection.getInetAddress().getHostAddress());
-							}
-							
-						}else {
-							Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request));
+					if (method.equals(MESSAGELIST)) {
+						request2=Mediator.getMed().getDecoder().decodeMessageList(request);
+						String whichIs=Mediator.getMed().getDecoder().whichMethodUse(request2.get(1));
+						if (whichIs.equals(USER)) {
+							Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request2.get(0)),Mediator.getMed().getDecoder().decodeUser(request2.get(1)));
+						}else if (whichIs.equals(TABLEMAP)) {
+							Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request2.get(0)),Mediator.getMed().getDecoder().decodeTableMap(request2.get(1)));
+						}else if (whichIs.equals(ONLINELIST)){
+							Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request2.get(0)),Mediator.getMed().getDecoder().decodeUsersMap(request2.get(1)));
+						}else if (method.equals("id")) {
+							Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request2.get(0)),Mediator.getMed().getDecoder().decodeId(request2.get(1)), connection.getInetAddress().getHostAddress());
 						}
-					}else if (method.equals(MESSAGELIST)) {
-						Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessageList(request));
+						
+					}else if (method.equals(MESSAGE)){
+						Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request));
 					}else if (method.equals(ONLINELIST)) {
 						Mediator.getMed().getComputator().checkRequest("online",Mediator.getMed().getDecoder().decodeUsersMap(request));
 					}else if (method.equals(TABLEMAP)) {
@@ -86,7 +77,7 @@ public class ServiceServer implements Runnable {
 					}
 				}	
 				
-			}
+//			}
 			
 			} catch (IOException e) {
 				
