@@ -21,8 +21,8 @@ public class Mediator {
 	
 	public Mediator() {
 		availableGames= new ArrayList<String>();
-		availableGames.add("Briscola");
-		availableGames.add("Memory");
+		availableGames.add("briscola");
+		availableGames.add("memory");
 	}
 
 	static {

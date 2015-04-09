@@ -5,11 +5,14 @@ import graphics.Card;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -82,7 +85,7 @@ public class BriscolaPanel extends JPanel implements IProxyGraphic{
 			panel= new JPanel();
 			panel.setPreferredSize(new Dimension(230, 114));
 			for (int i = 0; i < 3; i++) {
-				card=new Card(Mediator.getPMed().nextCard());
+				card=new Card(Mediator.getPMed().getCardBack());
 				panel.add(card);
 			}
 			myCards.add(panel, BorderLayout.CENTER);
@@ -90,7 +93,16 @@ public class BriscolaPanel extends JPanel implements IProxyGraphic{
 			myCards.add(new JLabel(), BorderLayout.SOUTH);
 	
 			add(myCards, BorderLayout.SOUTH);
-			
+			JButton startGame= new JButton("Start!");
+			startGame.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Mediator.getMed().getComputator().startGame();
+				}
+			});
+			centerTable.add(startGame);
+			add(centerTable, BorderLayout.CENTER);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
