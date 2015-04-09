@@ -3,8 +3,10 @@ package connection.tcp.server;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -24,10 +26,12 @@ public class ServiceServer implements Runnable {
 	private static final String TABLEMAP= "tableMap";
 	private static final String MESSAGE= "message";
 	private static final String USER="user";
+	private static final String ENTER_TABLE = "enter_table";
 	private static final String UNKNOWN= "unknown";
 	private ServerSocket service;
 	private HashMap<String, User> serviceMap= new HashMap<String, User>();
 	private BufferedReader reader;
+	private BufferedWriter writer;
 	private String request;
 	private String request2;
 	private String method;
@@ -51,6 +55,7 @@ public class ServiceServer implements Runnable {
 				Socket connection=service.accept();
 				if (connection.isConnected()) {
 					reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					writer=new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
 					request=reader.readLine();
 					method=Mediator.getMed().getDecoder().whichMethodUse(request);
 					if (method.equals(MESSAGE)) {
@@ -63,6 +68,8 @@ public class ServiceServer implements Runnable {
 								Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request),Mediator.getMed().getDecoder().decodeTableMap(request2));
 							}else if (whichIs.equals(ONLINELIST)){
 								Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request),Mediator.getMed().getDecoder().decodeUsersMap(request2));
+							}else if (method.equals("id")) {
+								Mediator.getMed().getComputator().checkRequest(Mediator.getMed().getDecoder().decodeMessage(request),Mediator.getMed().getDecoder().decodeId(request2), connection.getInetAddress().getHostAddress());
 							}
 							
 						}else {
@@ -88,9 +95,14 @@ public class ServiceServer implements Runnable {
 			
 		
 	}
-	public void sendAnswer(Object answer){
-		encoder.writeObject(answer);
-		encoder.flush();
+	public void sendAnswer(String answer){
+		try {
+			writer.write(answer);
+			writer.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
