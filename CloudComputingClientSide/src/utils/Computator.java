@@ -46,6 +46,7 @@ public class Computator {
 	private HashMap<String, User> onlineMap;
 	private HashMap<Integer, Table> tableMap;
 	private HashMap<String, Integer> freePlaceMap;
+	private Table actualTable;
 
 	private Random r;
 	private List<Integer> carteLibere=new ArrayList<Integer>();
@@ -158,7 +159,7 @@ public class Computator {
 			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
 			serviceMap.put(WELCOMER, me);
 			serviceMap.put(DEALER, me);
-			Mediator.getGMed().setChoosePanel();
+			Mediator.getGMed().setRoomsPanel(me.getGame());
 		}else if (user.getPlatform().equals(JAVA)) {
 
 			serviceMap.put(WELCOMER, user);
@@ -183,8 +184,7 @@ public class Computator {
 
 			tableMap.putAll(Mediator.getMed().getDecoder().decodeTableMap(Mediator.getCMed().getAns()));
 			
-			Mediator.getGMed().setChoosePanel();
-			
+			Mediator.getGMed().setRoomsPanel(me.getGame());			
 						
 						
 		}else if (user.getPlatform().equals(HTML)) {
@@ -193,8 +193,8 @@ public class Computator {
 			serviceMap.put(WELCOMER, me);
 			serviceMap.put(DEALER, me);
 			
-			Mediator.getGMed().setChoosePanel();
-		}
+			Mediator.getGMed().setRoomsPanel(me.getGame());
+			}
 	}
 	
 	
@@ -267,15 +267,15 @@ public class Computator {
 		if (me.getNick().isEmpty()) {
 			Mediator.getGMed().generateDialog("  Please, login first!");
 			
-		}else if (me.getGame().equals("Briscola")){
+		}else if (me.getGame().equals("briscola")){
 			generateID();
 			r= new Random(ID);
 			playersMap= new HashMap<String, User>();
-			String tableNameComposed=ID+tableName;
+			String tableNameComposed=tableName;
 			List<String> playersNames= new ArrayList<String>();
 			playersNames.add(me.getNick());
 			int numberOfPlayers=0;
-			if (me.getGame().equals("Briscola")) {
+			if (me.getGame().equals("briscola")) {
 				numberOfPlayers=4;
 			}else {
 				numberOfPlayers=2;
@@ -284,6 +284,8 @@ public class Computator {
 			serviceMap.put(""+newTable.getId(), me);
 
 			tableMap.put(newTable.getId(), newTable);
+			Mediator.getGMed().setGamePanel(me.getGame());
+			actualTable=newTable;
 			if (!me.getNick().equals(serviceMap.get(DEALER).getNick())) {
 				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(),Mediator.getMed().getCoder().convert(UPDATE_TABLE_MAP), Mediator.getMed().getCoder().convertTableMap(tableMap));
 				tableMap.putAll(Mediator.getMed().getDecoder().decodeTableMap(Mediator.getCMed().getAns()));
@@ -306,11 +308,11 @@ public class Computator {
 	}
 	
 	public void enterTable(int tableID, String action){
-		
+		actualTable=tableMap.get(tableID);
 		if (action.equals(PLAY)) {
 			
 			Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), Mediator.getMed().getCoder().convert(ENTER_TABLE),Mediator.getMed().getCoder().convert(tableID));
-
+			
 			String ans=Mediator.getCMed().getAns();
 			String kind=Mediator.getMed().getDecoder().whichMethodUse(ans);
 			if (kind.equals("user")) {
@@ -319,7 +321,7 @@ public class Computator {
 				serviceMap.put(MANAGER, manager);
 				Mediator.getCMed().sendRequestOnService(manager.getIp(), Mediator.getMed().getCoder().convert(GET_PLAYERS_MAP));
 				playersMap.putAll(Mediator.getMed().getDecoder().decodeUsersMap(Mediator.getCMed().getAns()));
-				Mediator.getGMed().setGamePanel();
+				Mediator.getGMed().setGamePanel(actualTable.getGame());
 
 			}else {
 				Mediator.getGMed().generateDialog(" "+Mediator.getMed().getDecoder().decodeMessage(ans));
@@ -338,14 +340,16 @@ public class Computator {
 		//TODO: Da sistemare!
 		
 	}
-	
-	public HashMap<String, Boolean> getTables(String gameType){
-		HashMap<String, Boolean> requestedTables=new HashMap<String, Boolean>();
+	public void startGame(){
+		//TODO: Da sistemare!
+	}
+	public HashMap<Integer, Table> getTables(String gameType){
+		HashMap<Integer, Table> requestedTables=new HashMap<Integer, Table>();
 		Set<Integer> keySet= tableMap.keySet();
 		for (Iterator iterator = keySet.iterator(); iterator.hasNext();) {
 			Integer id = (Integer) iterator.next();
 			if (tableMap.get(id).getGame().equals(gameType)) {
-				requestedTables.put(tableMap.get(id).getName()+"$$||$$"+me.getNick(), tableMap.get(id).isEmpty());
+				requestedTables.put(id,tableMap.get(id));
 			}
 		}
 		return requestedTables;

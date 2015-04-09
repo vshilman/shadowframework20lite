@@ -13,32 +13,32 @@ import javax.swing.JPanel;
 
 import mediator.Mediator;
 import utils.Substring;
+import utils.Table;
 
 public class RoomsPanel extends JPanel implements IProxyGraphic{
 
-	private HashMap<String, Boolean> tables= new HashMap<String, Boolean>();
+	private HashMap<Integer, Table> tables= new HashMap<Integer, Table>();
 	private JPanel buttonsPanel;
 	private String gameType;
 	
 	public RoomsPanel(String gameType) {
-		build();
+		build(Mediator.getMed().getComputator().getTables(gameType));
 		this.gameType=gameType;
 	}
 	
-	private void build(){
+	private void build(HashMap<Integer, Table> tablesMap){
 		removeAll();
-		tables.putAll(Mediator.getMed().getComputator().getTables(gameType));
+		tables.clear();
+		tables.putAll(tablesMap);
 		setLayout(new GridLayout(tables.size(), 3));
-		Set<String> tablesName= tables.keySet();
+		Set<Integer> tablesName= tables.keySet();
 		for (Iterator iterator = tablesName.iterator(); iterator.hasNext();) {
-			String codified=(String)iterator.next();
-			Substring sub= new Substring(codified, "$$||$$");
-
-			String tableName = sub.nextSubString();
-			String tableOwner=sub.nextSubString();
+			Integer tableID=(Integer)iterator.next();
+			String tableName = tables.get(tableID).getName();
+			String tableOwner=tables.get(tableID).getManager();
 			add(new JLabel(tableName));
 			add(new JLabel(tableOwner));
-			add(generateButtonsPanel(tableName, tables.get(codified)));
+			add(generateButtonsPanel(tableName, tables.get(tableID).isEmpty()));
 			
 		}
 		validate();
@@ -64,13 +64,13 @@ public class RoomsPanel extends JPanel implements IProxyGraphic{
 	}
 	@Override
 	public void refreshPanel() {
-		build();
+		build(Mediator.getMed().getComputator().getTables(gameType));
 		
 	}
 	
 	@Override
 	public JPanel setUpPanel() {
-		build();
+		build(Mediator.getMed().getComputator().getTables(gameType));
 		return this;
 	}
 	

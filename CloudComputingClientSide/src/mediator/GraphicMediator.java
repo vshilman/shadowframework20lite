@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import graphics.FileMenu;
 import graphics.GameMenu;
+import graphics.proxy.BriscolaPanel;
 import graphics.proxy.ChooseGamePanel;
 import graphics.proxy.IProxyGraphic;
 import graphics.proxy.LoggingPanel;
@@ -104,6 +105,7 @@ public class GraphicMediator {
 	}
 	public void setRoomsPanel(String gameName){
 			((RoomsPanel) roomsPanel).setGame(gameName);
+			roomsPanel.setUpPanel();
 			proxyPanel.setPanel(roomsPanel);
 			Mediator.getCMed().getConnection().setGame(gameName);
 			Mediator.getMed().getComputator().setUserGame(gameName);
@@ -129,7 +131,18 @@ public class GraphicMediator {
 		return buttonFactory.createGameButton(game);
 	}
 	
-	public void setGamePanel(){
+	public void setGamePanel(String game){
+		if (game.equals("briscola")) {
+			frame.getContentPane().removeAll();
+			frame.getContentPane().repaint();
+			frame.getContentPane().add(new BriscolaPanel());
+			frame.getContentPane().validate();
+		}else if (game.equals("memory")) {
+			frame.getContentPane().removeAll();
+			frame.getContentPane().repaint();
+			frame.getContentPane().add(new JPanel());
+			frame.getContentPane().validate();
+		}
 		
 	}
 }
