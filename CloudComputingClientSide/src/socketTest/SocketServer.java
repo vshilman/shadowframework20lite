@@ -13,7 +13,7 @@ public class SocketServer {
 	public static void main(String argv[]) throws Exception {
 		String clientSentence;
 		String capitalizedSentence;
-		welcomeSocket= new ServerSocket(3333);
+		welcomeSocket= new ServerSocket(3000);
 		Socket connectionSocket = welcomeSocket.accept();
 		DataOutputStream outToClient = new DataOutputStream(
 				connectionSocket.getOutputStream());

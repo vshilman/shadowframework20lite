@@ -1,47 +1,46 @@
 package connection.tcp.client;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.List;
-
-import mediator.Mediator;
-import utils.User;
 
 public class TCPServiceClient implements ITCPClient {
 
 	private Socket clientSocket;
 	private String answer;
 	private String secondMessage;
-	private DataInputStream in;
+	private InputStreamReader in;
 	private DataOutputStream out;
+	private String ip;
 
 	public TCPServiceClient(String ip) {
-
+		this.ip=ip;
 		try {
 			System.out.println("Entro nel costruttore");
 			clientSocket = new Socket(ip, 3000);
+			System.out.println("Socket Creato Correttamente");
+			in = new InputStreamReader(clientSocket.getInputStream());
 			out = new DataOutputStream(clientSocket.getOutputStream());
-			in = new DataInputStream(clientSocket.getInputStream());
+			System.out.println("creati i lettori");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-	//TODO: Tesi ferma al controllo ed implementazione di nuovi OBTAIN ANSWER che mi diano DIRETTAMENTE quello di cui ho bisogno!
-	//TODO: finire implementazione di CheckAns + Implementazione regole di gioco + grafica -> tesi finita
 	private void obtainAnswer() {
-		BufferedReader reader= new BufferedReader(new InputStreamReader(in));
+		System.out.println("istanzio lettore");
+		BufferedReader reader= new BufferedReader(in);
+		System.out.println("lettore istaziato Correttamente");
 		try {
+			System.out.println("tentativo di lettura flusso dati");
 			answer = reader.readLine();
-			String tmp= reader.readLine();
-			if (!tmp.isEmpty()) {
-				secondMessage=tmp;
-			}
-			
+			System.out.println("letto Correttamente: "+answer);
+//			String tmp= reader.readLine();
+//			if (!tmp.isEmpty()) {
+//				secondMessage=tmp;
+//			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,21 +58,31 @@ public class TCPServiceClient implements ITCPClient {
 	
 	@Override
 	public void send(String message){
+		System.out.println(clientSocket.isConnected()+"---"+clientSocket.getRemoteSocketAddress().toString());
+		int i=0;
+		
+		System.out.println("entro per invio di "+message+" a "+ip);
 		try {
-			out.writeChars(message);
+			out.writeBytes(message+ '\n'); 
+			out.writeBytes(""+'\n');
+//			out.writeBytes(message);
+//			out.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		obtainAnswer();
 		
+		System.out.println("inviati");
+		System.out.println("richiesta di risposta");
+		obtainAnswer();
+		System.out.println("risposta ottenuta");
 	}
 
 	@Override
 	public void closeConnection() {
 		try {
-			out.close();
 			in.close();
+			out.close();
 			clientSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -144,7 +144,6 @@ public class Computator {
 		}
 	}
 	
-	
 	public void checkAns(List<String> answer) {
 		
 		
@@ -234,7 +233,7 @@ public class Computator {
 			Set<String> keys=onlineMap.keySet();
 			for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
 				String string = (String) iterator.next();
-				Mediator.getCMed().sendRequestOnService(onlineMap.get(string).getIp(), Mediator.getMed().getCoder().convert(UPDATE_TABLE_MAP), Mediator.getMed().getCoder().convertTableMap(tableMap));
+				Mediator.getCMed().sendRequestOnService(onlineMap.get(string).getIp(), Mediator.getMed().getCoder().convertTableMap(tableMap));
 			}
 		}
 	}
@@ -255,7 +254,7 @@ public class Computator {
 				Set<String> keys=onlineMap.keySet();
 				for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
 					String string = (String) iterator.next();
-					Mediator.getCMed().sendRequestOnService(onlineMap.get(string).getIp(), Mediator.getMed().getCoder().convert(UPDATE_TABLE_MAP), Mediator.getMed().getCoder().convertTableMap(tableMap));
+					Mediator.getCMed().sendRequestOnService(onlineMap.get(string).getIp(), Mediator.getMed().getCoder().convertTableMap(tableMap));
 				}
 			}
 		}
@@ -287,7 +286,7 @@ public class Computator {
 			Mediator.getGMed().setGamePanel(me.getGame());
 			actualTable=newTable;
 			if (!me.getNick().equals(serviceMap.get(DEALER).getNick())) {
-				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(),Mediator.getMed().getCoder().convert(UPDATE_TABLE_MAP), Mediator.getMed().getCoder().convertTableMap(tableMap));
+				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), Mediator.getMed().getCoder().convertTableMap(tableMap));
 				tableMap.putAll(Mediator.getMed().getDecoder().decodeTableMap(Mediator.getCMed().getAns()));
 				Mediator.getGMed().refreshPanel();
 				//TODO:EVENTUALMENTE DA FINIRE

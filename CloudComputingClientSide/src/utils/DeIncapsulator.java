@@ -1,5 +1,6 @@
 package utils;
 
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -76,14 +77,43 @@ public class DeIncapsulator {
 		doc.getDocumentElement().normalize();
 
 		NodeList nList = doc.getElementsByTagName("messageList");
-		for (int temp = 0; temp < nList.getLength(); temp++) {
+		NodeList childs=nList.item(0).getChildNodes();
 
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-				Element eElement = (Element) nNode;
-				String message=eElement.getElementsByTagName("message").item(0).getTextContent();
-				messageList.add(message);
+		Node nNode = childs.item(0);
+		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+			Element eElement = (Element) nNode;
+			String nodeName=eElement.getFirstChild().getNodeName();
+			if (nodeName.equals("message")) {
+				messageList.add(Mediator.getMed().getCoder().convert(eElement.getElementsByTagName("message").item(0).getTextContent()));
+			}else if (nodeName.equals("user")) {
+				String nick=eElement.getElementsByTagName("nick").item(0).getTextContent();
+				String ip=eElement.getElementsByTagName("ip").item(0).getTextContent();
+				String platform=eElement.getElementsByTagName("platform").item(0).getTextContent();
+				String game=eElement.getElementsByTagName("game").item(0).getTextContent();
+				messageList.add(Mediator.getMed().getCoder().convert(new User(nick, ip, platform, game)));
+			}else if (nodeName.equals("id")) {
+				messageList.add(Mediator.getMed().getCoder().convert(Integer.parseInt(eElement.getElementsByTagName("id").item(0).getTextContent())));
 			}
+		}
+		nNode = childs.item(1);
+		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+			Element eElement = (Element) nNode;
+			String nodeName=eElement.getLastChild().getNodeName();
+			if (nodeName.equals("message")) {
+				messageList.add(Mediator.getMed().getCoder().convert(eElement.getElementsByTagName("message").item(0).getTextContent()));
+			}else if (nodeName.equals("user")) {
+				String nick=eElement.getElementsByTagName("nick").item(0).getTextContent();
+				String ip=eElement.getElementsByTagName("ip").item(0).getTextContent();
+				String platform=eElement.getElementsByTagName("platform").item(0).getTextContent();
+				String game=eElement.getElementsByTagName("game").item(0).getTextContent();
+				messageList.add(Mediator.getMed().getCoder().convert(new User(nick, ip, platform, game)));
+			}else if (nodeName.equals("id")) {
+				messageList.add(Mediator.getMed().getCoder().convert(Integer.parseInt(eElement.getElementsByTagName("id").item(0).getTextContent())));
+			}
+				
+//				String message=eElement.getElementsByTagName("arrayElement").item(0).getTextContent();
+//				System.out.println(message);
+//				messageList.add(message);
 		}
 	} catch (SAXException | IOException e) {
 		// TODO Auto-generated catch block
@@ -92,6 +122,8 @@ public class DeIncapsulator {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+		System.out.println(messageList.get(0));
+		System.out.println(messageList.get(1));
 		return messageList;
 	}
 	
@@ -213,23 +245,23 @@ public class DeIncapsulator {
 	
 	public String whichMethodUse(String xml){
 		try{
-			
+			System.out.println("------------------------->"+xml);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(new InputSource(new StringReader(xml)));
 			
 			doc.getDocumentElement().normalize();
-			if (doc.getElementsByTagName("messageList")!=null) {
+			if (doc.getElementsByTagName("messageList").getLength()!=0) {
 				return "messageList";
-			}else if (doc.getElementsByTagName("listaOnline")!=null) {
+			}else if (doc.getElementsByTagName("listaOnline").getLength()!=0) {
 				return "listaOnline";
-			}else if (doc.getElementsByTagName("tableMap")!=null) {
+			}else if (doc.getElementsByTagName("tableMap").getLength()!=0) {
 				return "tableMap";
-			}else if (doc.getElementsByTagName("message")!=null) {
+			}else if (doc.getElementsByTagName("message").getLength()!=0) {
 				return "message";
-			}else if (doc.getElementsByTagName("id")!=null) {
+			}else if (doc.getElementsByTagName("id").getLength()!=0) {
 				return "id";
-			}else if (doc.getElementsByTagName("user")!=null) {
+			}else if (doc.getElementsByTagName("user").getLength()!=0) {
 				return "user";
 			}
 		} catch (SAXException | IOException e) {
