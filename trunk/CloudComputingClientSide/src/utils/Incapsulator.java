@@ -8,6 +8,8 @@ import java.util.Set;
 
 public class Incapsulator{
 
+	private static final String ARRAYELEMENTFOOTER = "</arrayElement>";
+	private static final String ARRAYELEMENTHEADER = "<arrayElement>";
 	private static String HEADERTABLELIST="<tableMap>";
 	private static String FOOTERTABLELIST="</tableMap>";
 	private static String HEADERTABLE="<table>";
@@ -35,7 +37,7 @@ public class Incapsulator{
 	private static String FOOTERPLATFORM="</platform>";
 	private static String FOOTERIP="</ip>";
 	private static String FOOTERGAME="</game>";
-	private static String FILEHEADER="<?xml version=\"1.0\"?>";
+//	private static String FILEHEADER="<?xml version=\"1.0\"?>";
 	
 	private static String FILEMESSAGEHEADER="<messageList>";
 	private static String MESSAGEHEADER="<message>";
@@ -49,8 +51,9 @@ public class Incapsulator{
 	
 	
 	public String convertTableMap(HashMap<Integer, Table> tableMap) {
+		messageConverted="";
 		Set<Integer> tableID=tableMap.keySet();
-		messageConverted=FILEHEADER+HEADERTABLELIST;
+		messageConverted=HEADERTABLELIST;
 		for (Iterator<Integer> iterator = tableID.iterator(); iterator.hasNext();) {
 			Integer id = (Integer) iterator.next();
 			messageConverted=messageConverted+HEADERTABLE+HEADERNAME+tableMap.get(id).getName()+FOOTERNAME+HEADERID+id+FOOTERID+HEADERGAME+tableMap.get(id).getGame()+FOOTERGAME+HEADERNPLAYERS+tableMap.get(id).getPlayersSupported()+FOOTERNPLAYERS;
@@ -66,9 +69,9 @@ public class Incapsulator{
 	}
 	
 	public String convert(HashMap<String, User> onlineUsersMap) {
-		
+		messageConverted="";		
 		mainTag=onlineUsersMap.keySet();
-		messageConverted=FILEHEADER+HEADERLIST;
+		messageConverted=HEADERLIST;
 		for (Iterator<String> iterator = mainTag.iterator(); iterator.hasNext();) {
 			String nick = (String) iterator.next();
 			messageConverted=messageConverted+HEADERUSER+HEADERNICK+nick+FOOTERNICK+HEADERIP+onlineUsersMap.get(nick).getIp()+FOOTERIP+HEADERPLATFORM+onlineUsersMap.get(nick).getPlatform()+FOOTERPLATFORM+HEADERGAME+onlineUsersMap.get(nick).getGame()+FOOTERGAME+FOOTERUSER;
@@ -80,10 +83,11 @@ public class Incapsulator{
 	
 	
 	public String convert(List<String> messages){
-		messageConverted=FILEHEADER+FILEMESSAGEHEADER;
+		messageConverted="";
+		messageConverted=FILEMESSAGEHEADER;
 		for (int i = 0; i < messages.size(); i++) {
 			String actualMessage = messages.get(i);
-			messageConverted=messageConverted+MESSAGEHEADER+actualMessage+MESSAGEFOOTER;
+			messageConverted=messageConverted+ARRAYELEMENTHEADER+actualMessage+ARRAYELEMENTFOOTER;
 		}
 		messageConverted=messageConverted+FILEMESSAGEFOOTER;
 		
@@ -91,23 +95,25 @@ public class Incapsulator{
 	}
 	
 	public String convert(User user){
-		messageConverted=FILEHEADER;
+		messageConverted="";
+//		messageConverted=FILEHEADER;
 		messageConverted=messageConverted+HEADERUSER+HEADERNICK+user.getNick()+FOOTERNICK+HEADERIP+user.getIp()+FOOTERIP+HEADERPLATFORM+user.getPlatform()+FOOTERPLATFORM+HEADERGAME+user.getGame()+FOOTERGAME+FOOTERUSER;
-		
 		return messageConverted;
 	}
 	
 	public String convert(String message){
-		messageConverted=FILEHEADER+MESSAGEHEADER+message+MESSAGEFOOTER;
+		messageConverted="";
+		messageConverted=MESSAGEHEADER+message+MESSAGEFOOTER;
 		return messageConverted;
 	}
 	
 	public String convert(int id) {
-		messageConverted=FILEHEADER+HEADERID+id+FOOTERID;
+		messageConverted="";
+		messageConverted=HEADERID+id+FOOTERID;
 		return messageConverted;
 	}
 	
-	public String convert(List<String> listToConvert, String headerList, String elementsHeader, List<String> headers ){
-		return null;
-	}
+//	public String convert(List<String> listToConvert, String headerList, String elementsHeader, List<String> headers ){
+//		return null;
+//	}
 }
