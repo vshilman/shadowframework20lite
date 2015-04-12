@@ -1,8 +1,9 @@
 package mediator;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -24,21 +25,13 @@ public class ConnectionMediator {
 	}
 
 	static{
-		connection=new Connector("localhost");
+		connection=new Connector("192.168.1.5");
 		serverManager= new TCPServersManager();
 		onlinePlayers=new HashMap<String, User>();
-		
-		
 	}
-//	public void addOnlinePlayer(User user){
-//		onlinePlayers.put(user.getNick(), user);
-//	}
 	public HashMap<String, User> getServiceMap(){
 		return Mediator.getMed().getComputator().getServiceMap();
 	}
-//	public HashMap<String, User> getPlayersMap(){
-//		return Mediator.getMed().getComputator().getPlayersMap();
-//	}
 	public HashMap<String, User> getVisitorsMap(){
 		return Mediator.getMed().getComputator().getVisitorsMap();
 	}
@@ -78,26 +71,28 @@ public class ConnectionMediator {
 	public Connector getConnection() {
 		return connection;
 	}
+	public String getMyIp(){
+		String myIp="";
+		try {
+			myIp=Inet4Address.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		return myIp;
+	}
 	public HashMap<String, User> getOnlinePlayers() {
 		return onlinePlayers;
 	}
 	public void setOnlineMap(HashMap<String, User> map){
 		onlinePlayers.putAll(map);
+		Mediator.getMed().getComputator().updateOnlineMap(map);
 	}
 
-
-	
-	
-	
-//	private void activateDeamon(){
-//		thread.setDaemon(true);
-//		thread.start();
-//	}
 	
 	public void updateOnlineMap(HashMap<String, User> onlineMap) {
 		Set<String> nickOnline=onlinePlayers.keySet();
-		for (Iterator iterator = nickOnline.iterator(); iterator.hasNext();) {
-			String nick = (String) iterator.next();
+		for (String string : nickOnline) {
+			String nick = (String) string;
 			serviceClient=new TCPServiceClient(onlinePlayers.get(nick).getIp());
 			serviceClient.send(Mediator.getMed().getCoder().convert(onlinePlayers));
 			serviceClient.closeConnection();

@@ -31,6 +31,7 @@ public class GraphicMediator {
 	private static IProxyGraphic roomsPanel;
 	private static IProxyGraphic choosePanel;
 	private static IFactory buttonFactory;
+	private static String panelSetted;
 
 	public GraphicMediator() {
 
@@ -44,6 +45,7 @@ public class GraphicMediator {
 		roomsPanel= new RoomsPanel(null);
 		gameMenu= new GameMenu();
 		proxyPanel= new ProxyGraphic(logPanel);
+		panelSetted="login";
 		choosePanel= new ChooseGamePanel();
 
 	}
@@ -61,7 +63,12 @@ public class GraphicMediator {
 	public JPanel getMainPanel() {
 		return proxyPanel.setUpPanel();
 	}
-	
+	public boolean isThisPanelSetted(String panelName){
+		if (panelSetted.equals(panelName)) {
+			return true;
+		}
+		return false;
+	}
 	public void refreshPanel(){
 		proxyPanel.refreshPanel();
 	}
@@ -101,7 +108,7 @@ public class GraphicMediator {
 	public void setLoginPanel(){
 		proxyPanel.setPanel(logPanel);
 		refresh();
-
+		panelSetted="login";
 	}
 	public void setRoomsPanel(String gameName){
 			((RoomsPanel) roomsPanel).setGame(gameName);
@@ -110,13 +117,14 @@ public class GraphicMediator {
 			Mediator.getCMed().getConnection().setGame(gameName);
 			Mediator.getMed().getComputator().setUserGame(gameName);
 			refresh();
-		
+			panelSetted="rooms";
 	}
 	public void setChoosePanel() {
 		if (Mediator.getMed().getComputator().amILogged()) {
 	
 			proxyPanel.setPanel(choosePanel);
 			refresh();
+			panelSetted="choose";
 		}
 	}
 
@@ -143,6 +151,6 @@ public class GraphicMediator {
 			frame.getContentPane().add(new JPanel());
 			frame.getContentPane().validate();
 		}
-		
+		panelSetted="game";
 	}
 }

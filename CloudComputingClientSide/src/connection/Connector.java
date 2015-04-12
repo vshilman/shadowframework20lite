@@ -1,26 +1,16 @@
 package connection;
 
-import java.beans.XMLDecoder;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import mediator.Mediator;
-
-import org.xml.sax.SAXException;
-
 import utils.Table;
 import utils.User;
 
@@ -37,14 +27,12 @@ public class Connector{
 	private String PASSHEAD= "&password=";
 	private String GAMEHEAD="&game=";
 	private String PLATFORM= "&platform=java";
-	
+	private Thread updator;
 	private User welcomer;
 	private HttpURLConnection connection;
 	private URL url;
 	private String ans= new String();
-	private List<String> answer=new ArrayList<String>();
 	private String ip;
-	private HashMap<String, List<String>>map= new HashMap<String, List<String>>();
 
 	public Connector(String ip) {
 		this.ip=ip;
@@ -112,10 +100,10 @@ public class Connector{
 			e.printStackTrace();
 		}
 
-}
+	}
 	
 	
-	public void setMyselfAsWelcomer(){
+	public void setWelcomer(User newWelcomer){
 		try {
 			url= new URL("http://"+ip+":8080/ccom/HomeJava");
 			connection=(HttpURLConnection)url.openConnection();
@@ -124,7 +112,7 @@ public class Connector{
 			connection.setRequestProperty("User-Agent", "Java");
 			connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(NICKHEAD+Mediator.getMed().getComputator().getNick()+SET_ME_AS_WELCOMER_ACTION);
+			wr.writeBytes(NICKHEAD+newWelcomer.getNick()+SET_ME_AS_WELCOMER_ACTION);
 			wr.flush();
 			wr.close();
 			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -197,8 +185,9 @@ public class Connector{
 			wr.close();
 			
 			BufferedReader reader= new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			
-			onlineMap.putAll(Mediator.getMed().getDecoder().decodeUsersMap(reader.readLine()));
+			String ans=reader.readLine();
+
+			onlineMap.putAll(Mediator.getMed().getDecoder().decodeUsersMap(ans));
 			
 			Mediator.getCMed().setOnlineMap(onlineMap);
 			reader.close();
@@ -241,8 +230,36 @@ public class Connector{
 		}
 		return tablesMap;
 	}
-	
-	
+	public void startUpdator(){
+		updator=new Thread(new Runnable() {
+			
+			@SuppressWarnings("static-access")
+			@Override
+			public void run() {
+				boolean goOn=true;
+				while (goOn) {
+					try {
+						Thread.currentThread().sleep(5000);
+					} catch (InterruptedException e) {
+						goOn=false;
+					}
+					getOnlineUsers();
+				}
+				
+			}
+		});
+		updator.setName("updator");
+		updator.start();
+	}
+	public void stopUpdator(){
+		try {
+			updator.interrupt();
+			updator.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void setGame(String game){
 		try {
 			url= new URL("http://"+ip+":8080/ccom/JavaSwitch");

@@ -1,6 +1,5 @@
 package utils;
 
-import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -150,7 +149,10 @@ public class DeIncapsulator {
 				int nPlayers=Integer.parseInt(nList2.item(0).getTextContent());
 				List<String> players= new ArrayList<String>();
 				for (int i = 0; i < nPlayers; i++) {
-					players.add(eElement.getElementsByTagName("p"+(i+1)).item(0).getTextContent());
+					if (eElement.getElementsByTagName("p"+(i+1)).getLength()!=0) {
+						players.add(eElement.getElementsByTagName("p"+(i+1)).item(0).getTextContent());
+					}
+					
 				}
 				boolean spectation=Boolean.parseBoolean(eElement.getElementsByTagName("spectable").item(0).getTextContent());
 				String manager=eElement.getElementsByTagName("manager").item(0).getTextContent();
@@ -243,6 +245,54 @@ public class DeIncapsulator {
 		return messageDecoded;
 	}
 	
+	public Table decodeTable(String tableEncoded){
+		String name="";
+		int id=0;
+		String game="";
+		int nPlayers=0;
+		List<String> players= new ArrayList<String>();
+		boolean spectation=false;
+		String manager="";
+		
+		try{
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = dBuilder.parse(new InputSource(new StringReader(tableEncoded)));
+
+		doc.getDocumentElement().normalize();
+		
+		
+		NodeList nList = doc.getElementsByTagName("table");
+		Node nNode = nList.item(0);
+		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+			Element eElement = (Element) nNode;
+			name=eElement.getElementsByTagName("name").item(0).getTextContent();
+			id=Integer.parseInt(eElement.getElementsByTagName("ID").item(0).getTextContent());
+			NodeList nList2=eElement.getElementsByTagName("nPlayers");
+			game=eElement.getElementsByTagName("game").item(0).getTextContent();
+			nPlayers=Integer.parseInt(nList2.item(0).getTextContent());
+			players= new ArrayList<String>();
+			for (int i = 0; i < nPlayers; i++) {
+				if (eElement.getElementsByTagName("p"+(i+1)).getLength()!=0) {
+					players.add(eElement.getElementsByTagName("p"+(i+1)).item(0).getTextContent());
+				}
+				
+			}
+			spectation=Boolean.parseBoolean(eElement.getElementsByTagName("spectable").item(0).getTextContent());
+			manager=eElement.getElementsByTagName("manager").item(0).getTextContent();
+
+		}
+
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Mediator.getMed().getComputator().generateTable(name, id, game, nPlayers, players, spectation, manager);
+
+	}
 	public String whichMethodUse(String xml){
 		try{
 			System.out.println("------------------------->"+xml);
@@ -263,6 +313,8 @@ public class DeIncapsulator {
 				return "id";
 			}else if (doc.getElementsByTagName("user").getLength()!=0) {
 				return "user";
+			}else if (doc.getElementsByTagName("table").getLength()!=0) {
+				return "table";
 			}
 		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
