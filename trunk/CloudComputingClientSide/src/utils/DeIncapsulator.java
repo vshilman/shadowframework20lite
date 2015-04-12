@@ -109,7 +109,6 @@ public class DeIncapsulator {
 			}else if (nodeName.equals("id")) {
 				messageList.add(Mediator.getMed().getCoder().convert(Integer.parseInt(eElement.getElementsByTagName("id").item(0).getTextContent())));
 			}
-				
 //				String message=eElement.getElementsByTagName("arrayElement").item(0).getTextContent();
 //				System.out.println(message);
 //				messageList.add(message);
@@ -143,7 +142,7 @@ public class DeIncapsulator {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
 				String name=eElement.getElementsByTagName("name").item(0).getTextContent();
-				int id=Integer.parseInt(eElement.getElementsByTagName("ID").item(0).getTextContent());
+				int id=Integer.parseInt(eElement.getElementsByTagName("id").item(0).getTextContent());
 				NodeList nList2=eElement.getElementsByTagName("nPlayers");
 				String game=eElement.getElementsByTagName("game").item(0).getTextContent();
 				int nPlayers=Integer.parseInt(nList2.item(0).getTextContent());

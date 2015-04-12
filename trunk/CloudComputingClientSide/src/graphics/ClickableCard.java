@@ -1,5 +1,7 @@
 package graphics;
 
+import graphics.proxy.BriscolaPanel;
+
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,11 +20,11 @@ public class ClickableCard extends JLabel implements ICard{
 	private Image img;
 	private MouseClickListener mouseListener;
 	
-	public ClickableCard(int n) throws IOException {
+	public ClickableCard(int n, BriscolaPanel brisPanel) throws IOException {
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setName(""+n);
 		setUpImg(n);
-		mouseListener=new MouseClickListener();
+		mouseListener=new MouseClickListener(brisPanel);
 		addMouseListener(mouseListener);
 	}
 	
@@ -34,7 +36,10 @@ public class ClickableCard extends JLabel implements ICard{
 		setName(""+n);
 		setUpImg(n);
 	}
-	
+	@Override
+	public void setImg(){
+		img=null;
+	}
 	
 	private void setUpImg(int n) throws IOException {
 		String path=Mediator.getPMed().getImgPathFromNumber(n);

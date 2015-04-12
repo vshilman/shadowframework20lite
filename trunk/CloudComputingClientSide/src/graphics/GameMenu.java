@@ -34,11 +34,12 @@ public class GameMenu extends JMenu{
 				dialog.setSize(new Dimension(300, 100));
 				dialog.setLocationRelativeTo(null);
 				dialog.setName("New Table");
-				dialog.setLayout(new GridLayout(2, 2));
+				dialog.setLayout(new GridLayout(3, 2));
 				dialog.add(new JLabel("Name your table:"));
 				dialog.add(field);
 				dialog.add(new JLabel("allow Spectators:"));
 				final JCheckBox check= new JCheckBox();
+				check.setEnabled(false);
 				dialog.add(check);
 				button=new JButton("OK");
 				button.addActionListener(new ActionListener() {

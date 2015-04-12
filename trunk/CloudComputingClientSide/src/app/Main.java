@@ -24,7 +24,7 @@ public class Main{
 			menuBar.add(Mediator.getGMed().getGameMenu());
 			frame.setJMenuBar(menuBar);	
 			frame.getContentPane().add(mainPanel);
-			frame.setMinimumSize(new Dimension(800, 500));
+			frame.setMinimumSize(new Dimension(900, 700));
 			frame.setLocationRelativeTo(null);
 			frame.setDefaultCloseOperation(exit());
 

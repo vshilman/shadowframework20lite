@@ -16,7 +16,9 @@ public class OpponentsCard extends JLabel implements ICard {
 
 	private Image img;
 	
-	
+	public OpponentsCard() {
+		setPreferredSize(new Dimension(40,62));
+	}
 	public OpponentsCard(int n) throws IOException {
 		String path=Mediator.getPMed().getImgPathFromNumber(n);
 		setUpImg(n);
@@ -28,7 +30,10 @@ public class OpponentsCard extends JLabel implements ICard {
 		setName(""+n);
 		setUpImg(n);
 	}
-	
+	@Override
+	public void setImg(){
+		img=null;
+	}
 	
 	private void setUpImg(int n) throws IOException {
 		String path=Mediator.getPMed().getImgPathFromNumber(n);

@@ -25,7 +25,7 @@ public class ConnectionMediator {
 	}
 
 	static{
-		connection=new Connector("192.168.1.5");
+		connection=new Connector("192.168.1.4");
 		serverManager= new TCPServersManager();
 		onlinePlayers=new HashMap<String, User>();
 	}
