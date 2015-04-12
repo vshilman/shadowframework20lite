@@ -57,7 +57,7 @@ public class Incapsulator{
 		for (Iterator<Integer> iterator = tableID.iterator(); iterator.hasNext();) {
 			Integer id = (Integer) iterator.next();
 			messageConverted=messageConverted+HEADERTABLE+HEADERNAME+tableMap.get(id).getName()+FOOTERNAME+HEADERID+id+FOOTERID+HEADERGAME+tableMap.get(id).getGame()+FOOTERGAME+HEADERNPLAYERS+tableMap.get(id).getPlayersSupported()+FOOTERNPLAYERS;
-			for (int i = 0; i < tableMap.get(id).getPlayersSupported(); i++) {
+			for (int i = 0; i < tableMap.get(id).getPlayersList().size(); i++) {
 				messageConverted=messageConverted+"<p"+(i+1)+">"+tableMap.get(id).getPlayersList().get(i)+"</p"+(i+1)+">";
 			}
 			messageConverted=messageConverted+HEADERSPECTABLE+tableMap.get(id).isSpectable()+FOOTERSPECTABLE;
@@ -100,7 +100,17 @@ public class Incapsulator{
 		messageConverted=messageConverted+HEADERUSER+HEADERNICK+user.getNick()+FOOTERNICK+HEADERIP+user.getIp()+FOOTERIP+HEADERPLATFORM+user.getPlatform()+FOOTERPLATFORM+HEADERGAME+user.getGame()+FOOTERGAME+FOOTERUSER;
 		return messageConverted;
 	}
-	
+	public String convert(Table table){
+		messageConverted="";
+//		messageConverted=FILEHEADER;
+		messageConverted=HEADERTABLE+HEADERNAME+table.getName()+FOOTERNAME+HEADERID+table.getId()+FOOTERID+HEADERGAME+table.getGame()+FOOTERGAME+HEADERNPLAYERS+table.getPlayersSupported()+FOOTERNPLAYERS;
+		for (int i = 0; i < table.getPlayersList().size(); i++) {
+			messageConverted=messageConverted+"<p"+(i+1)+">"+table.getPlayersList().get(i)+"</p"+(i+1)+">";
+		}
+		messageConverted=messageConverted+HEADERSPECTABLE+table.isSpectable()+FOOTERSPECTABLE;
+		messageConverted=messageConverted+HEADERMANAGER+table.getManager()+FOOTERMANAGER+FOOTERTABLE;
+		return messageConverted;
+	}
 	public String convert(String message){
 		messageConverted="";
 		messageConverted=MESSAGEHEADER+message+MESSAGEFOOTER;

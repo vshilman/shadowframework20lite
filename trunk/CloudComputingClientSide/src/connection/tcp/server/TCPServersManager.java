@@ -11,16 +11,15 @@ public class TCPServersManager{
 	
 	public TCPServersManager() {
 		
-		service= new Thread(serviceServer);
-		service.setDaemon(true);
 		gaming= new Thread(gamingServer);
 		
 	}
 	
 	
 	public void openServiceServer(){
-			service.start();
-			System.out.println(service.isDaemon());
+		service= new Thread(serviceServer);
+		service.setName("serviceServer");
+		service.start();
 	}
 	public void openGamingServer(){
 		gaming.run();

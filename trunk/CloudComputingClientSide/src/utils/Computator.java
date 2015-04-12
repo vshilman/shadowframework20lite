@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
-import javax.jws.Oneway;
-import javax.print.attribute.standard.Media;
 
 import mediator.Mediator;
 
@@ -27,7 +23,6 @@ public class Computator {
 	private static final String PLAY = "play";
 	private static final String UPDATE_TABLE_MAP = "UPDATE_TABLE_MAP";
 	private static final String NEW_TABLE = "NEW_TABLE";
-	/*fino a qui è il nuovo codice da sistemare*/
 	private static final String OK = "OK";
 	private static final String REMOVE_ME = "REMOVE_ME";
 	private static final String JAVA = "java";
@@ -68,9 +63,11 @@ public class Computator {
 	public void validateLogin(String ans, String nick, String game){
 		if (ans.equals(SUCCESS)) {
 			me.setNick(nick);
+			me.setIp(Mediator.getCMed().getMyIp());
 			me.setGame(game);
 			Mediator.getCMed().openServiceServer();
 			Mediator.getCMed().getConnection().getOnlineUsers();
+			Mediator.getCMed().getConnection().startUpdator();
 			Mediator.getCMed().getConnection().getWelcome();
 		}else{
 			Mediator.getGMed().generateDialog("  "+ans);
@@ -90,23 +87,28 @@ public class Computator {
 					Mediator.getGMed().setLoginPanel();
 					me.setNick("");
 					Mediator.getCMed().closeServiceServer();
+					Mediator.getCMed().getConnection().stopUpdator();
 				}else {
 					Mediator.getCMed().getConnection().getOnlineUsers();
 					map.putAll(Mediator.getCMed().getOnlinePlayers());
+					String nick="";
 					if (map.size()==2) {
+						nick=serviceMap.get(DEALER).getNick();
 						Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), Mediator.getMed().getCoder().convert(UPDATE_WELCOMER), Mediator.getMed().getCoder().convert(serviceMap.get(DEALER)));
 					}else {
 						map.remove(serviceMap.get(DEALER).getNick());
 						map.remove(serviceMap.get(WELCOMER).getNick());
 						Set<String> keySet=map.keySet();
-						String nick=keySet.iterator().next();
+						nick=keySet.iterator().next();
 						Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), Mediator.getMed().getCoder().convert(UPDATE_WELCOMER), Mediator.getMed().getCoder().convert(map.get(nick)));
-							
+
 					}
+					Mediator.getCMed().getConnection().setWelcomer(map.get(nick));
 					Mediator.getCMed().getConnection().logout(me.getNick());
 					Mediator.getGMed().setLoginPanel();
 					me.setNick("");
 					Mediator.getCMed().closeServiceServer();
+					Mediator.getCMed().getConnection().stopUpdator();
 				}
 			
 			}else if (me.getNick().equals(serviceMap.get(DEALER).getNick())) {
@@ -126,6 +128,8 @@ public class Computator {
 				Mediator.getGMed().setLoginPanel();
 				me.setNick("");
 				Mediator.getCMed().closeServiceServer();
+				Mediator.getCMed().getConnection().stopUpdator();
+
 
 			}else{
 				
@@ -136,6 +140,8 @@ public class Computator {
 					Mediator.getGMed().setLoginPanel();
 					me.setNick("");
 					Mediator.getCMed().closeServiceServer();
+					Mediator.getCMed().getConnection().stopUpdator();
+
 				}else {
 					Mediator.getGMed().generateDialog(ans);
 				}
@@ -144,18 +150,11 @@ public class Computator {
 		}
 	}
 	
-	public void checkAns(List<String> answer) {
-		
-		
-	}
-	public void checkAns(HashMap<String, List<String>> answer) {
-		
-		
-	}
+	
 	public void checkAns(User user) {
 		
 		if (user.getNick().equals(NOBODY)) {
-			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
+			Mediator.getCMed().getConnection().setWelcomer(me);
 			serviceMap.put(WELCOMER, me);
 			serviceMap.put(DEALER, me);
 			Mediator.getGMed().setRoomsPanel(me.getGame());
@@ -187,7 +186,7 @@ public class Computator {
 						
 						
 		}else if (user.getPlatform().equals(HTML)) {
-			Mediator.getCMed().getConnection().setMyselfAsWelcomer();
+			Mediator.getCMed().getConnection().setWelcomer(me);
 			tableMap.putAll(Mediator.getCMed().getConnection().getTablesMap());
 			serviceMap.put(WELCOMER, me);
 			serviceMap.put(DEALER, me);
@@ -221,7 +220,9 @@ public class Computator {
 			Mediator.getCMed().updateOnlineMap(onlineMap);
 		}
 	}
-	
+	public void updateOnlineMap(HashMap<String, User> onlineMap){
+		this.onlineMap=onlineMap;
+	}
 	public void checkRequest(String message, int id, String ip){
 		if (message.equals(ENTER_TABLE)) {
 			if (tableMap.get(id).getPlayersSupported()>tableMap.get(id).getPlayersList().size()) {
@@ -244,21 +245,37 @@ public class Computator {
 		
 		
 	}
-	
+	public void checkRequest(Table table){
+		tableMap.put(table.getId(), table);
+		checkRequest(UPDATE_TABLE_MAP, tableMap);
+	}
 	public void checkRequest(String type, HashMap map){
 		if (type.equals("online")) {
 			this.onlineMap.putAll(map);
 		}else if (type.equals("table")||type.equals(UPDATE_TABLE_MAP)) {
 			this.tableMap.putAll(map);
+			
 			if (me.getNick().equals(serviceMap.get(DEALER).getNick())) {
+				onlineMap.remove(me.getNick());
 				Set<String> keys=onlineMap.keySet();
+
 				for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
 					String string = (String) iterator.next();
+					System.out.println("AGGIORNO: "+onlineMap.get(string).getIp());
 					Mediator.getCMed().sendRequestOnService(onlineMap.get(string).getIp(), Mediator.getMed().getCoder().convertTableMap(tableMap));
 				}
+				
+				onlineMap.put(me.getNick(), me);
 			}
+			eventuallyUpdateTablePanel();
 		}
 		
+	}
+
+	private void eventuallyUpdateTablePanel() {
+		if (Mediator.getGMed().isThisPanelSetted("rooms")) {
+			Mediator.getGMed().refreshPanel();
+		}
 	}
 	
 	
@@ -273,30 +290,27 @@ public class Computator {
 			String tableNameComposed=tableName;
 			List<String> playersNames= new ArrayList<String>();
 			playersNames.add(me.getNick());
-			int numberOfPlayers=0;
-			if (me.getGame().equals("briscola")) {
-				numberOfPlayers=4;
-			}else {
-				numberOfPlayers=2;
-			}
+			int numberOfPlayers=4;
 			Table newTable= generateTable(tableNameComposed, ID, me.getGame(), numberOfPlayers, playersNames, spectable, me.getNick());
 			serviceMap.put(""+newTable.getId(), me);
 
 			tableMap.put(newTable.getId(), newTable);
+			System.out.println(tableMap.size()+" "+tableMap.get(newTable.getId()).getName());
 			Mediator.getGMed().setGamePanel(me.getGame());
+			System.out.println(Mediator.getMed().getCoder().convertTableMap(tableMap));
 			actualTable=newTable;
 			if (!me.getNick().equals(serviceMap.get(DEALER).getNick())) {
-				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), Mediator.getMed().getCoder().convertTableMap(tableMap));
-				tableMap.putAll(Mediator.getMed().getDecoder().decodeTableMap(Mediator.getCMed().getAns()));
-				Mediator.getGMed().refreshPanel();
+				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), Mediator.getMed().getCoder().convert(newTable));
+//				tableMap.putAll(Mediator.getMed().getDecoder().decodeTableMap(Mediator.getCMed().getAns()));
+				eventuallyUpdateTablePanel();
 				//TODO:EVENTUALMENTE DA FINIRE
 			}else {
+				System.out.println("SONO IL DEALER: INVIO LA MAPPA A TUTTI!!!");
 				checkRequest(UPDATE_TABLE_MAP, tableMap);
-				Mediator.getGMed().refreshPanel();
+				eventuallyUpdateTablePanel();
 				//TODO ATTENZIONE
 			}
-			
-			
+		
 		}else if (me.getGame().equals("Memory")){
 		//TODO: simile alla briscolazza
 		}
