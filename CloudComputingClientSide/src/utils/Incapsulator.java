@@ -16,8 +16,8 @@ public class Incapsulator{
 	private static String FOOTERTABLE="</table>";
 	private static String HEADERNAME="<name>";
 	private static String FOOTERNAME="</name>";
-	private static String HEADERID="<ID>";
-	private static String FOOTERID="</ID>";
+	private static String HEADERID="<id>";
+	private static String FOOTERID="</id>";
 	private static String HEADERNPLAYERS="<nPlayers>";
 	private static String FOOTERNPLAYERS="</nPlayers>";
 	private static String HEADERSPECTABLE="<spectable>";

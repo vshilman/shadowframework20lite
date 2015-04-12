@@ -33,6 +33,12 @@ public class BriscolaPanel extends JPanel implements IProxyGraphic{
 	private JPanel myCards;
 	private ICard mazzo;
 	private ICard briscola;
+	private ICard frontCard;
+	private ICard first;
+	private ICard second;
+	private ICard third;
+	
+	
 	
 	private ICard card;
 	private JPanel panel= new JPanel();
@@ -88,15 +94,18 @@ public class BriscolaPanel extends JPanel implements IProxyGraphic{
 			
 			panel= new JPanel();
 			panel.setPreferredSize(new Dimension(230, 114));
-			for (int i = 0; i < 3; i++) {
-				card=new OpponentsCard(Mediator.getPMed().getCardBack());
-				panel.add(card.getLabelCard());
-			}
+			first=new ClickableCard(19, this);
+			second=new ClickableCard(5, this);
+			third=new ClickableCard(37, this);
+			panel.add(first.getLabelCard());
+			panel.add(second.getLabelCard());
+			panel.add(third.getLabelCard());
 			myCards.add(panel, BorderLayout.CENTER);
 			myCards.add(new JLabel(), BorderLayout.NORTH);
 			myCards.add(new JLabel(), BorderLayout.SOUTH);
-	
 			add(myCards, BorderLayout.SOUTH);
+			
+			
 			JButton startGame= new JButton("Start!");
 			startGame.addActionListener(new ActionListener() {
 				
@@ -113,7 +122,23 @@ public class BriscolaPanel extends JPanel implements IProxyGraphic{
 			e.printStackTrace();
 		}
 	}
-	
+	public ICard getFirst() {
+		return first;
+	}
+
+	public ICard getSecond() {
+		return second;
+	}
+
+	public ICard getThird() {
+		return third;
+	}
+	public ICard getFrontCard() {
+		return frontCard;
+	}
+	public ICard getMazzo() {
+		return mazzo;
+	}
 	
 	@Override
 	public void refreshPanel() {
@@ -126,8 +151,9 @@ public class BriscolaPanel extends JPanel implements IProxyGraphic{
 		try {
 			centerTable.setLayout(new BorderLayout());
 			panel=new JPanel();
-			mazzo=new ClickableCard(Mediator.getPMed().getCardBack());
-			briscola=new ClickableCard(38);
+			mazzo=new ClickableCard(Mediator.getPMed().getCardBack(), this);
+			mazzo.getLabelCard().setEnabled(false);
+			briscola=new ClickableCard(38, this);
 			briscola.getLabelCard().setEnabled(false);
 			briscola.getLabelCard().setVisible(true);
 			panel.add(mazzo.getLabelCard());
@@ -137,12 +163,12 @@ public class BriscolaPanel extends JPanel implements IProxyGraphic{
 			JPanel panler= new JPanel();
 
 			panler.setLayout(new BorderLayout());
-			ICard cardX= new OpponentsCard(26);
-			panler.add(cardX.getLabelCard());
+			frontCard= new OpponentsCard();
+			panler.add(frontCard.getLabelCard());
 			JPanel pan=new JPanel();
-			pan.add(cardX.getLabelCard());
+			pan.add(frontCard.getLabelCard());
 			pan.setPreferredSize(new Dimension(40, 62));
-			panler.add(pan, BorderLayout.CENTER);
+			panler.add(frontCard.getLabelCard(), BorderLayout.CENTER);
 			panler.add(new JLabel(), BorderLayout.EAST);
 			panler.add(new JLabel(), BorderLayout.WEST);
 			centerTable.add(panler, BorderLayout.SOUTH);
@@ -152,7 +178,7 @@ public class BriscolaPanel extends JPanel implements IProxyGraphic{
 			 panler= new JPanel();
 			 panler.setPreferredSize(new Dimension(40,62));
 				panler.setLayout(new BorderLayout());
-			cardX= new OpponentsCard(3);
+				ICard cardX= new OpponentsCard(3);
 			panler.add(cardX.getLabelCard(), BorderLayout.CENTER);
 			panler.add(new JLabel(), BorderLayout.EAST);
 			panler.add(new JLabel(), BorderLayout.WEST);
