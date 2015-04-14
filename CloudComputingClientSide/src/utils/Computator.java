@@ -1,17 +1,23 @@
 package utils;
 
+import graphics.proxy.BriscolaPanel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import javax.swing.text.StyledEditorKit.ItalicAction;
-
 import mediator.Mediator;
 
 public class Computator {
+	private static final String CHECK_WIN = "check_win";
+	private static final String STOP_MANAGING = "stop_managing";
+	private static final String START_GAME = "start_game";
+	private static final String UNKNOWN = "unknown";
+	private static final String DRAW = "draw";
 	private static final String BRISCOLA = "briscola";
 	private static final String GET_PLAYERS_MAP = "get_players_map";
 	private static final String FULL = "full";
@@ -45,6 +51,8 @@ public class Computator {
 	private HashMap<Integer, Table> tableMap;
 	private HashMap<String, Integer> freePlaceMap;
 	private Table actualTable;
+	private Thread managerGame;
+	private boolean flag=true;
 
 	private Random r;
 	private List<Integer> carteLibere=new ArrayList<Integer>();
@@ -204,7 +212,32 @@ public class Computator {
 			Mediator.getCMed().sendAnswerOnService(Mediator.getMed().getCoder().convert(serviceMap.get(DEALER)));
 		}else if (message.equals(GET_TABLES_MAP)) {
 			Mediator.getCMed().sendAnswerOnService(Mediator.getMed().getCoder().convertTableMap(tableMap));
-		}else if (message.equals("unknown")) {
+		}else if (message.equals(PLAY)) {
+			if (actualTable.getGame().equals(BRISCOLA)) {
+				BriscolaPanel panel=(BriscolaPanel)Mediator.getGMed().getActualPanel();
+				panel.setEnableCard(true);
+			}
+		}else if (message.equals(DRAW)) {
+			if (actualTable.getGame().equals(BRISCOLA)) {
+				BriscolaPanel panel=(BriscolaPanel)Mediator.getGMed().getActualPanel();
+				panel.setEnableMazzo(true);
+			}
+		}else if (message.equals(START_GAME)) {
+			if (actualTable.getGame().equals(BRISCOLA)) {
+				Mediator.getPMed().startGame(actualTable.getId(), actualTable.getPlayersSupported(), actualTable.getPlayersList().indexOf(me.getNick()), actualTable.getOrderedPlayers(), 40, actualTable.getGame());
+				BriscolaPanel panel=(BriscolaPanel)Mediator.getGMed().getActualPanel();
+				panel.buildGame();
+			}
+		}else if (onlineMap.containsKey(message)) {
+			Mediator.getGMed().generateDialog(message+" takes the hand!");
+			Mediator.getCMed().sendAnswerOnService(Mediator.getMed().getCoder().convert(OK));
+		}else if (message.equals(STOP_MANAGING)) {
+			stopManagingGame();
+			Mediator.getCMed().sendAnswerOnService(Mediator.getMed().getCoder().convert(OK));
+		}else if (message.equals(CHECK_WIN)) {
+			Mediator.getPMed().checkWin();
+			Mediator.getCMed().sendAnswerOnService(Mediator.getMed().getCoder().convert(OK));
+		}else if (message.equals(UNKNOWN)) {
 			Mediator.getCMed().sendAnswerOnService(Mediator.getMed().getCoder().convert(OK));
 			//DO NOTHING
 		}
@@ -343,13 +376,16 @@ public class Computator {
 	public Table generateTable(String name, int id, String game, int playersSupported, List<String> playersList, boolean spectable, String manager){
 		return new Table(name, id, game, playersSupported, playersList, spectable, manager);
 	}
-	
+//	public Table getActualTable(){
+//		return actualTable;
+//	}
 	public void enterTable(int tableID, String action){
 		actualTable=tableMap.get(tableID);
 		if (action.equals(PLAY)) {
 			if (serviceMap.get(DEALER).getNick().equals(me.getNick())) {
 				if (tableMap.get(tableID).isEmpty()) {
 					tableMap.get(tableID).getPlayersList().add(me.getNick());
+					actualTable=tableMap.get(tableID);
 					Mediator.getGMed().setGamePanel(actualTable.getGame());
 				}else {
 					Mediator.getGMed().generateDialog("The selected table is full.");
@@ -358,11 +394,10 @@ public class Computator {
 					
 				
 				Mediator.getCMed().sendRequestOnService(serviceMap.get(DEALER).getIp(), Mediator.getMed().getCoder().convert(ENTER_TABLE),Mediator.getMed().getCoder().convert(tableID));
-				System.out.println("ASPETTO L'AGOGNATA RISPOSTA");
 				String ans=Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getAns());
-				System.out.println("RISPOSTA OTTENUTA: "+ans);
 				
 				if (ans.equals(OK)) {
+					actualTable=tableMap.get(tableID);
 					Mediator.getGMed().setGamePanel(actualTable.getGame());
 	
 				}else {
@@ -379,11 +414,27 @@ public class Computator {
 		
 	}
 	public void exitTable(int tableID, String action){
+		actualTable=generateTable("", 0, actualTable.getGame(), 0, null, false, "");
+
 		//TODO: Da sistemare!
 		
 	}
-	public void startGame(){
-		//TODO: Da sistemare!
+	public String startGame(int numberOfCards){
+		if (tableMap.get(actualTable.getId()).getManager().equals(me.getNick())) {
+			if (!actualTable.isEmpty()) {
+				List<String> list=new ArrayList<String>();
+				list.addAll(actualTable.getPlayersList());
+				int myTurn=list.indexOf(me.getNick());
+				list.remove(myTurn);
+					for (int i = 0; i < actualTable.getPlayersList().size(); i++) {
+						Mediator.getCMed().sendRequestOnGaming(onlineMap.get(list.get(i)).getIp(), START_GAME);
+					}
+					Mediator.getPMed().startGame(actualTable.getId(), actualTable.getPlayersSupported(), actualTable.getPlayersList().indexOf(me.getNick()), actualTable.getOrderedPlayers(), numberOfCards, actualTable.getGame());
+				return OK;
+			}
+			return " Not enough players. Need "+(tableMap.get(actualTable.getId()).getPlayersSupported()-actualTable.getPlayersList().size())+" to go!";
+		}
+		return " You're not the table owner";
 	}
 	public HashMap<Integer, Table> getTables(String gameType){
 		HashMap<Integer, Table> requestedTables=new HashMap<Integer, Table>();
@@ -423,10 +474,6 @@ public class Computator {
 		return false;
 	}
 
-//	public HashMap<String, User> getPlayersMap() {
-//		return playersMap;
-//	}
-	//TODO: USARE LA PLAYERSMAP PER OGNI TAVOLO: IMPLEMENTARE UNA MAPPA DI STRINGHE DI MAPPA PER QUESTO MOTIVO!
 	public HashMap<String, User> getVisitorsMap() {
 		return visitorsMap;
 	}
@@ -434,4 +481,95 @@ public class Computator {
 		ID=(int)(Math.random()*100000);
 	}
 	
+	public void startManagingGame(){
+		final LinkedList<String> orderedPlayers= new LinkedList<String>();
+		final List<Integer> cardPlayed= new ArrayList<Integer>();
+		managerGame=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				flag=true;
+				while (flag) {
+					cardPlayed.clear();
+					orderedPlayers.clear();
+					orderedPlayers.addAll(Mediator.getPMed().getOrderedPlayers());
+					for (int i = 0; i < orderedPlayers.size(); i++) {
+						if (orderedPlayers.get(i).equals(me.getNick())) {
+							Mediator.getCMed().sendRequestOnGaming("127.0.0.1", PLAY);
+							cardPlayed.add(Integer.parseInt(Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getGamingAnswer())));//TODO:...
+						}else {
+							Mediator.getCMed().sendRequestOnGaming(onlineMap.get(orderedPlayers.get(i)).getIp(), PLAY);
+							cardPlayed.add(Integer.parseInt(Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getGamingAnswer())));
+						}
+					}
+					for (int i = 0; i < orderedPlayers.size(); i++) {
+						if (orderedPlayers.get(i).equals(me.getNick())) {
+							Mediator.getCMed().sendRequestOnGaming("127.0.0.1", DRAW);
+							Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getGamingAnswer());
+						}else {
+							Mediator.getCMed().sendRequestOnGaming(onlineMap.get(orderedPlayers.get(i)).getIp(), DRAW);
+							Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getGamingAnswer());
+						}
+					}
+					String catcherPlayer=Mediator.getPMed().storeCard(cardPlayed);
+					Mediator.getGMed().generateDialog(catcherPlayer);
+					for (int i = 0; i < orderedPlayers.size(); i++) {
+						if (!orderedPlayers.get(i).equals(me.getNick())) {
+							Mediator.getCMed().sendRequestOnGaming(onlineMap.get(orderedPlayers.get(i)).getIp(),Mediator.getMed().getCoder().convert(catcherPlayer));
+							Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getGamingAnswer());
+						}
+					}
+					checkRequest(catcherPlayer);
+				}
+				for (int j = 0; j < 3; j++) {
+					cardPlayed.clear();
+					orderedPlayers.clear();
+					orderedPlayers.addAll(Mediator.getPMed().getOrderedPlayers());
+					for (int i = 0; i < orderedPlayers.size(); i++) {
+						if (orderedPlayers.get(i).equals(me.getNick())) {
+							Mediator.getCMed().sendRequestOnGaming("127.0.0.1", PLAY);
+							cardPlayed.add(Integer.parseInt(Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getGamingAnswer())));//TODO:...
+						}else {
+							Mediator.getCMed().sendRequestOnGaming(onlineMap.get(orderedPlayers.get(i)).getIp(), PLAY);
+							cardPlayed.add(Integer.parseInt(Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getGamingAnswer())));
+						}
+					}
+					String catcherPlayer=Mediator.getPMed().storeCard(cardPlayed);
+					Mediator.getGMed().generateDialog(catcherPlayer);
+					for (int i = 0; i < orderedPlayers.size(); i++) {
+						if (!orderedPlayers.get(i).equals(me.getNick())) {
+							Mediator.getCMed().sendRequestOnGaming(onlineMap.get(orderedPlayers.get(i)).getIp(),Mediator.getMed().getCoder().convert(catcherPlayer));
+							Mediator.getMed().getDecoder().decodeMessage(Mediator.getCMed().getGamingAnswer());
+						}
+					}
+					checkRequest(catcherPlayer);
+				}
+				for (int i = 0; i < orderedPlayers.size(); i++) {
+					if (!orderedPlayers.get(i).equals(me.getNick())) {
+						Mediator.getCMed().sendRequestOnGaming(onlineMap.get(orderedPlayers.get(i)).getIp(), CHECK_WIN);
+						Mediator.getCMed().getGamingAnswer();
+					}
+				}
+				Mediator.getPMed().checkWin();
+			}
+		});
+		managerGame.start();
+	}
+	public void changeFlag(){
+		flag=false;
+	}
+	public void stopManagingGame(){
+		if (me.getNick().equals(actualTable.getManager())) {
+			try {
+				managerGame.interrupt();
+				managerGame.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}else {
+			Mediator.getCMed().sendRequestOnGaming(onlineMap.get(actualTable.getManager()).getIp(), Mediator.getMed().getCoder().convert(STOP_MANAGING));
+			Mediator.getCMed().getGamingAnswer();
+		}
+		
+	}
 }

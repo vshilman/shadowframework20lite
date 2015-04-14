@@ -54,6 +54,9 @@ public class GraphicMediator {
 	public JFrame getFrame() {
 		return frame;
 	}
+	public JPanel getActualPanel() {
+		return proxyPanel.getActualPanel();
+	}
 	public FileMenu getFileMenu(){
 		return fileMenu;
 	}
@@ -141,10 +144,12 @@ public class GraphicMediator {
 	
 	public void setGamePanel(String game){
 		if (game.equals("briscola")) {
-			frame.getContentPane().removeAll();
-			frame.getContentPane().repaint();
-			frame.getContentPane().add(new BriscolaPanel());
-			frame.getContentPane().validate();
+			proxyPanel.setPanel(new BriscolaPanel());
+			refresh();
+//			frame.getContentPane().removeAll();
+//			frame.getContentPane().repaint();
+//			frame.getContentPane().add(new BriscolaPanel());
+//			frame.getContentPane().validate();
 		}else if (game.equals("memory")) {
 			frame.getContentPane().removeAll();
 			frame.getContentPane().repaint();

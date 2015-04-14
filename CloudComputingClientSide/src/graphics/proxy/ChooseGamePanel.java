@@ -39,4 +39,8 @@ public class ChooseGamePanel extends JPanel implements IProxyGraphic {
 		}
 		return this;
 	}
+	@Override
+	public JPanel getActualPanel() {
+		return this;
+	}
 }

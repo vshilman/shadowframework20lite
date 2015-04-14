@@ -29,12 +29,19 @@ public class Briscola implements IGame {
 		possiblePlayers.add(4);
 		storedCards= new ArrayList<Integer>();
 		this.numberOfPlayers=numberOfPlayers;
-		briscola=nextCard();
 		this.myTurn=myTurn;
 		this.orderedPlayers=orderedPlayers;
 		//Mediator.getGMed.setBRISCOLA!!!
 	}
 	
+	@Override
+	public int firstCard() {
+		int index=r.nextInt(carteLibere.size());
+		int number=carteLibere.get(index);
+		carteLibere.remove(index);
+		briscola=number;
+		return number;
+	}
 	
 	@Override
 	public LinkedList<String> getOrderedPlayers() {
@@ -133,23 +140,33 @@ public class Briscola implements IGame {
 	@Override
 	public int nextCard() {
 		int number=0;
-		if (myTurn==0) {
-			int index=r.nextInt(carteLibere.size());
-			number=carteLibere.get(index);
-			carteLibere.remove(index);
-		}else{
-			for (int i = 0; i < myTurn; i++) {
-				
-				int index=r.nextInt(carteLibere.size());
+		try {
+			if (myTurn==0) {
+				int index=(r.nextInt(carteLibere.size()));
+				System.out.println(index);
 				number=carteLibere.get(index);
 				carteLibere.remove(index);
-				
+				for (int i = 0; i < numberOfPlayers-1; i++) {
+					index=(r.nextInt(carteLibere.size()));
+					carteLibere.remove(index);
+					System.out.println(index);
+				}
+			}else{
+				for (int i = 0; i < myTurn; i++) {
+					
+					int index=(r.nextInt(carteLibere.size()));
+					number=carteLibere.get(index);
+					carteLibere.remove(index);
+					
+				}
+				for (int i = 0; i < numberOfPlayers-(myTurn+1); i++) {
+					int index=(r.nextInt(carteLibere.size()));
+					carteLibere.remove(index);
+				}
+			
 			}
-			for (int i = 0; i < numberOfPlayers-myTurn; i++) {
-				int index=r.nextInt(carteLibere.size());
-				carteLibere.remove(index);
-			}
-		
+		}catch (IllegalArgumentException e) {
+				number=-1;
 		}
 		return number;
 	}

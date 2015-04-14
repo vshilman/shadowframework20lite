@@ -33,7 +33,10 @@ public class Memory implements IGame{
 		}
 		
 		
-		
+		@Override
+		public int firstCard() {
+			return -1;
+		}
 		@Override
 		public String storeCard(List<Integer> card) {
 			if (card.get(0)==card.get(1)) {

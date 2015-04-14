@@ -21,4 +21,6 @@ public interface IGame {
 	
 	public void setPlayer(int position, String name);
 	
+	public int firstCard();
+	
 }

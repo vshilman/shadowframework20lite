@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.ObjectInputStream.GetField;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Table {
@@ -59,8 +60,15 @@ public class Table {
 	public String getName() {
 		return name;
 	}
-
-
+	
+	public LinkedList<String> getOrderedPlayers() {
+		List<String> ordered= new LinkedList<String>();
+		for (int i = 0; i < playersList.size(); i++) {
+			ordered.add(playersList.get(i));
+		}
+		return (LinkedList<String>)ordered;
+	}
+	
 	public int getId() {
 		return id;
 	}

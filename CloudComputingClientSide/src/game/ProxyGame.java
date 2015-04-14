@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import mediator.Mediator;
+
 public class ProxyGame implements IGame{
 
 	
@@ -46,6 +48,10 @@ public class ProxyGame implements IGame{
 	public String storeCard(List<Integer> card) {
 		return game.storeCard(card);
 		
+	}
+	@Override
+	public int firstCard() {
+		return game.firstCard();
 	}
 	
 }
