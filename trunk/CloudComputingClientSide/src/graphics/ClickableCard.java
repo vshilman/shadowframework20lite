@@ -24,7 +24,7 @@ public class ClickableCard extends JLabel implements ICard{
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		setName(""+n);
 		setUpImg(n);
-		mouseListener=new MouseClickListener(brisPanel);
+		mouseListener=new MouseClickListener();
 		addMouseListener(mouseListener);
 	}
 	

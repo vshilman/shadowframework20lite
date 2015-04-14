@@ -88,6 +88,9 @@ public class RoomsPanel extends JPanel implements IProxyGraphic{
 		build(Mediator.getMed().getComputator().getTables(gameType));
 		return this;
 	}
-	
+	@Override
+	public JPanel getActualPanel() {
+		return this;
+	}
 	
 }

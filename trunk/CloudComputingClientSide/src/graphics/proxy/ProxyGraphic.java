@@ -29,5 +29,9 @@ public class ProxyGraphic implements IProxyGraphic {
 	public JPanel setUpPanel(){
 		return panel.setUpPanel();
 	}
-	
+
+	@Override
+	public JPanel getActualPanel() {
+		return panel.getActualPanel();
+	}
 }

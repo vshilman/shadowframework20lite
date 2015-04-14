@@ -9,12 +9,12 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 
+import mediator.Mediator;
+
 public class MouseClickListener implements MouseListener{
 
-	private BriscolaPanel brisPanel;
 	
-	public MouseClickListener(BriscolaPanel brisPanel) {
-		this.brisPanel=brisPanel;
+	public MouseClickListener() {
 	}
 	
 	@Override
@@ -39,58 +39,65 @@ public class MouseClickListener implements MouseListener{
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if (e.getComponent().getName().equals(""+41)) {
-			System.out.println("ESTRAGGO CARTA");
-			try {
-				if (brisPanel.getFirst().getLabelCard().getName().equals("empty")) {
-					brisPanel.getFirst().setImg(41);
-					brisPanel.getFirst().getLabelCard().setName(""+41);
+		if (e.getComponent().isEnabled()) {
+			BriscolaPanel brisPanel=(BriscolaPanel)Mediator.getGMed().getActualPanel();
+			if (e.getComponent().getName().equals(""+Mediator.getPMed().getCardBack())) {
+				try {
+					int newCard=Mediator.getPMed().nextCard();
+					if (newCard==-1) {
+						newCard=Integer.parseInt(((BriscolaPanel)Mediator.getGMed().getActualPanel()).getBriscola().getLabelCard().getName());
+						brisPanel.getBriscola().setImg();
+						brisPanel.getMazzo().setImg();
+						brisPanel.getMazzo().getLabelCard().setEnabled(false);
+						Mediator.getMed().getComputator().changeFlag();
+					}
+					if (brisPanel.getFirst().getLabelCard().getName().equals("empty")) {
+						brisPanel.getFirst().setImg(newCard);
+						brisPanel.getFirst().getLabelCard().setName(""+newCard);
+						
+					}else if (brisPanel.getSecond().getLabelCard().getName().equals("empty")) {
+						brisPanel.getSecond().setImg(newCard);
+						brisPanel.getSecond().getLabelCard().setName(""+newCard);
+					}else if (brisPanel.getThird().getLabelCard().getName().equals("empty")) {
+						brisPanel.getThird().setImg(newCard);
+						brisPanel.getThird().getLabelCard().setName(""+newCard);
+					}
+					brisPanel.getFrontCard().setImg();
+					brisPanel.validate();
+					brisPanel.repaint();
+					Mediator.getCMed().sendAnswerOnGaming(Mediator.getMed().getCoder().convert("OK"));
+				}catch (IOException e1) {
+					// TODO: handle exception
+				}
+			}else {
+				try {
+					String cardPlayed=e.getComponent().getName();
+					brisPanel.getFrontCard().setImg(Integer.parseInt(cardPlayed));
+					e.getComponent().setName("empty");
+					if (brisPanel.getFirst().getLabelCard().getName().equals("empty")) {
+						brisPanel.getFirst().setImg();					
+					}else if (brisPanel.getSecond().getLabelCard().getName().equals("empty")) {
+						brisPanel.getSecond().setImg();
+					}else if (brisPanel.getThird().getLabelCard().getName().equals("empty")) {
+						brisPanel.getThird().setImg();
+					}
+					brisPanel.getFirst().getLabelCard().setEnabled(false);
+					brisPanel.getSecond().getLabelCard().setEnabled(false);
+					brisPanel.getThird().getLabelCard().setEnabled(false);
+					brisPanel.validate();
+					brisPanel.repaint();
+					Mediator.getCMed().sendAnswerOnGaming(Mediator.getMed().getCoder().convert(cardPlayed));
 					
-				}else if (brisPanel.getSecond().getLabelCard().getName().equals("empty")) {
-					brisPanel.getSecond().setImg(41);
-					brisPanel.getSecond().getLabelCard().setName(""+41);
-				}else if (brisPanel.getThird().getLabelCard().getName().equals("empty")) {
-					brisPanel.getThird().setImg(41);
-					brisPanel.getThird().getLabelCard().setName(""+41);
+								
+				} catch (NumberFormatException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (IOException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
 				}
-				brisPanel.getMazzo().getLabelCard().setEnabled(false);
-				brisPanel.getFirst().getLabelCard().setEnabled(true);
-				brisPanel.getSecond().getLabelCard().setEnabled(true);
-				brisPanel.getSecond().getLabelCard().setEnabled(true);
-
-				brisPanel.getFrontCard().setImg();
-				brisPanel.validate();
-				brisPanel.repaint();
-			}catch (IOException e1) {
-				// TODO: handle exception
 			}
-		}else {
-			try {
-				brisPanel.getMazzo().getLabelCard().setEnabled(true);
-				brisPanel.getFrontCard().setImg(Integer.parseInt(e.getComponent().getName()));
-				e.getComponent().setName("empty");
-				if (brisPanel.getFirst().getLabelCard().getName().equals("empty")) {
-					brisPanel.getFirst().setImg();					
-				}else if (brisPanel.getSecond().getLabelCard().getName().equals("empty")) {
-					brisPanel.getSecond().setImg();
-				}else if (brisPanel.getThird().getLabelCard().getName().equals("empty")) {
-					brisPanel.getThird().setImg();
-				}
-				brisPanel.getFirst().getLabelCard().setEnabled(false);
-				brisPanel.getSecond().getLabelCard().setEnabled(false);
-				brisPanel.getThird().getLabelCard().setEnabled(false);
-				brisPanel.validate();
-				brisPanel.repaint();
-				
-			} catch (NumberFormatException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (IOException e3) {
-				// TODO Auto-generated catch block
-				e3.printStackTrace();
-			}
-		}
-		
+		}		
 		
 	}
 	

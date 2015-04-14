@@ -39,11 +39,14 @@ public class PlayingMediator {
 		}
 	}
 	
-	public void startGame(int ID, int numberOfPlayers, int myTurn, LinkedList<String> orderedPlayers, int numberOfCards){
+	public void startGame(int id, int numberOfPlayers, int myTurn, LinkedList<String> orderedPlayers, int numberOfCards, String game){
+		gameName=game;
 		if (gameName.equals("briscola")) {
-			briscola=new Briscola(ID, numberOfPlayers, myTurn, orderedPlayers);
+			briscola=new Briscola(id, numberOfPlayers, myTurn, orderedPlayers);
+			setGame("briscola");
 		}else if (gameName.equals("briscola")) {
-			memory=new Memory(ID, numberOfCards, myTurn, orderedPlayers);
+			memory=new Memory(id, numberOfCards, myTurn, orderedPlayers);
+			setGame("memory");
 		}
 	}
 	
@@ -78,6 +81,9 @@ public class PlayingMediator {
 	}
 	public int getCardBack(){
 		return 41;
+	}
+	public int getFirstCard() {
+		return proxyGame.firstCard();
 	}
 	private static void setUpPaths(){
 		numberToCardPath.put(1, "./img/carte/briscola/1coppe.png");

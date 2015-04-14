@@ -32,7 +32,6 @@ public class ServiceServer implements Runnable {
 	private static final String TABLEMAP= "tableMap";
 	private static final String MESSAGE= "message";
 	private static final String USER="user";
-	private static final String ENTER_TABLE = "enter_table";
 	private static final String UNKNOWN= "unknown";
 	private ServerSocket service;
 	private BufferedReader reader;

@@ -10,14 +10,17 @@ import java.util.Set;
 import utils.User;
 import connection.Connector;
 import connection.tcp.client.ITCPClient;
+import connection.tcp.client.TCPGamingClient;
 import connection.tcp.client.TCPServiceClient;
 import connection.tcp.server.TCPServersManager;
 
 public class ConnectionMediator {
 	private static String answer;
+	private static String gamingAnswer;
 	private static String secondMessage;
 	private static Connector connection;
 	private static ITCPClient serviceClient;
+	private static ITCPClient gamingClient;
 	private static TCPServersManager serverManager;
 	private static HashMap<String, User> onlinePlayers;
 	
@@ -32,26 +35,28 @@ public class ConnectionMediator {
 	public HashMap<String, User> getServiceMap(){
 		return Mediator.getMed().getComputator().getServiceMap();
 	}
-	public HashMap<String, User> getVisitorsMap(){
-		return Mediator.getMed().getComputator().getVisitorsMap();
-	}
 	
-	public void sendRequestOnService(String ip,String codedMessage, String codedSecond){
+	public void sendRequestOnService(String ip,String codedMessage, String codedSecondMessage){
 		serviceClient=new TCPServiceClient(ip);
 		List<String> messageList= new ArrayList<String>();
 		messageList.add(codedMessage);
-		messageList.add(codedSecond);
+		messageList.add(codedSecondMessage);
 		serviceClient.send(Mediator.getMed().getCoder().convert(messageList));
 		answer=serviceClient.getAnswer();
 		serviceClient.closeConnection();
 	}
 	
-	public void sendRequestOnService(String ip, String codedOne){
+	public void sendRequestOnService(String ip, String codedMessage){
 		serviceClient=new TCPServiceClient(ip);
-		System.out.println("Ci sono");
-		serviceClient.send(codedOne);
+		serviceClient.send(codedMessage);
 		answer=serviceClient.getAnswer();
 		serviceClient.closeConnection();
+	}
+	public void sendRequestOnGaming(String ip, String codedMessage){
+		gamingClient=new TCPGamingClient(ip);
+		gamingClient.send(codedMessage);
+		gamingAnswer=gamingClient.getAnswer();
+		gamingClient.closeConnection();
 	}
 	public void openServiceServer(){
 		serverManager.openServiceServer();
@@ -59,11 +64,17 @@ public class ConnectionMediator {
 	public void closeServiceServer(){
 		serverManager.closeServiceServer();
 	}
-	public void sendAnswerOnService(String objectsToSend){
-		serverManager.getServiceServer().sendAnswer(objectsToSend);
+	public void sendAnswerOnService(String messageEncoded){
+		serverManager.getServiceServer().sendAnswer(messageEncoded);
+	}
+	public void sendAnswerOnGaming(String messageEncoded){
+		serverManager.getGamingServer().sendAnswer(messageEncoded);
 	}
 	public String getAns(){
 		return answer;
+	}
+	public String getGamingAnswer(){
+		return gamingAnswer;
 	}
 	public String getSecondAns(){
 		return secondMessage;

@@ -123,6 +123,10 @@ public class LoggingPanel extends JPanel implements IProxyGraphic{
 		repaint();
 		
 	}
+	@Override
+	public JPanel getActualPanel() {
+		return this;
+	}
 	
 	@Override
 	public JPanel setUpPanel() {
